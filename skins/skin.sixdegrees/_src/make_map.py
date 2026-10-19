@@ -747,7 +747,8 @@ def compass():
 
 
 def route_bar(top=72):
-    """Start · [··· ] · r2 · r1 · current. Segment before a stop is drawn in the colour of the line that led to it."""
+    """Start · [··· ] · r2 · r1 · current. Segment before a stop is drawn in the colour of the line that led to it.
+    0.9.3: widths capped so the longest route (··· + r2 + r1 + current) ends before Index (x 1540)."""
     def seg(col_var, w, vis):
         return (f'<control type="image"><top>15</top><width>{w}</width><height>6</height>'
                 f'<texture border="3,0,3,0" colordiffuse="$VAR[{col_var}]">sd/line_h6.png</texture><visible>{vis}</visible></control>')
@@ -757,11 +758,11 @@ def route_bar(top=72):
             return (f'<control type="group"><width>44</width><height>36</height><visible>{vis}</visible>'
                     + img(-1, -1, 38, 38, "sd/disc_32.png", diffuse="white")
                     + img(-1, -1, 38, 38, "sd/ring_32_8.png", diffuse="ink") + "</control>"
-                    f'<control type="label"><width max="380">auto</width><height>36</height><font>xb_24</font><textcolor>ink</textcolor><label>{info(slot + ".title")}</label><visible>{vis}</visible></control>')
+                    f'<control type="label"><width max="280">auto</width><height>36</height><font>xb_24</font><textcolor>ink</textcolor><label>{info(slot + ".title")}</label><visible>{vis}</visible></control>')
         return (f'<control type="group"><width>34</width><height>36</height><visible>{vis}</visible>'
                 + img(4, 4, 28, 28, "sd/disc_22.png", diffuse="white")
                 + img(4, 4, 28, 28, "sd/ring_22_6.png", diffuse="ink") + "</control>"
-                f'<control type="label"><width max="220">auto</width><height>36</height><font>semi_24</font><textcolor>ink2</textcolor><label>{info(slot + ".title")}</label><visible>{vis}</visible></control>'
+                f'<control type="label"><width max="160">auto</width><height>36</height><font>semi_24</font><textcolor>ink2</textcolor><label>{info(slot + ".title")}</label><visible>{vis}</visible></control>'
                 f'<control type="label"><width>16</width><height>36</height><label></label><visible>{vis}</visible></control>')
     r1, r2, r3 = (f"!String.IsEmpty({prop(f'r{i}.dbid')})" for i in (1, 2, 3))
     gl = ['<control type="grouplist">',
@@ -778,9 +779,9 @@ def route_bar(top=72):
           f'<control type="label"><width>auto</width><height>36</height><font>xb_24</font><textcolor>ink2</textcolor><label>  ···  </label><visible>{r3}</visible></control>',
           seg("Map_Col_r2", 40, r3),
           stop("r2", r2),
-          seg("Map_Col_r1", 72, r2),
+          seg("Map_Col_r1", 56, r2),
           stop("r1", r1),
-          seg("Map_Col_c", 96, r1),
+          seg("Map_Col_c", 72, r1),
           stop("c", "true", cur=True),
           "</control>"]
     return "\n".join(gl)

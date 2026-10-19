@@ -3,6 +3,7 @@
   follows the map: "also on another line" with the grey dot when a station on screen carries an interchange
   dot, "No station here is on another line" (text only) when none does. The test reuses the dots' own
   visibility conditions (Map_AnyXdot), so the key can't disagree with the map.
+- Route bar: names capped so a long route no longer runs under the Index button.
 
 0.9.2 (2026-10-19)
 - Boarding the map fixed everywhere (Omar: "board the map doesn't seem to work on some pages"):

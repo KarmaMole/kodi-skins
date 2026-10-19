@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Video library: rotary text index (50) or sparse poster wall (51). Includes_Views.xml.
+	Kodi id contract (Estuary Omega MyVideoNav.xml / CGUIWindowVideoNav): views listed in <views>
+	(first valid one opens a new node: the index), menucontrol 9000, 3 = sort by, 4 = sort order,
+	14 = watched filter toggle (SendClick only). Void ids: 9321-9327 options buttons.
+	Focus map: view -Up at the top / Left on item 1-> options 9000 -Down/Back-> view.
+	Back on the view = Kodi parent folder. Empty folder: focus lands on the options row.
+-->
+<window>
+	<defaultcontrol always="true">50</defaultcontrol>
+	<menucontrol>9000</menucontrol>
+	<backgroundcolor>bg</backgroundcolor>
+	<views>50,51</views>
+	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>
+	<include>Anim_WindowOpenClose</include>
+	<controls>
+		<include>Void_Background</include>
+		<control type="group">
+			<visible>!ControlGroup(9000).HasFocus()</visible>
+			<include>Void_Anim_Dwell</include>
+			<include content="Void_TopBar">
+				<param name="title" value="$VAR[Lib_Title]"/>
+				<param name="sub" value="$VAR[Lib_Sub]"/>
+			</include>
+		</control>
+		<include content="Void_View50"><param name="viewlabel" value="Index"/></include>
+		<include>Void_View51</include>
+		<include content="Void_LibraryEmpty">
+			<param name="hint" value="Up for sort, filter and view. With Unwatched on, everything may be filtered away."/>
+		</include>
+		<control type="grouplist" id="9000">
+			<include>Void_OptionsBegin</include>
+			<ondown>SetFocus(50)</ondown>
+			<onback>SetFocus(50)</onback>
+			<!-- watched filter -->
+			<include content="Void_SubNavButton">
+				<param name="id" value="9321"/>
+				<param name="label" value="$VAR[VidLib_FilterLabel]"/>
+				<param name="width" value="301"/>
+				<param name="onclick" value="SendClick(14)"/>
+				<param name="visible" value="$EXP[Lib_IsVideoLibrary] + !$EXP[Lib_IsInProgressTV]"/>
+			</include>
+			<!-- TV: in progress / all shows -->
+			<include content="Void_SubNavButton">
+				<param name="id" value="9323"/>
+				<param name="label" value="In progress"/>
+				<param name="width" value="218"/>
+				<param name="onclick" value="Container.Update(videodb://inprogresstvshows/)"/>
+				<param name="visible" value="$EXP[Lib_IsTVRoot]"/>
+			</include>
+			<include content="Void_SubNavButton">
+				<param name="id" value="9322"/>
+				<param name="label" value="All shows"/>
+				<param name="width" value="218"/>
+				<param name="onclick" value="Container.Update(videodb://tvshows/titles/)"/>
+				<param name="visible" value="$EXP[Lib_IsInProgressTV]"/>
+			</include>
+			<include content="Void_SubNavButton">
+				<param name="id" value="9324"/>
+				<param name="label" value="Sort  $INFO[Container.SortMethod]"/>
+				<param name="onclick" value="SendClick(3)"/>
+				<param name="visible" value="Control.IsEnabled(3)"/>
+			</include>
+			<include content="Void_SubNavButton">
+				<param name="id" value="9325"/>
+				<param name="label" value="$VAR[VidLib_Direction]"/>
+				<param name="width" value="213"/>
+				<param name="onclick" value="SendClick(4)"/>
+				<param name="visible" value="Control.IsEnabled(4)"/>
+			</include>
+			<include content="Void_SubNavButton">
+				<param name="id" value="9326"/>
+				<param name="label" value="View  $INFO[Container.Viewmode]"/>
+				<param name="width" value="211"/>
+				<param name="onclick" value="Container.NextViewMode"/>
+				<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
+			</include>
+			<include content="Void_SubNavButton">
+				<param name="id" value="9327"/>
+				<param name="label" value="Search"/>
+				<param name="onclick" value="ActivateWindow(1150)"/>
+			</include>
+		</control>
+		<include>Void_OptionsCaption</include>
+		<include>Void_SortControls</include>
+	</controls>
+</window>

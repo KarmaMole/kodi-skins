@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Skin settings (docs/skin.orbit/SETTINGS.md). One row per setting in a vertical grouplist:
+	Left / Right step the value (applied at once), OK steps forward. The right-hand instrument shows the
+	focused setting as a detent knob (rings/knob/<N>_<i>.png) with its value and what it does.
+	Ids: rows 9601-9608, reset 9609. Back closes the window.
+-->
+<window>
+	<defaultcontrol always="true">9600</defaultcontrol>
+	<backgroundcolor>bg</backgroundcolor>
+	<onload>ClearProperty(orbit.resetarmed,home)</onload>
+	<!-- keep TMDb Helper's blur switch in step with the artwork setting (repairs a fresh install) -->
+	<onload condition="$EXP[ArtBackgroundOn] + !Skin.HasSetting(TMDbHelper.EnableBlur)">Skin.SetBool(TMDbHelper.EnableBlur)</onload>
+	<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Skin.String(TMDbHelper.Blur.Size))">Skin.SetString(TMDbHelper.Blur.Size,480)</onload>
+	<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Skin.String(TMDbHelper.Blur.Radius))">Skin.SetString(TMDbHelper.Blur.Radius,12)</onload>
+	<onunload condition="$EXP[ArtBackgroundOn] + !Skin.HasSetting(TMDbHelper.EnableBlur)">Skin.SetBool(TMDbHelper.EnableBlur)</onunload>
+	<onunload condition="!$EXP[ArtBackgroundOn] + Skin.HasSetting(TMDbHelper.EnableBlur)">Skin.Reset(TMDbHelper.EnableBlur)</onunload>
+	<include>Anim_WindowOpenClose</include>
+	<controls>
+		<include content="Orbit_Page">
+			<param name="ground" value="arc"/>
+		</include>
+		<include content="Orbit_Header">
+			<param name="title" value="$LOCALIZE[31021]"/>
+			<param name="sub" value="Orbit[COLOR text_dim] $INFO[System.AddonVersion(skin.orbit)][/COLOR]"/>
+		</include>
+
+		<control type="grouplist" id="9600">
+			<left>64</left>
+			<top>196</top>
+			<width>1000</width>
+			<height>820</height>
+			<orientation>vertical</orientation>
+			<itemgap>6</itemgap>
+			<onleft>noop</onleft>
+			<onright>noop</onright>
+			<onup>noop</onup>
+			<ondown>noop</ondown>
+			<!-- 1 library view -->
+			<include content="Set_Row">
+				<param name="id" value="9601"/>
+				<param name="label" value="Library opens in"/>
+				<param name="value" value="$VAR[LabelLibView]"/>
+				<param name="next" value="Skin.SetString(orbit.libview,$VAR[NextLibView])"/>
+				<param name="prev" value="Skin.SetString(orbit.libview,$VAR[NextLibView])"/>
+				<param name="also" value="Skin.Reset(orbit.vreset.movies)"/>
+				<param name="also2" value="Skin.Reset(orbit.vreset.tvshows)"/>
+				<param name="also3" value="Skin.Reset(orbit.vreset.sets)"/>
+				<param name="also4" value="Skin.Reset(orbit.vreset.albums)"/>
+				<param name="also5" value="Skin.Reset(orbit.vreset.artists)"/>
+			</include>
+			<!-- 2 ring style -->
+			<include content="Set_Row">
+				<param name="id" value="9602"/>
+				<param name="label" value="Ring style"/>
+				<param name="value" value="$VAR[LabelRingStyle]"/>
+				<param name="next" value="Skin.SetString(orbit.ringstyle,$VAR[NextRingStyle])"/>
+				<param name="prev" value="Skin.SetString(orbit.ringstyle,$VAR[NextRingStyle])"/>
+			</include>
+			<!-- 3 home films band -->
+			<include content="Set_Row">
+				<param name="id" value="9603"/>
+				<param name="label" value="Films on the Home dial"/>
+				<param name="value" value="$VAR[LabelHomeMovies]"/>
+				<param name="next" value="Skin.SetString(orbit.homemovies,$VAR[NextHomeMovies])"/>
+				<param name="prev" value="Skin.SetString(orbit.homemovies,$VAR[PrevHomeMovies])"/>
+			</include>
+			<!-- 4 artwork backdrop (TMDb Helper blur) -->
+			<include content="Set_Row">
+				<param name="id" value="9604"/>
+				<param name="label" value="Artwork backdrop"/>
+				<param name="value" value="$VAR[LabelArtBackground]"/>
+				<param name="next" value="Skin.SetString(orbit.artbackground,$VAR[NextArtBackground])"/>
+				<param name="prev" value="Skin.SetString(orbit.artbackground,$VAR[PrevArtBackground])"/>
+				<param name="also" value="Skin.SetString(TMDbHelper.Blur.Size,480)"/>
+				<param name="also2" value="Skin.SetString(TMDbHelper.Blur.Radius,12)"/>
+				<param name="enable" value="System.AddonIsEnabled(plugin.video.themoviedb.helper)"/>
+			</include>
+			<!-- 5 watched badges -->
+			<include content="Set_Row">
+				<param name="id" value="9605"/>
+				<param name="label" value="Watched badges on posters"/>
+				<param name="value" value="$VAR[LabelWatchedMarkers]"/>
+				<param name="next" value="Skin.ToggleSetting(orbit.nowatchedbadges)"/>
+				<param name="prev" value="Skin.ToggleSetting(orbit.nowatchedbadges)"/>
+			</include>
+			<!-- 6 trailer button -->
+			<include content="Set_Row">
+				<param name="id" value="9606"/>
+				<param name="label" value="Trailer button on info pages"/>
+				<param name="value" value="$VAR[LabelTrailer]"/>
+				<param name="next" value="Skin.ToggleSetting(orbit.hidetrailer)"/>
+				<param name="prev" value="Skin.ToggleSetting(orbit.hidetrailer)"/>
+			</include>
+			<!-- 7 OSD auto-hide -->
+			<include content="Set_Row">
+				<param name="id" value="9607"/>
+				<param name="label" value="Hide the player controls after"/>
+				<param name="value" value="$VAR[LabelOSDAutoHide]"/>
+				<param name="next" value="Skin.SetString(orbit.osdhide,$VAR[NextOSDAutoHide])"/>
+				<param name="prev" value="Skin.SetString(orbit.osdhide,$VAR[PrevOSDAutoHide])"/>
+			</include>
+			<!-- 8 reduce motion -->
+			<include content="Set_Row">
+				<param name="id" value="9608"/>
+				<param name="label" value="Reduce motion"/>
+				<param name="value" value="$VAR[LabelReduceMotion]"/>
+				<param name="next" value="Skin.ToggleSetting(orbit.reducemotion)"/>
+				<param name="prev" value="Skin.ToggleSetting(orbit.reducemotion)"/>
+			</include>
+			<!-- reset (OK twice) -->
+			<control type="button" id="9609">
+				<width>1000</width>
+				<height>80</height>
+				<font>text_26_med</font>
+				<textcolor>text_secondary</textcolor>
+				<focusedcolor>text_primary</focusedcolor>
+				<textoffsetx>28</textoffsetx>
+				<texturefocus border="8">focus/row.png</texturefocus>
+				<texturenofocus />
+				<label>$VAR[LabelReset]</label>
+				<onclick condition="String.IsEmpty(Window(Home).Property(orbit.resetarmed))">SetProperty(orbit.resetarmed,1,home)</onclick>
+				<onclick condition="!String.IsEmpty(Window(Home).Property(orbit.resetarmed))">Skin.ResetSettings</onclick>
+				<onunfocus>ClearProperty(orbit.resetarmed,home)</onunfocus>
+			</control>
+		</control>
+
+		<!-- right-hand instrument: the focused setting as a detent knob -->
+		<control type="group">
+			<left>1200</left>
+			<top>196</top>
+			<width>656</width>
+			<height>820</height>
+			<visible>!Control.HasFocus(9609)</visible>
+			<control type="label">
+				<left>0</left>
+				<top>0</top>
+				<width>656</width>
+				<height>24</height>
+				<font>label_20</font>
+				<textcolor>text_secondary</textcolor>
+				<label>Setting  $INFO[Container(9600).Position]</label>
+				<visible>false</visible>
+			</control>
+			<control type="textbox">
+				<left>0</left>
+				<top>0</top>
+				<width>656</width>
+				<height>100</height>
+				<font>wide_38</font>
+				<textcolor>text_primary</textcolor>
+				<label>$VAR[Set_FocusTitle]</label>
+			</control>
+			<control type="image">
+				<left>178</left>
+				<top>130</top>
+				<width>300</width>
+				<height>300</height>
+				<texture>$VAR[Set_Knob]</texture>
+			</control>
+			<control type="label">
+				<left>0</left>
+				<top>446</top>
+				<width>656</width>
+				<height>44</height>
+				<align>center</align>
+				<font>wide_30</font>
+				<textcolor>accent</textcolor>
+				<label>$VAR[Set_FocusValue]</label>
+			</control>
+			<control type="textbox">
+				<left>0</left>
+				<top>520</top>
+				<width>656</width>
+				<height>152</height>
+				<font>text_26</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$VAR[Set_FocusHelp]</label>
+			</control>
+			<control type="label">
+				<left>0</left>
+				<top>700</top>
+				<width>656</width>
+				<height>26</height>
+				<font>label_20</font>
+				<textcolor>text_dim</textcolor>
+				<label>Left / Right change  ·  Back closes</label>
+			</control>
+		</control>
+	</controls>
+</window>

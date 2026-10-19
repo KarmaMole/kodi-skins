@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Context menu (mockup PassepartoutDialog): a small paper card over the page dimmed with ink 62%.
+	Header: the item's matted print (100x150), "Options", the title in Geist Light 64, the artist line;
+	a hairline; rows in Geist 28 on 68px, the ink placard on focus.
+	Id contract (Estuary Omega): Kodi clones button template 1000 into grouplist 996 (ids 1001...) and
+	resizes image 999 keeping the gap between the grouplist's bottom and 999's bottom. 999 is the whole
+	card in one 9-slice (shadow, edge, fill: pp/card_full.png) tinted with the paper colour; the 40% white
+	that lightens the card is drawn per row (one strip per cloned button) so it follows the size too.
+	<origin> stops Kodi centring the menu on the focused control; the card centres itself (each extra
+	row lifts it 34px).
+-->
+<window>
+	<defaultcontrol>996</defaultcontrol>
+	<include>Anim_DialogOpenClose</include>
+	<coordinates>
+		<origin x="0" y="0"/>
+	</coordinates>
+	<controls>
+		<control type="image">
+			<left>-1920</left>
+			<top>-1080</top>
+			<width>5760</width>
+			<height>3240</height>
+			<animation effect="fade" start="0" end="100" time="200">WindowOpen</animation>
+			<animation effect="fade" start="100" end="0" time="160">WindowClose</animation>
+			<texture colordiffuse="veil">common/white.png</texture>
+		</control>
+		<control type="group">
+			<left>640</left>
+			<top>423</top>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1002)">Conditional</animation>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1003)">Conditional</animation>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1004)">Conditional</animation>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1005)">Conditional</animation>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1006)">Conditional</animation>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1007)">Conditional</animation>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1008)">Conditional</animation>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1009)">Conditional</animation>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1010)">Conditional</animation>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1011)">Conditional</animation>
+			<animation effect="slide" end="0,-34" time="0" condition="Control.IsVisible(1012)">Conditional</animation>
+			<control type="image" id="999">
+				<description>the card (Kodi sizes it)</description>
+				<left>-48</left>
+				<top>-16</top>
+				<width>736</width>
+				<height>1103</height>
+				<texture border="148,146,148,224" colordiffuse="$VAR[PaperColor]">pp/card_full.png</texture>
+			</control>
+			<!-- 40% white over the paper: header + one strip per row + the bottom padding -->
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>640</width>
+				<height>135</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>135</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1001)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>203</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1002)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>271</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1003)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>339</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1004)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>407</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1005)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>475</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1006)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>543</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1007)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>611</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1008)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>679</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1009)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>747</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1010)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>815</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1011)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>883</top>
+				<width>640</width>
+				<height>68</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<visible>Control.IsVisible(1012)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>203</top>
+				<width>640</width>
+				<height>32</height>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1002)">Conditional</animation>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1003)">Conditional</animation>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1004)">Conditional</animation>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1005)">Conditional</animation>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1006)">Conditional</animation>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1007)">Conditional</animation>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1008)">Conditional</animation>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1009)">Conditional</animation>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1010)">Conditional</animation>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1011)">Conditional</animation>
+				<animation effect="slide" end="0,68" time="0" condition="Control.IsVisible(1012)">Conditional</animation>
+			</control>
+			<!-- header: Kodi gives the context menu no item infolabels, so the card is titled "Options" -->
+			<control type="label">
+				<left>48</left>
+				<top>36</top>
+				<width>544</width>
+				<height>58</height>
+				<font>ttl_48</font>
+				<textcolor>ink</textcolor>
+				<label>Options</label>
+			</control>
+			<control type="image">
+				<left>48</left>
+				<top>122</top>
+				<width>544</width>
+				<height>1</height>
+				<texture colordiffuse="rule">common/white.png</texture>
+			</control>
+			<control type="grouplist" id="996">
+				<description>grouplist for context buttons</description>
+				<left>0</left>
+				<top>135</top>
+				<width>640</width>
+				<height max="816">auto</height>
+				<usecontrolcoords>true</usecontrolcoords>
+			</control>
+		</control>
+		<control type="button" id="1000">
+			<description>button template</description>
+			<left>0</left>
+			<top>0</top>
+			<width>640</width>
+			<height>68</height>
+			<font>body_28</font>
+			<textcolor>ink</textcolor>
+			<focusedcolor>$VAR[PaperColor]</focusedcolor>
+			<disabledcolor>disabled</disabledcolor>
+			<textoffsetx>48</textoffsetx>
+			<aligny>center</aligny>
+			<pulseonselect>false</pulseonselect>
+			<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+			<texturenofocus />
+		</control>
+	</controls>
+</window>

@@ -1,0 +1,63 @@
+# Kodi skin strings - skin.void (en_GB)
+# Void uses literal English for nearly every label; these ids remain for engine windows.
+msgid ""
+msgstr ""
+"Project-Id-Version: skin.void
+"
+"Report-Msgid-Bugs-To: 
+"
+"POT-Creation-Date: 2026-10-18
+"
+"Language-Team: English
+"
+"MIME-Version: 1.0
+"
+"Content-Type: text/plain; charset=UTF-8
+"
+"Content-Transfer-Encoding: 8bit
+"
+"Language: en_GB
+"
+"Plural-Forms: nplurals=2; plural=(n != 1);
+"
+
+msgctxt "#31010"
+msgid "Sort"
+msgstr ""
+
+msgctxt "#31012"
+msgid "Nothing here"
+msgstr ""
+
+msgctxt "#31013"
+msgid "Working"
+msgstr ""
+
+msgctxt "#31014"
+msgid "Up / down to page, OK to close"
+msgstr ""
+
+msgctxt "#31015"
+msgid "Muted"
+msgstr ""
+
+msgctxt "#31021"
+msgid "Skin settings"
+msgstr ""
+
+msgctxt "#31022"
+msgid "Power"
+msgstr ""
+
+msgctxt "#31044"
+msgid "Delete"
+msgstr ""
+
+msgctxt "#31900"
+msgid "Void (Instrument Serif and Sans)"
+msgstr ""
+
+msgctxt "#31901"
+msgid "Arial (wider script coverage)"
+msgstr ""
+

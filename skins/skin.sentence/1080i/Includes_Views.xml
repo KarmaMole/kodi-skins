@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	View 50 (a list, valid for everything) and the generic list window used by the remaining media
+	windows (add-ons, programs, pictures, files...). Sentence: the list on the left, the focused item
+	explained on the right; the header is a short sentence with phrases ("Sorted by [name], [A to Z], as [a list]").
+	Kodi ids: 50 list, 60 its scrollbar, 3 sort-by / 4 sort-order hidden buttons, 9000 header grouplist.
+-->
+<includes>
+	<!-- ============================================================ View 50 -->
+	<!-- params: top (list top; the video library starts under its sentence header at 244) -->
+	<include name="View_50_List">
+		<param name="top">list_top</param>
+		<param name="height">858</param>
+		<param name="note">false</param>
+		<definition>
+			<control type="group">
+				<visible>Control.IsVisible(50)</visible>
+				<include>Anim_VisibleFade</include>
+				<control type="list" id="50">
+					<include>Lib_BackHomeNav</include>
+					<left>page_margin</left>
+					<top>$PARAM[top]</top>
+					<width>list_w</width>
+					<height>$PARAM[height]</height>
+					<onup>9000</onup>
+					<ondown>50</ondown>
+					<onleft>noop</onleft>
+					<onright>60</onright>
+					<pagecontrol>60</pagecontrol>
+					<scrolltime tween="cubic" easing="out">200</scrolltime>
+					<viewtype label="a list">list</viewtype>
+					<include content="Sen_ListLayout">
+						<param name="width" value="1080"/>
+						<param name="height" value="66"/>
+						<param name="list_id" value="50"/>
+					</include>
+				</control>
+				<include content="Sen_Scrollbar">
+					<param name="id" value="60"/>
+					<param name="left" value="1216"/>
+					<param name="top" value="$PARAM[top]"/>
+					<param name="height" value="$PARAM[height]"/>
+					<param name="onleft" value="50"/>
+					<param name="onright" value="50"/>
+				</include>
+				<!-- video library: the paragraph note; elsewhere: art + a short sentence -->
+				<include content="Lib_Note" condition="$PARAM[note]"/>
+				<control type="group">
+					<left>1308</left>
+					<top>$PARAM[top]</top>
+					<width>492</width>
+					<visible>!$PARAM[note]</visible>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>492</width>
+						<height>492</height>
+						<aspectratio align="left" aligny="top">keep</aspectratio>
+						<fadetime>120</fadetime>
+						<texture background="true">$VAR[ListItemArt]</texture>
+					</control>
+					<control type="textbox">
+						<left>0</left>
+						<top>516</top>
+						<width>492</width>
+						<height>154</height>
+						<font>serif_36</font>
+						<textcolor>text</textcolor>
+						<label>[I]$INFO[ListItem.Label][/I]$INFO[ListItem.Label2, · ,]</label>
+					</control>
+					<control type="textbox">
+						<left>0</left>
+						<top>684</top>
+						<width>492</width>
+						<height>114</height>
+						<font>body_24</font>
+						<textcolor>muted</textcolor>
+						<label>$INFO[ListItem.Plot]</label>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- ===================================================== library header (generic windows) -->
+	<!-- "Sorted by [name], [A to Z], as [a list] · 24". params: show_watched (video windows) -->
+	<include name="Sen_LibraryHeaderBar">
+		<param name="show_watched">false</param>
+		<definition>
+			<control type="grouplist" id="9000">
+				<left>page_margin</left>
+				<top>132</top>
+				<width>1500</width>
+				<height>56</height>
+				<orientation>horizontal</orientation>
+				<usecontrolcoords>true</usecontrolcoords>
+				<itemgap>0</itemgap>
+				<onleft>noop</onleft>
+				<onright>noop</onright>
+				<onup>noop</onup>
+				<ondown>50</ondown>
+				<onback>50</onback>
+				<control type="label" id="29001">
+					<width>auto</width>
+					<height>56</height>
+					<font>ui_24</font>
+					<textcolor>muted</textcolor>
+					<label>Sorted by</label>
+					<visible>Control.IsEnabled(3)</visible>
+				</control>
+				<include content="Sen_Phrase">
+					<param name="id" value="6053"/>
+					<param name="label" value="[LOWERCASE]$INFO[Container.SortMethod][/LOWERCASE]"/>
+					<param name="onclick" value="SendClick(3)"/>
+					<param name="visible" value="Control.IsEnabled(3)"/>
+					<param name="ondown" value="50"/>
+				</include>
+				<control type="label" id="29002">
+					<left>-14</left>
+					<width>auto</width>
+					<height>56</height>
+					<font>ui_24</font>
+					<textcolor>muted</textcolor>
+					<label>,</label>
+					<visible>Control.IsEnabled(3)</visible>
+				</control>
+				<include content="Sen_Phrase">
+					<param name="id" value="6052"/>
+					<param name="label" value="$VAR[Lib_Direction]"/>
+					<param name="onclick" value="Container.SetSortDirection"/>
+					<param name="visible" value="Control.IsEnabled(3)"/>
+					<param name="ondown" value="50"/>
+				</include>
+				<control type="label" id="29003">
+					<width>auto</width>
+					<height>56</height>
+					<font>ui_24</font>
+					<textcolor>muted</textcolor>
+					<label>shown as</label>
+					<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
+				</control>
+				<include content="Sen_Phrase">
+					<param name="id" value="6051"/>
+					<param name="label" value="[LOWERCASE]$INFO[Container.Viewmode][/LOWERCASE]"/>
+					<param name="onclick" value="Container.NextViewMode"/>
+					<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
+					<param name="ondown" value="50"/>
+				</include>
+				<include content="Sen_Phrase">
+					<param name="id" value="10"/>
+					<param name="label" value="$LOCALIZE[16100]"/>
+					<param name="visible" value="$PARAM[show_watched] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]"/>
+					<param name="ondown" value="50"/>
+				</include>
+			</control>
+			<!-- item count, right-aligned on the same line -->
+			<control type="label">
+				<left>page_margin</left>
+				<top>132</top>
+				<width>page_width</width>
+				<height>56</height>
+				<align>right</align>
+				<font>ui_22</font>
+				<textcolor>muted</textcolor>
+				<label>$INFO[Container.CurrentItem,Number , of ]$INFO[Container.NumItems]</label>
+			</control>
+			<control type="button" id="3">
+				<description>Sort by (Kodi)</description>
+				<include>Sen_Hidden</include>
+			</control>
+			<control type="button" id="4">
+				<description>Sort order (Kodi)</description>
+				<include>Sen_Hidden</include>
+			</control>
+		</definition>
+	</include>
+
+	<!-- ========================================== generic list window -->
+	<!-- Background + top line + header sentence + view 50. params: index (unused), title -->
+	<include name="Sen_GenericListWindow">
+		<param name="index"></param>
+		<param name="title">$VAR[LibraryTitle]</param>
+		<param name="show_watched">false</param>
+		<definition>
+			<include>Sen_Background</include>
+			<include content="Sen_TopBar">
+				<param name="title" value="$PARAM[title]"/>
+			</include>
+			<include content="Sen_LibraryHeaderBar">
+				<param name="show_watched" value="$PARAM[show_watched]"/>
+			</include>
+			<include>View_50_List</include>
+			<control type="label">
+				<left>page_margin</left>
+				<top>list_top</top>
+				<width>list_w</width>
+				<height>72</height>
+				<font>serif_44</font>
+				<textcolor>muted</textcolor>
+				<label>$LOCALIZE[31012]</label>
+				<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			</control>
+		</definition>
+	</include>
+</includes>

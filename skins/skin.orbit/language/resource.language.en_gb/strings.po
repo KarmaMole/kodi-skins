@@ -1,0 +1,330 @@
+# Kodi skin strings - skin.orbit (en_GB)
+# Ids 31000-31999. Use $LOCALIZE[id] or a bare id in <label>.
+msgid ""
+msgstr ""
+"Project-Id-Version: skin.orbit
+"
+"Language: en_GB
+"
+"MIME-Version: 1.0
+"
+"Content-Type: text/plain; charset=UTF-8
+"
+"Content-Transfer-Encoding: 8bit
+"
+
+msgctxt "#31010"
+msgid "Sort"
+msgstr ""
+
+msgctxt "#31011"
+msgid "View"
+msgstr ""
+
+msgctxt "#31012"
+msgid "Nothing here"
+msgstr ""
+
+msgctxt "#31013"
+msgid "Working"
+msgstr ""
+
+msgctxt "#31014"
+msgid "Up / down to page, OK to close"
+msgstr ""
+
+msgctxt "#31015"
+msgid "Muted"
+msgstr ""
+
+msgctxt "#31016"
+msgid "Buffering"
+msgstr ""
+
+msgctxt "#31017"
+msgid "Now playing"
+msgstr ""
+
+msgctxt "#31018"
+msgid "Next:"
+msgstr ""
+
+msgctxt "#31019"
+msgid "Home"
+msgstr ""
+
+msgctxt "#31020"
+msgid "System"
+msgstr ""
+
+msgctxt "#31021"
+msgid "Skin settings"
+msgstr ""
+
+msgctxt "#31022"
+msgid "Power"
+msgstr ""
+
+msgctxt "#31024"
+msgid "Orbit"
+msgstr ""
+
+msgctxt "#31025"
+msgid "Skin settings holds Orbit's own options. To switch skins: Interface > Skin > Skin."
+msgstr ""
+
+msgctxt "#31030"
+msgid "Ends"
+msgstr ""
+
+msgctxt "#31040"
+msgid "Symbols"
+msgstr ""
+
+msgctxt "#31041"
+msgid "Caps"
+msgstr ""
+
+msgctxt "#31042"
+msgid "Shift"
+msgstr ""
+
+msgctxt "#31043"
+msgid "Space"
+msgstr ""
+
+msgctxt "#31044"
+msgid "Delete"
+msgstr ""
+
+msgctxt "#31045"
+msgid "01  Appearance"
+msgstr ""
+
+msgctxt "#31046"
+msgid "02  Home"
+msgstr ""
+
+msgctxt "#31047"
+msgid "03  Performance"
+msgstr ""
+
+msgctxt "#31048"
+msgid "M1 settings stub. Every option is stored as a skin setting; resetting returns all to defaults. Corner changes reload the skin."
+msgstr ""
+
+msgctxt "#31050"
+msgid "Accent colour"
+msgstr ""
+
+msgctxt "#31051"
+msgid "Slightly rounded corners"
+msgstr ""
+
+msgctxt "#31052"
+msgid "Focus outline"
+msgstr ""
+
+msgctxt "#31053"
+msgid "Artwork background"
+msgstr ""
+
+msgctxt "#31054"
+msgid "Trailer button"
+msgstr ""
+
+msgctxt "#31055"
+msgid "Watched indicators"
+msgstr ""
+
+msgctxt "#31056"
+msgid "Spotlight rotation"
+msgstr ""
+
+msgctxt "#31057"
+msgid "Newest row on Home"
+msgstr ""
+
+msgctxt "#31058"
+msgid "Reduce motion"
+msgstr ""
+
+msgctxt "#31059"
+msgid "Reset all skin settings"
+msgstr ""
+
+msgctxt "#31060"
+msgid "Signal"
+msgstr ""
+
+msgctxt "#31061"
+msgid "Cobalt"
+msgstr ""
+
+msgctxt "#31062"
+msgid "Mint"
+msgstr ""
+
+msgctxt "#31063"
+msgid "Amber"
+msgstr ""
+
+msgctxt "#31064"
+msgid "Rose"
+msgstr ""
+
+msgctxt "#31065"
+msgid "Ice"
+msgstr ""
+
+msgctxt "#31066"
+msgid "Bone"
+msgstr ""
+
+msgctxt "#31070"
+msgid "Thin"
+msgstr ""
+
+msgctxt "#31071"
+msgid "Medium"
+msgstr ""
+
+msgctxt "#31072"
+msgid "Off"
+msgstr ""
+
+msgctxt "#31075"
+msgid "Faint"
+msgstr ""
+
+msgctxt "#31076"
+msgid "Soft"
+msgstr ""
+
+msgctxt "#31077"
+msgid "Visible"
+msgstr ""
+
+msgctxt "#31080"
+msgid "Both"
+msgstr ""
+
+msgctxt "#31081"
+msgid "Unwatched only"
+msgstr ""
+
+msgctxt "#31082"
+msgid "Watched only"
+msgstr ""
+
+msgctxt "#31085"
+msgid "Date added"
+msgstr ""
+
+msgctxt "#31086"
+msgid "Release date"
+msgstr ""
+
+msgctxt "#31087"
+msgid "Both rows"
+msgstr ""
+
+msgctxt "#31100"
+msgid "Spotlight / unwatched / top rated"
+msgstr ""
+
+msgctxt "#31101"
+msgid "Year"
+msgstr ""
+
+msgctxt "#31102"
+msgid "Runtime"
+msgstr ""
+
+msgctxt "#31103"
+msgid "Rating"
+msgstr ""
+
+msgctxt "#31104"
+msgid "Rated"
+msgstr ""
+
+msgctxt "#31105"
+msgid "Details"
+msgstr ""
+
+msgctxt "#31106"
+msgid "Fig. 01: random pick, unwatched, rated 7.5+"
+msgstr ""
+
+msgctxt "#31107"
+msgid "No unwatched films rated 7.5+ yet"
+msgstr ""
+
+msgctxt "#31110"
+msgid "Newest additions"
+msgstr ""
+
+msgctxt "#31111"
+msgid "Sorted by date added ↓"
+msgstr ""
+
+msgctxt "#31112"
+msgid "Newest releases"
+msgstr ""
+
+msgctxt "#31113"
+msgid "Sorted by release date ↓"
+msgstr ""
+
+msgctxt "#31114"
+msgid "films"
+msgstr ""
+
+msgctxt "#31120"
+msgid "Seek  ◀ ▶"
+msgstr ""
+
+msgctxt "#31121"
+msgid "Previous"
+msgstr ""
+
+msgctxt "#31122"
+msgid "Rewind"
+msgstr ""
+
+msgctxt "#31123"
+msgid "Play / pause"
+msgstr ""
+
+msgctxt "#31124"
+msgid "Stop"
+msgstr ""
+
+msgctxt "#31125"
+msgid "Forward"
+msgstr ""
+
+msgctxt "#31126"
+msgid "Next"
+msgstr ""
+
+msgctxt "#31127"
+msgid "Subtitles"
+msgstr ""
+
+msgctxt "#31128"
+msgid "Audio"
+msgstr ""
+
+msgctxt "#31129"
+msgid "Video settings"
+msgstr ""
+
+msgctxt "#31900"
+msgid "Orbit (Hanken Grotesk)"
+msgstr ""
+
+msgctxt "#31901"
+msgid "Arial (wider script coverage)"
+msgstr ""

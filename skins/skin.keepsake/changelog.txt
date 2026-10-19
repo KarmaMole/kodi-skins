@@ -1,0 +1,12 @@
+Keepsake (skin.keepsake)
+
+0.9.1 (2026-10-19)
+- Home: "waiting five years or more · N films, never played" (never played and added 1825+ days ago), no year.
+- The unwatched opens on the oldest year with at least five films (falls back to the oldest year).
+- Date stamps: stronger darkened corner and a faint dark under-glow, readable on white photos.
+- Info page: the "more" words fit inside the right margin (scroll to the focused word), never over the tech line.
+
+0.9.0 (2026-10-19)
+- First build, forked from the Majan engine (1.0.4) and redesigned as a black photo album:
+  today's page on Home, the diary (films you watched, newest first), the unwatched (grouped by the year
+  you added them), album prints with photo corners, hand-placed tilts and orange LCD date stamps.

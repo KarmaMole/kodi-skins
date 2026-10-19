@@ -1,0 +1,56 @@
+v1.0.4 (2026-10-18)
+- Video OSD: no rewind / fast-forward boxes (Left/Right seek without the OSD; Up on the row is the
+  seek stepper). New order: Play/Pause, Stop, Previous, Next, Chapters | Subtitles, Audio, Video,
+  Info, Player; the row wraps both ways.
+- Music OSD: same treatment: Play/Pause, Stop, Previous, Next | Shuffle, Repeat, Queue; the row now
+  wraps (Queue <-> Play), and the Play box gets the same 14 px gap as the other boxes.
+- Counts read "1 track" / "1 item" instead of "1 tracks" / "1 items" (music OSD queue, track picker
+  kicker, play queue page).
+
+v1.0.3 (2026-10-18)
+- Home spotlight: Left on Play shows the previous spotlight film, Right on the last button (Trailer, or
+  Details when there's no trailer) shows the next one; wraps around the five.
+
+v1.0.2 (2026-10-18)
+- Titles: descenders (g, j, p, q, y) no longer clipped on the 2nd line of the Home spotlight title (display_100
+  linespacing 0.74, unclipped visible copy), the info page, Showcase, music info and Now Playing.
+- Play-start curtain: a black fade covers the page while the TV switches refresh rate at video start.
+- Layout audit: focus frames no longer cut by containers (video/music OSD, player controls, music info
+  buttons, add-on screenshots, Home hub rows, search artists, subtitle lists); text boxes sized to whole
+  lines (no half-cut last line) across dialogs and settings; add-on info button row fits; settings and
+  select dialog button rows fit three buttons; music artist stats row fits.
+- Home spotlight column taller so the Play focus frame clears a 2-line title + 3-line plot.
+
+v1.0.1 (2026-10-18)
+- OSD auto-hide: new setting (Home & playback > OSD auto-hide: Off / 3 / 5 / 10 s, default 5 s);
+  stays up while paused or while a menu is open.
+- OSD Info button now opens the info screen (the OSD was swallowing the Info action).
+- Info screen during playback: poster on the left; title, details, plot and media flags in a column of the same height (series poster for episodes).
+- Artwork backgrounds: blurred fanart (poster fallback) at 480 px / radius 12 instead of a 240 px /
+  radius 30 poster wash; levels raised to 30 / 45 / 65 %. Takes effect after a Kodi restart.
+- Stronger, layered scrims behind the OSD and the info screen (taller bottom ramp, plateau, and a
+  bottom-left corner scrim on the info screen) for legibility over bright frames.
+- Context menu centred on screen.
+- Home: the spotlight Play button focus frame is no longer clipped on the left.
+- Skin settings: changing the spotlight interval keeps you on the Home & playback page.
+- Spotlight rotation: actually rotates now; changing the interval applies immediately and keeps focus.
+- Settings preview posters load reliably; seek bar condition fixed; empty-list focus fallbacks.
+
+v1.0.0 (2026-10-18)
+- Home: random spotlight of great unwatched films (rotating), newest row, menu-revealed hubs
+  (Movies: recently added / newest / top rated unwatched; TV: next up + recently added episodes;
+  Music: recently added / recently played / rediscover), search with auto-opening keyboard.
+- Movies: Poster Showcase and Big Poster (5% focus zoom, dimmed neighbours); info page with cast,
+  flags, optional trailer button (only when a trailer exists).
+- TV: Wall with a Next up strip; episodes view.
+- Music: Albums grid and Big Album (artist fanart, blurred-cover fallback); Now Playing and music OSD.
+- Playback: OSD, seek bar with chapter ticks, track picker, subtitle download, tabbed audio/subtitle/
+  video settings, minimal top offset strip.
+- Settings: accent colours, rounded corners, focus outline, artwork background levels, watched markers,
+  trailer button, spotlight rotation; system menu; minimal treatments for every other Kodi window.
+- Plots auto-scroll when they don't fit; header tabs aligned with the date.
+
+v0.1.0 (2026-10-18)
+- M1 skeleton: addon.xml (xbmc.gui 5.17.0, 1080i), fonts, colour/accent system, include skeleton,
+  strings, Home (top bar + spotlight + newest row), Startup, System menu, view 50 in video/music,
+  minimal playback windows and the M1 dialog/settings set.

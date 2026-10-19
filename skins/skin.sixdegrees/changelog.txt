@@ -1,0 +1,40 @@
+0.9.3 (2026-10-20)
+- Map key: the "also on another line" sample dot is neutral grey (a line colour read as a line), and the row
+  follows the map: "also on another line" with the grey dot when a station on screen carries an interchange
+  dot, "No station here is on another line" (text only) when none does. The test reuses the dots' own
+  visibility conditions (Map_AnyXdot), so the key can't disagree with the map.
+
+0.9.2 (2026-10-19)
+- Boarding the map fixed everywhere (Omar: "board the map doesn't seem to work on some pages"):
+  - Home "OK board the map" button boarded with an empty centre (it sent a click to the start line, whose
+    actions then read the button instead of the starter). It now boards the selected starter directly.
+  - Home "Station page" did nothing on the second starter of a pair (Continue / Unwatched): the match test
+    put ListItemAbsolute() second, which Kodi 21 reads as plain text, and SetFocus(list,1,absolute) never
+    moved the hidden list. Both rewritten.
+  - Boarding from a station page (Home, Index, library, search) opened the map with no focused control, so
+    the first key press was swallowed. The map now takes focus on its centre.
+  - Station page "Board this line": also sets the genre (the year + genre line used the previous film's);
+    from a stop opened on the map it re-centres and lands on the new centre.
+  - New "Board the map" button on the album information page.
+- The station page always opens on Play.
+
+0.9.1 (2026-10-19)
+- Map "Next stop": the plot is clamped to two lines and ends with a fade and an ellipsis when it runs on (the
+  station page plot too). The OK hint on an album centre says "open the album".
+- Home: no Info key cap (the Shield remote has none). Play and Station page are plain pills under the start
+  line ("▼ then OK").
+- Seek bar: the seek-time bubble rides under the ring instead of covering the title.
+
+0.9.0 (2026-10-19)
+- First build of Six Degrees, forked from the Majan engine (1.0.4) and redesigned as a transit map.
+- The map (custom window 1160): the centre station and four lines fed by filtered library paths: director /
+  lead actor / year + first genre / second star for films; network / lead / year + genre / second star for
+  series; artist / genre / year / featured on for albums. OK re-centres (the station slides in), the route bar
+  and Back retrace up to eight stops, then Back goes Home.
+- Home "Start somewhere": Continue, Newest, Unwatched 7.5+, Tonight's surprise on a start line ending at the
+  A-Z Index, with a live four-line preview of the focused starter.
+- Station page (video info) with the four lines out of the station and "Board this line".
+- Library: Index (A-Z as a line of stops), Line, Platform, Wall, Episodes views; route crumbs; fixed pills.
+- Playback: the transit-sign OSD, seek bar and fullscreen info; Now playing as a station with the queue as
+  stops; music OSD.
+- Seven skin settings (reduce motion, OSD auto-hide, line order, unwatched only, map key, trailer, marks).

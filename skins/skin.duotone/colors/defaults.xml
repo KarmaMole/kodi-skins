@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    skin.duotone palette (docs/skin.duotone/DESIGN.md section 2). Format AARRGGBB.
+    Windows never pick a section colour directly: they use the section variables in
+    1080i/Variables.xml ($VAR[SectionColor], $VAR[SectionText], $VAR[SectionText2],
+    $VAR[SectionText3], $VAR[SectionFaint], $VAR[SectionTint]) so one section change recolours
+    every field, tint, rule and label at once.
+-->
+<colors>
+    <!-- The four section fields -->
+    <color name="vermilion">ffff4d2e</color>     <!-- Films -->
+    <color name="cobalt">ff2e5bff</color>        <!-- Series -->
+    <color name="acid">ffc6f432</color>          <!-- Music -->
+    <color name="paper">fff1ede4</color>         <!-- Search / Settings / everything else -->
+    <color name="ink">ff111111</color>           <!-- text on light fields, rules, frames, blocks -->
+
+    <!-- Ink and paper at fixed strengths (alpha only, never gradients) -->
+    <color name="ink_80">cc111111</color>
+    <color name="ink_70">b3111111</color>
+    <color name="ink_55">8c111111</color>
+    <color name="ink_45">73111111</color>
+    <color name="ink_26">42111111</color>
+    <color name="ink_20">33111111</color>
+    <color name="ink_12">1f111111</color>
+    <color name="paper_80">ccf1ede4</color>
+    <color name="paper_70">b3f1ede4</color>
+    <color name="paper_55">8cf1ede4</color>
+    <color name="paper_45">73f1ede4</color>
+    <color name="paper_30">4df1ede4</color>
+    <color name="paper_22">38f1ede4</color>
+    <color name="paper_12">1ff1ede4</color>
+
+    <!-- Monotone print tints (colordiffuse multiplies the artwork).
+         Slightly deeper and purer than the fields so mid-tones lose more of their own hue
+         and the print sits a step darker than the field it is printed on. -->
+    <color name="tint_films">ffff3a1c</color>
+    <color name="tint_series">ff3a63ff</color>
+    <color name="tint_music">ffbfee1e</color>
+    <color name="tint_paper">ffc9c2b3</color>
+    <!-- "light" monotone mode (setting): a softer wash that keeps more of the art -->
+    <color name="tintl_films">ffff8a74</color>
+    <color name="tintl_series">ff8aa3ff</color>
+    <color name="tintl_music">ffdcf88a</color>
+    <color name="tintl_paper">ffe2ddd2</color>
+
+    <!-- Utility -->
+    <color name="white">ffffffff</color>
+    <color name="black">ff000000</color>
+    <color name="clear">00ffffff</color>
+</colors>

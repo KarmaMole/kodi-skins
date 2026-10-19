@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Variables: labels / textures / colours that switch on conditions. Use as $VAR[Name].
+	Colour tokens and the time engine live in Includes_Daylight.xml (generated).
+	Note: $VAR works in colordiffuse="" and <textcolor>/<focusedcolor>, NOT in diffuse="" or border="".
+-->
+<includes>
+	<!-- ===================================================================== colours -->
+
+	<!-- Setting 1: accent. Skin.String(daylight.accent) stores a keyword; empty = Signal.
+	     A raw AARRGGBB value is also accepted (last-but-one line) so a hand-set hex never breaks. -->
+
+	<!-- Display name of the accent (settings stub) -->
+
+	<!-- Rules: solid greys on the flat page, white-alpha over the artwork background (DESIGN 2.2) -->
+	<!-- Mono captions: promoted to text_secondary over artwork (DESIGN 2.5) -->
+
+	<!-- ==================================================================== textures -->
+
+	<!-- Focus frame (rounded accent ring), 40x40, border 16, placed at item rect +7px each side. -->
+	<variable name="FocusFrame">
+		<value condition="$EXP[FocusOutlineOff]"></value>
+		<value condition="$EXP[FocusOutlineMedium] + $EXP[IsRounded]">focus/outline_3_round.png</value>
+		<value condition="$EXP[FocusOutlineMedium]">focus/outline_3.png</value>
+		<value condition="$EXP[IsRounded]">focus/outline_2_round.png</value>
+		<value>focus/outline_2.png</value>
+	</variable>
+	<!-- Frames for controls that must ALWAYS show focus (buttons, dialogs): never empty -->
+	<variable name="FocusFrameAlways">
+		<value condition="$EXP[FocusOutlineMedium] + $EXP[IsRounded]">focus/outline_3_round.png</value>
+		<value condition="$EXP[FocusOutlineMedium]">focus/outline_3.png</value>
+		<value condition="$EXP[IsRounded]">focus/outline_2_round.png</value>
+		<value>focus/outline_2.png</value>
+	</variable>
+
+	<!-- Button fill / outline (32x32, border 10) -->
+	<variable name="ButtonFill">
+		<value condition="$EXP[IsRounded]">common/rect_round8.png</value>
+		<value>common/rect_square.png</value>
+	</variable>
+	<variable name="ButtonOutline">
+		<value condition="$EXP[IsRounded]">common/rect_outline_1_round8.png</value>
+		<value>common/rect_outline_1.png</value>
+	</variable>
+
+	<!-- Watched markers (DESIGN 7.3) -->
+	<variable name="MarkerUnwatched">
+		<value condition="$EXP[IsRounded]">markers/unwatched_round.png</value>
+		<value>markers/unwatched.png</value>
+	</variable>
+	<variable name="MarkerWatched">
+		<value condition="$EXP[IsRounded]">markers/watched_round.png</value>
+		<value>markers/watched.png</value>
+	</variable>
+
+	<!-- ====================================================================== labels -->
+
+	<variable name="DateLabel">
+		<value>$INFO[System.Date(DDDD)] $INFO[System.Date(d MMMM)]</value>
+	</variable>
+	<variable name="ClockLabel">
+		<value>$INFO[System.Time]</value>
+	</variable>
+
+	<!-- Home spotlight (data list 9101) -->
+	<variable name="SpotlightArt">
+		<value condition="!String.IsEmpty(Container(9101).ListItem.Art(fanart))">$INFO[Container(9101).ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(9101).ListItem.Art(landscape))">$INFO[Container(9101).ListItem.Art(landscape)]</value>
+		<value>$INFO[Container(9101).ListItem.Art(poster)]</value>
+	</variable>
+	<variable name="SpotlightRuntime">
+		<value condition="Integer.IsGreater(Container(9101).ListItem.Duration(h),0)">$INFO[Container(9101).ListItem.Duration(h),,h ]$INFO[Container(9101).ListItem.Duration(m),,m]</value>
+		<value>$INFO[Container(9101).ListItem.Duration(m),,m]</value>
+	</variable>
+	<!-- Director (primary) + cast (secondary). ListItem.Cast is newline-separated, so this is shown in a
+	     1-line textbox: "Director  ·  first cast member". M2 (T12) may switch to TMDb Helper cast properties. -->
+	<variable name="SpotlightCredits">
+		<value condition="!String.IsEmpty(Container(9101).ListItem.Director)">[COLOR $VAR[DL_Ink]]$INFO[Container(9101).ListItem.Director][/COLOR]$INFO[Container(9101).ListItem.Cast,  ·  ,]</value>
+		<value>$INFO[Container(9101).ListItem.Cast]</value>
+	</variable>
+
+	<!-- Kodi stores US certifications as "Rated PG-13" (DATA.md 4.1): show the bare code -->
+	<variable name="SpotlightMPAA">
+		<value condition="String.IsEqual(Container(9101).ListItem.MPAA,Rated R)">R</value>
+		<value condition="String.IsEqual(Container(9101).ListItem.MPAA,Rated PG-13)">PG-13</value>
+		<value condition="String.IsEqual(Container(9101).ListItem.MPAA,Rated PG)">PG</value>
+		<value condition="String.IsEqual(Container(9101).ListItem.MPAA,Rated G)">G</value>
+		<value condition="String.IsEqual(Container(9101).ListItem.MPAA,Rated NR)">NR</value>
+		<value condition="String.IsEqual(Container(9101).ListItem.MPAA,Rated NC-17)">NC-17</value>
+		<value>$INFO[Container(9101).ListItem.MPAA]</value>
+	</variable>
+
+	<!-- Poster/thumb for any list item (view 50 art panel, dialogs) -->
+	<variable name="ListItemArt">
+		<value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(tvshow.poster))">$INFO[ListItem.Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
+		<value>$INFO[ListItem.Icon]</value>
+	</variable>
+
+	<!-- Library page title (MyVideoNav / MyMusicNav header) -->
+	<variable name="LibraryTitle">
+		<value condition="!String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
+		<value condition="Window.IsActive(Music)">$LOCALIZE[2]</value>
+		<value>$LOCALIZE[3]</value>
+	</variable>
+
+	<!-- OSD -->
+	<variable name="OSDTitle">
+		<value condition="VideoPlayer.Content(episodes)">$INFO[VideoPlayer.TVShowTitle]</value>
+		<value condition="Player.HasAudio + !Player.HasVideo">$INFO[MusicPlayer.Title]</value>
+		<value>$INFO[Player.Title]</value>
+	</variable>
+	<variable name="OSDKicker">
+		<value condition="VideoPlayer.Content(episodes)">$INFO[VideoPlayer.Season,S,]$INFO[VideoPlayer.Episode,E,]$INFO[VideoPlayer.Title,  ·  ,]</value>
+		<value condition="Player.HasAudio + !Player.HasVideo">$INFO[MusicPlayer.Artist]$INFO[MusicPlayer.Album,  ·  ,]</value>
+		<value>$INFO[VideoPlayer.Year]</value>
+	</variable>
+	<!-- ============================================================ skin settings -->
+	<!-- Cycle helpers: SkinSettings buttons run Skin.SetString(name,$VAR[Next...]) - one action, so
+	     there is no ordering issue between conditional onclicks. Defaults are stored as explicit
+	     keywords (thin / faint / both / 15 / added) that the expressions treat exactly like empty. -->
+	<!-- ============================================================ Daylight settings -->
+	<variable name="NextMood">
+		<value condition="String.IsEqual(Skin.String(daylight.mood),morning)">afternoon</value>
+		<value condition="String.IsEqual(Skin.String(daylight.mood),afternoon)">evening</value>
+		<value condition="String.IsEqual(Skin.String(daylight.mood),evening)">night</value>
+		<value condition="String.IsEqual(Skin.String(daylight.mood),night)">auto</value>
+		<value>morning</value>
+	</variable>
+	<variable name="PrevMood">
+		<value condition="String.IsEqual(Skin.String(daylight.mood),morning)">auto</value>
+		<value condition="String.IsEqual(Skin.String(daylight.mood),afternoon)">morning</value>
+		<value condition="String.IsEqual(Skin.String(daylight.mood),evening)">afternoon</value>
+		<value condition="String.IsEqual(Skin.String(daylight.mood),night)">evening</value>
+		<value>night</value>
+	</variable>
+	<variable name="LabelMood">
+		<value condition="String.IsEqual(Skin.String(daylight.mood),morning)">Always morning</value>
+		<value condition="String.IsEqual(Skin.String(daylight.mood),afternoon)">Always afternoon</value>
+		<value condition="String.IsEqual(Skin.String(daylight.mood),evening)">Always evening</value>
+		<value condition="String.IsEqual(Skin.String(daylight.mood),night)">Always night</value>
+		<value>Follow the clock</value>
+	</variable>
+	<variable name="NextWatchedMarkers">
+		<value condition="String.IsEqual(Skin.String(daylight.watchedmarkers),unwatched)">watched</value>
+		<value condition="String.IsEqual(Skin.String(daylight.watchedmarkers),watched)">off</value>
+		<value condition="String.IsEqual(Skin.String(daylight.watchedmarkers),off)">both</value>
+		<value>unwatched</value>
+	</variable>
+	<variable name="LabelWatchedMarkers">
+		<value condition="String.IsEqual(Skin.String(daylight.watchedmarkers),unwatched)">$LOCALIZE[31081]</value>
+		<value condition="String.IsEqual(Skin.String(daylight.watchedmarkers),watched)">$LOCALIZE[31082]</value>
+		<value condition="String.IsEqual(Skin.String(daylight.watchedmarkers),off)">$LOCALIZE[31072]</value>
+		<value>$LOCALIZE[31080]</value>
+	</variable>
+	<!-- ==================================================================== OSD extras -->
+	<variable name="OSDTimeLabel">
+		<value condition="!String.IsEmpty(Player.SeekNumeric)">$INFO[Player.SeekNumeric(hh:mm:ss)]$INFO[Player.Duration, / ,]</value>
+		<value condition="Player.Seeking">$INFO[Player.SeekTime]$INFO[Player.Duration, / ,]</value>
+		<value>$INFO[Player.Time]$INFO[Player.Duration, / ,]</value>
+	</variable>
+	<variable name="OSDStateLabel">
+		<value condition="!String.IsEmpty(Player.SeekStepSize)">$INFO[Player.SeekStepSize]</value>
+		<value condition="!String.IsEmpty(Player.SeekOffset) + Player.HasPerformedSeek(3)">$INFO[Player.SeekOffset]</value>
+		<value condition="Player.Paused">$LOCALIZE[112]</value>
+		<value condition="Player.Forwarding | Player.Rewinding">$INFO[Player.PlaySpeed,,x]</value>
+	</variable>
+	<variable name="OSDHelpLabel">
+		<value condition="Control.HasFocus(87)">$LOCALIZE[31120]</value>
+		<value condition="Control.HasFocus(600)">$LOCALIZE[31121]</value>
+		<value condition="Control.HasFocus(601)">$LOCALIZE[31122]</value>
+		<value condition="Control.HasFocus(602)">$LOCALIZE[31123]</value>
+		<value condition="Control.HasFocus(603)">$LOCALIZE[31124]</value>
+		<value condition="Control.HasFocus(606)">$LOCALIZE[31125]</value>
+		<value condition="Control.HasFocus(607)">$LOCALIZE[31126]</value>
+		<value condition="Control.HasFocus(70046)">$LOCALIZE[31127]</value>
+		<value condition="Control.HasFocus(70049)">$LOCALIZE[31128]</value>
+		<value condition="Control.HasFocus(70048)">$LOCALIZE[31129]</value>
+	</variable>
+</includes>

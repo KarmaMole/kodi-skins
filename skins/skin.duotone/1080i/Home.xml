@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Duotone Home (DuotoneHome.dc.html). Layout, ids and the field wipe: Includes_Home.xml header.
+
+	Focus map
+	  section stack 300 (Up/Down = section, recolours everything; OK opens the library)
+	    -Right-> spotlight of the section (or its newest row when there is no spotlight); Search -> 341
+	  spotlight -Down-> row 1 -Down-> row 2 -Down-> All tile, from any item (0.9.3: Down never walks a
+	  strip); Up = the previous column (row 1 -> spotlight). Right off a row's last item -> next column.
+	  spotlight Left/Right = previous/next pick (Right wraps; Left on pick 1 -> stack); "n / 5" pager tab top-right.
+	  Left from the first tile of row 1 / the spotlight -> stack. Back from anything on the right -> stack.
+	  Home is KEEP_IN_MEMORY: list 300 keeps its section; defaultcontrol always returns focus to it.
+-->
+<window>
+	<defaultcontrol always="true">300</defaultcontrol>
+	<menucontrol>300</menucontrol>
+	<backgroundcolor>ff111111</backgroundcolor>
+	<onload>SetProperty(duotone.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
+	<!-- Monotone prints: TMDb Helper's desaturate service (optional) makes the spotlight a true one-colour print -->
+	<onload condition="$EXP[DT_DesatOn] + !Skin.HasSetting(TMDbHelper.EnableDesaturate)">Skin.SetBool(TMDbHelper.EnableDesaturate)</onload>
+	<onload condition="!$EXP[DT_DesatOn] + Skin.HasSetting(TMDbHelper.EnableDesaturate)">Skin.Reset(TMDbHelper.EnableDesaturate)</onload>
+	<onload condition="$EXP[DT_DesatOn]">SetProperty(TMDbHelper.Desaturate.SourceImage,Art(fanart)|Art(landscape)|Art(artist.fanart)|Art(albumartist.fanart),home)</onload>
+	<onload condition="$EXP[DT_DesatOn]">SetProperty(TMDbHelper.WidgetContainer,9101,home)</onload>
+	<!-- other windows must not inherit Home's container id (TMDb Helper reads it globally) -->
+	<onunload>ClearProperty(TMDbHelper.WidgetContainer,home)</onunload>
+	<onunload>SetProperty(duotone.section,$INFO[Container(300).ListItem.Property(section)],home)</onunload>
+	<include>Anim_WindowOpenClose</include>
+	<controls>
+		<include>Home_Fields</include>
+		<include>Home_DataLists</include>
+		<include>Home_Header</include>
+		<include>Home_SectionList</include>
+		<include>Home_SectionFilms</include>
+		<include>Home_SectionSeries</include>
+		<include>Home_SectionMusic</include>
+		<include>Home_SectionSearch</include>
+		<include>Home_NowPlaying</include>
+	</controls>
+</window>

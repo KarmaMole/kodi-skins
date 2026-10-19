@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Music library: square prints in square mats (PassepartoutMusic). Views and chrome:
+	Includes_Views_Music.xml. Kodi id contract (Estuary Omega MyMusicNav.xml): <views>, menucontrol
+	9000, 3 sort by / 4 sort order (hidden, clicked by the header words). Reserved by Kodi here and
+	not reused: 2, 5, 8, 12, 15, 16, 17, 19, 20.
+	Focus map: header 9000 ↓ view ↓ footer 9330. Back on a view is Kodi's (up a folder / out).
+-->
+<window>
+	<defaultcontrol always="true">50</defaultcontrol>
+	<menucontrol>9000</menucontrol>
+	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>
+	<backgroundcolor>paper</backgroundcolor>
+	<views>504,505,50</views>
+	<include>PP_PaperInit</include>
+	<onload>SetProperty(TMDbHelper.Colors.SourceImage,Art(thumb)|Art(album.thumb)|Art(fanart),home)</onload>
+	<include>Anim_WindowOpenClose</include>
+	<controls>
+		<include>PP_Background</include>
+		<include>Music_View_504</include>
+		<include>Music_View_505</include>
+		<include>Music_View_50</include>
+		<control type="group">
+			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<control type="label">
+				<left>120</left>
+				<top>420</top>
+				<width>1680</width>
+				<height>84</height>
+				<font>ttl_72</font>
+				<textcolor>ink</textcolor>
+				<align>center</align>
+				<label>The walls are bare</label>
+			</control>
+			<control type="label">
+				<left>120</left>
+				<top>520</top>
+				<width>1680</width>
+				<height>34</height>
+				<font>body_24</font>
+				<textcolor>ink2</textcolor>
+				<align>center</align>
+				<label>This node is empty. Press Up for Albums, Artists, Songs or Genres.</label>
+			</control>
+		</control>
+		<include>Music_PPHeader</include>
+		<include>Music_PPFooter</include>
+		<include>PP_NowPlayingLine</include>
+	</controls>
+</window>

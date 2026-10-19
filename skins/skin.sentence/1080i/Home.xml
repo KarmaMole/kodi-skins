@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Home: the sentence you finish with the remote (Includes_Home.xml layout, Includes_Sentence.xml machinery).
+	Kodi hard-codes no control ids on Home. Home is KEEP_IN_MEMORY: <include condition> is read at skin load.
+	On every open: the spinners are restored from the committed sentence (Skin.String(sentence.*)),
+	focus returns to where you left (sentence.back) or the first phrase.
+-->
+<window>
+	<defaultcontrol always="true">201</defaultcontrol>
+	<backgroundcolor>ground</backgroundcolor>
+	<include>Sen_Restore</include>
+	<onload>SetProperty(sentence.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
+	<onload condition="String.IsEmpty(Window(Home).Property(sentence.ret))">SetProperty(sentence.ret,201,home)</onload>
+	<onload condition="!String.IsEmpty(Window(Home).Property(sentence.back))">SetFocus($INFO[Window(Home).Property(sentence.back)])</onload>
+	<onload>ClearProperty(sentence.back,home)</onload>
+	<include>Sen_CommitOnUnload</include>
+	<include>Anim_WindowOpenClose</include>
+	<controls>
+		<include>Sen_Background</include>
+		<include>Sen_DataLists</include>
+		<include>Home_Page2Data</include>
+		<include>Home_Page1</include>
+		<include>Home_Page2</include>
+	</controls>
+</window>

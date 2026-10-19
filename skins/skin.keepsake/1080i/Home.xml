@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Home: today's page (Includes_Home.xml). Kodi hard-codes no control ids on Home.
+	Home is KEEP_IN_MEMORY: <include condition> is evaluated at skin load.
+	Focus on open: the memory print (mockup), or the nav word / stat you left Home from.
+-->
+<window>
+	<defaultcontrol always="true">9110</defaultcontrol>
+	<menucontrol>9000</menucontrol>
+	<backgroundcolor>paper</backgroundcolor>
+	<!-- yesterday's date in the region format, for "yesterday" notes (KS_LP_Rel) -->
+	<onload>SetProperty(keepsake.yesterday,$VAR[KS_Yesterday],home)</onload>
+	<!-- come back to the word you left from -->
+	<onload condition="!String.IsEmpty(Window(Home).Property(keepsake.navfrom))">SetFocus($INFO[Window(Home).Property(keepsake.navfrom)])</onload>
+	<onload>ClearProperty(keepsake.navfrom,home)</onload>
+	<onload condition="!Integer.IsGreater(Container(9110).NumItems,0)">SetFocus(9001)</onload>
+	<include>Anim_WindowOpenClose</include>
+	<controls>
+		<include>KS_Page</include>
+		<include>Home_DataLists</include>
+		<include>Home_LeftPage</include>
+		<include>Home_RightPage</include>
+		<include>Home_Nav</include>
+	</controls>
+</window>

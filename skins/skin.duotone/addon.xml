@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="skin.duotone" version="0.9.5" name="Duotone" provider-name="Omar Kamel">
+	<requires>
+		<import addon="xbmc.gui" version="5.17.0"/>
+		<!-- Optional: true black-and-white prints of the focused artwork (desaturate service). The skin runs without it. -->
+		<import addon="plugin.video.themoviedb.helper" version="6.0.0" optional="true"/>
+		<import addon="script.embuary.helper" version="2.0.0" optional="true"/>
+	</requires>
+	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1">
+		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080i"/>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Duotone - every picture printed in its section's colour.</summary>
+		<description lang="en_GB">A loud, graphic poster-design skin. Films are vermilion, series cobalt, music acid green: every image in a section is a one-colour print on a halftone field, and the focused item alone bursts into full colour. Giant condensed type, thick rules, a strict grid. Built for the NVIDIA Shield (Kodi 21 Omega).</description>
+		<platform>all</platform>
+		<license>GPL-2.0-or-later</license>
+		<source>https://github.com/KarmaMole/kodi-skins</source>
+		<news>v0.9.5 - Series info: "Last ep" date when no episode is scheduled. v0.9.4 - "Ends 1:52 AM" on the OSD and seek bar; series info shows the next episode date (TMDb Helper). v0.9.3 - Home column hops (Down/Up), OSD without seek buttons (Play, Stop first), fitted OSD time and info stats, no header judder. v0.9.1 - Fitted Anton mastheads: long titles step down a size or wrap to fixed lines instead of scrolling. v0.9.0 - First build.</news>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon>

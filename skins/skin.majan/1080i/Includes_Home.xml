@@ -1,0 +1,2148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Home (SPEC 4, HomeTuned.dc.html + Hub.dc.html). Owner: Builder A.
+	Ids
+	  9000 top-bar group: 9001 Home, 9002 Movies, 9003 TV Shows, 9004 Music, 9005 Search, 9006 Gear
+	  9101 spotlight data list (5 random, majan_spotlight.xsp), 9102 spotlight pool counter (caption n)
+	  9110-9112 Play / Details / Trailer, 9119 newest rows wrapper, 9120 date added, 9121 release date
+	  9211-9213 Movies hub rows, 9218 Movies rest timer
+	  9221-9222 TV hub rows, 9228 TV rest timer
+	  9231-9233 Music hub rows, 9237 recently-played probe, 9238 Music rest timer
+
+	Window properties on Home
+	  majan.section   focused top-bar section (empty|home, movies, tv, music). Set on focus, kept when
+	                  focus goes into the content, Search or the gear. Drives the active underline.
+	  majan.reload    stamp set on every Home open; appended to the Next up plugin path so it refreshes.
+	  TMDbHelper.WidgetContainer / TMDbHelper.Blur.SourceImage   TMDb Helper blur input (art background).
+
+	"Menu reveals widgets" debounce (SPEC 4: content only after focus rests ~300 ms)
+	  Each hub has a hidden 2-item "rest timer" list (9218 / 9228 / 9238). Its <autoscroll time="300">
+	  condition is "the section's menu item has focus and the timer is on item 1"; Kodi only accumulates
+	  the autoscroll delay while the condition holds (GUIBaseContainer::UpdateAutoScrolling), so the timer
+	  reaches item 2 after 300 ms of uninterrupted focus. Item 2 = rested. Focusing another section moves
+	  the other timers back to item 1 (Control.Move). Hub content paths are $VARs that are empty unless
+	  the hub is rested, so sweeping across the menu fires no library queries and hidden hubs hold no
+	  content (SPEC 9). Hub row containers must stay visible to load (Kodi doesn't process hidden
+	  containers), so empty rows show a caption instead of collapsing.
+-->
+<includes>
+	<!-- ================================================================ constants -->
+	<constant name="home_hub_info_y">146</constant>
+	<constant name="home_hub_info_h">280</constant>
+	<constant name="home_hub_text_w">1240</constant>
+	<constant name="home_hub_row1_y">466</constant>
+	<constant name="home_hub_row2_y">710</constant>       <!-- 466 + 210 + 34 -->
+	<constant name="home_hub_row3_y">954</constant>
+	<constant name="home_hub_tv_row2_y">738</constant>    <!-- 466 + 238 card + 34 -->
+	<constant name="home_hub_label_w">200</constant>
+	<constant name="home_hub_list_x">312</constant>       <!-- items start at 328 (96 + 200 + 32), minus 16 pad -->
+	<constant name="home_hub_list_w">1608</constant>
+	<constant name="home_list_pad">22</constant>          <!-- room for lift 8 + zoom 5% + frame 7 inside the list clip rect -->
+	<constant name="home_item_x">16</constant>  <!-- card zoom 5% of 320 = 8 + frame 7: 15px must fit inside the list clip -->
+	<constant name="home_poster_s_w">140</constant>
+	<constant name="home_poster_s_h">210</constant>
+	<constant name="home_poster_s_pitch">160</constant>   <!-- gap 20 -->
+	<constant name="home_cover_w">210</constant>
+	<constant name="home_cover_pitch">230</constant>
+	<constant name="home_card_w">320</constant>
+	<constant name="home_card_h">180</constant>
+	<constant name="home_card_pitch">344</constant>       <!-- gap 24 -->
+	<constant name="home_card_item_h">238</constant>      <!-- thumb 180 + 10 + show 26 + 2 + code 20 -->
+	<constant name="home_newest_list_x">84</constant>
+	<constant name="home_newest_list_y">38</constant>     <!-- row top + 60 - pad 22 -->
+
+	<!-- ============================================================== expressions -->
+	<expression name="Home_SecHome">String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)</expression>
+	<expression name="Home_HubMovies">String.IsEqual(Window(Home).Property(majan.section),movies) + Integer.IsEqual(Container(9218).CurrentItem,2)</expression>
+	<expression name="Home_HubTV">String.IsEqual(Window(Home).Property(majan.section),tv) + Integer.IsEqual(Container(9228).CurrentItem,2)</expression>
+	<expression name="Home_HubMusic">String.IsEqual(Window(Home).Property(majan.section),music) + Integer.IsEqual(Container(9238).CurrentItem,2)</expression>
+	<!-- Kodi's own "More..." item (added when a limited row is cut short): a folder with no library id.
+	     Styled as the "See all" tile; selecting it opens the full source path. -->
+	<expression name="Home_IsMoreItem">ListItem.IsFolder + String.IsEmpty(ListItem.DBID)</expression>
+	<expression name="Home_SpotlightButtonsFocus">Control.HasFocus(9110) | Control.HasFocus(9111) | Control.HasFocus(9112) | Control.HasFocus(9101)</expression>
+	<!-- rotation: setting not Off, Home section shown, buttons not focused, nothing on top -->
+	<expression name="Home_SpotlightCanRotate">!$EXP[SpotlightRotateOff] + $EXP[Home_SecHome] + !$EXP[Home_SpotlightButtonsFocus] + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</expression>
+	<expression name="Home_HasNextUpHelper">System.AddonIsEnabled(script.embuary.helper)</expression>
+	<expression name="Home_MusicBar">Player.HasAudio + !Player.HasVideo</expression>
+	<expression name="Home_SpotlightNoWideArt">String.IsEmpty(Container(9101).ListItem.Art(fanart)) + String.IsEmpty(Container(9101).ListItem.Art(landscape))</expression>
+
+	<!-- ================================================================ variables -->
+	<!-- Hub content paths: empty unless the hub is rested (see header) -->
+	<variable name="Home_PathMoviesRecent">
+		<value condition="$EXP[Home_HubMovies]">videodb://recentlyaddedmovies/</value>
+	</variable>
+	<variable name="Home_PathMoviesNewest">
+		<value condition="$EXP[Home_HubMovies]">special://skin/playlists/majan_newest_movies.xsp</value>
+	</variable>
+	<variable name="Home_PathMoviesTop">
+		<value condition="$EXP[Home_HubMovies]">special://skin/playlists/majan_toprated_unwatched.xsp</value>
+	</variable>
+	<!-- Next up: script.embuary.helper (true next episode, local only; Omar decision 5) else in-progress shows -->
+	<variable name="Home_PathNextUp">
+		<value condition="$EXP[Home_HubTV] + $EXP[Home_HasNextUpHelper]">plugin://script.embuary.helper/?info=getnextup&amp;reload=$INFO[Window(Home).Property(majan.reload)]</value>
+		<value condition="$EXP[Home_HubTV]">special://skin/playlists/majan_inprogress_tvshows.xsp</value>
+	</variable>
+	<variable name="Home_PathNewEpisodes">
+		<value condition="$EXP[Home_HubTV]">special://skin/playlists/majan_new_episodes.xsp</value>
+	</variable>
+	<variable name="Home_PathMusicRecent">
+		<value condition="$EXP[Home_HubMusic]">musicdb://recentlyaddedalbums/</value>
+	</variable>
+	<variable name="Home_PathMusicPlayedProbe">
+		<value condition="$EXP[Home_HubMusic]">musicdb://recentlyplayedalbums/</value>
+	</variable>
+	<!-- Row 02: recently played, or newest album releases while nothing has been played (DATA 4.8) -->
+	<variable name="Home_PathMusicRow2">
+		<value condition="$EXP[Home_HubMusic] + Integer.IsGreater(Container(9237).NumItems,0)">musicdb://recentlyplayedalbums/</value>
+		<value condition="$EXP[Home_HubMusic] + !Container(9237).IsUpdating">special://skin/playlists/majan_newest_albums.xsp</value>
+	</variable>
+	<variable name="Home_PathMusicRandom">
+		<value condition="$EXP[Home_HubMusic]">special://skin/playlists/majan_random_albums.xsp</value>
+	</variable>
+
+	<variable name="Home_LabelMusicRow2">
+		<value condition="Integer.IsGreater(Container(9237).NumItems,0)">Recently played</value>
+		<value>Newest releases</value>
+	</variable>
+	<variable name="Home_SubMusicRow2">
+		<value condition="Integer.IsGreater(Container(9237).NumItems,0)">Last played ↓</value>
+		<value>By release year ↓</value>
+	</variable>
+	<variable name="Home_SeeAllMusicRow2">
+		<value condition="Integer.IsGreater(Container(9237).NumItems,0)">musicdb://recentlyplayedalbums/</value>
+		<value>special://skin/playlists/majan_newest_albums.xsp</value>
+	</variable>
+	<variable name="Home_SubTopRated">
+		<value condition="Integer.IsGreater(Container(9102).NumItems,0)">$INFO[Container(9102).NumItems,, titles]</value>
+		<value>Unwatched · 7.5+</value>
+	</variable>
+	<variable name="Home_SubNextUp">
+		<value condition="$EXP[Home_HasNextUpHelper]">Next unwatched episode</value>
+		<value>Shows in progress</value>
+	</variable>
+
+	<!-- Spotlight caption (pool size from the counter list, never hard-coded; Omar decision 6) -->
+	<variable name="Home_SpotlightCaption">
+		<value condition="Integer.IsGreater(Container(9102).NumItems,0)">Fig. 01: random pick from $INFO[Container(9102).NumItems] unwatched, rated 7.5+</value>
+		<value>Fig. 01: random pick, unwatched, rated 7.5+</value>
+	</variable>
+
+	<!-- Container TMDb Helper reads for the blurred background, per section (row focus overrides it) -->
+	<variable name="Home_BlurContainer">
+		<value condition="String.IsEqual(Window(Home).Property(majan.section),movies)">9211</value>
+		<value condition="String.IsEqual(Window(Home).Property(majan.section),tv)">9221</value>
+		<value condition="String.IsEqual(Window(Home).Property(majan.section),music)">9231</value>
+		<value>9101</value>
+	</variable>
+
+	<!-- Artwork background opacity (setting 4; empty = Faint) -->
+	<variable name="Home_ArtBgDiffuse">
+		<value condition="String.IsEqual(Skin.String(majan.artbackground),soft)">art_soft</value>
+		<value condition="String.IsEqual(Skin.String(majan.artbackground),visible)">art_visible</value>
+		<value>art_faint</value>
+	</variable>
+
+	<!-- Row dimming: a row dims (opaque brightness .45) only while another row of the same block has focus -->
+	<variable name="Home_Dim_9120"><value condition="Control.HasFocus(9121)">dim_row</value><value>white</value></variable>
+	<variable name="Home_Dim_9121"><value condition="Control.HasFocus(9120)">dim_row</value><value>white</value></variable>
+	<variable name="Home_Dim_9211"><value condition="Control.HasFocus(9212) | Control.HasFocus(9213)">dim_row</value><value>white</value></variable>
+	<variable name="Home_Dim_9212"><value condition="Control.HasFocus(9211) | Control.HasFocus(9213)">dim_row</value><value>white</value></variable>
+	<variable name="Home_Dim_9213"><value condition="Control.HasFocus(9211) | Control.HasFocus(9212)">dim_row</value><value>white</value></variable>
+	<variable name="Home_Dim_9221"><value condition="Control.HasFocus(9222)">dim_row</value><value>white</value></variable>
+	<variable name="Home_Dim_9222"><value condition="Control.HasFocus(9221)">dim_row</value><value>white</value></variable>
+	<variable name="Home_Dim_9231"><value condition="Control.HasFocus(9232) | Control.HasFocus(9233)">dim_row</value><value>white</value></variable>
+	<variable name="Home_Dim_9232"><value condition="Control.HasFocus(9231) | Control.HasFocus(9233)">dim_row</value><value>white</value></variable>
+	<variable name="Home_Dim_9233"><value condition="Control.HasFocus(9231) | Control.HasFocus(9232)">dim_row</value><value>white</value></variable>
+
+	<!-- Spotlight credits: director (600, primary) and lead actor are separate labels (ListItem.Cast is
+	     newline-separated, so the 1-line textbox shows the lead actor: DATA 4.1 option a) -->
+
+	<!-- TV card art / text (item-layout context) -->
+	<variable name="Home_CardArt">
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(tvshow.landscape))">$INFO[ListItem.Art(tvshow.landscape)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
+		<value>$INFO[ListItem.Art(fanart)]</value>
+	</variable>
+	<variable name="Home_CardTitle">
+		<value condition="!String.IsEmpty(ListItem.TVShowTitle)">$INFO[ListItem.TVShowTitle]</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+	<!-- "S02E01 · Title" (zero-padded); show cards (in-progress fallback) get "12 / 20 watched" -->
+	<variable name="Home_CardCode">
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(WatchedEpisodes),, / ]$INFO[ListItem.Property(TotalEpisodes),, watched]</value>
+		<value condition="String.IsEmpty(ListItem.Episode)"></value>
+		<value condition="Integer.IsLess(ListItem.Season,10) + Integer.IsLess(ListItem.Episode,10)">S0$INFO[ListItem.Season]E0$INFO[ListItem.Episode]$INFO[ListItem.Title,  ·  ,]</value>
+		<value condition="Integer.IsLess(ListItem.Season,10)">S0$INFO[ListItem.Season]E$INFO[ListItem.Episode]$INFO[ListItem.Title,  ·  ,]</value>
+		<value condition="Integer.IsLess(ListItem.Episode,10)">S$INFO[ListItem.Season]E0$INFO[ListItem.Episode]$INFO[ListItem.Title,  ·  ,]</value>
+		<value>S$INFO[ListItem.Season]E$INFO[ListItem.Episode]$INFO[ListItem.Title,  ·  ,]</value>
+	</variable>
+
+	<!-- =============================================================== animations -->
+	<!-- Hub vertical scroll: when row 03 has focus, rows 02/03 move up one row and row 01 fades out
+	     (keeps the focused row fully on screen without overlapping the info block). param: row3 (id) -->
+	<include name="Home_AnimRowScrollUp">
+		<animation effect="slide" start="0,0" end="0,-244" time="200" tween="cubic" easing="out" condition="Control.HasFocus($PARAM[row3]) + !$EXP[ReduceMotion]">Conditional</animation>
+		<animation effect="slide" start="0,0" end="0,-244" time="0" condition="Control.HasFocus($PARAM[row3]) + $EXP[ReduceMotion]">Conditional</animation>
+	</include>
+	<include name="Home_AnimRowFadeAway">
+		<animation effect="fade" start="100" end="0" time="160" condition="Control.HasFocus($PARAM[row3])">Conditional</animation>
+	</include>
+
+	<!-- ================================================================ top bar -->
+
+	<!-- "Down" from any top-bar item: into the content of the active section -->
+	<include name="Home_MenuDown">
+		<ondown condition="$EXP[Home_SecHome] + Integer.IsGreater(Container(9101).NumItems,0)">9110</ondown>
+		<ondown condition="$EXP[Home_SecHome] + !Integer.IsGreater(Container(9101).NumItems,0)">9119</ondown>
+		<ondown condition="$EXP[Home_HubMovies]">9211</ondown>
+		<ondown condition="$EXP[Home_HubTV]">9221</ondown>
+		<ondown condition="$EXP[Home_HubMusic]">9231</ondown>
+	</include>
+
+	<!-- One text menu item: mono index + label; active = bold, primary, accent index, 3px underline.
+	     params: id, x, w, label_w, index, label, section, active, onclick, onleft, onright,
+	             reset_a / reset_b / reset_c (other sections' rest timers to rewind),
+	             blur (container id TMDb Helper reads while this section is shown) -->
+	<include name="Home_MenuItem">
+		<param name="onclick">noop</param>
+		<!-- unused slots point at an id that doesn't exist (Container(0) can mean "the current container") -->
+		<param name="reset_a">9299</param>
+		<param name="reset_b">9299</param>
+		<param name="reset_c">9299</param>
+		<definition>
+			<control type="group">
+				<left>$PARAM[x]</left>
+				<top>topbar_item_top</top>
+				<width>$PARAM[w]</width>
+				<height>topbar_item_h</height>
+				<control type="button" id="$PARAM[id]">
+					<left>0</left>
+					<top>0</top>
+					<width>$PARAM[w]</width>
+					<height>topbar_item_h</height>
+					<label></label>
+					<texturefocus />
+					<texturenofocus />
+					<!-- conditions are evaluated before any of these run, so they all see the old state -->
+					<onfocus condition="Integer.IsEqual(Container($PARAM[reset_a]).CurrentItem,2)">Control.Move($PARAM[reset_a],1)</onfocus>
+					<onfocus condition="Integer.IsEqual(Container($PARAM[reset_b]).CurrentItem,2)">Control.Move($PARAM[reset_b],1)</onfocus>
+					<onfocus condition="Integer.IsEqual(Container($PARAM[reset_c]).CurrentItem,2)">Control.Move($PARAM[reset_c],1)</onfocus>
+					<onfocus>SetProperty(majan.section,$PARAM[section],home)</onfocus>
+					<onfocus condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.WidgetContainer,$PARAM[blur],home)</onfocus>
+					<onclick>$PARAM[onclick]</onclick>
+					<onleft>$PARAM[onleft]</onleft>
+					<onright>$PARAM[onright]</onright>
+					<onup>noop</onup>
+					<include>Home_MenuDown</include>
+				</control>
+				<!-- index -->
+				<control type="label">
+					<left>0</left>
+					<top>4</top>
+					<width>topbar_index_w</width>
+					<height>topbar_item_h</height>
+					<font>mono_14</font>
+					<textcolor>$VAR[ColorAccent]</textcolor>
+					<label>[UPPERCASE]$PARAM[index][/UPPERCASE]</label>
+					<visible>$PARAM[active]</visible>
+				</control>
+				<control type="label">
+					<left>0</left>
+					<top>4</top>
+					<width>topbar_index_w</width>
+					<height>topbar_item_h</height>
+					<font>mono_14</font>
+					<textcolor>text_secondary</textcolor>
+					<label>[UPPERCASE]$PARAM[index][/UPPERCASE]</label>
+					<visible>!$PARAM[active]</visible>
+				</control>
+				<!-- label: bold/primary when active, medium/secondary otherwise -->
+				<control type="label">
+					<left>topbar_label_x</left>
+					<top>0</top>
+					<width>200</width>
+					<height>topbar_item_h</height>
+					<font>menu_26_bold</font>
+					<textcolor>text_primary</textcolor>
+					<label>$PARAM[label]</label>
+					<visible>$PARAM[active]</visible>
+				</control>
+				<control type="label">
+					<left>topbar_label_x</left>
+					<top>0</top>
+					<width>200</width>
+					<height>topbar_item_h</height>
+					<font>menu_26_medium</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$PARAM[label]</label>
+					<visible>!$PARAM[active]</visible>
+				</control>
+				<!-- 3px accent underline -->
+				<control type="image">
+					<left>topbar_label_x</left>
+					<top>44</top>
+					<width>$PARAM[label_w]</width>
+					<height>topbar_underline_h</height>
+					<texture colordiffuse="$VAR[ColorAccent]">common/white.png</texture>
+					<visible>$PARAM[active]</visible>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Icon item (search, gear): 26px icon, accent frame on focus. params: id, x, icon, onclick, onleft, onright -->
+	<include name="Home_MenuIcon">
+		<definition>
+			<control type="group">
+				<left>$PARAM[x]</left>
+				<top>topbar_icon_top</top>
+				<width>topbar_icon</width>
+				<height>topbar_icon</height>
+				<control type="button" id="$PARAM[id]">
+					<left>0</left>
+					<top>0</top>
+					<width>topbar_icon</width>
+					<height>topbar_icon</height>
+					<label></label>
+					<texturefocus />
+					<texturenofocus />
+					<onclick>$PARAM[onclick]</onclick>
+					<onleft>$PARAM[onleft]</onleft>
+					<onright>$PARAM[onright]</onright>
+					<onup>noop</onup>
+					<include>Home_MenuDown</include>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>topbar_icon</width>
+					<height>topbar_icon</height>
+					<texture colordiffuse="text_primary">$PARAM[icon]</texture>
+					<visible>Control.HasFocus($PARAM[id])</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>topbar_icon</width>
+					<height>topbar_icon</height>
+					<texture colordiffuse="text_secondary">$PARAM[icon]</texture>
+					<visible>!Control.HasFocus($PARAM[id])</visible>
+				</control>
+				<include content="Majan_FocusFrameAlways">
+					<param name="visible" value="Control.HasFocus($PARAM[id])"/>
+				</include>
+			</control>
+		</definition>
+	</include>
+
+	<!-- The Home top bar: solid band (content scrolls under it in "both" mode), menu, clock, rule -->
+	<include name="Home_TopBar">
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>screen_w</width>
+			<height>topbar_h</height>
+			<texture colordiffuse="bg">common/white.png</texture>
+			<visible>$EXP[HomeNewestBoth] + $EXP[Home_SecHome]</visible>
+		</control>
+		<control type="group" id="9000">
+			<defaultcontrol>9001</defaultcontrol>
+			<include content="Home_MenuItem">
+				<param name="id" value="9001"/>
+				<param name="x" value="menu_x_home"/>
+				<param name="w" value="menu_w_home"/>
+				<param name="label_w" value="menu_label_w_home"/>
+				<param name="index" value="01"/>
+				<param name="label" value="$LOCALIZE[31019]"/>
+				<param name="section" value="home"/>
+				<param name="active" value="$EXP[Home_SecHome]"/>
+				<param name="reset_a" value="9218"/>
+				<param name="reset_b" value="9228"/>
+				<param name="reset_c" value="9238"/>
+				<param name="blur" value="9101"/>
+				<param name="onleft" value="9006"/>
+				<param name="onright" value="9002"/>
+			</include>
+			<include content="Home_MenuItem">
+				<param name="id" value="9002"/>
+				<param name="x" value="menu_x_movies"/>
+				<param name="w" value="menu_w_movies"/>
+				<param name="label_w" value="menu_label_w_movies"/>
+				<param name="index" value="02"/>
+				<param name="label" value="$LOCALIZE[342]"/>
+				<param name="section" value="movies"/>
+				<param name="active" value="String.IsEqual(Window(Home).Property(majan.section),movies)"/>
+				<param name="reset_a" value="9228"/>
+				<param name="reset_b" value="9238"/>
+				<param name="blur" value="9211"/>
+				<param name="onclick" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
+				<param name="onleft" value="9001"/>
+				<param name="onright" value="9003"/>
+			</include>
+			<include content="Home_MenuItem">
+				<param name="id" value="9003"/>
+				<param name="x" value="menu_x_tv"/>
+				<param name="w" value="menu_w_tv"/>
+				<param name="label_w" value="menu_label_w_tv"/>
+				<param name="index" value="03"/>
+				<param name="label" value="$LOCALIZE[20343]"/>
+				<param name="section" value="tv"/>
+				<param name="active" value="String.IsEqual(Window(Home).Property(majan.section),tv)"/>
+				<param name="reset_a" value="9218"/>
+				<param name="reset_b" value="9238"/>
+				<param name="blur" value="9221"/>
+				<param name="onclick" value="ActivateWindow(Videos,videodb://tvshows/titles/,return)"/>
+				<param name="onleft" value="9002"/>
+				<param name="onright" value="9004"/>
+			</include>
+			<include content="Home_MenuItem">
+				<param name="id" value="9004"/>
+				<param name="x" value="menu_x_music"/>
+				<param name="w" value="menu_w_music"/>
+				<param name="label_w" value="menu_label_w_music"/>
+				<param name="index" value="04"/>
+				<param name="label" value="$LOCALIZE[2]"/>
+				<param name="section" value="music"/>
+				<param name="active" value="String.IsEqual(Window(Home).Property(majan.section),music)"/>
+				<param name="reset_a" value="9218"/>
+				<param name="reset_b" value="9228"/>
+				<param name="blur" value="9231"/>
+				<param name="onclick" value="ActivateWindow(Music,musicdb://albums/,return)"/>
+				<param name="onleft" value="9003"/>
+				<param name="onright" value="9005"/>
+			</include>
+			<!-- Search: Majan search window (Custom_1150_Search.xml) -->
+			<include content="Home_MenuIcon">
+				<param name="id" value="9005"/>
+				<param name="x" value="menu_x_search"/>
+				<param name="icon" value="icons/search.png"/>
+				<param name="onclick" value="ActivateWindow(1150)"/>
+				<param name="onleft" value="9004"/>
+				<param name="onright" value="9006"/>
+			</include>
+			<!-- Gear: System menu (Omar approved 2026-10-18) - the never-stranded route -->
+			<include content="Home_MenuIcon">
+				<param name="id" value="9006"/>
+				<param name="x" value="menu_x_gear"/>
+				<param name="icon" value="icons/settings.png"/>
+				<param name="onclick" value="ActivateWindow(1151)"/>
+				<param name="onleft" value="9005"/>
+				<param name="onright" value="9001"/>
+			</include>
+		</control>
+		<include>Majan_Clock</include>
+		<include>Majan_TopRule</include>
+	</include>
+
+	<!-- ================================================================ hidden data -->
+	<!-- Rest timer for one hub (see header). params: id, menu (menu item id) -->
+	<include name="Home_RestTimer">
+		<definition>
+			<control type="list" id="$PARAM[id]">
+				<left>offscreen</left>
+				<top>offscreen</top>
+				<width>1</width>
+				<height>2</height>
+				<orientation>vertical</orientation>
+				<scrolltime>0</scrolltime>
+				<autoscroll time="300">Control.HasFocus($PARAM[menu]) + Integer.IsEqual(Container($PARAM[id]).CurrentItem,1)</autoscroll>
+				<itemlayout width="1" height="1"/>
+				<focusedlayout width="1" height="1"/>
+				<content>
+					<item><label>wait</label><onclick>noop</onclick></item>
+					<item><label>rested</label><onclick>noop</onclick></item>
+				</content>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Spotlight rotation interval. <autoscroll> does NOT expand $EXP (Kodi logged "Misplaced [" and the
+	     spotlight never rotated), so the condition is Home_SpotlightCanRotate written out: keep them in sync.
+	     <autoscroll time> is a static attribute, so the interval is picked
+	     at skin load (Home is KEEP_IN_MEMORY: changing 8/15/30 s needs ReloadSkin; Off is live). -->
+	<include name="Home_Rotate8"><autoscroll time="8000">!String.IsEqual(Skin.String(majan.spotlightrotate),off) + [String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Control.HasFocus(9110) + !Control.HasFocus(9111) + !Control.HasFocus(9112) + !Control.HasFocus(9101) + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</autoscroll></include>
+	<include name="Home_Rotate15"><autoscroll time="15000">!String.IsEqual(Skin.String(majan.spotlightrotate),off) + [String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Control.HasFocus(9110) + !Control.HasFocus(9111) + !Control.HasFocus(9112) + !Control.HasFocus(9101) + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</autoscroll></include>
+	<include name="Home_Rotate30"><autoscroll time="30000">!String.IsEqual(Skin.String(majan.spotlightrotate),off) + [String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Control.HasFocus(9110) + !Control.HasFocus(9111) + !Control.HasFocus(9112) + !Control.HasFocus(9101) + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</autoscroll></include>
+
+	<!-- Always-processed data lists: spotlight (5 random, focusable for Details -> Action(Info)) and the
+	     unlimited pool used only for its item count (no layouts, no art loaded). -->
+	<include name="Home_DataLists">
+		<control type="list" id="9101">
+			<left>0</left>
+			<top>0</top>
+			<width>1</width>
+			<height>1</height>
+			<orientation>vertical</orientation>
+			<scrolltime>0</scrolltime>
+			<include condition="String.IsEqual(Skin.String(majan.spotlightrotate),8)">Home_Rotate8</include>
+			<include condition="String.IsEqual(Skin.String(majan.spotlightrotate),30)">Home_Rotate30</include>
+			<include condition="!String.IsEqual(Skin.String(majan.spotlightrotate),8) + !String.IsEqual(Skin.String(majan.spotlightrotate),30)">Home_Rotate15</include>
+			<onleft>9110</onleft>
+			<onright condition="Control.IsVisible(9112)">9112</onright>
+			<onup>9000</onup>
+			<ondown>9119</ondown>
+			<onback>9000</onback>
+			<onfocus condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.WidgetContainer,9101,home)</onfocus>
+			<itemlayout width="1" height="1"/>
+			<focusedlayout width="1" height="1"/>
+			<content target="videos" limit="5">special://skin/playlists/majan_spotlight.xsp</content>
+		</control>
+		<control type="list" id="9102">
+			<left>offscreen</left>
+			<top>offscreen</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1"/>
+			<focusedlayout width="1" height="1"/>
+			<content target="videos">special://skin/playlists/majan_toprated_unwatched_all.xsp</content>
+		</control>
+		<include content="Home_RestTimer">
+			<param name="id" value="9218"/>
+			<param name="menu" value="9002"/>
+		</include>
+		<include content="Home_RestTimer">
+			<param name="id" value="9228"/>
+			<param name="menu" value="9003"/>
+		</include>
+		<include content="Home_RestTimer">
+			<param name="id" value="9238"/>
+			<param name="menu" value="9004"/>
+		</include>
+	</include>
+
+	<!-- ============================================================ background -->
+	<!-- Artwork background (setting 4): ONE pre-blurred image from TMDb Helper's blur service
+	     (Window(Home).Property(TMDbHelper.ListItem.BlurImage), cached per source image) + text scrims.
+	     Off = the image control is not visible, so nothing is requested. -->
+	<include name="Home_ArtBackground">
+		<control type="group">
+			<visible>$EXP[ArtBackgroundOn]</visible>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>screen_w</width>
+				<height>screen_h</height>
+				<aspectratio>scale</aspectratio>
+				<texture background="true" colordiffuse="$VAR[Home_ArtBgDiffuse]">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</texture>
+				<visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.BlurImage))</visible>
+				<include>Anim_BackgroundCrossfade</include>
+			</control>
+			<!-- left text columns: spotlight (to x 800) / hub info block (to x 1336). Plateau = 55% of width -->
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1460</width>
+				<height>screen_h</height>
+				<!-- own fades: a translucent image without them is drawn over the window content on Shield (QA 2026-10-18) -->
+				<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
+				<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
+				<texture colordiffuse="scrim">common/scrim_left.png</texture>
+				<visible>$EXP[Home_SecHome]</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>2430</width>
+				<height>screen_h</height>
+				<!-- own fades: a translucent image without them is drawn over the window content on Shield (QA 2026-10-18) -->
+				<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
+				<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
+				<texture colordiffuse="scrim">common/scrim_left.png</texture>
+				<visible>!$EXP[Home_SecHome]</visible>
+			</control>
+			<!-- bottom band: row headers / counts on the right -->
+			<control type="image">
+				<left>0</left>
+				<top>480</top>
+				<width>screen_w</width>
+				<height>600</height>
+				<!-- own fades: a translucent image without them is drawn over the window content on Shield (QA 2026-10-18) -->
+				<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
+				<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
+				<texture colordiffuse="scrim">common/scrim_bottom.png</texture>
+			</control>
+		</control>
+	</include>
+
+	<!-- ============================================================== artwork -->
+	<!-- Item artwork with opaque dimming (colordiffuse multiply, never alpha) and corner mask.
+	     params: art, diffuse (colour name/var), mask_round, mask_square, title (fallback label) -->
+	<include name="Home_Art">
+		<param name="diffuse">white</param>
+		<param name="mask_round">masks/poster_round8.png</param>
+		<param name="mask_square">masks/poster_square.png</param>
+		<param name="title">$INFO[ListItem.Label]</param>
+		<definition>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<texture colordiffuse="bg_raised">common/white.png</texture>
+			</control>
+			<control type="textbox">
+				<left>12</left>
+				<right>12</right>
+				<top>12</top>
+				<height>75</height>  <!-- exactly 3 lines of small_19_bold (72 cut line 3's descenders) -->
+				<font>small_19_bold</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$PARAM[title]</label>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<aspectratio>scale</aspectratio>
+				<texture background="true" diffuse="$PARAM[mask_round]" colordiffuse="$PARAM[diffuse]">$PARAM[art]</texture>
+				<visible>$EXP[IsRounded]</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<aspectratio>scale</aspectratio>
+				<texture background="true" colordiffuse="$PARAM[diffuse]">$PARAM[art]</texture>
+				<visible>!$EXP[IsRounded]</visible>
+			</control>
+		</definition>
+	</include>
+
+	<!-- "See all" tile (static last item of every row). params: diffuse -->
+	<include name="Home_SeeAllTile">
+		<param name="diffuse">white</param>
+		<definition>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<texture border="10" colordiffuse="border_button">$VAR[ButtonOutline]</texture>
+			</control>
+			<control type="image">
+				<centerleft>50%</centerleft>
+				<centertop>42%</centertop>
+				<width>26</width>
+				<height>26</height>
+				<texture colordiffuse="text_secondary">icons/chevron_right.png</texture>
+			</control>
+			<control type="label">
+				<left>0</left>
+				<right>0</right>
+				<centertop>58%</centertop>
+				<height>20</height>
+				<align>center</align>
+				<font>mono_13</font>
+				<textcolor>text_secondary</textcolor>
+				<label>See all</label>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Unfocused / focused item for poster rows. params: id, w, h, dim, mask_round, mask_square, art -->
+	<include name="Home_PosterItem">
+		<param name="art">$INFO[ListItem.Art(poster)]</param>
+		<param name="mask_round">masks/poster_round8.png</param>
+		<param name="mask_square">masks/poster_square.png</param>
+		<param name="focused">false</param>
+		<definition>
+			<control type="group">
+				<left>home_item_x</left>
+				<top>home_list_pad</top>
+				<width>$PARAM[w]</width>
+				<height>$PARAM[h]</height>
+				<include condition="$PARAM[focused]">Anim_FocusLift</include>
+				<control type="group">
+					<visible>!$EXP[Home_IsMoreItem]</visible>
+					<include content="Home_Art">
+						<param name="art" value="$PARAM[art]"/>
+						<param name="diffuse" value="$VAR[$PARAM[dim]]"/>
+						<param name="mask_round" value="$PARAM[mask_round]"/>
+						<param name="mask_square" value="$PARAM[mask_square]"/>
+					</include>
+					<include>Majan_WatchedMarkers</include>
+				</control>
+				<control type="group">
+					<visible>$EXP[Home_IsMoreItem]</visible>
+					<include>Home_SeeAllTile</include>
+				</control>
+				<include content="Majan_FocusFrame" condition="$PARAM[focused]">
+					<param name="visible" value="Control.HasFocus($PARAM[id])"/>
+				</include>
+			</control>
+		</definition>
+	</include>
+
+	<!-- TV card: 320x180 thumb + tag + show name + "S02E01 · title". params: id, dim, focused -->
+	<include name="Home_CardItem">
+		<param name="focused">false</param>
+		<definition>
+			<control type="group">
+				<left>home_item_x</left>
+				<top>home_list_pad</top>
+				<width>home_card_w</width>
+				<height>home_card_item_h</height>
+				<include condition="$PARAM[focused]">Anim_FocusLift</include>
+				<control type="group">
+					<width>home_card_w</width>
+					<height>home_card_h</height>
+					<control type="group">
+						<visible>!$EXP[Home_IsMoreItem]</visible>
+						<include content="Home_Art">
+							<param name="art" value="$VAR[Home_CardArt]"/>
+							<param name="diffuse" value="$VAR[$PARAM[dim]]"/>
+							<param name="mask_round" value="masks/landscape_round8.png"/>
+							<param name="mask_square" value="masks/landscape_square.png"/>
+							<param name="title" value="$VAR[Home_CardTitle]"/>
+						</include>
+						<!-- tag: RESUME n% (accent) for part-watched episodes; "n NEW" on show cards (fallback) -->
+						<control type="group">
+							<right>0</right>
+							<top>0</top>
+							<width>104</width>
+							<height>26</height>
+							<visible>Integer.IsGreater(ListItem.PercentPlayed,0) + !String.IsEqual(ListItem.DBType,tvshow)</visible>
+							<control type="image">
+								<left>0</left>
+								<top>0</top>
+								<width>104</width>
+								<height>26</height>
+								<texture colordiffuse="$VAR[ColorAccent]">common/white.png</texture>
+							</control>
+							<control type="label">
+								<left>0</left>
+								<top>0</top>
+								<width>104</width>
+								<height>26</height>
+								<align>center</align>
+								<font>tab_13</font>
+								<textcolor>ink</textcolor>
+								<label>RESUME $INFO[ListItem.PercentPlayed]%</label>
+							</control>
+						</control>
+						<control type="group">
+							<right>0</right>
+							<top>0</top>
+							<width>72</width>
+							<height>26</height>
+							<visible>String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)</visible>
+							<control type="image">
+								<left>0</left>
+								<top>0</top>
+								<width>72</width>
+								<height>26</height>
+								<texture colordiffuse="$VAR[ColorAccent]">common/white.png</texture>
+							</control>
+							<control type="label">
+								<left>0</left>
+								<top>0</top>
+								<width>72</width>
+								<height>26</height>
+								<align>center</align>
+								<font>tab_13</font>
+								<textcolor>ink</textcolor>
+								<label>$INFO[ListItem.Property(UnWatchedEpisodes),, NEW]</label>
+							</control>
+						</control>
+						<!-- show progress (fallback show cards) -->
+						<control type="progress">
+							<left>0</left>
+							<right>0</right>
+							<bottom>0</bottom>
+							<height>progress_h</height>
+							<texturebg colordiffuse="scrim_track">common/white.png</texturebg>
+							<midtexture colordiffuse="$VAR[ColorAccent]">common/white.png</midtexture>
+							<info>ListItem.Property(WatchedEpisodePercent)</info>
+							<visible>String.IsEqual(ListItem.DBType,tvshow) + $EXP[ShowUnwatchedMarkers]</visible>
+						</control>
+						<control type="progress">
+							<left>0</left>
+							<right>0</right>
+							<bottom>0</bottom>
+							<height>progress_h</height>
+							<texturebg colordiffuse="scrim_track">common/white.png</texturebg>
+							<midtexture colordiffuse="$VAR[ColorAccent]">common/white.png</midtexture>
+							<info>ListItem.PercentPlayed</info>
+							<visible>!String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.PercentPlayed,0)</visible>
+						</control>
+					</control>
+					<control type="group">
+						<visible>$EXP[Home_IsMoreItem]</visible>
+						<include>Home_SeeAllTile</include>
+					</control>
+					<include content="Majan_FocusFrame" condition="$PARAM[focused]">
+						<param name="visible" value="Control.HasFocus($PARAM[id])"/>
+					</include>
+				</control>
+				<control type="label">
+					<left>0</left>
+					<top>190</top>
+					<width>home_card_w</width>
+					<height>26</height>
+					<font>card_21_bold</font>
+					<textcolor>text_primary</textcolor>
+					<label>$VAR[Home_CardTitle]</label>
+					<visible>!$EXP[Home_IsMoreItem]</visible>
+				</control>
+				<control type="label">
+					<left>0</left>
+					<top>218</top>
+					<width>home_card_w</width>
+					<height>20</height>
+					<font>num_14</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$VAR[Home_CardCode]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- ============================================================ hub pieces -->
+	<!-- Row label column (Hub.dc.html): rule, mono index (accent), label 24/700 (2 lines max), mono sub.
+	     params: index, label, sub -->
+	<include name="Home_RowLabel">
+		<definition>
+			<control type="group">
+				<left>page_margin</left>
+				<top>0</top>
+				<width>home_hub_label_w</width>
+				<height>210</height>
+				<include content="Majan_Rule">
+					<param name="top" value="0"/>
+					<param name="left" value="0"/>
+					<param name="width" value="home_hub_label_w"/>
+					<param name="color" value="$VAR[ColorRuleStrong]"/>
+				</include>
+				<control type="grouplist">
+					<left>0</left>
+					<top>12</top>
+					<width>home_hub_label_w</width>
+					<height>190</height>
+					<orientation>vertical</orientation>
+					<itemgap>8</itemgap>
+					<control type="label">
+						<width>home_hub_label_w</width>
+						<height>18</height>
+						<font>mono_14</font>
+						<textcolor>$VAR[ColorAccent]</textcolor>
+						<label>[UPPERCASE]$PARAM[index][/UPPERCASE]</label>
+					</control>
+					<control type="textbox">
+						<width>home_hub_label_w</width>
+						<height max="56">auto</height>
+						<font>section_24</font>
+						<textcolor>text_primary</textcolor>
+						<label>$PARAM[label]</label>
+					</control>
+					<control type="label">
+						<width>home_hub_label_w</width>
+						<height>18</height>
+						<font>mono_13</font>
+						<textcolor>$VAR[ColorCaption]</textcolor>
+						<label>$PARAM[sub]</label>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Empty-row caption (rows stay visible so their container can load; DATA 4.8 / SPEC 2.4) -->
+	<include name="Home_RowEmpty">
+		<definition>
+			<control type="label">
+				<left>328</left>
+				<top>12</top>
+				<width>1000</width>
+				<height>24</height>
+				<font>mono_14</font>
+				<textcolor>$VAR[ColorCaption]</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>!Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Poster / cover row of a hub. params: id, top, index, label, sub, path, sortby, limit, target,
+	     seeall (onclick), onup, ondown, empty, kind_w, kind_h, pitch, mask_round, mask_square, art, extra_anim -->
+	<include name="Home_HubPosterRow">
+		<param name="sortby">none</param>
+		<param name="sortorder">descending</param>
+		<param name="limit">20</param>
+		<param name="target">videos</param>
+		<param name="w">home_poster_s_w</param>
+		<param name="h">home_poster_s_h</param>
+		<param name="pitch">home_poster_s_pitch</param>
+		<param name="art">$INFO[ListItem.Art(poster)]</param>
+		<param name="mask_round">masks/poster_round8.png</param>
+		<param name="mask_square">masks/poster_square.png</param>
+		<param name="empty">Nothing here yet</param>
+		<param name="delay">0</param>
+		<definition>
+			<control type="group">
+				<top>$PARAM[top]</top>
+				<include content="Anim_RowStagger">
+					<param name="delay" value="$PARAM[delay]"/>
+				</include>
+				<include content="Home_RowLabel">
+					<param name="index" value="$PARAM[index]"/>
+					<param name="label" value="$PARAM[label]"/>
+					<param name="sub" value="$PARAM[sub]"/>
+				</include>
+				<include content="Home_RowEmpty">
+					<param name="id" value="$PARAM[id]"/>
+					<param name="label" value="$PARAM[empty]"/>
+				</include>
+				<control type="list" id="$PARAM[id]">
+					<left>home_hub_list_x</left>
+					<top>-22</top>
+					<width>home_hub_list_w</width>
+					<height>254</height>
+					<orientation>horizontal</orientation>
+					<onup>$PARAM[onup]</onup>
+					<ondown>$PARAM[ondown]</ondown>
+					<onleft>noop</onleft>
+					<onright>noop</onright>
+					<onback>9000</onback>
+					<onfocus condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.WidgetContainer,$PARAM[id],home)</onfocus>
+					<preloaditems>2</preloaditems>
+					<scrolltime tween="cubic" easing="out">200</scrolltime>
+					<itemlayout width="$PARAM[pitch]" height="254">
+						<include content="Home_PosterItem">
+							<param name="id" value="$PARAM[id]"/>
+							<param name="w" value="$PARAM[w]"/>
+							<param name="h" value="$PARAM[h]"/>
+							<param name="dim" value="Home_Dim_$PARAM[id]"/>
+							<param name="art" value="$PARAM[art]"/>
+							<param name="mask_round" value="$PARAM[mask_round]"/>
+							<param name="mask_square" value="$PARAM[mask_square]"/>
+						</include>
+					</itemlayout>
+					<focusedlayout width="$PARAM[pitch]" height="254">
+						<include content="Home_PosterItem">
+							<param name="id" value="$PARAM[id]"/>
+							<param name="w" value="$PARAM[w]"/>
+							<param name="h" value="$PARAM[h]"/>
+							<param name="dim" value="Home_Dim_$PARAM[id]"/>
+							<param name="art" value="$PARAM[art]"/>
+							<param name="mask_round" value="$PARAM[mask_round]"/>
+							<param name="mask_square" value="$PARAM[mask_square]"/>
+							<param name="focused" value="true"/>
+						</include>
+					</focusedlayout>
+					<content target="$PARAM[target]" sortby="$PARAM[sortby]" sortorder="$PARAM[sortorder]" limit="$PARAM[limit]">$PARAM[path]</content>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- TV card row. params as Home_HubPosterRow (no art/size params) -->
+	<include name="Home_HubCardRow">
+		<param name="sortby">none</param>
+		<param name="limit">20</param>
+		<param name="empty">Nothing here yet</param>
+		<param name="delay">0</param>
+		<definition>
+			<control type="group">
+				<top>$PARAM[top]</top>
+				<include content="Anim_RowStagger">
+					<param name="delay" value="$PARAM[delay]"/>
+				</include>
+				<include content="Home_RowLabel">
+					<param name="index" value="$PARAM[index]"/>
+					<param name="label" value="$PARAM[label]"/>
+					<param name="sub" value="$PARAM[sub]"/>
+				</include>
+				<include content="Home_RowEmpty">
+					<param name="id" value="$PARAM[id]"/>
+					<param name="label" value="$PARAM[empty]"/>
+				</include>
+				<control type="list" id="$PARAM[id]">
+					<left>home_hub_list_x</left>
+					<top>-22</top>
+					<width>home_hub_list_w</width>
+					<height>282</height>
+					<orientation>horizontal</orientation>
+					<onup>$PARAM[onup]</onup>
+					<ondown>$PARAM[ondown]</ondown>
+					<onleft>noop</onleft>
+					<onright>noop</onright>
+					<onback>9000</onback>
+					<onfocus condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.WidgetContainer,$PARAM[id],home)</onfocus>
+					<preloaditems>2</preloaditems>
+					<scrolltime tween="cubic" easing="out">200</scrolltime>
+					<itemlayout width="home_card_pitch" height="282">
+						<include content="Home_CardItem">
+							<param name="id" value="$PARAM[id]"/>
+							<param name="dim" value="Home_Dim_$PARAM[id]"/>
+						</include>
+					</itemlayout>
+					<focusedlayout width="home_card_pitch" height="282">
+						<include content="Home_CardItem">
+							<param name="id" value="$PARAM[id]"/>
+							<param name="dim" value="Home_Dim_$PARAM[id]"/>
+							<param name="focused" value="true"/>
+						</include>
+					</focusedlayout>
+					<content target="videos" sortby="$PARAM[sortby]" sortorder="descending" limit="$PARAM[limit]">$PARAM[path]</content>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- ============================================================ hub info block -->
+	<!-- Frame: kicker "02 / NEWEST RELEASES", ghost position numeral. params: id, index, label, visible -->
+	<include name="Home_InfoFrame">
+		<definition>
+			<control type="label">
+				<left>0</left>
+				<top>0</top>
+				<width>home_hub_text_w</width>
+				<height>20</height>
+				<font>mono_15</font>
+				<textcolor>$VAR[ColorAccent]</textcolor>
+				<label>$PARAM[index] / $PARAM[label]</label>
+			</control>
+			<!-- decorative position number (bg_ghost), right-aligned -->
+			<control type="label">
+				<left>0</left>
+				<top>-24</top>
+				<width>page_width</width>
+				<height>220</height>
+				<align>right</align>
+				<font>ghost_220</font>
+				<textcolor>bg_ghost</textcolor>
+				<label>0$INFO[Container($PARAM[id]).CurrentItem]</label>
+				<visible>Integer.IsLess(Container($PARAM[id]).CurrentItem,10)</visible>
+			</control>
+			<control type="label">
+				<left>0</left>
+				<top>-24</top>
+				<width>page_width</width>
+				<height>220</height>
+				<align>right</align>
+				<font>ghost_220</font>
+				<textcolor>bg_ghost</textcolor>
+				<label>$INFO[Container($PARAM[id]).CurrentItem]</label>
+				<visible>!Integer.IsLess(Container($PARAM[id]).CurrentItem,10)</visible>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Title 68/800, 1 line. params: title -->
+	<include name="Home_InfoTitle">
+		<definition>
+			<control type="label">
+				<left>0</left>
+				<top>30</top>
+				<width>home_hub_text_w</width>
+				<height>70</height>
+				<font>display_68</font>
+				<textcolor>text_primary</textcolor>
+				<label>$PARAM[title]</label>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Plot (Plot -> Tagline), 2-line clamp, fixed slot. params: id -->
+	<include name="Home_InfoPlot">
+		<definition>
+			<control type="textbox">
+				<left>0</left>
+				<top>139</top>
+				<width>home_hub_text_w</width>
+				<height>66</height>
+				<font>body_23</font>
+				<textcolor>text_body</textcolor>
+				<label>$INFO[Container($PARAM[id]).ListItem.Plot]</label>
+				<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
+				<visible>!String.IsEmpty(Container($PARAM[id]).ListItem.Plot)</visible>
+			</control>
+			<control type="textbox">
+				<left>0</left>
+				<top>139</top>
+				<width>home_hub_text_w</width>
+				<height>66</height>
+				<font>body_23</font>
+				<textcolor>text_body</textcolor>
+				<label>$INFO[Container($PARAM[id]).ListItem.Tagline]</label>
+				<visible>String.IsEmpty(Container($PARAM[id]).ListItem.Plot)</visible>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Credits: director (600, primary) · lead actor. params: id, top, width, dir_w -->
+	<include name="Home_Credits">
+		<param name="top">216</param>
+		<param name="width">home_hub_text_w</param>
+		<param name="dir_w">500</param>
+		<param name="cast_w">700</param>
+		<definition>
+			<control type="grouplist">
+				<left>0</left>
+				<top>$PARAM[top]</top>
+				<width>$PARAM[width]</width>
+				<height>28</height>
+				<orientation>horizontal</orientation>
+				<itemgap>0</itemgap>
+				<control type="label">
+					<width max="$PARAM[dir_w]">auto</width>
+					<height>28</height>
+					<font>credits_21_semibold</font>
+					<textcolor>text_primary</textcolor>
+					<label>$INFO[Container($PARAM[id]).ListItem.Director]</label>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>28</height>
+					<font>credits_21</font>
+					<textcolor>text_secondary</textcolor>
+					<label>  ·  </label>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem.Director) + !String.IsEmpty(Container($PARAM[id]).ListItem.Cast)</visible>
+				</control>
+				<control type="textbox">
+					<width>$PARAM[cast_w]</width>
+					<height>28</height>
+					<font>credits_21</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$INFO[Container($PARAM[id]).ListItem.Cast]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Bare MPAA code (Kodi stores "Rated PG-13", DATA 4.1) as part of a mono meta line. params: id -->
+	<include name="Home_MetaMPAA">
+		<definition>
+			<control type="label"><width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor><label>  ·  R</label><visible>String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated R)</visible></control>
+			<control type="label"><width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor><label>  ·  PG-13</label><visible>String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated PG-13)</visible></control>
+			<control type="label"><width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor><label>  ·  PG</label><visible>String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated PG)</visible></control>
+			<control type="label"><width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor><label>  ·  G</label><visible>String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated G)</visible></control>
+			<control type="label"><width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor><label>  ·  NR</label><visible>String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated NR)</visible></control>
+			<control type="label"><width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor><label>  ·  NC-17</label><visible>String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated NC-17)</visible></control>
+			<control type="label">
+				<width max="200">auto</width>
+				<height>24</height>
+				<font>mono_17</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$INFO[Container($PARAM[id]).ListItem.MPAA,  ·  ,]</label>
+				<visible>!String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated R) + !String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated PG-13) + !String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated PG) + !String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated G) + !String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated NR) + !String.IsEqual(Container($PARAM[id]).ListItem.MPAA,Rated NC-17)</visible>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Watch status for a movie/episode in a mono meta line. params: id -->
+	<include name="Home_MetaStatus">
+		<definition>
+			<control type="label">
+				<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+				<label>  ·  Resume $INFO[Container($PARAM[id]).ListItem.PercentPlayed]%</label>
+				<visible>Container($PARAM[id]).ListItem.IsResumable</visible>
+			</control>
+			<control type="label">
+				<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+				<label>  ·  Watched</label>
+				<visible>!Container($PARAM[id]).ListItem.IsResumable + Integer.IsGreater(Container($PARAM[id]).ListItem.PlayCount,0)</visible>
+			</control>
+			<control type="label">
+				<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+				<label>  ·  Unwatched</label>
+				<visible>!Container($PARAM[id]).ListItem.IsResumable + Integer.IsEqual(Container($PARAM[id]).ListItem.PlayCount,0) + [String.IsEqual(Container($PARAM[id]).ListItem.DBType,movie) | String.IsEqual(Container($PARAM[id]).ListItem.DBType,episode)]</visible>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Movie info block. params: id, index, label, visible -->
+	<include name="Home_InfoMovie">
+		<definition>
+			<control type="group">
+				<left>page_margin</left>
+				<top>home_hub_info_y</top>
+				<width>page_width</width>
+				<height>home_hub_info_h</height>
+				<visible>$PARAM[visible]</visible>
+				<include content="Home_InfoFrame">
+					<param name="id" value="$PARAM[id]"/>
+					<param name="index" value="$PARAM[index]"/>
+					<param name="label" value="$PARAM[label]"/>
+				</include>
+				<include content="Home_InfoTitle">
+					<param name="title" value="$INFO[Container($PARAM[id]).ListItem.Label]"/>
+				</include>
+				<control type="grouplist">
+					<left>0</left>
+					<top>107</top>
+					<width>home_hub_text_w</width>
+					<height>24</height>
+					<orientation>horizontal</orientation>
+					<itemgap>0</itemgap>
+					<control type="label">
+						<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+						<label>$INFO[Container($PARAM[id]).ListItem.Year]</label>
+					</control>
+					<control type="label">
+						<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+						<label>$INFO[Container($PARAM[id]).ListItem.Duration(h),  ·  ,h ]$INFO[Container($PARAM[id]).ListItem.Duration(m),,m]</label>
+						<visible>Integer.IsGreater(Container($PARAM[id]).ListItem.Duration(h),0)</visible>
+					</control>
+					<control type="label">
+						<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+						<label>$INFO[Container($PARAM[id]).ListItem.Duration(m),  ·  ,m]</label>
+						<visible>!Integer.IsGreater(Container($PARAM[id]).ListItem.Duration(h),0)</visible>
+					</control>
+					<control type="label">
+						<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+						<label>$INFO[Container($PARAM[id]).ListItem.Rating,  ·  , / 10]</label>
+						<visible>!String.IsEqual(Container($PARAM[id]).ListItem.Rating,0.0)</visible>
+					</control>
+					<include content="Home_MetaMPAA">
+						<param name="id" value="$PARAM[id]"/>
+					</include>
+					<control type="label">
+						<width max="420">auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+						<label>$INFO[Container($PARAM[id]).ListItem.Genre,  ·  ,]</label>
+					</control>
+					<include content="Home_MetaStatus">
+						<param name="id" value="$PARAM[id]"/>
+					</include>
+				</control>
+				<include content="Home_InfoPlot">
+					<param name="id" value="$PARAM[id]"/>
+				</include>
+				<include content="Home_Credits">
+					<param name="id" value="$PARAM[id]"/>
+				</include>
+			</control>
+		</definition>
+	</include>
+
+	<!-- TV info block: episodes (Next up / new episodes) and show cards (in-progress fallback).
+	     params: id, index, label, visible -->
+	<include name="Home_InfoTV">
+		<definition>
+			<control type="group">
+				<left>page_margin</left>
+				<top>home_hub_info_y</top>
+				<width>page_width</width>
+				<height>home_hub_info_h</height>
+				<visible>$PARAM[visible]</visible>
+				<include content="Home_InfoFrame">
+					<param name="id" value="$PARAM[id]"/>
+					<param name="index" value="$PARAM[index]"/>
+					<param name="label" value="$PARAM[label]"/>
+				</include>
+				<include content="Home_InfoTitle">
+					<param name="title" value="$INFO[Container($PARAM[id]).ListItem.TVShowTitle]"/>
+				</include>
+				<control type="group">
+					<visible>String.IsEmpty(Container($PARAM[id]).ListItem.TVShowTitle)</visible>
+					<include content="Home_InfoTitle">
+						<param name="title" value="$INFO[Container($PARAM[id]).ListItem.Label]"/>
+					</include>
+				</control>
+				<control type="grouplist">
+					<left>0</left>
+					<top>107</top>
+					<width>home_hub_text_w</width>
+					<height>24</height>
+					<orientation>horizontal</orientation>
+					<itemgap>0</itemgap>
+					<!-- episode code (zero padded) -->
+					<control type="label">
+						<width>auto</width><height>24</height><font>mono_17</font><textcolor>$VAR[ColorAccent]</textcolor>
+						<label>S0$INFO[Container($PARAM[id]).ListItem.Season]E0$INFO[Container($PARAM[id]).ListItem.Episode]</label>
+						<visible>!String.IsEmpty(Container($PARAM[id]).ListItem.Episode) + Integer.IsLess(Container($PARAM[id]).ListItem.Season,10) + Integer.IsLess(Container($PARAM[id]).ListItem.Episode,10)</visible>
+					</control>
+					<control type="label">
+						<width>auto</width><height>24</height><font>mono_17</font><textcolor>$VAR[ColorAccent]</textcolor>
+						<label>S0$INFO[Container($PARAM[id]).ListItem.Season]E$INFO[Container($PARAM[id]).ListItem.Episode]</label>
+						<visible>!String.IsEmpty(Container($PARAM[id]).ListItem.Episode) + Integer.IsLess(Container($PARAM[id]).ListItem.Season,10) + !Integer.IsLess(Container($PARAM[id]).ListItem.Episode,10)</visible>
+					</control>
+					<control type="label">
+						<width>auto</width><height>24</height><font>mono_17</font><textcolor>$VAR[ColorAccent]</textcolor>
+						<label>S$INFO[Container($PARAM[id]).ListItem.Season]E0$INFO[Container($PARAM[id]).ListItem.Episode]</label>
+						<visible>!String.IsEmpty(Container($PARAM[id]).ListItem.Episode) + !Integer.IsLess(Container($PARAM[id]).ListItem.Season,10) + Integer.IsLess(Container($PARAM[id]).ListItem.Episode,10)</visible>
+					</control>
+					<control type="label">
+						<width>auto</width><height>24</height><font>mono_17</font><textcolor>$VAR[ColorAccent]</textcolor>
+						<label>S$INFO[Container($PARAM[id]).ListItem.Season]E$INFO[Container($PARAM[id]).ListItem.Episode]</label>
+						<visible>!String.IsEmpty(Container($PARAM[id]).ListItem.Episode) + !Integer.IsLess(Container($PARAM[id]).ListItem.Season,10) + !Integer.IsLess(Container($PARAM[id]).ListItem.Episode,10)</visible>
+					</control>
+					<!-- episode: title · aired · runtime · status -->
+					<control type="group">
+						<width>1100</width>
+						<height>24</height>
+						<visible>!String.IsEmpty(Container($PARAM[id]).ListItem.Episode)</visible>
+						<control type="grouplist">
+							<left>0</left>
+							<top>0</top>
+							<width>1100</width>
+							<height>24</height>
+							<orientation>horizontal</orientation>
+							<itemgap>0</itemgap>
+							<control type="label">
+								<width max="560">auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+								<label>$INFO[Container($PARAM[id]).ListItem.Title,  ·  ,]</label>
+							</control>
+							<control type="label">
+								<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+								<label>$INFO[Container($PARAM[id]).ListItem.Premiered,  ·  Aired ,]</label>
+							</control>
+							<control type="label">
+								<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
+								<label>$INFO[Container($PARAM[id]).ListItem.Duration(m),  ·  ,m]</label>
+								<visible>!Integer.IsGreater(Container($PARAM[id]).ListItem.Duration(h),0)</visible>
+							</control>
+							<include content="Home_MetaStatus">
+								<param name="id" value="$PARAM[id]"/>
+							</include>
+						</control>
+					</control>
+					<!-- show (fallback): year · genre · progress -->
+					<control type="group">
+						<width>1240</width>
+						<height>24</height>
+						<visible>String.IsEmpty(Container($PARAM[id]).ListItem.Episode)</visible>
+						<control type="label">
+							<left>0</left>
+							<top>0</top>
+							<width>1240</width>
+							<height>24</height>
+							<font>mono_17</font>
+							<textcolor>text_secondary</textcolor>
+							<label>$INFO[Container($PARAM[id]).ListItem.Year]$INFO[Container($PARAM[id]).ListItem.Genre,  ·  ,]$INFO[Container($PARAM[id]).ListItem.Property(WatchedEpisodes),  ·  , of ]$INFO[Container($PARAM[id]).ListItem.Property(TotalEpisodes),, episodes watched]</label>
+						</control>
+					</control>
+				</control>
+				<include content="Home_InfoPlot">
+					<param name="id" value="$PARAM[id]"/>
+				</include>
+				<include content="Home_Credits">
+					<param name="id" value="$PARAM[id]"/>
+				</include>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Album info block (no plot: album descriptions are empty, DATA 4.8). params: id, index, label, visible -->
+	<include name="Home_InfoMusic">
+		<definition>
+			<control type="group">
+				<left>page_margin</left>
+				<top>home_hub_info_y</top>
+				<width>page_width</width>
+				<height>home_hub_info_h</height>
+				<visible>$PARAM[visible]</visible>
+				<include content="Home_InfoFrame">
+					<param name="id" value="$PARAM[id]"/>
+					<param name="index" value="$PARAM[index]"/>
+					<param name="label" value="$PARAM[label]"/>
+				</include>
+				<include content="Home_InfoTitle">
+					<param name="title" value="$INFO[Container($PARAM[id]).ListItem.Label]"/>
+				</include>
+				<control type="label">
+					<left>0</left>
+					<top>107</top>
+					<width>home_hub_text_w</width>
+					<height>34</height>
+					<font>title_28_semibold</font>
+					<textcolor>text_primary</textcolor>
+					<label>$INFO[Container($PARAM[id]).ListItem.Artist]</label>
+				</control>
+				<control type="label">
+					<left>0</left>
+					<top>151</top>
+					<width>home_hub_text_w</width>
+					<height>24</height>
+					<font>mono_17</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$INFO[Container($PARAM[id]).ListItem.Year]$INFO[Container($PARAM[id]).ListItem.Genre,  ·  ,]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- ================================================================ hubs -->
+	<include name="Home_HubMovies">
+		<control type="group">
+			<visible>$EXP[Home_HubMovies]</visible>
+			<include>Anim_FadeVisible</include>
+			<include content="Home_InfoMovie">
+				<param name="id" value="9211"/>
+				<param name="index" value="01"/>
+				<param name="label" value="Recently added"/>
+				<param name="visible" value="!Control.HasFocus(9212) + !Control.HasFocus(9213)"/>
+			</include>
+			<include content="Home_InfoMovie">
+				<param name="id" value="9212"/>
+				<param name="index" value="02"/>
+				<param name="label" value="Newest releases"/>
+				<param name="visible" value="Control.HasFocus(9212)"/>
+			</include>
+			<include content="Home_InfoMovie">
+				<param name="id" value="9213"/>
+				<param name="index" value="03"/>
+				<param name="label" value="Top rated, unwatched"/>
+				<param name="visible" value="Control.HasFocus(9213)"/>
+			</include>
+			<control type="group">
+				<include content="Home_AnimRowFadeAway"><param name="row3" value="9213"/></include>
+				<include content="Home_HubPosterRow">
+					<param name="id" value="9211"/>
+					<param name="top" value="home_hub_row1_y"/>
+					<param name="index" value="01"/>
+					<param name="label" value="Recently added"/>
+					<param name="sub" value="By date added"/>
+					<param name="path" value="$VAR[Home_PathMoviesRecent]"/>
+					<param name="seeall" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
+					<param name="onup" value="9002"/>
+					<param name="ondown" value="9212"/>
+					<param name="empty" value="No films added yet"/>
+				</include>
+			</control>
+			<control type="group">
+				<include content="Home_AnimRowScrollUp"><param name="row3" value="9213"/></include>
+				<!-- 02: xsp pre-filters the newest 100 by year; sortby="year" re-sorts by full premiered date (DATA 2.2) -->
+				<include content="Home_HubPosterRow">
+					<param name="id" value="9212"/>
+					<param name="top" value="home_hub_row2_y"/>
+					<param name="index" value="02"/>
+					<param name="label" value="Newest releases"/>
+					<param name="sub" value="By release date ↓"/>
+					<param name="path" value="$VAR[Home_PathMoviesNewest]"/>
+					<param name="sortby" value="year"/>
+					<param name="seeall" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
+					<param name="onup" value="9211"/>
+					<param name="ondown" value="9213"/>
+					<param name="delay" value="50"/>
+				</include>
+				<include content="Home_HubPosterRow">
+					<param name="id" value="9213"/>
+					<param name="top" value="home_hub_row3_y"/>
+					<param name="index" value="03"/>
+					<param name="label" value="Top rated, unwatched"/>
+					<param name="sub" value="$VAR[Home_SubTopRated]"/>
+					<param name="path" value="$VAR[Home_PathMoviesTop]"/>
+					<param name="seeall" value="ActivateWindow(Videos,special://skin/playlists/majan_toprated_unwatched_all.xsp,return)"/>
+					<param name="onup" value="9212"/>
+					<param name="ondown" value="noop"/>
+					<param name="empty" value="No unwatched films rated 7.5+"/>
+					<param name="delay" value="100"/>
+				</include>
+			</control>
+		</control>
+	</include>
+
+	<include name="Home_HubTV">
+		<control type="group">
+			<visible>$EXP[Home_HubTV]</visible>
+			<include>Anim_FadeVisible</include>
+			<include content="Home_InfoTV">
+				<param name="id" value="9221"/>
+				<param name="index" value="01"/>
+				<param name="label" value="Next up"/>
+				<param name="visible" value="!Control.HasFocus(9222)"/>
+			</include>
+			<include content="Home_InfoTV">
+				<param name="id" value="9222"/>
+				<param name="index" value="02"/>
+				<param name="label" value="Recently added episodes"/>
+				<param name="visible" value="Control.HasFocus(9222)"/>
+			</include>
+			<include content="Home_HubCardRow">
+				<param name="id" value="9221"/>
+				<param name="top" value="home_hub_row1_y"/>
+				<param name="index" value="01"/>
+				<param name="label" value="Next up"/>
+				<param name="sub" value="$VAR[Home_SubNextUp]"/>
+				<param name="path" value="$VAR[Home_PathNextUp]"/>
+				<param name="seeall" value="ActivateWindow(Videos,videodb://inprogresstvshows/,return)"/>
+				<param name="onup" value="9003"/>
+				<param name="ondown" value="9222"/>
+				<param name="empty" value="Nothing in progress. Start a show and its next episode lands here."/>
+			</include>
+			<include content="Home_HubCardRow">
+				<param name="id" value="9222"/>
+				<param name="top" value="home_hub_tv_row2_y"/>
+				<param name="index" value="02"/>
+				<param name="label" value="Recently added episodes"/>
+				<param name="sub" value="Unwatched · by date added"/>
+				<param name="path" value="$VAR[Home_PathNewEpisodes]"/>
+				<param name="seeall" value="ActivateWindow(Videos,videodb://recentlyaddedepisodes/,return)"/>
+				<param name="onup" value="9221"/>
+				<param name="ondown" value="noop"/>
+				<param name="empty" value="No new episodes"/>
+				<param name="delay" value="50"/>
+			</include>
+		</control>
+	</include>
+
+	<include name="Home_HubMusic">
+		<control type="group">
+			<visible>$EXP[Home_HubMusic]</visible>
+			<include>Anim_FadeVisible</include>
+			<!-- probe: is "Recently played" empty? (0 plays today, DATA 1) -->
+			<control type="list" id="9237">
+				<left>offscreen</left>
+				<top>offscreen</top>
+				<width>1</width>
+				<height>1</height>
+				<itemlayout width="1" height="1"/>
+				<focusedlayout width="1" height="1"/>
+				<content target="music" limit="1">$VAR[Home_PathMusicPlayedProbe]</content>
+			</control>
+			<include content="Home_InfoMusic">
+				<param name="id" value="9231"/>
+				<param name="index" value="01"/>
+				<param name="label" value="Recently added"/>
+				<param name="visible" value="!Control.HasFocus(9232) + !Control.HasFocus(9233)"/>
+			</include>
+			<include content="Home_InfoMusic">
+				<param name="id" value="9232"/>
+				<param name="index" value="02"/>
+				<param name="label" value="$VAR[Home_LabelMusicRow2]"/>
+				<param name="visible" value="Control.HasFocus(9232)"/>
+			</include>
+			<include content="Home_InfoMusic">
+				<param name="id" value="9233"/>
+				<param name="index" value="03"/>
+				<param name="label" value="Rediscover"/>
+				<param name="visible" value="Control.HasFocus(9233)"/>
+			</include>
+			<control type="group">
+				<include content="Home_AnimRowFadeAway"><param name="row3" value="9233"/></include>
+				<include content="Home_HubPosterRow">
+					<param name="id" value="9231"/>
+					<param name="top" value="home_hub_row1_y"/>
+					<param name="index" value="01"/>
+					<param name="label" value="Recently added"/>
+					<param name="sub" value="Albums by date added"/>
+					<param name="path" value="$VAR[Home_PathMusicRecent]"/>
+					<param name="target" value="music"/>
+					<param name="w" value="home_cover_w"/>
+					<param name="h" value="home_cover_w"/>
+					<param name="pitch" value="home_cover_pitch"/>
+					<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+					<param name="mask_round" value="masks/square_round8.png"/>
+					<param name="mask_square" value="masks/square_square.png"/>
+					<param name="seeall" value="ActivateWindow(Music,musicdb://recentlyaddedalbums/,return)"/>
+					<param name="onup" value="9004"/>
+					<param name="ondown" value="9232"/>
+					<param name="empty" value="No albums yet"/>
+				</include>
+			</control>
+			<control type="group">
+				<include content="Home_AnimRowScrollUp"><param name="row3" value="9233"/></include>
+				<include content="Home_HubPosterRow">
+					<param name="id" value="9232"/>
+					<param name="top" value="home_hub_row2_y"/>
+					<param name="index" value="02"/>
+					<param name="label" value="$VAR[Home_LabelMusicRow2]"/>
+					<param name="sub" value="$VAR[Home_SubMusicRow2]"/>
+					<param name="path" value="$VAR[Home_PathMusicRow2]"/>
+					<param name="target" value="music"/>
+					<param name="w" value="home_cover_w"/>
+					<param name="h" value="home_cover_w"/>
+					<param name="pitch" value="home_cover_pitch"/>
+					<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+					<param name="mask_round" value="masks/square_round8.png"/>
+					<param name="mask_square" value="masks/square_square.png"/>
+					<param name="seeall" value="ActivateWindow(Music,$VAR[Home_SeeAllMusicRow2],return)"/>
+					<param name="onup" value="9231"/>
+					<param name="ondown" value="9233"/>
+					<param name="delay" value="50"/>
+				</include>
+				<include content="Home_HubPosterRow">
+					<param name="id" value="9233"/>
+					<param name="top" value="home_hub_row3_y"/>
+					<param name="index" value="03"/>
+					<param name="label" value="Rediscover"/>
+					<param name="sub" value="Random albums"/>
+					<param name="path" value="$VAR[Home_PathMusicRandom]"/>
+					<param name="target" value="music"/>
+					<param name="w" value="home_cover_w"/>
+					<param name="h" value="home_cover_w"/>
+					<param name="pitch" value="home_cover_pitch"/>
+					<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+					<param name="mask_round" value="masks/square_round8.png"/>
+					<param name="mask_square" value="masks/square_square.png"/>
+					<param name="seeall" value="ActivateWindow(Music,musicdb://albums/,return)"/>
+					<param name="onup" value="9232"/>
+					<param name="ondown" value="noop"/>
+					<param name="delay" value="100"/>
+				</include>
+			</control>
+		</control>
+	</include>
+
+	<!-- ============================================================== spotlight -->
+	<!-- One cell of the facts strip. params: label, value, visible, first (true = no left rule), suffix, pad -->
+	<include name="Home_FactCell">
+		<param name="first">false</param>
+		<param name="suffix"></param>
+		<param name="pad">20</param>
+		<definition>
+			<control type="group">
+				<width>spot_fact_w</width>
+				<height>spot_fact_h</height>
+				<visible>$PARAM[visible]</visible>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>rule_h</width>
+					<height>spot_fact_h</height>
+					<texture colordiffuse="$VAR[ColorRuleStrong]">common/hairline_v.png</texture>
+					<visible>!$PARAM[first]</visible>
+				</control>
+				<control type="grouplist">
+					<left>$PARAM[pad]</left>
+					<top>0</top>
+					<width>156</width>
+					<height>spot_fact_h</height>
+					<orientation>vertical</orientation>
+					<usecontrolcoords>true</usecontrolcoords>
+					<control type="label">
+						<top>14</top>
+						<width>156</width>
+						<height>18</height>
+						<font>mono_13</font>
+						<textcolor>$VAR[ColorCaption]</textcolor>
+						<label>$PARAM[label]</label>
+					</control>
+					<control type="grouplist">
+						<top>6</top>
+						<width>156</width>
+						<height>36</height>
+						<orientation>horizontal</orientation>
+						<itemgap>6</itemgap>
+						<control type="label">
+							<width max="150">auto</width>
+							<height>36</height>
+							<font>stat_30</font>
+							<textcolor>text_primary</textcolor>
+							<label>$PARAM[value]</label>
+						</control>
+						<control type="label">
+							<width max="60">auto</width>
+							<height>36</height>
+							<font>small_19</font>
+							<textcolor>text_tertiary</textcolor>
+							<label>$PARAM[suffix]</label>
+						</control>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Spotlight image: fanart > landscape > poster centred on its blurred self (TMDb Helper blur when
+	     available, else the poster darkened). Hero: full opacity, no scrim, rounded mask per setting. -->
+	<include name="Home_SpotlightImage">
+		<control type="group">
+			<left>spot_img_x</left>
+			<top>content_top</top>
+			<width>spot_img_w</width>
+			<height>spot_img_h</height>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>spot_img_w</width>
+				<height>spot_img_h</height>
+				<texture colordiffuse="bg_raised">common/white.png</texture>
+			</control>
+			<!-- wide art -->
+			<control type="group">
+				<visible>!$EXP[Home_SpotlightNoWideArt]</visible>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>spot_img_w</width>
+					<height>spot_img_h</height>
+					<aspectratio>scale</aspectratio>
+					<fadetime>200</fadetime>
+					<texture background="true" diffuse="masks/landscape_round8_large.png">$VAR[SpotlightArt]</texture>
+					<visible>$EXP[IsRounded]</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>spot_img_w</width>
+					<height>spot_img_h</height>
+					<aspectratio>scale</aspectratio>
+					<fadetime>200</fadetime>
+					<texture background="true">$VAR[SpotlightArt]</texture>
+					<visible>!$EXP[IsRounded]</visible>
+				</control>
+			</control>
+			<!-- poster fallback -->
+			<control type="group">
+				<visible>$EXP[Home_SpotlightNoWideArt]</visible>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>spot_img_w</width>
+					<height>spot_img_h</height>
+					<aspectratio>scale</aspectratio>
+					<fadetime>200</fadetime>
+					<texture background="true" colordiffuse="dim_row">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</texture>
+					<visible>$EXP[ArtBackgroundOn] + $EXP[Home_SecHome] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.BlurImage))</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>spot_img_w</width>
+					<height>spot_img_h</height>
+					<aspectratio>scale</aspectratio>
+					<fadetime>200</fadetime>
+					<texture background="true" colordiffuse="hairline_strong">$INFO[Container(9101).ListItem.Art(poster)]</texture>
+					<visible>![$EXP[ArtBackgroundOn] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.BlurImage))]</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>spot_img_w</width>
+					<height>spot_img_h</height>
+					<aspectratio>keep</aspectratio>
+					<fadetime>200</fadetime>
+					<texture background="true">$INFO[Container(9101).ListItem.Art(poster)]</texture>
+				</control>
+			</control>
+		</control>
+		<!-- caption: FIG. 01 ... pool count · n / 5 -->
+		<control type="label">
+			<left>spot_img_x</left>
+			<top>722</top>
+			<width>820</width>
+			<height>22</height>
+			<font>mono_14</font>
+			<textcolor>$VAR[ColorCaption]</textcolor>
+			<label>$VAR[Home_SpotlightCaption]</label>
+		</control>
+		<control type="label">
+			<left>spot_img_x</left>
+			<top>722</top>
+			<width>spot_img_w</width>
+			<height>22</height>
+			<align>right</align>
+			<font>mono_14</font>
+			<textcolor>$VAR[ColorCaption]</textcolor>
+			<label>$INFO[Container(9101).CurrentItem]$INFO[Container(9101).NumItems, / ,]</label>
+		</control>
+	</include>
+
+	<!-- Spotlight text column (HomeTuned): kicker, title (2-line clamp), facts strip, plot (3-line clamp),
+	     credits (1 line), buttons. Item gap 18 (mockup 22) so a 2-line title + 3-line plot still ends
+	     above the Newest row at y 760 (worst case ends at 739). -->
+	<include name="Home_SpotlightText">
+		<control type="grouplist">
+			<left>88</left>  <!-- page_margin - 8 and every child at left 8: room for the Play button focus frame (grouplists clip) -->
+			<top>content_top</top>
+			<width>712</width>
+			<height>592</height>  <!-- to y 760 (the Newest rule): room for the Play focus frame under a 2-line title + 3-line plot -->
+			<orientation>vertical</orientation>
+			<itemgap>14</itemgap>
+			<usecontrolcoords>true</usecontrolcoords>
+			<control type="label">
+				<left>8</left>
+				<width>spot_text_w</width>
+				<height>20</height>
+				<font>mono_15</font>
+				<textcolor>$VAR[ColorAccent]</textcolor>
+				<label>$LOCALIZE[31100]</label>
+			</control>
+			<!-- title, LAYOUT ONLY (transparent): its auto height (1-2 lines of 97 px at linespacing 0.74) moves
+			     the rest of the column. Kodi clips a textbox to that height, which cut the 2nd line's
+			     descenders, so the visible title is Home_SpotlightTitle below, outside the grouplist. -->
+			<control type="textbox">
+				<left>8</left>
+				<width>spot_text_w</width>
+				<height max="196">auto</height>
+				<font>display_100</font>
+				<textcolor>00000000</textcolor>
+				<label>$INFO[Container(9101).ListItem.Title]</label>
+			</control>
+			<!-- facts strip: rules above/below, 4 cells, empty cells hidden (others keep width).
+			     top 12: clear of the title's descenders -->
+			<control type="group">
+				<left>8</left>
+				<top>12</top>
+				<width>spot_text_w</width>
+				<height>spot_fact_h</height>
+				<include content="Majan_Rule">
+					<param name="top" value="0"/>
+					<param name="left" value="0"/>
+					<param name="width" value="spot_text_w"/>
+					<param name="color" value="$VAR[ColorRuleStrong]"/>
+				</include>
+				<include content="Majan_Rule">
+					<param name="top" value="83"/>
+					<param name="left" value="0"/>
+					<param name="width" value="spot_text_w"/>
+					<param name="color" value="$VAR[ColorRuleStrong]"/>
+				</include>
+				<control type="grouplist">
+					<left>0</left>
+					<top>0</top>
+					<width>spot_text_w</width>
+					<height>spot_fact_h</height>
+					<orientation>horizontal</orientation>
+					<include content="Home_FactCell">
+						<param name="label" value="$LOCALIZE[31101]"/>
+						<param name="value" value="$INFO[Container(9101).ListItem.Year]"/>
+						<param name="visible" value="!String.IsEmpty(Container(9101).ListItem.Year)"/>
+						<param name="first" value="true"/>
+						<param name="pad" value="0"/>
+					</include>
+					<include content="Home_FactCell">
+						<param name="label" value="$LOCALIZE[31102]"/>
+						<param name="value" value="$VAR[SpotlightRuntime]"/>
+						<param name="visible" value="Integer.IsGreater(Container(9101).ListItem.Duration(m),0) | Integer.IsGreater(Container(9101).ListItem.Duration(h),0)"/>
+					</include>
+					<include content="Home_FactCell">
+						<param name="label" value="$LOCALIZE[31103]"/>
+						<param name="value" value="$INFO[Container(9101).ListItem.Rating]"/>
+						<param name="suffix" value="/ 10"/>
+						<param name="visible" value="!String.IsEmpty(Container(9101).ListItem.Rating) + !String.IsEqual(Container(9101).ListItem.Rating,0.0)"/>
+					</include>
+					<include content="Home_FactCell">
+						<param name="label" value="$LOCALIZE[31104]"/>
+						<param name="value" value="$VAR[SpotlightMPAA]"/>
+						<param name="visible" value="!String.IsEmpty(Container(9101).ListItem.MPAA)"/>
+					</include>
+				</control>
+			</control>
+			<!-- plot (3-line clamp) -> tagline -->
+			<control type="textbox">
+				<left>8</left>
+				<width>spot_text_w</width>
+				<height max="107">auto</height>
+				<font>body_25</font>
+				<textcolor>text_body</textcolor>
+				<label>$INFO[Container(9101).ListItem.Plot]</label>
+				<autoscroll delay="3000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 3s (spotlight rotates), roll, pause 10s, repeat -->
+				<visible>!String.IsEmpty(Container(9101).ListItem.Plot)</visible>
+			</control>
+			<control type="textbox">
+				<left>8</left>
+				<width>spot_text_w</width>
+				<height max="107">auto</height>
+				<font>body_25</font>
+				<textcolor>text_body</textcolor>
+				<label>$INFO[Container(9101).ListItem.Tagline]</label>
+				<visible>String.IsEmpty(Container(9101).ListItem.Plot)</visible>
+			</control>
+			<control type="group">
+				<left>8</left>
+				<width>spot_text_w</width>
+				<height>28</height>
+				<include content="Home_Credits">
+					<param name="id" value="9101"/>
+					<param name="top" value="0"/>
+					<param name="width" value="spot_text_w"/>
+					<param name="dir_w" value="300"/>
+					<param name="cast_w" value="374"/>
+				</include>
+			</control>
+			<!-- buttons: Play (accent) / Details / Trailer. Left off Play = previous spotlight item, Right off the
+			     last visible button = next (Control.Move wraps 9101; rotation pauses while a button has focus).
+			     If the next item has no trailer, focus steps back to Details first so it never sits on a hidden button. -->
+			<control type="group">
+				<left>8</left>
+				<width>spot_text_w</width>
+				<height>62</height>
+				<control type="group">
+					<top>4</top>
+					<include content="Majan_ButtonPrimary">
+						<param name="id" value="9110"/>
+						<param name="left" value="0"/>
+						<param name="width" value="button_w_play"/>
+						<param name="label" value="$LOCALIZE[208]"/>
+						<param name="onclick" value="PlayMedia($ESCINFO[Container(9101).ListItem.FilenameAndPath])"/>
+						<param name="onup" value="9000"/>
+						<param name="ondown" value="9119"/>
+						<param name="onback" value="9000"/>
+						<param name="onright" value="9111"/>
+						<param name="onleft" value="Control.Move(9101,-1)"/>
+					</include>
+					<include content="Majan_ButtonSecondary">
+						<param name="id" value="9111"/>
+						<param name="left" value="button_x_details"/>
+						<param name="width" value="button_w_details"/>
+						<param name="label" value="$LOCALIZE[31105]"/>
+						<param name="onclick" value="SetFocus(9101)"/>
+						<param name="onclick2" value="Action(Info)"/>
+						<param name="focus_also" value="Control.HasFocus(9101)"/>
+						<param name="onup" value="9000"/>
+						<param name="ondown" value="9119"/>
+						<param name="onback" value="9000"/>
+						<param name="onleft" value="9110"/>
+						<param name="onright" value="9112"/>
+						<param name="onright_if" value="!Control.IsVisible(9112)"/>
+						<param name="onright_then" value="Control.Move(9101,1)"/>
+					</include>
+					<include content="Majan_ButtonSecondary">
+						<param name="id" value="9112"/>
+						<param name="left" value="button_x_trailer"/>
+						<param name="width" value="button_w_trailer"/>
+						<param name="label" value="$LOCALIZE[20410]"/>
+						<param name="onclick" value="PlayMedia($ESCINFO[Container(9101).ListItem.Trailer],playlist_type_hint=1)"/>
+						<param name="visible" value="$EXP[ShowTrailerButton] + !String.IsEmpty(Container(9101).ListItem.Trailer)"/>
+						<param name="onup" value="9000"/>
+						<param name="ondown" value="9119"/>
+						<param name="onback" value="9000"/>
+						<param name="onleft" value="9111"/>
+						<param name="onright_if" value="String.IsEmpty(Container(9101).ListItem(1).Trailer)"/>
+						<param name="onright_then" value="SetFocus(9111)"/>
+						<param name="onright" value="Control.Move(9101,1)"/>
+					</include>
+				</control>
+			</control>
+		</control>
+		<!-- visible spotlight title: same place as the layout textbox (content_top + kicker 20 + gap 14 = 202),
+		     taller than two lines so the 2nd line's descenders aren't clipped; still clamps at 2 lines -->
+		<control type="textbox">
+			<left>page_margin</left>
+			<top>202</top>
+			<width>spot_text_w</width>
+			<height>219</height>  <!-- 2 lines at 97 px (linespacing 0.74) + line 2 descenders; a 3rd line's caps start at 224 -->
+			<font>display_100</font>
+			<textcolor>text_primary</textcolor>
+			<label>$INFO[Container(9101).ListItem.Title]</label>
+		</control>
+	</include>
+
+	<include name="Home_Spotlight">
+		<control type="group">
+			<visible>Integer.IsGreater(Container(9101).NumItems,0)</visible>
+			<include>Anim_FadeVisible</include>
+			<include>Home_SpotlightText</include>
+			<include>Home_SpotlightImage</include>
+		</control>
+		<!-- empty state (no unwatched 7.5+ films, or library still scanning) -->
+		<control type="label">
+			<left>page_margin</left>
+			<top>content_top</top>
+			<width>spot_text_w</width>
+			<height>40</height>
+			<font>mono_15</font>
+			<textcolor>$VAR[ColorCaption]</textcolor>
+			<label>$LOCALIZE[31107]</label>
+			<visible>!Integer.IsGreater(Container(9101).NumItems,0) + !Container(9101).IsUpdating</visible>
+		</control>
+	</include>
+
+	<!-- ============================================================ newest rows -->
+	<!-- One Home poster row (168x252, gap 24). params: id, title, sub, content, sortby, visible, slide,
+	     up_row (true = Up goes to row 9120), ondown, seeall -->
+	<include name="Home_PosterRow">
+		<param name="ondown">noop</param>
+		<param name="sortby">none</param>
+		<definition>
+			<control type="group">
+				<left>0</left>
+				<top>home_row_y</top>
+				<width>screen_w</width>
+				<height>330</height>
+				<visible>$PARAM[visible]</visible>
+				<animation effect="slide" start="0,0" end="0,340" time="0" condition="$PARAM[slide]">Conditional</animation>
+				<include content="Majan_Rule">
+					<param name="top" value="0"/>
+					<param name="color" value="$VAR[ColorRuleStrong]"/>
+				</include>
+				<control type="label">
+					<left>page_margin</left>
+					<top>14</top>
+					<width>900</width>
+					<height>30</height>
+					<font>section_24</font>
+					<textcolor>text_primary</textcolor>
+					<label>$PARAM[title]</label>
+				</control>
+				<control type="label">
+					<left>page_margin</left>
+					<top>16</top>
+					<width>page_width</width>
+					<height>26</height>
+					<align>right</align>
+					<font>mono_14</font>
+					<textcolor>$VAR[ColorCaption]</textcolor>
+					<label>$PARAM[sub]</label>
+				</control>
+				<control type="label">
+					<left>page_margin</left>
+					<top>70</top>
+					<width>page_width</width>
+					<height>24</height>
+					<font>mono_14</font>
+					<textcolor>$VAR[ColorCaption]</textcolor>
+					<label>No films in the library yet</label>
+					<visible>!Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
+				</control>
+				<control type="list" id="$PARAM[id]">
+					<left>home_newest_list_x</left>
+					<top>home_newest_list_y</top>
+					<width>1836</width>
+					<height>296</height>
+					<orientation>horizontal</orientation>
+					<onup condition="$PARAM[up_row]">9120</onup>
+					<onup condition="!$PARAM[up_row] + Integer.IsGreater(Container(9101).NumItems,0)">9110</onup>
+					<onup condition="!$PARAM[up_row] + !Integer.IsGreater(Container(9101).NumItems,0)">9000</onup>
+					<ondown>$PARAM[ondown]</ondown>
+					<onleft>noop</onleft>
+					<onright>noop</onright>
+					<onback>9000</onback>
+					<onfocus condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.WidgetContainer,$PARAM[id],home)</onfocus>
+					<preloaditems>2</preloaditems>
+					<scrolltime tween="cubic" easing="out">200</scrolltime>
+					<itemlayout width="poster_m_pitch" height="296">
+						<include content="Home_PosterItem">
+							<param name="id" value="$PARAM[id]"/>
+							<param name="w" value="poster_m_w"/>
+							<param name="h" value="poster_m_h"/>
+							<param name="dim" value="Home_Dim_$PARAM[id]"/>
+						</include>
+					</itemlayout>
+					<focusedlayout width="poster_m_pitch" height="296">
+						<include content="Home_PosterItem">
+							<param name="id" value="$PARAM[id]"/>
+							<param name="w" value="poster_m_w"/>
+							<param name="h" value="poster_m_h"/>
+							<param name="dim" value="Home_Dim_$PARAM[id]"/>
+							<param name="focused" value="true"/>
+						</include>
+					</focusedlayout>
+					<content target="videos" sortby="$PARAM[sortby]" sortorder="descending" limit="15">$PARAM[content]</content>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<include name="Home_NewestRows">
+		<control type="group" id="9119">
+			<description>rows wrapper: focus target from above (Kodi picks the first visible row)</description>
+			<defaultcontrol>9120</defaultcontrol>
+			<!-- 9120: by date added (default; first row in "both") -->
+			<include content="Home_PosterRow">
+				<param name="id" value="9120"/>
+				<param name="title" value="$LOCALIZE[31110]"/>
+				<param name="sub" value="$LOCALIZE[31111]$INFO[Window(Home).Property(Movies.Count),  ·  , $LOCALIZE[31114]]"/>
+				<param name="content" value="videodb://recentlyaddedmovies/"/>
+				<param name="visible" value="$EXP[HomeNewestDateAdded]"/>
+				<param name="slide" value="false"/>
+				<param name="up_row" value="false"/>
+				<param name="ondown" value="9121"/>
+				<param name="seeall" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
+			</include>
+			<!-- 9121: by release date (setting release / both). The xsp pre-filters the newest 100 by year;
+			     sortby="year" here re-sorts by full premiered date (DATA.md 2.2 / 4.3). -->
+			<include content="Home_PosterRow">
+				<param name="id" value="9121"/>
+				<param name="title" value="$LOCALIZE[31112]"/>
+				<param name="sub" value="$LOCALIZE[31113]"/>
+				<param name="content" value="special://skin/playlists/majan_newest_movies.xsp"/>
+				<param name="sortby" value="year"/>
+				<param name="visible" value="$EXP[HomeNewestRelease]"/>
+				<param name="slide" value="$EXP[HomeNewestBoth]"/>
+				<param name="up_row" value="$EXP[HomeNewestBoth]"/>
+				<param name="seeall" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
+			</include>
+		</control>
+	</include>
+
+	<!-- Home section = spotlight + newest row(s). "Both" mode: the region slides up while row 2 has focus. -->
+	<include name="Home_SectionHome">
+		<control type="group">
+			<visible>$EXP[Home_SecHome]</visible>
+			<include>Anim_FadeVisible</include>
+			<animation effect="slide" start="0,0" end="0,-340" time="200" tween="cubic" easing="out" condition="Control.HasFocus(9121) + $EXP[HomeNewestBoth]">Conditional</animation>
+			<include>Home_Spotlight</include>
+			<include>Home_NewestRows</include>
+		</control>
+	</include>
+
+	<!-- ============================================================ now playing -->
+	<!-- Music now-playing bar (DESIGN 7.9) while audio plays. Not focusable; drawn above the rows
+	     (the bottom of the rows is covered while it is up). -->
+	<include name="Home_NowPlaying">
+		<control type="group">
+			<left>0</left>
+			<top>984</top>
+			<width>screen_w</width>
+			<height>96</height>
+			<visible>$EXP[Home_MusicBar]</visible>
+			<include>Anim_FadeVisible</include>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>screen_w</width>
+				<height>96</height>
+				<texture colordiffuse="bg">common/white.png</texture>
+			</control>
+			<include content="Majan_Rule">
+				<param name="top" value="0"/>
+				<param name="left" value="0"/>
+				<param name="width" value="screen_w"/>
+				<param name="color" value="hairline_strong"/>
+			</include>
+			<control type="image">
+				<left>page_margin</left>
+				<top>18</top>
+				<width>60</width>
+				<height>60</height>
+				<aspectratio>scale</aspectratio>
+				<texture background="true">$INFO[Player.Art(thumb)]</texture>
+			</control>
+			<control type="label">
+				<left>180</left>
+				<top>16</top>
+				<width>420</width>
+				<height>18</height>
+				<font>mono_13</font>
+				<textcolor>$VAR[ColorAccent]</textcolor>
+				<label>$LOCALIZE[31017]</label>
+			</control>
+			<control type="label">
+				<left>180</left>
+				<top>38</top>
+				<width>420</width>
+				<height>26</height>
+				<font>card_21_bold</font>
+				<textcolor>text_primary</textcolor>
+				<label>$INFO[MusicPlayer.Title]</label>
+			</control>
+			<control type="label">
+				<left>180</left>
+				<top>62</top>
+				<width>420</width>
+				<height>24</height>
+				<font>card_21_medium</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$INFO[MusicPlayer.Artist]</label>
+			</control>
+			<control type="progress">
+				<left>640</left>
+				<top>47</top>
+				<width>960</width>
+				<height>2</height>
+				<texturebg colordiffuse="hairline_strong">common/white.png</texturebg>
+				<midtexture colordiffuse="text_primary">common/white.png</midtexture>
+				<info>Player.Progress</info>
+			</control>
+			<control type="label">
+				<left>1600</left>
+				<top>36</top>
+				<width>224</width>
+				<height>24</height>
+				<align>right</align>
+				<font>num_16</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$INFO[Player.Time]$INFO[Player.Duration, / ,]</label>
+			</control>
+		</control>
+	</include>
+</includes>

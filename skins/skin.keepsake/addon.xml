@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="skin.keepsake" version="0.9.1" name="Keepsake" provider-name="Omar Kamel">
+	<requires>
+		<import addon="xbmc.gui" version="5.17.0"/>
+		<!-- Optional: TMDb Helper (trailers, cast pages) and Skin Variables (the exact time you watched
+		     something, read from the library). The skin runs without both. -->
+		<import addon="plugin.video.themoviedb.helper" version="6.0.0" optional="true"/>
+		<import addon="script.skinvariables" version="2.0.0" optional="true"/>
+	</requires>
+	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1">
+		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080i"/>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Keepsake - the skin that remembers.</summary>
+		<description lang="en_GB">A black-paged photo album of your life with films: every film you watched is a print with the date stamped in the corner in orange camera digits, and handwritten notes tell you what you were watching a year ago this week, what you stopped, and what has been waiting since you added it. Built for the NVIDIA Shield (Kodi 21 Omega).</description>
+		<platform>all</platform>
+		<license>GPL-2.0-or-later</license>
+		<source>https://github.com/KarmaMole/kodi-skins</source>
+		<news>v0.9.1 - waiting five years or more on Home, the unwatched opens on a full year, stronger stamps on bright prints, info more row fits.</news>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon>

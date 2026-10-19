@@ -1,0 +1,52 @@
+v0.9.4 (2026-10-19)
+- Nothing after a phrase moves when it takes focus: the comma / full stop / colon stays in one place and sits
+  inside the lilac block, in ink (Home sentence, count line, page 2, info). It used to jump 17 px.
+- Page 2: "Continue [show]:" fits the show name - Young Serif 62, then 52, then 44, and a gentle scroll only for
+  the very longest names (4 of 284 shows); no more names cut mid-word.
+- Info: the plot gives up lines when the facts and credits are long, so the Also row never reaches the hint line.
+- Find, page 2 and info phrases keep a gap from the word before them when focused (the block touched "Find").
+
+v0.9.3 (2026-10-19)
+- OSD: Pause, Stop, Chapters, Audio, Subtitles - Stop now sits next to Pause. The rewind / fast-forward words are
+  gone from the Also row (Left/Right seek without the OSD). Pause / Resume has a fixed width, so nothing after it
+  moves when you pause.
+- OSD sentence: "It ends at 3:59" keeps the tails of its figures (two lines instead of a clipping text box), and a
+  long title no longer pushes the end time out of sight.
+- Music OSD: Pause, Stop, Previous, Next, The queue, Shuffle, Repeat. Shuffle on/off never moves Repeat.
+- Now playing (music): OK, Up or Down open the music OSD (they did nothing), Left / Right skip through the song.
+- Home: the lilac bar under the focused poster sits under the poster again (it had jumped to the top edge).
+- Home page 2: "Continue [show]:" keeps the season on the second line ("season 3, episode 5, 23 minutes."), so a
+  long show name no longer runs the line past the picture and scrolls "Continue" off-screen; the episode line
+  keeps Play it / Every show on the go inside the column; "Or find something, ... or switch off." keeps its full
+  stop (the "You could also" line ran 20 px past the row).
+- Home: "Keep this sentence" with all three places taken now says so instead of doing nothing.
+- Info: the Also row runs the full width (it cut "choose fanart" / "refresh" mid-word); the tagline moved up
+  out of its way; with a trailer the resume phrase reads "carry on" so the action line fits.
+- Info: "see who's in it" lines up under "You can" (it sat 20 px in).
+- Find: result rows end at the right margin (the last cover touched the screen edge; no sliver of an 8th artist
+  tile); counts read "At least 30 films" when a row is full (it said 31), and no stray leading comma when there
+  are no films.
+- Settings: "... on a 1920x1080 @ 59.94 Hz - Full screen." (was "Full screen screen").
+
+v0.9.2 (2026-10-18)
+- Back always ends on Home: on Home, Back from any phrase, the top line, the results or page 2 now lands on the
+  first phrase ("a film") and stays there. Before, phrases went to the top line and the top line straight back,
+  so repeated Back bounced between them forever.
+- Library: after editing the sentence in the header (or switching "shows on the go" to all shows), Back now leaves
+  for Home in one press instead of walking through Kodi's raw Movies / TV nodes and the Videos root first.
+  Seasons and other drilled folders still go up a level first.
+
+v0.9.1 (2026-10-18)
+- Focused poster captions fit and no longer scroll ("2 h 21 · finish 3:57 PM").
+- Count line punctuation tightened.
+- "Find more like this" now lists your own library (same genre); TMDb suggestions move to the Also row.
+- Settings page navigation around the saved-sentences row; full stops sit tight against their phrases.
+- "Keep this sentence" works again (a saved-sentence button shared id 101 with the current sentence).
+- Music info reads "You can play it, shuffle it, meet the artist or refresh it." (Kodi's own button labels kept offscreen).
+- Playback settings: AUDIO / SUBTITLES / VIDEO tabs no longer truncate; slider labels no longer run into their values.
+- Track picker: the focused track reads in ink on lilac; "1 track" in the singular.
+- Keyboard: CAPS / SHIFT keys wide enough for their on/off dot.
+
+v0.9.0 (2026-10-18)
+- First build of Sentence: the conversational home sentence, sentence captions, info as a paragraph, the OSD as a sentence.
+- Engine forked from skin.majan 1.0.2 (window logic, OSD auto-hide, play curtain, track pickers).

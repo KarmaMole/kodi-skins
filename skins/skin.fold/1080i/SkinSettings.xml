@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Skin settings (docs/skin.fold/SETTINGS.md): one folded note, six rows. Each row is one button: OK or Right
+	steps to the next value, Left to the previous one, applied at once. Values are stored as explicit keywords
+	(an empty Skin.SetString value can open the keyboard: LESSONS round 3, Void).
+	  9601 fold.reducemotion   bool    folds become quick fades
+	  9602 fold.osdhide        string  3 | 5 (default, also empty) | 10 | off
+	  9603 fold.hideclock      bool    the clock on the table
+	  9604 fold.hidetrailer    bool    the Trailer word in the spread
+	  9605 fold.watchedmarkers string  both (default) | unwatched (= no punched holes)
+	  9606 reset: the library opens on the Fold views again (clears fold.vreset.*)
+	Back closes the window (Kodi).
+-->
+<window>
+	<defaultcontrol always="true">9600</defaultcontrol>
+	<backgroundcolor>table</backgroundcolor>
+	<include>Anim_WindowOpenClose</include>
+	<controls>
+		<include>Fold_Background</include>
+		<include>Fold_Tabs</include>
+		<include>Fold_Clock</include>
+		<include content="Fold_RowHead">
+			<param name="top" value="118"/>
+			<param name="label" value="Skin"/>
+			<param name="sub" value="   Fold's own options"/>
+		</include>
+		<control type="group">
+			<left>420</left>
+			<top>196</top>
+			<width>1080</width>
+			<height>760</height>
+			<include content="Anim_StandUp"><param name="bottom" value="956"/></include>
+			<control type="image">
+				<left>-96</left>
+				<top>-96</top>
+				<right>-96</right>
+				<bottom>-96</bottom>
+				<texture border="104">fold/shadow_spread.png</texture>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<texture diffuse="fold/rr4.png">fold/tooth_cream.png</texture>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<texture border="4" colordiffuse="graph">fold/edge_all.png</texture>
+			</control>
+			<control type="label">
+				<left>64</left>
+				<top>44</top>
+				<width>900</width>
+				<height>80</height>
+				<font>disp_72</font>
+				<textcolor>ink</textcolor>
+				<label>Fold</label>
+			</control>
+			<control type="label">
+				<left>66</left>
+				<top>126</top>
+				<width>900</width>
+				<height>40</height>
+				<font>light_30</font>
+				<textcolor>ink2</textcolor>
+				<label>How the card behaves on this TV.</label>
+			</control>
+			<control type="grouplist" id="9600">
+				<left>48</left>
+				<top>196</top>
+				<width>984</width>
+				<height>456</height>
+				<orientation>vertical</orientation>
+				<itemgap>4</itemgap>
+				<onleft>noop</onleft>
+				<onright>noop</onright>
+				<include content="SkinSet_Row">
+					<param name="id" value="9601"/>
+					<param name="label" value="Reduce motion"/>
+					<param name="value" value="$VAR[SkinSet_Motion]"/>
+					<param name="next" value="Skin.ToggleSetting(fold.reducemotion)"/>
+					<param name="prev" value="Skin.ToggleSetting(fold.reducemotion)"/>
+				</include>
+				<include content="SkinSet_Row">
+					<param name="id" value="9602"/>
+					<param name="label" value="Fold the player controls away after"/>
+					<param name="value" value="$VAR[SkinSet_OSDHide]"/>
+					<param name="next" value="$VAR[SkinSet_OSDHideNext]"/>
+					<param name="prev" value="$VAR[SkinSet_OSDHidePrev]"/>
+				</include>
+				<include content="SkinSet_Row">
+					<param name="id" value="9603"/>
+					<param name="label" value="Clock on the table"/>
+					<param name="value" value="$VAR[SkinSet_Clock]"/>
+					<param name="next" value="Skin.ToggleSetting(fold.hideclock)"/>
+					<param name="prev" value="Skin.ToggleSetting(fold.hideclock)"/>
+				</include>
+				<include content="SkinSet_Row">
+					<param name="id" value="9604"/>
+					<param name="label" value="Trailer word in the open card"/>
+					<param name="value" value="$VAR[SkinSet_Trailer]"/>
+					<param name="next" value="Skin.ToggleSetting(fold.hidetrailer)"/>
+					<param name="prev" value="Skin.ToggleSetting(fold.hidetrailer)"/>
+				</include>
+				<include content="SkinSet_Row">
+					<param name="id" value="9605"/>
+					<param name="label" value="Punch a hole in watched cards"/>
+					<param name="value" value="$VAR[SkinSet_Punch]"/>
+					<param name="next" value="$VAR[SkinSet_PunchToggle]"/>
+					<param name="prev" value="$VAR[SkinSet_PunchToggle]"/>
+				</include>
+				<include content="SkinSet_Row">
+					<param name="id" value="9606"/>
+					<param name="label" value="Open the library on Fold's views again"/>
+					<param name="value" value="$VAR[SkinSet_ResetValue]"/>
+					<param name="next" value="SetProperty(fold.viewsreset,1,home)"/>
+					<param name="prev" value="noop"/>
+					<param name="next2" value="Skin.Reset(fold.vreset.movies)"/>
+					<param name="next3" value="Skin.Reset(fold.vreset.sets)"/>
+					<param name="next4" value="Skin.Reset(fold.vreset.tvshows)"/>
+					<param name="next5" value="Skin.Reset(fold.vreset.seasons)"/>
+					<param name="next6" value="Skin.Reset(fold.vreset.episodes)"/>
+					<param name="next7" value="Skin.Reset(fold.vreset.albums)"/>
+					<param name="next8" value="Skin.Reset(fold.vreset.artists)"/>
+				</include>
+			</control>
+			<control type="textbox">
+				<left>64</left>
+				<top>664</top>
+				<width>952</width>
+				<height>68</height>
+				<font>body_22</font>
+				<textcolor>cap</textcolor>
+				<label>$VAR[SkinSet_Help]</label>
+			</control>
+		</control>
+		<control type="grouplist">
+			<left>420</left>
+			<top>1000</top>
+			<width>1080</width>
+			<height>32</height>
+			<orientation>horizontal</orientation>
+			<itemgap>0</itemgap>
+			<include content="Fold_KeyHint"><param name="key" value="OK"/><param name="label" value="Next value"/></include>
+			<include content="Fold_KeyHint"><param name="key" value="← →"/><param name="label" value="Step through"/></include>
+			<include content="Fold_KeyHint"><param name="key" value="BACK"/><param name="label" value="Done"/></include>
+		</control>
+	</controls>
+</window>

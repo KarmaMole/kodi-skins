@@ -1,0 +1,59 @@
+Daylight (skin.daylight) changelog
+
+0.9.4 (2026-10-18)
+- Library header: the Sort pill (and the sort arrow) now have fixed widths too, so nothing in the row
+  moves when you pick another sort. The caption beside the page title is fitted to the room left:
+  on the Shows page it shows just the count ("8 of 219"), and long titles / captions stop before the
+  pills everywhere (also on the Wall view and the other list pages).
+- Player controls (the small panel Kodi shows while music plays outside fullscreen) is now a rounded
+  Daylight card: rounded cover, Fraunces title, rounded track with times, circle buttons in the OSD
+  order (Play / Pause, Stop, Previous, Next) and Repeat / Shuffle pills for music.
+
+0.9.3 (2026-10-18)
+- Home hero: up to five picks instead of one. Left on Play shows the previous pick, Right past the
+  last button (Trailer, or More when there's no trailer) the next one; small dots show which pick.
+  Focus never lands on a hidden Trailer button.
+- OSD: Play / Pause, Stop, then Previous / Next (when there are chapters or a playlist), then
+  Subtitles, Audio, Video, Chapters, Info, Stats. The Back 10 s / Ahead 30 s buttons are gone
+  (Left / Right seek without the OSD; Up lights the track).
+- Music OSD: Play / Pause, Stop, Previous, Next, then Shuffle, Repeat, Queue; no seek buttons.
+- Library header: the All / Unwatched only, In progress / All shows and View pills have fixed widths,
+  so the row no longer shifts sideways when one of them changes. Same for Shuffle in the queue.
+- Home suggestions are really shuffled / ranked now: Kodi ignored the order inside the smart-playlist
+  links, so the hero was always the alphabetically first match and the first card ran A to Z. The hero
+  is a random pick again and "More under 100 minutes" / "Top rated" are sorted by rating.
+- Films with no runtime in the library are no longer offered as "fits before bedtime" / "under 100
+  minutes".
+- The page colour follows the hero again when you come back up from a card.
+- Search: the Artists row lines up with the poster rows. System menu: a little more room under its title.
+
+0.9.2 (2026-10-18)
+- Home cards: Down / Up now step straight from card to card (Fits before ... -> Next up -> third
+  card, and back; Up from the first card goes to the hero) from any item, no need to scroll to the
+  end of a strip. Left / Right still scroll inside a card and spill over at its ends. Empty cards are
+  skipped; each card keeps its position.
+- The focused card shows it: its title turns accent and a small down chevron marks "Down = next card".
+- Next up is now a strip of two episode tiles (thumb on top, show / episode / time below), so all
+  three cards scroll the same way.
+- Back always ends on Home's main menu: Home now opens on the menu (For now); Back from any Home card
+  goes to the menu; the Films / Shows / Music / Search pills inside the libraries swap the page instead
+  of stacking it, so one Back returns Home however many pills you used; music tabs (Albums / Artists /
+  Songs / Genres) no longer add a Back step each; Collection from an info page opens in place.
+
+0.9.1 (2026-10-18)
+- Bedtime tick: a small mark (and moon) on the OSD / seek bar track where your bedtime falls in the film.
+- Redesigned in the Daylight language (cards, Fraunces, accent-fill focus): music info, Now playing,
+  music OSD, slideshow and picture info, weather, file manager, event log, profiles, system info,
+  settings hub and Kodi settings pages, add-on info; PVR lists sit in a card (PVR is unused here).
+- Long titles step down a size instead of clipping (info pages, Home hero, libraries, Now playing, OSD).
+- Every dialog list and option row now focuses with the accent fill (no more outline frames).
+- Weather words come from the condition code everywhere (the gismeteo text draws a missing glyph).
+- Episode rows say "rated 7.9" (Figtree has no star glyph); keyboard Caps / Shift / Symbols widened.
+
+0.9.0 (2026-10-18)
+- First build, forked from the skin.majan engine and redesigned throughout.
+- Four moods (Morning, Afternoon, Evening, Night) switch live with the clock; a setting can force one.
+- Home "For now": greeting, countdown to bedtime, weather, a Tonight hero and three contextual cards
+  (fits before bedtime / Next up / rain or just added).
+- Borrowed colour: the focused film's palette tints the page light (TMDb Helper, optional).
+- Video OSD: rounded panel, "ends 11:41 PM · 11 min past your bedtime", Sleep after this.

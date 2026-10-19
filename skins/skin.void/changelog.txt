@@ -1,0 +1,41 @@
+v0.9.4 (2026-10-19)
+- Big titles have air under their descenders: on Home, info and Now playing the meta line no longer touches the
+  tail of a y or g (the centred block re-balances itself); the index focus row sits 4 px higher.
+- Times follow Omar's 12-hour clock with AM / PM: the clock, "ends 1:25 AM" in the OSD, the power menu and the
+  system menu.
+
+v0.9.3 (2026-10-18)
+- Video OSD: Stop sits next to Play/Pause; order is Play/Pause, Stop, Previous, Next, Chapters, Info, Stats,
+  Picture, Audio, Subtitles. Fixed button widths, so the row no longer shifts when Pause turns into Play.
+- Music OSD and player controls: Play/Pause, Stop, Previous, Next, Shuffle, Repeat (, Queue) with fixed widths;
+  toggling Shuffle / Repeat no longer moves the buttons after them.
+- Library options row: the watched filter reads "Watched shown / hidden"; filter, sort direction and view
+  buttons have fixed widths, so clicking a toggle no longer moves the buttons after it.
+- Big serif titles (Home, index focus row, info, now playing, OSD) no longer cut the tails of y, g, p.
+- Info pages: Up / Down from the action buttons work again (Down = More, Up = plot; music info: Down = tracks).
+  More is two short rows (film: director, rating, versions, extras; library: collection, art, fanart, refresh),
+  so the last word is no longer cut at the column edge.
+- Search: the focused result's year / genre line scrolls instead of ending in "...".
+- Poster / cover wall: a long caption scrolls instead of ending in "...".
+
+v0.9.2 (2026-10-18)
+- Back audit (Omar's rule: repeated Back always ends on Home): Home shelves, index / wall, options row, TV drill-down,
+  info, search, settings, music tabs, add-ons and the OSD all tested on the Shield; every path ends on Home with the
+  shelf on its first item, with no loops. No behaviour changes were needed.
+
+v0.9.1 (2026-10-18)
+- Long titles fit instead of clipping or running off: Home, the index focus row, info pages, Now playing and
+  the OSD step down a size or wrap to two descender-safe lines (probe textboxes, Includes_Titles.xml).
+- Index: no rows in the air under the section label; empty folders say "Nothing here" under the Back item.
+- Fonts: ½ ¼ ¾ ⅓ ⅔ ⅛ ⅜ ⅝ ⅞ built from the font's own digits; Cyrillic look-alikes for the weather text.
+- PVR, games, smart playlists, profiles, calibration and the other engine windows: no fills, bars or row
+  rules, Void type, focus by brightness and scale.
+- OSD settings panel steps aside for the track picker; narrower sliders; number pad arrows.
+
+v0.9.0 (2026-10-18)
+- First build of Void: Home as one item at a time with dwell layers (title, meta, plot, ambient fanart
+  with a slow Ken Burns loop), seven shelves switched with Left/Right.
+- Libraries as a rotary text index with an A-Z letter column and a floating poster plate; a sparse
+  poster wall as the alternative view.
+- Quiet OSD: 1px timeline, two numbers and the title; text-button row when the OSD is opened.
+- Focus shown by brightness and scale only, everywhere (dialogs, settings, keyboard, OSD).

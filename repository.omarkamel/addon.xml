@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.omarkamel" name="Omar Kamel's Kodi Skins" version="1.0.0" provider-name="Omar Kamel">
+	<extension point="xbmc.addon.repository" name="Omar Kamel's Kodi Skins">
+		<dir>
+			<info compressed="false">https://karmamole.github.io/kodi-skins/addons.xml</info>
+			<checksum>https://karmamole.github.io/kodi-skins/addons.xml.md5</checksum>
+			<datadir zip="true">https://karmamole.github.io/kodi-skins/</datadir>
+		</dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Eleven skins for Kodi 21 Omega, designed for the TV.</summary>
+		<description lang="en_GB">Majan, Void, Orbit, Daylight, Duotone, Sentence, Passe-partout, Nocturne, Six Degrees, Fold and Keepsake: skins designed for the TV and tested on an NVIDIA Shield. Install a skin from this repository and its updates arrive automatically.</description>
+		<platform>all</platform>
+		<license>GPL-2.0-or-later</license>
+		<source>https://github.com/KarmaMole/kodi-skins</source>
+		<website>https://karmamole.github.io/kodi-skins/</website>
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
+	</extension>
+</addon>

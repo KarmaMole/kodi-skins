@@ -1,0 +1,16 @@
+v0.9.2 (2026-10-19) - speed
+- The torch glides in 180 ms (was 480); plaques and glows appear without delay (140 ms); lists, shelf and corridors scroll in 200 ms; the info cast page slides in 200 ms; the room rest is 300 ms.
+- Dust in the beam and the coloured halo are now opt-in (off by default): the looping dust made Kodi redraw every frame forever, and the colour service ran TMDb Helper on every focus move. Home no longer moves its hidden lists on focus unless the coloured halo is on.
+- One opaque wall layer: the cornice is baked into plaster.jpg and the colour fill under the wall is gone; at most two full-screen layers (wall + shroud) on every room.
+- Lighter textures: travelling shrouds 1024 (was 1920) drawn at 3840, static shrouds half size drawn 2x, halo 512.
+- Home data lists draw 5 items with one 1 px poster each (was 8 items, poster + fanart).
+
+v0.9.1 (2026-10-19)
+- Clocks follow the region (12 h with AM/PM on the Shield) everywhere: cornice, seek/OSD, button menu.
+- Home: the room behind the cornice words changes only after a 400 ms rest (passing Series on the way to Music no longer swaps the wall twice).
+- Home: every frame falls back poster -> thumb -> fanart (landscape frames: landscape -> fanart -> thumb -> poster) before the title plate.
+- Playback audio / subtitle / video panel: smaller label font and slider so long labels no longer run into their value.
+- Info: cast line joins checked (all four names comma-separated).
+
+v0.9.0 (2026-10-19)
+- First build of Nocturne, forked from the Majan 1.0.4 engine: the Grand Gallery (gliding torch, brass plaques, dust in the beam), corridors, salon, the spotlight info page, the listening room, the brass-rail OSD.

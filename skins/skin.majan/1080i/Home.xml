@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Home (SPEC 4, HomeTuned.dc.html = Home section, Hub.dc.html = section hubs). Owner: Builder A. M2.
+	Kodi hard-codes no control ids on Home (Estuary Home.xml ids are skin-side); Majan ids are listed
+	in Includes_Home.xml. Home is KEEP_IN_MEMORY in Kodi: <include condition> is evaluated at skin load.
+
+	Focus map
+	  top bar 9001-9006 (Left/Right wrap) -Down-> content of the active section
+	  Home:   Play 9110 -Right-> Details 9111 -Right-> Trailer 9112; buttons -Down-> newest row 9120 (-> 9121)
+	  Hubs:   row 01 -Down-> row 02 (-> row 03); Up from row 01 -> its menu item
+	  Back from any content -> top bar (group 9000 remembers the item). Back on the bar does nothing.
+	Default focus on open: the item of the section that was active when Home was left.
+-->
+<window>
+	<defaultcontrol always="true">9001</defaultcontrol>
+	<menucontrol>9000</menucontrol>
+	<backgroundcolor>bg</backgroundcolor>
+	<!-- re-focus the section that was active when Home was left -->
+	<onload condition="String.IsEqual(Window(Home).Property(majan.section),movies)">SetFocus(9002)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(majan.section),tv)">SetFocus(9003)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(majan.section),music)">SetFocus(9004)</onload>
+	<!-- new stamp each time Home opens: the Next up plugin path changes, so it refreshes after playback -->
+	<onload>SetProperty(majan.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
+	<!-- Artwork background (setting 4) via TMDb Helper's blur service (6.17.9 source, monitor/imgmon.py):
+	     EnableBlur alone starts its image thread (the data service stays idle without TMDbHelper.Service);
+	     on Home it reads Container(TMDbHelper.WidgetContainer).ListItem and writes
+	     Window(Home).Property(TMDbHelper.ListItem.BlurImage). Off = blur service off, no image control. -->
+	<onload condition="$EXP[ArtBackgroundOn] + !Skin.HasSetting(TMDbHelper.EnableBlur)">Skin.SetBool(TMDbHelper.EnableBlur)</onload>
+	<!-- 1.0.1: blur went from 240px/radius 30 (a colour wash) to 480px/radius 12 on fanart; migrate -->
+	<onload condition="String.IsEqual(Skin.String(TMDbHelper.Blur.Size),240)">Skin.SetString(TMDbHelper.Blur.Radius,12)</onload>
+	<onload condition="String.IsEqual(Skin.String(TMDbHelper.Blur.Size),240)">Skin.SetString(TMDbHelper.Blur.Size,480)</onload>
+	<onload condition="!$EXP[ArtBackgroundOn] + Skin.HasSetting(TMDbHelper.EnableBlur)">Skin.Reset(TMDbHelper.EnableBlur)</onload>
+	<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Skin.String(TMDbHelper.Blur.Size))">Skin.SetString(TMDbHelper.Blur.Size,480)</onload>
+	<onload condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.Blur.SourceImage,Art(fanart)|Art(poster),home)</onload>
+	<onload condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.WidgetContainer,$VAR[Home_BlurContainer],home)</onload>
+	<!-- other windows must not inherit Home's container id (TMDb Helper reads it globally) -->
+	<onunload>ClearProperty(TMDbHelper.WidgetContainer,home)</onunload>
+	<include>Anim_WindowOpenClose</include>
+	<controls>
+		<include>Majan_Background</include>
+		<include>Home_ArtBackground</include>
+		<include>Home_DataLists</include>
+		<include>Home_SectionHome</include>
+		<include>Home_HubMovies</include>
+		<include>Home_HubTV</include>
+		<include>Home_HubMusic</include>
+		<include>Home_NowPlaying</include>
+		<include>Home_TopBar</include>
+	</controls>
+</window>

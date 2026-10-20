@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.passepartout" version="0.9.8" name="Passe-partout" provider-name="KarmaMole">
+<addon id="skin.passepartout" version="0.9.9" name="Passe-partout" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Optional: the art-coloured paper (TMDb Helper colour service). The skin runs on neutral paper without it. -->
@@ -16,7 +16,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#passepartout</website>
-		<news>v0.9.6 - Episode header names the season (no stray sort chooser), OSD end time never splits. v0.9.5 - Device audit: Home paper bar fixed, Previous/Next in the video OSD, series hang as posters, search and series Down/Up hops, one Back from music tabs, no cut-off labels.</news>
+		<news>v0.9.9 - New view: The wall, a full-screen poster wall with print size, paper, mat and wall label settings. v0.9.6 - Episode header names the season (no stray sort chooser), OSD end time never splits. v0.9.5 - Device audit: Home paper bar fixed, Previous/Next in the video OSD, series hang as posters, search and series Down/Up hops, one Back from music tabs, no cut-off labels.</news>
 		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>

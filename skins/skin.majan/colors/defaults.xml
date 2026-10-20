@@ -50,6 +50,7 @@
     <color name="dim_passed">ff737373</color>        <!-- brightness .45: item(s) left of focus -->
     <color name="dim_ahead">ffcccccc</color>         <!-- brightness .80: items right of focus -->
     <color name="dim_row">ff737373</color>           <!-- inactive widget rows on Home/Hub -->
+    <color name="dim_wall">ff999999</color>          <!-- brightness .60: Poster wall, unselected posters when the border is off -->
 
     <!-- Artwork background opacity (colordiffuse on the blurred background image) -->
     <color name="art_faint">4dffffff</color>         <!-- 30% -->

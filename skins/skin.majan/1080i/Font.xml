@@ -11,6 +11,7 @@
 		<font><name>display_64</name><filename>MajanDisplay-ExtraBold.ttf</filename><size>64</size><linespacing>0.73</linespacing></font>
 		<font><name>ghost_220</name><filename>MajanDisplay-ExtraBold.ttf</filename><size>220</size></font>
 		<font><name>header_34</name><filename>MajanDisplay-ExtraBold.ttf</filename><size>34</size></font>
+		<font><name>display_56</name><filename>MajanDisplay-ExtraBold.ttf</filename><size>56</size></font>
 		<font><name>display_48</name><filename>MajanDisplay-ExtraBold.ttf</filename><size>48</size><linespacing>0.75</linespacing></font>
 		<font><name>clock_34</name><filename>HankenGrotesk-SemiBold.ttf</filename><size>34</size></font>
 		<font><name>stat_30</name><filename>HankenGrotesk-SemiBold.ttf</filename><size>30</size></font>
@@ -68,6 +69,7 @@
 		<font><name>display_64</name><filename>arial.ttf</filename><size>64</size><linespacing>0.73</linespacing></font>
 		<font><name>ghost_220</name><filename>arial.ttf</filename><size>220</size></font>
 		<font><name>header_34</name><filename>arial.ttf</filename><size>34</size></font>
+		<font><name>display_56</name><filename>arial.ttf</filename><size>56</size></font>
 		<font><name>display_48</name><filename>arial.ttf</filename><size>48</size><linespacing>0.75</linespacing></font>
 		<font><name>clock_34</name><filename>arial.ttf</filename><size>34</size></font>
 		<font><name>stat_30</name><filename>arial.ttf</filename><size>30</size></font>

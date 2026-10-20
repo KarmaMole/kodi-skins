@@ -779,6 +779,18 @@
 
 	<!-- Header: page index + name (+ mono sub), filter/sort/view bar, clock, rule (mockups). -->
 	<include name="VidView_Header">
+		<!-- Poster wall (506): the header is faded out while the wall has focus and comes back over a
+		     top scrim when Up from the top row focuses the bar (controls stay visible, so onup 9000 works). -->
+		<control type="group">
+		<animation effect="fade" start="100" end="0" time="150" condition="Control.HasFocus(506)">Conditional</animation>
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>screen_w</width>
+			<height>300</height>
+			<texture colordiffuse="scrim">common/gradient_top.png</texture>
+			<visible>Control.IsVisible(506)</visible>
+		</control>
 		<control type="grouplist">
 			<left>page_margin</left>
 			<top>topbar_item_top</top>
@@ -892,6 +904,7 @@
 		<control type="button" id="4">
 			<description>Sort order (Kodi)</description>
 			<include>Majan_Hidden</include>
+		</control>
 		</control>
 	</include>
 	<!-- Look shared by the filter-bar buttons: mono 15, accent fill + ink text on focus -->
@@ -2044,6 +2057,7 @@
 		<include>VidView_501_BigPoster</include>
 		<include>VidView_502_Wall</include>
 		<include>VidView_503_Episodes</include>
+		<include>VidView_506_PosterWall</include>
 		<include>View_50_List</include>
 		<include>VidView_50_ParentPanel</include>
 		<include>VidView_Empty</include>

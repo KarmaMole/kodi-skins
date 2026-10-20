@@ -17,6 +17,7 @@
     <color name="card_edge">ffffffff</color>
     <color name="card_lift">66ffffff</color>      <!-- white 40% over the paper = the dialog card -->
     <color name="rule_card">1a1c1b19</color>      <!-- card edge 10% ink -->
+    <color name="rule_mat">121c1b19</color>       <!-- the wall's mat edge 7% ink -->
     <color name="rule_row">1f1c1b19</color>       <!-- row rules 12% -->
     <color name="rule_div">241c1b19</color>       <!-- settings divider 14% -->
     <color name="rule_track">381c1b19</color>     <!-- progress track 22% -->

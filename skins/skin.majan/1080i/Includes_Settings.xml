@@ -726,7 +726,23 @@
 		<value condition="Control.HasFocus(9515)">Preview  ·  $VAR[LabelWatchedMarkers]</value>
 		<value>Preview  ·  $VAR[Dlg_ArtLabel]</value>
 	</variable>
+	<variable name="Wall_PreviewSize">
+		<value condition="$EXP[Wall_Small]">Small</value>
+		<value condition="$EXP[Wall_Large]">Large</value>
+		<value>Medium</value>
+	</variable>
+	<variable name="Wall_PreviewCaption">
+		<value condition="$EXP[Wall_Gap] + $EXP[Wall_Border]">Preview · $VAR[Wall_PreviewSize] · Gap · Border</value>
+		<value condition="$EXP[Wall_Gap]">Preview · $VAR[Wall_PreviewSize] · Gap · Zoom</value>
+		<value condition="$EXP[Wall_Border]">Preview · $VAR[Wall_PreviewSize] · No gap · Border</value>
+		<value>Preview · $VAR[Wall_PreviewSize] · No gap · Zoom</value>
+	</variable>
 	<variable name="Dlg_SkinHelp">
+		<value condition="Control.HasFocus(9553)">A full-screen wall of posters for films and series. Pick it with VIEW: POSTER WALL in the library header; the other views and their defaults are untouched.[CR][CR]Up from the top row shows the header. Back leaves the view.</value>
+		<value condition="Control.HasFocus(9540)">Small: 11 posters across (12 with no gap). Medium: 8. Large: 6. Posters are never cropped; the next row peeks in at the bottom of the screen.</value>
+		<value condition="Control.HasFocus(9541)">Gap: a strip of page between posters (16 px, 24 px at Large). No gap: posters edge to edge, with square corners.</value>
+		<value condition="Control.HasFocus(9542)">On: the accent line around the selected poster (inside its edge when there is no gap). Off: the selected poster zooms slightly and the others dim.</value>
+		<value condition="Control.HasFocus(9543)">After you rest on a poster for 1 or 2 seconds, a card with the title, times, plot and media details covers the posters beside it. Any button press hides it at once.</value>
 		<value condition="Control.HasFocus(9550)">Colour, corners, focus outline and the artwork behind the page. Changes apply at once; changing the corners reloads the skin.[CR][CR]Up / Down picks a category, Right enters it.</value>
 		<value condition="Control.HasFocus(9551)">What sits under the spotlight on Home, and how often the spotlight moves on.</value>
 		<value condition="Control.HasFocus(9552)">Motion, and a way back to the defaults.</value>

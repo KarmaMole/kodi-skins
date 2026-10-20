@@ -338,7 +338,7 @@
 				<height>68</height>
 				<font>body_24</font>
 				<textcolor>ink2</textcolor>
-				<label>How the hang and the salon mark what you have seen, and what the wall label offers.</label>
+				<label>How the hang, the salon and the wall mark what you have seen, and what the wall label offers.</label>
 			</control>
 			<control type="image">
 				<left>680</left>
@@ -385,6 +385,75 @@
 					<label>Trailer button</label>
 					<onclick>Skin.ToggleSetting(passepartout.hidetrailer)</onclick>
 				</control>
+				<control type="group" id="9139">
+					<width>1120</width>
+					<height>72</height>
+					<control type="label">
+						<left>0</left>
+						<top>30</top>
+						<width>1120</width>
+						<height>28</height>
+						<font>cap_20</font>
+						<textcolor>ink2</textcolor>
+						<label>The wall</label>
+					</control>
+				</control>
+				<control type="button" id="9133">
+					<width>1120</width>
+					<height>76</height>
+					<font>body_28</font>
+					<textcolor>ink</textcolor>
+					<focusedcolor>$VAR[PaperColor]</focusedcolor>
+					<textoffsetx>28</textoffsetx>
+					<aligny>center</aligny>
+					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
+					<label>Print size</label>
+					<onclick condition="String.IsEqual(Skin.String(passepartout.wall.size),ten)">Skin.SetString(passepartout.wall.size,eight)</onclick>
+					<onclick condition="String.IsEqual(Skin.String(passepartout.wall.size),eight) | [!String.IsEqual(Skin.String(passepartout.wall.size),ten) + !String.IsEqual(Skin.String(passepartout.wall.size),eight) + !String.IsEqual(Skin.String(passepartout.wall.size),six)]">Skin.SetString(passepartout.wall.size,six)</onclick>
+					<onclick condition="String.IsEqual(Skin.String(passepartout.wall.size),six)">Skin.SetString(passepartout.wall.size,ten)</onclick>
+				</control>
+				<control type="button" id="9134">
+					<width>1120</width>
+					<height>76</height>
+					<font>body_28</font>
+					<textcolor>ink</textcolor>
+					<focusedcolor>$VAR[PaperColor]</focusedcolor>
+					<textoffsetx>28</textoffsetx>
+					<aligny>center</aligny>
+					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
+					<label>Paper between the prints</label>
+					<onclick>Skin.ToggleSetting(passepartout.wall.butted)</onclick>
+				</control>
+				<control type="button" id="9135">
+					<width>1120</width>
+					<height>76</height>
+					<font>body_28</font>
+					<textcolor>ink</textcolor>
+					<focusedcolor>$VAR[PaperColor]</focusedcolor>
+					<textoffsetx>28</textoffsetx>
+					<aligny>center</aligny>
+					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
+					<label>A mat around the chosen print</label>
+					<onclick>Skin.ToggleSetting(passepartout.wall.nomat)</onclick>
+				</control>
+				<control type="button" id="9136">
+					<width>1120</width>
+					<height>76</height>
+					<font>body_28</font>
+					<textcolor>ink</textcolor>
+					<focusedcolor>$VAR[PaperColor]</focusedcolor>
+					<textoffsetx>28</textoffsetx>
+					<aligny>center</aligny>
+					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
+					<label>Wall label beside the print</label>
+					<onclick condition="String.IsEqual(Skin.String(passepartout.wall.label),off) | [!String.IsEqual(Skin.String(passepartout.wall.label),off) + !String.IsEqual(Skin.String(passepartout.wall.label),1) + !String.IsEqual(Skin.String(passepartout.wall.label),2)]">Skin.SetString(passepartout.wall.label,1)</onclick>
+					<onclick condition="String.IsEqual(Skin.String(passepartout.wall.label),1)">Skin.SetString(passepartout.wall.label,2)</onclick>
+					<onclick condition="String.IsEqual(Skin.String(passepartout.wall.label),2)">Skin.SetString(passepartout.wall.label,off)</onclick>
+				</control>
 			</control>
 		<control type="label">
 			<left>680</left>
@@ -429,6 +498,94 @@
 			<textcolor>$VAR[PaperColor]</textcolor>
 			<label>$VAR[SS_Value_9132]</label>
 			<visible>Control.HasFocus(9132)</visible>
+		</control>
+		<control type="label">
+			<left>680</left>
+			<top>564</top>
+			<width>1092</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>ink2</textcolor>
+			<label>$VAR[SS_Value_9133]</label>
+			<visible>!Control.HasFocus(9133)</visible>
+		</control>
+		<control type="label">
+			<left>680</left>
+			<top>564</top>
+			<width>1092</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>$VAR[PaperColor]</textcolor>
+			<label>$VAR[SS_Value_9133]</label>
+			<visible>Control.HasFocus(9133)</visible>
+		</control>
+		<control type="label">
+			<left>680</left>
+			<top>640</top>
+			<width>1092</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>ink2</textcolor>
+			<label>$VAR[SS_Value_9134]</label>
+			<visible>!Control.HasFocus(9134)</visible>
+		</control>
+		<control type="label">
+			<left>680</left>
+			<top>640</top>
+			<width>1092</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>$VAR[PaperColor]</textcolor>
+			<label>$VAR[SS_Value_9134]</label>
+			<visible>Control.HasFocus(9134)</visible>
+		</control>
+		<control type="label">
+			<left>680</left>
+			<top>716</top>
+			<width>1092</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>ink2</textcolor>
+			<label>$VAR[SS_Value_9135]</label>
+			<visible>!Control.HasFocus(9135)</visible>
+		</control>
+		<control type="label">
+			<left>680</left>
+			<top>716</top>
+			<width>1092</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>$VAR[PaperColor]</textcolor>
+			<label>$VAR[SS_Value_9135]</label>
+			<visible>Control.HasFocus(9135)</visible>
+		</control>
+		<control type="label">
+			<left>680</left>
+			<top>792</top>
+			<width>1092</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>ink2</textcolor>
+			<label>$VAR[SS_Value_9136]</label>
+			<visible>!Control.HasFocus(9136)</visible>
+		</control>
+		<control type="label">
+			<left>680</left>
+			<top>792</top>
+			<width>1092</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>$VAR[PaperColor]</textcolor>
+			<label>$VAR[SS_Value_9136]</label>
+			<visible>Control.HasFocus(9136)</visible>
 		</control>
 		</control>
 		<control type="group">
@@ -679,6 +836,66 @@
 				</control>
 			</control>
 
+		</control>
+		<!-- the wall, as set (Libraries page): ten small prints with paper between them (or butted), the chosen one
+		     (slot 3) matted and lifted like on the wall. The list draws the prints, so their art loads (LESSONS 2). -->
+		<control type="group">
+			<visible>String.IsEqual(Container(9000).ListItem.Property(cat),libraries)</visible>
+			<control type="label">
+				<left>680</left>
+				<top>872</top>
+				<width>600</width>
+				<height>28</height>
+				<font>cap_20</font>
+				<textcolor>ink2</textcolor>
+				<label>The wall, as set</label>
+			</control>
+			<control type="list" id="9190">
+				<left>680</left>
+				<top>924</top>
+				<width>720</width>
+				<height>84</height>
+				<orientation>horizontal</orientation>
+				<scrolltime>0</scrolltime>
+				<itemlayout width="70" height="84" condition="!Skin.HasSetting(passepartout.wall.butted)">
+					<include>SS_WallStripPrint</include>
+				</itemlayout>
+				<focusedlayout width="70" height="84" condition="!Skin.HasSetting(passepartout.wall.butted)">
+					<include>SS_WallStripPrint</include>
+				</focusedlayout>
+				<itemlayout width="56" height="84" condition="Skin.HasSetting(passepartout.wall.butted)">
+					<include content="SS_WallStripPrint"><param name="edge" value="false"/></include>
+				</itemlayout>
+				<focusedlayout width="56" height="84" condition="Skin.HasSetting(passepartout.wall.butted)">
+					<include content="SS_WallStripPrint"><param name="edge" value="false"/></include>
+				</focusedlayout>
+				<content sortby="dateadded" sortorder="descending" limit="10" browse="never" target="videos">videodb://movies/titles/</content>
+			</control>
+			<control type="group">
+				<left>890</left>
+				<top>924</top>
+				<width>56</width>
+				<height>84</height>
+				<visible>!Skin.HasSetting(passepartout.wall.butted) + Integer.IsGreater(Container(9190).NumItems,3)</visible>
+				<include>SS_WallStripChosen</include>
+			</control>
+			<control type="group">
+				<left>848</left>
+				<top>924</top>
+				<width>56</width>
+				<height>84</height>
+				<visible>Skin.HasSetting(passepartout.wall.butted) + Integer.IsGreater(Container(9190).NumItems,3)</visible>
+				<include>SS_WallStripChosen</include>
+			</control>
+			<control type="textbox">
+				<left>1440</left>
+				<top>930</top>
+				<width>360</width>
+				<height>90</height>
+				<font>body_20</font>
+				<textcolor>ink2</textcolor>
+				<label>Choose the wall under View, beside The hang and Salon. Up from the top row shows the words.</label>
+			</control>
 		</control>
 		<!-- paint chips (Paper page): the paper on this page now, and the neutral paper -->
 		<control type="group">

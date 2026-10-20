@@ -18,6 +18,7 @@
 	<include file="Includes_OSD.xml"/>
 	<include file="Includes_Search.xml"/>
 	<include file="Includes_Views_Video.xml"/>
+	<include file="Includes_Wall.xml"/>
 	<include file="Includes_VideoInfo.xml"/>
 	<include file="Includes_Music.xml"/>
 	<include file="Includes_Views_Music.xml"/>

@@ -234,12 +234,15 @@ def make_focus() -> None:
     # artwork (Soft/Visible backgrounds). Item rect expanded by 32 px; tint `focus_halo`.
     halo = blurred_rect_alpha(96, (32, 32, 63, 63), 7)
     save(alpha_to_white(halo), "focus/halo.png", "32")
+    # Poster wall contact wall: 2 px page-black line inside outline_3 drawn on the poster edge (make_wall.py)
+    save(alpha_to_white(ring_alpha(40, 40, 2, 0, margin=3)), "focus/inset_3_gap.png", "16")
 
 
 # --------------------------------------------------------------------------- masks
 MASKS = [
     # name, w, h, radius, used by
     ("poster_round8.png", 168, 252, 8, "widget rows 140-176 px wide, TV wall 158 px"),
+    ("poster_round8_wall.png", 226, 339, 8, "Poster wall Medium + gap 226 px"),
     ("poster_round8_large.png", 330, 495, 8, "Big Poster view 300-360 px wide"),
     ("poster_round8_xl.png", 520, 780, 8, "Info page / Showcase poster 460-560 px wide"),
     ("square_round8.png", 219, 219, 8, "album grid 180-240 px"),

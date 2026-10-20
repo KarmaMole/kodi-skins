@@ -62,7 +62,7 @@
 				<param name="label" value="Appearance"/>
 				<param name="key" value="appearance"/>
 				<param name="onright" value="9510"/>
-				<param name="onup" value="9552"/>
+				<param name="onup" value="9553"/>
 				<param name="ondown" value="9551"/>
 			</include>
 			<include content="Dlg_SkinCategory">
@@ -83,9 +83,19 @@
 				<param name="key" value="performance"/>
 				<param name="onright" value="9530"/>
 				<param name="onup" value="9551"/>
+				<param name="ondown" value="9553"/>
+			</include>
+			<include content="Dlg_SkinCategory">
+				<param name="id" value="9553"/>
+				<param name="top" value="384"/>
+				<param name="index" value="04"/>
+				<param name="label" value="Poster wall"/>
+				<param name="key" value="wall"/>
+				<param name="onright" value="9540"/>
+				<param name="onup" value="9552"/>
 				<param name="ondown" value="9550"/>
 			</include>
-			<include content="Majan_Rule"><param name="top" value="384"/><param name="left" value="0"/><param name="width" value="settings_cat_w"/></include>
+			<include content="Majan_Rule"><param name="top" value="456"/><param name="left" value="0"/><param name="width" value="settings_cat_w"/></include>
 		</control>
 
 		<!-- ============================================================ appearance -->
@@ -523,14 +533,157 @@
 			<include content="Majan_Rule"><param name="top" value="368"/><param name="left" value="0"/><param name="width" value="860"/></include>
 		</control>
 
+		<!-- ============================================================ poster wall (view 506, Includes_Wall.xml) -->
+		<control type="group">
+			<left>settings_list_x</left>
+			<visible>String.IsEqual(Window(Home).Property(majan.skincat),wall)</visible>
+			<include>Anim_FadeVisible</include>
+			<!-- ====== Poster size -->
+			<control type="group">
+				<top>168</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9540"/>
+					<param name="label" value="Poster size"/>
+					<param name="hint" value="11 · 8 · 6 posters across the screen"/>
+				</include>
+				<control type="button" id="9540">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9543</onup>
+					<ondown>9541</ondown>
+					<onback>9553</onback>
+					<onright condition="String.IsEqual(Skin.String(majan.wall.size),small)">Skin.SetString(majan.wall.size,medium)</onright>
+					<onleft condition="String.IsEqual(Skin.String(majan.wall.size),small)">SetFocus(9553)</onleft>
+					<onclick condition="String.IsEqual(Skin.String(majan.wall.size),small)">Skin.SetString(majan.wall.size,medium)</onclick>
+					<onright condition="$EXP[Wall_Medium]">Skin.SetString(majan.wall.size,large)</onright>
+					<onleft condition="$EXP[Wall_Medium]">Skin.SetString(majan.wall.size,small)</onleft>
+					<onclick condition="$EXP[Wall_Medium]">Skin.SetString(majan.wall.size,large)</onclick>
+					<onleft condition="String.IsEqual(Skin.String(majan.wall.size),large)">Skin.SetString(majan.wall.size,medium)</onleft>
+					<onclick condition="String.IsEqual(Skin.String(majan.wall.size),large)">Skin.SetString(majan.wall.size,small)</onclick>
+				</control>
+				<include content="Dlg_SegOption"><param name="left" value="545"/><param name="width" value="98"/><param name="label" value="Small"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.size),small)"/><param name="row" value="9540"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="643"/><param name="width" value="119"/><param name="label" value="Medium"/><param name="selected" value="$EXP[Wall_Medium]"/><param name="row" value="9540"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="762"/><param name="width" value="98"/><param name="label" value="Large"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.size),large)"/><param name="row" value="9540"/></include>
+				<include content="Dlg_SegFrame"><param name="left" value="545"/><param name="width" value="315"/></include>
+			</control>
+			<!-- ====== Gap between posters -->
+			<control type="group">
+				<top>268</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9541"/>
+					<param name="label" value="Gap between posters"/>
+					<param name="hint" value="16 px of page (Large 24) · edge to edge"/>
+				</include>
+				<control type="button" id="9541">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9540</onup>
+					<ondown>9542</ondown>
+					<onback>9553</onback>
+					<onright condition="!Skin.HasSetting(majan.wall.nogap)">Skin.SetBool(majan.wall.nogap)</onright>
+					<onleft condition="!Skin.HasSetting(majan.wall.nogap)">SetFocus(9553)</onleft>
+					<onclick condition="!Skin.HasSetting(majan.wall.nogap)">Skin.SetBool(majan.wall.nogap)</onclick>
+					<onleft condition="Skin.HasSetting(majan.wall.nogap)">Skin.Reset(majan.wall.nogap)</onleft>
+					<onclick condition="Skin.HasSetting(majan.wall.nogap)">Skin.Reset(majan.wall.nogap)</onclick>
+				</control>
+				<include content="Dlg_SegOption"><param name="left" value="666"/><param name="width" value="84"/><param name="label" value="Gap"/><param name="selected" value="!Skin.HasSetting(majan.wall.nogap)"/><param name="row" value="9541"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="750"/><param name="width" value="110"/><param name="label" value="No gap"/><param name="selected" value="Skin.HasSetting(majan.wall.nogap)"/><param name="row" value="9541"/></include>
+				<include content="Dlg_SegFrame"><param name="left" value="666"/><param name="width" value="194"/></include>
+			</control>
+			<!-- ====== Border on the selected poster -->
+			<control type="group">
+				<top>368</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9542"/>
+					<param name="label" value="Border on the selected poster"/>
+					<param name="hint" value="Accent line · off = a slight zoom"/>
+				</include>
+				<control type="button" id="9542">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9541</onup>
+					<ondown>9543</ondown>
+					<onback>9553</onback>
+					<onright condition="!Skin.HasSetting(majan.wall.noborder)">Skin.SetBool(majan.wall.noborder)</onright>
+					<onleft condition="!Skin.HasSetting(majan.wall.noborder)">SetFocus(9553)</onleft>
+					<onclick condition="!Skin.HasSetting(majan.wall.noborder)">Skin.SetBool(majan.wall.noborder)</onclick>
+					<onleft condition="Skin.HasSetting(majan.wall.noborder)">Skin.Reset(majan.wall.noborder)</onleft>
+					<onclick condition="Skin.HasSetting(majan.wall.noborder)">Skin.Reset(majan.wall.noborder)</onclick>
+				</control>
+				<include content="Dlg_SegOption"><param name="left" value="710"/><param name="width" value="72"/><param name="label" value="On"/><param name="selected" value="!Skin.HasSetting(majan.wall.noborder)"/><param name="row" value="9542"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="782"/><param name="width" value="78"/><param name="label" value="Off"/><param name="selected" value="Skin.HasSetting(majan.wall.noborder)"/><param name="row" value="9542"/></include>
+				<include content="Dlg_SegFrame"><param name="left" value="710"/><param name="width" value="150"/></include>
+			</control>
+			<!-- ====== Info overlay -->
+			<control type="group">
+				<top>468</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9543"/>
+					<param name="label" value="Info overlay"/>
+					<param name="hint" value="Title, times, plot, flags beside it"/>
+				</include>
+				<control type="button" id="9543">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9542</onup>
+					<ondown>9540</ondown>
+					<onback>9553</onback>
+					<onright condition="$EXP[Wall_OverlayOff]">Skin.SetString(majan.wall.overlay,1)</onright>
+					<onleft condition="$EXP[Wall_OverlayOff]">SetFocus(9553)</onleft>
+					<onclick condition="$EXP[Wall_OverlayOff]">Skin.SetString(majan.wall.overlay,1)</onclick>
+					<onright condition="String.IsEqual(Skin.String(majan.wall.overlay),1)">Skin.SetString(majan.wall.overlay,2)</onright>
+					<onleft condition="String.IsEqual(Skin.String(majan.wall.overlay),1)">Skin.SetString(majan.wall.overlay,off)</onleft>
+					<onclick condition="String.IsEqual(Skin.String(majan.wall.overlay),1)">Skin.SetString(majan.wall.overlay,2)</onclick>
+					<onleft condition="String.IsEqual(Skin.String(majan.wall.overlay),2)">Skin.SetString(majan.wall.overlay,1)</onleft>
+					<onclick condition="String.IsEqual(Skin.String(majan.wall.overlay),2)">Skin.SetString(majan.wall.overlay,off)</onclick>
+				</control>
+				<include content="Dlg_SegOption"><param name="left" value="526"/><param name="width" value="78"/><param name="label" value="Off"/><param name="selected" value="$EXP[Wall_OverlayOff]"/><param name="row" value="9543"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="604"/><param name="width" value="128"/><param name="label" value="After 1 s"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.overlay),1)"/><param name="row" value="9543"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="732"/><param name="width" value="128"/><param name="label" value="After 2 s"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.overlay),2)"/><param name="row" value="9543"/></include>
+				<include content="Dlg_SegFrame"><param name="left" value="526"/><param name="width" value="334"/></include>
+			</control>
+			<include content="Majan_Rule"><param name="top" value="568"/><param name="left" value="0"/><param name="width" value="860"/></include>
+		</control>
+
 		<!-- ============================================================ aside: preview + help -->
 		<control type="group">
 			<left>1500</left>
 			<top>content_top</top>
 			<width>324</width>
+			<!-- Poster wall page: the wall at the current settings (mini panel 9591) -->
 			<control type="group">
 				<width>324</width>
 				<height>300</height>
+				<visible>String.IsEqual(Window(Home).Property(majan.skincat),wall)</visible>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>324</width>
+					<height>300</height>
+					<texture border="10" colordiffuse="hairline">common/rect_outline_1.png</texture>
+				</control>
+				<control type="image">
+					<left>15</left>
+					<top>39</top>
+					<width>296</width>
+					<height>166</height>
+					<texture border="10" colordiffuse="hairline_strong">common/rect_outline_1.png</texture>
+				</control>
+				<control type="group">
+					<left>16</left>
+					<top>40</top>
+					<include>Wall_Preview</include>
+				</control>
+				<control type="label">
+					<left>16</left>
+					<top>236</top>
+					<width>300</width>
+					<height>24</height>
+					<font>mono_13</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$VAR[Wall_PreviewCaption]</label>
+				</control>
+			</control>
+			<control type="group">
+				<width>324</width>
+				<height>300</height>
+				<visible>!String.IsEqual(Window(Home).Property(majan.skincat),wall)</visible>
 				<control type="image">
 					<left>1</left>
 					<top>1</top>

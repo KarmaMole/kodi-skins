@@ -1,3 +1,15 @@
+0.9.9 (2026-10-20)
+- New view: The wall. A full-screen wall of film (and series, collection, season) posters, chosen under View
+  beside The hang and Salon; no library's default view changes. Up from the top row shows the header words,
+  Right past the last column or Down at the end reaches the View words, Back works as everywhere else.
+- Skin settings > Libraries > The wall: print size (ten, eight or six across), paper between the prints
+  (shown, or a butted contact wall), a mat around the chosen print (on or off; the print always lifts with its
+  shadow), and a wall label beside the print (off, after 1 second, after 2 seconds of rest). "The wall, as set"
+  shows a small strip of prints the way the wall will hang them.
+- The wall label is a paper card in the museum caption voice (title, director and year, genres and running
+  time, curator text on the larger sizes, watched state and end time); it sits beside the print and moves to the
+  other side near the right edge. The paper still takes its colour from the film in focus.
+
 0.9.8 (2026-10-20)
 - Author shown as KarmaMole; website link to the showcase.
 

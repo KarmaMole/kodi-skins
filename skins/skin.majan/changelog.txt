@@ -1,3 +1,13 @@
+1.0.7 (2026-10-20)
+- New library view "Poster wall" (VIEW: POSTER WALL in the library header, films, sets, series, seasons).
+  Full-screen, edge to edge, posters exact 2:3 and never cropped; the next row peeks in at the bottom and
+  focus only lands on full rows. The header hides while the wall has focus; Up from the top row shows it.
+  It is the last view in the list, so no folder changes its current view.
+- New settings category 04 Poster wall: size (Small 11 / 12 across, Medium 8, Large 6), gap (16 px,
+  Large 24) or edge to edge, border on the selected poster (or a slight zoom with the others dimmed),
+  info overlay off / after 1 s / after 2 s (a card with title, times, plot, director and genres, media
+  details; it covers the posters beside the selected one and flips at the right edge). Live preview.
+
 1.0.6 (2026-10-20)
 - Author shown as KarmaMole; website link to the showcase.
 

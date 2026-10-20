@@ -36,6 +36,7 @@ FONTS = [
     ("display_64", DISPLAY, 64, 0.73, None),
     ("ghost_220", DISPLAY, 220, None, None),
     ("header_34", DISPLAY, 34, None, None),
+    ("display_56", DISPLAY, 56, None, None),      # Poster wall info card title (1 line)
     ("display_48", DISPLAY, 48, 0.75, None),
     # --- Hanken Grotesk ------------------------------------------------------
     ("clock_34", SEMI, 34, None, None),

@@ -37,6 +37,24 @@
 		<value condition="Skin.HasSetting(passepartout.hidetrailer)">Hidden</value>
 		<value>Shown</value>
 	</variable>
+	<variable name="SS_Value_9133">
+		<value condition="String.IsEqual(Skin.String(passepartout.wall.size),ten)">Ten across</value>
+		<value condition="String.IsEqual(Skin.String(passepartout.wall.size),eight) | [!String.IsEqual(Skin.String(passepartout.wall.size),ten) + !String.IsEqual(Skin.String(passepartout.wall.size),eight) + !String.IsEqual(Skin.String(passepartout.wall.size),six)]">Eight across</value>
+		<value condition="String.IsEqual(Skin.String(passepartout.wall.size),six)">Six across</value>
+	</variable>
+	<variable name="SS_Value_9134">
+		<value condition="Skin.HasSetting(passepartout.wall.butted)">Hidden</value>
+		<value>Shown</value>
+	</variable>
+	<variable name="SS_Value_9135">
+		<value condition="Skin.HasSetting(passepartout.wall.nomat)">Off</value>
+		<value>On</value>
+	</variable>
+	<variable name="SS_Value_9136">
+		<value condition="String.IsEqual(Skin.String(passepartout.wall.label),off) | [!String.IsEqual(Skin.String(passepartout.wall.label),off) + !String.IsEqual(Skin.String(passepartout.wall.label),1) + !String.IsEqual(Skin.String(passepartout.wall.label),2)]">Off</value>
+		<value condition="String.IsEqual(Skin.String(passepartout.wall.label),1)">After 1 second</value>
+		<value condition="String.IsEqual(Skin.String(passepartout.wall.label),2)">After 2 seconds</value>
+	</variable>
 	<variable name="SS_Value_9141">
 		<value condition="String.IsEqual(Skin.String(passepartout.osdhide),3)">3 seconds</value>
 		<value condition="String.IsEqual(Skin.String(passepartout.osdhide),5) | [!String.IsEqual(Skin.String(passepartout.osdhide),3) + !String.IsEqual(Skin.String(passepartout.osdhide),5) + !String.IsEqual(Skin.String(passepartout.osdhide),10) + !String.IsEqual(Skin.String(passepartout.osdhide),off)]">5 seconds</value>
@@ -51,4 +69,88 @@
 		<value condition="Skin.HasSetting(passepartout.reducemotion)">On</value>
 		<value>Off</value>
 	</variable>
+	<!-- "the wall, as set" strip: a 56x84 print with a 2 px white edge and a 10 % ink hairline -->
+	<include name="SS_WallStripPrint">
+		<param name="edge">true</param>
+		<definition>
+			<control type="group">
+				<left>0</left>
+				<top>0</top>
+				<width>56</width>
+				<height>84</height>
+				<control type="image">
+					<left>-3</left>
+					<top>-3</top>
+					<right>-3</right>
+					<bottom>-3</bottom>
+					<texture colordiffuse="rule_card">common/white.png</texture>
+					<visible>$PARAM[edge]</visible>
+				</control>
+				<control type="image">
+					<left>-2</left>
+					<top>-2</top>
+					<right>-2</right>
+					<bottom>-2</bottom>
+					<texture colordiffuse="white">common/white.png</texture>
+					<visible>$PARAM[edge]</visible>
+				</control>
+				<include content="PP_Picture">
+					<param name="art" value="$INFO[ListItem.Art(poster)]"/>
+					<param name="title" value=""/>
+					<param name="font" value="body_20"/>
+				</include>
+			</control>
+		</definition>
+	</include>
+	<!-- the strip's chosen print: mat (6 px, when the mat is on) + lift, drawn over the list's slot 3 -->
+	<include name="SS_WallStripChosen">
+		<control type="image">
+			<left>-36</left>
+			<top>-18</top>
+			<right>-36</right>
+			<bottom>-46</bottom>
+			<texture border="64,48,64,76" colordiffuse="$VAR[ShadowColor]">pp/lift_xs.png</texture>
+			<visible>!Skin.HasSetting(passepartout.wall.nomat) + !Skin.HasSetting(passepartout.noshadow)</visible>
+		</control>
+		<control type="image">
+			<left>-36</left>
+			<top>-12</top>
+			<right>-36</right>
+			<bottom>-40</bottom>
+			<texture border="64,48,64,76" colordiffuse="$VAR[ShadowColor]">pp/lift_xs.png</texture>
+			<visible>Skin.HasSetting(passepartout.wall.nomat) + !Skin.HasSetting(passepartout.noshadow)</visible>
+		</control>
+		<control type="group">
+			<visible>!Skin.HasSetting(passepartout.wall.nomat)</visible>
+			<control type="image">
+				<left>-7</left>
+				<top>-7</top>
+				<right>-7</right>
+				<bottom>-7</bottom>
+				<texture colordiffuse="rule_mat">common/white.png</texture>
+			</control>
+			<control type="image">
+				<left>-6</left>
+				<top>-6</top>
+				<right>-6</right>
+				<bottom>-6</bottom>
+				<texture colordiffuse="$VAR[PaperColor]">common/white.png</texture>
+			</control>
+			<control type="image">
+				<left>-6</left>
+				<top>-6</top>
+				<right>-6</right>
+				<bottom>-6</bottom>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+			</control>
+		</control>
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>56</width>
+			<height>84</height>
+			<aspectratio>scale</aspectratio>
+			<texture background="true">$INFO[Container(9190).ListItemAbsolute(3).Art(poster)]</texture>
+		</control>
+	</include>
 </includes>

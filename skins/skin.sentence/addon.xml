@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.sentence" version="0.9.5" name="Sentence" provider-name="Omar Kamel">
+<addon id="skin.sentence" version="0.9.6" name="Sentence" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Optional: TMDb Helper ("find more like this"), embuary helper (next-up episodes). The skin runs without both. -->
@@ -15,6 +15,7 @@
 		<platform>all</platform>
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
+		<website>https://karmamole.github.io/kodi-skins/#sentence</website>
 		<news>v0.9.4 - Nothing shifts when a phrase takes focus; long show names fit on page 2; the info plot never runs into the hint line; the search box has room around it. v0.9.3 - OSD: Pause, Stop, Chapters, Audio, Subtitles, no seek words, no judder; music OSD the same.</news>
 		<assets>
 			<icon>icon.png</icon>

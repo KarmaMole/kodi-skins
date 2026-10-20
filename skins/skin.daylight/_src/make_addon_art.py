@@ -93,7 +93,10 @@ def icon():
         x2, y2 = cx + np.cos(a) * r2, cy + np.sin(a) * r2
         d.line((x1, y1, x2, y2), fill=(0xF2, 0xA6, 0x5A, 255), width=lw)
     base = base.resize((256, 256), Image.LANCZOS)
-    base.save(ROOT / "icon.png")
+    # the official Kodi repository requires a solid icon (no transparency): flatten onto the ground colour
+    _flat = Image.new("RGB", base.size, (28, 27, 34))  # the night tone at the corners: reads as a full square
+    _flat.paste(base, mask=base.convert("RGBA").split()[3])
+    _flat.save(ROOT / "icon.png", optimize=True)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.keepsake" version="0.9.2" name="Keepsake" provider-name="Omar Kamel">
+<addon id="skin.keepsake" version="0.9.3" name="Keepsake" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Optional: TMDb Helper (trailers, cast pages) and Skin Variables (the exact time you watched
@@ -16,6 +16,7 @@
 		<platform>all</platform>
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
+		<website>https://karmamole.github.io/kodi-skins/#keepsake</website>
 		<news>v0.9.1 - waiting five years or more on Home, the unwatched opens on a full year, stronger stamps on bright prints, info more row fits.</news>
 		<assets>
 			<icon>icon.png</icon>

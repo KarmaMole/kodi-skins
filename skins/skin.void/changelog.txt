@@ -1,3 +1,6 @@
+0.9.5 (2026-10-20)
+- Author shown as KarmaMole; website link to the showcase.
+
 v0.9.4 (2026-10-19)
 - Big titles have air under their descenders: on Home, info and Now playing the meta line no longer touches the
   tail of a y or g (the centred block re-balances itself); the index focus row sits 4 px higher.

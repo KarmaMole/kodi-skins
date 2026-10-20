@@ -1,3 +1,6 @@
+0.9.3 (2026-10-20)
+- Author shown as KarmaMole; website link to the showcase.
+
 0.9.2 (2026-10-20)
 - Install fix: the optional TMDb Helper dependency now accepts any version from 4.0.0, so the skin installs
   next to the 5.x TMDb Helper from Kodi's official repository ("unable to match dependency" on Kodi 21.3).

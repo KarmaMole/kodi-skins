@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.orbit" version="0.9.6" name="Orbit" provider-name="Omar Kamel">
+<addon id="skin.orbit" version="0.9.7" name="Orbit" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Optional: artwork backdrop blur service. The skin runs without it. -->
@@ -15,6 +15,7 @@
 		<platform>all</platform>
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
+		<website>https://karmamole.github.io/kodi-skins/#orbit</website>
 		<news>v0.9.5 - Option-bar pills keep their width (VIEW never moves); Orbit-styled player controls panel; no empty-path log noise on Home.</news>
 		<assets>
 			<icon>icon.png</icon>

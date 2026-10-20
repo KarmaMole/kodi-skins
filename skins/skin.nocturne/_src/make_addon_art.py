@@ -63,7 +63,10 @@ def main():
     fan.convert("RGB").save(ROOT / "fanart.jpg", quality=90)
     icon = scene(1024, 1024, (362, 190, 300, 444), (512, 470), 690, scale=0.85)
     icon = icon.resize((512, 512), Image.LANCZOS)
-    icon.save(ROOT / "icon.png", optimize=True)
+    # the official Kodi repository requires a solid icon (no transparency): flatten onto the ground colour
+    _flat = Image.new("RGB", icon.size, (13, 15, 21))
+    _flat.paste(icon, mask=icon.convert("RGBA").split()[3])
+    _flat.save(ROOT / "icon.png", optimize=True)
     print("icon.png fanart.jpg")
 
 

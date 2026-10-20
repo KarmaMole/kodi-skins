@@ -60,7 +60,7 @@ def page(rows: list[tuple[str, str, str, str]], repo_zip: str) -> str:
         for aid, ver, name, summary in rows if aid != REPO_ID)
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Omar Kamel's Kodi Skins</title>
+<title>KarmaMole's Kodi Skins</title>
 <style>
 :root{{--bg:#f4f3ef;--fg:#18181a;--dim:#66645e;--line:#d9d7d1;--accent:#c8442b}}
 @media (prefers-color-scheme:dark){{:root{{--bg:#121213;--fg:#ecebe6;--dim:#97948d;--line:#2b2b2e;--accent:#f06a4c}}}}
@@ -70,14 +70,14 @@ p{{color:var(--dim)}} a{{color:var(--accent)}} ol li{{margin:6px 0}} code{{font:
 ul{{list-style:none;padding:0;border-top:1px solid var(--line)}} ul li{{padding:12px 0;border-bottom:1px solid var(--line)}}
 .v{{font:13px ui-monospace,monospace;color:var(--dim)}} .s{{color:var(--dim)}}
 </style></head><body><main>
-<h1>Omar Kamel's Kodi Skins</h1>
+<h1>KarmaMole's Kodi Skins</h1>
 <p>Eleven skins for Kodi 21 Omega, designed for the TV and tested on an NVIDIA Shield. Free under the GPL-2.0.</p>
 <h2>Install</h2>
 <ol>
 <li>In Kodi: <b>Settings → System → Add-ons</b>, turn on <b>Unknown sources</b>.</li>
-<li><b>Settings → File manager → Add source</b>, enter <code>https://karmamole.github.io/kodi-skins/</code> and name it <code>omarkamel</code>.</li>
-<li><b>Add-ons → Install from zip file → omarkamel →</b> <code>{html.escape(repo_zip)}</code>.</li>
-<li><b>Add-ons → Install from repository → Omar Kamel's Kodi Skins → Look and feel → Skin</b>, pick one. Updates arrive automatically.</li>
+<li><b>Settings → File manager → Add source</b>, enter <code>https://karmamole.github.io/kodi-skins/</code> and name it <code>karmamole</code>.</li>
+<li><b>Add-ons → Install from zip file → karmamole →</b> <code>{html.escape(repo_zip)}</code>.</li>
+<li><b>Add-ons → Install from repository → KarmaMole's Kodi Skins → Look and feel → Skin</b>, pick one. Updates arrive automatically.</li>
 </ol>
 <p>Or download the repository zip directly: <a href="{html.escape(repo_zip)}">{html.escape(repo_zip)}</a>.</p>
 <h2>The skins</h2>
@@ -111,8 +111,8 @@ def main() -> None:
     (out / "addons.xml").write_text(addons, encoding="utf-8")
     (out / "addons.xml.md5").write_text(hashlib.md5(addons.encode("utf-8")).hexdigest(), encoding="utf-8")
     repo_ver = next(v for a, v, _, _ in rows if a == REPO_ID)
-    repo_zip = f"{REPO_ID}-{repo_ver}.zip"
-    shutil.copy2(out / REPO_ID / repo_zip, out / repo_zip)
+    repo_zip = f"{REPO_ID}.zip"  # stable name for links and docs; Kodi reads the version from addon.xml
+    shutil.copy2(out / REPO_ID / f"{REPO_ID}-{repo_ver}.zip", out / repo_zip)
     (out / "index.html").write_text(page(rows, repo_zip), encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")
     print(f"-> {out} ({len(rows)} add-ons)")

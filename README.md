@@ -1,4 +1,4 @@
-# Omar Kamel's Kodi Skins
+# KarmaMole's Kodi Skins
 
 Eleven skins for **Kodi 21 Omega**, designed for the TV and tested on an NVIDIA Shield. Each one is a different idea
 about how a media library should feel.
@@ -20,9 +20,9 @@ about how a media library should feel.
 ## Install
 
 1. In Kodi, go to **Settings → System → Add-ons** and turn on **Unknown sources**.
-2. Go to **Settings → File manager → Add source**, enter `https://karmamole.github.io/kodi-skins/` and name it `omarkamel`.
-3. Go to **Add-ons → Install from zip file → omarkamel** and pick `repository.omarkamel-1.0.0.zip`.
-4. Go to **Add-ons → Install from repository → Omar Kamel's Kodi Skins → Look and feel → Skin** and choose a skin.
+2. Go to **Settings → File manager → Add source**, enter `https://karmamole.github.io/kodi-skins/` and name it `karmamole`.
+3. Go to **Add-ons → Install from zip file → karmamole** and pick `repository.omarkamel.zip`.
+4. Go to **Add-ons → Install from repository → KarmaMole's Kodi Skins → Look and feel → Skin** and choose a skin.
    Updates arrive automatically.
 
 Every skin works on its own. A few features get richer when these optional add-ons are installed:

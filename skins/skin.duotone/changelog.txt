@@ -1,3 +1,18 @@
+0.9.9 (2026-10-21)
+- Library panel: press Left past the first column (or Right past the last) in any film, series or music view,
+  or choose OPTIONS at the end of the header, for Update library (Stop the update while a scan runs), Clean library,
+  View, Sort by, Order, Unwatched only, Search and Library settings. Update / Clean hide in add-on folders.
+  Clean library asks first ("Clean videos?", focus on No): Kodi's own CleanLibrary runs without asking.
+  Back closes the panel and puts you back on the poster you came from.
+- View picker: the view word in the header (WALL, EPISODES, LIST) opens a card with a one-colour print of each
+  view that fits the folder and a NOW tag on the current one; OK switches, Back keeps it.
+- Home: the System menu has Update library and Clean library (videos or music).
+
+0.9.8 (2026-10-20)
+- Language file: the strings.po header is valid gettext again (each header line one quoted string ending in \n).
+- System menu: Live TV, Pictures, Favourites and Files (Live TV only when a PVR add-on is enabled); the card grows with the list.
+- Reduce motion now also covers the progress toast: no gliding, everything lands in place.
+
 0.9.7 (2026-10-20)
 - Author shown as KarmaMole; website link to the showcase.
 

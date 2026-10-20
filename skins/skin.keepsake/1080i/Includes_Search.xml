@@ -255,8 +255,10 @@
 		<control type="group">
 			<visible>$EXP[Search_HasQuery]</visible>
 			<include>Anim_FadeVisible</include>
-			<animation effect="slide" end="0,-330" time="240" tween="cubic" easing="out" condition="Control.HasFocus(9103)">Conditional</animation>
-			<animation effect="slide" end="0,-640" time="240" tween="cubic" easing="out" condition="Control.HasFocus(9104)">Conditional</animation>
+			<animation effect="slide" end="0,-330" time="240" tween="cubic" easing="out" condition="[Control.HasFocus(9103)] + !Skin.HasSetting(keepsake.reducemotion)">Conditional</animation>
+			<animation effect="slide" end="0,-330" time="0" tween="cubic" easing="out" condition="[Control.HasFocus(9103)] + Skin.HasSetting(keepsake.reducemotion)">Conditional</animation>
+			<animation effect="slide" end="0,-640" time="240" tween="cubic" easing="out" condition="[Control.HasFocus(9104)] + !Skin.HasSetting(keepsake.reducemotion)">Conditional</animation>
+			<animation effect="slide" end="0,-640" time="0" tween="cubic" easing="out" condition="[Control.HasFocus(9104)] + Skin.HasSetting(keepsake.reducemotion)">Conditional</animation>
 			<include content="Search_RowHeader">
 				<param name="id" value="9101"/>
 				<param name="top" value="366"/>

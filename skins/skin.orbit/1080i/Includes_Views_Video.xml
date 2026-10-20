@@ -8,7 +8,8 @@
 	view in <views> is Kodi's default for a new node; setting "library opens in" (orbit.libview)
 	switches movies/shows/sets to the grid on window open.
 	Option bar (menucontrol 9000, bottom left; Left from any view): ALL n / UNWATCHED n / IN PROGRESS /
-	SORT / direction / VIEW. Kodi ids: 3 sort by, 4 sort order (hidden), 14 watched toggle (SendClick).
+	OPTIONS (9327, Library panel 1160) / VIEW (9326, view picker 1161) / SORT / direction.
+	0.9.9: Right from any view (a dead end before) and Left past the first pill open the Library panel. Kodi ids: 3 sort by, 4 sort order (hidden), 14 watched toggle (SendClick).
 	Prefix VidView_.
 -->
 <includes>
@@ -196,7 +197,7 @@
 		<control type="grouplist" id="9000">
 			<left>52</left>
 			<top>1000</top>
-			<width>1240</width>
+			<width>1360</width>
 			<height>subnav_h</height>
 			<orientation>horizontal</orientation>
 			<itemgap>12</itemgap>
@@ -211,7 +212,7 @@
 			<onright condition="Control.IsVisible(501)">501</onright>
 			<onright condition="Control.IsVisible(502)">502</onright>
 			<onright>50</onright>
-			<onleft>noop</onleft>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.9: Left past the first pill = Library panel -->
 			<ondown>noop</ondown>
 			<onback condition="Control.IsVisible(500)">500</onback>
 			<onback condition="Control.IsVisible(501)">501</onback>
@@ -242,12 +243,19 @@
 				<onclick condition="!$EXP[VidView_IsInProgressTV]">Container.Update(videodb://inprogresstvshows/)</onclick>
 				<visible>$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]</visible>
 			</control>
+			<control type="button" id="9327">
+				<include>VidView_NavButtonLook</include>
+				<width>176</width>
+				<label>OPTIONS</label>
+				<textcolor>text_secondary</textcolor>
+				<onclick>ActivateWindow(1160)</onclick>
+			</control>
 			<control type="button" id="9326">
 				<include>VidView_NavButtonLook</include>
 				<width>276</width>
 				<label>VIEW  $INFO[Container.Viewmode]</label>
 				<textcolor>text_secondary</textcolor>
-				<onclick>Container.NextViewMode</onclick>
+				<onclick>ActivateWindow(1161)</onclick>
 				<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
 			</control>
 			<control type="button" id="9324">
@@ -499,7 +507,7 @@
 				<top>535</top>
 				<include>Arc_HiddenList</include>
 				<onleft>9000</onleft>
-				<onright>noop</onright>
+				<onright>ActivateWindow(1160)</onright>  <!-- 0.9.9: Right = Library panel -->
 				<viewtype label="Arc">list</viewtype>
 				<visible>$EXP[VidView_ArcContent]</visible>
 			</control>
@@ -578,7 +586,7 @@
 				<height>756</height>
 				<orientation>vertical</orientation>
 				<onleft>9000</onleft>
-				<onright>noop</onright>
+				<onright>ActivateWindow(1160)</onright>  <!-- 0.9.9: Right = Library panel -->
 				<onup>noop</onup>
 				<ondown>9000</ondown>
 				<scrolltime tween="cubic" easing="out">220</scrolltime>
@@ -605,7 +613,8 @@
 						<top>24</top>
 						<width>196</width>
 						<height>294</height>
-						<animation effect="zoom" start="100" end="106" center="auto" time="160" tween="cubic" easing="out">Focus</animation>
+						<animation effect="zoom" start="100" end="106" center="auto" time="160" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">Focus</animation>
+						<animation effect="zoom" start="100" end="106" center="auto" time="0" tween="cubic" easing="out" condition="Skin.HasSetting(orbit.reducemotion)">Focus</animation>
 						<include content="Orbit_Artwork">
 							<param name="art" value="$VAR[VidView_PosterArt]"/>
 						</include>
@@ -641,7 +650,7 @@
 				<top>535</top>
 				<include>Arc_HiddenListIcon</include>
 				<onleft>9000</onleft>
-				<onright>noop</onright>
+				<onright>ActivateWindow(1160)</onright>  <!-- 0.9.9: Right = Library panel -->
 				<viewtype label="Episodes">list</viewtype>
 				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
 			</control>

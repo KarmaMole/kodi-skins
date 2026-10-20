@@ -512,9 +512,11 @@
 	     would run AND still let Kodi handle Back). Kodi ids: 3 sort by (SendClick opens Kodi's sort chooser), 4 sort order. -->
 	<include name="Music_HeaderBar">
 		<control type="grouplist" id="9000">
-			<left>600</left>
+			<!-- 1.0.9: 460..1460 (was 600..1530): OPTIONS joined the row (widest row with SORT: DATE ADDED about 980 px)
+			     and the long day names ("WEDNESDAY 21 SEPTEMBER") push the date to about x 1484 -->
+			<left>460</left>
 			<top>music_tab_top</top>
-			<width>930</width>
+			<width>1000</width>
 			<height>music_tab_h</height>
 			<orientation>horizontal</orientation>
 			<align>right</align>
@@ -564,11 +566,17 @@
 				<param name="onclick" value="Container.SetSortDirection"/>
 				<param name="visible" value="Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)"/>
 			</include>
+			<!-- 1.0.9: VIEW opens the view picker (was Container.NextViewMode); OPTIONS the Library panel -->
 			<include content="Music_Tab">
 				<param name="id" value="9326"/>
 				<param name="label" value="View: $INFO[Container.Viewmode]"/>
-				<param name="onclick" value="Container.NextViewMode"/>
+				<param name="onclick" value="ActivateWindow(1156)"/>
 				<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
+			</include>
+			<include content="Music_Tab">
+				<param name="id" value="9327"/>
+				<param name="label" value="Options"/>
+				<param name="onclick" value="ActivateWindow(1155)"/>
 			</include>
 		</control>
 		<!-- Kodi media-window buttons the tabs click into -->

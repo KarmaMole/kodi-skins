@@ -617,7 +617,7 @@ def variables():
 
     # System cards
     C = "Container(9180).ListItem"
-    var("Home_Title_9180", [("", f"$INFO[{C}.Label]")])
+    var("Home_Title_9180", [(f"!String.IsEmpty({C}.Property(Title))", f"$INFO[{C}.Property(Title)]"), ("", f"$INFO[{C}.Label]")])
     var("Home_Meta_9180", [("", f"$INFO[{C}.Label2]")])
     var("Home_Tag_9180", [("", f"$INFO[{C}.Property(Tag)]")])
     var("Home_Plot_9180", [("", f"$INFO[{C}.Property(Desc)]")])
@@ -629,6 +629,8 @@ SYSTEM_ITEMS = [
     ("Settings", "Kodi", "ActivateWindow(Settings)", "Everything Kodi itself does: player, library, interface, network, system.", "The engine room", "icons/settings.png"),
     ("Skin", "Fold", "ActivateWindow(SkinSettings)", "Fold's own options: reduce motion, OSD auto-hide, clock, watched marks, info on Home.", "Fold's options", "icons/settings.png"),
     ("Add-ons", "Library", "ActivateWindow(AddonBrowser)", "Installed add-ons, updates and repositories. Video and music add-ons open from here too.", "What's installed", "icons/info.png"),
+    ("Update|Update library", "Videos · music", "SetProperty(fold.libpanel,update,home)|ActivateWindow(1155)", "Look for new films, episodes and albums in your sources. Choose videos or music.", "Scan the sources", "icons/repeat.png"),
+    ("Clean up|Clean library", "Videos · music", "SetProperty(fold.libpanel,clean,home)|ActivateWindow(1155)", "Remove entries whose files are gone. Choose videos or music; it asks before it cleans.", "Tidy up", "icons/chapters.png"),
     ("Favourites", "Shortcuts", "ActivateWindow(FavouritesBrowser)", "The items you marked as favourites from any menu.", "Pinned things", "icons/play.png"),
     ("Files", "Sources", "ActivateWindow(FileManager)", "Browse, copy and manage the sources on this Shield and the network.", "File manager", "icons/chapters.png"),
     ("System", "Info", "ActivateWindow(SystemInfo)", "Versions, storage, network, video and hardware details.", "System information", "icons/info.png"),
@@ -639,13 +641,15 @@ SYSTEM_ITEMS = [
 def system_content():
     items = []
     for label, label2, click, desc, tag, icon in SYSTEM_ITEMS:
+        label, _, title = label.partition("|")
+        title_prop = f'\n\t\t\t\t\t\t<property name="Title">{title}</property>' if title else ""
         items.append(f"""					<item>
 						<label>{label}</label>
 						<label2>{label2}</label2>
 						<icon>{icon}</icon>
 						<property name="Desc">{desc}</property>
-						<property name="Tag">{tag}</property>
-						<onclick>{click}</onclick>
+						<property name="Tag">{tag}</property>{title_prop}
+{chr(10).join(f"						<onclick>{c}</onclick>" for c in click.split("|"))}
 					</item>""")
     return "<content>\n" + "\n".join(items) + "\n\t\t\t\t</content>"
 

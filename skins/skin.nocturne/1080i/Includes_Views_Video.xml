@@ -229,6 +229,8 @@
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<onup>9000</onup>
 				<ondown>9000</ondown>
+				<include>Lib_OpenLeft</include>
+				<include>Lib_OpenRight</include>
 				<viewtype label="31232">list</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)</visible>
 				<itemlayout width="360" height="744">
@@ -314,14 +316,22 @@
 		<param name="id">501</param>
 		<definition>
 			<control type="group">
-				<animation effect="slide" start="0,0" end="216,0" time="180" tween="sine" easing="inout" condition="Container($PARAM[id]).Column(1)">Conditional</animation>
-				<animation effect="slide" start="0,0" end="432,0" time="180" tween="sine" easing="inout" condition="Container($PARAM[id]).Column(2)">Conditional</animation>
-				<animation effect="slide" start="0,0" end="648,0" time="180" tween="sine" easing="inout" condition="Container($PARAM[id]).Column(3)">Conditional</animation>
-				<animation effect="slide" start="0,0" end="864,0" time="180" tween="sine" easing="inout" condition="Container($PARAM[id]).Column(4)">Conditional</animation>
-				<animation effect="slide" start="0,0" end="1080,0" time="180" tween="sine" easing="inout" condition="Container($PARAM[id]).Column(5)">Conditional</animation>
-				<animation effect="slide" start="0,0" end="1296,0" time="180" tween="sine" easing="inout" condition="Container($PARAM[id]).Column(6)">Conditional</animation>
-				<animation effect="slide" start="0,0" end="1512,0" time="180" tween="sine" easing="inout" condition="Container($PARAM[id]).Column(7)">Conditional</animation>
-				<animation effect="slide" start="0,0" end="0,340" time="180" tween="sine" easing="inout" condition="Container($PARAM[id]).Row(1)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="216,0" time="180" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(1)] + !Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="216,0" time="0" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(1)] + Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="432,0" time="180" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(2)] + !Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="432,0" time="0" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(2)] + Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="648,0" time="180" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(3)] + !Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="648,0" time="0" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(3)] + Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="864,0" time="180" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(4)] + !Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="864,0" time="0" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(4)] + Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="1080,0" time="180" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(5)] + !Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="1080,0" time="0" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(5)] + Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="1296,0" time="180" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(6)] + !Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="1296,0" time="0" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(6)] + Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="1512,0" time="180" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(7)] + !Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="1512,0" time="0" tween="sine" easing="inout" condition="[Container($PARAM[id]).Column(7)] + Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,340" time="180" tween="sine" easing="inout" condition="[Container($PARAM[id]).Row(1)] + !Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,340" time="0" tween="sine" easing="inout" condition="[Container($PARAM[id]).Row(1)] + Skin.HasSetting(nocturne.reducemotion)">Conditional</animation>
 				<include content="Noc_Dust">
 					<param name="left" value="-292"/>
 					<param name="top" value="-235"/>
@@ -356,8 +366,8 @@
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<onup>9000</onup>
 				<ondown>9000</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<include>Lib_OpenLeft</include>
+				<include>Lib_OpenRight</include>
 				<viewtype label="31233">icon</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)</visible>
 				<itemlayout width="216" height="340">
@@ -458,6 +468,8 @@
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<onup>9000</onup>
 				<ondown>9000</ondown>
+				<include>Lib_OpenLeft</include>
+				<include>Lib_OpenRight</include>
 				<viewtype label="31234">list</viewtype>
 				<visible>Container.Content(episodes)</visible>
 				<itemlayout width="500" height="700">
@@ -547,12 +559,13 @@
 		<control type="grouplist" id="9000">
 			<left>82</left>
 			<top>1006</top>
-			<width>1360</width>
+			<width>940</width>
 			<height>48</height>
 			<orientation>horizontal</orientation>
 			<itemgap>26</itemgap>
 			<onup>50</onup>
 			<ondown>50</ondown>
+			<onright>9830</onright>
 			<onback>50</onback>
 			<control type="button" id="9321">
 				<include>VidView_OptionLook</include>
@@ -579,15 +592,6 @@
 				<onclick condition="!$EXP[VidView_IsInProgressTV]">Container.Update(videodb://inprogresstvshows/)</onclick>
 				<visible>$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]</visible>
 			</control>
-			<control type="button" id="9326">
-				<include>VidView_OptionLook</include>
-				<width>250</width>
-				<align>center</align>
-				<label>$LOCALIZE[31011]  $VAR[VidView_ViewName]</label>
-				<textcolor>73c8b8a0</textcolor>
-				<onclick>Container.NextViewMode</onclick>
-				<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
-			</control>
 			<control type="button" id="9324">
 				<include>VidView_OptionLook</include>
 				<width>auto</width>
@@ -605,10 +609,19 @@
 				<visible>Control.IsEnabled(4)</visible>
 			</control>
 		</control>
+		<include content="Lib_BrassWords">
+			<param name="top" value="998"/>
+			<param name="pick_focus" value="Lib_PickFocusVideo"/>
+			<param name="view_w" value="290"/>
+			<param name="view_label" value="$VAR[VidView_ViewName]"/>
+			<param name="onleft" value="9000"/>
+			<param name="onup" value="50"/>
+			<param name="ondown" value="50"/>
+		</include>
 		<control type="label">
-			<right>96</right>
+			<right>640</right>
 			<top>1006</top>
-			<width>440</width>
+			<width>280</width>
 			<height>48</height>
 			<align>right</align>
 			<aligny>center</aligny>
@@ -693,5 +706,17 @@
 		</include>
 		<include>Noc_Clock</include>
 		<include>VidView_Options</include>
+		<include content="Lib_Panel">
+			<param name="is_video" value="true"/>
+			<param name="kind" value="video"/>
+			<param name="section" value="$VAR[VidView_Section]"/>
+			<param name="view_name" value="$VAR[VidView_ViewName]"/>
+			<param name="order_click" value="SendClick(4)"/>
+			<param name="pick_focus" value="Lib_PickFocusVideo"/>
+		</include>
+		<include content="Lib_Picker">
+			<param name="items" value="Lib_PickerVideo"/>
+			<param name="section" value="$VAR[VidView_Section]"/>
+		</include>
 	</include>
 </includes>

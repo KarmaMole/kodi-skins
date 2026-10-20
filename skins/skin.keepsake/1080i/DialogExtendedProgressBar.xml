@@ -13,7 +13,8 @@
 			<top>168</top>
 			<width>toast_w</width>
 			<height>104</height>
-			<animation effect="slide" start="0,0" end="0,120" time="160" tween="cubic" easing="out" condition="Window.IsVisible(notification)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,120" time="160" tween="cubic" easing="out" condition="[Window.IsVisible(notification)] + !Skin.HasSetting(keepsake.reducemotion)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,120" time="0" tween="cubic" easing="out" condition="[Window.IsVisible(notification)] + Skin.HasSetting(keepsake.reducemotion)">Conditional</animation>
 			<include content="KS_ToastFrame">
 				<param name="height" value="104"/>
 			</include>

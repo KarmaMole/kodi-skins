@@ -22,6 +22,7 @@
 	<include file="Includes_Music.xml"/>
 	<include file="Includes_Views_Music.xml"/>
 	<include file="Includes_Misc.xml"/>
+	<include file="Includes_Library.xml"/>
 	<include file="Includes_Map.xml"/>
 	<include file="Includes_OSD_SD.xml"/>
 </includes>

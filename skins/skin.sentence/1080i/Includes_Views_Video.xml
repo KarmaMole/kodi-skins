@@ -83,7 +83,8 @@
 	<variable name="Lib_Crumb">
 		<value condition="$EXP[Lib_IsSentence] + Container.IsUpdating">Your sentence</value>
 		<value condition="$EXP[Lib_IsSentence]">Your sentence · $INFO[Container.NumItems] $VAR[Sen_NounManyC]</value>
-		<value>$VAR[Lib_Subject]</value>
+		<value condition="Container.IsUpdating + Integer.IsEqual(Container.NumItems,0)">$VAR[Lib_Subject] · looking</value>
+		<value>$VAR[Lib_Subject]$INFO[Container.NumItems, · ,]</value>
 	</variable>
 	<variable name="Lib_Direction">
 		<value condition="$EXP[Lib_SortAlpha] + Container.SortDirection(ascending)">A to Z</value>
@@ -349,7 +350,7 @@
 		<control type="grouplist" id="9000">
 			<left>page_margin</left>
 			<top>lib_head_y</top>
-			<width>1700</width>
+			<width>1740</width>
 			<height>72</height>
 			<orientation>horizontal</orientation>
 			<usecontrolcoords>true</usecontrolcoords>
@@ -442,8 +443,11 @@
 			</include>
 			<include content="Lib_Comma"><param name="wid" value="23120"/><param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/></include>
 			<include content="Lib_Words"><param name="wid" value="23130"/><param name="label" value="as"/><param name="left" value="12"/><param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/></include>
-			<include content="Lib_Phrase"><param name="id" value="9324"/><param name="label" value="[LOWERCASE]$INFO[Container.Viewmode][/LOWERCASE]"/><param name="onclick" value="Container.NextViewMode"/><param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/></include>
-			<include>Lib_CountLabel</include>
+			<include content="Lib_Phrase"><param name="id" value="9324"/><param name="label" value="[LOWERCASE]$INFO[Container.Viewmode][/LOWERCASE]"/><param name="onclick" value="ActivateWindow(1156)"/><param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/></include>
+			<!-- 0.9.8: ", or [more]" = the Library panel (Custom_1155); the count moved up into the crumb to make room -->
+			<include content="Lib_Comma"><param name="wid" value="23135"/></include>
+			<include content="Lib_Words"><param name="wid" value="23140"/><param name="label" value="or"/><param name="left" value="12"/></include>
+			<include content="Lib_Phrase"><param name="id" value="9326"/><param name="label" value="more"/><param name="onclick" value="ActivateWindow(1155)"/></include>
 		</control>
 		<include content="Sen_Rule"><param name="top" value="lib_rule_y"/></include>
 		<!-- Kodi media-window buttons the header clicks into -->
@@ -654,8 +658,8 @@
 				<scrolltime tween="cubic" easing="out">260</scrolltime>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onleft>ActivateWindow(1155)</onleft>  <!-- 0.9.8: past the edges = the Library panel -->
+				<onright>ActivateWindow(1155)</onright>
 				<viewtype label="a grid">panel</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)</visible>
 				<itemlayout width="lib_cell_w" height="lib_cell_h">
@@ -687,8 +691,8 @@
 				<scrolltime tween="cubic" easing="out">260</scrolltime>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onleft>ActivateWindow(1155)</onleft>  <!-- 0.9.8: past the edges = the Library panel -->
+				<onright>ActivateWindow(1155)</onright>
 				<viewtype label="a wall">panel</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)</visible>
 				<itemlayout width="210" height="350">
@@ -812,8 +816,8 @@
 				<scrolltime tween="cubic" easing="out">220</scrolltime>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onleft>ActivateWindow(1155)</onleft>  <!-- 0.9.8: the Library panel -->
+				<onright>ActivateWindow(1155)</onright>
 				<viewtype label="episodes">list</viewtype>
 				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
 				<itemlayout width="page_width" height="190">

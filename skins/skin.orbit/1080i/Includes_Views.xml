@@ -26,7 +26,8 @@
 				<onup>50</onup>
 				<ondown>50</ondown>
 				<onleft>9000</onleft>
-				<onright>noop</onright>
+				<!-- 0.9.9: Right = Library panel in the video / music library (a dead end elsewhere) -->
+				<onright condition="Window.IsActive(videos) | Window.IsActive(music)">ActivateWindow(1160)</onright>
 				<viewtype label="535">list</viewtype>
 			</control>
 			<include content="DialList_RowsNarrow">

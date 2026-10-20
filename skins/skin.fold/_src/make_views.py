@@ -9,7 +9,9 @@ Views (MyVideoNav <views>500,501,502,50</views>), each gated by Container.Conten
                  +/-12 deg about their own centres (Integer.IsOdd(ListItem.CurrentItem)), the focused panel
                  flat, lit and 16 % bigger; one shared camera on the list (perspective-origin 1150, 440)
   50  List       everything else (Includes_Views.xml)
-Header: 9000 filter words (9321 All, 9322 Unwatched, 9323 In progress, 9324 Sort, 9325 direction, 9326 View),
+Header: 9000 filter words (9321 All, 9322 Unwatched, 9323 In progress, 9326 View = the view picker 1156,
+9327 Options = the Library panel 1155, 9324 Sort, 9325 direction). Left past the first column (shelf) / off either
+end (season cards, concertina) opens the Library panel too.
 Kodi ids 3 (sort by), 4 (sort order), 14 (watched toggle, SendClick only).
 Timers.xml: a view hidden for the current content is replaced at once (Kodi can select it from a saved
 view mode), and the first visit of each content type opens the Fold view.
@@ -188,7 +190,7 @@ def shelf_view():
 				<scrolltime tween="cubic" easing="out">280</scrolltime>
 				<onup>9000</onup>
 				<onright>9000</onright>
-				<onleft>noop</onleft>
+				<onleft>ActivateWindow(1155)</onleft>
 				<onback condition="$EXP[Lib_AtRoot]">9398</onback>
 				<viewtype label="Shelf">icon</viewtype>
 				<visible>{SHELF_CONTENT}</visible>
@@ -624,7 +626,7 @@ def concertina_view():
 			<control type="label">
 				<left>96</left>
 				<top>118</top>
-				<width>820</width>
+				<width>720</width>
 				<height>32</height>
 				<font>caps_20_b</font>
 				<textcolor>cobalt</textcolor>
@@ -651,8 +653,8 @@ def concertina_view():
 					<scrolltime tween="cubic" easing="out">260</scrolltime>
 					<onup>9000</onup>
 					<ondown>noop</ondown>
-					<onleft>noop</onleft>
-					<onright>noop</onright>
+					<onleft>ActivateWindow(1155)</onleft>
+					<onright>ActivateWindow(1155)</onright>
 					<onback condition="$EXP[Lib_AtRoot]">9398</onback>
 					<viewtype label="Concertina">list</viewtype>
 					<visible>Container.Content(episodes)</visible>
@@ -755,6 +757,8 @@ def seasons_view():
 					<scrolltime tween="cubic" easing="out">260</scrolltime>
 					<onup>9000</onup>
 					<ondown>noop</ondown>
+					<onleft>ActivateWindow(1155)</onleft>
+					<onright>ActivateWindow(1155)</onright>
 					<onback condition="$EXP[Lib_AtRoot]">9398</onback>
 					<viewtype label="Seasons">list</viewtype>
 					<visible>Container.Content(seasons)</visible>
@@ -840,16 +844,17 @@ def header():
 				<param name="top" value="118"/>
 				<param name="label" value="$VAR[VidView_Title]"/>
 				<param name="sub" value="$VAR[VidView_Sub]"/>
-				<param name="width" value="820"/>
+				<param name="width" value="720"/>
 			</include>
 		</control>
 		<!-- filter words on the top edge: fixed widths first, the sort words (which change) last -->
 		<control type="grouplist" id="9000">
-			<left>930</left>
+			<left>760</left>
 			<top>112</top>
-			<width>900</width>
+			<width>1070</width>
 			<height>40</height>
 			<orientation>horizontal</orientation>
+			<align>right</align>  <!-- 0.9.7: ends at the margin, so the crumb on the left keeps its room (Options added) -->
 			<itemgap>6</itemgap>
 			<onup>noop</onup>
 			<ondown condition="Control.IsVisible(500)">500</ondown>
@@ -861,7 +866,7 @@ def header():
 			<onback condition="Control.IsVisible(500)">500</onback>
 			<onback condition="Control.IsVisible(501)">501</onback>
 			<onback condition="Control.IsVisible(502)">502</onback>
-			<onback condition="Control.IsVisible(50)">50</onback>{word(9321, 'All $VAR[VidView_CountAll]', '$EXP[VidView_IsLibraryVideo] | $EXP[VidView_IsInProgressTV]', [('$EXP[VidView_IsInProgressTV]', 'Action(ParentDir)'), ('!$EXP[VidView_IsInProgressTV] + System.Setting(hidewatched)', 'SendClick(14)')], 163, 'VidView_ColNavAll')}{word(9322, 'Unwatched $VAR[VidView_CountUnwatched]', 'Container.Content(movies) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)', [('!System.Setting(hidewatched)', 'SendClick(14)')], 238, 'VidView_ColNavUnwatched')}{word(9323, 'In progress', '$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]', [('!$EXP[VidView_IsInProgressTV]', 'Container.Update(videodb://inprogresstvshows/)')], 193, 'VidView_ColNavInProgress')}{word(9326, '$VAR[VidView_ViewWord]', 'true', [('Control.IsVisible(50) + [' + SHELF_CONTENT + ']', 'Container.SetViewMode(500)'), ('Control.IsVisible(50) + Container.Content(seasons)', 'Container.SetViewMode(501)'), ('Control.IsVisible(50) + Container.Content(episodes)', 'Container.SetViewMode(502)'), ('!Control.IsVisible(50)', 'Container.SetViewMode(50)')], 193)}{word(9324, 'Sort $INFO[Container.SortMethod]', 'Control.IsEnabled(3)', [('', 'SendClick(3)')])}{word(9325, '$VAR[VidView_SortArrow]', 'Control.IsEnabled(4)', [('', 'SendClick(4)')], 44)}
+			<onback condition="Control.IsVisible(50)">50</onback>{word(9321, 'All $VAR[VidView_CountAll]', '$EXP[VidView_IsLibraryVideo] | $EXP[VidView_IsInProgressTV]', [('$EXP[VidView_IsInProgressTV]', 'Action(ParentDir)'), ('!$EXP[VidView_IsInProgressTV] + System.Setting(hidewatched)', 'SendClick(14)')], 163, 'VidView_ColNavAll')}{word(9322, 'Unwatched $VAR[VidView_CountUnwatched]', 'Container.Content(movies) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)', [('!System.Setting(hidewatched)', 'SendClick(14)')], 238, 'VidView_ColNavUnwatched')}{word(9323, 'In progress', '$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]', [('!$EXP[VidView_IsInProgressTV]', 'Container.Update(videodb://inprogresstvshows/)')], 193, 'VidView_ColNavInProgress')}{word(9326, '$VAR[VidView_ViewWord]', 'Integer.IsGreater(Container.ViewCount,1)', [('', 'ActivateWindow(1156)')], 193)}{word(9327, 'Options', 'true', [('', 'ActivateWindow(1155)')], 134)}{word(9324, 'Sort $INFO[Container.SortMethod]', 'Control.IsEnabled(3)', [('', 'SendClick(3)')])}{word(9325, '$VAR[VidView_SortArrow]', 'Control.IsEnabled(4)', [('', 'SendClick(4)')], 44)}
 		</control>
 		<control type="button" id="3">
 			<description>Sort by (Kodi)</description>
@@ -1127,13 +1132,13 @@ def build():
 	</timer>
 	<timer>
 		<name>fold_view_fix_{content}</name>
-		<start>Window.IsActive(videos) + Container.Content({content}) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible({view}) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(videos) + Container.Content({content}) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible({view}) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible({view}) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode({view})</onstart>
 	</timer>""")
     t.append(f"""	<timer>
 		<name>fold_view_fix_other</name>
-		<start>Window.IsActive(videos) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(501) + !Control.IsVisible(502) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(videos) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(501) + !Control.IsVisible(502) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible(500) | Control.IsVisible(501) | Control.IsVisible(502) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode(50)</onstart>
 	</timer>""")
@@ -1147,7 +1152,7 @@ def build():
 	</timer>""")
     t.append("""	<timer>
 		<name>fold_music_fix</name>
-		<start>Window.IsActive(music) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(504) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(music) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(504) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible(504) | Control.IsVisible(50) | !Window.IsActive(music)</stop>
 		<onstart>Container.SetViewMode(50)</onstart>
 	</timer>""")

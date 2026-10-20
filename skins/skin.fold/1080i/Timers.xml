@@ -10,7 +10,7 @@
 	</timer>
 	<timer>
 		<name>fold_view_fix_movies</name>
-		<start>Window.IsActive(videos) + Container.Content(movies) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(videos) + Container.Content(movies) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible(500) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode(500)</onstart>
 	</timer>
@@ -23,7 +23,7 @@
 	</timer>
 	<timer>
 		<name>fold_view_fix_sets</name>
-		<start>Window.IsActive(videos) + Container.Content(sets) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(videos) + Container.Content(sets) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible(500) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode(500)</onstart>
 	</timer>
@@ -36,7 +36,7 @@
 	</timer>
 	<timer>
 		<name>fold_view_fix_tvshows</name>
-		<start>Window.IsActive(videos) + Container.Content(tvshows) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(videos) + Container.Content(tvshows) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible(500) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode(500)</onstart>
 	</timer>
@@ -49,7 +49,7 @@
 	</timer>
 	<timer>
 		<name>fold_view_fix_musicvideos</name>
-		<start>Window.IsActive(videos) + Container.Content(musicvideos) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(videos) + Container.Content(musicvideos) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible(500) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode(500)</onstart>
 	</timer>
@@ -62,7 +62,7 @@
 	</timer>
 	<timer>
 		<name>fold_view_fix_seasons</name>
-		<start>Window.IsActive(videos) + Container.Content(seasons) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(501) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(videos) + Container.Content(seasons) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(501) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible(501) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode(501)</onstart>
 	</timer>
@@ -75,13 +75,13 @@
 	</timer>
 	<timer>
 		<name>fold_view_fix_episodes</name>
-		<start>Window.IsActive(videos) + Container.Content(episodes) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(502) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(videos) + Container.Content(episodes) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(502) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible(502) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode(502)</onstart>
 	</timer>
 	<timer>
 		<name>fold_view_fix_other</name>
-		<start>Window.IsActive(videos) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(501) + !Control.IsVisible(502) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(videos) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(501) + !Control.IsVisible(502) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible(500) | Control.IsVisible(501) | Control.IsVisible(502) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode(50)</onstart>
 	</timer>
@@ -101,7 +101,7 @@
 	</timer>
 	<timer>
 		<name>fold_music_fix</name>
-		<start>Window.IsActive(music) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(504) + !Control.IsVisible(50)</start>
+		<start>Window.IsActive(music) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(504) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
 		<stop>Control.IsVisible(504) | Control.IsVisible(50) | !Window.IsActive(music)</stop>
 		<onstart>Container.SetViewMode(50)</onstart>
 	</timer>

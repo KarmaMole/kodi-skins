@@ -47,7 +47,7 @@
 				<top>535</top>
 				<include>Arc_HiddenListSquare</include>
 				<onleft>9000</onleft>
-				<onright>noop</onright>
+				<onright>ActivateWindow(1160)</onright>  <!-- 0.9.9: Right = Library panel -->
 				<viewtype label="Arc">list</viewtype>
 				<visible>$EXP[MusicView_ArcContent]</visible>
 			</control>
@@ -58,7 +58,8 @@
 				<width>360</width>
 				<height>360</height>
 				<visible>Container.Content(albums) + !ListItem.IsParentFolder</visible>
-				<animation effect="slide" start="180,0" end="0,0" time="360" delay="160" tween="cubic" easing="out" condition="!Container(504).OnNext + !Container(504).OnPrevious" reversible="false">Conditional</animation>
+				<animation effect="slide" start="180,0" end="0,0" time="360" delay="160" tween="cubic" easing="out" condition="[!Container(504).OnNext + !Container(504).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">Conditional</animation>
+				<animation effect="slide" start="180,0" end="0,0" time="0" delay="0" tween="cubic" easing="out" condition="[!Container(504).OnNext + !Container(504).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">Conditional</animation>
 				<control type="image">
 					<left>58</left>
 					<top>58</top>
@@ -206,7 +207,7 @@
 				<height>756</height>
 				<orientation>vertical</orientation>
 				<onleft>9000</onleft>
-				<onright>noop</onright>
+				<onright>ActivateWindow(1160)</onright>  <!-- 0.9.9: Right = Library panel -->
 				<onup>noop</onup>
 				<ondown>9000</ondown>
 				<scrolltime tween="cubic" easing="out">220</scrolltime>
@@ -232,7 +233,8 @@
 						<top>24</top>
 						<width>214</width>
 						<height>214</height>
-						<animation effect="zoom" start="100" end="106" center="auto" time="160" tween="cubic" easing="out">Focus</animation>
+						<animation effect="zoom" start="100" end="106" center="auto" time="160" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">Focus</animation>
+						<animation effect="zoom" start="100" end="106" center="auto" time="0" tween="cubic" easing="out" condition="Skin.HasSetting(orbit.reducemotion)">Focus</animation>
 						<include content="Orbit_Artwork">
 							<param name="art" value="$VAR[MusicView_Cover]"/>
 							<param name="mask" value="masks/square_r4.png"/>

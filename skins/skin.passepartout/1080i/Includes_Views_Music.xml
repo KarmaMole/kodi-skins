@@ -5,8 +5,10 @@
 	                 (480 vs 280, gap 88); caption under the focused print
 	  505 the salon  albums / artists: an 8-column grid of small square prints (172), zoom + small lift
 	  50  list       songs, genres, years, roots, playlists, files (always valid)
-	Chrome: header words 9000 (tabs 9320-9323, sort 9324, count), footer view words 9330 (9331-9333),
-	the now-playing line (PP_NowPlayingLine) replaces the footer while music plays.
+	Chrome: header words 9000 (tabs 9320-9323, sort 9324, view 9327 = the view picker 1156, count 9329,
+	Options 9328 = the Library card 1155). The now-playing line (PP_NowPlayingLine footer=true) sits bottom left
+	while music plays. Left / Right past the edges of a view open the Library card; 0.9.11 removed the footer
+	view words (they moved into the header).
 -->
 <includes>
 	<variable name="Music_PrintArt">
@@ -76,7 +78,9 @@
 				<scrolltime tween="cubic" easing="out">380</scrolltime>
 				<preloaditems>2</preloaditems>
 				<onup>9000</onup>
-				<ondown>9330</ondown>
+				<ondown>noop</ondown>
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
 				<viewtype label="The hang">list</viewtype>
 				<visible>Container.Content(albums) | Container.Content(artists)</visible>
 				<itemlayout width="368" height="940">
@@ -128,10 +132,10 @@
 				<scrolltime tween="cubic" easing="out">300</scrolltime>
 				<preloaditems>1</preloaditems>
 				<onup>9000</onup>
-				<ondown>9330</ondown>
-				<onleft>noop</onleft>
-				<!-- Right past the last column = the View words (bottom right) -->
-				<onright>9330</onright>
+				<ondown>noop</ondown>
+				<!-- Left past the first column / Right past the last one: the Library card -->
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
 				<viewtype label="Salon">panel</viewtype>
 				<onfocus condition="!Skin.HasSetting(passepartout.vi.music)">Container.SetViewMode(504)</onfocus>
 				<onfocus>Skin.SetBool(passepartout.vi.music)</onfocus>
@@ -151,11 +155,17 @@
 						<top>22</top>
 						<width>172</width>
 						<height>172</height>
-						<animation type="Focus" reversible="false">
+						<animation type="Focus" reversible="false" condition="!Skin.HasSetting(passepartout.reducemotion)">
 							<effect type="zoom" start="100" end="112" center="108,108" time="260" tween="cubic" easing="out"/>
 						</animation>
-						<animation type="Unfocus">
+						<animation type="Focus" reversible="false" condition="Skin.HasSetting(passepartout.reducemotion)">
+							<effect type="zoom" start="100" end="112" center="108,108" time="0" tween="cubic" easing="out"/>
+						</animation>
+						<animation type="Unfocus" condition="!Skin.HasSetting(passepartout.reducemotion)">
 							<effect type="zoom" start="112" end="100" center="108,108" time="160"/>
+						</animation>
+						<animation type="Unfocus" condition="Skin.HasSetting(passepartout.reducemotion)">
+							<effect type="zoom" start="112" end="100" center="108,108" time="0"/>
 						</animation>
 						<control type="image">
 							<left>-24</left>
@@ -211,7 +221,7 @@
 		<control type="grouplist" id="9000">
 			<left>120</left>
 			<top>56</top>
-			<width>1300</width>
+			<width>1400</width>
 			<height>44</height>
 			<orientation>horizontal</orientation>
 			<itemgap>20</itemgap>
@@ -276,6 +286,14 @@
 				<param name="onclick2" value="noop"/>
 				<param name="visible" value="Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)"/>
 			</include>
+			<include content="VidView_HeaderWord">
+				<param name="id" value="9327"/>
+				<param name="color" value="ink2"/>
+				<param name="label" value="$VAR[PP_ViewName]"/>
+				<param name="onclick" value="ActivateWindow(1156)"/>
+				<param name="onclick2" value="noop"/>
+				<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
+			</include>
 			<control type="label" id="9329">
 				<left>16</left>
 				<width>auto</width>
@@ -284,6 +302,13 @@
 				<textcolor>ink2</textcolor>
 				<label>$INFO[Container.NumItems]</label>
 			</control>
+			<include content="VidView_HeaderWord">
+				<param name="id" value="9328"/>
+				<param name="color" value="ink2"/>
+				<param name="label" value="Options"/>
+				<param name="onclick" value="ActivateWindow(1155)"/>
+				<param name="onclick2" value="noop"/>
+			</include>
 		</control>
 		<include>PP_Clock</include>
 		<control type="button" id="3">
@@ -293,100 +318,6 @@
 		<control type="button" id="4">
 			<description>Sort order (Kodi)</description>
 			<include>PP_Hidden</include>
-		</control>
-	</include>
-
-	<variable name="Music_HangColor"><value condition="Control.IsVisible(504)">ink</value><value>ink2</value></variable>
-	<variable name="Music_SalonColor"><value condition="Control.IsVisible(505)">ink</value><value>ink2</value></variable>
-	<include name="Music_PPFooter">
-		<control type="group">
-			<visible>Integer.IsGreater(Container.NumItems,0) + !Player.HasAudio</visible>
-			<control type="label">
-				<left>1300</left>
-				<top>964</top>
-				<width>500</width>
-				<height>28</height>
-				<font>cap_20</font>
-				<textcolor>ink2</textcolor>
-				<align>right</align>
-				<label>View</label>
-			</control>
-			<control type="grouplist" id="9330">
-				<left>1100</left>
-				<top>984</top>
-				<width>716</width>
-				<height>44</height>
-				<orientation>horizontal</orientation>
-				<align>right</align>
-				<itemgap>-4</itemgap>
-				<onup>SetFocus(50)</onup>
-				<ondown>noop</ondown>
-				<onback>SetFocus(50)</onback>
-				<control type="button" id="9331">
-					<width>auto</width>
-					<height>44</height>
-					<font>cap_20</font>
-					<textcolor>$VAR[Music_HangColor]</textcolor>
-					<focusedcolor>$VAR[PaperColor]</focusedcolor>
-					<textoffsetx>16</textoffsetx>
-					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-					<texturenofocus />
-					<label>The hang</label>
-					<onclick>Container.SetViewMode(504)</onclick>
-					<visible>Container.Content(albums) | Container.Content(artists)</visible>
-				</control>
-				<control type="button" id="9332">
-					<width>auto</width>
-					<height>44</height>
-					<font>cap_20</font>
-					<textcolor>$VAR[Music_SalonColor]</textcolor>
-					<focusedcolor>$VAR[PaperColor]</focusedcolor>
-					<textoffsetx>16</textoffsetx>
-					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-					<texturenofocus />
-					<label>Salon</label>
-										<onclick>Skin.SetBool(passepartout.vi.music)</onclick>
-					<onclick>Container.SetViewMode(505)</onclick>
-					<visible>Container.Content(albums) | Container.Content(artists)</visible>
-				</control>
-				<control type="button" id="9333">
-					<width>auto</width>
-					<height>44</height>
-					<font>cap_20</font>
-					<textcolor>$VAR[VidView_ListColor]</textcolor>
-					<focusedcolor>$VAR[PaperColor]</focusedcolor>
-					<textoffsetx>16</textoffsetx>
-					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-					<texturenofocus />
-					<label>List</label>
-										<onclick>Skin.SetBool(passepartout.vi.music)</onclick>
-					<onclick>Container.SetViewMode(50)</onclick>
-				</control>
-			</control>
-			<control type="image">
-				<left>1478</left>
-				<top>1018</top>
-				<width>127</width>
-				<height>1</height>
-				<texture colordiffuse="ink">common/white.png</texture>
-				<visible>Control.IsVisible(504) + !Control.HasFocus(9331)</visible>
-			</control>
-			<control type="image">
-				<left>1633</left>
-				<top>1018</top>
-				<width>84</width>
-				<height>1</height>
-				<texture colordiffuse="ink">common/white.png</texture>
-				<visible>Control.IsVisible(505) + !Control.HasFocus(9332)</visible>
-			</control>
-			<control type="image">
-				<left>1745</left>
-				<top>1018</top>
-				<width>55</width>
-				<height>1</height>
-				<texture colordiffuse="ink">common/white.png</texture>
-				<visible>Control.IsVisible(50) + !Control.HasFocus(9333)</visible>
-			</control>
 		</control>
 	</include>
 
@@ -401,9 +332,9 @@
 				<width>list_w</width>
 				<height>music_list_h</height>
 				<onup>9000</onup>
-				<!-- to the View words (LESSONS: a List view with no way to the view switcher is a trap) -->
-				<ondown>9330</ondown>
-				<onleft>noop</onleft>
+				<!-- the views are in the header's view word and the Library card (0.9.11) -->
+				<ondown>noop</ondown>
+				<onleft>ActivateWindow(1155)</onleft>
 				<onright>60</onright>
 				<pagecontrol>60</pagecontrol>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
@@ -421,7 +352,7 @@
 				<param name="top" value="160"/>
 				<param name="height" value="792"/>
 				<param name="onleft" value="50"/>
-				<param name="onright" value="9330"/>
+				<param name="onright" value="ActivateWindow(1155)"/>
 			</include>
 			<include>Music_ListPanel</include>
 		</control>

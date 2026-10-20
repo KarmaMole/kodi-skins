@@ -785,11 +785,12 @@
 		</include>
 		<include>SD_Clock</include>
 		<control type="grouplist" id="9000">
-			<left>900</left>
+			<left>700</left>
 			<top>66</top>
-			<width>800</width>
-			<height>44</height>
+			<width>1000</width>
+			<height>46</height>
 			<orientation>horizontal</orientation>
+			<align>right</align>
 			<itemgap>6</itemgap>
 			<onup>noop</onup>
 			<ondown condition="$EXP[VidView_HasNextUp]">9310</ondown>
@@ -854,7 +855,8 @@
 				<texturefocus border="22" colordiffuse="ink">sd/pill_46.png</texturefocus>
 				<label>View · $INFO[Container.Viewmode]</label>
 				<texturenofocus />
-				<onclick>Container.NextViewMode</onclick>
+				<onclick>SetProperty(sixdegrees.pick.from,rail,home)</onclick>
+				<include>Lib_PickFocusVideo</include>
 				<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
 			</control>
 			<control type="button" id="9324">
@@ -885,6 +887,7 @@
 				<onclick>SendClick(4)</onclick>
 				<visible>false</visible>
 			</control>
+			<include>Lib_OptionsPill</include>
 		</control>
 		<control type="button" id="3">
 			<description>Sort by (Kodi)</description>
@@ -1169,6 +1172,8 @@
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
+				<include>Lib_OpenLeft</include>
+				<include>Lib_OpenRight</include>
 				<viewtype label="31201">list</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets)</visible>
 				<itemlayout width="140" height="300">
@@ -1241,6 +1246,8 @@
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
+				<include>Lib_OpenLeft</include>
+				<include>Lib_OpenRight</include>
 				<viewtype label="31202">list</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets)</visible>
 				<itemlayout width="vidview_big_pitch" height="543">
@@ -1521,8 +1528,8 @@
 				<onup condition="$EXP[VidView_HasNextUp]">9310</onup>
 				<onup condition="!$EXP[VidView_HasNextUp]">9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<include>Lib_OpenLeft</include>
+				<include>Lib_OpenRight</include>
 				<viewtype label="Wall">list</viewtype>
 				<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
 				<itemlayout width="vidview_wall_pitch_x" height="vidview_wall_pitch_y">
@@ -1604,8 +1611,7 @@
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<onup>9000</onup>
 				<ondown>50</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<include>Lib_OpenNextUp</include>
 				<itemlayout width="vidview_next_pitch" height="262">
 					<include>VidView_NextUpCard</include>
 				</itemlayout>
@@ -1757,7 +1763,7 @@
 				<pagecontrol>63</pagecontrol>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
+				<include>Lib_OpenLeft</include>
 				<onright>63</onright>
 				<viewtype label="Episodes">list</viewtype>
 				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
@@ -1792,7 +1798,8 @@
 				<param name="top" value="content_top"/>
 				<param name="height" value="870"/>
 				<param name="onleft" value="503"/>
-				<param name="onright" value="503"/>
+				<param name="onright" value="SetProperty(sixdegrees.lib.from,view,home)"/>
+				<param name="onright2" value="SetFocus(9801,0,absolute)"/>
 			</include>
 		</control>
 	</include>
@@ -1954,6 +1961,17 @@
 		<include>VidView_50_ParentPanel</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>
+		<include content="Lib_Panel">
+			<param name="is_video" value="true"/>
+			<param name="section" value="$VAR[VidView_Title]"/>
+			<param name="view_name" value="$INFO[Container.Viewmode]"/>
+			<param name="order_click" value="SendClick(4)"/>
+			<param name="pick_focus" value="Lib_PickFocusVideo"/>
+		</include>
+		<include content="Lib_Picker">
+			<param name="items" value="Lib_PickerVideo"/>
+			<param name="section" value="$VAR[VidView_Title]"/>
+		</include>
 	</include>
 	<variable name="VidView_SeasonsWord">
 		<value condition="Integer.IsEqual(Container(502).ListItem.Property(TotalSeasons),1)"> · 1 SEASON</value>

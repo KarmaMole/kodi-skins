@@ -48,6 +48,7 @@
 				<height>858</height>
 				<onup>9000</onup>
 				<ondown>9000</ondown>
+				<onleft condition="Window.IsActive(videos) | Window.IsActive(music)">ActivateWindow(1155)</onleft>  <!-- 0.9.7: the Library panel -->
 				<onleft>noop</onleft>
 				<onright>60</onright>
 				<onback condition="$EXP[Lib_AtRoot]">9398</onback>

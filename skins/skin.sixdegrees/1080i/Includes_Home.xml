@@ -63,7 +63,7 @@
 		<value condition="$EXP[Home_Is_music]">$INFO[Container(9130).ListItem.Property(file)]</value>
 	</variable>
 	<expression name="Home_SelIsTerminus">[$EXP[Home_Is_movies] + !String.IsEmpty(Container(9110).ListItem.Property(terminus))] | [$EXP[Home_Is_tvshows] + !String.IsEmpty(Container(9120).ListItem.Property(terminus))] | [$EXP[Home_Is_music] + !String.IsEmpty(Container(9130).ListItem.Property(terminus))]</expression>
-	<expression name="Home_PvIsSelected">[$EXP[Home_Is_movies] + String.IsEqual(Container(9110).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid))] | [$EXP[Home_Is_tvshows] + String.IsEqual(Container(9120).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid))] | [$EXP[Home_Is_music] + String.IsEqual(Container(9130).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid))]</expression>
+	<expression name="Home_PvIsSelected">[$EXP[Home_Is_movies] + String.IsEqual(Container(9110).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) + String.IsEqual(Container(9110).ListItem.Property(kind),Window(Home).Property(sixdegrees.pv.kind))] | [$EXP[Home_Is_tvshows] + String.IsEqual(Container(9120).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) + String.IsEqual(Container(9120).ListItem.Property(kind),Window(Home).Property(sixdegrees.pv.kind))] | [$EXP[Home_Is_music] + String.IsEqual(Container(9130).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) + String.IsEqual(Container(9130).ListItem.Property(kind),Window(Home).Property(sixdegrees.pv.kind))]</expression>
 	<variable name="Home_SelMeta">
 		<value condition="$EXP[Home_Is_movies] + !String.IsEmpty(Container(9110).ListItem.Property(star))">$INFO[Container(9110).ListItem.Property(dir)]$INFO[Container(9110).ListItem.Property(year),  ·  ,]  ·  never watched  ·  1 of $INFO[Container(9105).NumItems] unwatched 7.5+</value>
 		<value condition="$EXP[Home_Is_movies]">$INFO[Container(9110).ListItem.Property(dir)]$INFO[Container(9110).ListItem.Property(year),  ·  ,]$INFO[Container(9110).ListItem.Property(why),  ·  ,]</value>
@@ -172,7 +172,7 @@
 		<value condition="System.AddonIsEnabled(script.skinvariables) + String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),tvshows) + !String.IsEmpty(Window(Home).Property(sixdegrees.pv.dbid))">plugin://script.skinvariables/?info=get_dbitem_tvshow_details&amp;dbid=$INFO[Window(Home).Property(sixdegrees.pv.dbid)]</value>
 		<value condition="System.AddonIsEnabled(script.skinvariables) + !String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),albums) + !String.IsEmpty(Window(Home).Property(sixdegrees.pv.dbid))">plugin://script.skinvariables/?info=get_dbitem_movie_details&amp;dbid=$INFO[Window(Home).Property(sixdegrees.pv.dbid)]</value>
 	</variable>
-	<expression name="Home_PvMatch">System.AddonIsEnabled(script.skinvariables) + String.IsEqual(Container(9201).ListItem.DBID,Window(Home).Property(sixdegrees.pv.dbid)) + [[String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),tvshows) + String.IsEqual(Container(9201).ListItem.DBType,tvshow)] | [!String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),tvshows) + String.IsEqual(Container(9201).ListItem.DBType,movie)]]</expression>
+	<expression name="Home_PvMatch">System.AddonIsEnabled(script.skinvariables) + String.IsEqual(Container(9201).ListItem.DBID,Window(Home).Property(sixdegrees.pv.dbid)) + [[String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),tvshows) + String.IsEqual(Container(9201).ListItem.DBType,tvshow)] | [!String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),tvshows) + !String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),albums) + String.IsEqual(Container(9201).ListItem.DBType,movie)]]</expression>
 	<variable name="Home_PvUp">
 		<value condition="$EXP[Home_PvMatch] + String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),tvshows)">$INFO[Container(9201).ListItem.Property(studio.0)]</value>
 		<value condition="$EXP[Home_PvMatch]">$INFO[Container(9201).ListItem.Property(director.0)]</value>
@@ -192,31 +192,76 @@
 		<value condition="Integer.IsGreaterOrEqual(Container(9223).NumItems,2)">$VAR[Home_PvCast3]</value>
 		<value>$VAR[Home_PvCast1]</value>
 	</variable>
-	<variable name="Home_PvExcl">
-		<value condition="!String.Contains(Window(Home).Property(sixdegrees.pv.title),&amp;) + String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),albums)">%2C%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.title)]%22%5D%7D</value>
-		<value condition="!String.Contains(Window(Home).Property(sixdegrees.pv.title),&amp;)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.title)]%22%5D%7D</value>
+	<variable name="Home_PvUpQ">
+		<value condition="$EXP[Home_PvMatch] + String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),tvshows) + !String.IsEmpty(Container(9201).ListItem.Property(studio.0)) + !String.Contains(Container(9201).ListItem.Property(studio.0),&amp;) + !String.Contains(Container(9201).ListItem.Property(studio.0),%)">$ESCINFO[Container(9201).ListItem.Property(studio.0)]</value>
+		<value condition="$EXP[Home_PvMatch] + String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),tvshows)">%22%22</value>
+		<value condition="$EXP[Home_PvMatch] + !String.IsEmpty(Container(9201).ListItem.Property(director.0)) + !String.Contains(Container(9201).ListItem.Property(director.0),&amp;) + !String.Contains(Container(9201).ListItem.Property(director.0),%)">$ESCINFO[Container(9201).ListItem.Property(director.0)]</value>
+		<value condition="$EXP[Home_PvMatch]">%22%22</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(sixdegrees.pv.dir)) + !String.Contains(Window(Home).Property(sixdegrees.pv.dir),&amp;) + !String.Contains(Window(Home).Property(sixdegrees.pv.dir),%)">$ESCINFO[Window(Home).Property(sixdegrees.pv.dir)]</value>
+		<value>%22%22</value>
 	</variable>
-	<variable name="Home_PvPathUp_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvUp]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Home_PvPathDown_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.year)]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvGenre]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Home_PvCast0Q">
+		<value condition="$EXP[Home_PvMatch] + !String.IsEmpty(Container(9201).ListItem.Property(cast.0.name)) + !String.Contains(Container(9201).ListItem.Property(cast.0.name),&amp;) + !String.Contains(Container(9201).ListItem.Property(cast.0.name),%)">$ESCINFO[Container(9201).ListItem.Property(cast.0.name)]</value>
+		<value condition="$EXP[Home_PvMatch]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Home_PvCast1Q">
+		<value condition="$EXP[Home_PvMatch] + !String.IsEmpty(Container(9201).ListItem.Property(cast.1.name)) + !String.Contains(Container(9201).ListItem.Property(cast.1.name),&amp;) + !String.Contains(Container(9201).ListItem.Property(cast.1.name),%)">$ESCINFO[Container(9201).ListItem.Property(cast.1.name)]</value>
+		<value condition="$EXP[Home_PvMatch]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Home_PvCast2Q">
+		<value condition="$EXP[Home_PvMatch] + !String.IsEmpty(Container(9201).ListItem.Property(cast.2.name)) + !String.Contains(Container(9201).ListItem.Property(cast.2.name),&amp;) + !String.Contains(Container(9201).ListItem.Property(cast.2.name),%)">$ESCINFO[Container(9201).ListItem.Property(cast.2.name)]</value>
+		<value condition="$EXP[Home_PvMatch]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Home_PvCast3Q">
+		<value condition="$EXP[Home_PvMatch] + !String.IsEmpty(Container(9201).ListItem.Property(cast.3.name)) + !String.Contains(Container(9201).ListItem.Property(cast.3.name),&amp;) + !String.Contains(Container(9201).ListItem.Property(cast.3.name),%)">$ESCINFO[Container(9201).ListItem.Property(cast.3.name)]</value>
+		<value condition="$EXP[Home_PvMatch]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Home_PvGenreQ">
+		<value condition="$EXP[Home_PvMatch] + !String.IsEmpty(Container(9201).ListItem.Property(genre.0)) + !String.Contains(Container(9201).ListItem.Property(genre.0),&amp;) + !String.Contains(Container(9201).ListItem.Property(genre.0),%)">$ESCINFO[Container(9201).ListItem.Property(genre.0)]</value>
+		<value condition="$EXP[Home_PvMatch]">%22%22</value>
+		<value condition="String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),albums) + !String.IsEmpty(Window(Home).Property(sixdegrees.pv.genre)) + !String.Contains(Window(Home).Property(sixdegrees.pv.genre),&amp;) + !String.Contains(Window(Home).Property(sixdegrees.pv.genre),%)">$ESCINFO[Window(Home).Property(sixdegrees.pv.genre)]</value>
+		<value condition="String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),albums)">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Home_PvCentreGenreQ">
+		<value condition="!String.IsEmpty(Window(Home).Property(sixdegrees.pv.genre)) + !String.Contains(Window(Home).Property(sixdegrees.pv.genre),&amp;) + !String.Contains(Window(Home).Property(sixdegrees.pv.genre),%)">$ESCINFO[Window(Home).Property(sixdegrees.pv.genre)]</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Home_PvCoQ">
+		<value condition="Integer.IsGreaterOrEqual(Container(9221).NumItems,2)">$VAR[Home_PvCast1Q]</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(9222).NumItems,2)">$VAR[Home_PvCast2Q]</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(9223).NumItems,2)">$VAR[Home_PvCast3Q]</value>
+		<value>$VAR[Home_PvCast1Q]</value>
+	</variable>
+	<variable name="Home_PvExcl">
+		<value condition="!String.IsEmpty(Window(Home).Property(sixdegrees.pv.title)) + !String.Contains(Window(Home).Property(sixdegrees.pv.title),&amp;) + !String.Contains(Window(Home).Property(sixdegrees.pv.title),%) + String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),albums)">%2C%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B$ESCINFO[Window(Home).Property(sixdegrees.pv.title)]%5D%7D</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(sixdegrees.pv.title)) + !String.Contains(Window(Home).Property(sixdegrees.pv.title),&amp;) + !String.Contains(Window(Home).Property(sixdegrees.pv.title),%)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B$ESCINFO[Window(Home).Property(sixdegrees.pv.title)]%5D%7D</value>
+	</variable>
+	<variable name="Home_PvPathUp_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvUpQ]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Home_PvPathDown_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.year)]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvGenreQ]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
 	<variable name="Home_PvPathDownY_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.year)]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Home_PvPathRight_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvCast0]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Home_PvPathLeft_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvCo]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Home_PvPathP1_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvCast1]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Home_PvPathP2_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvCast2]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Home_PvPathP3_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvCast3]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Home_PvPathUp_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvUp]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Home_PvPathDown_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.year)]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvGenre]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Home_PvPathRight_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCast0Q]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Home_PvPathLeft_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCoQ]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Home_PvPathP1_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCast1Q]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Home_PvPathP2_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCast2Q]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Home_PvPathP3_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCast3Q]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Home_PvPathUp_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvUpQ]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Home_PvPathDown_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.year)]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvGenreQ]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
 	<variable name="Home_PvPathDownY_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.year)]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Home_PvPathRight_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvCast0]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Home_PvPathLeft_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvCo]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Home_PvPathP1_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvCast1]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Home_PvPathP2_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvCast2]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Home_PvPathP3_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvCast3]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Home_PvPathUp_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22albumartist%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvUp]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
+	<variable name="Home_PvPathRight_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCast0Q]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Home_PvPathLeft_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCoQ]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Home_PvPathP1_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCast1Q]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Home_PvPathP2_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCast2Q]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Home_PvPathP3_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCast3Q]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Home_PvPathUp_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22albumartist%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvUpQ]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
 	<variable name="Home_PvPathDown_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.year)]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
 	<variable name="Home_PvPathDownY_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.year)]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
-	<variable name="Home_PvPathRight_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.pv.genre)]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
-	<variable name="Home_PvPathLeft_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Home_PvUp]%22%5D%7D%2C%7B%22field%22%3A%22albumartist%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$VAR[Home_PvUp]%22%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
+	<variable name="Home_PvPathRight_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvCentreGenreQ]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
+	<variable name="Home_PvPathLeft_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Home_PvUpQ]%5D%7D%2C%7B%22field%22%3A%22albumartist%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B$VAR[Home_PvUpQ]%5D%7D$VAR[Home_PvExcl]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
 	<variable name="Home_PvPathUp">
 		<value condition="String.IsEmpty(Window(Home).Property(sixdegrees.pv.dbid))">videodb://movies/sets/</value>
 		<value condition="String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),tvshows)">$VAR[Home_PvPathUp_tvshows]</value>

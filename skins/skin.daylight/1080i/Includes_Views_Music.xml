@@ -106,8 +106,8 @@
 			<orientation>vertical</orientation>
 			<onup>9000</onup>
 			<ondown>noop</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.8: past the first / last column = Library panel -->
+			<onright>ActivateWindow(1160)</onright>
 			<preloaditems>2</preloaditems>
 			<scrolltime tween="cubic" easing="out">260</scrolltime>
 			<viewtype label="Grid">icon</viewtype>
@@ -197,8 +197,8 @@
 			<orientation>vertical</orientation>
 			<onup>9000</onup>
 			<ondown>noop</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.8: past the first / last column = Library panel -->
+			<onright>ActivateWindow(1160)</onright>
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<viewtype label="535">list</viewtype>
 			<itemlayout width="1076" height="76" condition="Container.Content(songs)">
@@ -386,7 +386,7 @@
 				<itemgap>8</itemgap>
 				<onup>9400</onup>
 				<ondown>50</ondown>
-				<onleft>noop</onleft>
+				<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.8: Left past the first tab = Library panel -->
 				<onright>9002</onright>
 				<onback>50</onback>
 				<include content="MusicView_Tab">
@@ -417,7 +417,7 @@
 				<onup>9400</onup>
 				<ondown>50</ondown>
 				<onleft>9001</onleft>
-				<onright>noop</onright>
+				<onright>ActivateWindow(1160)</onright>  <!-- 0.9.8: Right past the last pill = Library panel -->
 				<onback>50</onback>
 				<control type="button" id="9324">
 					<include content="VidView_PillFixed"><param name="w" value="208"/></include>
@@ -434,7 +434,7 @@
 				<control type="button" id="9326">
 					<include content="VidView_PillFixed"><param name="w" value="124"/></include>
 					<label>View: $INFO[Container.Viewmode]</label>
-					<onclick>Container.NextViewMode</onclick>
+					<onclick>ActivateWindow(1161)</onclick>
 					<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
 				</control>
 			</control>

@@ -30,6 +30,8 @@
 		</include>
 		<control type="grouplist" id="9000">
 			<include>Void_OptionsBegin</include>
+			<onleft>noop</onleft>
+			<onright>noop</onright>
 			<ondown>SetFocus(50)</ondown>
 			<onback>SetFocus(50)</onback>
 			<include content="Void_SubNavButton">

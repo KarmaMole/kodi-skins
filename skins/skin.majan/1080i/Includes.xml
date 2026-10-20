@@ -22,5 +22,6 @@
 	<include file="Includes_VideoInfo.xml"/>
 	<include file="Includes_Music.xml"/>
 	<include file="Includes_Views_Music.xml"/>
+	<include file="Includes_Library.xml"/>
 	<include file="Includes_Misc.xml"/>
 </includes>

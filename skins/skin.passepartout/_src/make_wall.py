@@ -477,28 +477,31 @@ def main():
 			<orientation>vertical</orientation>
 			<scrolltime tween="cubic" easing="out">300</scrolltime>
 			<preloaditems>2</preloaditems>
-			<!-- Up from the top row = the header words; Right past the last column / Down at the end = the View words.
-			     No onback: Back leaves the folder as in every other view. -->
+			<!-- Up from the top row = the header words; Left past the first column / Right past the last one =
+			     the Library card (0.9.11). No onback: Back leaves the folder as in every other view. -->
 			<onup>9000</onup>
-			<ondown>9330</ondown>
-			<onleft>noop</onleft>
-			<onright>9330</onright>
+			<ondown>noop</ondown>
+			<onleft>ActivateWindow(1155)</onleft>
+			<onright>ActivateWindow(1155)</onright>
 			<onfocus>SetProperty(TMDbHelper.Colors.SourceImage,Art(poster)|Art(tvshow.poster)|Art(thumb)|Art(fanart),home)</onfocus>
 			<viewtype label="The wall">panel</viewtype>
 			<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)</visible>
 {chr(10).join(layouts)}
 		</control>
-		<!-- the chrome comes back on paper bands when focus leaves the wall (header 0-140, View words 940-1080) -->
+		<!-- the header comes back on a paper band when focus leaves the wall (0-140; 0.9.11: no View words at the
+		     bottom any more, so the bottom band went and the wall keeps its full height) -->
 		<control type="group">
 			<visible>Control.IsVisible(506) + !Control.HasFocus(506)</visible>
 			<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 			<animation effect="fade" start="100" end="0" time="160">Hidden</animation>
 {band.format(top=0)}
-{band.format(top=940)}
 		</control>
 	</include>
 </includes>
 '''
+    # 0.9.10: motion honours Reduce motion (rm_guard: time-0 twins under passepartout.reducemotion)
+    from rm_guard import guard_text
+    xml, _n = guard_text(xml, "Skin.HasSetting(passepartout.reducemotion)")
     OUT.write_text(xml, encoding="utf-8", newline="\n")
     print(f"wrote {OUT.name}")
 

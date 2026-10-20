@@ -1,3 +1,20 @@
+0.9.8 (2026-10-21)
+- Library panel: the library's own menu (View, Sort, Order, Unwatched only, Search, Update library, Clean
+  library, Library settings) as a soft card under the header pills. Reach it with Left / Right past the
+  edges of any library view, Left / Right past either end of the header pills, or the new "Options" pill
+  in the top line (left of For now). Back closes it and leaves you on the item you came from.
+- Clean library asks first ("No" is focused): Kodi's own CleanLibrary() would just run.
+- View picker: the View pill and View in the panel open previews of the views that fit the folder (Grid,
+  Wall, Episodes, List; music Grid, List), the current one marked; OK switches, Back keeps it. The previews
+  are layered and take the mood colours, so they match the page at any time of day
+  (_src/make_view_previews.py, no artwork).
+- Home: the System menu (gear) gains Update library and Clean library (Films and shows or Music).
+
+0.9.7 (2026-10-20)
+- Language file: the strings.po header is valid gettext again (each header line one quoted string ending in \n).
+- System menu: Live TV, Pictures, Favourites and Files (Live TV only when a PVR add-on is enabled); the card grows with the list.
+- Reduce motion now also covers the slow background drift and the progress toast: no gliding, everything lands in place.
+
 0.9.6 (2026-10-20)
 - Author shown as KarmaMole; website link to the showcase. Solid icon (the official repository does not allow transparency).
 

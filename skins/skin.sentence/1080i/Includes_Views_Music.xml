@@ -132,7 +132,10 @@
 			<include content="Lib_Phrase"><param name="id" value="9322"/><param name="label" value="$VAR[Lib_Direction]"/><param name="left" value="10"/><param name="onclick" value="Container.SetSortDirection"/><param name="visible" value="Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)"/></include>
 			<include content="Lib_Comma"><param name="wid" value="26010"/><param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/></include>
 			<include content="Lib_Words"><param name="wid" value="26011"/><param name="label" value="as"/><param name="left" value="12"/><param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/></include>
-			<include content="Lib_Phrase"><param name="id" value="9324"/><param name="label" value="[LOWERCASE]$INFO[Container.Viewmode][/LOWERCASE]"/><param name="onclick" value="Container.NextViewMode"/><param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/></include>
+			<include content="Lib_Phrase"><param name="id" value="9324"/><param name="label" value="[LOWERCASE]$INFO[Container.Viewmode][/LOWERCASE]"/><param name="onclick" value="ActivateWindow(1156)"/><param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/></include>
+			<include content="Lib_Comma"><param name="wid" value="26012"/></include>
+			<include content="Lib_Words"><param name="wid" value="26013"/><param name="label" value="or"/><param name="left" value="12"/></include>
+			<include content="Lib_Phrase"><param name="id" value="9326"/><param name="label" value="more"/><param name="onclick" value="ActivateWindow(1155)"/></include>
 			<include>Lib_CountLabel</include>
 		</control>
 		<include content="Sen_Rule"><param name="top" value="lib_rule_y"/></include>
@@ -211,8 +214,8 @@
 				<orientation>vertical</orientation>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onleft>ActivateWindow(1155)</onleft>  <!-- 0.9.8: past the edges = the Library panel -->
+				<onright>ActivateWindow(1155)</onright>
 				<scrolltime tween="cubic" easing="out">240</scrolltime>
 				<preloaditems>2</preloaditems>
 				<viewtype label="a grid">icon</viewtype>
@@ -273,7 +276,7 @@
 				<height>music_list_h</height>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
+				<onleft>ActivateWindow(1155)</onleft>  <!-- 0.9.8: the Library panel -->
 				<onright>60</onright>
 				<pagecontrol>60</pagecontrol>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
@@ -291,7 +294,7 @@
 				<param name="top" value="music_list_top"/>
 				<param name="height" value="music_list_h"/>
 				<param name="onleft" value="50"/>
-				<param name="onright" value="50"/>
+				<param name="onright" value="ActivateWindow(1155)"/>
 			</include>
 			<include>Music_ListPanel</include>
 		</control>

@@ -2,6 +2,8 @@
 <!--
 	Void System menu (custom dialog 1151): Home > Library > Power. The escape hatch: Skin settings,
 	Settings, File manager, System info, Add-ons, then Exit / Reboot / Power off / Power menu.
+	0.9.7: Update library / Clean library (open the Library panel 1160 with void.libmode = update / clean:
+	choose Movies and TV or Music; Clean asks first).
 	A text column on the axis over the dialog backdrop. Back closes. No Kodi-owned ids.
 -->
 <window type="dialog" id="1151">
@@ -23,7 +25,7 @@
 			<left>146</left>
 			<top>150</top>
 			<width>900</width>
-			<height>688</height>
+			<height>840</height>
 			<!-- panel sized to the visible items (power entries depend on the platform) -->
 			<control type="image">
 				<left>0</left>
@@ -55,7 +57,23 @@
 				<width>600</width>
 				<height>680</height>
 				<texture colordiffuse="00ffffff">common/white.png</texture>
-				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,9)</visible>
+				<visible>Integer.IsEqual(Container(100).NumItems,9)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>748</height>
+				<texture colordiffuse="00ffffff">common/white.png</texture>
+				<visible>Integer.IsEqual(Container(100).NumItems,10)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>816</height>
+				<texture colordiffuse="00ffffff">common/white.png</texture>
+				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,11)</visible>
 			</control>
 			<control type="label">
 				<left>14</left>
@@ -71,7 +89,7 @@
 				<left>0</left>
 				<top>60</top>
 				<width>900</width>
-				<height>720</height>
+				<height>760</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>
@@ -114,6 +132,20 @@
 						<property name="index">[UPPERCASE]05[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(addonbrowser)</onclick>
+					</item>
+					<item>
+						<label>Update library</label>
+						<label2>Library</label2>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>SetProperty(void.libmode,update,home)</onclick>
+						<onclick>ActivateWindow(1160)</onclick>
+					</item>
+					<item>
+						<label>Clean library</label>
+						<label2>Library</label2>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>SetProperty(void.libmode,clean,home)</onclick>
+						<onclick>ActivateWindow(1160)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[13012]</label>

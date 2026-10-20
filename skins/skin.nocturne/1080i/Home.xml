@@ -30,8 +30,15 @@
 		<include>Noc_CorniceImage</include>
 		<include>Home_Wall_films</include>
 		<include>Home_Wall_series</include>
-		<include condition="!Skin.HasSetting(nocturne.reducemotion)">Home_TorchNormal</include>
-		<include condition="Skin.HasSetting(nocturne.reducemotion)">Home_TorchReduced</include>
+		<!-- 0.9.5: chosen at run time, not at load (Restore defaults resets reduce motion without a reload) -->
+		<control type="group">
+			<visible>!Skin.HasSetting(nocturne.reducemotion)</visible>
+			<include>Home_TorchNormal</include>
+		</control>
+		<control type="group">
+			<visible>Skin.HasSetting(nocturne.reducemotion)</visible>
+			<include>Home_TorchReduced</include>
+		</control>
 		<include>Home_WallLabels_films</include>
 		<include>Home_WallLabels_series</include>
 		<include>Home_MusicRoom</include>

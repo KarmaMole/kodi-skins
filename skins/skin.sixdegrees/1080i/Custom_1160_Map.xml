@@ -20,5 +20,11 @@
 		<include>SD_BrandAndClock</include>
 		<include>SD_RouteBar</include>
 		<include>Map_Buttons</include>
+		<include content="Lib_Panel">
+			<param name="is_video" value="false"/>
+			<param name="video_cond" value="!String.IsEqual(Window(Home).Property(sixdegrees.kind),albums)"/>
+			<param name="music_cond" value="String.IsEqual(Window(Home).Property(sixdegrees.kind),albums)"/>
+			<param name="section" value="$VAR[Lib_MapSection]"/>
+		</include>
 	</controls>
 </window>

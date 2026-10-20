@@ -1,3 +1,24 @@
+0.9.11 (2026-10-20)
+- Library card: in every library view, Left past the first print or Right past the last one (and the new Options
+  word in the header) opens a paper card with Update library, Clean library, View, Sort, Order, Show (watched),
+  Search and Library settings - only the rows that apply (no Update / Clean in add-on folders). Back closes it
+  and leaves you on the print you came from.
+- Clean library asks first ("No, leave it as it is" has focus): Kodi's own clean command doesn't ask.
+- The view is a header word now: "FILMS · NEWEST FIRST · UNWATCHED ONLY · THE WALL · 995 · OPTIONS". It opens a
+  small card of the views as little prints (The hang, Salon, The wall, List; the series and episode hangs and
+  the music views where they apply), each a drawing of the view's layout; OK hangs it, Back keeps the old one.
+  The bottom View bar is gone (it overlapped once The wall was added), and the wall keeps its full height.
+- Home > Settings (System card): Update library and Clean library, with a choice of films & series or music.
+- Album and artist pages: the buttons read Play, Shuffle, Artist information, Refresh again (they were cut to
+  "." and "ARTIST I...").
+
+0.9.10 (2026-10-20)
+- Language file: the strings.po header is valid gettext again (each header line one quoted string ending in \n).
+- Songs list, play queue, album tracklist and discography: the focused row's words are paper on the ink placard (the title, number, artist and time were ink on ink and vanished).
+- Music library: the View words stay while music plays (the now-playing line moves to the left of the same row), so views can be switched during playback.
+- Reduce motion now also covers the print grow-in and lifts in every view and the wall, the Home exhibition slides and zoom, the search strip slides, the seek bar and the progress toast: no gliding, everything lands in place.
+- System menu: Live TV, Pictures, Favourites and Files (Live TV only when a PVR add-on is enabled); the card grows with the list.
+
 0.9.9 (2026-10-20)
 - New view: The wall. A full-screen wall of film (and series, collection, season) posters, chosen under View
   beside The hang and Salon; no library's default view changes. Up from the top row shows the header words,

@@ -261,12 +261,20 @@
 
 	<!-- ================================================================ the exhibition, hung -->
 	<include name="Home_PrintSlides">
-		<animation type="Conditional" condition="!Container(9101).OnNext" reversible="false">
+		<animation type="Conditional" condition="[!Container(9101).OnNext] + !Skin.HasSetting(passepartout.reducemotion)" reversible="false">
 			<effect type="slide" start="72,0" end="0,0" time="480" tween="cubic" easing="out"/>
 			<effect type="fade" start="0" end="100" time="320"/>
 		</animation>
-		<animation type="Conditional" condition="!Container(9101).OnPrevious" reversible="false">
+		<animation type="Conditional" condition="[!Container(9101).OnNext] + Skin.HasSetting(passepartout.reducemotion)" reversible="false">
+			<effect type="slide" start="72,0" end="0,0" time="0" tween="cubic" easing="out"/>
+			<effect type="fade" start="0" end="100" time="320"/>
+		</animation>
+		<animation type="Conditional" condition="[!Container(9101).OnPrevious] + !Skin.HasSetting(passepartout.reducemotion)" reversible="false">
 			<effect type="slide" start="-72,0" end="0,0" time="480" tween="cubic" easing="out"/>
+			<effect type="fade" start="0" end="100" time="320"/>
+		</animation>
+		<animation type="Conditional" condition="[!Container(9101).OnPrevious] + Skin.HasSetting(passepartout.reducemotion)" reversible="false">
+			<effect type="slide" start="-72,0" end="0,0" time="0" tween="cubic" easing="out"/>
 			<effect type="fade" start="0" end="100" time="320"/>
 		</animation>
 	</include>
@@ -275,9 +283,12 @@
 		<control type="group">
 			<visible>!$EXP[Home_InRoom] + Integer.IsGreater(Container(9101).NumItems,0)</visible>
 			<animation effect="fade" start="0" end="100" time="320" delay="80">Visible</animation>
-			<animation type="Hidden">
+			<animation type="Hidden" condition="!Skin.HasSetting(passepartout.reducemotion)">
 				<effect type="fade" start="100" end="0" time="240"/>
 				<effect type="zoom" start="100" end="60" center="414,160" time="320" tween="cubic" easing="inout"/>
+			</animation>
+			<animation type="Hidden" condition="Skin.HasSetting(passepartout.reducemotion)">
+				<effect type="fade" start="100" end="0" time="240"/>
 			</animation>
 			<animation effect="fade" start="0" end="100" time="400">WindowOpen</animation>
 			<!-- landscape print (films, series): picture 1092 x 612 at 414,160 -->
@@ -472,8 +483,11 @@
 		<param name="cy">0</param>
 		<param name="from">71</param>
 		<definition>
-			<animation type="Focus">
+			<animation type="Focus" condition="!Skin.HasSetting(passepartout.reducemotion)">
 				<effect type="zoom" start="$PARAM[from]" end="100" center="$PARAM[cx],$PARAM[cy]" time="360" tween="cubic" easing="out"/>
+			</animation>
+			<animation type="Focus" condition="Skin.HasSetting(passepartout.reducemotion)">
+				<effect type="zoom" start="$PARAM[from]" end="100" center="$PARAM[cx],$PARAM[cy]" time="0" tween="cubic" easing="out"/>
 			</animation>
 		</definition>
 	</include>
@@ -798,7 +812,14 @@
 
 	<!-- ================================================================ now playing (music) -->
 	<!-- One slim line on a hairline (Music board): 120..1800, line at y 960, text at 980 -->
+	<!-- footer=true (music library): the view words own the right of the row, so the time moves
+	     into the left line and the line stops at x 1280 -->
 	<include name="PP_NowPlayingLine">
+		<param name="footer">false</param>
+		<param name="line_w">1340</param>
+		<param name="artist_max">700</param>
+		<param name="title_max">600</param>
+		<definition>
 		<control type="group">
 			<visible>Player.HasAudio + !Player.HasVideo</visible>
 			<animation effect="fade" start="0" end="100" time="300">Visible</animation>
@@ -815,7 +836,7 @@
 			<control type="grouplist">
 				<left>120</left>
 				<top>980</top>
-				<width>1340</width>
+				<width>$PARAM[line_w]</width>
 				<height>34</height>
 				<orientation>horizontal</orientation>
 				<itemgap>24</itemgap>
@@ -829,7 +850,15 @@
 					<label>Now playing</label>
 				</control>
 				<control type="label">
-					<width max="700">auto</width>
+					<width>auto</width>
+					<height>34</height>
+					<font>mono_22</font>
+					<textcolor>ink</textcolor>
+					<label>$INFO[Player.Time]$INFO[Player.Duration, / ,]</label>
+					<visible>$PARAM[footer]</visible>
+				</control>
+				<control type="label">
+					<width max="$PARAM[artist_max]">auto</width>
 					<height>34</height>
 					<font>body_24</font>
 					<textcolor>ink</textcolor>
@@ -837,7 +866,7 @@
 				</control>
 				<control type="label">
 					<left>-14</left>
-					<width max="600">auto</width>
+					<width max="$PARAM[title_max]">auto</width>
 					<height>34</height>
 					<font>body_24</font>
 					<textcolor>ink2</textcolor>
@@ -852,6 +881,7 @@
 				<orientation>horizontal</orientation>
 				<align>right</align>
 				<itemgap>0</itemgap>
+				<visible>!$PARAM[footer]</visible>
 				<control type="label">
 					<width>auto</width>
 					<height>34</height>
@@ -868,5 +898,6 @@
 				</control>
 			</control>
 		</control>
+		</definition>
 	</include>
 </includes>

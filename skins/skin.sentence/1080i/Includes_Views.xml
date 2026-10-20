@@ -24,6 +24,7 @@
 					<height>$PARAM[height]</height>
 					<onup>9000</onup>
 					<ondown>50</ondown>
+					<onleft condition="Window.IsActive(videos) | Window.IsActive(music)">ActivateWindow(1155)</onleft>  <!-- 0.9.8: the Library panel -->
 					<onleft>noop</onleft>
 					<onright>60</onright>
 					<pagecontrol>60</pagecontrol>
@@ -41,7 +42,7 @@
 					<param name="top" value="$PARAM[top]"/>
 					<param name="height" value="$PARAM[height]"/>
 					<param name="onleft" value="50"/>
-					<param name="onright" value="50"/>
+					<param name="onright" value="$VAR[Sen_Lib_ScrollRight]"/>
 				</include>
 				<!-- video library: the paragraph note; elsewhere: art + a short sentence -->
 				<include content="Lib_Note" condition="$PARAM[note]"/>

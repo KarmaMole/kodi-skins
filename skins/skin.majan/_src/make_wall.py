@@ -507,8 +507,8 @@ def build() -> str:
 					<scrolltime tween="cubic" easing="out">200</scrolltime>
 					<onup>9000</onup>
 					<ondown>noop</ondown>
-					<onleft>noop</onleft>
-					<onright>noop</onright>
+					<onleft>ActivateWindow(1155)</onleft>
+					<onright>ActivateWindow(1155)</onright>
 					<viewtype label="Poster wall">list</viewtype>
 					<visible>{CONTENT}</visible>
 {ind(lay, 5)}

@@ -73,8 +73,8 @@
 			<orientation>vertical</orientation>
 			<onup>9000</onup>
 			<ondown>noop</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<include>Lib_OpenLeft</include>
+			<include>Lib_OpenRight</include>
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<preloaditems>1</preloaditems>
 			<viewtype label="Grid">icon</viewtype>
@@ -147,6 +147,8 @@
 			<movement>0</movement>
 			<onup>9000</onup>
 			<ondown>noop</ondown>
+			<include>Lib_OpenLeft</include>
+			<include>Lib_OpenRight</include>
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<preloaditems>2</preloaditems>
 			<viewtype label="Big album">wrap</viewtype>
@@ -317,7 +319,7 @@
 				<height>music_list_h</height>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
+				<include>Lib_OpenLeft</include>
 				<onright>60</onright>
 				<pagecontrol>60</pagecontrol>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
@@ -335,7 +337,8 @@
 				<param name="top" value="160"/>
 				<param name="height" value="792"/>
 				<param name="onleft" value="50"/>
-				<param name="onright" value="50"/>
+				<param name="onright" value="SetProperty(sixdegrees.lib.from,view,home)"/>
+				<param name="onright2" value="SetFocus(9801,0,absolute)"/>
 			</include>
 			<include>Music_ListPanel</include>
 		</control>

@@ -40,8 +40,63 @@
 		<value condition="Integer.IsGreaterOrEqual(Container(623).NumItems,2)">$VAR[Map_Cast3]</value>
 		<value>$VAR[Map_Cast1]</value>
 	</variable>
+	<variable name="Map_UpNameQ">
+		<value condition="$EXP[Map_DetailsMatch] + String.IsEqual(Window(Home).Property(sixdegrees.kind),tvshows) + !String.IsEmpty(Container(9001).ListItem.Property(studio.0)) + !String.Contains(Container(9001).ListItem.Property(studio.0),&amp;) + !String.Contains(Container(9001).ListItem.Property(studio.0),%)">$ESCINFO[Container(9001).ListItem.Property(studio.0)]</value>
+		<value condition="$EXP[Map_DetailsMatch] + String.IsEqual(Window(Home).Property(sixdegrees.kind),tvshows)">%22%22</value>
+		<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Property(director.0)) + !String.Contains(Container(9001).ListItem.Property(director.0),&amp;) + !String.Contains(Container(9001).ListItem.Property(director.0),%)">$ESCINFO[Container(9001).ListItem.Property(director.0)]</value>
+		<value condition="$EXP[Map_DetailsMatch]">%22%22</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(sixdegrees.c.dir)) + !String.Contains(Window(Home).Property(sixdegrees.c.dir),&amp;) + !String.Contains(Window(Home).Property(sixdegrees.c.dir),%)">$ESCINFO[Window(Home).Property(sixdegrees.c.dir)]</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Map_Cast0Q">
+		<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Property(cast.0.name)) + !String.Contains(Container(9001).ListItem.Property(cast.0.name),&amp;) + !String.Contains(Container(9001).ListItem.Property(cast.0.name),%)">$ESCINFO[Container(9001).ListItem.Property(cast.0.name)]</value>
+		<value condition="$EXP[Map_DetailsMatch]">%22%22</value>
+		<value condition="$EXP[Map_TMDbMatch] + !String.IsEmpty(Container(9002).ListItem.Property(cast.1.name)) + !String.Contains(Container(9002).ListItem.Property(cast.1.name),&amp;) + !String.Contains(Container(9002).ListItem.Property(cast.1.name),%)">$ESCINFO[Container(9002).ListItem.Property(cast.1.name)]</value>
+		<value condition="$EXP[Map_TMDbMatch]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Map_Cast1Q">
+		<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Property(cast.1.name)) + !String.Contains(Container(9001).ListItem.Property(cast.1.name),&amp;) + !String.Contains(Container(9001).ListItem.Property(cast.1.name),%)">$ESCINFO[Container(9001).ListItem.Property(cast.1.name)]</value>
+		<value condition="$EXP[Map_DetailsMatch]">%22%22</value>
+		<value condition="$EXP[Map_TMDbMatch] + !String.IsEmpty(Container(9002).ListItem.Property(cast.2.name)) + !String.Contains(Container(9002).ListItem.Property(cast.2.name),&amp;) + !String.Contains(Container(9002).ListItem.Property(cast.2.name),%)">$ESCINFO[Container(9002).ListItem.Property(cast.2.name)]</value>
+		<value condition="$EXP[Map_TMDbMatch]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Map_Cast2Q">
+		<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Property(cast.2.name)) + !String.Contains(Container(9001).ListItem.Property(cast.2.name),&amp;) + !String.Contains(Container(9001).ListItem.Property(cast.2.name),%)">$ESCINFO[Container(9001).ListItem.Property(cast.2.name)]</value>
+		<value condition="$EXP[Map_DetailsMatch]">%22%22</value>
+		<value condition="$EXP[Map_TMDbMatch] + !String.IsEmpty(Container(9002).ListItem.Property(cast.3.name)) + !String.Contains(Container(9002).ListItem.Property(cast.3.name),&amp;) + !String.Contains(Container(9002).ListItem.Property(cast.3.name),%)">$ESCINFO[Container(9002).ListItem.Property(cast.3.name)]</value>
+		<value condition="$EXP[Map_TMDbMatch]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Map_Cast3Q">
+		<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Property(cast.3.name)) + !String.Contains(Container(9001).ListItem.Property(cast.3.name),&amp;) + !String.Contains(Container(9001).ListItem.Property(cast.3.name),%)">$ESCINFO[Container(9001).ListItem.Property(cast.3.name)]</value>
+		<value condition="$EXP[Map_DetailsMatch]">%22%22</value>
+		<value condition="$EXP[Map_TMDbMatch] + !String.IsEmpty(Container(9002).ListItem.Property(cast.4.name)) + !String.Contains(Container(9002).ListItem.Property(cast.4.name),&amp;) + !String.Contains(Container(9002).ListItem.Property(cast.4.name),%)">$ESCINFO[Container(9002).ListItem.Property(cast.4.name)]</value>
+		<value condition="$EXP[Map_TMDbMatch]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Map_GenreQ">
+		<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Property(genre.0)) + !String.Contains(Container(9001).ListItem.Property(genre.0),&amp;) + !String.Contains(Container(9001).ListItem.Property(genre.0),%)">$ESCINFO[Container(9001).ListItem.Property(genre.0)]</value>
+		<value condition="$EXP[Map_DetailsMatch]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Map_DirQ">
+		<value condition="!String.IsEmpty(Window(Home).Property(sixdegrees.c.dir)) + !String.Contains(Window(Home).Property(sixdegrees.c.dir),&amp;) + !String.Contains(Window(Home).Property(sixdegrees.c.dir),%)">$ESCINFO[Window(Home).Property(sixdegrees.c.dir)]</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Map_CentreGenreQ">
+		<value condition="!String.IsEmpty(Window(Home).Property(sixdegrees.c.genre)) + !String.Contains(Window(Home).Property(sixdegrees.c.genre),&amp;) + !String.Contains(Window(Home).Property(sixdegrees.c.genre),%)">$ESCINFO[Window(Home).Property(sixdegrees.c.genre)]</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="Map_CoNameQ">
+		<value condition="Integer.IsGreaterOrEqual(Container(621).NumItems,2)">$VAR[Map_Cast1Q]</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(622).NumItems,2)">$VAR[Map_Cast2Q]</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(623).NumItems,2)">$VAR[Map_Cast3Q]</value>
+		<value>$VAR[Map_Cast1Q]</value>
+	</variable>
 	<variable name="Map_Excl">
-		<value condition="!String.Contains(Window(Home).Property(sixdegrees.c.title),&amp;)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.title)]%22%5D%7D</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(sixdegrees.c.title)) + !String.Contains(Window(Home).Property(sixdegrees.c.title),&amp;) + !String.Contains(Window(Home).Property(sixdegrees.c.title),%)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B$ESCINFO[Window(Home).Property(sixdegrees.c.title)]%5D%7D</value>
 	</variable>
 	<variable name="Map_Unwatched">
 		<value condition="Skin.HasSetting(sixdegrees.map.unwatched)">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</value>
@@ -50,31 +105,31 @@
 		<value condition="String.IsEqual(Skin.String(sixdegrees.map.sort),year)">year</value>
 		<value>rating</value>
 	</variable>
-	<variable name="Map_PathUp_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_UpName]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Map_PathRight_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_Cast0]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Map_PathLeft_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_CoName]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Map_PathUp_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_UpNameQ]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Map_PathRight_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_Cast0Q]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Map_PathLeft_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_CoNameQ]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
 	<variable name="Map_PathDown_movies">
-		<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Property(genre.0))">videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.year)]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_Genre]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
+		<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Property(genre.0))">videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.year)]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_GenreQ]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 		<value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.year)]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 	</variable>
-	<variable name="Map_PathProbe1_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_Cast1]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Map_PathProbe2_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_Cast2]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Map_PathProbe3_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_Cast3]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="Map_PathUp_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_UpName]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Map_PathRight_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_Cast0]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Map_PathLeft_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_CoName]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Map_PathProbe1_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_Cast1Q]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Map_PathProbe2_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_Cast2Q]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Map_PathProbe3_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_Cast3Q]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="Map_PathUp_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_UpNameQ]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Map_PathRight_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_Cast0Q]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Map_PathLeft_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_CoNameQ]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
 	<variable name="Map_PathDown_tvshows">
-		<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Property(genre.0))">videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.year)]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_Genre]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+		<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Property(genre.0))">videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.year)]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_GenreQ]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 		<value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.year)]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 	</variable>
-	<variable name="Map_PathProbe1_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_Cast1]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Map_PathProbe2_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_Cast2]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Map_PathProbe3_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[Map_Cast3]%22%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="Map_ExclAlbum"><value condition="!String.Contains(Window(Home).Property(sixdegrees.c.title),&amp;)">%2C%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.title)]%22%5D%7D</value></variable>
-	<variable name="Map_PathUp_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22albumartist%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.dir)]%22%5D%7D$VAR[Map_ExclAlbum]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
-	<variable name="Map_PathRight_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.genre)]%22%5D%7D$VAR[Map_ExclAlbum]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
+	<variable name="Map_PathProbe1_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_Cast1Q]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Map_PathProbe2_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_Cast2Q]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Map_PathProbe3_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_Cast3Q]%5D%7D$VAR[Map_Excl]$VAR[Map_Unwatched]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="Map_ExclAlbum"><value condition="!String.IsEmpty(Window(Home).Property(sixdegrees.c.title)) + !String.Contains(Window(Home).Property(sixdegrees.c.title),&amp;) + !String.Contains(Window(Home).Property(sixdegrees.c.title),%)">%2C%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B$ESCINFO[Window(Home).Property(sixdegrees.c.title)]%5D%7D</value></variable>
+	<variable name="Map_PathUp_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22albumartist%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_DirQ]%5D%7D$VAR[Map_ExclAlbum]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
+	<variable name="Map_PathRight_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_CentreGenreQ]%5D%7D$VAR[Map_ExclAlbum]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
 	<variable name="Map_PathDown_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.year)]%22%5D%7D$VAR[Map_ExclAlbum]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
-	<variable name="Map_PathLeft_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.dir)]%22%5D%7D%2C%7B%22field%22%3A%22albumartist%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.c.dir)]%22%5D%7D$VAR[Map_ExclAlbum]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
+	<variable name="Map_PathLeft_albums"><value>musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[Map_DirQ]%5D%7D%2C%7B%22field%22%3A%22albumartist%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B$VAR[Map_DirQ]%5D%7D$VAR[Map_ExclAlbum]%5D%7D%2C%22type%22%3A%22albums%22%7D</value></variable>
 	<variable name="Map_PathUp">
 		<value condition="String.IsEqual(Window(Home).Property(sixdegrees.kind),albums)">$VAR[Map_PathUp_albums]</value>
 		<value condition="String.IsEqual(Window(Home).Property(sixdegrees.kind),tvshows)">$VAR[Map_PathUp_tvshows]</value>
@@ -4342,7 +4397,7 @@
 		</control><control type="image">
 			<left>4</left><top>4</top><width>28</width><height>28</height>
 			<texture colordiffuse="ink">sd/ring_22_6.png</texture>
-		</control></control><control type="label"><width max="160">auto</width><height>36</height><font>semi_24</font><textcolor>ink2</textcolor><label>$INFO[Window(Home).Property(sixdegrees.r2.title)]</label><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r2.dbid))</visible></control><control type="label"><width>16</width><height>36</height><label></label><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r2.dbid))</visible></control>
+		</control></control><control type="label"><width max="120">auto</width><height>36</height><font>semi_24</font><textcolor>ink2</textcolor><label>$INFO[Window(Home).Property(sixdegrees.r2.title)]</label><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r2.dbid))</visible></control><control type="label"><width>16</width><height>36</height><label></label><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r2.dbid))</visible></control>
 		<control type="image"><top>15</top><width>56</width><height>6</height><texture border="3,0,3,0" colordiffuse="$VAR[Map_Col_r1]">sd/line_h6.png</texture><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r2.dbid))</visible></control>
 		<control type="group"><width>34</width><height>36</height><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r1.dbid))</visible><control type="image">
 			<left>4</left><top>4</top><width>28</width><height>28</height>
@@ -4350,7 +4405,7 @@
 		</control><control type="image">
 			<left>4</left><top>4</top><width>28</width><height>28</height>
 			<texture colordiffuse="ink">sd/ring_22_6.png</texture>
-		</control></control><control type="label"><width max="160">auto</width><height>36</height><font>semi_24</font><textcolor>ink2</textcolor><label>$INFO[Window(Home).Property(sixdegrees.r1.title)]</label><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r1.dbid))</visible></control><control type="label"><width>16</width><height>36</height><label></label><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r1.dbid))</visible></control>
+		</control></control><control type="label"><width max="120">auto</width><height>36</height><font>semi_24</font><textcolor>ink2</textcolor><label>$INFO[Window(Home).Property(sixdegrees.r1.title)]</label><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r1.dbid))</visible></control><control type="label"><width>16</width><height>36</height><label></label><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r1.dbid))</visible></control>
 		<control type="image"><top>15</top><width>72</width><height>6</height><texture border="3,0,3,0" colordiffuse="$VAR[Map_Col_c]">sd/line_h6.png</texture><visible>!String.IsEmpty(Window(Home).Property(sixdegrees.r1.dbid))</visible></control>
 		<control type="group"><width>44</width><height>36</height><visible>true</visible><control type="image">
 			<left>-1</left><top>-1</top><width>38</width><height>38</height>
@@ -4358,7 +4413,7 @@
 		</control><control type="image">
 			<left>-1</left><top>-1</top><width>38</width><height>38</height>
 			<texture colordiffuse="ink">sd/ring_32_8.png</texture>
-		</control></control><control type="label"><width max="280">auto</width><height>36</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Window(Home).Property(sixdegrees.c.title)]</label><visible>true</visible></control>
+		</control></control><control type="label"><width max="190">auto</width><height>36</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Window(Home).Property(sixdegrees.c.title)]</label><visible>true</visible></control>
 		</control>
 	</include>
 	<include name="SD_BrandAndClock">
@@ -4886,6 +4941,19 @@
 			<onclick condition="String.IsEqual(Window(Home).Property(sixdegrees.kind),tvshows)">ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick>
 			<onclick condition="String.IsEqual(Window(Home).Property(sixdegrees.kind),albums)">ActivateWindow(Music,musicdb://albums/,return)</onclick>
 			<onclick condition="!String.IsEqual(Window(Home).Property(sixdegrees.kind),tvshows) + !String.IsEqual(Window(Home).Property(sixdegrees.kind),albums)">ActivateWindow(Videos,videodb://movies/titles/,return)</onclick>
+			<ondown>700</ondown>
+			<onleft>9832</onleft>
+			<onback condition="!String.IsEmpty(Window(Home).Property(sixdegrees.r1.dbid))">799</onback>
+		</control>
+		<control type="button" id="9832">
+			<left>1378</left><top>65</top><width>156</width><height>46</height>
+			<font>semi_22</font><textcolor>ink</textcolor><focusedcolor>on_ink</focusedcolor><align>right</align><aligny>center</aligny><textoffsetx>22</textoffsetx>
+			<texturefocus border="46,0,23,0" colordiffuse="ink">sd/pill_station_46.png</texturefocus>
+			<texturenofocus border="46,0,23,0" colordiffuse="ink">sd/pill_station_46_off.png</texturenofocus>
+			<label>Options</label>
+			<onclick>SetProperty(sixdegrees.lib.from,rail,home)</onclick>
+			<onclick>SetFocus(9801,0,absolute)</onclick>
+			<onright>790</onright>
 			<ondown>700</ondown>
 			<onleft>700</onleft>
 			<onback condition="!String.IsEmpty(Window(Home).Property(sixdegrees.r1.dbid))">799</onback>

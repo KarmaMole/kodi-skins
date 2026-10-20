@@ -509,6 +509,7 @@
 	<include name="Noc_Scrollbar">
 		<param name="onleft">noop</param>
 		<param name="onright">noop</param>
+		<param name="onright2">noop</param>
 		<definition>
 			<control type="scrollbar" id="$PARAM[id]">
 				<left>$PARAM[left]</left>
@@ -520,6 +521,7 @@
 				<texturesliderbarfocus colordiffuse="light">common/white.png</texturesliderbarfocus>
 				<onleft>$PARAM[onleft]</onleft>
 				<onright>$PARAM[onright]</onright>
+				<onright>$PARAM[onright2]</onright>
 				<orientation>vertical</orientation>
 			</control>
 		</definition>

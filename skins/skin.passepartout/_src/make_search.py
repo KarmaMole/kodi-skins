@@ -499,6 +499,9 @@ def main():
 	</include>
 </includes>
 '''
+    # 0.9.10: motion honours Reduce motion (rm_guard: time-0 twins under passepartout.reducemotion)
+    from rm_guard import guard_text
+    xml, _n = guard_text(xml, "Skin.HasSetting(passepartout.reducemotion)")
     OUT.write_text(xml, encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 

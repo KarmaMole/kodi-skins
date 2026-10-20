@@ -2,16 +2,11 @@
 # Ids 31000-31999. Use $LOCALIZE[id] or a bare id in <label>.
 msgid ""
 msgstr ""
-"Project-Id-Version: skin.duotone
-"
-"Language: en_GB
-"
-"MIME-Version: 1.0
-"
-"Content-Type: text/plain; charset=UTF-8
-"
-"Content-Transfer-Encoding: 8bit
-"
+"Project-Id-Version: skin.duotone\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 msgctxt "#31010"
 msgid "Sort"

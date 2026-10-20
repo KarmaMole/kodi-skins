@@ -291,8 +291,8 @@
 				<orientation>vertical</orientation>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onleft>ActivateWindow(1155)</onleft>  <!-- 0.9.9: Library panel past the edges -->
+				<onright>ActivateWindow(1155)</onright>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<preloaditems>1</preloaditems>
 				<viewtype label="Wall">icon</viewtype>

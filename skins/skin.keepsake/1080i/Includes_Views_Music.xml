@@ -31,9 +31,9 @@
 		<value>music</value>
 	</variable>
 	<variable name="Music_LabelLine">
-		<value condition="Container.Content(albums)">$INFO[Container.NumItems] albums  ·  [COLOR label_hi]sorted by $INFO[Container.SortMethod][/COLOR]</value>
-		<value condition="Container.Content(artists)">$INFO[Container.NumItems] artists  ·  [COLOR label_hi]sorted by $INFO[Container.SortMethod][/COLOR]</value>
-		<value condition="Container.Content(songs)">$INFO[Container.NumItems] songs  ·  [COLOR label_hi]sorted by $INFO[Container.SortMethod][/COLOR]</value>
+		<value condition="Container.Content(albums)">$INFO[Container.NumItems] albums  ·  [COLOR label_hi]by $INFO[Container.SortMethod][/COLOR]</value>
+		<value condition="Container.Content(artists)">$INFO[Container.NumItems] artists  ·  [COLOR label_hi]by $INFO[Container.SortMethod][/COLOR]</value>
+		<value condition="Container.Content(songs)">$INFO[Container.NumItems] songs  ·  [COLOR label_hi]by $INFO[Container.SortMethod][/COLOR]</value>
 		<value>$INFO[Container.NumItems] items</value>
 	</variable>
 	<variable name="Music_WordColor_Albums">
@@ -81,20 +81,27 @@
 		<control type="label">
 			<left>118</left>
 			<top>161</top>
-			<width>900</width>
+			<width>500</width>
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
 			<label>$VAR[Music_LabelLine]</label>
 		</control>
 		<include>KS_Clock</include>
+		<include content="Lib_PenWords">
+			<param name="onup" value="9000"/>
+			<param name="ondown" value="50"/>
+			<param name="onright" value="9310"/>
+			<param name="onback" value="50"/>
+			<param name="pick_focus" value="Lib_PickFocusMusic"/>
+		</include>
 		<control type="grouplist" id="9000">
-			<left>820</left>
+			<left>760</left>
 			<top>76</top>
-			<width>700</width>
+			<width>680</width>
 			<height>80</height>
 			<orientation>horizontal</orientation>
-			<itemgap>30</itemgap>
+			<itemgap>24</itemgap>
 			<onup>noop</onup>
 			<ondown>9310</ondown>
 			<onback>50</onback>
@@ -111,17 +118,11 @@
 			<orientation>horizontal</orientation>
 			<itemgap>6</itemgap>
 			<onup>9000</onup>
-			<onleft>noop</onleft>
+			<onleft>9830</onleft>
 			<onright>noop</onright>
 			<ondown>50</ondown>
 			<onback>50</onback>
-			<control type="button" id="9324">
-				<width>150</width>
-				<include>VidView_OptionLook</include>
-				<label>view</label>
-				<onclick>Container.NextViewMode</onclick>
-				<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
-			</control>
+			<!-- the view word is a pen word now (Lib_PenWords, under the title) -->
 			<control type="button" id="9325">
 				<width>190</width>
 				<include>VidView_OptionLook</include>
@@ -197,8 +198,8 @@
 			<scrolltime tween="cubic" easing="out">260</scrolltime>
 			<preloaditems>2</preloaditems>
 			<onup>9310</onup>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<include>Lib_OpenLeft</include>
+			<include>Lib_OpenRight</include>
 			<viewtype label="instant prints">list</viewtype>
 			<visible>$EXP[Music_IsAlbums]</visible>
 			<itemlayout width="302" height="400">
@@ -288,8 +289,8 @@
 			<scrolltime tween="cubic" easing="out">260</scrolltime>
 			<preloaditems>2</preloaditems>
 			<onup>9310</onup>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<include>Lib_OpenLeft</include>
+			<include>Lib_OpenRight</include>
 			<viewtype label="prints">list</viewtype>
 			<visible>$EXP[Music_IsArtists]</visible>
 			<itemlayout width="302" height="390">

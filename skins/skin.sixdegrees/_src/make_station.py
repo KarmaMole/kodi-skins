@@ -21,7 +21,8 @@ from pathlib import Path
 
 from PIL import ImageFont
 
-from make_map import (P, RM, OPEN, rule, close, prop, info, img, lbl, group, DEPTH, FIELDS, push_actions)
+from make_map import (P, RM, OPEN, rule, close, prop, info, img, lbl, group, DEPTH, FIELDS, push_actions,
+                      ruleq, esc_info, url_safe, qvar)
 
 HERE = Path(__file__).resolve().parent
 SKIN = HERE.parent
@@ -85,8 +86,21 @@ def variables():
         a(f'\t<value condition="Integer.IsGreaterOrEqual(Container({cid}).NumItems,2)">$VAR[St_Cast{n}]</value>')
     a("\t<value>$VAR[St_Cast1]</value>")
     a("</variable>")
+    # 0.9.7: free text goes into the xsp JSON as $ESCINFO string literals; '&' / '%' values become ""
+    v.extend(qvar("St_UpQ", [(f"$EXP[St_Match] + {IS_TV}", "Container(9601).ListItem.Property(studio.0)"),
+                             ("$EXP[St_Match]", "Container(9601).ListItem.Property(director.0)"),
+                             (IS_TV, "ListItem.Studio"),
+                             (None, "ListItem.Director")]))
+    for n in range(4):
+        v.extend(qvar(f"St_Cast{n}Q", [("$EXP[St_Match]", f"Container(9601).ListItem.Property(cast.{n}.name)")]))
+    v.extend(qvar("St_GenreQ", [("$EXP[St_Match]", "Container(9601).ListItem.Property(genre.0)")]))
+    a('<variable name="St_CoQ">')
+    for n, cid in ((1, 9621), (2, 9622), (3, 9623)):
+        a(f'\t<value condition="Integer.IsGreaterOrEqual(Container({cid}).NumItems,2)">$VAR[St_Cast{n}Q]</value>')
+    a("\t<value>$VAR[St_Cast1Q]</value>")
+    a("</variable>")
     a('<variable name="St_Excl">')
-    a(f'\t<value condition="!String.Contains(ListItem.Title,&amp;)">%2C{rule("title", "isnot", "$INFO[ListItem.Title]")}</value>')
+    a(f'\t<value condition="{url_safe("ListItem.Title")}">%2C{ruleq("title", "isnot", esc_info("ListItem.Title"))}</value>')
     a("</variable>")
     roots = {"movies": "videodb://movies/titles/?xsp=", "tvshows": "videodb://tvshows/titles/?xsp="}
     upf = {"movies": "director", "tvshows": "studio"}
@@ -94,14 +108,14 @@ def variables():
         tail = f"$VAR[St_Excl]{close(kind)}"
         R = roots[kind]
         paths = {
-            "up": f"{R}{OPEN}{rule(upf[kind], 'is', '$VAR[St_Up]')}{tail}",
-            "right": f"{R}{OPEN}{rule('actor', 'is', '$VAR[St_Cast0]')}{tail}",
-            "left": f"{R}{OPEN}{rule('actor', 'is', '$VAR[St_Co]')}{tail}",
-            "down": f"{R}{OPEN}{rule('year', 'is', '$INFO[ListItem.Year]')}%2C{rule('genre', 'is', '$VAR[St_Genre]')}{tail}",
+            "up": f"{R}{OPEN}{ruleq(upf[kind], 'is', '$VAR[St_UpQ]')}{tail}",
+            "right": f"{R}{OPEN}{ruleq('actor', 'is', '$VAR[St_Cast0Q]')}{tail}",
+            "left": f"{R}{OPEN}{ruleq('actor', 'is', '$VAR[St_CoQ]')}{tail}",
+            "down": f"{R}{OPEN}{rule('year', 'is', '$INFO[ListItem.Year]')}%2C{ruleq('genre', 'is', '$VAR[St_GenreQ]')}{tail}",
             "downy": f"{R}{OPEN}{rule('year', 'is', '$INFO[ListItem.Year]')}{tail}",
-            "p1": f"{R}{OPEN}{rule('actor', 'is', '$VAR[St_Cast1]')}{tail}",
-            "p2": f"{R}{OPEN}{rule('actor', 'is', '$VAR[St_Cast2]')}{tail}",
-            "p3": f"{R}{OPEN}{rule('actor', 'is', '$VAR[St_Cast3]')}{tail}",
+            "p1": f"{R}{OPEN}{ruleq('actor', 'is', '$VAR[St_Cast1Q]')}{tail}",
+            "p2": f"{R}{OPEN}{ruleq('actor', 'is', '$VAR[St_Cast2Q]')}{tail}",
+            "p3": f"{R}{OPEN}{ruleq('actor', 'is', '$VAR[St_Cast3Q]')}{tail}",
         }
         for k, pth in paths.items():
             a(f'<variable name="St_Path_{k}_{kind}"><value>{pth}</value></variable>')

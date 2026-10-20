@@ -2,16 +2,11 @@
 # Ids 31000-31999. Use $LOCALIZE[id] or a bare id in <label>.
 msgid ""
 msgstr ""
-"Project-Id-Version: skin.nocturne
-"
-"Language: en_GB
-"
-"MIME-Version: 1.0
-"
-"Content-Type: text/plain; charset=UTF-8
-"
-"Content-Transfer-Encoding: 8bit
-"
+"Project-Id-Version: skin.nocturne\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 msgctxt "#31010"
 msgid "Sort"
@@ -687,4 +682,28 @@ msgstr ""
 
 msgctxt "#31307"
 msgid "The building"
+msgstr ""
+
+msgctxt "#31310"
+msgid "Order"
+msgstr ""
+
+msgctxt "#31311"
+msgid "Unwatched only"
+msgstr ""
+
+msgctxt "#31312"
+msgid "Films and series"
+msgstr ""
+
+msgctxt "#31313"
+msgid "Entries whose files can no longer be found are taken off the walls. Nothing is deleted from your drives."
+msgstr ""
+
+msgctxt "#31314"
+msgid "Now showing"
+msgstr ""
+
+msgctxt "#31315"
+msgid "Which library?"
 msgstr ""

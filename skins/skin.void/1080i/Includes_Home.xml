@@ -598,13 +598,14 @@
 					<item><label>TV Shows</label><label2>$INFO[Window(Home).Property(TVShows.Count),, shows]$INFO[Window(Home).Property(Episodes.Count),[COLOR sep_light]  ·  [/COLOR], episodes]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick><visible>Library.HasContent(tvshows)</visible></item>
 					<item><label>Music</label><label2>$INFO[Window(Home).Property(Music.AlbumsCount),, albums]$INFO[Window(Home).Property(Music.ArtistsCount),[COLOR sep_light]  ·  [/COLOR], artists]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Music,musicdb://albums/,return)</onclick><visible>Library.HasContent(music)</visible></item>
 					<item><label>Music videos</label><label2>$INFO[Window(Home).Property(MusicVideos.Count),, videos]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Videos,videodb://musicvideos/titles/,return)</onclick><visible>Library.HasContent(musicvideos)</visible></item>
+					<item><label>Live TV</label><label2>Channels and the guide</label2><property name="kicker">Library</property><onclick>ActivateWindow(TVChannels)</onclick><visible>System.HasPVRAddon</visible></item>
 					<item><label>Weather</label><label2>$INFO[Weather.Temperature]$INFO[Weather.Conditions,[COLOR sep_light]  ·  [/COLOR],]$INFO[Weather.Location,[COLOR sep_light]  ·  [/COLOR],]</label2><property name="kicker">Outside</property><onclick>ActivateWindow(Weather)</onclick><visible>!String.IsEmpty(Weather.Conditions)</visible></item>
 					<item><label>Add-ons</label><label2>Video, music and program add-ons</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(AddonBrowser,addons://sources/video/,return)</onclick></item>
 					<item><label>Favourites</label><label2>Things you starred</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(FavouritesBrowser)</onclick></item>
 					<item><label>Pictures</label><label2>Photo sources</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(Pictures)</onclick></item>
 					<item><label>Files</label><label2>Browse video sources</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(Videos,sources://video/,return)</onclick></item>
 					<item><label>Settings</label><label2>Kodi, the skin, your profile</label2><property name="kicker">System</property><onclick>ActivateWindow(Settings)</onclick></item>
-					<item><label>Power</label><label2>Quit, restart, reboot, sleep</label2><property name="kicker">System</property><onclick>ActivateWindow(1151)</onclick></item>
+					<item><label>System</label><label2>Update or clean the library, power</label2><property name="kicker">System</property><onclick>ActivateWindow(1151)</onclick></item>
 				</content>
 			</control>
 			<control type="fixedlist" id="9107">

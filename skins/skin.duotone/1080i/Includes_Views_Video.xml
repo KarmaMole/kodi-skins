@@ -1109,7 +1109,7 @@
 		<control type="grouplist">
 			<left>page_margin</left>
 			<top>76</top>
-			<width>900</width>
+			<width>740</width>  <!-- 0.9.9: ends at 804, before the widest bar (OPTIONS added) -->
 			<height>24</height>
 			<orientation>horizontal</orientation>
 			<itemgap>28</itemgap>
@@ -1141,9 +1141,9 @@
 		<include>DT_TopRule</include>
 
 		<control type="grouplist" id="9000">
-			<left>900</left>
+			<left>700</left>
 			<top>68</top>
-			<width>760</width>
+			<width>960</width>
 			<height>subnav_h</height>
 			<orientation>horizontal</orientation>
 			<align>right</align>
@@ -1201,8 +1201,15 @@
 				<label>$INFO[Container.Viewmode]</label>
 				<textcolor>$VAR[SectionText2]</textcolor>
 				<texturenofocus />
-				<onclick>Container.NextViewMode</onclick>
+				<onclick>ActivateWindow(1156)</onclick>  <!-- 0.9.9: the view picker (was NextViewMode) -->
 				<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
+			</control>
+			<control type="button" id="9327">  <!-- last in the bar and never changes: auto width -->
+				<include>VidView_NavButtonLook</include>
+				<label>Options</label>
+				<textcolor>$VAR[SectionText2]</textcolor>
+				<texturenofocus />
+				<onclick>ActivateWindow(1155)</onclick>  <!-- the Library panel -->
 			</control>
 		</control>
 		<control type="button" id="3">
@@ -1372,8 +1379,8 @@
 				<height>644</height>
 				<onup>9000</onup>
 				<ondown>500</ondown>
-				<onleft>500</onleft>
-				<onright>500</onright>
+				<onleft>ActivateWindow(1155)</onleft>  <!-- 0.9.9: past the first column = Library panel (was: wrap in the row) -->
+				<onright>ActivateWindow(1155)</onright>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<orientation>vertical</orientation>
 				<preloaditems>1</preloaditems>
@@ -1654,7 +1661,7 @@
 				<height>816</height>
 				<onup>9000</onup>
 				<ondown>503</ondown>
-				<onleft>noop</onleft>
+				<onleft>ActivateWindow(1155)</onleft>
 				<onright>63</onright>
 				<pagecontrol>63</pagecontrol>
 				<scrolltime tween="cubic" easing="out">160</scrolltime>
@@ -1696,7 +1703,7 @@
 				<param name="top" value="176"/>
 				<param name="height" value="816"/>
 				<param name="onleft" value="503"/>
-				<param name="onright" value="503"/>
+				<param name="onright" value="ActivateWindow(1155)"/>
 			</include>
 		</control>
 	</include>

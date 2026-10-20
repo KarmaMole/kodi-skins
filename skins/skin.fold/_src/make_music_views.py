@@ -4,7 +4,8 @@
 Views: 504 Sleeves (albums, artists: a 5 x 3 shelf of marigold sleeves with the cover as a tipped-in square
 plate, lift and tilt on focus, the label column on the right), 50 List (songs, genres, files).
 Header words (grouplist 9000): Albums 9320, Artists 9321, Songs 9322, Genres 9323 (ReplaceWindow, so Back
-stays one press: LESSONS Daylight 0.9.2), Sort 9324, direction 9325, View 9326; Kodi ids 3 / 4.
+stays one press: LESSONS Daylight 0.9.2), View 9326 (the view picker 1156), Options 9327 (the Library panel 1155),
+Sort 9324, direction 9325; Kodi ids 3 / 4. Left past the first column of the sleeves opens the Library panel.
 Timers for these views are written by make_views.py (Timers.xml).
 """
 from pathlib import Path
@@ -189,7 +190,7 @@ def build():
 				<scrolltime tween="cubic" easing="out">280</scrolltime>
 				<onup>9000</onup>
 				<onright>9000</onright>
-				<onleft>noop</onleft>
+				<onleft>ActivateWindow(1155)</onleft>
 				<onback condition="$EXP[Music_AtTabRoot]">9398</onback>
 				<viewtype label="Sleeves">icon</viewtype>
 				<visible>Container.Content(albums) | Container.Content(artists)</visible>
@@ -283,7 +284,7 @@ def build():
 			<onleft>noop</onleft>
 			<onright>noop</onright>
 			<onback condition="Control.IsVisible(504)">504</onback>
-			<onback>50</onback>{word(9320, 'Albums', 'ReplaceWindow(Music,musicdb://albums/,return)', width=118, active='Music_TabChip_Albums')}{word(9321, 'Artists', 'ReplaceWindow(Music,musicdb://artists/,return)', width=133, active='Music_TabChip_Artists')}{word(9322, 'Songs', 'ReplaceWindow(Music,musicdb://songs/,return)', width=103, active='Music_TabChip_Songs')}{word(9323, 'Genres', 'ReplaceWindow(Music,musicdb://genres/,return)', width=118, active='Music_TabChip_Genres')}{word(9326, '$VAR[Music_ViewWord]', 'Container.SetViewMode(504)', 'Control.IsVisible(50) + [Container.Content(albums) | Container.Content(artists)]', 223)}{word(9327, '$VAR[Music_ViewWord]', 'Container.SetViewMode(50)', 'Control.IsVisible(504)', 223)}{word(9324, 'Sort $INFO[Container.SortMethod]', 'SendClick(3)', 'Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)')}{word(9325, '$VAR[Music_SortArrow]', 'Container.SetSortDirection', 'Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)', 44)}
+			<onback>50</onback>{word(9320, 'Albums', 'ReplaceWindow(Music,musicdb://albums/,return)', width=118, active='Music_TabChip_Albums')}{word(9321, 'Artists', 'ReplaceWindow(Music,musicdb://artists/,return)', width=133, active='Music_TabChip_Artists')}{word(9322, 'Songs', 'ReplaceWindow(Music,musicdb://songs/,return)', width=103, active='Music_TabChip_Songs')}{word(9323, 'Genres', 'ReplaceWindow(Music,musicdb://genres/,return)', width=118, active='Music_TabChip_Genres')}{word(9326, '$VAR[Music_ViewWord]', 'ActivateWindow(1156)', 'Integer.IsGreater(Container.ViewCount,1)', 223)}{word(9327, 'Options', 'ActivateWindow(1155)', 'true', 134)}{word(9324, 'Sort $INFO[Container.SortMethod]', 'SendClick(3)', 'Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)')}{word(9325, '$VAR[Music_SortArrow]', 'Container.SetSortDirection', 'Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)', 44)}
 		</control>
 		<control type="button" id="3">
 			<include>Fold_Hidden</include>

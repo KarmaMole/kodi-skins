@@ -63,6 +63,38 @@ def rule(field, op, value):
             f"{value}%22%5D%7D")
 
 
+def ruleq(field, op, qvalue):
+    """Like rule(), but the value is already a JSON string literal ($ESCINFO / a *Q variable / %22%22)."""
+    return (f"%7B%22field%22%3A%22{field}%22%2C%22operator%22%3A%22{op}%22%2C%22value%22%3A%5B"
+            f"{qvalue}%5D%7D")
+
+
+def esc_info(label):
+    return f"$ESCINFO[{label}]"
+
+
+def url_safe(label):
+    """The value can sit inside ?xsp=...: not empty, no '&' (splits URL options), no '%' (URL-decoded)."""
+    return f"!String.IsEmpty({label}) + !String.Contains({label},&amp;) + !String.Contains({label},%)"
+
+
+def qvar(name, sources):
+    """A variable whose value is a JSON string literal for an xsp rule.
+
+    sources: [(condition or None, infolabel)], first match wins, as in the plain variable. A matching
+    source whose value is empty or URL-unsafe gives "" (%22%22) instead of falling through.
+    """
+    out = [f'<variable name="{name}">']
+    for cond, label in sources:
+        c = f"{cond} + " if cond else ""
+        out.append(f'\t<value condition="{c}{url_safe(label)}">{esc_info(label)}</value>')
+        if cond:
+            out.append(f'\t<value condition="{cond}">%22%22</value>')
+    out.append("\t<value>%22%22</value>")
+    out.append("</variable>")
+    return out
+
+
 def close(typ):
     return f"%5D%7D%2C%22type%22%3A%22{typ}%22%7D"
 
@@ -115,9 +147,33 @@ def variables():
     a('\t<value condition="Integer.IsGreaterOrEqual(Container(623).NumItems,2)">$VAR[Map_Cast3]</value>')
     a("\t<value>$VAR[Map_Cast1]</value>")
     a("</variable>")
-    # exclusion of the centre (title isnot). A raw '&' would split the URL options, so titles with '&' skip it
+    # 0.9.7: every free-text value in an xsp path goes in as a JSON string built by $ESCINFO (Kodi
+    # escapes \ and " and adds the quotes: CInfoPortion::Get), so titles / names with quotes no longer
+    # break the JSON. A raw '&' still splits the URL options and a raw '%' is URL-decoded, so values
+    # with either become "" (the rule matches nothing: an empty line, not a broken path).
+    for v_ in qvar("Map_UpNameQ", [(f"{d_ok} + {is_tv}", "Container(9001).ListItem.Property(studio.0)"),
+                                   (d_ok, "Container(9001).ListItem.Property(director.0)"),
+                                   (None, prop("c.dir"))]):
+        a(v_)
+    for n in range(4):
+        for v_ in qvar(f"Map_Cast{n}Q", [(d_ok, f"Container(9001).ListItem.Property(cast.{n}.name)"),
+                                        (t_ok, f"Container(9002).ListItem.Property(cast.{n + 1}.name)")]):
+            a(v_)
+    for v_ in qvar("Map_GenreQ", [(d_ok, "Container(9001).ListItem.Property(genre.0)")]):
+        a(v_)
+    for v_ in qvar("Map_DirQ", [(None, prop("c.dir"))]):
+        a(v_)
+    for v_ in qvar("Map_CentreGenreQ", [(None, prop("c.genre"))]):
+        a(v_)
+    a('<variable name="Map_CoNameQ">')
+    a('\t<value condition="Integer.IsGreaterOrEqual(Container(621).NumItems,2)">$VAR[Map_Cast1Q]</value>')
+    a('\t<value condition="Integer.IsGreaterOrEqual(Container(622).NumItems,2)">$VAR[Map_Cast2Q]</value>')
+    a('\t<value condition="Integer.IsGreaterOrEqual(Container(623).NumItems,2)">$VAR[Map_Cast3Q]</value>')
+    a("\t<value>$VAR[Map_Cast1Q]</value>")
+    a("</variable>")
+    # exclusion of the centre (title isnot), escaped; titles with '&' or '%' can't be expressed: no exclusion
     a('<variable name="Map_Excl">')
-    a(f'\t<value condition="!String.Contains({prop("c.title")},&amp;)">%2C{rule("title", "isnot", info("c.title"))}</value>')
+    a(f'\t<value condition="{url_safe(prop("c.title"))}">%2C{ruleq("title", "isnot", esc_info(prop("c.title")))}</value>')
     a("</variable>")
     a('<variable name="Map_Unwatched">')
     a(f'\t<value condition="Skin.HasSetting({P}.map.unwatched)">%2C{rule("playcount", "is", "0")}</value>')
@@ -129,12 +185,12 @@ def variables():
     # paths per kind
     for kind in ("movies", "tvshows"):
         tail = f"$VAR[Map_Excl]$VAR[Map_Unwatched]{close(kind)}"
-        up = f"{ROOT[kind]}{OPEN}{rule(UPFIELD[kind], 'is', '$VAR[Map_UpName]')}{tail}"
-        lead = f"{ROOT[kind]}{OPEN}{rule('actor', 'is', '$VAR[Map_Cast0]')}{tail}"
-        co = f"{ROOT[kind]}{OPEN}{rule('actor', 'is', '$VAR[Map_CoName]')}{tail}"
-        yg = f"{ROOT[kind]}{OPEN}{rule('year', 'is', info('c.year'))}%2C{rule('genre', 'is', '$VAR[Map_Genre]')}{tail}"
+        up = f"{ROOT[kind]}{OPEN}{ruleq(UPFIELD[kind], 'is', '$VAR[Map_UpNameQ]')}{tail}"
+        lead = f"{ROOT[kind]}{OPEN}{ruleq('actor', 'is', '$VAR[Map_Cast0Q]')}{tail}"
+        co = f"{ROOT[kind]}{OPEN}{ruleq('actor', 'is', '$VAR[Map_CoNameQ]')}{tail}"
+        yg = f"{ROOT[kind]}{OPEN}{rule('year', 'is', info('c.year'))}%2C{ruleq('genre', 'is', '$VAR[Map_GenreQ]')}{tail}"
         yonly = f"{ROOT[kind]}{OPEN}{rule('year', 'is', info('c.year'))}{tail}"
-        probes = [f"{ROOT[kind]}{OPEN}{rule('actor', 'is', f'$VAR[Map_Cast{n}]')}{tail}" for n in (1, 2, 3)]
+        probes = [f"{ROOT[kind]}{OPEN}{ruleq('actor', 'is', f'$VAR[Map_Cast{n}Q]')}{tail}" for n in (1, 2, 3)]
         tvc = f"String.IsEqual({prop('kind')},tvshows)" if kind == "tvshows" else f"!String.IsEqual({prop('kind')},tvshows)"
         for name, path in (("Up", up), ("Right", lead), ("Left", co)):
             a(f'<variable name="Map_Path{name}_{kind}"><value>{path}</value></variable>')
@@ -146,11 +202,11 @@ def variables():
             a(f'<variable name="Map_PathProbe{n}_{kind}"><value>{pth}</value></variable>')
     R = ROOT["albums"]
     excl_alb = f"$VAR[Map_ExclAlbum]{close('albums')}"
-    a(f'<variable name="Map_ExclAlbum"><value condition="!String.Contains({prop("c.title")},&amp;)">%2C{rule("album", "isnot", info("c.title"))}</value></variable>')
-    a(f'<variable name="Map_PathUp_albums"><value>{R}{OPEN}{rule("albumartist", "is", info("c.dir"))}{excl_alb}</value></variable>')
-    a(f'<variable name="Map_PathRight_albums"><value>{R}{OPEN}{rule("genre", "is", info("c.genre"))}{excl_alb}</value></variable>')
+    a(f'<variable name="Map_ExclAlbum"><value condition="{url_safe(prop("c.title"))}">%2C{ruleq("album", "isnot", esc_info(prop("c.title")))}</value></variable>')
+    a(f'<variable name="Map_PathUp_albums"><value>{R}{OPEN}{ruleq("albumartist", "is", "$VAR[Map_DirQ]")}{excl_alb}</value></variable>')
+    a(f'<variable name="Map_PathRight_albums"><value>{R}{OPEN}{ruleq("genre", "is", "$VAR[Map_CentreGenreQ]")}{excl_alb}</value></variable>')
     a(f'<variable name="Map_PathDown_albums"><value>{R}{OPEN}{rule("year", "is", info("c.year"))}{excl_alb}</value></variable>')
-    a(f'<variable name="Map_PathLeft_albums"><value>{R}{OPEN}{rule("artist", "is", info("c.dir"))}%2C{rule("albumartist", "isnot", info("c.dir"))}{excl_alb}</value></variable>')
+    a(f'<variable name="Map_PathLeft_albums"><value>{R}{OPEN}{ruleq("artist", "is", "$VAR[Map_DirQ]")}%2C{ruleq("albumartist", "isnot", "$VAR[Map_DirQ]")}{excl_alb}</value></variable>')
     for name in ("Up", "Right", "Down", "Left", "Probe1", "Probe2", "Probe3"):
         a(f'<variable name="Map_Path{name}">')
         if name in ("Up", "Right", "Down", "Left"):
@@ -748,7 +804,8 @@ def compass():
 
 def route_bar(top=72):
     """Start · [··· ] · r2 · r1 · current. Segment before a stop is drawn in the colour of the line that led to it.
-    0.9.3: widths capped so the longest route (··· + r2 + r1 + current) ends before Index (x 1540)."""
+    0.9.3: widths capped so the longest route (··· + r2 + r1 + current) ends before Index (x 1540).
+    0.9.8: capped tighter (current 190, earlier stops 120) so it ends before the Options pill (x 1380)."""
     def seg(col_var, w, vis):
         return (f'<control type="image"><top>15</top><width>{w}</width><height>6</height>'
                 f'<texture border="3,0,3,0" colordiffuse="$VAR[{col_var}]">sd/line_h6.png</texture><visible>{vis}</visible></control>')
@@ -758,11 +815,11 @@ def route_bar(top=72):
             return (f'<control type="group"><width>44</width><height>36</height><visible>{vis}</visible>'
                     + img(-1, -1, 38, 38, "sd/disc_32.png", diffuse="white")
                     + img(-1, -1, 38, 38, "sd/ring_32_8.png", diffuse="ink") + "</control>"
-                    f'<control type="label"><width max="280">auto</width><height>36</height><font>xb_24</font><textcolor>ink</textcolor><label>{info(slot + ".title")}</label><visible>{vis}</visible></control>')
+                    f'<control type="label"><width max="190">auto</width><height>36</height><font>xb_24</font><textcolor>ink</textcolor><label>{info(slot + ".title")}</label><visible>{vis}</visible></control>')
         return (f'<control type="group"><width>34</width><height>36</height><visible>{vis}</visible>'
                 + img(4, 4, 28, 28, "sd/disc_22.png", diffuse="white")
                 + img(4, 4, 28, 28, "sd/ring_22_6.png", diffuse="ink") + "</control>"
-                f'<control type="label"><width max="160">auto</width><height>36</height><font>semi_24</font><textcolor>ink2</textcolor><label>{info(slot + ".title")}</label><visible>{vis}</visible></control>'
+                f'<control type="label"><width max="120">auto</width><height>36</height><font>semi_24</font><textcolor>ink2</textcolor><label>{info(slot + ".title")}</label><visible>{vis}</visible></control>'
                 f'<control type="label"><width>16</width><height>36</height><label></label><visible>{vis}</visible></control>')
     r1, r2, r3 = (f"!String.IsEmpty({prop(f'r{i}.dbid')})" for i in (1, 2, 3))
     gl = ['<control type="grouplist">',
@@ -945,10 +1002,24 @@ def buttons():
            tag("onclick", "ActivateWindow(Videos,videodb://tvshows/titles/,return)", f"String.IsEqual({prop('kind')},tvshows)"),
            tag("onclick", "ActivateWindow(Music,musicdb://albums/,return)", f"String.IsEqual({prop('kind')},albums)"),
            tag("onclick", "ActivateWindow(Videos,videodb://movies/titles/,return)", f"!String.IsEqual({prop('kind')},tvshows) + !String.IsEqual({prop('kind')},albums)"),
-           tag("ondown", "700"), tag("onleft", "700"),
+           tag("ondown", "700"), tag("onleft", "9832"),
            back,
            "</control>"]
     out.append("\n".join(idx))
+    # 0.9.8 Options (the station-style pill, left of Index): the library panel (Includes_Library.xml).
+    # The map's Left / Right are connections, so the panel is reached from the header, never from a map edge.
+    opt = ['<control type="button" id="9832">',
+           "\t<left>1378</left><top>65</top><width>156</width><height>46</height>",
+           "\t<font>semi_22</font><textcolor>ink</textcolor><focusedcolor>on_ink</focusedcolor><align>right</align><aligny>center</aligny><textoffsetx>22</textoffsetx>",
+           '\t<texturefocus border="46,0,23,0" colordiffuse="ink">sd/pill_station_46.png</texturefocus>',
+           '\t<texturenofocus border="46,0,23,0" colordiffuse="ink">sd/pill_station_46_off.png</texturenofocus>',
+           "\t<label>Options</label>",
+           tag("onclick", f"SetProperty({P}.lib.from,rail,home)"),
+           tag("onclick", "SetFocus(9801,0,absolute)"),
+           tag("onright", "790"), tag("ondown", "700"), tag("onleft", "700"),
+           back,
+           "</control>"]
+    out.append("\n".join(opt))
     # pop (Back): hidden-focus button, actions in onfocus (lesson 170)
     pop = ['<control type="button" id="799">',
            "\t<left>-400</left><top>-400</top><width>10</width><height>10</height>",
@@ -1131,6 +1202,12 @@ def build_window():
 		<include>SD_BrandAndClock</include>
 		<include>SD_RouteBar</include>
 		<include>Map_Buttons</include>
+		<include content="Lib_Panel">
+			<param name="is_video" value="false"/>
+			<param name="video_cond" value="!String.IsEqual(Window(Home).Property({P}.kind),albums)"/>
+			<param name="music_cond" value="String.IsEqual(Window(Home).Property({P}.kind),albums)"/>
+			<param name="section" value="$VAR[Lib_MapSection]"/>
+		</include>
 	</controls>
 </window>
 """

@@ -66,5 +66,18 @@
 		</control>
 
 		<include>Music_NowPlayingBar</include>
+		<include content="Lib_Panel">
+			<param name="is_video" value="false"/>
+			<param name="video_cond" value="false"/>
+			<param name="music_cond" value="true"/>
+			<param name="section" value="Music"/>
+			<param name="view_name" value="$INFO[Container.Viewmode]"/>
+			<param name="order_click" value="Container.SetSortDirection"/>
+			<param name="pick_focus" value="Lib_PickFocusMusic"/>
+		</include>
+		<include content="Lib_Picker">
+			<param name="items" value="Lib_PickerMusic"/>
+			<param name="section" value="Music"/>
+		</include>
 	</controls>
 </window>

@@ -1,3 +1,20 @@
+0.9.9 (2026-10-21)
+- Library panel: the library's own menu (View, Sort, Order, Unwatched only, Search, Update library, Clean
+  library, Library settings) in Orbit's framed dialog. Reach it with Right from any library view (arc, grid,
+  episodes, dial list; Right did nothing before), Left past the first pill of the option bar, or the new
+  OPTIONS pill. Back closes it and leaves you on the item you came from.
+- Clean library asks first ("No" is focused): Kodi's own CleanLibrary() would just run.
+- View picker: VIEW (option bar) and View (panel) open previews of the views that fit the folder (Arc, Grid,
+  Episodes, List; music Arc, Grid, List), the current one marked in amber; OK switches, Back keeps it.
+  Previews are drawn from the arc generator's geometry by _src/make_view_previews.py (no artwork).
+- Home: the Settings station gains Update library and Clean library (Movies and TV shows or Music); so does
+  the System menu.
+
+0.9.8 (2026-10-20)
+- Language file: the strings.po header is valid gettext again (each header line one quoted string ending in \n).
+- System menu: Live TV, Pictures and Files (Live TV only when a PVR add-on is enabled); the card grows with the list.
+- Reduce motion now also covers the arc glides (Home dial, library arcs, cast arc), the music info slide, the poster lift and the progress toast: no gliding, everything lands in place.
+
 0.9.7 (2026-10-20)
 - Author shown as KarmaMole; website link to the showcase.
 

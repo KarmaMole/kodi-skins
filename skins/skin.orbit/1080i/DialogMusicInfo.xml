@@ -87,7 +87,7 @@
 				<width>360</width>
 				<height>360</height>
 				<visible>!$EXP[Music_InfoIsArtist]</visible>
-				<animation effect="slide" start="-160,0" end="0,0" time="420" delay="200" tween="cubic" easing="out">WindowOpen</animation>
+				<animation effect="slide" start="-160,0" end="0,0" time="420" delay="200" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">WindowOpen</animation>
 				<control type="image">
 					<left>58</left>
 					<top>58</top>

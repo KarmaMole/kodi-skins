@@ -97,8 +97,8 @@
 		<value>Ascending</value>
 	</variable>
 	<variable name="Lib_Hint">
-		<value condition="$EXP[SortIsAlpha]">Left · Right jump by letter[COLOR sep_light]  ·  [/COLOR]Up at the top for sort, filter and view</value>
-		<value>Left · Right page[COLOR sep_light]  ·  [/COLOR]Up at the top for sort, filter and view</value>
+		<value condition="$EXP[SortIsAlpha]">Left · Right jump by letter[COLOR sep_light]  ·  [/COLOR]Up at the top for options</value>
+		<value>Left · Right page[COLOR sep_light]  ·  [/COLOR]Up at the top for options</value>
 	</variable>
 
 	<!-- ========================================================== options row (9000) -->
@@ -117,8 +117,6 @@
 		<itemgap>24</itemgap>
 		<usecontrolcoords>true</usecontrolcoords>
 		<onup>noop</onup>
-		<onleft>noop</onleft>
-		<onright>noop</onright>
 		<include>Void_Anim_OptionsRow</include>
 	</include>
 	<!-- caption over the row so it reads as a menu -->
@@ -154,6 +152,8 @@
 		<definition>
 			<control type="grouplist" id="9000">
 				<include>Void_OptionsBegin</include>
+				<onleft>noop</onleft>
+				<onright>noop</onright>
 				<ondown>SetFocus(50)</ondown>
 				<onback>SetFocus(50)</onback>
 				<include content="Void_SubNavButton">
@@ -188,6 +188,7 @@
 	<!-- ============================================================ 50: rotary index -->
 	<include name="Void_View50">
 		<param name="viewlabel">Index</param>
+		<param name="libpanel">false</param>
 		<definition>
 			<control type="group">
 				<visible>Control.IsVisible(50)</visible>
@@ -209,8 +210,10 @@
 					<onleft condition="Integer.IsEqual(Container(50).CurrentItem,1) | Integer.IsEqual(Container(50).NumItems,1)">SetFocus(9000)</onleft>
 					<onleft condition="!Integer.IsEqual(Container(50).CurrentItem,1) + $EXP[SortIsAlpha]">Action(prevletter)</onleft>
 					<onleft condition="!Integer.IsEqual(Container(50).CurrentItem,1) + !$EXP[SortIsAlpha]">Action(pageup)</onleft>
-					<onright condition="$EXP[SortIsAlpha]">Action(nextletter)</onright>
-					<onright condition="!$EXP[SortIsAlpha]">Action(pagedown)</onright>
+					<!-- 0.9.7: Right on the last item (nowhere left to jump) = the Library panel -->
+					<onright condition="$PARAM[libpanel] + Integer.IsEqual(Container(50).CurrentItem,Container(50).NumItems)">ActivateWindow(1160)</onright>
+					<onright condition="![$PARAM[libpanel] + Integer.IsEqual(Container(50).CurrentItem,Container(50).NumItems)] + $EXP[SortIsAlpha]">Action(nextletter)</onright>
+					<onright condition="![$PARAM[libpanel] + Integer.IsEqual(Container(50).CurrentItem,Container(50).NumItems)] + !$EXP[SortIsAlpha]">Action(pagedown)</onright>
 					<itemlayout height="4" width="8"/>
 					<focusedlayout height="4" width="8"/>
 				</control>
@@ -383,8 +386,8 @@
 				<orientation>vertical</orientation>
 				<onup>SetFocus(9000)</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.7: past the first / last column = Library panel -->
+				<onright>ActivateWindow(1160)</onright>
 				<preloaditems>2</preloaditems>
 				<scrolltime tween="cubic" easing="out">220</scrolltime>
 				<viewtype label="Wall">panel</viewtype>
@@ -421,8 +424,8 @@
 				<orientation>vertical</orientation>
 				<onup>SetFocus(9000)</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.7: past the first / last column = Library panel -->
+				<onright>ActivateWindow(1160)</onright>
 				<preloaditems>2</preloaditems>
 				<scrolltime tween="cubic" easing="out">220</scrolltime>
 				<viewtype label="Covers">panel</viewtype>

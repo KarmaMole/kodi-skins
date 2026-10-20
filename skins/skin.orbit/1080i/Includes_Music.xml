@@ -491,7 +491,7 @@
 		<control type="grouplist" id="9000">
 			<left>52</left>
 			<top>1000</top>
-			<width>1500</width>
+			<width>1700</width>
 			<height>subnav_h</height>
 			<orientation>horizontal</orientation>
 			<itemgap>12</itemgap>
@@ -500,7 +500,7 @@
 			<onup condition="Control.IsVisible(505)">505</onup>
 			<onup>50</onup>
 			<ondown>noop</ondown>
-			<onleft>noop</onleft>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.9: Left past the first tab = Library panel -->
 			<onright condition="Control.IsVisible(504)">504</onright>
 			<onright condition="Control.IsVisible(505)">505</onright>
 			<onright>50</onright>
@@ -539,10 +539,16 @@
 				<param name="textcolor" value="$VAR[Music_TabText_Genres]"/>
 			</include>
 			<include content="Music_Tab">
+				<param name="id" value="9327"/>
+				<param name="width" value="176"/>
+				<param name="label" value="Options"/>
+				<param name="onclick" value="ActivateWindow(1160)"/>
+			</include>
+			<include content="Music_Tab">
 				<param name="id" value="9326"/>
 				<param name="width" value="276"/>
 				<param name="label" value="View: $INFO[Container.Viewmode]"/>
-				<param name="onclick" value="Container.NextViewMode"/>
+				<param name="onclick" value="ActivateWindow(1161)"/>
 				<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
 			</include>
 			<include content="Music_Tab">

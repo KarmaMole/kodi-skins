@@ -8,7 +8,10 @@
 -->
 <includes>
 	<!-- ============================================================ View 50 -->
+	<!-- param edge: what Left / Right past the list do (media windows: the Library panel, 1.0.9) -->
 	<include name="View_50_List">
+		<param name="edge">noop</param>
+		<definition>
 		<control type="group">
 			<visible>Control.IsVisible(50)</visible>
 			<include>Anim_VisibleFade</include>
@@ -19,7 +22,7 @@
 				<height>858</height>
 				<onup>9000</onup>
 				<ondown>50</ondown>
-				<onleft>noop</onleft>
+				<onleft>$PARAM[edge]</onleft>
 				<onright>60</onright>
 				<pagecontrol>60</pagecontrol>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
@@ -36,7 +39,7 @@
 				<param name="top" value="200"/>
 				<param name="height" value="858"/>
 				<param name="onleft" value="50"/>
-				<param name="onright" value="50"/>
+				<param name="onright" value="$PARAM[edge]"/>
 			</include>
 			<!-- focused-item panel: artwork, title, meta, plot (fixed heights, clamped) -->
 			<control type="group">
@@ -82,6 +85,7 @@
 				</control>
 			</control>
 		</control>
+		</definition>
 	</include>
 
 	<!-- ===================================================== library header bar -->

@@ -17,5 +17,10 @@
 		<include>Diary_TopPatch</include>
 		<include>VidView_DiaryOverlay</include>
 		<include>VidView_DiaryHeader</include>
+		<include content="Lib_Panel">
+			<param name="is_video" value="false"/>
+			<param name="section" value="the diary"/>
+			<param name="back_view" value="520"/>
+		</include>
 	</controls>
 </window>

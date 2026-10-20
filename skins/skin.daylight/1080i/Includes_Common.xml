@@ -74,7 +74,7 @@
 			<visible>$EXP[DL_RainOverlay]</visible>
 			<include>Anim_FadeVisible</include>
 			<control type="group">
-				<animation effect="slide" start="0,-1080" end="0,0" time="14000" reversible="false" loop="true" condition="true">Conditional</animation>
+				<animation effect="slide" start="0,-1080" end="0,0" time="14000" reversible="false" loop="true" condition="[true] + !Skin.HasSetting(daylight.reducemotion)">Conditional</animation>
 				<control type="image">
 					<left>0</left>
 					<top>0</top>
@@ -163,7 +163,7 @@
 		<control type="grouplist">
 			<left>page_margin</left>
 			<top>topbar_item_top</top>
-			<width>700</width>
+			<width>660</width>  <!-- 0.9.8: ends before the library Options pill (x 840) -->
 			<height>topbar_item_h</height>
 			<orientation>horizontal</orientation>
 			<itemgap>14</itemgap>
@@ -287,14 +287,34 @@
 		<param name="click1">ActivateWindow(Home)</param>
 		<param name="ondown">noop</param>
 		<param name="open">ActivateWindow</param>
+		<param name="options">false</param>
 		<definition>
 			<control type="group" id="$PARAM[gid]">
 				<defaultcontrol always="true">$PARAM[p]1</defaultcontrol>
+				<!-- 0.9.8: "Options" (the Library panel 1160) left of the nav in the library windows (param options).
+				     For now -Left-> it -Left-> gear; gear -Right-> it -Right-> For now. Hidden elsewhere: the
+				     numeric moves fall through it (its own onleft / onright) to the gear / For now. -->
+				<control type="group">
+					<visible>$PARAM[options]</visible>
+					<include content="DL_NavPill">
+						<param name="id" value="$PARAM[p]7"/><param name="x" value="840"/><param name="w" value="132"/>
+						<param name="label" value="Options"/>
+						<param name="onclick" value="ActivateWindow(1160)"/><param name="ondown" value="$PARAM[ondown]"/>
+						<param name="onleft" value="$PARAM[p]6"/><param name="onright" value="$PARAM[p]1"/>
+					</include>
+					<control type="image">
+						<left>983</left>
+						<top>78</top>
+						<width>2</width>
+						<height>24</height>
+						<texture colordiffuse="$VAR[DL_Line2]">common/white.png</texture>
+					</control>
+				</control>
 				<include content="DL_NavPill">
 					<param name="id" value="$PARAM[p]1"/><param name="x" value="996"/><param name="w" value="133"/>
 					<param name="label" value="For now"/><param name="active" value="$PARAM[active1]"/>
 					<param name="onclick" value="$PARAM[click1]"/><param name="ondown" value="$PARAM[ondown]"/>
-					<param name="onleft" value="$PARAM[p]6"/><param name="onright" value="$PARAM[p]2"/>
+					<param name="onleft" value="$PARAM[p]7"/><param name="onright" value="$PARAM[p]2"/>
 				</include>
 				<include content="DL_NavPill">
 					<param name="id" value="$PARAM[p]2"/><param name="x" value="1135"/><param name="w" value="96"/>
@@ -333,7 +353,7 @@
 						<texturenofocus />
 						<onclick>ActivateWindow(1151)</onclick>
 						<onleft>$PARAM[p]5</onleft>
-						<onright>$PARAM[p]1</onright>
+						<onright>$PARAM[p]7</onright>
 						<ondown>$PARAM[ondown]</ondown>
 					</control>
 					<control type="image">
@@ -411,6 +431,7 @@
 		<param name="active3">false</param>
 		<param name="active4">false</param>
 		<param name="ondown">noop</param>
+		<param name="options">false</param>
 		<definition>
 			<include>DL_MoodLine</include>
 			<control type="label">
@@ -430,6 +451,7 @@
 				<param name="active2" value="$PARAM[active2]"/>
 				<param name="active3" value="$PARAM[active3]"/>
 				<param name="active4" value="$PARAM[active4]"/>
+				<param name="options" value="$PARAM[options]"/>
 				<param name="open" value="ReplaceWindow"/>
 			</include>
 		</definition>

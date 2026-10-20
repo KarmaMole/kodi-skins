@@ -2,7 +2,7 @@
 <!--
 	Duotone System menu (custom dialog 1151, M4, Builder E) - Home's gear (SPEC 4 / Decision 2), the
 	escape hatch. Centred section-colour panel with an 8px ink frame (opened from Home's POWER tile): Skin settings,
-	Settings, File manager, System info, Add-ons, then Power: Exit / Reboot / Power off / Power menu.
+	Settings, File manager, System info, Add-ons, Update library / Clean library (the Library panel 1155, videos or music), then Power: Exit / Reboot / Power off / Power menu.
 	Numbered Index list (Dlg_IndexListLayout). Back closes. No Kodi-owned ids.
 -->
 <window type="dialog" id="1151">
@@ -24,7 +24,8 @@
 			<left>660</left>
 			<top>186</top>
 			<width>600</width>
-			<height>708</height>
+			<height>912</height>
+			<animation effect="slide" start="0,0" end="0,-58" time="0" condition="Integer.IsGreaterOrEqual(Container(100).NumItems,12)">Conditional</animation>
 			<!-- panel sized to the visible items (power entries depend on the platform) -->
 			<control type="image">
 				<left>0</left>
@@ -56,7 +57,31 @@
 				<width>600</width>
 				<height>708</height>
 				<texture border="16" colordiffuse="$VAR[SectionColor]">dialogs/panel_framed.png</texture>
-				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,9)</visible>
+				<visible>Integer.IsEqual(Container(100).NumItems,9)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>776</height>
+				<texture border="16" colordiffuse="$VAR[SectionColor]">dialogs/panel_framed.png</texture>
+				<visible>Integer.IsEqual(Container(100).NumItems,10)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>844</height>
+				<texture border="16" colordiffuse="$VAR[SectionColor]">dialogs/panel_framed.png</texture>
+				<visible>Integer.IsEqual(Container(100).NumItems,11)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>912</height>
+				<texture border="16" colordiffuse="$VAR[SectionColor]">dialogs/panel_framed.png</texture>
+				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,12)</visible>
 			</control>
 			<control type="label">
 				<left>32</left>
@@ -83,7 +108,7 @@
 				<left>16</left>
 				<top>80</top>
 				<width>568</width>
-				<height>612</height>
+				<height>816</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>
@@ -128,30 +153,71 @@
 						<onclick>ActivateWindow(addonbrowser)</onclick>
 					</item>
 					<item>
+						<label>$LOCALIZE[653]</label>
+						<label2>Library</label2>
+						<onclick>SetProperty(duotone.libpanel,update,home)</onclick>
+						<onclick>ActivateWindow(1155)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[14247]</label>
+						<label2>Library</label2>
+						<onclick>SetProperty(duotone.libpanel,clean,home)</onclick>
+						<onclick>ActivateWindow(1155)</onclick>
+					</item>
+					<item>
+						<label>Live TV</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(TVChannels)</onclick>
+						<visible>System.HasPVRAddon</visible>
+					</item>
+					<item>
+						<label>$LOCALIZE[1]</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(Pictures)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[10134]</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(FavouritesBrowser)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[744]</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(Videos,sources://video/,return)</onclick>
+					</item>
+					<item>
 						<label>$LOCALIZE[13012]</label>
 						<label2>Power</label2>
-						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]10[/UPPERCASE]</property>
 						<onclick>Quit()</onclick>
 						<visible>System.ShowExitButton</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13013]</label>
 						<label2>Power</label2>
-						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]11[/UPPERCASE]</property>
 						<onclick>Reset()</onclick>
 						<visible>System.CanReboot</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13016]</label>
 						<label2>Power</label2>
-						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]12[/UPPERCASE]</property>
 						<onclick>Powerdown()</onclick>
 						<visible>System.CanPowerDown</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[31022]</label>
 						<label2>More</label2>
-						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]13[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(shutdownmenu)</onclick>
 					</item>

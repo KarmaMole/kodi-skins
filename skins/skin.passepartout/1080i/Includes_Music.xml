@@ -808,8 +808,20 @@
 				<height>56</height>
 				<font>num_20</font>
 				<textcolor>ink3</textcolor>
+				<selectedcolor>ink3</selectedcolor>
 				<label>$INFO[ListItem.TrackNumber]</label>
-				<visible>String.IsEqual(ListItem.DBType,song)</visible>
+				<visible>!$PARAM[focused] + String.IsEqual(ListItem.DBType,song)</visible>
+			</control>
+			<control type="label">
+				<left>20</left>
+				<top>0</top>
+				<width>44</width>
+				<height>56</height>
+				<font>num_20</font>
+				<textcolor>$VAR[PaperColor]</textcolor>
+				<selectedcolor>$VAR[PaperColor]</selectedcolor>
+				<label>$INFO[ListItem.TrackNumber]</label>
+				<visible>$PARAM[focused] + String.IsEqual(ListItem.DBType,song)</visible>
 			</control>
 			<control type="label">
 				<left>72</left>
@@ -818,6 +830,7 @@
 				<height>56</height>
 				<font>body_22</font>
 				<textcolor>ink2</textcolor>
+				<selectedcolor>ink2</selectedcolor>
 				<label>$INFO[ListItem.Title]</label>
 				<visible>!$PARAM[focused] + String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)</visible>
 			</control>
@@ -827,7 +840,8 @@
 				<right>120</right>
 				<height>56</height>
 				<font>sans_22_med</font>
-				<textcolor>ink</textcolor>
+				<textcolor>$VAR[PaperColor]</textcolor>
+				<selectedcolor>$VAR[PaperColor]</selectedcolor>
 				<scroll>true</scroll>
 				<label>$INFO[ListItem.Title]</label>
 				<visible>$PARAM[focused] + String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)</visible>
@@ -839,6 +853,7 @@
 				<height>56</height>
 				<font>body_22</font>
 				<textcolor>ink2</textcolor>
+				<selectedcolor>ink2</selectedcolor>
 				<label>$INFO[ListItem.Label]</label>
 				<visible>!$PARAM[focused] + [!String.IsEqual(ListItem.DBType,song) | String.IsEmpty(ListItem.Title)]</visible>
 			</control>
@@ -848,7 +863,8 @@
 				<right>120</right>
 				<height>56</height>
 				<font>sans_22_med</font>
-				<textcolor>ink</textcolor>
+				<textcolor>$VAR[PaperColor]</textcolor>
+				<selectedcolor>$VAR[PaperColor]</selectedcolor>
 				<scroll>true</scroll>
 				<label>$INFO[ListItem.Label]</label>
 				<visible>$PARAM[focused] + [!String.IsEqual(ListItem.DBType,song) | String.IsEmpty(ListItem.Title)]</visible>
@@ -861,8 +877,21 @@
 				<align>right</align>
 				<font>num_20</font>
 				<textcolor>ink3</textcolor>
+				<selectedcolor>ink3</selectedcolor>
 				<label>$INFO[ListItem.Duration]</label>
-				<visible>String.IsEqual(ListItem.DBType,song)</visible>
+				<visible>!$PARAM[focused] + String.IsEqual(ListItem.DBType,song)</visible>
+			</control>
+			<control type="label">
+				<right>20</right>
+				<top>0</top>
+				<width>100</width>
+				<height>56</height>
+				<align>right</align>
+				<font>num_20</font>
+				<textcolor>$VAR[PaperColor]</textcolor>
+				<selectedcolor>$VAR[PaperColor]</selectedcolor>
+				<label>$INFO[ListItem.Duration]</label>
+				<visible>$PARAM[focused] + String.IsEqual(ListItem.DBType,song)</visible>
 			</control>
 			<control type="label">
 				<right>20</right>
@@ -872,8 +901,21 @@
 				<align>right</align>
 				<font>num_20</font>
 				<textcolor>ink3</textcolor>
+				<selectedcolor>ink3</selectedcolor>
 				<label>$INFO[ListItem.Label2]</label>
-				<visible>!String.IsEqual(ListItem.DBType,song)</visible>
+				<visible>!$PARAM[focused] + !String.IsEqual(ListItem.DBType,song)</visible>
+			</control>
+			<control type="label">
+				<right>20</right>
+				<top>0</top>
+				<width>100</width>
+				<height>56</height>
+				<align>right</align>
+				<font>num_20</font>
+				<textcolor>$VAR[PaperColor]</textcolor>
+				<selectedcolor>$VAR[PaperColor]</selectedcolor>
+				<label>$INFO[ListItem.Label2]</label>
+				<visible>$PARAM[focused] + !String.IsEqual(ListItem.DBType,song)</visible>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -901,6 +943,7 @@
 					<height>66</height>
 					<font>sans_26_med</font>
 					<textcolor>ink2</textcolor>
+					<selectedcolor>ink2</selectedcolor>
 					<label>$VAR[Music_ItemLabel]</label>
 				</control>
 				<control type="label">
@@ -911,6 +954,7 @@
 					<align>right</align>
 					<font>num_20</font>
 					<textcolor>ink3</textcolor>
+					<selectedcolor>ink3</selectedcolor>
 					<label>$INFO[ListItem.Label2]</label>
 				</control>
 				<control type="image">
@@ -937,6 +981,7 @@
 					<height>66</height>
 					<font>sans_26_med</font>
 					<textcolor>ink</textcolor>
+					<selectedcolor>ink</selectedcolor>
 					<scroll>true</scroll>
 					<label>$VAR[Music_ItemLabel]</label>
 					<visible>!Control.HasFocus($PARAM[list_id])</visible>
@@ -948,6 +993,7 @@
 					<height>66</height>
 					<font>sans_26_med</font>
 					<textcolor>$VAR[PaperColor]</textcolor>
+					<selectedcolor>$VAR[PaperColor]</selectedcolor>
 					<scroll>true</scroll>
 					<label>$VAR[Music_ItemLabel]</label>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
@@ -960,6 +1006,7 @@
 					<align>right</align>
 					<font>num_20</font>
 					<textcolor>ink2</textcolor>
+					<selectedcolor>ink2</selectedcolor>
 					<label>$INFO[ListItem.Label2]</label>
 					<visible>!Control.HasFocus($PARAM[list_id])</visible>
 				</control>
@@ -971,6 +1018,7 @@
 					<align>right</align>
 					<font>num_20</font>
 					<textcolor>$VAR[PaperColor]</textcolor>
+					<selectedcolor>$VAR[PaperColor]</selectedcolor>
 					<label>$INFO[ListItem.Label2]</label>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
@@ -1011,13 +1059,30 @@
 					<texture colordiffuse="ink">common/white.png</texture>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
-				<include content="Music_SongRow">
-					<param name="width" value="$PARAM[width]"/>
-					<param name="number" value="$PARAM[number]"/>
-					<param name="title_font" value="sans_26_med"/>
-					<param name="title_color" value="ink"/>
-					<param name="scroll" value="true"/>
-				</include>
+				<!-- list unfocused: the selected row stays on the paper, title in ink -->
+				<control type="group">
+					<visible>!Control.HasFocus($PARAM[list_id])</visible>
+					<include content="Music_SongRow">
+						<param name="width" value="$PARAM[width]"/>
+						<param name="number" value="$PARAM[number]"/>
+						<param name="title_font" value="sans_26_med"/>
+						<param name="title_color" value="ink"/>
+						<param name="scroll" value="true"/>
+					</include>
+				</control>
+				<!-- list focused: every word on the ink placard is paper (as in Music_RowLayout) -->
+				<control type="group">
+					<visible>Control.HasFocus($PARAM[list_id])</visible>
+					<include content="Music_SongRow">
+						<param name="width" value="$PARAM[width]"/>
+						<param name="number" value="$PARAM[number]"/>
+						<param name="title_font" value="sans_26_med"/>
+						<param name="title_color" value="$VAR[PaperColor]"/>
+						<param name="meta_color" value="$VAR[PaperColor]"/>
+						<param name="mark_color" value="$VAR[PaperColor]"/>
+						<param name="scroll" value="true"/>
+					</include>
+				</control>
 			</focusedlayout>
 		</definition>
 	</include>
@@ -1026,6 +1091,8 @@
 		<param name="number">$INFO[ListItem.TrackNumber]</param>
 		<param name="title_font">sans_26_med</param>
 		<param name="title_color">ink2</param>
+		<param name="meta_color">ink3</param>
+		<param name="mark_color">ink</param>
 		<param name="scroll">false</param>
 		<definition>
 			<control type="label">
@@ -1034,7 +1101,8 @@
 				<width>52</width>
 				<height>66</height>
 				<font>num_20</font>
-				<textcolor>ink3</textcolor>
+				<textcolor>$PARAM[meta_color]</textcolor>
+				<selectedcolor>$PARAM[meta_color]</selectedcolor>
 				<label>[UPPERCASE]$PARAM[number][/UPPERCASE]</label>
 				<visible>!ListItem.IsPlaying</visible>
 			</control>
@@ -1044,7 +1112,8 @@
 				<width>52</width>
 				<height>66</height>
 				<font>num_20</font>
-				<textcolor>ink</textcolor>
+				<textcolor>$PARAM[mark_color]</textcolor>
+				<selectedcolor>$PARAM[mark_color]</selectedcolor>
 				<label>▶</label>
 				<visible>ListItem.IsPlaying</visible>
 			</control>
@@ -1055,6 +1124,7 @@
 				<height>66</height>
 				<font>$PARAM[title_font]</font>
 				<textcolor>$PARAM[title_color]</textcolor>
+				<selectedcolor>$PARAM[title_color]</selectedcolor>
 				<scroll>$PARAM[scroll]</scroll>
 				<label>$VAR[Music_ItemLabel]</label>
 				<visible>String.IsEmpty(ListItem.Title)</visible>
@@ -1066,6 +1136,7 @@
 				<height>66</height>
 				<font>$PARAM[title_font]</font>
 				<textcolor>$PARAM[title_color]</textcolor>
+				<selectedcolor>$PARAM[title_color]</selectedcolor>
 				<scroll>$PARAM[scroll]</scroll>
 				<label>$INFO[ListItem.Title]</label>
 				<visible>!String.IsEmpty(ListItem.Title)</visible>
@@ -1076,7 +1147,8 @@
 				<right>150</right>
 				<height>66</height>
 				<font>body_22</font>
-				<textcolor>ink3</textcolor>
+				<textcolor>$PARAM[meta_color]</textcolor>
+				<selectedcolor>$PARAM[meta_color]</selectedcolor>
 				<label>$INFO[ListItem.Artist]$INFO[ListItem.TVShowTitle]</label>
 			</control>
 			<control type="label">
@@ -1086,7 +1158,8 @@
 				<height>66</height>
 				<align>right</align>
 				<font>num_20</font>
-				<textcolor>ink3</textcolor>
+				<textcolor>$PARAM[meta_color]</textcolor>
+				<selectedcolor>$PARAM[meta_color]</selectedcolor>
 				<label>$INFO[ListItem.Duration]</label>
 			</control>
 			<control type="image">

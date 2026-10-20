@@ -32,5 +32,16 @@
 		</control>
 		<include>Music_Header</include>
 		<include>Music_NowPlayingBar</include>
+		<include content="Lib_Panel">
+			<param name="is_video" value="false"/>
+			<param name="video_cond" value="false"/>
+			<param name="music_cond" value="true"/>
+			<param name="section" value="music"/>
+			<param name="order_click" value="SendClick(4)"/>
+			<param name="pick_focus" value="Lib_PickFocusMusic"/>
+		</include>
+		<include content="Lib_Picker">
+			<param name="items" value="Lib_PickerMusic"/>
+		</include>
 	</controls>
 </window>

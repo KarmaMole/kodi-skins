@@ -283,6 +283,23 @@ def make_pills():
     save(rrect_outline(36, 36, 9, 2), "sd/key.png")  # 9-slice border 12
 
 
+def make_station_pill():
+    """Library header "Options" pill (library panel, 0.9.8): a station roundel at the left of a 46 px pill.
+    Focused = ink pill with the roundel cut out (the paper shows through as a white ring); unfocused = the ring
+    alone. 9-slice border h,0,h/2,0 keeps the roundel unscaled. White + alpha (tint with colordiffuse ink)."""
+    for h, ro, ri in ((46, 12, 6), (36, 10, 5)):
+        w = h * 3
+        cx = cy = h / 2
+        fill = rrect_mask(w, h, h / 2)
+        hole = Image.new("L", fill.size, 0)
+        dr = ImageDraw.Draw(hole)
+        dr.ellipse([(cx - ro) * SS, (cy - ro) * SS, (cx + ro) * SS - 1, (cy + ro) * SS - 1], fill=255)
+        dr.ellipse([(cx - ri) * SS, (cy - ri) * SS, (cx + ri) * SS - 1, (cy + ri) * SS - 1], fill=0)
+        on = Image.composite(Image.new("L", fill.size, 0), fill, hole)
+        save(white_alpha(down(on, w, h)), f"sd/pill_station_{h}.png")
+        save(white_alpha(down(hole, w, h)), f"sd/pill_station_{h}_off.png")
+
+
 def make_badges():
     # badge: disc d 34 with a knocked-out triangle (one texture per direction, tinted by line colour)
     for n in (34, 28, 24):
@@ -427,6 +444,7 @@ def main():
     make_stations()
     make_posters()
     make_pills()
+    make_station_pill()
     make_badges()
     make_colour_art()
     make_engine()

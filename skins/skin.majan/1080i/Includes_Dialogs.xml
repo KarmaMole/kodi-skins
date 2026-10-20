@@ -352,6 +352,10 @@
 		<param name="width">860</param>
 		<param name="height">72</param>
 		<param name="list_id">9000</param>
+		<!-- 1.0.9: the library dialogs pass num_22 (labels of at least 20 px); the defaults are unchanged -->
+		<param name="index_font">mono_14</param>
+		<param name="hint_font">mono_13</param>
+		<param name="hint_w">320</param>
 		<definition>
 			<itemlayout width="$PARAM[width]" height="$PARAM[height]">
 				<control type="image">
@@ -366,7 +370,7 @@
 					<top>0</top>
 					<width>40</width>
 					<height>$PARAM[height]</height>
-					<font>mono_14</font>
+					<font>$PARAM[index_font]</font>
 					<textcolor>text_tertiary</textcolor>
 					<label>$VAR[Dlg_RowIndex]</label>
 				</control>
@@ -382,10 +386,10 @@
 				<control type="label">
 					<right>24</right>
 					<top>0</top>
-					<width>320</width>
+					<width>$PARAM[hint_w]</width>
 					<height>$PARAM[height]</height>
 					<align>right</align>
-					<font>mono_13</font>
+					<font>$PARAM[hint_font]</font>
 					<textcolor>text_tertiary</textcolor>
 					<label>$INFO[ListItem.Label2]</label>
 				</control>
@@ -408,7 +412,7 @@
 					<top>0</top>
 					<width>40</width>
 					<height>$PARAM[height]</height>
-					<font>mono_14</font>
+					<font>$PARAM[index_font]</font>
 					<textcolor>$VAR[ColorAccent]</textcolor>
 					<label>$VAR[Dlg_RowIndex]</label>
 				</control>
@@ -424,10 +428,10 @@
 				<control type="label">
 					<right>24</right>
 					<top>0</top>
-					<width>320</width>
+					<width>$PARAM[hint_w]</width>
 					<height>$PARAM[height]</height>
 					<align>right</align>
-					<font>mono_13</font>
+					<font>$PARAM[hint_font]</font>
 					<textcolor>text_secondary</textcolor>
 					<label>$INFO[ListItem.Label2]</label>
 				</control>

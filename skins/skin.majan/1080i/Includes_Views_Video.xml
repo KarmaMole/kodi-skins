@@ -21,8 +21,10 @@
 -->
 <includes>
 	<!-- ================================================================== constants -->
-	<constant name="vidview_nav_left">600</constant>          <!-- header filter bar: right-aligned box 600..1540 -->
-	<constant name="vidview_nav_w">940</constant>
+	<!-- header filter bar: right-aligned box 480..1460 (1.0.9: was 600..1540; the date is "WEDNESDAY 21 SEPTEMBER" at
+	     worst = 242 px in mono_15 + 18 + the clock, so it starts at about x 1484; OPTIONS joined the bar) -->
+	<constant name="vidview_nav_left">480</constant>
+	<constant name="vidview_nav_w">980</constant>
 	<constant name="vidview_nav_top">45</constant>  <!-- centre 65 = the header date's centre (Majan_Clock) -->
 	<constant name="vidview_col_x">680</constant>             <!-- Showcase / info text column -->
 	<constant name="vidview_col_w">1144</constant>
@@ -891,8 +893,17 @@
 				<label>VIEW: $INFO[Container.Viewmode]</label>
 				<textcolor>text_secondary</textcolor>
 				<texturenofocus />
-				<onclick>Container.NextViewMode</onclick>
+				<!-- 1.0.9: the view picker (was Container.NextViewMode) -->
+				<onclick>ActivateWindow(1156)</onclick>
 				<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
+			</control>
+			<!-- OPTIONS: the Library panel (also Left / Right past the edges of every view) -->
+			<control type="button" id="9327">
+				<include>VidView_NavButtonLook</include>
+				<label>OPTIONS</label>
+				<textcolor>text_secondary</textcolor>
+				<texturenofocus />
+				<onclick>ActivateWindow(1155)</onclick>
 			</control>
 		</control>
 
@@ -1234,6 +1245,9 @@
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
+				<!-- past the first / last item: the Library panel (1.0.9) -->
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
 				<viewtype label="Showcase">list</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets)</visible>
 				<itemlayout width="vidview_strip_pitch" height="170">
@@ -1333,6 +1347,9 @@
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
+				<!-- past the first / last item: the Library panel (1.0.9) -->
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
 				<viewtype label="Big Poster">list</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets)</visible>
 				<itemlayout width="vidview_big_pitch" height="543">
@@ -1628,8 +1645,8 @@
 				<onup condition="$EXP[VidView_HasNextUp]">9310</onup>
 				<onup condition="!$EXP[VidView_HasNextUp]">9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
 				<viewtype label="Wall">list</viewtype>
 				<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
 				<itemlayout width="vidview_wall_pitch_x" height="vidview_wall_pitch_y">
@@ -1711,8 +1728,8 @@
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<onup>9000</onup>
 				<ondown>50</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
 				<itemlayout width="vidview_next_pitch" height="262">
 					<include>VidView_NextUpCard</include>
 				</itemlayout>
@@ -1864,7 +1881,7 @@
 				<pagecontrol>63</pagecontrol>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
+				<onleft>ActivateWindow(1155)</onleft>
 				<onright>63</onright>
 				<viewtype label="Episodes">list</viewtype>
 				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
@@ -1899,7 +1916,7 @@
 				<param name="top" value="content_top"/>
 				<param name="height" value="870"/>
 				<param name="onleft" value="503"/>
-				<param name="onright" value="503"/>
+				<param name="onright" value="ActivateWindow(1155)"/>
 			</include>
 		</control>
 	</include>
@@ -2058,7 +2075,7 @@
 		<include>VidView_502_Wall</include>
 		<include>VidView_503_Episodes</include>
 		<include>VidView_506_PosterWall</include>
-		<include>View_50_List</include>
+		<include content="View_50_List"><param name="edge" value="ActivateWindow(1155)"/></include>
 		<include>VidView_50_ParentPanel</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>

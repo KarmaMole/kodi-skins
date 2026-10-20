@@ -76,6 +76,7 @@
 			<param name="p" value="940"/>
 			<param name="ondown" value="9000"/>
 			<param name="active4" value="true"/>
+			<param name="options" value="true"/>
 		</include>
 	</controls>
 </window>

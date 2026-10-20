@@ -67,8 +67,8 @@ def row(list_id, probe_id, slot, top, focusable):
 			<onup condition="Integer.IsGreater(Container(8100).CurrentItem,1)">Control.Move(8100,-1)</onup>
 			<onup condition="!Integer.IsGreater(Container(8100).CurrentItem,1)">8100</onup>
 			<ondown condition="!String.IsEmpty(Container(8100).ListItemNoWrap(1).Label)">Control.Move(8100,1)</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>'''
+			<include>Lib_OpenLeft</include>
+			<include>Lib_OpenRight</include>'''
     items = f'''
 			<itemlayout width="302" height="440">
 				<include content="Unw_Print">
@@ -152,13 +152,13 @@ def write_timers():
 <timers>
 	<timer>
 		<name>keepsake_diary_focus</name>
-		<start reset="true">Window.IsActive(1161) + Integer.IsGreater(Container(520).NumItems,0) + !Control.HasFocus(520) + !ControlGroup(9300).HasFocus()</start>
+		<start reset="true">Window.IsActive(1161) + Integer.IsGreater(Container(520).NumItems,0) + !Control.HasFocus(520) + !ControlGroup(9300).HasFocus() + !ControlGroup(9830).HasFocus() + !Control.HasFocus(9801) + !ControlGroup(9890).HasFocus()</start>
 		<stop>Control.HasFocus(520) | !Window.IsActive(1161)</stop>
 		<onstart>SetFocus(520)</onstart>
 	</timer>
 	<timer>
 		<name>keepsake_unwatched_focus</name>
-		<start reset="true">Window.IsActive(1160) + Integer.IsGreater(Container(8101).NumItems,0) + !Control.HasFocus(8101) + !Control.HasFocus(8100) + !Control.HasFocus(9301)</start>
+		<start reset="true">Window.IsActive(1160) + Integer.IsGreater(Container(8101).NumItems,0) + !Control.HasFocus(8101) + !Control.HasFocus(8100) + !Control.HasFocus(9301) + !ControlGroup(9830).HasFocus() + !Control.HasFocus(9801) + !ControlGroup(9890).HasFocus()</start>
 		<stop>Control.HasFocus(8101) | !Window.IsActive(1160)</stop>
 		<onstart>SetFocus(8101)</onstart>
 	</timer>
@@ -243,13 +243,21 @@ def main():
 		<control type="label">
 			<left>118</left>
 			<top>161</top>
-			<width>900</width>
+			<width>700</width>
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
 			<label>films  ·  $INFO[Container(8199).NumItems] never played  ·  [COLOR label_hi]oldest first[/COLOR]</label>
 		</control>
 		<include>KS_Clock</include>
+		<!-- the pen word "library" (Includes_Library.xml): Left from the year chips, Back = the films -->
+		<include content="Lib_PenWords">
+			<param name="view_visible" value="false"/>
+			<param name="onup" value="9301"/>
+			<param name="ondown" value="8101"/>
+			<param name="onright" value="8100"/>
+			<param name="onback" value="8101"/>
+		</include>
 
 		<!-- year chips -->
 		<control type="list" id="8100">
@@ -261,7 +269,7 @@ def main():
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<onup>9301</onup>
 			<ondown>8101</ondown>
-			<onleft>noop</onleft>
+			<onleft>9830</onleft>
 			<onright>noop</onright>
 			<itemlayout width="52" height="48">
 				<control type="label">
@@ -343,6 +351,11 @@ def main():
 			<label>Nothing is waiting: you have played every film you added.</label>
 			<visible>!Integer.IsGreater(Container(8199).NumItems,0) + !Container(8199).IsUpdating</visible>
 		</control>
+		<include content="Lib_Panel">
+			<param name="is_video" value="false"/>
+			<param name="section" value="the unwatched"/>
+			<param name="back_view" value="8101"/>
+		</include>
 	</controls>
 </window>
 '''

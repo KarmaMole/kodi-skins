@@ -6,7 +6,8 @@
 Views: 504 Sleeves (albums, artists: a 5 x 3 shelf of marigold sleeves with the cover as a tipped-in square
 plate, lift and tilt on focus, the label column on the right), 50 List (songs, genres, files).
 Header words (grouplist 9000): Albums 9320, Artists 9321, Songs 9322, Genres 9323 (ReplaceWindow, so Back
-stays one press: LESSONS Daylight 0.9.2), Sort 9324, direction 9325, View 9326; Kodi ids 3 / 4.
+stays one press: LESSONS Daylight 0.9.2), View 9326 (the view picker 1156), Options 9327 (the Library panel 1155),
+Sort 9324, direction 9325; Kodi ids 3 / 4. Left past the first column of the sleeves opens the Library panel.
 Timers for these views are written by make_views.py (Timers.xml).
 -->
 <includes>
@@ -57,7 +58,7 @@ Timers for these views are written by make_views.py (Timers.xml).
 				<scrolltime tween="cubic" easing="out">280</scrolltime>
 				<onup>9000</onup>
 				<onright>9000</onright>
-				<onleft>noop</onleft>
+				<onleft>ActivateWindow(1155)</onleft>
 				<onback condition="$EXP[Music_AtTabRoot]">9398</onback>
 				<viewtype label="Sleeves">icon</viewtype>
 				<visible>Container.Content(albums) | Container.Content(artists)</visible>
@@ -375,11 +376,11 @@ Timers for these views are written by make_views.py (Timers.xml).
 				<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
 				<texturenofocus />
 				<label>$VAR[Music_ViewWord]</label>
-				<onclick>Container.SetViewMode(504)</onclick>
-				<visible>Control.IsVisible(50) + [Container.Content(albums) | Container.Content(artists)]</visible>
+				<onclick>ActivateWindow(1156)</onclick>
+				<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
 			</control>
 			<control type="button" id="9327">
-				<width>223</width>
+				<width>134</width>
 				<height>40</height>
 				<font>caps_20_b</font>
 				<textcolor>ink2</textcolor>
@@ -389,9 +390,9 @@ Timers for these views are written by make_views.py (Timers.xml).
 				<textoffsetx>12</textoffsetx>
 				<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
 				<texturenofocus />
-				<label>$VAR[Music_ViewWord]</label>
-				<onclick>Container.SetViewMode(50)</onclick>
-				<visible>Control.IsVisible(504)</visible>
+				<label>Options</label>
+				<onclick>ActivateWindow(1155)</onclick>
+				<visible>true</visible>
 			</control>
 			<control type="button" id="9324">
 				<width>auto</width>

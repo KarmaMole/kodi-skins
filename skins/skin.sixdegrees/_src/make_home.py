@@ -20,7 +20,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from make_map import (P, RM, OPEN, rule, close, prop, info, img, lbl, group, DEPTH, FIELDS, map_timers)
+from make_map import (P, RM, OPEN, rule, close, prop, info, img, lbl, group, DEPTH, FIELDS, map_timers,
+                      ruleq, esc_info, url_safe, qvar)
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "1080i"
@@ -358,7 +359,7 @@ def pv_variables():
     a(f'\t<value condition="{sv} + !{is_mu} + !String.IsEmpty({pvprop("dbid")})">plugin://script.skinvariables/?info=get_dbitem_movie_details&amp;dbid=$INFO[{pvprop("dbid")}]</value>')
     a("</variable>")
     ok = (f'String.IsEqual(Container(9201).ListItem.DBID,{pvprop("dbid")}) + '
-          f'[[{is_tv} + String.IsEqual(Container(9201).ListItem.DBType,tvshow)] | [!{is_tv} + String.IsEqual(Container(9201).ListItem.DBType,movie)]]')
+          f'[[{is_tv} + String.IsEqual(Container(9201).ListItem.DBType,tvshow)] | [!{is_tv} + !{is_mu} + String.IsEqual(Container(9201).ListItem.DBType,movie)]]')
     a(f'<expression name="Home_PvMatch">{sv} + {ok}</expression>')
     a('<variable name="Home_PvUp">')
     a(f'\t<value condition="$EXP[Home_PvMatch] + {is_tv}">$INFO[Container(9201).ListItem.Property(studio.0)]</value>')
@@ -377,28 +378,44 @@ def pv_variables():
     a('\t<value condition="Integer.IsGreaterOrEqual(Container(9223).NumItems,2)">$VAR[Home_PvCast3]</value>')
     a("\t<value>$VAR[Home_PvCast1]</value>")
     a("</variable>")
+    # 0.9.7: free text goes into the xsp JSON as $ESCINFO string literals (quotes / backslashes escaped);
+    # values with '&' or '%' can't sit in the URL and become "" (see make_map.qvar)
+    v.extend(qvar("Home_PvUpQ", [(f"$EXP[Home_PvMatch] + {is_tv}", "Container(9201).ListItem.Property(studio.0)"),
+                                 ("$EXP[Home_PvMatch]", "Container(9201).ListItem.Property(director.0)"),
+                                 (None, pvprop("dir"))]))
+    for n in range(4):
+        v.extend(qvar(f"Home_PvCast{n}Q", [("$EXP[Home_PvMatch]", f"Container(9201).ListItem.Property(cast.{n}.name)")]))
+    v.extend(qvar("Home_PvGenreQ", [("$EXP[Home_PvMatch]", "Container(9201).ListItem.Property(genre.0)"),
+                                    (is_mu, pvprop("genre"))]))
+    v.extend(qvar("Home_PvCentreGenreQ", [(None, pvprop("genre"))]))
+    a('<variable name="Home_PvCoQ">')
+    a('\t<value condition="Integer.IsGreaterOrEqual(Container(9221).NumItems,2)">$VAR[Home_PvCast1Q]</value>')
+    a('\t<value condition="Integer.IsGreaterOrEqual(Container(9222).NumItems,2)">$VAR[Home_PvCast2Q]</value>')
+    a('\t<value condition="Integer.IsGreaterOrEqual(Container(9223).NumItems,2)">$VAR[Home_PvCast3Q]</value>')
+    a("\t<value>$VAR[Home_PvCast1Q]</value>")
+    a("</variable>")
     a('<variable name="Home_PvExcl">')
-    a(f'\t<value condition="!String.IsContains({pvprop("title")},&amp;) + {is_mu}">%2C{rule("album", "isnot", "$INFO[" + pvprop("title") + "]")}</value>'.replace("String.IsContains", "String.Contains"))
-    a(f'\t<value condition="!String.Contains({pvprop("title")},&amp;)">%2C{rule("title", "isnot", "$INFO[" + pvprop("title") + "]")}</value>')
+    a(f'\t<value condition="{url_safe(pvprop("title"))} + {is_mu}">%2C{ruleq("album", "isnot", esc_info(pvprop("title")))}</value>')
+    a(f'\t<value condition="{url_safe(pvprop("title"))}">%2C{ruleq("title", "isnot", esc_info(pvprop("title")))}</value>')
     a("</variable>")
     upf = {"movies": "director", "tvshows": "studio", "albums": "albumartist"}
     for kind in ("movies", "tvshows", "albums"):
         tail = f"$VAR[Home_PvExcl]{close(kind)}"
         R = ROOT[kind]
         paths = {
-            "Up": f"{R}{OPEN}{rule(upf[kind], 'is', '$VAR[Home_PvUp]')}{tail}",
-            "Down": f"{R}{OPEN}{rule('year', 'is', '$INFO[' + pvprop('year') + ']')}%2C{rule('genre', 'is', '$VAR[Home_PvGenre]')}{tail}",
+            "Up": f"{R}{OPEN}{ruleq(upf[kind], 'is', '$VAR[Home_PvUpQ]')}{tail}",
+            "Down": f"{R}{OPEN}{rule('year', 'is', '$INFO[' + pvprop('year') + ']')}%2C{ruleq('genre', 'is', '$VAR[Home_PvGenreQ]')}{tail}",
             "DownY": f"{R}{OPEN}{rule('year', 'is', '$INFO[' + pvprop('year') + ']')}{tail}",
         }
         if kind == "albums":
-            paths["Right"] = f"{R}{OPEN}{rule('genre', 'is', '$INFO[' + pvprop('genre') + ']')}{tail}"
-            paths["Left"] = f"{R}{OPEN}{rule('artist', 'is', '$VAR[Home_PvUp]')}%2C{rule('albumartist', 'isnot', '$VAR[Home_PvUp]')}{tail}"
+            paths["Right"] = f"{R}{OPEN}{ruleq('genre', 'is', '$VAR[Home_PvCentreGenreQ]')}{tail}"
+            paths["Left"] = f"{R}{OPEN}{ruleq('artist', 'is', '$VAR[Home_PvUpQ]')}%2C{ruleq('albumartist', 'isnot', '$VAR[Home_PvUpQ]')}{tail}"
             paths["Down"] = paths["DownY"]
         else:
-            paths["Right"] = f"{R}{OPEN}{rule('actor', 'is', '$VAR[Home_PvCast0]')}{tail}"
-            paths["Left"] = f"{R}{OPEN}{rule('actor', 'is', '$VAR[Home_PvCo]')}{tail}"
+            paths["Right"] = f"{R}{OPEN}{ruleq('actor', 'is', '$VAR[Home_PvCast0Q]')}{tail}"
+            paths["Left"] = f"{R}{OPEN}{ruleq('actor', 'is', '$VAR[Home_PvCoQ]')}{tail}"
             for n in (1, 2, 3):
-                paths[f"P{n}"] = f"{R}{OPEN}{rule('actor', 'is', f'$VAR[Home_PvCast{n}]')}{tail}"
+                paths[f"P{n}"] = f"{R}{OPEN}{ruleq('actor', 'is', f'$VAR[Home_PvCast{n}Q]')}{tail}"
         for k, pth in paths.items():
             a(f'<variable name="Home_PvPath{k}_{kind}"><value>{pth}</value></variable>')
     for k in ("Up", "Right", "Left", "P1", "P2", "P3"):
@@ -686,7 +703,8 @@ def home_variables():
     a('<expression name="Home_SelIsTerminus">' + " | ".join(
         f"[$EXP[Home_Is_{sec}] + !String.IsEmpty(Container({s['list']}).ListItem.Property(terminus))]" for sec, s in SECTIONS.items()) + "</expression>")
     a(f'<expression name="Home_PvIsSelected">' + " | ".join(
-        f"[$EXP[Home_Is_{sec}] + String.IsEqual(Container({s['list']}).ListItem.Property(dbid),{pvprop('dbid')})]" for sec, s in SECTIONS.items()) + "</expression>")
+        f"[$EXP[Home_Is_{sec}] + String.IsEqual(Container({s['list']}).ListItem.Property(dbid),{pvprop('dbid')})"
+        f" + String.IsEqual(Container({s['list']}).ListItem.Property(kind),{pvprop('kind')})]" for sec, s in SECTIONS.items()) + "</expression>")
     # meta line under the preview title
     a('<variable name="Home_SelMeta">')
     for sec, s in SECTIONS.items():
@@ -769,11 +787,16 @@ def timers():
          "<timers>"]
     for sec, s in SECTIONS.items():
         li = f"Container({s['list']}).ListItem"
-        mismatch = f"!String.IsEqual({li}.Property(dbid),{pvprop('dbid')})"
+        # 0.9.7: films, series and albums have separate id ranges (film 12 and show 12 are different
+        # items), so "already previewed" must match the kind as well as the dbid
+        same = (f"[String.IsEqual({li}.Property(dbid),{pvprop('dbid')}) + "
+                f"String.IsEqual({li}.Property(kind),{pvprop('kind')})]")
+        mismatch = (f"[!String.IsEqual({li}.Property(dbid),{pvprop('dbid')}) | "
+                    f"!String.IsEqual({li}.Property(kind),{pvprop('kind')})]")
         t += ["\t<timer>",
               f"\t\t<name>sd_preview_{sec}</name>",
               f"\t\t<start reset=\"false\">Window.IsActive(home) + {IS_SEC[sec]} + System.IdleTime(1) + String.IsEmpty({li}.Property(terminus)) + !String.IsEmpty({li}.Property(dbid)) + {mismatch}</start>",
-              f"\t\t<stop>!{mismatch} | !Window.IsActive(home)</stop>",
+              f"\t\t<stop>{same} | !Window.IsActive(home)</stop>",
               f"\t\t<onstart>SetProperty({P}.pv.title,$ESCINFO[{li}.Label],home)</onstart>",
               f"\t\t<onstart>SetProperty({P}.pv.year,$INFO[{li}.Property(year)],home)</onstart>",
               f"\t\t<onstart>SetProperty({P}.pv.dir,$ESCINFO[{li}.Property(dir)],home)</onstart>",

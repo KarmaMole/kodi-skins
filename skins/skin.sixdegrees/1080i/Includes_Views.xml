@@ -66,7 +66,8 @@
 				<param name="top" value="170"/>
 				<param name="height" value="858"/>
 				<param name="onleft" value="50"/>
-				<param name="onright" value="50"/>
+				<param name="onright" value="SetProperty(sixdegrees.lib.from,view,home)"/>
+				<param name="onright2" value="SetFocus(9801,0,absolute)"/>
 			</include>
 			<!-- focused item: interchange ring (posters) or the plain artwork (covers, thumbs) -->
 			<control type="group">

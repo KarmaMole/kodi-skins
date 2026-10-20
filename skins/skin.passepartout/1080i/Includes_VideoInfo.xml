@@ -464,8 +464,11 @@
 				<top>36</top>
 				<width>160</width>
 				<height>240</height>
-				<animation type="Focus" condition="$PARAM[focused]">
+				<animation type="Focus" condition="[$PARAM[focused]] + !Skin.HasSetting(passepartout.reducemotion)">
 					<effect type="zoom" start="100" end="110" center="80,120" time="240" tween="cubic" easing="out"/>
+				</animation>
+				<animation type="Focus" condition="[$PARAM[focused]] + Skin.HasSetting(passepartout.reducemotion)">
+					<effect type="zoom" start="100" end="110" center="80,120" time="0" tween="cubic" easing="out"/>
 				</animation>
 				<control type="group">
 					<visible>$PARAM[focused] + Control.HasFocus(50)</visible>

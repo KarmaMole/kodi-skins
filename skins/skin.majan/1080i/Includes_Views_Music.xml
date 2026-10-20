@@ -73,8 +73,9 @@
 			<orientation>vertical</orientation>
 			<onup>9000</onup>
 			<ondown>noop</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<!-- Left past the first column / Right past the last one: the Library panel (1.0.9) -->
+			<onleft>ActivateWindow(1155)</onleft>
+			<onright>ActivateWindow(1155)</onright>
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<preloaditems>1</preloaditems>
 			<viewtype label="Grid">icon</viewtype>
@@ -147,6 +148,8 @@
 			<movement>0</movement>
 			<onup>9000</onup>
 			<ondown>noop</ondown>
+			<onleft>ActivateWindow(1155)</onleft>
+			<onright>ActivateWindow(1155)</onright>
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<preloaditems>2</preloaditems>
 			<viewtype label="Big album">wrap</viewtype>
@@ -317,7 +320,7 @@
 				<height>music_list_h</height>
 				<onup>9000</onup>
 				<ondown>noop</ondown>
-				<onleft>noop</onleft>
+				<onleft>ActivateWindow(1155)</onleft>
 				<onright>60</onright>
 				<pagecontrol>60</pagecontrol>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
@@ -335,7 +338,7 @@
 				<param name="top" value="160"/>
 				<param name="height" value="792"/>
 				<param name="onleft" value="50"/>
-				<param name="onright" value="50"/>
+				<param name="onright" value="ActivateWindow(1155)"/>
 			</include>
 			<include>Music_ListPanel</include>
 		</control>

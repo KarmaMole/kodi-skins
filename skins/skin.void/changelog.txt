@@ -1,3 +1,20 @@
+0.9.7 (2026-10-21)
+- Library panel: the library's own menu (View, Sort, Order, Watched, Search, Update library, Clean library,
+  Library settings), in the System menu's text column. Reach it with Right on the last item of the index,
+  Left / Right past the edges of the poster and cover walls, Left / Right past either end of the options row,
+  or "More" at the end of that row. "↑ Options" in the library header says the row is there.
+  Back closes it and leaves you on the item you came from.
+- Clean library asks first ("No" is focused): Kodi's own CleanLibrary() would just run.
+- View picker: "View" in the options row and in the panel opens a row of previews (Index, Wall, Covers; only
+  the views that fit the folder), the current one marked; OK switches, Back keeps it. The previews are drawn
+  from the views' geometry by _src/make_view_previews.py (no artwork).
+- Home: the System entry (was Power) and its menu gain Update library and Clean library (Movies and TV or Music).
+
+0.9.6 (2026-10-20)
+- Language file: the strings.po header is valid gettext again (each header line one quoted string ending in \n).
+- Home index: Live TV (only with a PVR add-on).
+- Reduce motion now also covers the progress toast: no gliding, everything lands in place.
+
 0.9.5 (2026-10-20)
 - Author shown as KarmaMole; website link to the showcase.
 

@@ -3,8 +3,9 @@
 	Video library: rotary text index (50) or sparse poster wall (51). Includes_Views.xml.
 	Kodi id contract (Estuary Omega MyVideoNav.xml / CGUIWindowVideoNav): views listed in <views>
 	(first valid one opens a new node: the index), menucontrol 9000, 3 = sort by, 4 = sort order,
-	14 = watched filter toggle (SendClick only). Void ids: 9321-9327 options buttons.
-	Focus map: view -Up at the top / Left on item 1-> options 9000 -Down/Back-> view.
+	14 = watched filter toggle (SendClick only). Void ids: 9321-9328 options buttons (9326 View = view picker 1161, 9328 Options = Library panel 1160).
+	Focus map: view -Up at the top / Left on item 1-> options 9000 -Down/Back-> view. Library panel 1160:
+	Right on the last index item, Left/Right past the wall edges, Left/Right past the ends of 9000, Options.
 	Back on the view = Kodi parent folder. Empty folder: focus lands on the options row.
 -->
 <window>
@@ -23,14 +24,18 @@
 				<param name="title" value="$VAR[Lib_Title]"/>
 				<param name="sub" value="$VAR[Lib_Sub]"/>
 			</include>
+			<include>LibPanel_HeaderWord</include>
 		</control>
-		<include content="Void_View50"><param name="viewlabel" value="Index"/></include>
+		<include content="Void_View50"><param name="viewlabel" value="Index"/><param name="libpanel" value="true"/></include>
 		<include>Void_View51</include>
 		<include content="Void_LibraryEmpty">
 			<param name="hint" value="Up for sort, filter and view. With Unwatched on, everything may be filtered away."/>
 		</include>
 		<control type="grouplist" id="9000">
 			<include>Void_OptionsBegin</include>
+			<!-- 0.9.7: Left past the first word / Right past the last = the Library panel -->
+			<onleft>ActivateWindow(1160)</onleft>
+			<onright>ActivateWindow(1160)</onright>
 			<ondown>SetFocus(50)</ondown>
 			<onback>SetFocus(50)</onback>
 			<!-- watched filter -->
@@ -73,13 +78,18 @@
 				<param name="id" value="9326"/>
 				<param name="label" value="View  $INFO[Container.Viewmode]"/>
 				<param name="width" value="211"/>
-				<param name="onclick" value="Container.NextViewMode"/>
+				<param name="onclick" value="ActivateWindow(1161)"/>
 				<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
 			</include>
 			<include content="Void_SubNavButton">
 				<param name="id" value="9327"/>
 				<param name="label" value="Search"/>
 				<param name="onclick" value="ActivateWindow(1150)"/>
+			</include>
+			<include content="Void_SubNavButton">
+				<param name="id" value="9328"/>
+				<param name="label" value="More"/>
+				<param name="onclick" value="ActivateWindow(1160)"/>
 			</include>
 		</control>
 		<include>Void_OptionsCaption</include>

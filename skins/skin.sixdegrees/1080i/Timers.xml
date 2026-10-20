@@ -4,8 +4,8 @@
 <timers>
 	<timer>
 		<name>sd_preview_movies</name>
-		<start reset="false">Window.IsActive(home) + !String.IsEqual(Window(Home).Property(sixdegrees.section),tvshows) + !String.IsEqual(Window(Home).Property(sixdegrees.section),music) + System.IdleTime(1) + String.IsEmpty(Container(9110).ListItem.Property(terminus)) + !String.IsEmpty(Container(9110).ListItem.Property(dbid)) + !String.IsEqual(Container(9110).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid))</start>
-		<stop>!!String.IsEqual(Container(9110).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) | !Window.IsActive(home)</stop>
+		<start reset="false">Window.IsActive(home) + !String.IsEqual(Window(Home).Property(sixdegrees.section),tvshows) + !String.IsEqual(Window(Home).Property(sixdegrees.section),music) + System.IdleTime(1) + String.IsEmpty(Container(9110).ListItem.Property(terminus)) + !String.IsEmpty(Container(9110).ListItem.Property(dbid)) + [!String.IsEqual(Container(9110).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) | !String.IsEqual(Container(9110).ListItem.Property(kind),Window(Home).Property(sixdegrees.pv.kind))]</start>
+		<stop>[String.IsEqual(Container(9110).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) + String.IsEqual(Container(9110).ListItem.Property(kind),Window(Home).Property(sixdegrees.pv.kind))] | !Window.IsActive(home)</stop>
 		<onstart>SetProperty(sixdegrees.pv.title,$ESCINFO[Container(9110).ListItem.Label],home)</onstart>
 		<onstart>SetProperty(sixdegrees.pv.year,$INFO[Container(9110).ListItem.Property(year)],home)</onstart>
 		<onstart>SetProperty(sixdegrees.pv.dir,$ESCINFO[Container(9110).ListItem.Property(dir)],home)</onstart>
@@ -16,8 +16,8 @@
 	</timer>
 	<timer>
 		<name>sd_preview_tvshows</name>
-		<start reset="false">Window.IsActive(home) + String.IsEqual(Window(Home).Property(sixdegrees.section),tvshows) + System.IdleTime(1) + String.IsEmpty(Container(9120).ListItem.Property(terminus)) + !String.IsEmpty(Container(9120).ListItem.Property(dbid)) + !String.IsEqual(Container(9120).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid))</start>
-		<stop>!!String.IsEqual(Container(9120).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) | !Window.IsActive(home)</stop>
+		<start reset="false">Window.IsActive(home) + String.IsEqual(Window(Home).Property(sixdegrees.section),tvshows) + System.IdleTime(1) + String.IsEmpty(Container(9120).ListItem.Property(terminus)) + !String.IsEmpty(Container(9120).ListItem.Property(dbid)) + [!String.IsEqual(Container(9120).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) | !String.IsEqual(Container(9120).ListItem.Property(kind),Window(Home).Property(sixdegrees.pv.kind))]</start>
+		<stop>[String.IsEqual(Container(9120).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) + String.IsEqual(Container(9120).ListItem.Property(kind),Window(Home).Property(sixdegrees.pv.kind))] | !Window.IsActive(home)</stop>
 		<onstart>SetProperty(sixdegrees.pv.title,$ESCINFO[Container(9120).ListItem.Label],home)</onstart>
 		<onstart>SetProperty(sixdegrees.pv.year,$INFO[Container(9120).ListItem.Property(year)],home)</onstart>
 		<onstart>SetProperty(sixdegrees.pv.dir,$ESCINFO[Container(9120).ListItem.Property(dir)],home)</onstart>
@@ -28,8 +28,8 @@
 	</timer>
 	<timer>
 		<name>sd_preview_music</name>
-		<start reset="false">Window.IsActive(home) + String.IsEqual(Window(Home).Property(sixdegrees.section),music) + System.IdleTime(1) + String.IsEmpty(Container(9130).ListItem.Property(terminus)) + !String.IsEmpty(Container(9130).ListItem.Property(dbid)) + !String.IsEqual(Container(9130).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid))</start>
-		<stop>!!String.IsEqual(Container(9130).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) | !Window.IsActive(home)</stop>
+		<start reset="false">Window.IsActive(home) + String.IsEqual(Window(Home).Property(sixdegrees.section),music) + System.IdleTime(1) + String.IsEmpty(Container(9130).ListItem.Property(terminus)) + !String.IsEmpty(Container(9130).ListItem.Property(dbid)) + [!String.IsEqual(Container(9130).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) | !String.IsEqual(Container(9130).ListItem.Property(kind),Window(Home).Property(sixdegrees.pv.kind))]</start>
+		<stop>[String.IsEqual(Container(9130).ListItem.Property(dbid),Window(Home).Property(sixdegrees.pv.dbid)) + String.IsEqual(Container(9130).ListItem.Property(kind),Window(Home).Property(sixdegrees.pv.kind))] | !Window.IsActive(home)</stop>
 		<onstart>SetProperty(sixdegrees.pv.title,$ESCINFO[Container(9130).ListItem.Label],home)</onstart>
 		<onstart>SetProperty(sixdegrees.pv.year,$INFO[Container(9130).ListItem.Property(year)],home)</onstart>
 		<onstart>SetProperty(sixdegrees.pv.dir,$ESCINFO[Container(9130).ListItem.Property(dir)],home)</onstart>

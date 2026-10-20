@@ -2,7 +2,9 @@
 <!--
 	Daylight System menu (custom dialog 1151) - the gear pill of the top line, the escape hatch. A soft
 	card drops under the gear: Daylight settings, Settings, File manager, System info, Add-ons, then
-	Power: Exit / Reboot / Power off / Power menu. Back closes. No Kodi-owned ids.
+	Power: Exit / Reboot / Power off / Power menu. 0.9.8: Update library / Clean library (Library panel
+	1160 with daylight.libmode = update / clean: choose Films and shows or Music; Clean asks first).
+	Back closes. No Kodi-owned ids.
 -->
 <window type="dialog" id="1151">
 	<defaultcontrol always="true">100</defaultcontrol>
@@ -23,7 +25,7 @@
 			<left>1200</left>
 			<top>132</top>
 			<width>600</width>
-			<height>704</height>
+			<height>908</height>
 			<!-- panel sized to the visible items (power entries depend on the platform) -->
 			<control type="group">
 				<left>0</left>
@@ -54,7 +56,31 @@
 				<top>0</top>
 				<width>600</width>
 				<height>696</height>
-				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,9)</visible>
+				<visible>Integer.IsEqual(Container(100).NumItems,9)</visible>
+				<include>DL_Card</include>
+			</control>
+			<control type="group">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>764</height>
+				<visible>Integer.IsEqual(Container(100).NumItems,10)</visible>
+				<include>DL_Card</include>
+			</control>
+			<control type="group">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>832</height>
+				<visible>Integer.IsEqual(Container(100).NumItems,11)</visible>
+				<include>DL_Card</include>
+			</control>
+			<control type="group">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>900</height>
+				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,12)</visible>
 				<include>DL_Card</include>
 			</control>
 			<control type="label">
@@ -82,7 +108,7 @@
 				<left>12</left>
 				<top>72</top>  <!-- 0.9.3: 16 px more room under the header (focus ring touched "System") -->
 				<width>576</width>
-				<height>620</height>
+				<height>824</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>
@@ -127,30 +153,73 @@
 						<onclick>ActivateWindow(addonbrowser)</onclick>
 					</item>
 					<item>
+						<label>Live TV</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(TVChannels)</onclick>
+						<visible>System.HasPVRAddon</visible>
+					</item>
+					<item>
+						<label>$LOCALIZE[1]</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(Pictures)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[10134]</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(FavouritesBrowser)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[744]</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(Videos,sources://video/,return)</onclick>
+					</item>
+					<item>
+						<label>Update library</label>
+						<label2>Library</label2>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>SetProperty(daylight.libmode,update,home)</onclick>
+						<onclick>ActivateWindow(1160)</onclick>
+					</item>
+					<item>
+						<label>Clean library</label>
+						<label2>Library</label2>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>SetProperty(daylight.libmode,clean,home)</onclick>
+						<onclick>ActivateWindow(1160)</onclick>
+					</item>
+					<item>
 						<label>$LOCALIZE[13012]</label>
 						<label2>Power</label2>
-						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]10[/UPPERCASE]</property>
 						<onclick>Quit()</onclick>
 						<visible>System.ShowExitButton</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13013]</label>
 						<label2>Power</label2>
-						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]11[/UPPERCASE]</property>
 						<onclick>Reset()</onclick>
 						<visible>System.CanReboot</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13016]</label>
 						<label2>Power</label2>
-						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]12[/UPPERCASE]</property>
 						<onclick>Powerdown()</onclick>
 						<visible>System.CanPowerDown</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[31022]</label>
 						<label2>More</label2>
-						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]13[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(shutdownmenu)</onclick>
 					</item>

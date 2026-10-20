@@ -24,7 +24,7 @@
 			<left>840</left>
 			<top>below_bar_top</top>
 			<width>600</width>
-			<height>688</height>
+			<height>892</height>
 			<!-- panel sized to the visible items (power entries depend on the platform) -->
 			<control type="image">
 				<left>0</left>
@@ -56,7 +56,31 @@
 				<width>600</width>
 				<height>680</height>
 				<texture border="2">dialogs/panel_framed.png</texture>
-				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,9)</visible>
+				<visible>Integer.IsEqual(Container(100).NumItems,9)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>748</height>
+				<texture border="2">dialogs/panel_framed.png</texture>
+				<visible>Integer.IsEqual(Container(100).NumItems,10)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>816</height>
+				<texture border="2">dialogs/panel_framed.png</texture>
+				<visible>Integer.IsEqual(Container(100).NumItems,11)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>884</height>
+				<texture border="2">dialogs/panel_framed.png</texture>
+				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,12)</visible>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -81,7 +105,7 @@
 				<left>12</left>
 				<top>56</top>
 				<width>576</width>
-				<height>620</height>
+				<height>824</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>
@@ -126,30 +150,52 @@
 						<onclick>ActivateWindow(addonbrowser)</onclick>
 					</item>
 					<item>
+						<label>Live TV</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(TVChannels)</onclick>
+						<visible>System.HasPVRAddon</visible>
+					</item>
+					<item>
+						<label>$LOCALIZE[1]</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(Pictures)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[744]</label>
+						<label2>Media</label2>
+						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(Videos,sources://video/,return)</onclick>
+					</item>
+					<item>
 						<label>$LOCALIZE[13012]</label>
 						<label2>Power</label2>
-						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
 						<onclick>Quit()</onclick>
 						<visible>System.ShowExitButton</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13013]</label>
 						<label2>Power</label2>
-						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]10[/UPPERCASE]</property>
 						<onclick>Reset()</onclick>
 						<visible>System.CanReboot</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13016]</label>
 						<label2>Power</label2>
-						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]11[/UPPERCASE]</property>
 						<onclick>Powerdown()</onclick>
 						<visible>System.CanPowerDown</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[31022]</label>
 						<label2>More</label2>
-						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]12[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(shutdownmenu)</onclick>
 					</item>

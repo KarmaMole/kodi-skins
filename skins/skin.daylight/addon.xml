@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.daylight" version="0.9.6" name="Daylight" provider-name="KarmaMole">
+<addon id="skin.daylight" version="0.9.8" name="Daylight" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Optional: borrowed artwork colour (TMDb Helper colour service) and true Next up (embuary). -->
@@ -16,7 +16,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#daylight</website>
-		<news>v0.9.4 - Fixed-width Sort pill and a re-fitted library header; the player-controls panel is a rounded Daylight card. v0.9.3 - Browsable Home hero (up to five picks, Left/Right), OSD and music OSD reordered (Play/Pause, Stop, Previous/Next; no seek buttons), fixed-width library header pills.</news>
+		<news>v0.9.8 - Library panel (Update / Clean library, sort, view, search) from the edges of every library view and an Options word; view picker with previews; Update / Clean library in the System menu.</news>
 		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>

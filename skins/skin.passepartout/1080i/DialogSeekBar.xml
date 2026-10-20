@@ -19,8 +19,8 @@
 			<include>Anim_FadeVisible</include>
 			<include>OSD_PPTag</include>
 			<control type="group">
-				<animation effect="slide" start="0,96" end="0,0" time="260" tween="cubic" easing="out">WindowOpen</animation>
-				<animation effect="slide" start="0,0" end="0,96" time="200" tween="cubic" easing="in">WindowClose</animation>
+				<animation effect="slide" start="0,96" end="0,0" time="260" tween="cubic" easing="out" condition="!Skin.HasSetting(passepartout.reducemotion)">WindowOpen</animation>
+				<animation effect="slide" start="0,0" end="0,96" time="200" tween="cubic" easing="in" condition="!Skin.HasSetting(passepartout.reducemotion)">WindowClose</animation>
 				<include content="OSD_PPBar">
 					<param name="top" value="824"/>
 					<param name="titlew" value="1680"/>

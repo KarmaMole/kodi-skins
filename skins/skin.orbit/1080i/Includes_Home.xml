@@ -272,6 +272,22 @@
 					<icon>icons/power.png</icon>
 					<onclick>ActivateWindow(shutdownmenu)</onclick>
 				</item>
+				<!-- 0.9.9: library upkeep (Library panel 1160, orbit.libmode); after Power so the station's
+				     default item (wraplist focus position) stays the same -->
+				<item>
+					<label>Update library</label>
+					<label2>Look for new films, episodes and music in your sources.</label2>
+					<icon>icons/refresh.png</icon>
+					<onclick>SetProperty(orbit.libmode,update,home)</onclick>
+					<onclick>ActivateWindow(1160)</onclick>
+				</item>
+				<item>
+					<label>Clean library</label>
+					<label2>Take out what Kodi can no longer find. It asks first.</label2>
+					<icon>icons/minus.png</icon>
+					<onclick>SetProperty(orbit.libmode,clean,home)</onclick>
+					<onclick>ActivateWindow(1160)</onclick>
+				</item>
 			</content>
 		</control>
 		<!-- probe: in-progress shows (no art needed: only NumItems is read) -->
@@ -375,7 +391,8 @@
 				<top>400</top>
 				<width>280</width>
 				<height>280</height>
-				<animation effect="slide" start="-110,0" end="0,0" time="320" delay="120" tween="cubic" easing="out" condition="!Container(9301).OnNext + !Container(9301).OnPrevious" reversible="false">Conditional</animation>
+				<animation effect="slide" start="-110,0" end="0,0" time="320" delay="120" tween="cubic" easing="out" condition="[!Container(9301).OnNext + !Container(9301).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">Conditional</animation>
+				<animation effect="slide" start="-110,0" end="0,0" time="0" delay="0" tween="cubic" easing="out" condition="[!Container(9301).OnNext + !Container(9301).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">Conditional</animation>
 				<control type="image">
 					<left>45</left>
 					<top>45</top>

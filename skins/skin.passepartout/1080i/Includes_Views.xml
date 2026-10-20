@@ -10,7 +10,10 @@
 	<expression name="PP_ListHasPoster">!String.IsEmpty(ListItem.Art(poster)) | !String.IsEmpty(ListItem.Art(tvshow.poster))</expression>
 	<expression name="PP_ListHasArt">!String.IsEmpty(ListItem.Art(poster)) | !String.IsEmpty(ListItem.Art(thumb)) | [!String.IsEmpty(ListItem.Icon) + !String.StartsWith(ListItem.Icon,Default)]</expression>
 	<!-- ============================================================ View 50 -->
+	<!-- param edge: what Left / Right past the list's edges do (media windows: the Library card) -->
 	<include name="View_50_List">
+		<param name="edge">noop</param>
+		<definition>
 		<control type="group">
 			<visible>Control.IsVisible(50)</visible>
 			<include>Anim_VisibleFade</include>
@@ -20,9 +23,9 @@
 				<width>list_w</width>
 				<height>858</height>
 				<onup>9000</onup>
-				<!-- to the footer view words (9330, media windows) so the hang / salon stay reachable -->
-				<ondown>9330</ondown>
-				<onleft>noop</onleft>
+				<!-- the views are in the header's view word (9327) and the Library card now (0.9.11) -->
+				<ondown>noop</ondown>
+				<onleft>$PARAM[edge]</onleft>
 				<onright>60</onright>
 				<pagecontrol>60</pagecontrol>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
@@ -39,7 +42,7 @@
 				<param name="top" value="200"/>
 				<param name="height" value="858"/>
 				<param name="onleft" value="50"/>
-				<param name="onright" value="9330"/>
+				<param name="onright" value="$PARAM[edge]"/>
 			</include>
 			<!-- the item in focus as a small wall label: a square matted print (only when there is art), the
 			     title in Geist Light, caps meta, curator text -->
@@ -116,6 +119,7 @@
 				</control>
 			</control>
 		</control>
+		</definition>
 	</include>
 
 	<!-- ===================================================== library header bar -->

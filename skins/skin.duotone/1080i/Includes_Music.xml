@@ -569,8 +569,13 @@
 			<include content="Music_Tab">
 				<param name="id" value="9326"/>
 				<param name="label" value="$INFO[Container.Viewmode]"/>
-				<param name="onclick" value="Container.NextViewMode"/>
+				<param name="onclick" value="ActivateWindow(1156)"/>  <!-- 0.9.9: the view picker -->
 				<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
+			</include>
+			<include content="Music_Tab">
+				<param name="id" value="9327"/>
+				<param name="label" value="Options"/>
+				<param name="onclick" value="ActivateWindow(1155)"/>  <!-- the Library panel -->
 			</include>
 		</control>
 		<!-- Kodi media-window buttons the tabs click into -->

@@ -47,5 +47,17 @@
 		</include>
 		<include>Noc_Clock</include>
 		<include>Music_HeaderBar</include>
+		<include content="Lib_Panel">
+			<param name="is_video" value="false"/>
+			<param name="kind" value="music"/>
+			<param name="section" value="$LOCALIZE[31202]"/>
+			<param name="view_name" value="$VAR[Music_ViewName]"/>
+			<param name="order_click" value="Container.SetSortDirection"/>
+			<param name="pick_focus" value="Lib_PickFocusMusic"/>
+		</include>
+		<include content="Lib_Picker">
+			<param name="items" value="Lib_PickerMusic"/>
+			<param name="section" value="$LOCALIZE[31202]"/>
+		</include>
 	</controls>
 </window>

@@ -510,12 +510,13 @@
 		<control type="grouplist" id="9000">
 			<left>82</left>
 			<top>184</top>
-			<width>1700</width>
+			<width>1130</width>
 			<height>48</height>
 			<orientation>horizontal</orientation>
 			<itemgap>18</itemgap>
 			<ondown>50</ondown>
 			<onup>50</onup>
+			<onright>9830</onright>
 			<onback>50</onback>
 			<include content="Music_Tab">
 				<param name="id" value="9320"/>
@@ -547,12 +548,6 @@
 				<texture />
 			</control>
 			<include content="Music_Tab">
-				<param name="id" value="9326"/>
-				<param name="label" value="$LOCALIZE[31011]  $VAR[Music_ViewName]"/>
-				<param name="onclick" value="Container.NextViewMode"/>
-				<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
-			</include>
-			<include content="Music_Tab">
 				<param name="id" value="9324"/>
 				<param name="label" value="$LOCALIZE[31010]  $INFO[Container.SortMethod]"/>
 				<param name="onclick" value="SendClick(3)"/>
@@ -565,6 +560,15 @@
 				<param name="visible" value="Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)"/>
 			</include>
 		</control>
+		<include content="Lib_BrassWords">
+			<param name="top" value="176"/>
+			<param name="pick_focus" value="Lib_PickFocusMusic"/>
+			<param name="view_w" value="386"/>
+			<param name="view_label" value="$VAR[Music_ViewName]"/>
+			<param name="onleft" value="9000"/>
+			<param name="onup" value="50"/>
+			<param name="ondown" value="50"/>
+		</include>
 		<control type="button" id="3">
 			<description>Sort by (Kodi)</description>
 			<include>Noc_Hidden</include>

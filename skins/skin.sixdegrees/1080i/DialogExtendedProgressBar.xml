@@ -13,7 +13,8 @@
 			<top>below_bar_top</top>
 			<width>toast_w</width>
 			<height>104</height>
-			<animation effect="slide" start="0,0" end="0,120" time="160" tween="cubic" easing="out" condition="Window.IsVisible(notification)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,120" time="160" tween="cubic" easing="out" condition="[Window.IsVisible(notification)] + !Skin.HasSetting(sixdegrees.reducemotion)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,120" time="0" tween="cubic" easing="out" condition="[Window.IsVisible(notification)] + Skin.HasSetting(sixdegrees.reducemotion)">Conditional</animation>
 			<include content="SD_ToastFrame">
 				<param name="height" value="104"/>
 			</include>

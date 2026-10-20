@@ -23,7 +23,8 @@
 			<left>660</left>
 			<top>180</top>
 			<width>600</width>
-			<height>688</height>
+			<height>892</height>
+			<animation effect="slide" start="0,0" end="0,-24" time="0" condition="Integer.IsGreaterOrEqual(Container(100).NumItems,12)">Conditional</animation>
 			<!-- panel sized to the visible items (power entries depend on the platform) -->
 			<control type="image">
 				<left>0</left>
@@ -55,7 +56,31 @@
 				<width>600</width>
 				<height>680</height>
 				<texture border="8" colordiffuse="surface">sentence/round6.png</texture>
-				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,9)</visible>
+				<visible>Integer.IsEqual(Container(100).NumItems,9)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>748</height>
+				<texture border="8" colordiffuse="surface">sentence/round6.png</texture>
+				<visible>Integer.IsEqual(Container(100).NumItems,10)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>816</height>
+				<texture border="8" colordiffuse="surface">sentence/round6.png</texture>
+				<visible>Integer.IsEqual(Container(100).NumItems,11)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>884</height>
+				<texture border="8" colordiffuse="surface">sentence/round6.png</texture>
+				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,12)</visible>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -70,7 +95,7 @@
 				<left>12</left>
 				<top>56</top>
 				<width>576</width>
-				<height>620</height>
+				<height>824</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>
@@ -115,30 +140,64 @@
 						<onclick>ActivateWindow(addonbrowser)</onclick>
 					</item>
 					<item>
+						<label>Update the library</label>
+						<label2>films, shows, music</label2>
+						<onclick>SetProperty(sentence.libpanel,update,home)</onclick>
+						<onclick>ActivateWindow(1155)</onclick>
+					</item>
+					<item>
+						<label>Clean the library</label>
+						<label2>films, shows, music</label2>
+						<onclick>SetProperty(sentence.libpanel,clean,home)</onclick>
+						<onclick>ActivateWindow(1155)</onclick>
+					</item>
+					<item>
+						<label>Watch live TV</label>
+						<label2>media</label2>
+						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(TVChannels)</onclick>
+						<visible>System.HasPVRAddon</visible>
+					</item>
+					<item>
+						<label>Your favourites</label>
+						<label2>media</label2>
+						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(FavouritesBrowser)</onclick>
+					</item>
+					<item>
+						<label>Browse sources</label>
+						<label2>media</label2>
+						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
+						<onclick>Dialog.Close(1151,true)</onclick>
+						<onclick>ActivateWindow(Videos,sources://video/,return)</onclick>
+					</item>
+					<item>
 						<label>Leave Kodi</label>
 						<label2>power</label2>
-						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
 						<onclick>Quit()</onclick>
 						<visible>System.ShowExitButton</visible>
 					</item>
 					<item>
 						<label>Restart the Shield</label>
 						<label2>power</label2>
-						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]10[/UPPERCASE]</property>
 						<onclick>Reset()</onclick>
 						<visible>System.CanReboot</visible>
 					</item>
 					<item>
 						<label>Switch it off</label>
 						<label2>power</label2>
-						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]11[/UPPERCASE]</property>
 						<onclick>Powerdown()</onclick>
 						<visible>System.CanPowerDown</visible>
 					</item>
 					<item>
 						<label>More ways to stop</label>
 						<label2>power</label2>
-						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
+						<property name="index">[UPPERCASE]12[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(shutdownmenu)</onclick>
 					</item>

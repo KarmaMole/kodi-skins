@@ -384,13 +384,21 @@
 		<control type="label">
 			<left>118</left>
 			<top>161</top>
-			<width>900</width>
+			<width>700</width>
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
 			<label>films  ·  $INFO[Container(8199).NumItems] never played  ·  [COLOR label_hi]oldest first[/COLOR]</label>
 		</control>
 		<include>KS_Clock</include>
+		<!-- the pen word "library" (Includes_Library.xml): Left from the year chips, Back = the films -->
+		<include content="Lib_PenWords">
+			<param name="view_visible" value="false"/>
+			<param name="onup" value="9301"/>
+			<param name="ondown" value="8101"/>
+			<param name="onright" value="8100"/>
+			<param name="onback" value="8101"/>
+		</include>
 
 		<!-- year chips -->
 		<control type="list" id="8100">
@@ -402,7 +410,7 @@
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<onup>9301</onup>
 			<ondown>8101</ondown>
-			<onleft>noop</onleft>
+			<onleft>9830</onleft>
 			<onright>noop</onright>
 			<itemlayout width="52" height="48">
 				<control type="label">
@@ -701,8 +709,8 @@
 			<onup condition="Integer.IsGreater(Container(8100).CurrentItem,1)">Control.Move(8100,-1)</onup>
 			<onup condition="!Integer.IsGreater(Container(8100).CurrentItem,1)">8100</onup>
 			<ondown condition="!String.IsEmpty(Container(8100).ListItemNoWrap(1).Label)">Control.Move(8100,1)</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<include>Lib_OpenLeft</include>
+			<include>Lib_OpenRight</include>
 
 			<itemlayout width="302" height="440">
 				<include content="Unw_Print">
@@ -823,5 +831,10 @@
 			<label>Nothing is waiting: you have played every film you added.</label>
 			<visible>!Integer.IsGreater(Container(8199).NumItems,0) + !Container(8199).IsUpdating</visible>
 		</control>
+		<include content="Lib_Panel">
+			<param name="is_video" value="false"/>
+			<param name="section" value="the unwatched"/>
+			<param name="back_view" value="8101"/>
+		</include>
 	</controls>
 </window>

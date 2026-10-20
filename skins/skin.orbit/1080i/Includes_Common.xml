@@ -463,7 +463,7 @@
 					<bottom>-11</bottom>
 					<texture colordiffuse="text_primary">btn/halo_$PARAM[size].png</texture>
 					<visible>Control.HasFocus($PARAM[id])</visible>
-					<animation effect="zoom" start="92" end="100" center="auto" time="160" tween="cubic" easing="out">Visible</animation>
+					<animation effect="zoom" start="92" end="100" center="auto" time="160" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">Visible</animation>
 				</control>
 				<!-- icon -->
 				<control type="image">

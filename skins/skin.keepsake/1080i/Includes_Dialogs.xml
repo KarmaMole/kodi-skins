@@ -496,6 +496,7 @@
 		<!-- a thin pen line beside a list. params: id, left, top, height, onleft, onright -->
 		<param name="onleft"></param>
 		<param name="onright"></param>
+		<param name="onright2">noop</param>
 		<definition>
 			<control type="scrollbar" id="$PARAM[id]">
 				<left>$PARAM[left]</left>
@@ -507,6 +508,7 @@
 				<texturesliderbarfocus colordiffuse="ink_bold">common/white.png</texturesliderbarfocus>
 				<onleft>$PARAM[onleft]</onleft>
 				<onright>$PARAM[onright]</onright>
+				<onright>$PARAM[onright2]</onright>
 				<orientation>vertical</orientation>
 			</control>
 		</definition>

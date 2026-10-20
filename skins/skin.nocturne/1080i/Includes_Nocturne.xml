@@ -425,7 +425,7 @@
 					<width>$PARAM[size]</width>
 					<height>$PARAM[size]</height>
 					<texture>noc/dust.png</texture>
-					<animation type="Conditional" condition="true" loop="true" reversible="false">
+					<animation type="Conditional" condition="[true] + !Skin.HasSetting(nocturne.reducemotion)" loop="true" reversible="false">
 						<effect type="slide" start="0,0" end="28,-54" time="9000" tween="sine" easing="inout"/>
 						<effect type="slide" start="0,0" end="-28,54" time="9000" delay="9000" tween="sine" easing="inout"/>
 					</animation>
@@ -436,7 +436,7 @@
 					<width>$PARAM[size]</width>
 					<height>$PARAM[size]</height>
 					<texture flipx="true" colordiffuse="b3ffffff">noc/dust.png</texture>
-					<animation type="Conditional" condition="true" loop="true" reversible="false">
+					<animation type="Conditional" condition="[true] + !Skin.HasSetting(nocturne.reducemotion)" loop="true" reversible="false">
 						<effect type="slide" start="0,0" end="-36,30" time="12000" tween="sine" easing="inout"/>
 						<effect type="slide" start="0,0" end="36,-30" time="12000" delay="12000" tween="sine" easing="inout"/>
 					</animation>

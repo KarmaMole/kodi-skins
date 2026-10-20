@@ -1,3 +1,19 @@
+1.0.9 (2026-10-20)
+- Library panel: in every library view, Left past the first item or Right past the last one (and the new OPTIONS
+  word at the end of the header) opens a numbered panel with Update library, Clean library, View, Sort, Order,
+  Show (watched), Search and Library settings - only the rows that apply (no Update / Clean in add-on folders).
+  Back closes it and leaves you on the item you came from.
+- Clean library asks first ("No, leave it as it is" has focus): Kodi's own clean command doesn't ask.
+- VIEW: in the header (and the panel's View row) opens a view picker: each view of the window as a small drawing
+  of its layout, its name, an accent underline on the current one; OK switches, Back keeps it. Movies, TV shows,
+  seasons, episodes and music each list only their own views. (VIEW used to step to the next view.)
+- System menu: Update library and Clean library, with a choice of videos or music.
+
+1.0.8 (2026-10-20)
+- Language file: the strings.po header is valid gettext again (each header line one quoted string ending in \n).
+- System menu: Live TV, Pictures, Favourites and Files (Live TV only when a PVR add-on is enabled); the card grows with the list.
+- Reduce motion now also covers the Home 'newest' row slide and the progress toast: no gliding, everything lands in place.
+
 1.0.7 (2026-10-20)
 - New library view "Poster wall" (VIEW: POSTER WALL in the library header, films, sets, series, seasons).
   Full-screen, edge to edge, posters exact 2:3 and never cropped; the next row peeks in at the bottom and

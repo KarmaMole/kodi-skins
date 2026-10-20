@@ -1,3 +1,19 @@
+0.9.8 (2026-10-21)
+- The header sentence ends "..., or [more]": it opens "Or would you like to..." - update the library (or stop
+  updating it), clean the library, see them another way, sort them another way, turn the order round, show only
+  the unseen / show everything, find something, change the library settings. Left past the first poster or row
+  (or Right past the last) of any film, show or music view opens it too. Update / clean hide in add-on folders.
+- Cleaning asks first ("Clean the films and shows?", focus on "no, leave it as it is"): Kodi's own CleanLibrary
+  runs without asking. Back closes it and puts you back where you were.
+- "as [a grid]" opens "See them as...": a preview of each view that fits the folder, "now" beside the current one.
+- The count moved up into the top line ("HOME / ALL FILMS · 997") to make room for "or [more]".
+- System menu: "Update the library" and "Clean the library" (films and shows, or music).
+
+0.9.7 (2026-10-20)
+- Language file: the strings.po header is valid gettext again (each header line one quoted string ending in \n).
+- System menu: watch live TV, your favourites and browse sources (Live TV only when a PVR add-on is enabled); the card grows with the list.
+- Reduce motion now also covers the progress toast: no gliding, everything lands in place.
+
 0.9.6 (2026-10-20)
 - Author shown as KarmaMole; website link to the showcase.
 

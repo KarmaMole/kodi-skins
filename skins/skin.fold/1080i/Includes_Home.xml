@@ -264,6 +264,7 @@ Window(Home) properties
 		<value>$INFO[Container(9161).ListItem.Rating,Rating [COLOR ink],[/COLOR]   ]Not played yet      $INFO[Container(9161).ListItem.Property(Album_Mood)]</value>
 	</variable>
 	<variable name="Home_Title_9180">
+		<value condition="!String.IsEmpty(Container(9180).ListItem.Property(Title))">$INFO[Container(9180).ListItem.Property(Title)]</value>
 		<value>$INFO[Container(9180).ListItem.Label]</value>
 	</variable>
 	<variable name="Home_Meta_9180">
@@ -1283,6 +1284,26 @@ Window(Home) properties
 						<property name="Desc">Installed add-ons, updates and repositories. Video and music add-ons open from here too.</property>
 						<property name="Tag">What's installed</property>
 						<onclick>ActivateWindow(AddonBrowser)</onclick>
+					</item>
+					<item>
+						<label>Update</label>
+						<label2>Videos · music</label2>
+						<icon>icons/repeat.png</icon>
+						<property name="Desc">Look for new films, episodes and albums in your sources. Choose videos or music.</property>
+						<property name="Tag">Scan the sources</property>
+						<property name="Title">Update library</property>
+						<onclick>SetProperty(fold.libpanel,update,home)</onclick>
+						<onclick>ActivateWindow(1155)</onclick>
+					</item>
+					<item>
+						<label>Clean up</label>
+						<label2>Videos · music</label2>
+						<icon>icons/chapters.png</icon>
+						<property name="Desc">Remove entries whose files are gone. Choose videos or music; it asks before it cleans.</property>
+						<property name="Tag">Tidy up</property>
+						<property name="Title">Clean library</property>
+						<onclick>SetProperty(fold.libpanel,clean,home)</onclick>
+						<onclick>ActivateWindow(1155)</onclick>
 					</item>
 					<item>
 						<label>Favourites</label>

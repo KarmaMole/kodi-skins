@@ -47,8 +47,13 @@
 	<constant name="music_list_h">792</constant>          <!-- 12 rows of 66, ends at 952 -->
 	<constant name="music_panel_x">1264</constant>
 	<constant name="music_panel_art">560</constant>
-	<!-- Header tabs (inside the 120 px top bar, Music.dc.html) -->
-	<constant name="music_tab_top">47</constant>  <!-- centre 65 = the header date's centre (SD_Clock) -->
+	<!-- Header tabs (inside the 120 px top bar). 0.9.9: the tab row needs 850-1030 px and can't share the
+	     route line with "Home - Music" (+ a drilled folder name), Options and the clock, so it sits on its own
+	     line above the route (ends 58, the route's roundel starts at 69); Options stays on the route line. -->
+	<constant name="music_tab_top">22</constant>
+	<constant name="music_tab_left">560</constant>
+	<constant name="music_tab_w">1296</constant>  <!-- right edge 1856 = the page margin and the clock's right edge -->
+	<constant name="music_options_top">70</constant>  <!-- 36 px pill, centre 88 = the route line (video header pills: 89) -->
 	<constant name="music_tab_h">36</constant>
 	<!-- Now-playing bar (DESIGN 7.9) -->
 	<constant name="music_np_top">984</constant>
@@ -504,17 +509,17 @@
 	</include>
 
 	<!-- Header bar of the music library: ALBUMS · ARTISTS · SONGS · GENRES · SORT ↓ · VIEW.
-	     Lives inside the 120 px top bar between the page title and the clock (Music.dc.html), right-aligned
-	     inside 600..1530 so it ends before the date + clock block (the date starts at ~1555 on device;
-	     same box as MyVideoNav's filter bar) and never reaches the page title + folder caption.
+	     Lives on its own line at the top of the 120 px top bar, right-aligned to the page margin (560..1856),
+	     above the "Home - Music" route line: beside the route it overlapped the route by ~60 px (0.9.8) and
+	     can't fit there with a folder caption, the Options pill and the clock (0.9.9).
 	     Tabs swap the node in place with Container.Update(path) - no replace, so Back walks the tab
 	     history and leaves the window at the start node (Kodi's own OnBack; a skin onback action
 	     would run AND still let Kodi handle Back). Kodi ids: 3 sort by (SendClick opens Kodi's sort chooser), 4 sort order. -->
 	<include name="Music_HeaderBar">
 		<control type="grouplist" id="9000">
-			<left>600</left>
+			<left>music_tab_left</left>
 			<top>music_tab_top</top>
-			<width>930</width>
+			<width>music_tab_w</width>
 			<height>music_tab_h</height>
 			<orientation>horizontal</orientation>
 			<align>right</align>
@@ -522,7 +527,7 @@
 			<onup>noop</onup>
 			<ondown>50</ondown>
 			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<onright>9832</onright>
 			<onback>50</onback>
 			<include content="Music_Tab">
 				<param name="id" value="9320"/>
@@ -564,13 +569,30 @@
 				<param name="onclick" value="Container.SetSortDirection"/>
 				<param name="visible" value="Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)"/>
 			</include>
-			<include content="Music_Tab">
-				<param name="id" value="9326"/>
-				<param name="label" value="View: $INFO[Container.Viewmode]"/>
-				<param name="onclick" value="Container.NextViewMode"/>
-				<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
-			</include>
+			<!-- View: opens the view picker (Includes_Library.xml); the Music_Tab look, written out for its actions -->
+			<control type="button" id="9326">
+				<width>auto</width>
+				<height>music_tab_h</height>
+				<font>caps_20</font>
+				<textcolor>ink2</textcolor>
+				<focusedcolor>on_ink</focusedcolor>
+				<textoffsetx>10</textoffsetx>
+				<aligny>center</aligny>
+				<label>View: $INFO[Container.Viewmode]</label>
+				<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+				<texturenofocus />
+				<onclick>SetProperty(sixdegrees.pick.from,rail,home)</onclick>
+				<include>Lib_PickFocusMusic</include>
+				<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
+			</control>
 		</control>
+		<!-- the station-style Options pill on the route line, left of the clock (as in the video header) -->
+		<include content="Lib_OptionsPillAt">
+			<param name="left" value="1548"/>
+			<param name="top" value="music_options_top"/>
+			<param name="onleft" value="9000"/>
+			<param name="ondown" value="50"/>
+		</include>
 		<!-- Kodi media-window buttons the tabs click into -->
 		<control type="button" id="3">
 			<description>Sort by (Kodi)</description>

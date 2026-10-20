@@ -633,7 +633,10 @@ def main():
     L += cast_arc()
     L += clock_rotation()
     L.append("</includes>")
-    OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
+    # 0.9.8: the arc glides honour Reduce motion (items land in place and crossfade instead)
+    from rm_guard import guard_text
+    text, _n = guard_text("\n".join(L) + "\n", "Skin.HasSetting(orbit.reducemotion)")
+    OUT.write_text(text, encoding="utf-8")
     print(f"wrote {OUT} ({len(L)} lines)")
     for nm, g in GEOM.items():
         s = arc_slots(g["cx"], g["cy"], g["R"], g["F"], g["H"], g["aspect"], g["extra_h"])

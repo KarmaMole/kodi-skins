@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.majan" version="1.0.7" name="Majan" provider-name="KarmaMole">
+<addon id="skin.majan" version="1.0.9" name="Majan" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Optional: artwork-background blur service (SPEC section 8). The skin runs without it. -->
@@ -16,7 +16,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#majan</website>
-		<news>v1.0.7 - New Poster wall view: full-screen, edge to edge, with settings for size, gap, border and a delayed info card.</news>
+		<news>v1.0.9 - Library panel (Left or Right past the edge of a view, or OPTIONS): update and clean the library, view, sort, order, show, search; VIEW opens a picker with previews; Update / Clean library in the System menu.</news>
 		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>

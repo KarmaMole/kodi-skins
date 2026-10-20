@@ -23,25 +23,66 @@
 		<value condition="Integer.IsGreaterOrEqual(Container(9623).NumItems,2)">$VAR[St_Cast3]</value>
 		<value>$VAR[St_Cast1]</value>
 	</variable>
-	<variable name="St_Excl">
-		<value condition="!String.Contains(ListItem.Title,&amp;)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[ListItem.Title]%22%5D%7D</value>
+	<variable name="St_UpQ">
+		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(Container(9601).ListItem.Property(studio.0)) + !String.Contains(Container(9601).ListItem.Property(studio.0),&amp;) + !String.Contains(Container(9601).ListItem.Property(studio.0),%)">$ESCINFO[Container(9601).ListItem.Property(studio.0)]</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow)">%22%22</value>
+		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(director.0)) + !String.Contains(Container(9601).ListItem.Property(director.0),&amp;) + !String.Contains(Container(9601).ListItem.Property(director.0),%)">$ESCINFO[Container(9601).ListItem.Property(director.0)]</value>
+		<value condition="$EXP[St_Match]">%22%22</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Studio) + !String.Contains(ListItem.Studio,&amp;) + !String.Contains(ListItem.Studio,%)">$ESCINFO[ListItem.Studio]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">%22%22</value>
+		<value condition="!String.IsEmpty(ListItem.Director) + !String.Contains(ListItem.Director,&amp;) + !String.Contains(ListItem.Director,%)">$ESCINFO[ListItem.Director]</value>
+		<value>%22%22</value>
 	</variable>
-	<variable name="St_Path_up_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Up]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_right_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Cast0]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_left_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Co]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_down_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Genre]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Cast0Q">
+		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(cast.0.name)) + !String.Contains(Container(9601).ListItem.Property(cast.0.name),&amp;) + !String.Contains(Container(9601).ListItem.Property(cast.0.name),%)">$ESCINFO[Container(9601).ListItem.Property(cast.0.name)]</value>
+		<value condition="$EXP[St_Match]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="St_Cast1Q">
+		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(cast.1.name)) + !String.Contains(Container(9601).ListItem.Property(cast.1.name),&amp;) + !String.Contains(Container(9601).ListItem.Property(cast.1.name),%)">$ESCINFO[Container(9601).ListItem.Property(cast.1.name)]</value>
+		<value condition="$EXP[St_Match]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="St_Cast2Q">
+		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(cast.2.name)) + !String.Contains(Container(9601).ListItem.Property(cast.2.name),&amp;) + !String.Contains(Container(9601).ListItem.Property(cast.2.name),%)">$ESCINFO[Container(9601).ListItem.Property(cast.2.name)]</value>
+		<value condition="$EXP[St_Match]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="St_Cast3Q">
+		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(cast.3.name)) + !String.Contains(Container(9601).ListItem.Property(cast.3.name),&amp;) + !String.Contains(Container(9601).ListItem.Property(cast.3.name),%)">$ESCINFO[Container(9601).ListItem.Property(cast.3.name)]</value>
+		<value condition="$EXP[St_Match]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="St_GenreQ">
+		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(genre.0)) + !String.Contains(Container(9601).ListItem.Property(genre.0),&amp;) + !String.Contains(Container(9601).ListItem.Property(genre.0),%)">$ESCINFO[Container(9601).ListItem.Property(genre.0)]</value>
+		<value condition="$EXP[St_Match]">%22%22</value>
+		<value>%22%22</value>
+	</variable>
+	<variable name="St_CoQ">
+		<value condition="Integer.IsGreaterOrEqual(Container(9621).NumItems,2)">$VAR[St_Cast1Q]</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(9622).NumItems,2)">$VAR[St_Cast2Q]</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(9623).NumItems,2)">$VAR[St_Cast3Q]</value>
+		<value>$VAR[St_Cast1Q]</value>
+	</variable>
+	<variable name="St_Excl">
+		<value condition="!String.IsEmpty(ListItem.Title) + !String.Contains(ListItem.Title,&amp;) + !String.Contains(ListItem.Title,%)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B$ESCINFO[ListItem.Title]%5D%7D</value>
+	</variable>
+	<variable name="St_Path_up_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_right_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_left_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_CoQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_down_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_GenreQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
 	<variable name="St_Path_downy_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_p1_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Cast1]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_p2_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Cast2]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_p3_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Cast3]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_up_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Up]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_right_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Cast0]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_left_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Co]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_down_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Genre]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_p1_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast1Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_p2_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast2Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_p3_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast3Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_up_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_right_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_left_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_CoQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_down_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_GenreQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
 	<variable name="St_Path_downy_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_p1_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Cast1]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_p2_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Cast2]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_p3_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$VAR[St_Cast3]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_p1_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast1Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_p2_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast2Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_p3_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast3Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
 	<variable name="St_Path_up">
 		<value condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)]">videodb://movies/sets/</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$VAR[St_Path_up_tvshows]</value>

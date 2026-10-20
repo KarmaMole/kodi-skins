@@ -11,10 +11,13 @@
 
 	Kodi id contract (Estuary Omega MyVideoNav.xml + CGUIWindowVideoNav): views listed in <views>;
 	3 sort-by / 4 sort-order (hidden, clicked by the header pills); 14 watched toggle (SendClick).
-	Daylight ids: 9400 nav pills group (9401 For now ... 9406 system menu), 9000 card header pills
+	Daylight ids: 9400 nav pills group (9401 For now ... 9406 system menu, 9407 Options = Library panel 1160),
+	9000 card header pills
 	(menucontrol): 9322 Unwatched toggle, 9323 In progress (TV root), 9324 Sort, 9325 order, 9326 View (9327 in episodes, wider).
 
 	Focus map: nav 9400 -Down-> header pills 9000 -Down-> view. View -Up (top row)-> 9000 -Up-> 9400.
+	0.9.8: Library panel 1160 = Left / Right past the edges of any view, past either end of the pills,
+	or Options (9407, top line). View pills 9326 / 9327 open the view picker 1161.
 	Back = Kodi parent folder; Back on the pills returns to the view.
 	Borrowed colour: TMDb Helper reads the focused item of the media window (ListItem prefix).
 -->
@@ -493,8 +496,8 @@
 			<itemgap>10</itemgap>
 			<onup>9400</onup>
 			<ondown>50</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.8: past either end of the pills = Library panel -->
+			<onright>ActivateWindow(1160)</onright>
 			<onback>50</onback>
 			<control type="button" id="9323">
 				<include content="VidView_PillFixed"><param name="w" value="128"/></include>
@@ -524,14 +527,14 @@
 			<control type="button" id="9326">
 				<include content="VidView_PillFixed"><param name="w" value="124"/></include>
 				<label>View: $INFO[Container.Viewmode]</label>
-				<onclick>Container.NextViewMode</onclick>
+				<onclick>ActivateWindow(1161)</onclick>
 				<visible>Integer.IsGreater(Container.ViewCount,1) + !Container.Content(episodes)</visible>
 			</control>
 			<!-- episodes: Episodes / List -->
 			<control type="button" id="9327">
 				<include content="VidView_PillFixed"><param name="w" value="164"/></include>
 				<label>View: $INFO[Container.Viewmode]</label>
-				<onclick>Container.NextViewMode</onclick>
+				<onclick>ActivateWindow(1161)</onclick>
 				<visible>Integer.IsGreater(Container.ViewCount,1) + Container.Content(episodes)</visible>
 			</control>
 		</control>
@@ -821,8 +824,8 @@
 			<orientation>vertical</orientation>
 			<onup>9000</onup>
 			<ondown>noop</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.8: past the first / last column = Library panel -->
+			<onright>ActivateWindow(1160)</onright>
 			<preloaditems>2</preloaditems>
 			<scrolltime tween="cubic" easing="out">260</scrolltime>
 			<viewtype label="Grid">icon</viewtype>
@@ -854,8 +857,8 @@
 			<orientation>vertical</orientation>
 			<onup>9000</onup>
 			<ondown>noop</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.8: past the first / last column = Library panel -->
+			<onright>ActivateWindow(1160)</onright>
 			<preloaditems>2</preloaditems>
 			<scrolltime tween="cubic" easing="out">260</scrolltime>
 			<viewtype label="Wall">wrap</viewtype>
@@ -957,8 +960,8 @@
 			<orientation>vertical</orientation>
 			<onup>9000</onup>
 			<ondown>noop</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.8: past the first / last column = Library panel -->
+			<onright>ActivateWindow(1160)</onright>
 			<preloaditems>2</preloaditems>
 			<scrolltime tween="cubic" easing="out">220</scrolltime>
 			<viewtype label="Episodes">list</viewtype>
@@ -986,8 +989,8 @@
 			<orientation>vertical</orientation>
 			<onup>9000</onup>
 			<ondown>noop</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.8: past the first / last column = Library panel -->
+			<onright>ActivateWindow(1160)</onright>
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<viewtype label="535">list</viewtype>
 			<itemlayout width="1076" height="76">
@@ -1018,6 +1021,7 @@
 			<param name="ondown" value="9000"/>
 			<param name="active2" value="$EXP[VidView_IsFilmsPage]"/>
 			<param name="active3" value="$EXP[VidView_IsShowsPage]"/>
+			<param name="options" value="true"/>
 		</include>
 	</include>
 </includes>

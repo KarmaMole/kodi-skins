@@ -629,9 +629,9 @@ def legacy():
 
 def main():
     if MEDIA.exists():
-        # keep the ring frame sets (make_rings.py) if present
+        # keep the ring frame sets (make_rings.py) if present; views/ is rebuilt below
         for sub in MEDIA.iterdir():
-            if sub.name not in ("rings", "ground"):
+            if sub.name not in ("rings", "ground", "views"):
                 shutil.rmtree(sub) if sub.is_dir() else sub.unlink()
     basics()
     gradients()
@@ -648,6 +648,8 @@ def main():
     legacy()
     import make_ground  # deep-blue full-screen grounds (media/ground/)
     make_ground.main()
+    import make_view_previews  # schematic view-picker previews (media/views/, needs rings + ground)
+    make_view_previews.main()
     n = sum(1 for _ in MEDIA.rglob("*.png") if "rings" not in _.parts)
     print(f"wrote {n} textures to {MEDIA}")
 

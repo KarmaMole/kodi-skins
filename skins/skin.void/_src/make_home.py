@@ -51,6 +51,7 @@ STATIC_ITEMS = {
          "Library", "ActivateWindow(Music,musicdb://albums/,return)", "Library.HasContent(music)"),
         ("Music videos", "$INFO[Window(Home).Property(MusicVideos.Count),, videos]",
          "Library", "ActivateWindow(Videos,videodb://musicvideos/titles/,return)", "Library.HasContent(musicvideos)"),
+        ("Live TV", "Channels and the guide", "Library", "ActivateWindow(TVChannels)", "System.HasPVRAddon"),
         ("Weather", "$INFO[Weather.Temperature]$INFO[Weather.Conditions,[COLOR sep_light]  ·  [/COLOR],]$INFO[Weather.Location,[COLOR sep_light]  ·  [/COLOR],]",
          "Outside", "ActivateWindow(Weather)", "!String.IsEmpty(Weather.Conditions)"),
         ("Add-ons", "Video, music and program add-ons", "Elsewhere", "ActivateWindow(AddonBrowser,addons://sources/video/,return)", ""),
@@ -58,7 +59,7 @@ STATIC_ITEMS = {
         ("Pictures", "Photo sources", "Elsewhere", "ActivateWindow(Pictures)", ""),
         ("Files", "Browse video sources", "Elsewhere", "ActivateWindow(Videos,sources://video/,return)", ""),
         ("Settings", "Kodi, the skin, your profile", "System", "ActivateWindow(Settings)", ""),
-        ("Power", "Quit, restart, reboot, sleep", "System", "ActivateWindow(1151)", ""),
+        ("System", "Update or clean the library, power", "System", "ActivateWindow(1151)", ""),
     ],
     9107: [
         ("Search", "Films, shows, episodes, people and music", "Find", "ActivateWindow(1150)", ""),

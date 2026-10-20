@@ -1,3 +1,7 @@
+0.9.7 (2026-10-20)
+- Install fix: the optional TMDb Helper dependency now accepts any version from 4.0.0, so the skin installs
+  next to the 5.x TMDb Helper from Kodi's official repository ("unable to match dependency" on Kodi 21.3).
+
 v0.9.6 (2026-10-19)
 - Episodes: the header reads "Ash vs Evil Dead · Season 2" in the place-you-are word; the word beside it names the
   sort ("In episode order") and is the one that opens the sort choices (the season word used to open them).

@@ -1,3 +1,7 @@
+0.9.5 (2026-10-20)
+- Install fix: the optional TMDb Helper dependency now accepts any version from 4.0.0, so the skin installs
+  next to the 5.x TMDb Helper from Kodi's official repository ("unable to match dependency" on Kodi 21.3).
+
 0.9.4 (2026-10-20)
 - First public release of the 0.9.3 map-key work (the earlier public 0.9.3 build predated it), relicensed GPL-2.0-or-later.
 

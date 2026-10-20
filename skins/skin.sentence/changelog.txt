@@ -1,3 +1,7 @@
+0.9.5 (2026-10-20)
+- Install fix: the optional TMDb Helper dependency now accepts any version from 4.0.0, so the skin installs
+  next to the 5.x TMDb Helper from Kodi's official repository ("unable to match dependency" on Kodi 21.3).
+
 v0.9.4 (2026-10-19)
 - Nothing after a phrase moves when it takes focus: the comma / full stop / colon stays in one place and sits
   inside the lilac block, in ink (Home sentence, count line, page 2, info). It used to jump 17 px.

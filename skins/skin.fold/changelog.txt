@@ -1,3 +1,7 @@
+0.9.4 (2026-10-20)
+- Install fix: the optional TMDb Helper dependency now accepts any version from 4.0.0, so the skin installs
+  next to the 5.x TMDb Helper from Kodi's official repository ("unable to match dependency" on Kodi 21.3).
+
 v0.9.3 (2026-10-19)
 - Home card lift is smoother: both list layouts are the resting size (no row reflow); the lift is one zoom + tilt on one group, 180 ms sine out (was 280 ms back-overshoot).
 - Lifted-card shadow is pre-sized and only fades (no scale); the old card's untilt is quicker (140 ms).

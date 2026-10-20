@@ -113,7 +113,15 @@ def main() -> None:
     repo_ver = next(v for a, v, _, _ in rows if a == REPO_ID)
     repo_zip = f"{REPO_ID}.zip"  # stable name for links and docs; Kodi reads the version from addon.xml
     shutil.copy2(out / REPO_ID / f"{REPO_ID}-{repo_ver}.zip", out / repo_zip)
-    (out / "index.html").write_text(page(rows, repo_zip), encoding="utf-8")
+    # the showcase (site/) is the front page when present; the plain install page stays at install.html.
+    # To go back to the plain front page, delete site/ (or `git revert` the commit that added it).
+    plain = page(rows, repo_zip)
+    site = ROOT / "site"
+    if site.is_dir():
+        shutil.copytree(site, out, dirs_exist_ok=True)
+        (out / "install.html").write_text(plain, encoding="utf-8")
+    else:
+        (out / "index.html").write_text(plain, encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")
     print(f"-> {out} ({len(rows)} add-ons)")
 

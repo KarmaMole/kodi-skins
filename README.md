@@ -36,6 +36,7 @@ Every skin works on its own. A few features get richer when these optional add-o
 |---|---|
 | `skins/skin.<id>/` | each skin, the add-on itself; `_src/` holds the generators for its fonts, textures and generated XML |
 | `repository.karmamole/` | the Kodi repository add-on |
+| `site/` | the showcase page served as the front page of https://karmamole.github.io/kodi-skins/ (the plain install page moves to `install.html`; delete `site/` to go back) |
 | `tools/build_repo.py` | builds the Kodi repository (zips, `addons.xml`, landing page) |
 | `.github/workflows/publish.yml` | rebuilds and publishes the repository to GitHub Pages on every push to `main` |
 

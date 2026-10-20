@@ -5,7 +5,7 @@
 Output layout (what Kodi's repository add-on expects):
   _site/addons.xml, _site/addons.xml.md5          every add-on's addon.xml, concatenated
   _site/<id>/<id>-<version>.zip                    installable zips (top folder = <id>/)
-  _site/repository.omarkamel-<version>.zip         the repository add-on, for the first manual install
+  _site/repository.karmamole-<version>.zip         the repository add-on, for the first manual install
   _site/index.html                                 a small landing page with the install steps
 
 Zips leave out generator sources (_src/) and editor junk, like the release packager in the studio.
@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EXCLUDE_DIRS = {"_src", ".git", "__pycache__", "docs", ".vscode", ".idea", "previews"}
 EXCLUDE_FILES = ["*.psd", "*.afdesign", "*.xcf", "*.kra", "*.ai", "*.sketch", "*.fig", "Thumbs.db",
                  ".DS_Store", "*.pyc", ".gitignore", ".gitattributes"]
-REPO_ID = "repository.omarkamel"
+REPO_ID = "repository.karmamole"
 
 
 def addon_dirs() -> list[Path]:

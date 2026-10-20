@@ -1,3 +1,6 @@
+0.9.4 (2026-10-20)
+- First public release of the 0.9.3 map-key work (the earlier public 0.9.3 build predated it), relicensed GPL-2.0-or-later.
+
 0.9.3 (2026-10-20)
 - Map key: the "also on another line" sample dot is neutral grey (a line colour read as a line), and the row
   follows the map: "also on another line" with the grey dot when a station on screen carries an interchange

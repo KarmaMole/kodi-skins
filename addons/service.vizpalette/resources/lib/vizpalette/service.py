@@ -28,7 +28,7 @@ from . import palette as P
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
 
-PACK_DIR = 'special://profile/addon_data/visualization.shadertoy/omar/'  # default of the "packdir" setting
+SHADERTOY_DATA = 'special://profile/addon_data/visualization.shadertoy/'  # searched when the "packdir" setting is empty
 HOME = xbmcgui.Window(10000)
 PROPS = ['VizPalette.Color%d' % i for i in range(1, 5)] + ['VizPalette.Source']
 PROFILE = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
@@ -113,7 +113,17 @@ def pack_dir():
         d = xbmcaddon.Addon().getSettingString('packdir')
     except Exception:  # noqa: BLE001
         d = ''
-    return xbmcvfs.translatePath(d or PACK_DIR)
+    if d:
+        return xbmcvfs.translatePath(d)
+    # Empty setting: use the first folder under Shadertoy's add-on data that holds a presets.json
+    base = xbmcvfs.translatePath(SHADERTOY_DATA)
+    try:
+        for name in sorted(os.listdir(base)):
+            if os.path.isfile(os.path.join(base, name, 'presets.json')):
+                return os.path.join(base, name, '')
+    except OSError:
+        pass
+    return base
 
 
 def publish(pal, source):

@@ -5,7 +5,7 @@
             <group id="1">
                 <setting id="packdir" type="path" label="32001" help="32002">
                     <level>0</level>
-                    <default>special://profile/addon_data/visualization.shadertoy/omar/</default>
+                    <default></default>
                     <constraints>
                         <writable>false</writable>
                         <allowempty>true</allowempty>

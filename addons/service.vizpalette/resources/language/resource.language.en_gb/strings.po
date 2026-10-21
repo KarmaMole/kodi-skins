@@ -17,5 +17,5 @@ msgid "Shadertoy pack folder"
 msgstr ""
 
 msgctxt "#32002"
-msgid "The folder that holds your Shadertoy pack's presets.json. The palette and cover textures are written there. Skins get the colours either way."
+msgid "The folder that holds your Shadertoy pack's presets.json. Leave empty to find it automatically in Shadertoy's add-on data. The palette and cover textures are written there. Skins get the colours either way."
 msgstr ""

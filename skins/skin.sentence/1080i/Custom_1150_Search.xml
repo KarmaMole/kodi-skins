@@ -12,6 +12,8 @@
 	<defaultcontrol always="true">9099</defaultcontrol>
 	<backgroundcolor>ground</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
+	<!-- the encoded query (Includes_Search.xml) must not outlive the window: a stale one would show old rows -->
+	<onunload>ClearProperty(Sentence.Search.Encoded,home)</onunload>
 	<controls>
 		<!-- Opens the keyboard on arrival: the window starts focused on this invisible button, whose
 		     onfocus moves to the field and clicks it (onload/AlarmClock clicks were lost on the Shield).
@@ -22,7 +24,6 @@
 			<width>1</width>
 			<height>1</height>
 			<texturefocus/>
-			<texturenofocus/>
 			<onfocus>SetFocus(9001)</onfocus>
 			<onfocus condition="!$EXP[Search_HasQuery]">Action(Select)</onfocus>  <!-- SendClick does not open an edit field's keyboard; Select does -->
 			<visible allowhiddenfocus="true">false</visible>
@@ -32,6 +33,7 @@
 			<param name="title" value="Find"/>
 		</include>
 		<include>Sen_Clock</include>
+		<include>Search_Encoder</include>
 		<include>Search_Query</include>
 		<include>Search_Results</include>
 	</controls>

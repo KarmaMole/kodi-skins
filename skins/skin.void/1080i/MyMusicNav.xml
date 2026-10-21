@@ -24,7 +24,7 @@
 			</include>
 			<include>LibPanel_HeaderWord</include>
 		</control>
-		<include content="Void_View50"><param name="viewlabel" value="Index"/><param name="libpanel" value="true"/></include>
+		<include content="Void_View50"><param name="viewlabel" value="31217"/><param name="libpanel" value="true"/></include>
 		<include>Void_View52</include>
 		<include content="Void_LibraryEmpty">
 			<param name="hint" value="Up for Albums, Artists, Songs or Genres."/>

@@ -103,7 +103,6 @@
 			<width>745</width>
 			<height>124</height>
 			<font>body_26</font>
-			<textcolor>body</textcolor>
 			<label>$VAR[Music_InfoDescription]</label>
 			<autoscroll delay="9000" time="3000" repeat="10000">true</autoscroll>
 		</control>
@@ -118,19 +117,19 @@
 			<ondown>50</ondown>
 			<control type="button" id="9008">
 				<include>VidInfo_PrimaryLook</include>
-				<label>play it</label>
+				<label>$LOCALIZE[31316]</label>
 				<onclick>SendClick(8)</onclick>
 				<visible>Control.IsVisible(8)</visible>
 			</control>
 			<control type="button" id="9012">
 				<include>VidInfo_PrimaryLook</include>
-				<label>play them all</label>
+				<label>$LOCALIZE[31317]</label>
 				<onclick>PlayMedia(musicdb://artists/$INFO[ListItem.DBID]/,isdir)</onclick>
 				<visible>$EXP[Music_InfoIsArtist] + Integer.IsGreater(ListItem.DBID,0)</visible>
 			</control>
 			<control type="button" id="9011">
 				<include>VidInfo_SecondaryLook</include>
-				<label>shuffle</label>
+				<label>$LOCALIZE[31318]</label>
 				<onclick>$VAR[Music_InfoShuffleAction]</onclick>
 				<onclick>PlayerControl(RandomOn)</onclick>
 				<visible>[$EXP[Music_InfoIsAlbum] | $EXP[Music_InfoIsArtist]] + Integer.IsGreater(ListItem.DBID,0)</visible>
@@ -143,7 +142,7 @@
 			</control>
 			<control type="button" id="9006">
 				<include>VidInfo_SecondaryLook</include>
-				<label>refresh</label>
+				<label>$LOCALIZE[31319]</label>
 				<onclick>SendClick(6)</onclick>
 				<visible>Control.IsVisible(6)</visible>
 			</control>

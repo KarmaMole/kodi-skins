@@ -40,12 +40,10 @@ FONTS = [
     ("disp_132", DISP, 132, 124),
     ("disp_112", DISP, 112, 108),
     ("disp_96", DISP, 96, 94),
-    ("disp_80", DISP, 80, 80),
     ("disp_72", DISP, 72, 72),
     ("disp_64", DISP, 64, 64),
     ("disp_60", DISP, 60, None),
     ("disp_50", DISP, 50, None),
-    ("disp_44", DISP, 44, None),
     # headings (700 opsz 60, -.025em)
     ("head_50", HEAD, 50, 54),
     ("head_40", HEAD, 40, 46),
@@ -55,7 +53,6 @@ FONTS = [
     ("light_34", LIGHT, 34, 42),
     ("light_32", LIGHT, 32, 40),
     ("light_30", LIGHT, 30, 38),
-    ("light_26", LIGHT, 26, 34),
     # body (400 opsz 24)
     ("body_28", REG, 28, 40),
     ("body_26", REG, 26, 37),
@@ -64,7 +61,6 @@ FONTS = [
     ("body_22", REG, 22, 31),
     ("body_20", REG, 20, 28),
     # semibold names / card titles
-    ("sans_32_semi", SEMI, 32, 40),
     ("sans_28_semi", SEMI, 28, 36),
     ("sans_26_semi", SEMI, 26, 34),
     ("sans_24_semi", SEMI, 24, 28),
@@ -73,31 +69,23 @@ FONTS = [
     # die-cut tabs (600, +.06em, caps)
     ("tab_26", TAB, 26, None),
     ("tab_22", TAB, 22, None),
-    ("tab_20", TAB, 20, None),
     # action words (800, caps)
-    ("word_40", WORD, 40, None),
     ("word_36", WORD, 36, None),
-    ("word_32", WORD, 32, None),
     ("word_26", WORD, 26, None),
-    ("word_22", WORD, 22, None),
     # mono captions (Plex Mono +.12em caps)
     ("caps_20", CAPS, 20, 32),
     ("caps_22", CAPS, 22, 34),
     ("caps_20_b", CAPSB, 20, 32),
     ("caps_22_b", CAPSB, 22, 34),
     ("meta_22", META, 22, None),
-    ("meta_20", META, 20, None),
     # numbers (Plex Mono)
-    ("num_48", NUM, 48, None),
     ("num_38", NUM, 38, None),
     ("num_34", NUM, 34, None),
     ("num_26", NUM, 26, None),
     ("num_22", NUM, 22, None),
     ("num_20", NUM, 20, None),
     ("numr_20", NUMR, 20, None),
-    ("numr_22", NUMR, 22, None),
     # keyboard keys
-    ("key_32", SEMI, 32, None),
     # legacy names used by Kodi core / add-on dialogs (Estuary contract)
     ("font10", REG, 21, None),
     ("font12", REG, 23, None),
@@ -115,9 +103,16 @@ FONTS = [
 ]
 
 
+# Estuary font names kept for third-party script windows (add-on dialogs ask for them by name; Kodi only falls
+# back to font13). kdk (the Kodi repository review bot) reports them as unused: each line carries a kdk-ignore.
+ESTUARY_ALIASES = {"font10", "font12", "font14", "font27", "font30", "font37", "font45", "font52_title",
+                   "font45_title", "font36_title", "font30_title", "font25_title"}
+KDK_ALIAS = " <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->"
+
+
 def line(name, file, size, lh):
     sp = f"<linespacing>{ls(file, lh, size)}</linespacing>" if lh else ""
-    return f"\t\t<font><name>{name}</name><filename>{file}</filename><size>{size}</size>{sp}</font>"
+    return f"\t\t<font><name>{name}</name><filename>{file}</filename><size>{size}</size>{sp}</font>" + (KDK_ALIAS if name in ESTUARY_ALIASES else "")
 
 
 def main():

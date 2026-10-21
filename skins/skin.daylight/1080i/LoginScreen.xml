@@ -89,7 +89,6 @@
 					<width>240</width>
 					<height>40</height>
 					<font>ui_22_bold</font>
-					<textcolor>$VAR[DL_Ink]</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 				</control>
 			</focusedlayout>
@@ -111,8 +110,6 @@
 			<height>dialog_row_h</height>
 			<label>$LOCALIZE[31022]</label>
 			<font>button_22_semibold</font>
-			<textcolor>$VAR[DL_Ink]</textcolor>
-			<focusedcolor>$VAR[DL_OnAccent]</focusedcolor>
 			<align>center</align>
 			<textoffsetx>16</textoffsetx>
 			<texturefocus border="10" colordiffuse="$VAR[DL_Accent]">common/rect_square.png</texturefocus>

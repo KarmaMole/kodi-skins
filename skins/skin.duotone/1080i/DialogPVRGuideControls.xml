@@ -25,7 +25,7 @@
 				<param name="left" value="0"/>
 				<param name="top" value="0"/>
 				<param name="width" value="screen_w"/>
-				<param name="color" value="ink"/>
+				<param name="color" value="$VAR[ink]"/>
 			</include>
 			<!-- programmes -->
 			<include content="Misc_Caption">
@@ -152,7 +152,7 @@
 				<height>30</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText3]</textcolor>
-				<label>Jump through the guide  ·  Back to close</label>
+				<label>$LOCALIZE[31313]</label>
 			</control>
 		</control>
 	</controls>

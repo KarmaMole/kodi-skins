@@ -24,7 +24,7 @@
 				<param name="sub" value="$INFO[Container.NumItems,, items]$INFO[Container.TotalTime,  ·  ,]"/>
 			</include>
 		</control>
-		<include content="Void_View50"><param name="viewlabel" value="Index"/></include>
+		<include content="Void_View50"><param name="viewlabel" value="31217"/></include>
 		<include content="Void_LibraryEmpty">
 			<param name="hint" value="The queue is empty."/>
 		</include>

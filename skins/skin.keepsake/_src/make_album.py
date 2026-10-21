@@ -1,6 +1,6 @@
 """Generate 1080i/Includes_Album.xml: Keepsake's album pieces with the pixel maths done here, not in XML.
 
-  KS_Page                 the open album (paper_spread.jpg) / KS_PageSingle (paper_page.jpg)
+  KS_Page                 the open album (paper_spread.jpg)
   KS_Stamp<s>             the orange LCD date imprint at size s: haze + glow2 + glow1 + core labels
                           params: label, right (px from parent right to the text box right), bottom (px from parent
                           bottom to the digits' baseline), visible.  Width of "'26~10~18" = 6.48 x size.
@@ -10,7 +10,7 @@
                           photo), stamp (label), stamped (condition), corners (condition), lift (condition: big
                           shadow), aspect, title (handwritten on the blank print when there is no art)
   KS_TiltItem             itemlayout / static tilt by ListItem.CurrentItem's last digit (hand-placed, fixed per slot)
-  KS_TiltFocus            focusedlayout: tilt at rest, straighten + lift on Focus, back on Unfocus. param zoom
+  KS_TiltFocus            focusedlayout, while the list has focus: straighten (tilted) / lift (straight). params focus, zoom
   KS_TiltFixed            a fixed tilt for one-off prints. param angle (Kodi degrees, + = counter-clockwise)
   KS_PenProgress<w>       pen progress line: dotted track (native size), pen stroke fill, tick. params: info, visible
   KS_PenWordLook          look of a handwritten focusable word (underline on focus)
@@ -21,12 +21,16 @@ Usage: python skins/skin.keepsake/_src/make_album.py
 from __future__ import annotations
 
 from pathlib import Path
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "Includes_Album.xml"
 
 # CSS tilt per last digit of the item index (mockups: -1.8, 1.6, -1.2, 2.0, -1.5 ...), Kodi = -CSS
 TILT_CSS = {1: -1.8, 2: 1.6, 3: 1.4, 4: -1.2, 5: 2.0, 6: -1.5, 7: -1.0, 8: 1.9, 9: 1.2, 0: -1.6}
 STAMP_SIZES = (19, 20, 22, 26, 30, 34, 44)
+# sizes the skin calls (kdk flags unused includes); Font.xml has the fonts for every STAMP_SIZES entry
+STAMP_USED = (19, 20, 22, 26, 34)
+LCD_USED = (22, 26, 30, 34, 44)
 STAMP_EM = 6.481        # width of "'26~10~18" in em (bar 385 + 6 digits x 861 + 2 gaps x 465) / 1000
 ASC = 1.15              # stamp fonts: baseline 1.15 em below the label top, line 1.3 em
 
@@ -54,7 +58,7 @@ PRINTS = {
     "InstantL": (460, 460, 22, 26, 46, "m", 104),
 }
 SHADOW = {"s": (24, 36, "shadow_s.png"), "m": (40, 52, "shadow_m.png"), "l": (64, 84, "shadow_l.png")}
-PROGRESS_W = (180, 220, 300, 360, 520, 750, 1100)
+PROGRESS_W = (180, 220, 300, 750)
 
 
 def stamp(s: int) -> list[str]:
@@ -79,8 +83,13 @@ def stamp(s: int) -> list[str]:
               f'\t\t\t\t\t<font>{font}</font>', f'\t\t\t\t\t<textcolor>{color}</textcolor>',
               '\t\t\t\t\t<label>$PARAM[label]</label>', '\t\t\t\t</control>']
     o += ['\t\t\t</control>', '\t\t</definition>', '\t</include>']
+    return o
+
+
+def lcd(s: int) -> list[str]:
+    h = round(1.3 * s)
     # LCD (clock / times): params left, top (label box top), width, align
-    o += [f'\t<include name="KS_LCD{s}">', '\t\t<param name="align">left</param>', '\t\t<param name="visible">true</param>',
+    o = [f'\t<include name="KS_LCD{s}">', '\t\t<param name="align">left</param>', '\t\t<param name="visible">true</param>',
           '\t\t<param name="width">400</param>', '\t\t<definition>',
           '\t\t\t<control type="group">', '\t\t\t\t<left>$PARAM[left]</left>', '\t\t\t\t<top>$PARAM[top]</top>',
           '\t\t\t\t<width>$PARAM[width]</width>', f'\t\t\t\t<height>{h}</height>', '\t\t\t\t<visible>$PARAM[visible]</visible>']
@@ -170,17 +179,24 @@ def tilts() -> list[str]:
     for d, css in TILT_CSS.items():
         o.append(f'\t\t<animation effect="rotate" end="{-css}" center="auto" time="0" condition="{ST} + String.EndsWith(ListItem.CurrentItem,{d})">Conditional</animation>')
     o.append('\t</include>')
-    o += ['\t<!-- focusedlayout inner group: straighten (cancel the tilt) and lift on Focus; back on Unfocus -->',
-          '\t<include name="KS_TiltFocus">', '\t\t<param name="zoom">106</param>', '\t\t<definition>']
+    # 0.9.6: Conditionals on the list's focus (param focus) instead of Focus/Unfocus animations. Kodi runs only the
+    # FIRST Focus animation whose condition holds and resets only the first Focus animation on unfocus, so the ten
+    # per-slot Focus tilts (+ reduce-motion twins) left prints straightened after focus left the list, and the zoom
+    # (listed after the tilts) only ever ran with straight prints. Kept as it looked on the device: tilted prints
+    # straighten, straight prints lift (zoom). Conditionals run independently and reverse by themselves.
+    NST = "Skin.HasSetting(keepsake.straight)"
+    F = "[$PARAM[focus]]"
+    o += ['\t<!-- focusedlayout inner group, while the list has focus: a tilted print straightens, a straight one lifts.',
+          '\t     params: focus (the list-has-focus condition, e.g. Control.HasFocus(530)), zoom -->',
+          '\t<include name="KS_TiltFocus">', '\t\t<param name="zoom">106</param>', '\t\t<param name="focus">false</param>',
+          '\t\t<definition>']
     for d, css in TILT_CSS.items():
         a = css  # cancelling rotation = -(tilt) = +css in Kodi terms
         c = f"String.EndsWith(ListItem.CurrentItem,{d})"
-        o.append(f'\t\t\t<animation type="Focus" condition="!{RM} + {ST} + {c}"><effect type="rotate" start="0" end="{a}" center="auto" time="240" tween="cubic" easing="out"/></animation>')
-        o.append(f'\t\t\t<animation type="Focus" condition="{RM} + {ST} + {c}"><effect type="rotate" start="0" end="{a}" center="auto" time="0"/></animation>')
-        o.append(f'\t\t\t<animation type="Unfocus" condition="!{RM} + {ST} + {c}"><effect type="rotate" start="{a}" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>')
-    o.append(f'\t\t\t<animation type="Focus" condition="!{RM}"><effect type="zoom" start="100" end="$PARAM[zoom]" center="auto" time="240" tween="cubic" easing="out"/></animation>')
-    o.append(f'\t\t\t<animation type="Focus" condition="{RM}"><effect type="zoom" start="100" end="$PARAM[zoom]" center="auto" time="0"/></animation>')
-    o.append(f'\t\t\t<animation type="Unfocus" condition="!{RM}"><effect type="zoom" start="$PARAM[zoom]" end="100" center="auto" time="180" tween="cubic" easing="out"/></animation>')
+        o.append(f'\t\t\t<animation type="Conditional" condition="{F} + !{RM} + {ST} + {c}" reversible="true"><effect type="rotate" start="0" end="{a}" center="auto" time="240" tween="cubic" easing="out"/></animation>')
+        o.append(f'\t\t\t<animation type="Conditional" condition="{F} + {RM} + {ST} + {c}"><effect type="rotate" start="0" end="{a}" center="auto" time="0"/></animation>')
+    o.append(f'\t\t\t<animation type="Conditional" condition="{F} + !{RM} + {NST}" reversible="true"><effect type="zoom" start="100" end="$PARAM[zoom]" center="auto" time="240" tween="cubic" easing="out"/></animation>')
+    o.append(f'\t\t\t<animation type="Conditional" condition="{F} + {RM} + {NST}"><effect type="zoom" start="100" end="$PARAM[zoom]" center="auto" time="0"/></animation>')
     o += ['\t\t</definition>', '\t</include>']
     o += ['\t<!-- one fixed tilt (Kodi degrees) -->', '\t<include name="KS_TiltFixed">', '\t\t<param name="angle">0</param>',
           '\t\t<definition>', f'\t\t\t<animation effect="rotate" end="$PARAM[angle]" center="auto" time="0" condition="{ST}">Conditional</animation>',
@@ -224,10 +240,6 @@ def looks() -> list[str]:
         '\t\t<control type="image">', '\t\t\t<description>the open album</description>', '\t\t\t<left>0</left>', '\t\t\t<top>0</top>',
         '\t\t\t<width>1920</width>', '\t\t\t<height>1080</height>', '\t\t\t<texture>ks/paper_spread.jpg</texture>', '\t\t</control>',
         '\t</include>',
-        '\t<include name="KS_PageSingle">',
-        '\t\t<control type="image">', '\t\t\t<description>one album leaf</description>', '\t\t\t<left>0</left>', '\t\t\t<top>0</top>',
-        '\t\t\t<width>1920</width>', '\t\t\t<height>1080</height>', '\t\t\t<texture>ks/paper_page.jpg</texture>', '\t\t</control>',
-        '\t</include>',
     ]
 
 
@@ -236,7 +248,10 @@ def main():
            "<!-- GENERATED by _src/make_album.py - prints, stamps, LCD, tilts, pen progress. Edit the generator. -->",
            "<includes>"]
     for s in STAMP_SIZES:
-        out += stamp(s)
+        if s in STAMP_USED:
+            out += stamp(s)
+        if s in LCD_USED:
+            out += lcd(s)
     for name, spec in PRINTS.items():
         out += print_kind(name, *spec)
     out += tilts()
@@ -244,7 +259,7 @@ def main():
         out += progress(w)
     out += looks()
     out += ["</includes>", ""]
-    OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
+    OUT.write_text(finish_xml("\n".join(out)), encoding="utf-8", newline="\n")
     print("wrote", OUT, len(out), "lines")
 
 

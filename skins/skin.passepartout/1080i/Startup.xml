@@ -20,9 +20,8 @@
 			<width>1680</width>
 			<height>84</height>
 			<font>ttl_72</font>
-			<textcolor>ink</textcolor>
 			<align>center</align>
-			<label>Passe-partout</label>
+			<label>$LOCALIZE[31135]</label>
 		</control>
 	</controls>
 </window>

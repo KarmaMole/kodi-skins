@@ -66,14 +66,8 @@
 			<width>544</width>
 			<height>dialog_row_h</height>
 			<font>label_25_semibold</font>
-			<textcolor>text_secondary</textcolor>
 			<focusedcolor>ink</focusedcolor>
-			<disabledcolor>disabled</disabledcolor>
-			<textoffsetx>24</textoffsetx>
-			<aligny>center</aligny>
-			<pulseonselect>false</pulseonselect>
 			<texturefocus colordiffuse="$VAR[ColorAccent]">common/white.png</texturefocus>
-			<texturenofocus />
 		</control>
 	</controls>
 </window>

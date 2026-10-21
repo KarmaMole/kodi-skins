@@ -1,3 +1,18 @@
+0.9.12 (2026-10-21)
+- Sets row in the Library panel; fix for controls disappearing or staying enlarged with Reduce motion on. Code clean-up for the Kodi repository checks.
+- Sets row in the Library card: over films (when the library has sets) Sets opens the Collections in the same
+  window; pick one for its films. Back walks set -> Collections -> films. Not a Home item. The hang, Salon, The
+  wall and List all hang sets.
+- Fix for controls disappearing with Reduce motion on: one Hidden animation per control (the animation includes,
+  the Home exhibition, and _src/rm_guard.py never writes a Hidden twin again). Kodi resets only the first Hidden
+  animation when a control shows again, so the reduce-motion twin stayed at fade 0.
+- Reduce motion: focused prints no longer stay enlarged after focus leaves (Search, cast, Salon, music grid,
+  The wall). Kodi resets only the first Focus animation, so the reduce-motion twin stayed at 108-112 %; the still
+  state is a time-0 Conditional on the list's focus now (_src/rm_guard.py writes it that way).
+- Code clean-up for the Kodi repository checks (kdk, kodi-addon-checker): unused includes, variables and fonts
+  removed, label text moved to strings.po, tags that repeat Defaults.xml dropped. Search now needs Script Skin
+  Variables (2.1.21+, installed with the skin): it URL-encodes the query for the library paths.
+
 0.9.11 (2026-10-20)
 - Library card: in every library view, Left past the first print or Right past the last one (and the new Options
   word in the header) opens a paper card with Update library, Clean library, View, Sort, Order, Show (watched),

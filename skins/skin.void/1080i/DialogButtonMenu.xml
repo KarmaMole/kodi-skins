@@ -145,7 +145,7 @@
 					</item>
 					<item>
 						<label>$LOCALIZE[20150]</label>
-						<label2>Timer</label2>
+						<label2>$LOCALIZE[31224]</label2>
 						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
 						<onclick>AlarmClock(shutdowntimer,Shutdown())</onclick>
 						<visible>!System.HasAlarm(shutdowntimer)</visible>

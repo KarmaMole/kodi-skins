@@ -19,9 +19,6 @@
 		<value condition="!String.IsEmpty(ListItem.DateAdded)">added $VAR[KS_DA_YearsAgo], not played yet</value>
 		<value>not played yet</value>
 	</variable>
-	<variable name="Music_ArtistNote">
-		<value>$INFO[ListItem.Genre]</value>
-	</variable>
 	<variable name="Music_Title">
 		<value condition="String.StartsWith(Container.FolderPath,musicdb://recentlyplayed)">recently played</value>
 		<value condition="String.StartsWith(Container.FolderPath,musicdb://artists/) + Container.Content(albums)">$INFO[ListItem.Artist]</value>
@@ -160,7 +157,7 @@
 				<aligny>center</aligny>
 				<font>hand_52</font>
 				<textcolor>ink_faint</textcolor>
-				<label>back</label>
+				<label>$LOCALIZE[31384]</label>
 				<visible>ListItem.IsParentFolder</visible>
 			</control>
 			<control type="group">
@@ -173,7 +170,7 @@
 				<control type="group">
 					<width>234</width>
 					<height>280</height>
-					<include condition="$PARAM[focused]">KS_TiltFocus</include>
+					<include content="KS_TiltFocus" condition="$PARAM[focused]"><param name="focus" value="$PARAM[lift]"/></include>
 					<include content="KS_Print_Instant">
 						<param name="art" value="$VAR[KS_SquareArt]"/>
 						<param name="dim" value="$PARAM[dim]"/>
@@ -200,7 +197,7 @@
 			<onup>9310</onup>
 			<include>Lib_OpenLeft</include>
 			<include>Lib_OpenRight</include>
-			<viewtype label="instant prints">list</viewtype>
+			<viewtype label="31368">list</viewtype>
 			<visible>$EXP[Music_IsAlbums]</visible>
 			<itemlayout width="302" height="400">
 				<include content="Music_AlbumPrint">
@@ -245,7 +242,7 @@
 				<aligny>center</aligny>
 				<font>hand_52</font>
 				<textcolor>ink_faint</textcolor>
-				<label>back</label>
+				<label>$LOCALIZE[31384]</label>
 				<visible>ListItem.IsParentFolder</visible>
 			</control>
 			<control type="group">
@@ -258,7 +255,7 @@
 				<control type="group">
 					<width>234</width>
 					<height>234</height>
-					<include condition="$PARAM[focused]">KS_TiltFocus</include>
+					<include content="KS_TiltFocus" condition="$PARAM[focused]"><param name="focus" value="$PARAM[lift]"/></include>
 					<include content="KS_Print_Square">
 						<param name="art" value="$VAR[KS_SquareArt]"/>
 						<param name="dim" value="$PARAM[dim]"/>
@@ -291,7 +288,7 @@
 			<onup>9310</onup>
 			<include>Lib_OpenLeft</include>
 			<include>Lib_OpenRight</include>
-			<viewtype label="prints">list</viewtype>
+			<viewtype label="31364">list</viewtype>
 			<visible>$EXP[Music_IsArtists]</visible>
 			<itemlayout width="302" height="390">
 				<include content="Music_ArtistPrint">

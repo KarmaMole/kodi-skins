@@ -11,7 +11,8 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
      library view, by the header's last phrase ("..., or [more]"), and from the System menu ("Update the library" /
      "Clean the library", which set Window(Home).Property(sentence.libpanel) to update / clean first).
      In a library: update the library (stop updating while a scan runs), clean the library, see them another way,
-     sort them another way, turn the order round, show only the unseen / show everything (video), find something,
+     sort them another way, turn the order round, show only the unseen / show everything (video), see the sets
+     (films, when the library has sets), find something,
      change the library settings. Update / clean hide in add-on and plugin folders.
      Clean never runs straight away: Kodi 21's CleanLibrary() builtin has NO confirmation of its own, so the row
      opens a confirm step (list 101, focus on "no, leave it as it is").
@@ -40,17 +41,18 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 		</control>
 		<control type="group">
 			<left>600</left>
-			<top>230</top>
+			<top>196</top>
 			<width>720</width>
-			<height>620</height>
+			<height>688</height>
 			<visible>String.IsEmpty(Window(Home).Property(sentence.libconfirm))</visible>
-			<animation effect="slide" start="0,0" end="0,238" time="0" condition="Integer.IsEqual(Container(100).NumItems,1)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,204" time="0" condition="Integer.IsEqual(Container(100).NumItems,2)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,170" time="0" condition="Integer.IsEqual(Container(100).NumItems,3)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,136" time="0" condition="Integer.IsEqual(Container(100).NumItems,4)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,102" time="0" condition="Integer.IsEqual(Container(100).NumItems,5)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,68" time="0" condition="Integer.IsEqual(Container(100).NumItems,6)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,34" time="0" condition="Integer.IsEqual(Container(100).NumItems,7)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,272" time="0" condition="Integer.IsEqual(Container(100).NumItems,1)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,238" time="0" condition="Integer.IsEqual(Container(100).NumItems,2)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,204" time="0" condition="Integer.IsEqual(Container(100).NumItems,3)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,170" time="0" condition="Integer.IsEqual(Container(100).NumItems,4)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,136" time="0" condition="Integer.IsEqual(Container(100).NumItems,5)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,102" time="0" condition="Integer.IsEqual(Container(100).NumItems,6)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,68" time="0" condition="Integer.IsEqual(Container(100).NumItems,7)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,34" time="0" condition="Integer.IsEqual(Container(100).NumItems,8)">Conditional</animation>
 			<control type="group">
 			<control type="image">
 				<left>0</left>
@@ -116,6 +118,14 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 				<texture border="8" colordiffuse="surface">sentence/round6.png</texture>
 				<visible>Integer.IsEqual(Container(100).NumItems,8)</visible>
 			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>720</width>
+				<height>688</height>
+				<texture border="8" colordiffuse="surface">sentence/round6.png</texture>
+				<visible>Integer.IsEqual(Container(100).NumItems,9)</visible>
+			</control>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -123,14 +133,13 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 				<width>672</width>
 				<height>56</height>
 				<font>serif_34</font>
-				<textcolor>text</textcolor>
 				<label>$VAR[Sen_Lib_Title]</label>
 			</control>
 			<control type="list" id="100">
 				<left>12</left>
 				<top>64</top>
 				<width>696</width>
-				<height>544</height>
+				<height>612</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>
@@ -151,7 +160,7 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<onclick condition="Window.IsActive(music)">UpdateLibrary(music)</onclick>
 					</item>
 					<item>
-						<label>clean the library</label>
+						<label>$LOCALIZE[31482]</label>
 						<label2>$VAR[Sen_Lib_Kind]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons) + ![Window.IsActive(videos) + Library.IsScanningVideo] + ![Window.IsActive(music) + Library.IsScanningMusic]</visible>
 						<onclick condition="Window.IsActive(videos)">SetProperty(sentence.libconfirm,video,home)</onclick>
@@ -159,14 +168,14 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<onclick>SetFocus(101)</onclick>
 					</item>
 					<item>
-						<label>see them another way</label>
+						<label>$LOCALIZE[31483]</label>
 						<label2>$INFO[Container.Viewmode]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + Integer.IsGreater(Container.ViewCount,1)</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>ActivateWindow(1156)</onclick>
 					</item>
 					<item>
-						<label>sort them another way</label>
+						<label>$LOCALIZE[31484]</label>
 						<label2>$INFO[Container.SortMethod,by ,]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEmpty(Container.SortMethod)</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
@@ -174,7 +183,7 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<onclick condition="Window.IsActive(music)">SendClick(music,3)</onclick>
 					</item>
 					<item>
-						<label>turn the order round</label>
+						<label>$LOCALIZE[31485]</label>
 						<label2>$VAR[Lib_Direction]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEmpty(Container.SortMethod)</visible>
 						<onclick>Container.SetSortDirection</onclick>
@@ -183,18 +192,26 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<label>$VAR[Sen_Lib_WatchedLabel]</label>
 						<label2></label2>
 						<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]</visible>
-						<onclick>SendClick(videos,14)</onclick>
+						<onclick>Dialog.Close(1155,true)</onclick>
+						<onclick>SendClick(14)</onclick>
 					</item>
 					<item>
-						<label>find something</label>
+						<label>$LOCALIZE[31486]</label>
+						<label2>$LOCALIZE[31487]</label2>
+						<visible>Window.IsActive(videos) + [Container.Content(movies) | String.IsEqual(Container.FolderPath,videodb://movies/)] + Library.HasContent(moviesets) + String.IsEmpty(Container.PluginName)</visible>
+						<onclick>Dialog.Close(1155,true)</onclick>
+						<onclick>Container.Update(videodb://movies/sets/)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[31488]</label>
 						<label2></label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)]</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>ActivateWindow(1150)</onclick>
 					</item>
 					<item>
-						<label>change the library settings</label>
-						<label2>Kodi</label2>
+						<label>$LOCALIZE[31489]</label>
+						<label2>$LOCALIZE[31303]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)]</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>ActivateWindow(mediasettings)</onclick>
@@ -214,14 +231,14 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<onclick>UpdateLibrary(music)</onclick>
 					</item>
 					<item>
-						<label>clean the films and shows</label>
+						<label>$LOCALIZE[31490]</label>
 						<label2></label2>
 						<visible>![Window.IsActive(videos) | Window.IsActive(music)] + String.IsEqual(Window(Home).Property(sentence.libpanel),clean) + !Library.IsScanningVideo</visible>
 						<onclick>SetProperty(sentence.libconfirm,video,home)</onclick>
 						<onclick>SetFocus(101)</onclick>
 					</item>
 					<item>
-						<label>clean the music</label>
+						<label>$LOCALIZE[31491]</label>
 						<label2></label2>
 						<visible>![Window.IsActive(videos) | Window.IsActive(music)] + String.IsEqual(Window(Home).Property(sentence.libpanel),clean) + !Library.IsScanningMusic</visible>
 						<onclick>SetProperty(sentence.libconfirm,music,home)</onclick>
@@ -251,7 +268,6 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 				<width>672</width>
 				<height>56</height>
 				<font>serif_34</font>
-				<textcolor>text</textcolor>
 				<label>$VAR[Sen_Lib_ConfirmTitle]</label>
 				<visible>!String.IsEmpty(Window(Home).Property(sentence.libconfirm))</visible>
 			</control>
@@ -261,8 +277,7 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 				<width>672</width>
 				<height>72</height>
 				<font>body_24</font>
-				<textcolor>body</textcolor>
-				<label>Kodi forgets everything whose file it can't find any more. You can't undo it.</label>
+				<label>$LOCALIZE[31492]</label>
 				<visible>!String.IsEmpty(Window(Home).Property(sentence.libconfirm))</visible>
 			</control>
 			<control type="list" id="101">
@@ -283,20 +298,20 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 				</include>
 				<content>
 					<item>
-						<label>no, leave it as it is</label>
+						<label>$LOCALIZE[31493]</label>
 						<label2></label2>
 						<visible>true</visible>
 						<onclick>Dialog.Close(1155)</onclick>
 					</item>
 					<item>
-						<label>yes, clean the films and shows</label>
+						<label>$LOCALIZE[31494]</label>
 						<label2></label2>
 						<visible>String.IsEqual(Window(Home).Property(sentence.libconfirm),video)</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>CleanLibrary(video)</onclick>
 					</item>
 					<item>
-						<label>yes, clean the music</label>
+						<label>$LOCALIZE[31495]</label>
 						<label2></label2>
 						<visible>String.IsEqual(Window(Home).Property(sentence.libconfirm),music)</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>

@@ -69,7 +69,6 @@
 				<width>320</width>
 				<height>36</height>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 			</control>
 			<control type="label">
 				<left>460</left>
@@ -113,7 +112,6 @@
 				<width>320</width>
 				<height>36</height>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 			</control>
 			<control type="label">
 				<left>916</left>
@@ -169,12 +167,12 @@
 				<control type="button" id="26">
 					<description>Add group</description>
 					<include content="Misc_RowLook"><param name="width" value="360"/></include>
-					<label>Add group</label>
+					<label>$LOCALIZE[31310]</label>
 				</control>
 				<control type="button" id="27">
 					<description>Rename group</description>
 					<include content="Misc_RowLook"><param name="width" value="360"/></include>
-					<label>Rename group</label>
+					<label>$LOCALIZE[31311]</label>
 				</control>
 				<control type="radiobutton" id="25">
 					<description>Hide group</description>
@@ -184,7 +182,7 @@
 				<control type="button" id="28">
 					<description>Delete group</description>
 					<include content="Misc_RowLook"><param name="width" value="360"/></include>
-					<label>Delete group</label>
+					<label>$LOCALIZE[31312]</label>
 				</control>
 				<control type="button" id="35">
 					<description>Regenerate group thumbnail</description>
@@ -194,8 +192,7 @@
 				<control type="togglebutton" id="34">
 					<description>TV / radio toggle</description>
 					<include content="Misc_RowLook"><param name="width" value="360"/></include>
-					<alttexturefocus border="16" colordiffuse="ink">focus/outline_2.png</alttexturefocus>
-					<alttexturenofocus />
+					<alttexturefocus border="16" colordiffuse="$VAR[ink]">focus/outline_2.png</alttexturefocus>
 					<label>$LOCALIZE[19174]</label>
 					<altlabel>$LOCALIZE[19173]</altlabel>
 					<usealttexture>!String.IsEmpty(Window.Property(IsRadio))</usealttexture>

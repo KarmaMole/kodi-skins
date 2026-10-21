@@ -38,24 +38,18 @@ FONTS = [
     ("serif_26", YS, 26, 1.03, None),
     # ---- Manrope: UI ------------------------------------------------------------------
     ("cap_20", CAPS, 20, None, "uppercase"),         # tracked kicker captions (.14em)
-    ("cap_22", CAPS, 22, None, "uppercase"),
     ("ui_20", MED, 20, 1.03, None),                  # 28px leading
     ("ui_20_bold", BOLD, 20, None, None),
     ("ui_22", MED, 22, 1.13, None),                  # 34px leading
     ("ui_22_bold", BOLD, 22, None, None),
     ("ui_24", MED, 24, None, None),
     ("ui_24_bold", BOLD, 24, None, None),
-    ("ui_26", MED, 26, None, None),
-    ("ui_26_bold", BOLD, 26, None, None),
     ("ui_28_bold", BOLD, 28, None, None),
     ("ui_30_bold", BOLD, 30, None, None),
-    ("ui_34_bold", BOLD, 34, None, None),
     ("body_24", MED, 24, 1.159, None),               # 38px leading
     ("body_26", MED, 26, 1.126, None),               # 40px leading
     ("num_20", NUM, 20, None, None),
     ("num_22", NUM, 22, None, None),
-    ("num_24", NUM, 24, None, None),
-    ("num_28", NUM, 28, None, None),
     # ---- Estuary-name aliases for third-party script windows (same file+size share a cache) ----
     ("font10", MED, 22, None, None),
     ("font12", MED, 24, None, None),
@@ -73,13 +67,20 @@ FONTS = [
 ]
 
 
+# Estuary font names kept for third-party script windows (add-on dialogs ask for them by name; Kodi only falls
+# back to font13). kdk (the Kodi repository review bot) reports them as unused: each line carries a kdk-ignore.
+ESTUARY_ALIASES = {"font10", "font12", "font14", "font27", "font30", "font37", "font45", "font52_title",
+                   "font45_title", "font36_title", "font30_title", "font25_title"}
+KDK_ALIAS = " <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->"
+
+
 def font_xml(name, filename, size, ls, style):
     parts = [f"<name>{name}</name>", f"<filename>{filename}</filename>", f"<size>{size}</size>"]
     if ls is not None:
         parts.append(f"<linespacing>{ls}</linespacing>")
     if style:
         parts.append(f"<style>{style}</style>")
-    return "\t\t<font>" + "".join(parts) + "</font>"
+    return "\t\t<font>" + "".join(parts) + "</font>" + (KDK_ALIAS if name in ESTUARY_ALIASES else "")
 
 
 def main():
@@ -92,7 +93,7 @@ def main():
     out += ["\t</fontset>", '\t<fontset id="Arial" idloc="31901">']
     out += [font_xml(n, "arial.ttf", s, ls, st) for n, _f, s, ls, st in FONTS]
     out += ["\t</fontset>", "</fonts>", ""]
-    OUT.write_text("\n".join(out), encoding="utf-8")
+    OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
     print(f"wrote {OUT} ({len(FONTS)} fonts per set)")
 
 

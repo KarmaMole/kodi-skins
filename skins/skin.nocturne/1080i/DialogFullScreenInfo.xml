@@ -16,7 +16,6 @@
 			<height>1080</height>
 			<label></label>
 			<texturefocus />
-			<texturenofocus />
 			<onright>StepForward</onright>
 			<onleft>StepBack</onleft>
 			<onup>ChapterOrBigStepForward</onup>
@@ -64,7 +63,6 @@
 				<top>494</top>
 				<width>1300</width>
 				<height>30</height>
-				<aligny>center</aligny>
 				<font>caps_20</font>
 				<textcolor>d9e2d0b4</textcolor>
 				<label>$VAR[OSD_State]  ·  $VAR[OSD_Type]</label>
@@ -74,7 +72,6 @@
 				<top>526</top>
 				<width>1420</width>
 				<height>84</height>
-				<aligny>center</aligny>
 				<font>title_64</font>
 				<textcolor>fff4e6cf</textcolor>
 				<shadowcolor>cc000000</shadowcolor>
@@ -85,7 +82,6 @@
 				<top>612</top>
 				<width>1420</width>
 				<height>30</height>
-				<aligny>center</aligny>
 				<font>caps_20</font>
 				<textcolor>b8e2d0b4</textcolor>
 				<label>$VAR[OSD_Meta]</label>
@@ -118,7 +114,6 @@
 				<control type="label">
 					<width>auto</width>
 					<height>40</height>
-					<aligny>center</aligny>
 					<font>caps_20</font>
 					<textcolor>d9e2d0b4</textcolor>
 					<label>$LOCALIZE[31290]</label>
@@ -126,7 +121,6 @@
 				<control type="label">
 					<width max="1200">auto</width>
 					<height>40</height>
-					<aligny>center</aligny>
 					<font>serif_28</font>
 					<textcolor>serif_soft</textcolor>
 					<label>$VAR[OSD_NextLabel]</label>
@@ -138,7 +132,6 @@
 				<top>900</top>
 				<width>900</width>
 				<height>40</height>
-				<aligny>center</aligny>
 				<font>clock_30</font>
 				<textcolor>e6f3e2c6</textcolor>
 				<label>$VAR[OSD_SeekTimeLabel]$INFO[Player.Duration,  [COLOR 99e2ceae]/  ,[/COLOR]]</label>
@@ -149,7 +142,6 @@
 				<width>900</width>
 				<height>40</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_20</font>
 				<textcolor>99c8b8a0</textcolor>
 				<label>$VAR[Rail_Facts]</label>
@@ -175,7 +167,6 @@
 				<top>1000</top>
 				<width>1728</width>
 				<height>30</height>
-				<aligny>center</aligny>
 				<font>caps_20</font>
 				<textcolor>73c8b8a0</textcolor>
 				<label>◀ ▶  $LOCALIZE[31289]   ·   OK  $LOCALIZE[31292]   ·   $LOCALIZE[31241]  $LOCALIZE[31293]</label>

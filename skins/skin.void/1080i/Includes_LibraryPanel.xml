@@ -28,6 +28,8 @@
 		<value condition="!String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
 		<value>$LOCALIZE[3]</value>
 	</variable>
+	<!-- Sets row: films in the library (not inside a set already, not a plug-in folder) and the library has sets -->
+	<expression name="LibPanel_ShowSets">Window.IsActive(videos) + [Container.Content(movies) | String.IsEqual(Container.FolderPath,videodb://movies/) | String.IsEqual(Container.FolderPath,library://video/movies/)] + !String.StartsWith(Container.FolderPath,videodb://movies/sets/) + String.IsEmpty(Container.PluginName) + Library.HasContent(moviesets)</expression>
 	<variable name="LibPanel_Watched">
 		<value condition="System.Setting(hidewatched)">hidden</value>
 		<value>shown</value>
@@ -38,9 +40,9 @@
 	</variable>
 
 	<!-- view picker: "current" under the view the library shows now (labels = viewtype labels) -->
-	<variable name="Pick_Cur_Index"><value condition="String.IsEqual(Container.Viewmode,Index)">Current</value></variable>
-	<variable name="Pick_Cur_Wall"><value condition="String.IsEqual(Container.Viewmode,Wall)">Current</value></variable>
-	<variable name="Pick_Cur_Covers"><value condition="String.IsEqual(Container.Viewmode,Covers)">Current</value></variable>
+	<variable name="Pick_Cur_Index"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31217])">Current</value></variable>
+	<variable name="Pick_Cur_Wall"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31218])">Current</value></variable>
+	<variable name="Pick_Cur_Covers"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31219])">Current</value></variable>
 
 	<!-- "↑ Options" in the library header (the options row above is invisible until focused, so the
 	     header says it is there). Sits left of the clock, same caps line. -->

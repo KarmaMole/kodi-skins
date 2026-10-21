@@ -78,7 +78,7 @@
 			<onright>ActivateWindow(1155)</onright>
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<preloaditems>1</preloaditems>
-			<viewtype label="Grid">icon</viewtype>
+			<viewtype label="31312">icon</viewtype>
 			<visible>Container.Content(albums) | Container.Content(artists)</visible>
 			<include>Anim_FadeVisible</include>
 			<itemlayout width="251" height="310">
@@ -152,7 +152,7 @@
 			<onright>ActivateWindow(1155)</onright>
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<preloaditems>2</preloaditems>
-			<viewtype label="Big album">wrap</viewtype>
+			<viewtype label="31313">wrap</viewtype>
 			<visible>Container.Content(albums)</visible>
 			<include>Anim_FadeVisible</include>
 			<itemlayout width="408" height="668">
@@ -226,7 +226,7 @@
 					<height>26</height>
 					<font>mono_15</font>
 					<textcolor>$VAR[ColorAccent]</textcolor>
-					<label>Parent folder</label>
+					<label>$LOCALIZE[31241]</label>
 				</control>
 				<control type="label">
 					<left>0</left>
@@ -235,7 +235,7 @@
 					<height>84</height>
 					<font>display_72</font>
 					<textcolor>text_primary</textcolor>
-					<label>Back</label>
+					<label>$LOCALIZE[31242]</label>
 				</control>
 				<control type="label">
 					<left>0</left>
@@ -244,7 +244,7 @@
 					<height>26</height>
 					<font>mono_14</font>
 					<textcolor>$VAR[ColorCaption]</textcolor>
-					<label>OK  ·  Up one level</label>
+					<label>$LOCALIZE[31243]</label>
 				</control>
 			</control>
 			<!-- focused album -->

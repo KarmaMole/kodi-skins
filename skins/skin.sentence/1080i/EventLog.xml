@@ -111,7 +111,6 @@
 						<width>820</width>
 						<height>36</height>
 						<font>ui_22_bold</font>
-						<textcolor>text</textcolor>
 						<scroll>true</scroll>
 						<label>$INFO[ListItem.Label]</label>
 					</control>
@@ -131,7 +130,6 @@
 						<width>1100</width>
 						<height>56</height>
 						<font>ui_20</font>
-						<textcolor>body</textcolor>
 						<label>$INFO[ListItem.Property(Event.Description)]</label>
 					</control>
 					<control type="image">
@@ -159,9 +157,8 @@
 					<description>Sort order</description>
 					<include content="Misc_RowLook"><param name="width" value="misc_menu_w"/></include>
 					<alttexturefocus border="16" colordiffuse="lilac">sentence/ring.png</alttexturefocus>
-					<alttexturenofocus />
-					<label>Order: $LOCALIZE[584]</label>
-					<altlabel>Order: $LOCALIZE[585]</altlabel>
+					<label>$LOCALIZE[31498] $LOCALIZE[584]</label>
+					<altlabel>$LOCALIZE[31498] $LOCALIZE[585]</altlabel>
 				</control>
 				<control type="button" id="21">
 					<description>Level filter (Kodi sets the label)</description>
@@ -199,7 +196,7 @@
 			<height>list_row_h</height>
 			<font>cap_20</font>
 			<textcolor>muted</textcolor>
-			<label>No events</label>
+			<label>$LOCALIZE[31339]</label>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 		</control>
 	</controls>

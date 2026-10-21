@@ -86,7 +86,6 @@
 			<height>50</height>
 			<align>center</align>
 			<font>serif_34</font>
-			<textcolor>$VAR[DL_Ink]</textcolor>
 			<label>$LOCALIZE[214]</label>
 		</control>
 		<control type="label" id="2">
@@ -117,7 +116,6 @@
 			<height>44</height>
 			<align>center</align>
 			<font>ui_30_semibold</font>
-			<textcolor>$VAR[DL_Ink]</textcolor>
 		</control>
 	</controls>
 </window>

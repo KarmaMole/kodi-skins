@@ -17,7 +17,7 @@
 					<height>312</height>
 					<align>left</align>
 					<font>an_236</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[VidView_WallBigTitle]</label>
 					<visible>true</visible>
 				</control>
@@ -28,7 +28,7 @@
 					<height>180</height>
 					<align>left</align>
 					<font>an_136</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[VidView_WallBigTitle]</label>
 					<visible>true</visible>
 				</control>
@@ -39,7 +39,7 @@
 					<height>229</height>
 					<align>left</align>
 					<font>an_104</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[VidView_WallBigTitle]</label>
 					<visible>true</visible>
 				</control>
@@ -106,7 +106,7 @@
 					<height>440</height>
 					<align>left</align>
 					<font>an_200</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[VidInfo_Title]</label>
 					<visible>true</visible>
 				</control>
@@ -117,7 +117,7 @@
 					<height>299</height>
 					<align>left</align>
 					<font>an_136</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[VidInfo_Title]</label>
 					<visible>true</visible>
 				</control>
@@ -128,7 +128,7 @@
 					<height>320</height>
 					<align>left</align>
 					<font>an_104</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[VidInfo_Title]</label>
 					<visible>true</visible>
 				</control>
@@ -195,7 +195,7 @@
 					<height>264</height>
 					<align>left</align>
 					<font>an_200</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[MusicWall_Artist]</label>
 					<visible>true</visible>
 				</control>
@@ -206,7 +206,7 @@
 					<height>180</height>
 					<align>left</align>
 					<font>an_136</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[MusicWall_Artist]</label>
 					<visible>true</visible>
 				</control>
@@ -217,7 +217,7 @@
 					<height>229</height>
 					<align>left</align>
 					<font>an_104</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[MusicWall_Artist]</label>
 					<visible>true</visible>
 				</control>
@@ -284,7 +284,7 @@
 					<height>198</height>
 					<align>left</align>
 					<font>an_150</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[MusicWall_Big]</label>
 					<visible>true</visible>
 				</control>
@@ -295,7 +295,7 @@
 					<height>137</height>
 					<align>left</align>
 					<font>an_104</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[MusicWall_Big]</label>
 					<visible>true</visible>
 				</control>
@@ -306,7 +306,7 @@
 					<height>171</height>
 					<align>left</align>
 					<font>an_72</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[MusicWall_Big]</label>
 					<visible>true</visible>
 				</control>
@@ -373,7 +373,7 @@
 					<height>171</height>
 					<align>left</align>
 					<font>an_72</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[VidView_ItemTitle]</label>
 					<visible>true</visible>
 				</control>
@@ -418,7 +418,7 @@
 					<height>229</height>
 					<align>left</align>
 					<font>an_104</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$INFO[MusicPlayer.Title]</label>
 					<visible>true</visible>
 				</control>
@@ -429,7 +429,7 @@
 					<height>171</height>
 					<align>left</align>
 					<font>an_72</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$INFO[MusicPlayer.Title]</label>
 					<visible>true</visible>
 				</control>
@@ -485,7 +485,7 @@
 					<height>102</height>
 					<align>left</align>
 					<font>an_72</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[OSD_Title]</label>
 					<visible>true</visible>
 				</control>
@@ -496,7 +496,7 @@
 					<height>67</height>
 					<align>left</align>
 					<font>an_48</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[OSD_Title]</label>
 					<visible>true</visible>
 				</control>
@@ -552,7 +552,7 @@
 					<height>102</height>
 					<align>left</align>
 					<font>an_72</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[OSD_Title]</label>
 					<visible>true</visible>
 				</control>
@@ -563,7 +563,7 @@
 					<height>67</height>
 					<align>left</align>
 					<font>an_48</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$VAR[OSD_Title]</label>
 					<visible>true</visible>
 				</control>
@@ -621,7 +621,7 @@
 					<height>137</height>
 					<align>left</align>
 					<font>an_104</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$PARAM[label]</label>
 					<visible>true</visible>
 				</control>
@@ -632,7 +632,7 @@
 					<height>102</height>
 					<align>left</align>
 					<font>an_72</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$PARAM[label]</label>
 					<visible>true</visible>
 				</control>
@@ -643,7 +643,7 @@
 					<height>156</height>
 					<align>left</align>
 					<font>an_104</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$PARAM[label]</label>
 					<visible>!Integer.IsGreater(Container($PARAM[pb]0).NumPages,1)</visible>
 				</control>
@@ -654,7 +654,7 @@
 					<height>108</height>
 					<align>left</align>
 					<font>an_72</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$PARAM[label]</label>
 					<visible>Integer.IsGreater(Container($PARAM[pb]0).NumPages,1) + !Integer.IsGreater(Container($PARAM[pb]1).NumPages,1)</visible>
 				</control>
@@ -665,7 +665,7 @@
 					<height>117</height>
 					<align>left</align>
 					<font>an_48</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$PARAM[label]</label>
 					<visible>Integer.IsGreater(Container($PARAM[pb]0).NumPages,1) + Integer.IsGreater(Container($PARAM[pb]1).NumPages,1)</visible>
 				</control>

@@ -27,7 +27,6 @@
 				<height>689</height>  <!-- 21 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
 				<monofont>Mono26</monofont>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<pagecontrol>3000</pagecontrol>
 			</control>
 			<control type="scrollbar" id="3000">
@@ -35,20 +34,18 @@
 				<top>dialog_content_top</top>
 				<width>2</width>
 				<height>704</height>
-				<texturesliderbackground colordiffuse="ink_12">common/white.png</texturesliderbackground>
-				<texturesliderbar colordiffuse="ink">common/white.png</texturesliderbar>
-				<texturesliderbarfocus colordiffuse="ink">common/white.png</texturesliderbarfocus>
+				<texturesliderbackground colordiffuse="$VAR[ink_12]">common/white.png</texturesliderbackground>
+				<texturesliderbar colordiffuse="$VAR[ink]">common/white.png</texturesliderbar>
 				<onup>3000</onup>
 				<ondown>3000</ondown>
 				<onleft>1000</onleft>
 				<onright>1000</onright>
-				<orientation>vertical</orientation>
 			</control>
 			<include content="DT_Rule">
 				<param name="top" value="836"/>
 				<param name="left" value="0"/>
 				<param name="width" value="1440"/>
-				<param name="color" value="ink"/>
+				<param name="color" value="$VAR[ink]"/>
 			</include>
 			<control type="label">
 				<left>dialog_pad</left>

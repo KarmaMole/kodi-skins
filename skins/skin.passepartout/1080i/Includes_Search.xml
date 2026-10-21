@@ -7,16 +7,30 @@
 -->
 <includes>
 	<expression name="Search_HasQuery">!String.IsEmpty(Window(Home).Property(passepartout.q))</expression>
+	<!-- The query, URL-encoded for the ?xsp= paths: script.skinvariables' get_encoded_string (quote_plus) runs
+	     whenever the query changes (this list's content path holds it) and writes
+	     Window(Home).Property(Passepartout.Search.Encoded). The list must stay visible: hidden containers never load. -->
+	<include name="Search_Encoder">
+		<control type="list" id="9095">
+			<left>0</left>
+			<top>0</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1"/>
+			<focusedlayout width="1" height="1"/>
+			<content>plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;window_prop=Passepartout.Search.Encoded&amp;window_id=home&amp;&amp;$INFO[Window(Home).Property(passepartout.q)]</content>
+		</control>
+	</include>
 	<expression name="Search_HasResults">Integer.IsGreater(Container(9101).NumItems,0) | Integer.IsGreater(Container(9102).NumItems,0) | Integer.IsGreater(Container(9103).NumItems,0)</expression>
 
 	<variable name="Search_PathMovies">
-		<value condition="$EXP[Search_HasQuery]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Window(Home).Property(passepartout.q)]%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Passepartout.Search.Encoded))">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Passepartout.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 	</variable>
 	<variable name="Search_PathTV">
-		<value condition="$EXP[Search_HasQuery]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Window(Home).Property(passepartout.q)]%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Passepartout.Search.Encoded))">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Passepartout.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 	</variable>
 	<variable name="Search_PathAlbums">
-		<value condition="$EXP[Search_HasQuery]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Window(Home).Property(passepartout.q)]%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Passepartout.Search.Encoded))">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Passepartout.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
 	</variable>
 	<variable name="Search_FirstResults">
 		<value condition="Integer.IsGreater(Container(9101).NumItems,0)">SetFocus(9101)</value>
@@ -51,7 +65,7 @@
 				<height>124</height>
 				<font>disp_104</font>
 				<textcolor>ink3</textcolor>
-				<label>Search the collection</label>
+				<label>$LOCALIZE[31186]</label>
 				<visible>!$EXP[Search_HasQuery]</visible>
 			</control>
 			<control type="image">
@@ -717,7 +731,7 @@
 				<textoffsety>20</textoffsety>
 				<texturefocus border="74,0,74,0">pp/placard_btn56.png</texturefocus>
 				<texturenofocus border="26,6,26,58" colordiffuse="rule">pp/frame_pad.png</texturenofocus>
-				<label>Space</label>
+				<label>$LOCALIZE[31043]</label>
 			<onclick condition="[String.IsEmpty(Window(Home).Property(passepartout.qn)) | String.IsEqual(Window(Home).Property(passepartout.qn),n0)]">SetProperty(passepartout.qh0,"$INFO[Window(Home).Property(passepartout.q)]",home)</onclick>
 			<onclick condition="[String.IsEmpty(Window(Home).Property(passepartout.qn)) | String.IsEqual(Window(Home).Property(passepartout.qn),n0)]">SetProperty(passepartout.qn,n1,home)</onclick>
 			<onclick condition="[String.IsEmpty(Window(Home).Property(passepartout.qn)) | String.IsEqual(Window(Home).Property(passepartout.qn),n0)]">SetProperty(passepartout.q,"$INFO[Window(Home).Property(passepartout.q)] ",home)</onclick>
@@ -850,7 +864,7 @@
 				<textoffsety>20</textoffsety>
 				<texturefocus border="74,0,74,0">pp/placard_btn56.png</texturefocus>
 				<texturenofocus border="26,6,26,58" colordiffuse="rule">pp/frame_pad.png</texturenofocus>
-				<label>Delete</label>
+				<label>$LOCALIZE[31044]</label>
 				<onclick condition="String.IsEqual(Window(Home).Property(passepartout.qn),n1)">SetProperty(passepartout.q,"$INFO[Window(Home).Property(passepartout.qh0)]",home)</onclick>
 				<onclick condition="String.IsEqual(Window(Home).Property(passepartout.qn),n1)">SetProperty(passepartout.qn,n0,home)</onclick>
 				<onclick condition="String.IsEqual(Window(Home).Property(passepartout.qn),n2)">SetProperty(passepartout.q,"$INFO[Window(Home).Property(passepartout.qh1)]",home)</onclick>
@@ -948,7 +962,7 @@
 				<animation type="Focus" condition="[$PARAM[focused]] + !Skin.HasSetting(passepartout.reducemotion)">
 					<effect type="zoom" start="100" end="108" center="94,$PARAM[h]" time="240" tween="cubic" easing="out"/>
 				</animation>
-				<animation type="Focus" condition="[$PARAM[focused]] + Skin.HasSetting(passepartout.reducemotion)">
+				<animation type="Conditional" condition="[$PARAM[focused]] + Skin.HasSetting(passepartout.reducemotion)">
 					<effect type="zoom" start="100" end="108" center="94,$PARAM[h]" time="0" tween="cubic" easing="out"/>
 				</animation>
 				<control type="group">
@@ -1018,7 +1032,7 @@
 				<height>28</height>
 				<font>cap_20</font>
 				<textcolor>ink</textcolor>
-				<label>Films</label>
+				<label>$LOCALIZE[31130]</label>
 				<visible>Integer.IsGreater(Container(9101).NumItems,0)</visible>
 			</control>
 			<control type="list" id="9101">
@@ -1068,7 +1082,7 @@
 				<height>28</height>
 				<font>cap_20</font>
 				<textcolor>ink</textcolor>
-				<label>Series</label>
+				<label>$LOCALIZE[31131]</label>
 				<visible>Integer.IsGreater(Container(9102).NumItems,0)</visible>
 			</control>
 			<control type="list" id="9102">
@@ -1159,7 +1173,7 @@
 				<height>28</height>
 				<font>cap_20</font>
 				<textcolor>ink</textcolor>
-				<label>Music</label>
+				<label>$LOCALIZE[31132]</label>
 				<visible>Integer.IsGreater(Container(9103).NumItems,0)</visible>
 			</control>
 			<control type="list" id="9103">
@@ -1198,7 +1212,7 @@
 			<height>56</height>
 			<font>body_24</font>
 			<textcolor>ink2</textcolor>
-			<label>Results follow your typing. Press [COLOR ink]RIGHT[/COLOR] to walk the hang.</label>
+			<label>$LOCALIZE[31187] [COLOR ink]$LOCALIZE[31188][/COLOR] $LOCALIZE[31189]</label>
 			<visible>$EXP[Search_HasResults]</visible>
 		</control>
 		<control type="label">
@@ -1208,8 +1222,8 @@
 			<height>34</height>
 			<font>body_24</font>
 			<textcolor>ink2</textcolor>
-			<label>Nothing in the collection by that name yet.</label>
-			<visible>$EXP[Search_HasQuery] + !$EXP[Search_HasResults] + !Container(9101).IsUpdating + !Container(9102).IsUpdating + !Container(9103).IsUpdating</visible>
+			<label>$LOCALIZE[31190]</label>
+			<visible>$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Passepartout.Search.Encoded)) + !$EXP[Search_HasResults] + !Container(9101).IsUpdating + !Container(9102).IsUpdating + !Container(9103).IsUpdating</visible>
 		</control>
 		<control type="label">
 			<left>840</left>
@@ -1218,7 +1232,7 @@
 			<height>34</height>
 			<font>body_24</font>
 			<textcolor>ink2</textcolor>
-			<label>Films and series match on title, music on the album's name.</label>
+			<label>$LOCALIZE[31191]</label>
 			<visible>!$EXP[Search_HasQuery]</visible>
 		</control>
 	</include>

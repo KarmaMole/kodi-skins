@@ -73,7 +73,6 @@
 				<width>1036</width>
 				<height>28</height>
 				<font>lbl_20</font>
-				<textcolor>ink_bold</textcolor>
 				<label>DOWNLOAD SUBTITLES$VAR[OSD_ShortTitle,  ·  ,]</label>
 			</control>
 			<control type="label">
@@ -82,8 +81,7 @@
 				<width>1036</width>
 				<height>52</height>
 				<font>hand_48</font>
-				<textcolor>ink_bold</textcolor>
-				<label>Find subtitles</label>
+				<label>$LOCALIZE[31329]</label>
 			</control>
 
 			<!-- ====== left column: service + status + manual search -->
@@ -99,7 +97,7 @@
 					<height>24</height>
 					<font>lbl_20</font>
 					<textcolor>label</textcolor>
-					<label>SERVICE</label>
+					<label>$LOCALIZE[31330]</label>
 				</control>
 				<include content="KS_Rule">
 					<param name="top" value="31"/>
@@ -132,7 +130,6 @@
 							<width>232</width>
 							<height>59</height>
 							<font>ttt_24</font>
-							<textcolor>ink_bold</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 							<visible>ListItem.IsSelected</visible>
 						</control>
@@ -177,7 +174,6 @@
 							<width>232</width>
 							<height>59</height>
 							<font>ttt_24</font>
-							<textcolor>ink_bold</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
 						<control type="image">
@@ -205,7 +201,7 @@
 					<height>24</height>
 					<font>lbl_20</font>
 					<textcolor>label</textcolor>
-					<label>STATUS</label>
+					<label>$LOCALIZE[31331]</label>
 				</control>
 				<include content="KS_Rule">
 					<param name="top" value="269"/>
@@ -222,7 +218,6 @@
 					<aligny>top</aligny>
 					<wrapmultiline>true</wrapmultiline>
 					<font>body_24</font>
-					<textcolor>ink_bold</textcolor>
 				</control>
 				<control type="label" id="130">
 					<description>shown by Kodi when the file already has subtitle streams</description>
@@ -234,7 +229,7 @@
 					<wrapmultiline>true</wrapmultiline>
 					<font>lbl_20</font>
 					<textcolor>ink2</textcolor>
-					<label>THIS FILE ALREADY HAS SUBTITLE TRACKS</label>
+					<label>$LOCALIZE[31332]</label>
 				</control>
 
 				<control type="group">
@@ -278,7 +273,7 @@
 					<align>right</align>
 					<font>lbl_20</font>
 					<textcolor>label</textcolor>
-					<label>SYNC = TIMED TO YOUR FILE</label>
+					<label>$LOCALIZE[31333]</label>
 				</control>
 				<include content="KS_Rule">
 					<param name="top" value="31"/>
@@ -294,7 +289,7 @@
 					<height>40</height>
 					<font>body_24</font>
 					<textcolor>ink2</textcolor>
-					<label>No subtitles listed yet. Pick a service or search manually.</label>
+					<label>$LOCALIZE[31334]</label>
 					<visible>Integer.IsEqual(Container(120).NumItems,0)</visible>
 				</control>
 

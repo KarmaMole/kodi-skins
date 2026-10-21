@@ -103,7 +103,7 @@
 				<content>
 					<item>
 						<label>$LOCALIZE[31021]</label>
-						<label2>Void</label2>
+						<label2>$LOCALIZE[31336]</label2>
 						<property name="index">[UPPERCASE]01[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(skinsettings)</onclick>
@@ -134,43 +134,43 @@
 						<onclick>ActivateWindow(addonbrowser)</onclick>
 					</item>
 					<item>
-						<label>Update library</label>
-						<label2>Library</label2>
+						<label>$LOCALIZE[31200]</label>
+						<label2>$LOCALIZE[31201]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>SetProperty(void.libmode,update,home)</onclick>
 						<onclick>ActivateWindow(1160)</onclick>
 					</item>
 					<item>
-						<label>Clean library</label>
-						<label2>Library</label2>
+						<label>$LOCALIZE[31202]</label>
+						<label2>$LOCALIZE[31201]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>SetProperty(void.libmode,clean,home)</onclick>
 						<onclick>ActivateWindow(1160)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[13012]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
 						<onclick>Quit()</onclick>
 						<visible>System.ShowExitButton</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13013]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
 						<onclick>Reset()</onclick>
 						<visible>System.CanReboot</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13016]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
 						<onclick>Powerdown()</onclick>
 						<visible>System.CanPowerDown</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[31022]</label>
-						<label2>More</label2>
+						<label2>$LOCALIZE[31203]</label2>
 						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(shutdownmenu)</onclick>

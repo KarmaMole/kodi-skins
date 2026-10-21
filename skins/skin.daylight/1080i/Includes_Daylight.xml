@@ -15,13 +15,6 @@
 	<expression name="DL_IsMorning">String.IsEqual(Skin.String(daylight.mood),morning) | [$EXP[DL_MoodAuto] + System.Time(06:00,11:00)]</expression>
 	<expression name="DL_IsDark">$EXP[DL_IsNight] | $EXP[DL_IsEvening]</expression>
 	<expression name="DL_IsLight">!$EXP[DL_IsNight] + !$EXP[DL_IsEvening]</expression>
-	<!-- Mood name, used to pick per-mood textures (glows, icons): media/daylight/<name>_*.png -->
-	<variable name="DL_Mood">
-		<value condition="$EXP[DL_IsNight]">night</value>
-		<value condition="$EXP[DL_IsEvening]">evening</value>
-		<value condition="$EXP[DL_IsAfternoon]">afternoon</value>
-		<value>morning</value>
-	</variable>
 	<variable name="DL_MoodIcon">
 		<value condition="$EXP[DL_IsNight]">daylight/icons/moon.png</value>
 		<value condition="$EXP[DL_IsEvening]">daylight/icons/sunset.png</value>
@@ -173,19 +166,7 @@
 		<value condition="$EXP[DL_IsAfternoon]">a_artdim</value>
 		<value>m_artdim</value>
 	</variable>
-	<variable name="DL_DimArt">
-		<value condition="$EXP[DL_IsNight]">n_dimart</value>
-		<value condition="$EXP[DL_IsEvening]">e_dimart</value>
-		<value condition="$EXP[DL_IsAfternoon]">a_dimart</value>
-		<value>m_dimart</value>
-	</variable>
 	<variable name="DL_DimArt2">
-		<value condition="$EXP[DL_IsNight]">n_artdim</value>
-		<value condition="$EXP[DL_IsEvening]">e_artdim</value>
-		<value condition="$EXP[DL_IsAfternoon]">a_artdim</value>
-		<value>m_artdim</value>
-	</variable>
-	<variable name="DL_ArtAlpha">
 		<value condition="$EXP[DL_IsNight]">n_artdim</value>
 		<value condition="$EXP[DL_IsEvening]">e_artdim</value>
 		<value condition="$EXP[DL_IsAfternoon]">a_artdim</value>

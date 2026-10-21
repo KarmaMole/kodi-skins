@@ -23,7 +23,7 @@
 			<height>screen_h</height>
 			<animation effect="fade" start="0" end="100" time="120">WindowOpen</animation>
 			<animation effect="fade" start="100" end="0" time="300">WindowClose</animation>
-			<texture colordiffuse="FF000000">common/white.png</texture>
+			<texture colordiffuse="black">common/white.png</texture>
 		</control>
 	</controls>
 </window>

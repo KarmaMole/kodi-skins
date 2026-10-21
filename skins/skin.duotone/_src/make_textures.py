@@ -1,5 +1,7 @@
 """Generate Duotone's textures (reproducible). Everything is white-on-transparent and coloured in XML
-with colordiffuse, except the halftone overlays (ink dots baked at their final alpha).
+with colordiffuse ($VAR look tokens), except the few marked "baked": those come once per look, with the colours
+read from colors/defaults.xml (co_ / lt_ / dk_ tokens), and Includes_Theme.xml picks the file
+($VAR[DT_TexWatched], $VAR[DT_PanelTex]). Re-run after changing those palette values.
 
 Duotone rules: no gradients, no rounding, thick 8px ink rules and frames, solid geometric icons.
 
@@ -11,14 +13,17 @@ Duotone rules: no gradients, no rounding, thick 8px ink rules and frames, solid 
   common/rect_outline_8.png   48x48 8px ring + transparent buffer (border 16) - action blocks
   focus/outline_2.png, outline_3.png, frame_8.png   48x48 8px ring (border 16), placed at item -8px
   focus/halo.png              transparent (flat design: no glow)
-  markers/watched.png         44x44 ink block with a paper check (mockup .wt)  - coloured in the PNG
+  markers/watched.png         44x44 ink block with a paper check (mockup .wt)  - baked: Colour look
+  markers/watched_light.png, watched_dark.png   the same in the Light / Dark looks' ink and paper
   markers/unwatched.png       24x24 solid square (colordiffuse)
   markers/check.png           48x48 bold check (radio buttons)
-  overlays/dots.png           1920x1080 halftone, 8px grid, ink dots r1.4/1.9 at 12% (mockup .dots)
-  overlays/dots_art.png       1920x1080 halftone for art, 8px grid, slightly bigger dots at 14%
+  overlays/dots.png           1920x1080 halftone, 8px grid, white dots r1.4/1.9 at 12% (mockup .dots), $VAR[dots]
+  overlays/dots_art.png       1920x1080 halftone for art, 8px grid, slightly bigger dots at 14%, $VAR[dots_art]
   icons/*.png                 64x64 solid icons
   osd/slider_bg.png, osd/slider_nib.png, osd/tick.png
   vidview/underline.png       8px bar; dialogs/row_rule.png 2px rule + buffer
+  dialogs/panel_framed.png    48x48 white fill + 8px ink frame (Colour / Light: tinted with the field)
+  dialogs/panel_framed_dark.png   baked Dark panel: dk_sec_paper fill + dk_ink frame, drawn untinted
 
 Usage:  python skins/skin.duotone/_src/make_textures.py
 """
@@ -27,11 +32,14 @@ import math
 
 from PIL import Image, ImageDraw
 
+from theme_tokens import palette, rgba
+
 HERE = Path(__file__).resolve().parent
 MEDIA = HERE.parent / "media"
 WHITE = (255, 255, 255, 255)
-INK = (17, 17, 17, 255)
-PAPER = (241, 237, 228, 255)
+PAL = palette()
+INK = rgba(PAL["co_ink"])          # (17, 17, 17, 255)
+PAPER = rgba(PAL["co_paper"])      # (241, 237, 228, 255)
 SS = 4  # supersampling for icons
 
 
@@ -76,7 +84,7 @@ def dots(w, h, pitch=8, r_in=1.4, r_out=1.9, alpha=0.12, offset=4.0):
                         a = 1.0 - (dist - r_in) / (r_out - r_in)
                     acc += a
             a = acc / (n * n) * alpha
-            px[x, y] = (17, 17, 17, round(a * 255))
+            px[x, y] = (255, 255, 255, round(a * 255))   # white: the look token tints it
     im = Image.new("RGBA", (w, h))
     for yy in range(0, h, pitch):
         for xx in range(0, w, pitch):
@@ -222,13 +230,16 @@ def main():
         save(ring(48, 8), f"focus/{n}.png")
     save(Image.new("RGBA", (64, 64), (0, 0, 0, 0)), "focus/halo.png")
     save(Image.new("RGBA", (64, 64), (0, 0, 0, 0)), "common/shadow_soft.png")
-    # watched block (ink, paper check), drawn in colour
-    w = Image.new("RGBA", (44, 44), INK)
-    ck = check(24, 3.2)
-    paper_ck = Image.new("RGBA", ck.size, PAPER)
-    paper_ck.putalpha(ck.split()[3])
-    w.alpha_composite(paper_ck, (10, 10))
-    save(w, "markers/watched.png"); save(w, "markers/watched_round.png")
+    # watched block (ink, paper check), baked once per look
+    for look, suffix in (("co", ""), ("lt", "_light"), ("dk", "_dark")):
+        w = Image.new("RGBA", (44, 44), rgba(PAL[f"{look}_ink"]))
+        ck = check(24, 3.2)
+        paper_ck = Image.new("RGBA", ck.size, rgba(PAL[f"{look}_paper"]))
+        paper_ck.putalpha(ck.split()[3])
+        w.alpha_composite(paper_ck, (10, 10))
+        save(w, f"markers/watched{suffix}.png")
+        if look == "co":
+            save(w, "markers/watched_round.png")
     save(solid(24, 24), "markers/unwatched.png"); save(solid(24, 24), "markers/unwatched_round.png")
     save(check(48, 3.4), "markers/check.png")
     # halftone overlays
@@ -257,6 +268,11 @@ def main():
     for i in range(8):
         d.rectangle([i, i, 47 - i, 47 - i], outline=INK)
     save(pf, "dialogs/panel_framed.png")
+    # Dark look: a multiply can't lighten the frame over a near-black fill, so the panel is baked and drawn white
+    pd = Image.new("RGBA", (48, 48), rgba(PAL["dk_sec_paper"])); d = ImageDraw.Draw(pd)
+    for i in range(8):
+        d.rectangle([i, i, 47 - i, 47 - i], outline=rgba(PAL["dk_ink"]))
+    save(pd, "dialogs/panel_framed_dark.png")
     print("textures written to", MEDIA)
 
 

@@ -51,8 +51,7 @@
 				<width>page_width</width>
 				<height>30</height>
 				<font>caps_20</font>
-				<textcolor>ink</textcolor>
-				<label>Nothing here</label>
+				<label>$LOCALIZE[31012]</label>
 			</control>
 			<control type="label">
 				<left>page_margin</left>
@@ -61,7 +60,7 @@
 				<height>36</height>
 				<font>reg_24</font>
 				<textcolor>ink2</textcolor>
-				<label>This node is empty. Up for Albums, Artists, Songs or Genres.</label>
+				<label>$LOCALIZE[31294]</label>
 			</control>
 		</control>
 

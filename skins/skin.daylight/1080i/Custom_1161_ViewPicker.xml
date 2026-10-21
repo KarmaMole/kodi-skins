@@ -14,12 +14,12 @@
 	<defaultcontrol always="true">100</defaultcontrol>
 	<include>Anim_DialogOpenClose</include>
 	<onload>SetFocus(100,0,absolute)</onload>
-	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,Wall) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]">SetFocus(100,1,absolute)</onload>
-	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,Episodes) + [Container.Content(episodes)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]">SetFocus(100,2,absolute)</onload>
-	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,List) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes)]">SetFocus(100,3,absolute)</onload>
-	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,List) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes)]">SetFocus(100,2,absolute)</onload>
-	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,List) + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes)]">SetFocus(100,1,absolute)</onload>
-	<onload condition="Window.IsActive(music) + String.IsEqual(Container.Viewmode,List) + [Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)]">SetFocus(100,1,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31313]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]">SetFocus(100,1,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31314]) + [Container.Content(episodes)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]">SetFocus(100,2,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes)]">SetFocus(100,3,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes)]">SetFocus(100,2,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes)]">SetFocus(100,1,absolute)</onload>
+	<onload condition="Window.IsActive(music) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)]">SetFocus(100,1,absolute)</onload>
 	<controls>
 		<control type="image">
 			<description>backdrop dim</description>
@@ -76,17 +76,14 @@
 				<top>16</top>
 				<width>600</width>
 				<height>56</height>
-				<aligny>center</aligny>
 				<font>serif_28</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
-				<label>View</label>
+				<label>$LOCALIZE[31011]</label>
 			</control>
 			<control type="label">
 				<left>124</left>
 				<top>19</top>
 				<width>600</width>
 				<height>56</height>
-				<aligny>center</aligny>
 				<font>small_20</font>
 				<textcolor>$VAR[DL_Ink2]</textcolor>
 				<label>$VAR[LibPanel_Where]</label>
@@ -110,7 +107,7 @@
 				</focusedlayout>
 				<content>
 				<item>
-					<label>Grid</label>
+					<label>$LOCALIZE[31312]</label>
 					<label2>$VAR[Pick_Cur_Grid]</label2>
 					<property name="prev">views/grid</property>
 					<onclick>Dialog.Close(1161,true)</onclick>
@@ -119,7 +116,7 @@
 					<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]</visible>
 				</item>
 				<item>
-					<label>Wall</label>
+					<label>$LOCALIZE[31313]</label>
 					<label2>$VAR[Pick_Cur_Wall]</label2>
 					<property name="prev">views/wall</property>
 					<onclick>Dialog.Close(1161,true)</onclick>
@@ -128,7 +125,7 @@
 					<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]</visible>
 				</item>
 				<item>
-					<label>Episodes</label>
+					<label>$LOCALIZE[31314]</label>
 					<label2>$VAR[Pick_Cur_Episodes]</label2>
 					<property name="prev">views/episodes</property>
 					<onclick>Dialog.Close(1161,true)</onclick>
@@ -137,7 +134,7 @@
 					<visible>Window.IsActive(videos) + [Container.Content(episodes)]</visible>
 				</item>
 				<item>
-					<label>List</label>
+					<label>$LOCALIZE[31315]</label>
 					<label2>$VAR[Pick_Cur_List]</label2>
 					<property name="prev">views/list</property>
 					<onclick>Dialog.Close(1161,true)</onclick>
@@ -146,7 +143,7 @@
 					<visible>Window.IsActive(videos)</visible>
 				</item>
 				<item>
-					<label>Grid</label>
+					<label>$LOCALIZE[31312]</label>
 					<label2>$VAR[Pick_Cur_Grid]</label2>
 					<property name="prev">views/music_grid</property>
 					<onclick>Dialog.Close(1161,true)</onclick>
@@ -155,7 +152,7 @@
 					<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)]</visible>
 				</item>
 				<item>
-					<label>List</label>
+					<label>$LOCALIZE[31315]</label>
 					<label2>$VAR[Pick_Cur_List]</label2>
 					<property name="prev">views/music_list</property>
 					<onclick>Dialog.Close(1161,true)</onclick>

@@ -21,7 +21,7 @@
 				<top>28</top>
 				<width>1776</width>
 				<height>124</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 				<visible>!String.IsEmpty(Control.GetLabel(10)) | !String.IsEmpty(Control.GetLabel(11)) | !String.IsEmpty(Control.GetLabel(12))</visible>
 			</control>
 			<control type="label" id="10">
@@ -30,7 +30,7 @@
 				<width>page_width</width>
 				<height>30</height>
 				<font>bold_22</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 			</control>
 			<control type="label" id="11">
 				<left>page_margin</left>
@@ -38,7 +38,7 @@
 				<width>page_width</width>
 				<height>30</height>
 				<font>bold_22</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 			</control>
 			<control type="label" id="12">
 				<left>page_margin</left>
@@ -46,7 +46,7 @@
 				<width>page_width</width>
 				<height>30</height>
 				<font>bold_22</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 			</control>
 		</control>
 
@@ -64,7 +64,7 @@
 				<top>0</top>
 				<width>320</width>
 				<height>72</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -72,8 +72,8 @@
 				<width>272</width>
 				<height>30</height>
 				<font>cap_20</font>
-				<textcolor>paper_80</textcolor>
-				<label>BUFFERING</label>
+				<textcolor>$VAR[paper_80]</textcolor>
+				<label>$LOCALIZE[31375]</label>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -82,7 +82,7 @@
 				<height>30</height>
 				<align>right</align>
 				<font>bold_22</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<label>$INFO[Player.CacheLevel,,%]</label>
 			</control>
 			<control type="progress">
@@ -91,8 +91,8 @@
 				<width>272</width>
 				<height>2</height>
 				<info>Player.CacheLevel</info>
-				<texturebg colordiffuse="paper_22">common/white.png</texturebg>
-				<midtexture colordiffuse="vermilion">common/white.png</midtexture>
+				<texturebg colordiffuse="$VAR[paper_22]">common/white.png</texturebg>
+				<midtexture colordiffuse="$VAR[sec_films]">common/white.png</midtexture>
 			</control>
 		</control>
 	</controls>

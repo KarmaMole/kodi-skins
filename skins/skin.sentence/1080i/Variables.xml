@@ -8,13 +8,10 @@
 <includes>
 	<!-- ============================================================ shared textures -->
 	<!-- Generic focus frame drawn round a control (forked windows): a 3px lilac ring. -->
-	<variable name="FocusFrame"><value>sentence/ring.png</value></variable>
 	<variable name="FocusFrameAlways"><value>sentence/ring.png</value></variable>
-	<variable name="ButtonFill"><value>sentence/round6.png</value></variable>
 	<variable name="ButtonOutline"><value>sentence/outline6.png</value></variable>
 
 	<!-- ================================================================ time + clock -->
-	<variable name="DateLabel"><value>$INFO[System.Date(DDDD)], $INFO[System.Date(d MMMM)]</value></variable>
 	<variable name="ClockLabel"><value>$INFO[System.Time(hh:mm xx)]</value></variable>
 	<!-- "It's 21:47 and light rain." pieces (Sen_Clock draws: muted / bright time / muted) -->
 	<variable name="Sen_ClockTail">
@@ -91,11 +88,6 @@
 	</variable>
 
 	<!-- =================================================== facts as words (item) -->
-	<!-- Kodi stores US certifications as "Rated PG-13": bare code -->
-	<variable name="Sen_MPAA">
-		<value condition="String.StartsWith(ListItem.MPAA,Rated)">$INFO[ListItem.MPAA]</value>
-		<value condition="!String.IsEmpty(ListItem.MPAA)">Rated $INFO[ListItem.MPAA]</value>
-	</variable>
 	<!-- genre as an adjective for "a 1997 science-fiction film" (first genre only) -->
 	<variable name="Sen_GenreWord">
 		<value condition="String.StartsWith(ListItem.Genre,Science Fiction)">science-fiction</value>
@@ -150,21 +142,5 @@
 		<value condition="!String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
 		<value condition="Window.IsActive(Music)">$LOCALIZE[2]</value>
 		<value>$LOCALIZE[3]</value>
-	</variable>
-	<variable name="OSDTitle">
-		<value condition="VideoPlayer.Content(episodes)">$INFO[VideoPlayer.TVShowTitle]</value>
-		<value condition="Player.HasAudio + !Player.HasVideo">$INFO[MusicPlayer.Title]</value>
-		<value>$INFO[Player.Title]</value>
-	</variable>
-	<variable name="OSDTimeLabel">
-		<value condition="!String.IsEmpty(Player.SeekNumeric)">$INFO[Player.SeekNumeric(hh:mm:ss)]$INFO[Player.Duration, / ,]</value>
-		<value condition="Player.Seeking">$INFO[Player.SeekTime]$INFO[Player.Duration, / ,]</value>
-		<value>$INFO[Player.Time]$INFO[Player.Duration, / ,]</value>
-	</variable>
-	<variable name="OSDStateLabel">
-		<value condition="!String.IsEmpty(Player.SeekStepSize)">$INFO[Player.SeekStepSize]</value>
-		<value condition="!String.IsEmpty(Player.SeekOffset) + Player.HasPerformedSeek(3)">$INFO[Player.SeekOffset]</value>
-		<value condition="Player.Paused">$LOCALIZE[112]</value>
-		<value condition="Player.Forwarding | Player.Rewinding">$INFO[Player.PlaySpeed,,x]</value>
 	</variable>
 </includes>

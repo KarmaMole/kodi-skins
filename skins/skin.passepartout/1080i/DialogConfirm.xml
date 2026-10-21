@@ -25,7 +25,6 @@
 				<width>864</width>
 				<height>160</height>  <!-- 4 lines of 40 -->
 				<font>body_26</font>
-				<textcolor>body</textcolor>
 				<autoscroll time="3000" delay="4000" repeat="5000">true</autoscroll>
 			</control>
 			<control type="progress" id="20">

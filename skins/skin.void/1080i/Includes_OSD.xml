@@ -40,24 +40,6 @@
 		<value condition="Player.Paused">Paused</value>
 		<value>Playing</value>
 	</variable>
-	<variable name="OSD_Type">
-		<value condition="VideoPlayer.Content(episodes)">Episode</value>
-		<value condition="VideoPlayer.Content(movies)">Film</value>
-		<value condition="VideoPlayer.Content(musicvideos)">Music video</value>
-		<value condition="VideoPlayer.Content(livetv)">Live TV</value>
-		<value condition="Player.HasAudio + !Player.HasVideo">Music</value>
-		<value>Video</value>
-	</variable>
-	<!-- DialogFullScreenInfo poster: episodes show their series poster -->
-	<variable name="OSDInfo_Poster">
-		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">$INFO[Player.Art(tvshow.poster)]</value>
-		<value>$INFO[Player.Art(poster)]</value>
-	</variable>
-	<variable name="OSD_InfoCaption">
-		<value condition="VideoPlayer.Content(episodes)">Episode</value>
-		<value condition="VideoPlayer.Content(movies)">Film</value>
-		<value>Video</value>
-	</variable>
 	<variable name="OSD_Title">
 		<value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.TVShowTitle)">$INFO[VideoPlayer.TVShowTitle]</value>
 		<value condition="Player.HasAudio + !Player.HasVideo">$INFO[MusicPlayer.Title]</value>
@@ -71,24 +53,6 @@
 		<value condition="Integer.IsLess(VideoPlayer.Season,10)">S0$INFO[VideoPlayer.Season]E$INFO[VideoPlayer.Episode]</value>
 		<value condition="Integer.IsLess(VideoPlayer.Episode,10)">S$INFO[VideoPlayer.Season]E0$INFO[VideoPlayer.Episode]</value>
 		<value>S$INFO[VideoPlayer.Season]E$INFO[VideoPlayer.Episode]</value>
-	</variable>
-	<!-- Kodi stores US certifications as "Rated PG-13" (DATA.md 4.1): show the bare code -->
-	<variable name="OSD_MPAA">
-		<value condition="String.IsEqual(VideoPlayer.mpaa,Rated R)">R</value>
-		<value condition="String.IsEqual(VideoPlayer.mpaa,Rated PG-13)">PG-13</value>
-		<value condition="String.IsEqual(VideoPlayer.mpaa,Rated PG)">PG</value>
-		<value condition="String.IsEqual(VideoPlayer.mpaa,Rated G)">G</value>
-		<value condition="String.IsEqual(VideoPlayer.mpaa,Rated NR)">NR</value>
-		<value condition="String.IsEqual(VideoPlayer.mpaa,Rated NC-17)">NC-17</value>
-		<value>$INFO[VideoPlayer.mpaa]</value>
-	</variable>
-	<!-- Mono meta line under the title (font is uppercase) -->
-	<variable name="OSD_Meta">
-		<value condition="VideoPlayer.Content(episodes)">$VAR[OSD_EpisodeCode]$INFO[VideoPlayer.Title,  ·  ,]$INFO[VideoPlayer.Year,  ·  ,]</value>
-		<value condition="VideoPlayer.Content(musicvideos)">$INFO[VideoPlayer.Artist]$INFO[VideoPlayer.Album,  ·  ,]$INFO[VideoPlayer.Year,  ·  ,]</value>
-		<value condition="Player.HasAudio + !Player.HasVideo">$INFO[MusicPlayer.Artist]$INFO[MusicPlayer.Album,  ·  ,]</value>
-		<value condition="!String.IsEmpty(VideoPlayer.Year)">$INFO[VideoPlayer.Year]$VAR[OSD_MPAA,  ·  ,]$INFO[VideoPlayer.Director,  ·  ,]</value>
-		<value>$VAR[OSD_MPAA]$INFO[VideoPlayer.Director,  ·  ,]</value>
 	</variable>
 	<!-- One-line title for the minimal seek bar -->
 	<variable name="OSD_ShortTitle">
@@ -120,16 +84,7 @@
 		<value condition="!String.IsEmpty(Player.SeekOffset) + Integer.IsEqual(Player.SeekOffset(mm),0)">$INFO[Player.SeekOffset(ss)]s</value>
 		<value condition="!String.IsEmpty(Player.SeekOffset)">$INFO[Player.SeekOffset]</value>
 	</variable>
-	<variable name="OSD_EndsClock">
-		<value condition="!String.IsEmpty(Player.FinishTime) + Player.HasVideo">ends $INFO[Player.FinishTime]</value>
-		<value>$INFO[System.Time]</value>
-	</variable>
 
-	<!-- Media flags (DESIGN 7.8, values per Kodi Omega VideoGUIInfo / ffmpeg codec names) -->
-	<variable name="OSD_FlagResolution">
-		<value condition="String.IsEqual(VideoPlayer.VideoResolution,4K) | String.IsEqual(VideoPlayer.VideoResolution,8K) | String.IsEqual(VideoPlayer.VideoResolution,SD)">$INFO[VideoPlayer.VideoResolution]</value>
-		<value condition="!String.IsEmpty(VideoPlayer.VideoResolution)">$INFO[VideoPlayer.VideoResolution]P</value>
-	</variable>
 	<variable name="OSD_FlagVideoCodec">
 		<value condition="String.IsEqual(VideoPlayer.VideoCodec,h264) | String.IsEqual(VideoPlayer.VideoCodec,avc1)">H.264</value>
 		<value condition="String.IsEqual(VideoPlayer.VideoCodec,hevc) | String.IsEqual(VideoPlayer.VideoCodec,h265) | String.IsEqual(VideoPlayer.VideoCodec,hvc1)">HEVC</value>
@@ -191,11 +146,6 @@
 		<value condition="!String.IsEmpty(Player.Art(thumb))">$INFO[Player.Art(thumb)]</value>
 		<value>$INFO[Player.Icon]</value>
 	</variable>
-	<variable name="OSD_RepeatLabel">
-		<value condition="Playlist.IsRepeatOne">Repeat one</value>
-		<value condition="Playlist.IsRepeat">Repeat all</value>
-		<value condition="Playlist.IsRandom">Shuffle</value>
-	</variable>
 	<!-- Process info: decoder HW/SW, HDR or SDR -->
 	<variable name="OSD_DecoderType">
 		<value condition="Player.Process(videohwdecoder)">HW</value>
@@ -205,7 +155,6 @@
 		<value condition="!String.IsEmpty(VideoPlayer.HdrType)">$VAR[OSD_FlagHDR]</value>
 		<value>SDR</value>
 	</variable>
-
 
 	<variable name="OSD_Kicker">
 		<value condition="VideoPlayer.Content(episodes)">$VAR[OSD_EpisodeCode]$INFO[VideoPlayer.Title,[COLOR sep_light]  ·  [/COLOR],]</value>
@@ -358,11 +307,6 @@
 			<textcolor>grey</textcolor>
 			<label>$VAR[OSD_Right]</label>
 		</control>
-	</include>
-	<!-- engine name -->
-	<include name="OSD_ProgressBlock">
-		<include>OSD_Timeline</include>
-		<include>OSD_Numbers</include>
 	</include>
 
 	<!-- Text button for the OSD row. params: id, label, onclick, visible, width.

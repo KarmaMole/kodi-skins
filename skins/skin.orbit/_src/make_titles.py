@@ -72,7 +72,7 @@ def build():
                   "\t\t\t\t<label>$PARAM[label]</label>", "\t\t\t</control>"]
         L += ["\t\t</definition>", "\t</include>", ""]
     L.append("</includes>")
-    OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
+    OUT.write_text("\n".join(L) + "\n", encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

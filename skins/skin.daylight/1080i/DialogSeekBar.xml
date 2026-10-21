@@ -40,7 +40,6 @@
 				<width>900</width>
 				<height>40</height>
 				<font>ui_28_semibold</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
 				<label>$VAR[OSD_ShortTitle]</label>
 			</control>
 			<control type="grouplist">

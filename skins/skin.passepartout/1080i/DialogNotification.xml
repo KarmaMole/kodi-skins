@@ -36,7 +36,6 @@
 				<width>420</width>
 				<height>34</height>
 				<font>body_24</font>
-				<textcolor>ink</textcolor>
 				<scrollout>false</scrollout>
 				<pauseatend>2000</pauseatend>
 			</control>

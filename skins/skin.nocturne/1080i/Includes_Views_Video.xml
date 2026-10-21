@@ -55,11 +55,6 @@
 		<value condition="Control.IsVisible(503)">$LOCALIZE[31234]</value>
 		<value>$LOCALIZE[535]</value>
 	</variable>
-	<!-- Kodi stores US certifications as "Rated PG-13": show the bare code -->
-	<variable name="VidView_MPAA">
-		<value condition="String.StartsWith(ListItem.MPAA,Rated )">$INFO[ListItem.MPAA]</value>
-		<value>$INFO[ListItem.MPAA]</value>
-	</variable>
 	<variable name="VidView_Status">
 		<value condition="String.IsEqual(ListItem.DBType,set) + $EXP[VidView_SetDone]">$LOCALIZE[16102]</value>
 		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$LOCALIZE[31240]</value>

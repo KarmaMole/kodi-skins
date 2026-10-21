@@ -31,7 +31,7 @@
 				<!-- own fades: without them Kodi draws this dim over the dialog (seen on Shield 2026-10-18) -->
 				<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
 				<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -39,7 +39,7 @@
 				<width>400</width>
 				<height>36</height>
 				<font>cap_20</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<label>$LOCALIZE[13376]</label>
 			</control>
 			<control type="label">
@@ -49,7 +49,7 @@
 				<height>36</height>
 				<align>right</align>
 				<font>bold_26</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<label>$INFO[Control.GetLabel(29999),, %]</label>
 				<visible>!Player.Muted</visible>
 			</control>
@@ -60,7 +60,7 @@
 				<height>36</height>
 				<align>right</align>
 				<font>cap_20</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<label>$LOCALIZE[31015]</label>
 				<visible>Player.Muted</visible>
 			</control>
@@ -69,7 +69,7 @@
 				<top>62</top>
 				<width>672</width>
 				<height>8</height>
-				<texturebg colordiffuse="paper_22">common/white.png</texturebg>
+				<texturebg colordiffuse="$VAR[paper_22]">common/white.png</texturebg>
 				<midtexture colordiffuse="$VAR[SectionColor]">common/white.png</midtexture>
 				<info>Player.Volume</info>
 				<visible>!Player.Muted</visible>
@@ -79,7 +79,7 @@
 				<top>62</top>
 				<width>672</width>
 				<height>8</height>
-				<texture colordiffuse="paper_22">common/white.png</texture>
+				<texture colordiffuse="$VAR[paper_22]">common/white.png</texture>
 				<visible>Player.Muted</visible>
 			</control>
 		</control>

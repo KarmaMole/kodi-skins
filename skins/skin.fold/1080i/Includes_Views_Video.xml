@@ -29,7 +29,7 @@ view mode), and the first visit of each content type opens the Fold view.
 	<expression name="VidView_IsTVType">String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)</expression>
 	<expression name="Shelf_Watched">[!$EXP[VidView_IsFolderType] + Integer.IsGreater(ListItem.PlayCount,0)] | [$EXP[VidView_IsTVType] + Integer.IsEqual(ListItem.Property(UnWatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)]</expression>
 	<!-- the library's start folder (Back leaves to Home from here in one press) -->
-	<expression name="Lib_AtRoot">String.IsEqual(Container.FolderPath,videodb://movies/titles/) | String.IsEqual(Container.FolderPath,videodb://tvshows/titles/) | String.IsEqual(Container.FolderPath,videodb://inprogresstvshows/) | String.IsEqual(Container.FolderPath,videodb://movies/sets/)</expression>
+	<expression name="Lib_AtRoot">String.IsEqual(Container.FolderPath,videodb://movies/titles/) | String.IsEqual(Container.FolderPath,videodb://tvshows/titles/) | String.IsEqual(Container.FolderPath,videodb://inprogresstvshows/)</expression>
 
 	<!-- ================================================================== variables -->
 	<variable name="VidView_Title">
@@ -103,10 +103,6 @@ view mode), and the first visit of each content type opens the Fold view.
 		<value condition="String.IsEqual(ListItem.MPAA,Rated NR) | String.IsEqual(ListItem.MPAA,Rated)"></value>
 		<value condition="String.IsEqual(ListItem.MPAA,Rated NC-17)">NC-17</value>
 		<value>$INFO[ListItem.MPAA]</value>
-	</variable>
-	<variable name="VidView_EpCode">
-		<value condition="String.IsEmpty(ListItem.Episode)"></value>
-		<value>S$INFO[ListItem.Season] · E$INFO[ListItem.Episode]</value>
 	</variable>
 	<!-- shelf -->
 	<variable name="Shelf_CardColor">
@@ -298,7 +294,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				<onright>9000</onright>
 				<onleft>ActivateWindow(1155)</onleft>
 				<onback condition="$EXP[Lib_AtRoot]">9398</onback>
-				<viewtype label="Shelf">icon</viewtype>
+				<viewtype label="31386">icon</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)</visible>
 				<itemlayout width="268" height="412">
 			<control type="image">
@@ -380,7 +376,7 @@ view mode), and the first visit of each content type opens the Fold view.
 					<font>tab_22</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<label>Up a level</label>
+					<label>$LOCALIZE[31393]</label>
 				</control>
 				<control type="image">
 					<left>0</left>
@@ -415,7 +411,7 @@ view mode), and the first visit of each content type opens the Fold view.
 						<effect type="zoom" start="90.5" end="100" center="154,396" time="260" tween="back" easing="out"/>
 						<effect type="rotatex" start="0" end="-9" center="396" time="260" tween="back" easing="out"/>
 					</animation>
-					<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+					<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(500)">
 						<effect type="rotatex" start="-9" end="-9" center="396" time="0"/>
 					</animation>
 					<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
@@ -496,7 +492,7 @@ view mode), and the first visit of each content type opens the Fold view.
 					<font>tab_22</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<label>Up a level</label>
+					<label>$LOCALIZE[31393]</label>
 				</control>
 				<control type="image">
 					<left>0</left>
@@ -702,7 +698,7 @@ view mode), and the first visit of each content type opens the Fold view.
 					<onleft>ActivateWindow(1155)</onleft>
 					<onright>ActivateWindow(1155)</onright>
 					<onback condition="$EXP[Lib_AtRoot]">9398</onback>
-					<viewtype label="Seasons">list</viewtype>
+					<viewtype label="31416">list</viewtype>
 					<visible>Container.Content(seasons)</visible>
 					<itemlayout width="268" height="412">
 			<control type="image">
@@ -784,7 +780,7 @@ view mode), and the first visit of each content type opens the Fold view.
 					<font>tab_22</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<label>Up a level</label>
+					<label>$LOCALIZE[31393]</label>
 				</control>
 				<control type="image">
 					<left>0</left>
@@ -819,7 +815,7 @@ view mode), and the first visit of each content type opens the Fold view.
 						<effect type="zoom" start="90.5" end="100" center="154,396" time="260" tween="back" easing="out"/>
 						<effect type="rotatex" start="0" end="-9" center="396" time="260" tween="back" easing="out"/>
 					</animation>
-					<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+					<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(501)">
 						<effect type="rotatex" start="-9" end="-9" center="396" time="0"/>
 					</animation>
 					<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
@@ -900,7 +896,7 @@ view mode), and the first visit of each content type opens the Fold view.
 					<font>tab_22</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<label>Up a level</label>
+					<label>$LOCALIZE[31393]</label>
 				</control>
 				<control type="image">
 					<left>0</left>
@@ -1350,7 +1346,7 @@ view mode), and the first visit of each content type opens the Fold view.
 					<onleft>ActivateWindow(1155)</onleft>
 					<onright>ActivateWindow(1155)</onright>
 					<onback condition="$EXP[Lib_AtRoot]">9398</onback>
-					<viewtype label="Concertina">list</viewtype>
+					<viewtype label="31417">list</viewtype>
 					<visible>Container.Content(episodes)</visible>
 					<itemlayout width="192" height="588">
 			<control type="image">
@@ -1500,7 +1496,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
 					<effect type="zoom" start="100" end="116" center="132,284" time="220" tween="cubic" easing="out"/>
 				</animation>
-				<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+				<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(502)">
 					<effect type="zoom" start="116" end="116" center="132,284" time="0"/>
 				</animation>
 				<animation type="Unfocus">
@@ -1751,7 +1747,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				<textoffsetx>12</textoffsetx>
 				<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
 				<texturenofocus border="6" colordiffuse="$VAR[VidView_ColNavInProgress_Tex]">fold/chip.png</texturenofocus>
-				<label>In progress</label>
+				<label>$LOCALIZE[31418]</label>
 				<onclick condition="!$EXP[VidView_IsInProgressTV]">Container.Update(videodb://inprogresstvshows/)</onclick>
 				<visible>$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]</visible>
 			</control>
@@ -1781,7 +1777,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				<textoffsetx>12</textoffsetx>
 				<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
 				<texturenofocus />
-				<label>Options</label>
+				<label>$LOCALIZE[31353]</label>
 				<onclick>ActivateWindow(1155)</onclick>
 				<visible>true</visible>
 			</control>
@@ -1843,7 +1839,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				<font>disp_64</font>
 				<textcolor>ink</textcolor>
 				<selectedcolor>ink</selectedcolor>
-				<label>Nothing in this folder.</label>
+				<label>$LOCALIZE[31398]</label>
 			</control>
 			<control type="label">
 				<left>96</left>
@@ -1853,7 +1849,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				<font>light_32</font>
 				<textcolor>ink2</textcolor>
 				<selectedcolor>ink2</selectedcolor>
-				<label>Back folds it closed.</label>
+				<label>$LOCALIZE[31419]</label>
 			</control>
 		</control>
 	</include>

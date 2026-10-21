@@ -1,3 +1,16 @@
+0.9.8 (2026-10-21)
+- Sets row in the Library panel; fix for controls disappearing with Reduce motion on. Code clean-up for the Kodi repository checks.
+- Code clean-up for the Kodi repository checks: unused code and fonts removed, on-screen text moved to the strings file, LF line endings. Search now encodes the typed text with Skin Variables (script.skinvariables, now required), so titles with & + % are found.
+- Sets: while you browse movies (and the library has sets), the Library panel has a "Sets" row: it opens the
+  list of sets in the same window, with the same views as movies; picking a set opens its movies, and Back walks
+  back set -> all sets -> movies. Not a Home item.
+- Reduce motion: Anim_FadeVisible, Anim_TopStrip, Anim_RowStagger and Anim_BackgroundCrossfade carried two Hidden
+  animations (Kodi only resets the first when a control shows again, so with Reduce motion on, for example, the music info
+  panels and the slider strip stayed invisible after their first hide); now one each.
+- Reduce motion: the focus scale of text rows / buttons (108 %) and wall / picker posters (106 %) stayed on
+  after focus left (same engine rule for Focus animations). Now one Focus animation per control; the
+  reduce-motion variant is chosen when the window loads.
+
 0.9.7 (2026-10-21)
 - Library panel: the library's own menu (View, Sort, Order, Watched, Search, Update library, Clean library,
   Library settings), in the System menu's text column. Reach it with Right on the last item of the index,

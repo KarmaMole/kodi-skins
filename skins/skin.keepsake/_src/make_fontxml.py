@@ -47,7 +47,6 @@ FONTS = [
     ("hand_58", HS, 58, None, None),
     ("hand_54", HS, 54, None, None),
     ("hand_52", HM, 52, None, None),
-    ("hand_52b", HS, 52, None, None),
     ("hand_48", HS, 48, None, None),
     ("hand_46", HM, 46, 0.88, None),
     ("hand_44", HM, 44, 0.896, None),
@@ -61,13 +60,11 @@ FONTS = [
     ("hand_30", HM, 30, 0.84, None),
     # ---------------------------------------------------------------- titles (Fraunces)
     ("ttl_168", TD, 168, 0.83, None),
-    ("ttl_132", TD, 132, 0.83, None),
     ("ttl_104", TD, 104, 0.83, None),
     ("ttl_84", TD, 84, 0.84, None),
     ("ttl_72", TD, 72, 0.84, None),
     ("ttl_64", TD, 64, 0.84, None),
     ("ttl_54", TD, 54, 0.85, None),
-    ("ttl_48", TD, 48, 0.86, None),
     ("ttt_40", TT, 40, 0.92, None),
     ("ttt_34", TT, 34, 0.92, None),
     ("ttt_30", TT, 30, 0.95, None),
@@ -80,14 +77,10 @@ FONTS = [
     ("body_24", BODY, 24, 1.185, None),
     # ---------------------------------------------------------------- labels (DM Mono caps)
     ("lbl_20", LBL, 20, 1.09, None),
-    ("lbl_22", LBL, 22, 1.09, None),
-    ("lbl_24", LBL, 24, 1.09, None),
     ("lbln_20", LBLN, 20, 1.09, None),
-    ("lbln_22", LBLN, 22, 1.09, None),
     ("lbln_24", LBLN, 24, 1.09, None),
     ("mono_20", MONO, 20, None, None),
     ("mono_22", MONO, 22, None, None),
-    ("mono_24", MONO, 24, None, None),
     ("mono_26", MONO, 26, None, None),
     # ---------------------------------------------------------------- stamp / LCD (core + 2 glow layers)
 ]
@@ -111,13 +104,20 @@ FONTS += [
 ]
 
 
+# Estuary font names kept for third-party script windows (add-on dialogs ask for them by name; Kodi only falls
+# back to font13). kdk (the Kodi repository review bot) reports them as unused: each line carries a kdk-ignore.
+ESTUARY_ALIASES = {"font10", "font12", "font14", "font27", "font30", "font37", "font45", "font52_title",
+                   "font45_title", "font36_title", "font30_title", "font25_title"}
+KDK_ALIAS = " <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->"
+
+
 def font_xml(name, filename, size, ls, style):
     parts = [f"<name>{name}</name>", f"<filename>{filename}</filename>", f"<size>{size}</size>"]
     if ls is not None:
         parts.append(f"<linespacing>{ls}</linespacing>")
     if style:
         parts.append(f"<style>{style}</style>")
-    return "\t\t<font>" + "".join(parts) + "</font>"
+    return "\t\t<font>" + "".join(parts) + "</font>" + (KDK_ALIAS if name in ESTUARY_ALIASES else "")
 
 
 def main():
@@ -132,7 +132,7 @@ def main():
     for name, _file, size, ls, style in FONTS:
         out.append(font_xml(name, "arial.ttf", size, ls, style))
     out += ["\t</fontset>", "</fonts>", ""]
-    OUT.write_text("\n".join(out), encoding="utf-8")
+    OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
     print(f"wrote {OUT} ({len(FONTS)} fonts per set)")
 
 

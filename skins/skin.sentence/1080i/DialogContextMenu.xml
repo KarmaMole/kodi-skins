@@ -65,14 +65,6 @@
 			<width>544</width>
 			<height>dialog_row_h</height>
 			<font>ui_24_bold</font>
-			<textcolor>text</textcolor>
-			<focusedcolor>on_lilac</focusedcolor>
-			<disabledcolor>disabled</disabledcolor>
-			<textoffsetx>24</textoffsetx>
-			<aligny>center</aligny>
-			<pulseonselect>false</pulseonselect>
-			<texturefocus border="8" colordiffuse="lilac">sentence/round6.png</texturefocus>
-			<texturenofocus />
 		</control>
 	</controls>
 </window>

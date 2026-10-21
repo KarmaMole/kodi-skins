@@ -63,7 +63,6 @@
 						<height>dialog_row_h</height>
 						<align>right</align>
 						<font>lbl_20</font>
-						<textcolor>ink_bold</textcolor>
 						<label>$VAR[Misc_ChannelMgrFlags]</label>
 					</control>
 					<control type="image">
@@ -96,7 +95,6 @@
 						<width>480</width>
 						<height>dialog_row_h</height>
 						<font>ttt_26</font>
-						<textcolor>ink_bold</textcolor>
 						<scroll>true</scroll>
 						<label>$INFO[ListItem.Property(Number),,  ]$INFO[ListItem.Property(Name)]</label>
 					</control>
@@ -107,7 +105,6 @@
 						<height>dialog_row_h</height>
 						<align>right</align>
 						<font>lbl_20</font>
-						<textcolor>ink_bold</textcolor>
 						<label>$VAR[Misc_ChannelMgrFlags]</label>
 					</control>
 					<control type="image">
@@ -227,8 +224,6 @@
 				<control type="togglebutton" id="34">
 					<description>TV / radio toggle</description>
 					<include content="Misc_RowLook"><param name="width" value="620"/></include>
-					<alttexturefocus border="16" colordiffuse="ink_bold">focus/outline_2.png</alttexturefocus>
-					<alttexturenofocus />
 					<label>$LOCALIZE[19024]</label>
 					<altlabel>$LOCALIZE[19023]</altlabel>
 					<usealttexture>!String.IsEmpty(Window.Property(IsRadio))</usealttexture>

@@ -16,7 +16,6 @@
 	<variable name="St_Cast1"><value condition="$EXP[St_Match]">$INFO[Container(9601).ListItem.Property(cast.1.name)]</value></variable>
 	<variable name="St_Cast2"><value condition="$EXP[St_Match]">$INFO[Container(9601).ListItem.Property(cast.2.name)]</value></variable>
 	<variable name="St_Cast3"><value condition="$EXP[St_Match]">$INFO[Container(9601).ListItem.Property(cast.3.name)]</value></variable>
-	<variable name="St_Genre"><value condition="$EXP[St_Match]">$INFO[Container(9601).ListItem.Property(genre.0)]</value></variable>
 	<variable name="St_Co">
 		<value condition="Integer.IsGreaterOrEqual(Container(9621).NumItems,2)">$VAR[St_Cast1]</value>
 		<value condition="Integer.IsGreaterOrEqual(Container(9622).NumItems,2)">$VAR[St_Cast2]</value>
@@ -24,37 +23,37 @@
 		<value>$VAR[St_Cast1]</value>
 	</variable>
 	<variable name="St_UpQ">
-		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(Container(9601).ListItem.Property(studio.0)) + !String.Contains(Container(9601).ListItem.Property(studio.0),&amp;) + !String.Contains(Container(9601).ListItem.Property(studio.0),%)">$ESCINFO[Container(9601).ListItem.Property(studio.0)]</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow) + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(3).Label]%22</value>
 		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow)">%22%22</value>
-		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(director.0)) + !String.Contains(Container(9601).ListItem.Property(director.0),&amp;) + !String.Contains(Container(9601).ListItem.Property(director.0),%)">$ESCINFO[Container(9601).ListItem.Property(director.0)]</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(4).Label]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Studio) + !String.Contains(ListItem.Studio,&amp;) + !String.Contains(ListItem.Studio,%)">$ESCINFO[ListItem.Studio]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(5).Label]%22</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">%22%22</value>
-		<value condition="!String.IsEmpty(ListItem.Director) + !String.Contains(ListItem.Director,&amp;) + !String.Contains(ListItem.Director,%)">$ESCINFO[ListItem.Director]</value>
+		<value condition="String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(6).Label]%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast0Q">
-		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(cast.0.name)) + !String.Contains(Container(9601).ListItem.Property(cast.0.name),&amp;) + !String.Contains(Container(9601).ListItem.Property(cast.0.name),%)">$ESCINFO[Container(9601).ListItem.Property(cast.0.name)]</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(7).Label]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast1Q">
-		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(cast.1.name)) + !String.Contains(Container(9601).ListItem.Property(cast.1.name),&amp;) + !String.Contains(Container(9601).ListItem.Property(cast.1.name),%)">$ESCINFO[Container(9601).ListItem.Property(cast.1.name)]</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(8).Label]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast2Q">
-		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(cast.2.name)) + !String.Contains(Container(9601).ListItem.Property(cast.2.name),&amp;) + !String.Contains(Container(9601).ListItem.Property(cast.2.name),%)">$ESCINFO[Container(9601).ListItem.Property(cast.2.name)]</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(9).Label]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast3Q">
-		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(cast.3.name)) + !String.Contains(Container(9601).ListItem.Property(cast.3.name),&amp;) + !String.Contains(Container(9601).ListItem.Property(cast.3.name),%)">$ESCINFO[Container(9601).ListItem.Property(cast.3.name)]</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(10).Label]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_GenreQ">
-		<value condition="$EXP[St_Match] + !String.IsEmpty(Container(9601).ListItem.Property(genre.0)) + !String.Contains(Container(9601).ListItem.Property(genre.0),&amp;) + !String.Contains(Container(9601).ListItem.Property(genre.0),%)">$ESCINFO[Container(9601).ListItem.Property(genre.0)]</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(11).Label]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
@@ -65,24 +64,24 @@
 		<value>$VAR[St_Cast1Q]</value>
 	</variable>
 	<variable name="St_Excl">
-		<value condition="!String.IsEmpty(ListItem.Title) + !String.Contains(ListItem.Title,&amp;) + !String.Contains(ListItem.Title,%)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B$ESCINFO[ListItem.Title]%5D%7D</value>
+		<value condition="String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID) + !String.IsEmpty(ListItem.Title)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Container(9096).ListItemAbsolute(12).Label]%22%5D%7D</value> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
 	</variable>
-	<variable name="St_Path_up_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_right_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_left_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_CoQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_down_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_GenreQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_up_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_right_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_left_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_CoQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_down_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_GenreQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
 	<variable name="St_Path_downy_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_p1_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast1Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_p2_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast2Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_p3_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast3Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_up_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_right_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_left_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_CoQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_down_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_GenreQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_p1_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast1Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_p2_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast2Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_p3_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast3Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_up_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_right_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_left_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_CoQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_down_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_GenreQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
 	<variable name="St_Path_downy_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_p1_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast1Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_p2_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast2Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_p3_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast3Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_p1_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast1Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_p2_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast2Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_p3_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast3Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
 	<variable name="St_Path_up">
 		<value condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)]">videodb://movies/sets/</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$VAR[St_Path_up_tvshows]</value>
@@ -134,10 +133,20 @@
 	<variable name="St_Caption">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">Station · $INFO[ListItem.TVShowTitle] · $INFO[ListItem.Season,S,]$INFO[ListItem.Episode, E,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">Station · $INFO[ListItem.TVShowTitle]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[Container(50).NumItems, · , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(ListItem.Property(Total))">Collection$INFO[ListItem.Property(Total), · , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Window.IsVisible(movieinformation)">Collection$INFO[Container(50).NumItems, · , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection</value>
 		<value>Station$INFO[ListItem.Year, · ,] · $VAR[St_GenreCaps]</value>
 	</variable>
 	<variable name="St_GenreCaps"><value>$INFO[ListItem.Genre]</value></variable>
+	<expression name="St_FactLead_On">[[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.Studio)] | [![String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.Director)]]</expression>
+	<expression name="St_FactTime_On">[Integer.IsGreater(ListItem.Duration,0) | [String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Property(TotalSeasons))]]</expression>
+	<expression name="St_FactMpaa_On">[!String.IsEmpty(ListItem.MPAA)]</expression>
+	<expression name="St_FactRating_On">[!String.IsEmpty(ListItem.Rating)]</expression>
+	<expression name="St_FactPipe_Time">$EXP[St_FactTime_On] + [$EXP[St_FactLead_On]]</expression>
+	<expression name="St_FactPipe_Mpaa">$EXP[St_FactMpaa_On] + [$EXP[St_FactLead_On] | $EXP[St_FactTime_On]]</expression>
+	<expression name="St_FactPipe_Rating">$EXP[St_FactRating_On] + [$EXP[St_FactLead_On] | $EXP[St_FactTime_On] | $EXP[St_FactMpaa_On]]</expression>
+	<expression name="St_FactPipe_Watched">[$EXP[St_FactLead_On] | $EXP[St_FactTime_On] | $EXP[St_FactMpaa_On] | $EXP[St_FactRating_On]]</expression>
 	<variable name="St_FactLead">
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Studio]</value>
 		<value>$INFO[ListItem.Director]</value>
@@ -175,10 +184,6 @@
 		<value condition="!String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
 		<value>$INFO[ListItem.Art(tvshow.fanart)]</value>
 	</variable>
-	<variable name="St_BackHint">
-		<value condition="Window.IsVisible(1160)">back to the map</value>
-		<value>back</value>
-	</variable>
 	<expression name="St_Row_up">[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Integer.IsGreater(Container(9611).NumItems,0) + !Container(9611).IsUpdating + [$EXP[St_Match] | !System.AddonIsEnabled(script.skinvariables)]</expression>
 	<expression name="St_Row_right">[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Integer.IsGreater(Container(9612).NumItems,0) + !Container(9612).IsUpdating + [$EXP[St_Match] | !System.AddonIsEnabled(script.skinvariables)]</expression>
 	<expression name="St_Row_down">[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Integer.IsGreater(Container(9613).NumItems,0) + !Container(9613).IsUpdating + [$EXP[St_Match] | !System.AddonIsEnabled(script.skinvariables)]</expression>
@@ -204,7 +209,7 @@
 		<control type="label">
 			<left>122</left><top>64</top><width>290</width><height>48</height>
 			<font>xb_28</font><textcolor>ink</textcolor><align>left</align><aligny>center</aligny>
-			<label>Six Degrees</label>
+			<label>$LOCALIZE[31024]</label>
 		</control>
 		<control type="grouplist"><left>420</left><top>72</top><width>1160</width><height>36</height>
 		<orientation>horizontal</orientation><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords>
@@ -215,7 +220,7 @@
 			<left>2</left><top>6</top><width>24</width><height>24</height>
 			<texture colordiffuse="l_route">sd/ring_18_5.png</texture>
 		</control></control>
-		<control type="label"><width>auto</width><height>36</height><font>semi_24</font><textcolor>ink2</textcolor><label>Start</label></control>
+		<control type="label"><width>auto</width><height>36</height><font>semi_24</font><textcolor>ink2</textcolor><label>$LOCALIZE[31256]</label></control>
 		<control type="label"><width>16</width><height>36</height><label></label></control>
 		<control type="image"><top>15</top><width>96</width><height>6</height><texture border="3,0,3,0" colordiffuse="l_route">sd/line_h6.png</texture></control>
 		<control type="group"><width>44</width><height>36</height><control type="image">
@@ -275,13 +280,13 @@
 		</control>
 		<control type="grouplist"><left>480</left><top>308</top><width>1376</width><height>40</height>
 		<orientation>horizontal</orientation><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords>
-		<control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactLead]</label><visible>!String.IsEmpty(ListItem.Director) | !String.IsEmpty(ListItem.Studio)</visible></control>
-		<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>Integer.IsGreater(ListItem.Duration,0) | String.IsEqual(ListItem.DBType,tvshow)</visible></control><control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactTime]</label><visible>Integer.IsGreater(ListItem.Duration,0) | String.IsEqual(ListItem.DBType,tvshow)</visible></control>
-		<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>!String.IsEmpty(ListItem.MPAA)</visible></control><control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$INFO[ListItem.MPAA]</label><visible>!String.IsEmpty(ListItem.MPAA)</visible></control>
-		<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>!String.IsEmpty(ListItem.Rating)</visible></control>
+		<control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactLead]</label><visible>$EXP[St_FactLead_On]</visible></control>
+		<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Time]</visible></control><control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactTime]</label><visible>$EXP[St_FactTime_On]</visible></control>
+		<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Mpaa]</visible></control><control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$INFO[ListItem.MPAA]</label><visible>$EXP[St_FactMpaa_On]</visible></control>
+		<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Rating]</visible></control>
 		<control type="image"><top>9</top><width>22</width><height>22</height><texture colordiffuse="ink">sd/star.png</texture><visible>!String.IsEmpty(ListItem.Rating)</visible></control>
 		<control type="label"><left>8</left><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$INFO[ListItem.Rating]</label><visible>!String.IsEmpty(ListItem.Rating)</visible></control>
-		<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>true</visible></control><control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactWatched]</label><visible>true</visible></control>
+		<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Watched]</visible></control><control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactWatched]</label><visible>true</visible></control>
 		</control>
 		<control type="group">
 			<description>journey</description>
@@ -307,7 +312,7 @@
 			<left>1107</left><top>385</top><width>26</width><height>26</height>
 			<texture colordiffuse="ink">sd/disc_20.png</texture>
 		</control>
-		<control type="grouplist"><left>1144</left><top>378</top><width>500</width><height>40</height><orientation>horizontal</orientation><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label>arrives </label></control><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$VAR[St_Arrives]</label></control></control>
+		<control type="grouplist"><left>1144</left><top>378</top><width>500</width><height>40</height><orientation>horizontal</orientation><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label>$LOCALIZE[31329] </label></control><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$VAR[St_Arrives]</label></control></control>
 		</control>
 		<control type="textbox" id="9010"><left>480</left><top>440</top><width>760</width><height>156</height><font>reg_26</font><textcolor>body</textcolor><label>$INFO[ListItem.Plot]</label></control>
 		<control type="image">
@@ -571,7 +576,7 @@
 		<control type="label">
 			<left>1026</left><top>730</top><width>236</width><height>44</height>
 			<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
-			<label>Ride this line  ›</label>
+			<label>$LOCALIZE[31267]</label>
 			<visible>Control.HasFocus(9301)</visible>
 		</control>
 		</control>
@@ -794,7 +799,7 @@
 			<texture colordiffuse="l_lead">sd/badge_28_right.png</texture>
 		</control>
 		<control type="label"><left>10</left><width max="560">auto</width><height>40</height><font>caps_22</font><textcolor>l_lead</textcolor><label>$VAR[St_Name_right]</label></control>
-		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>lead</label></control>
+		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31268]</label></control>
 		</control>
 		<control type="grouplist"><left>862</left><top>732</top><width>400</width><height>40</height><orientation>horizontal</orientation><align>right</align><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><visible>!Control.HasFocus(9301)</visible><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Container(9612).NumItems]</label></control><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label> more</label></control></control>
 		<control type="image">
@@ -805,7 +810,7 @@
 		<control type="label">
 			<left>1026</left><top>730</top><width>236</width><height>44</height>
 			<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
-			<label>Ride this line  ›</label>
+			<label>$LOCALIZE[31267]</label>
 			<visible>Control.HasFocus(9301)</visible>
 		</control>
 		</control>
@@ -1028,7 +1033,7 @@
 			<texture colordiffuse="l_lead">sd/badge_28_right.png</texture>
 		</control>
 		<control type="label"><left>10</left><width max="560">auto</width><height>40</height><font>caps_22</font><textcolor>l_lead</textcolor><label>$VAR[St_Name_right]</label></control>
-		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>lead</label></control>
+		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31268]</label></control>
 		</control>
 		<control type="grouplist"><left>862</left><top>802</top><width>400</width><height>40</height><orientation>horizontal</orientation><align>right</align><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><visible>!Control.HasFocus(9302)</visible><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Container(9612).NumItems]</label></control><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label> more</label></control></control>
 		<control type="image">
@@ -1039,7 +1044,7 @@
 		<control type="label">
 			<left>1026</left><top>800</top><width>236</width><height>44</height>
 			<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
-			<label>Ride this line  ›</label>
+			<label>$LOCALIZE[31267]</label>
 			<visible>Control.HasFocus(9302)</visible>
 		</control>
 		</control>
@@ -1262,7 +1267,7 @@
 			<texture colordiffuse="l_yg">sd/badge_28_down.png</texture>
 		</control>
 		<control type="label"><left>10</left><width max="560">auto</width><height>40</height><font>caps_22</font><textcolor>l_yg</textcolor><label>$VAR[St_Name_down]</label></control>
-		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>year + genre</label></control>
+		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31269]</label></control>
 		</control>
 		<control type="grouplist"><left>862</left><top>732</top><width>400</width><height>40</height><orientation>horizontal</orientation><align>right</align><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><visible>!Control.HasFocus(9301)</visible><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Container(9613).NumItems]</label></control><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label> more</label></control></control>
 		<control type="image">
@@ -1273,7 +1278,7 @@
 		<control type="label">
 			<left>1026</left><top>730</top><width>236</width><height>44</height>
 			<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
-			<label>Ride this line  ›</label>
+			<label>$LOCALIZE[31267]</label>
 			<visible>Control.HasFocus(9301)</visible>
 		</control>
 		</control>
@@ -1496,7 +1501,7 @@
 			<texture colordiffuse="l_yg">sd/badge_28_down.png</texture>
 		</control>
 		<control type="label"><left>10</left><width max="560">auto</width><height>40</height><font>caps_22</font><textcolor>l_yg</textcolor><label>$VAR[St_Name_down]</label></control>
-		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>year + genre</label></control>
+		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31269]</label></control>
 		</control>
 		<control type="grouplist"><left>862</left><top>802</top><width>400</width><height>40</height><orientation>horizontal</orientation><align>right</align><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><visible>!Control.HasFocus(9302)</visible><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Container(9613).NumItems]</label></control><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label> more</label></control></control>
 		<control type="image">
@@ -1507,7 +1512,7 @@
 		<control type="label">
 			<left>1026</left><top>800</top><width>236</width><height>44</height>
 			<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
-			<label>Ride this line  ›</label>
+			<label>$LOCALIZE[31267]</label>
 			<visible>Control.HasFocus(9302)</visible>
 		</control>
 		</control>
@@ -1730,7 +1735,7 @@
 			<texture colordiffuse="l_yg">sd/badge_28_down.png</texture>
 		</control>
 		<control type="label"><left>10</left><width max="560">auto</width><height>40</height><font>caps_22</font><textcolor>l_yg</textcolor><label>$VAR[St_Name_down]</label></control>
-		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>year + genre</label></control>
+		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31269]</label></control>
 		</control>
 		<control type="grouplist"><left>862</left><top>872</top><width>400</width><height>40</height><orientation>horizontal</orientation><align>right</align><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><visible>!Control.HasFocus(9303)</visible><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Container(9613).NumItems]</label></control><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label> more</label></control></control>
 		<control type="image">
@@ -1741,7 +1746,7 @@
 		<control type="label">
 			<left>1026</left><top>870</top><width>236</width><height>44</height>
 			<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
-			<label>Ride this line  ›</label>
+			<label>$LOCALIZE[31267]</label>
 			<visible>Control.HasFocus(9303)</visible>
 		</control>
 		</control>
@@ -1964,7 +1969,7 @@
 			<texture colordiffuse="l_co">sd/badge_28_left.png</texture>
 		</control>
 		<control type="label"><left>10</left><width max="560">auto</width><height>40</height><font>caps_22</font><textcolor>l_co</textcolor><label>$VAR[St_Name_left]</label></control>
-		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>second star</label></control>
+		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31270]</label></control>
 		</control>
 		<control type="grouplist"><left>862</left><top>732</top><width>400</width><height>40</height><orientation>horizontal</orientation><align>right</align><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><visible>!Control.HasFocus(9301)</visible><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Container(9614).NumItems]</label></control><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label> more</label></control></control>
 		<control type="image">
@@ -1975,7 +1980,7 @@
 		<control type="label">
 			<left>1026</left><top>730</top><width>236</width><height>44</height>
 			<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
-			<label>Ride this line  ›</label>
+			<label>$LOCALIZE[31267]</label>
 			<visible>Control.HasFocus(9301)</visible>
 		</control>
 		</control>
@@ -2198,7 +2203,7 @@
 			<texture colordiffuse="l_co">sd/badge_28_left.png</texture>
 		</control>
 		<control type="label"><left>10</left><width max="560">auto</width><height>40</height><font>caps_22</font><textcolor>l_co</textcolor><label>$VAR[St_Name_left]</label></control>
-		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>second star</label></control>
+		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31270]</label></control>
 		</control>
 		<control type="grouplist"><left>862</left><top>802</top><width>400</width><height>40</height><orientation>horizontal</orientation><align>right</align><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><visible>!Control.HasFocus(9302)</visible><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Container(9614).NumItems]</label></control><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label> more</label></control></control>
 		<control type="image">
@@ -2209,7 +2214,7 @@
 		<control type="label">
 			<left>1026</left><top>800</top><width>236</width><height>44</height>
 			<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
-			<label>Ride this line  ›</label>
+			<label>$LOCALIZE[31267]</label>
 			<visible>Control.HasFocus(9302)</visible>
 		</control>
 		</control>
@@ -2432,7 +2437,7 @@
 			<texture colordiffuse="l_co">sd/badge_28_left.png</texture>
 		</control>
 		<control type="label"><left>10</left><width max="560">auto</width><height>40</height><font>caps_22</font><textcolor>l_co</textcolor><label>$VAR[St_Name_left]</label></control>
-		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>second star</label></control>
+		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31270]</label></control>
 		</control>
 		<control type="grouplist"><left>862</left><top>872</top><width>400</width><height>40</height><orientation>horizontal</orientation><align>right</align><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><visible>!Control.HasFocus(9303)</visible><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Container(9614).NumItems]</label></control><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label> more</label></control></control>
 		<control type="image">
@@ -2443,7 +2448,7 @@
 		<control type="label">
 			<left>1026</left><top>870</top><width>236</width><height>44</height>
 			<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
-			<label>Ride this line  ›</label>
+			<label>$LOCALIZE[31267]</label>
 			<visible>Control.HasFocus(9303)</visible>
 		</control>
 		</control>
@@ -2666,7 +2671,7 @@
 			<texture colordiffuse="l_co">sd/badge_28_left.png</texture>
 		</control>
 		<control type="label"><left>10</left><width max="560">auto</width><height>40</height><font>caps_22</font><textcolor>l_co</textcolor><label>$VAR[St_Name_left]</label></control>
-		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>second star</label></control>
+		<control type="label"><left>12</left><width>auto</width><height>40</height><font>caps_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31270]</label></control>
 		</control>
 		<control type="grouplist"><left>862</left><top>942</top><width>400</width><height>40</height><orientation>horizontal</orientation><align>right</align><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><visible>!Control.HasFocus(9304)</visible><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$INFO[Container(9614).NumItems]</label></control><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label> more</label></control></control>
 		<control type="image">
@@ -2677,7 +2682,7 @@
 		<control type="label">
 			<left>1026</left><top>940</top><width>236</width><height>44</height>
 			<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
-			<label>Ride this line  ›</label>
+			<label>$LOCALIZE[31267]</label>
 			<visible>Control.HasFocus(9304)</visible>
 		</control>
 		</control>
@@ -2742,13 +2747,13 @@
 		<control type="label">
 			<left>37</left><top>9</top><width>161</width><height>64</height>
 			<font>semi_24</font><textcolor>ink</textcolor><align>left</align><aligny>center</aligny>
-			<label>From start</label>
+			<label>$LOCALIZE[31271]</label>
 			<visible>!Control.HasFocus(9002)</visible>
 		</control>
 		<control type="label">
 			<left>37</left><top>9</top><width>161</width><height>64</height>
 			<font>semi_24</font><textcolor>white</textcolor><align>left</align><aligny>center</aligny>
-			<label>From start</label>
+			<label>$LOCALIZE[31271]</label>
 			<visible>Control.HasFocus(9002)</visible>
 		</control>
 		</control>
@@ -2773,13 +2778,13 @@
 		<control type="label">
 			<left>37</left><top>9</top><width>114</width><height>64</height>
 			<font>semi_24</font><textcolor>ink</textcolor><align>left</align><aligny>center</aligny>
-			<label>Trailer</label>
+			<label>$LOCALIZE[31272]</label>
 			<visible>!Control.HasFocus(9003)</visible>
 		</control>
 		<control type="label">
 			<left>37</left><top>9</top><width>114</width><height>64</height>
 			<font>semi_24</font><textcolor>white</textcolor><align>left</align><aligny>center</aligny>
-			<label>Trailer</label>
+			<label>$LOCALIZE[31272]</label>
 			<visible>Control.HasFocus(9003)</visible>
 		</control>
 		</control>
@@ -2978,13 +2983,13 @@
 		<control type="label">
 			<left>37</left><top>9</top><width>206</width><height>64</height>
 			<font>semi_24</font><textcolor>ink</textcolor><align>left</align><aligny>center</aligny>
-			<label>Board this line</label>
+			<label>$LOCALIZE[31273]</label>
 			<visible>!Control.HasFocus(9004)</visible>
 		</control>
 		<control type="label">
 			<left>37</left><top>9</top><width>206</width><height>64</height>
 			<font>semi_24</font><textcolor>white</textcolor><align>left</align><aligny>center</aligny>
-			<label>Board this line</label>
+			<label>$LOCALIZE[31273]</label>
 			<visible>Control.HasFocus(9004)</visible>
 		</control>
 		</control>
@@ -3009,13 +3014,13 @@
 		<control type="label">
 			<left>37</left><top>9</top><width>96</width><height>64</height>
 			<font>semi_24</font><textcolor>ink</textcolor><align>left</align><aligny>center</aligny>
-			<label>More</label>
+			<label>$LOCALIZE[31205]</label>
 			<visible>!Control.HasFocus(9005)</visible>
 		</control>
 		<control type="label">
 			<left>37</left><top>9</top><width>96</width><height>64</height>
 			<font>semi_24</font><textcolor>white</textcolor><align>left</align><aligny>center</aligny>
-			<label>More</label>
+			<label>$LOCALIZE[31205]</label>
 			<visible>Control.HasFocus(9005)</visible>
 		</control>
 		</control>
@@ -3025,16 +3030,16 @@
 		<onup>9005</onup><ondown>9005</ondown><onback>9005</onback>
 		<visible allowhiddenfocus="true">ControlGroup(9100).HasFocus()</visible>
 		<animation type="Visible" condition="!Skin.HasSetting(sixdegrees.reducemotion)"><effect type="fade" start="0" end="100" time="160"/></animation>
-		<control type="button" id="443"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>Collection</label><visible>!String.IsEmpty(ListItem.SetID)</visible><onclick>Dialog.Close(all,true)</onclick><onclick>ActivateWindow(Videos,videodb://movies/sets/$INFO[ListItem.SetId]/?setid=$INFO[ListItem.SetId],return)</onclick></control>
-		<control type="button" id="9202"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>Trailer</label><visible>!Skin.HasSetting(sixdegrees.hidetrailer) + !String.IsEmpty(ListItem.Trailer) + Control.IsEnabled(9) + !ListItem.IsFolder</visible><onclick>SendClick(11)</onclick></control>
-		<control type="button" id="9201"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>Full story</label><visible>!String.IsEmpty(ListItem.Plot)</visible><onclick>SetFocus(9200)</onclick></control>
-		<control type="button" id="13"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>More by director</label><visible>!String.IsEmpty(ListItem.Director) + !ListItem.IsFolder</visible></control>
+		<control type="button" id="443"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>$LOCALIZE[31274]</label><visible>!String.IsEmpty(ListItem.SetID)</visible><onclick>Dialog.Close(all,true)</onclick><onclick>ActivateWindow(Videos,videodb://movies/sets/$INFO[ListItem.SetId]/?setid=$INFO[ListItem.SetId],return)</onclick></control>
+		<control type="button" id="9202"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>$LOCALIZE[31272]</label><visible>!Skin.HasSetting(sixdegrees.hidetrailer) + !String.IsEmpty(ListItem.Trailer) + Control.IsEnabled(9) + !ListItem.IsFolder</visible><onclick>SendClick(11)</onclick></control>
+		<control type="button" id="9201"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>$LOCALIZE[31275]</label><visible>!String.IsEmpty(ListItem.Plot)</visible><onclick condition="Integer.IsGreater(Container(9200).NumPages,1)">SetFocus(61)</onclick><onclick condition="!Integer.IsGreater(Container(9200).NumPages,1)">SetFocus(9203)</onclick></control>
+		<control type="button" id="13"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>$LOCALIZE[31276]</label><visible>!String.IsEmpty(ListItem.Director) + !ListItem.IsFolder</visible></control>
 		<control type="button" id="7"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>My rating$INFO[ListItem.UserRating,: ,]</label><visible>Control.IsEnabled(7)</visible></control>
-		<control type="button" id="14"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>Versions</label><visible>String.IsEqual(ListItem.DBType,movie) + !ListItem.IsFolder</visible></control>
-		<control type="button" id="15"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>Extras</label><visible>String.IsEqual(ListItem.DBType,movie) + !ListItem.IsFolder</visible></control>
-		<control type="button" id="10"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>Choose art</label><visible>Control.IsEnabled(10)</visible></control>
-		<control type="button" id="12"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>Choose fanart</label><visible>Control.IsEnabled(12)</visible></control>
-		<control type="button" id="6"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>Refresh</label><visible>Control.IsEnabled(6)</visible></control>
+		<control type="button" id="14"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>$LOCALIZE[31277]</label><visible>String.IsEqual(ListItem.DBType,movie) + !ListItem.IsFolder</visible></control>
+		<control type="button" id="15"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>$LOCALIZE[31278]</label><visible>String.IsEqual(ListItem.DBType,movie) + !ListItem.IsFolder</visible></control>
+		<control type="button" id="10"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>$LOCALIZE[31279]</label><visible>Control.IsEnabled(10)</visible></control>
+		<control type="button" id="12"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>$LOCALIZE[31280]</label><visible>Control.IsEnabled(12)</visible></control>
+		<control type="button" id="6"><width>auto</width><height>48</height><font>semi_22</font><textcolor>ink</textcolor><focusedcolor>white</focusedcolor><textoffsetx>22</textoffsetx><texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus><label>$LOCALIZE[31281]</label><visible>Control.IsEnabled(6)</visible></control>
 		</control>
 	</include>
 	<include name="St_SetFilms">
@@ -3070,11 +3075,11 @@
 	<include name="St_FullStory">
 		<control type="group">
 			<description>full story</description>
-			<visible>Control.HasFocus(9200) | Control.HasFocus(61)</visible>
+		<animation effect="fade" start="100" end="0" time="0" condition="![Control.HasFocus(61) | Control.HasFocus(9203)]">Conditional</animation>
+		<animation effect="fade" start="0" end="100" time="160" condition="Control.HasFocus(61) | Control.HasFocus(9203)">Conditional</animation>
 		<control type="image">
 			<left>-2000</left><top>-2000</top><width>6000</width><height>6000</height>
 			<texture colordiffuse="veil">common/white.png</texture>
-		<animation effect="fade" start="0" end="100" time="160">Visible</animation>
 		</control>
 		<control type="image">
 			<left>260</left><top>94</top><width>1400</width><height>920</height>
@@ -3087,15 +3092,27 @@
 		<control type="label">
 			<left>384</left><top>180</top><width>1100</width><height>30</height>
 			<font>caps_21</font><textcolor>ink2</textcolor><align>left</align><aligny>top</aligny>
-			<label>The full story</label>
+			<label>$LOCALIZE[31282]</label>
 		</control>
 		<control type="label">
 			<left>384</left><top>212</top><width>1152</width><height>70</height>
 			<font>disp_52</font><textcolor>ink</textcolor><align>left</align><aligny>center</aligny>
 			<label>$INFO[ListItem.Title]</label>
 		</control>
-		<control type="textbox" id="9200"><left>384</left><top>310</top><width>1100</width><height>585</height><font>reg_26</font><textcolor>body</textcolor><label>$INFO[ListItem.Plot]</label><pagecontrol>61</pagecontrol><onback>9005</onback><onleft>9005</onleft><onup>9200</onup><ondown>9200</ondown><onclick>SetFocus(9005)</onclick></control>
-		<control type="scrollbar" id="61"><left>1520</left><top>310</top><width>6</width><height>585</height><orientation>vertical</orientation><onleft>9200</onleft><onback>9005</onback></control>
+		<control type="textbox" id="9200"><left>384</left><top>310</top><width>1100</width><height>585</height><font>reg_26</font><textcolor>body</textcolor><label>$INFO[ListItem.Plot]</label><pagecontrol>61</pagecontrol></control>
+		<control type="scrollbar" id="61"><left>1520</left><top>310</top><width>6</width><height>585</height><orientation>vertical</orientation><onleft>9201</onleft><onback>9201</onback></control>
+		<control type="button" id="9203"><left>320</left><top>140</top><width>1280</width><height>800</height><texturefocus /><texturenofocus /><label></label><onup>noop</onup><ondown>noop</ondown><onleft>9201</onleft><onright>noop</onright><onback>9201</onback></control>
+		</control>
+	</include>
+	<variable name="St_Encoder_Path">
+		<value condition="[$EXP[St_Match] | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]]">plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;&amp;$INFO[ListItem.DBType]&amp;&amp;$INFO[ListItem.DBID]&amp;&amp;$INFO[Container(9601).ListItem.DBID]&amp;&amp;$INFO[Container(9601).ListItem.Property(studio.0)]&amp;&amp;$INFO[Container(9601).ListItem.Property(director.0)]&amp;&amp;$INFO[ListItem.Studio]&amp;&amp;$INFO[ListItem.Director]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.0.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.1.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.2.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.3.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(genre.0)]&amp;&amp;$INFO[ListItem.Title]</value>
+	</variable>
+	<include name="St_Encoder">
+		<control type="list" id="9096">
+			<description>free text of the line paths, URL-encoded (Encoder in _src/make_map.py)</description>
+			<left>0</left><top>0</top><width>1</width><height>1</height>
+			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
+			<content>$VAR[St_Encoder_Path]</content>
 		</control>
 	</include>
 </includes>

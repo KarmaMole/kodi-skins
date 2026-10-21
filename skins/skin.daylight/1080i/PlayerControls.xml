@@ -80,7 +80,6 @@
 				<width>728</width>
 				<height>50</height>
 				<font>serif_34</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
 				<label>$VAR[OSD_Title]</label>
 			</control>
 			<control type="label">
@@ -118,7 +117,6 @@
 				<width>360</width>
 				<height>28</height>
 				<font>num_20</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
 				<label>$VAR[OSD_SeekTimeLabel]</label>
 			</control>
 			<control type="label">
@@ -150,7 +148,6 @@
 				<height>80</height>
 				<orientation>horizontal</orientation>
 				<usecontrolcoords>true</usecontrolcoords>
-				<itemgap>0</itemgap>
 				<include content="DLOSD_Circle">
 					<param name="id" value="602"/>
 					<param name="icon" value="$VAR[DLOSD_PlayIcon]"/>

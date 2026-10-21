@@ -89,7 +89,6 @@
 					<width>240</width>
 					<height>40</height>
 					<font>ui_22_bold</font>
-					<textcolor>text</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 				</control>
 			</focusedlayout>
@@ -111,11 +110,8 @@
 			<height>dialog_row_h</height>
 			<label>$LOCALIZE[31022]</label>
 			<font>ui_24_bold</font>
-			<textcolor>text</textcolor>
-			<focusedcolor>on_lilac</focusedcolor>
 			<align>center</align>
 			<textoffsetx>16</textoffsetx>
-			<texturefocus border="8" colordiffuse="lilac">sentence/round6.png</texturefocus>
 			<texturenofocus border="8" colordiffuse="rule_strong">sentence/outline6.png</texturenofocus>
 			<onclick>ActivateWindow(ShutdownMenu)</onclick>
 			<onup>52</onup>

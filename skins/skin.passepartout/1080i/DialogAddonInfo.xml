@@ -58,7 +58,6 @@
 					<width>360</width>
 					<height>22</height>
 					<font>cap_20</font>
-					<textcolor>ink</textcolor>
 					<label>$INFO[ListItem.AddonLifecycleType]</label>
 				</control>
 				<control type="textbox">
@@ -93,7 +92,6 @@
 				<width>1000</width>
 				<height>40</height>
 				<font>sans_26_med</font>
-				<textcolor>ink</textcolor>
 				<label>$INFO[ListItem.AddonSummary]</label>
 			</control>
 			<control type="group">
@@ -112,9 +110,6 @@
 					<textcolor>ink2</textcolor>
 					<focusedcolor>on_ink</focusedcolor>
 					<textoffsetx>12</textoffsetx>
-					<pulseonselect>false</pulseonselect>
-					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-					<texturenofocus />
 					<label>$VAR[Dlg_AddonNewsLabel]</label>
 					<onclick condition="String.IsEmpty(Window(Home).Property(passepartout.addonnews))">SetProperty(passepartout.addonnews,1,home)</onclick>
 					<onclick condition="!String.IsEmpty(Window(Home).Property(passepartout.addonnews))">ClearProperty(passepartout.addonnews,home)</onclick>
@@ -136,7 +131,6 @@
 				<width>1264</width>
 				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<label>$INFO[ListItem.AddonDescription]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 				<visible>String.IsEmpty(Window(Home).Property(passepartout.addonnews))</visible>
@@ -147,7 +141,6 @@
 				<width>1264</width>
 				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<label>$INFO[ListItem.AddonNews]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 				<visible>!String.IsEmpty(Window(Home).Property(passepartout.addonnews))</visible>
@@ -250,7 +243,6 @@
 				<width>238</width>
 				<height>dialog_row_h</height>
 				<font>sans_22_med</font>
-				<textcolor>ink</textcolor>
 				<focusedcolor>on_ink</focusedcolor>
 				<textoffsetx>16</textoffsetx>
 				<radiowidth>18</radiowidth>

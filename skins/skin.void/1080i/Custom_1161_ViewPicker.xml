@@ -13,7 +13,7 @@
 	<!-- Kodi restores the list's last selection when the dialog reopens (and Control.Move wraps), so
 	     select absolutely (0-based): item 0, or item 1 when the second view is current -->
 	<onload>SetFocus(100,0,absolute)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,Wall) | String.IsEqual(Container.Viewmode,Covers)">SetFocus(100,1,absolute)</onload>
+	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31218]) | String.IsEqual(Container.Viewmode,$LOCALIZE[31219])">SetFocus(100,1,absolute)</onload>
 	<controls>
 		<control type="image">
 			<description>backdrop dim</description>
@@ -54,7 +54,7 @@
 			</focusedlayout>
 			<content>
 				<item>
-					<label>Index</label>
+					<label>$LOCALIZE[31217]</label>
 					<label2>$VAR[Pick_Cur_Index]</label2>
 					<icon>views/index.png</icon>
 					<onclick>Dialog.Close(1161,true)</onclick>
@@ -62,7 +62,7 @@
 					<onclick>SetFocus(50)</onclick>
 				</item>
 				<item>
-					<label>Wall</label>
+					<label>$LOCALIZE[31218]</label>
 					<label2>$VAR[Pick_Cur_Wall]</label2>
 					<icon>views/wall.png</icon>
 					<onclick>Dialog.Close(1161,true)</onclick>
@@ -71,7 +71,7 @@
 					<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]</visible>
 				</item>
 				<item>
-					<label>Covers</label>
+					<label>$LOCALIZE[31219]</label>
 					<label2>$VAR[Pick_Cur_Covers]</label2>
 					<icon>views/covers.png</icon>
 					<onclick>Dialog.Close(1161,true)</onclick>
@@ -89,7 +89,7 @@
 			<aligny>top</aligny>
 			<font>caps_20</font>
 			<textcolor>grey_soft</textcolor>
-			<label>OK switches[COLOR sep_light]  ·  [/COLOR]Back keeps it as it is</label>
+			<label>$LOCALIZE[31220][COLOR sep_light]  ·  [/COLOR]$LOCALIZE[31221]</label>
 		</control>
 	</controls>
 </window>

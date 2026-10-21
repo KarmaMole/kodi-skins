@@ -178,8 +178,8 @@
 		<param name="width">300</param>
 		<param name="height">dialog_row_h</param>
 		<param name="label"></param>
-		<param name="onclick"></param>
-		<param name="onclick2"></param>
+		<param name="onclick">noop</param>
+		<param name="onclick2">noop</param>
 		<param name="visible">true</param>
 		<definition>
 			<control type="button" id="$PARAM[id]">
@@ -330,10 +330,6 @@
 	     params: width, height, list_id -->
 	<!-- Row number from the item's position among VISIBLE items (no gaps when Kodi hides items such
 	     as Reboot/Power off on Android); two digits. -->
-	<variable name="Dlg_RowIndex">
-		<value condition="Integer.IsLess(ListItem.CurrentItem,10)">$INFO[ListItem.CurrentItem,0]</value>
-		<value>$INFO[ListItem.CurrentItem]</value>
-	</variable>
 	<include name="Dlg_IndexListLayout">
 		<!-- menu list (settings hub, system menu, power menu): label, DM Mono hint (label2); tape on focus.
 		     params: width, height, list_id -->
@@ -494,8 +490,8 @@
 	     params: id, left, top, height, onleft, onright -->
 	<include name="KS_Scrollbar">
 		<!-- a thin pen line beside a list. params: id, left, top, height, onleft, onright -->
-		<param name="onleft"></param>
-		<param name="onright"></param>
+		<param name="onleft">noop</param>
+		<param name="onright">noop</param>
 		<param name="onright2">noop</param>
 		<definition>
 			<control type="scrollbar" id="$PARAM[id]">
@@ -625,7 +621,7 @@
 				<height>dialog_row_h</height>
 				<font>lbl_20</font>
 				<textcolor>label</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31337]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<include content="KS_Scrollbar">
@@ -793,7 +789,7 @@
 				<textoffsetx>56</textoffsetx>
 				<font>lbl_20</font>
 				<textcolor>label</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31337]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<control type="scrollbar" id="61">

@@ -96,15 +96,6 @@
 		<value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.BlurImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</value>
 	</variable>
 
-	<!-- Info dialog background: artist fanart (albums get artist fanart via Art(fanart) too) ->
-	     blur of this item's cover (only when the monitor's .Original matches, so a stale blur
-	     from Home is never shown) -> none -->
-	<variable name="Music_InfoArt">
-		<value condition="!String.IsEmpty(ListItem.Art(artist.fanart))">$INFO[ListItem.Art(artist.fanart)]</value>
-		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
-		<value condition="!String.IsEmpty(ListItem.Art(thumb)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.BlurImage.Original),ListItem.Art(thumb))">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</value>
-	</variable>
-
 	<!-- Now playing background: artist fanart -> blurred cover of the current track -> none -->
 	<variable name="Music_PlayerArt">
 		<value condition="!String.IsEmpty(Player.Art(artist.fanart))">$INFO[Player.Art(artist.fanart)]</value>
@@ -117,58 +108,7 @@
 		<value condition="ListItem.IsParentFolder">Back</value>
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
-	<!-- Big Album left column: previous item, or "Back" when the previous slot holds the ".." item -->
-	<variable name="Music_PrevCaption">
-		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">◀  Back</value>
-		<value>◀  Previous</value>
-	</variable>
-	<variable name="Music_PrevTitle">
-		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">Up one level</value>
-		<value>$INFO[Container(505).ListItemNoWrap(-1).Label]$INFO[Container(505).ListItemNoWrap(-1).Artist,  ·  ,]</value>
-	</variable>
 
-	<!-- Header tabs -->
-	<variable name="Music_TabText_Albums">
-		<value condition="$EXP[Music_TabAlbums]">text</value>
-		<value>muted</value>
-	</variable>
-	<variable name="Music_TabText_Artists">
-		<value condition="$EXP[Music_TabArtists]">text</value>
-		<value>muted</value>
-	</variable>
-	<variable name="Music_TabText_Songs">
-		<value condition="$EXP[Music_TabSongs]">text</value>
-		<value>muted</value>
-	</variable>
-	<variable name="Music_TabText_Genres">
-		<value condition="$EXP[Music_TabGenres]">text</value>
-		<value>muted</value>
-	</variable>
-	<!-- Library totals come from Kodi core (Window(Home) properties set by CRecentlyAddedJob, DATA 4.2) -->
-	<variable name="Music_TabLabel_Albums">
-		<value condition="$EXP[Music_TabAlbums]">Albums$INFO[Window(Home).Property(Music.AlbumsCount), ,]</value>
-		<value>Albums</value>
-	</variable>
-	<variable name="Music_TabLabel_Artists">
-		<value condition="$EXP[Music_TabArtists]">Artists$INFO[Window(Home).Property(Music.ArtistsCount), ,]</value>
-		<value>Artists</value>
-	</variable>
-	<variable name="Music_TabLabel_Songs">
-		<value condition="$EXP[Music_TabSongs]">Songs$INFO[Window(Home).Property(Music.SongsCount), ,]</value>
-		<value>Songs</value>
-	</variable>
-	<variable name="Music_SortArrow">
-		<value condition="Container.SortDirection(descending)">↓</value>
-		<value>↑</value>
-	</variable>
-	<!-- Page header caption: the folder name once you drill below a tab root -->
-	<variable name="Music_HeaderSub">
-		<value condition="!$EXP[Music_AtTabRoot] + !String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
-	</variable>
-	<!-- Big Album kicker: ALBUM · 14 / 229 · SORTED BY DATE ADDED -->
-	<variable name="Music_BigKicker">
-		<value>Album$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]$INFO[Container.SortMethod,  ·  Sorted by ,]</value>
-	</variable>
 	<!-- "Playing “Song” by Artist." / "Paused on ..." -->
 	<variable name="Music_NPSentence">
 		<value condition="Player.Paused">Paused on “$INFO[MusicPlayer.Title]”$INFO[MusicPlayer.Artist, by ,].</value>
@@ -255,39 +195,17 @@
 		<value condition="Player.Paused">Paused$INFO[Playlist.Position(music),  ·  ,]$INFO[Playlist.Length(music), / ,]</value>
 		<value>Now playing$INFO[Playlist.Position(music),  ·  ,]$INFO[Playlist.Length(music), / ,]</value>
 	</variable>
-	<!-- Shuffle / repeat state caption (Now playing) -->
-	<variable name="Music_PlayModes">
-		<value condition="Playlist.IsRandom + Playlist.IsRepeatOne">Shuffle  ·  Repeat one</value>
-		<value condition="Playlist.IsRandom + Playlist.IsRepeat">Shuffle  ·  Repeat all</value>
-		<value condition="Playlist.IsRandom">Shuffle</value>
-		<value condition="Playlist.IsRepeatOne">Repeat one</value>
-		<value condition="Playlist.IsRepeat">Repeat all</value>
-	</variable>
 	<!-- Info dialog -->
-	<variable name="Music_InfoKicker">
-		<value condition="$EXP[Music_InfoIsArtist]">Artist</value>
-		<value condition="$EXP[Music_InfoIsSong]">Song$INFO[ListItem.TrackNumber,  ·  Track ,]</value>
-		<value>Album$INFO[ListItem.Property(Album_ReleaseType),  ·  ,]</value>
-	</variable>
 	<variable name="Music_InfoTitle">
 		<value condition="$EXP[Music_InfoIsArtist] + !String.IsEmpty(ListItem.Artist)">$INFO[ListItem.Artist]</value>
 		<value condition="$EXP[Music_InfoIsSong] + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
 		<value condition="$EXP[Music_InfoIsAlbum] + !String.IsEmpty(ListItem.Album)">$INFO[ListItem.Album]</value>
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
-	<variable name="Music_InfoSubline">
-		<value condition="$EXP[Music_InfoIsArtist]">$INFO[ListItem.Property(Artist_Type)]$INFO[ListItem.Property(Artist_Style),  ·  ,]</value>
-		<value condition="$EXP[Music_InfoIsSong]">$INFO[ListItem.Artist]$INFO[ListItem.Album,  ·  ,]</value>
-		<value>$INFO[ListItem.Artist]</value>
-	</variable>
 	<variable name="Music_InfoDescription">
 		<value condition="$EXP[Music_InfoIsArtist]">$INFO[ListItem.Property(Artist_Description)]</value>
 		<value condition="$EXP[Music_InfoIsSong]">$INFO[ListItem.Comment]</value>
 		<value>$INFO[ListItem.Property(Album_Description)]</value>
-	</variable>
-	<variable name="Music_InfoListCaption">
-		<value condition="$EXP[Music_InfoIsArtist]">Discography$INFO[Container(50).NumItems,  ·  ,]</value>
-		<value>Tracklist$INFO[Container(50).NumItems,  ·  ,]</value>
 	</variable>
 	<!-- Shuffle (skin action; Kodi has no shuffle button in this dialog). PlayMedia clears the music
 	     playlist (which resets shuffle), then the button's second action turns RandomOn. -->
@@ -408,45 +326,8 @@
 					<align>center</align>
 					<font>cap_20</font>
 					<textcolor>muted</textcolor>
-					<label>Up one level</label>
+					<label>$LOCALIZE[31354]</label>
 					<visible>$PARAM[caption_visible]</visible>
-				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Fixed-slot dimming for the Big Album fixedlist (focus never leaves slot 2): a baked-alpha black
-	     overlay over the slot in window coordinates, visible only while an item fills that slot.
-	     Covers stay opaque. Per-item ListItem.CurrentItem comparisons do not evaluate in layouts on
-	     device; same technique and textures as Builder B's VidView_SlotDim (media/vidview/dim_*.png:
-	     dim_passed = 55 % black = brightness .45, dim_ahead = 20 % black = .80).
-	     params: offset (-1 previous, 1.. ahead), left, tex -->
-	<include name="Music_SlotDim">
-		<param name="tex">vidview/dim_ahead.png</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>230</top>
-				<width>music_big</width>
-				<height>music_big</height>
-				<visible>Control.IsVisible(505) + !String.IsEmpty(Container(505).ListItemNoWrap($PARAM[offset]).Label)</visible>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<right>0</right>
-					<bottom>0</bottom>
-					<include>Music_Anim_BackdropFade</include>
-					<texture diffuse="masks/square_round8_large.png">$PARAM[tex]</texture>
-					<visible>false</visible>
-				</control>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<right>0</right>
-					<bottom>0</bottom>
-					<include>Music_Anim_BackdropFade</include>
-					<texture>$PARAM[tex]</texture>
-					<visible>true</visible>
 				</control>
 			</control>
 		</definition>
@@ -522,118 +403,6 @@
 		</definition>
 	</include>
 
-	<!-- ========================================================= header tabs -->
-	<!-- One mono tab: active = text_primary + 3 px accent underline (togglebutton alt texture),
-	     focused = accent fill + ink text (same language as Sen_SubNavButton).
-	     params: id, label, onclick, active (condition), textcolor, visible -->
-	<include name="Music_Tab">
-		<param name="active">false</param>
-		<param name="textcolor">muted</param>
-		<param name="visible">true</param>
-		<param name="onclick">noop</param>
-		<definition>
-			<control type="togglebutton" id="$PARAM[id]">
-				<width>auto</width>
-				<height>music_tab_h</height>
-				<font>cap_20</font>
-				<textcolor>$PARAM[textcolor]</textcolor>
-				<focusedcolor>on_lilac</focusedcolor>
-				<textoffsetx>10</textoffsetx>
-				<aligny>center</aligny>
-				<label>$PARAM[label]</label>
-				<altlabel>$PARAM[label]</altlabel>
-				<texturefocus border="8" colordiffuse="lilac">sentence/round6.png</texturefocus>
-				<texturenofocus />
-				<alttexturefocus border="8" colordiffuse="lilac">sentence/round6.png</alttexturefocus>
-				<alttexturenofocus border="0,8,0,3" colordiffuse="lilac">music/tab_underline.png</alttexturenofocus>
-				<usealttexture>$PARAM[active]</usealttexture>
-				<onclick>$PARAM[onclick]</onclick>
-				<altclick>$PARAM[onclick]</altclick>
-				<visible>$PARAM[visible]</visible>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Header bar of the music library: ALBUMS · ARTISTS · SONGS · GENRES · SORT ↓ · VIEW.
-	     Lives inside the 120 px top bar between the page title and the clock (Music.dc.html), right-aligned
-	     inside 600..1530 so it ends before the date + clock block (the date starts at ~1555 on device;
-	     same box as MyVideoNav's filter bar) and never reaches the page title + folder caption.
-	     Tabs swap the node in place with Container.Update(path) - no replace, so Back walks the tab
-	     history and leaves the window at the start node (Kodi's own OnBack; a skin onback action
-	     would run AND still let Kodi handle Back). Kodi ids: 3 sort by (SendClick opens Kodi's sort chooser), 4 sort order. -->
-	<include name="Music_HeaderBar">
-		<control type="grouplist" id="9000">
-			<left>600</left>
-			<top>music_tab_top</top>
-			<width>930</width>
-			<height>music_tab_h</height>
-			<orientation>horizontal</orientation>
-			<align>right</align>
-			<itemgap>12</itemgap>
-			<onup>noop</onup>
-			<ondown>50</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
-			<include>Lib_BackHomeNav</include>
-			<onback>50</onback>
-			<include content="Music_Tab">
-				<param name="id" value="9320"/>
-				<param name="label" value="$VAR[Music_TabLabel_Albums]"/>
-				<param name="onclick" value="Container.Update(musicdb://albums/)"/>
-				<param name="active" value="$EXP[Music_TabAlbums]"/>
-				<param name="textcolor" value="$VAR[Music_TabText_Albums]"/>
-			</include>
-			<include content="Music_Tab">
-				<param name="id" value="9321"/>
-				<param name="label" value="$VAR[Music_TabLabel_Artists]"/>
-				<param name="onclick" value="Container.Update(musicdb://artists/)"/>
-				<param name="active" value="$EXP[Music_TabArtists]"/>
-				<param name="textcolor" value="$VAR[Music_TabText_Artists]"/>
-			</include>
-			<include content="Music_Tab">
-				<param name="id" value="9322"/>
-				<param name="label" value="$VAR[Music_TabLabel_Songs]"/>
-				<param name="onclick" value="Container.Update(musicdb://songs/)"/>
-				<param name="active" value="$EXP[Music_TabSongs]"/>
-				<param name="textcolor" value="$VAR[Music_TabText_Songs]"/>
-			</include>
-			<include content="Music_Tab">
-				<param name="id" value="9323"/>
-				<param name="label" value="Genres"/>
-				<param name="onclick" value="Container.Update(musicdb://genres/)"/>
-				<param name="active" value="$EXP[Music_TabGenres]"/>
-				<param name="textcolor" value="$VAR[Music_TabText_Genres]"/>
-			</include>
-			<include content="Music_Tab">
-				<param name="id" value="9324"/>
-				<param name="label" value="Sort: $INFO[Container.SortMethod]"/>
-				<param name="onclick" value="SendClick(3)"/>
-				<param name="visible" value="Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)"/>
-			</include>
-			<include content="Music_Tab">
-				<param name="id" value="9325"/>
-				<param name="label" value="$VAR[Music_SortArrow]"/>
-				<param name="onclick" value="Container.SetSortDirection"/>
-				<param name="visible" value="Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)"/>
-			</include>
-			<include content="Music_Tab">
-				<param name="id" value="9326"/>
-				<param name="label" value="View: $INFO[Container.Viewmode]"/>
-				<param name="onclick" value="Container.NextViewMode"/>
-				<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
-			</include>
-		</control>
-		<!-- Kodi media-window buttons the tabs click into -->
-		<control type="button" id="3">
-			<description>Sort by (Kodi)</description>
-			<include>Sen_Hidden</include>
-		</control>
-		<control type="button" id="4">
-			<description>Sort order (Kodi)</description>
-			<include>Sen_Hidden</include>
-		</control>
-	</include>
-
 	<!-- ================================================== stage background -->
 	<!-- One art layer + the stage gradient (DESIGN 6 "Music stage"). Off = not rendered at all.
 	     params: art (variable), visible -->
@@ -683,125 +452,6 @@
 		</definition>
 	</include>
 
-	<!-- ========================================================== music OSD -->
-	<variable name="Music_OSDShuffleValue">
-		<value condition="Playlist.IsRandom">On</value>
-		<value>Off</value>
-	</variable>
-	<variable name="Music_OSDRepeatValue">
-		<value condition="Playlist.IsRepeatOne">One</value>
-		<value condition="Playlist.IsRepeat">All</value>
-		<value>Off</value>
-	</variable>
-	<variable name="Music_OSDHint">
-		<value condition="Control.HasFocus(87)">◀ ▶  Seek   ·   ▼  Controls   ·   Back  Hides</value>
-		<value>▲  Seek   ·   ◀ ▶  Move   ·   Back  Hides</value>
-	</variable>
-
-	<!-- 72 px square transport button (OSD.dc.html): 1 px outline, white icon; focus = accent frame.
-	     Wrapped in a group (for the frame), so navigation is explicit.
-	     params: id, icon, onclick, onclick_paused (while paused; default unpause), visible, onleft, onright -->
-	<include name="Music_OSDIconButton">
-		<param name="visible">true</param>
-		<param name="onclick_paused">PlayerControl(Play)</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<definition>
-			<control type="group">
-				<top>8</top>  <!-- room for the focus frame: the grouplist clips to its own rect -->
-				<left>8</left>  <!-- + parent itemgap reduced by 8: left/right room for the frame -->
-				<width>music_osd_btn</width>
-				<height>music_osd_btn</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="button" id="$PARAM[id]">
-					<width>music_osd_btn</width>
-					<height>music_osd_btn</height>
-					<label></label>
-					<include condition="false">Music_Tex_OSDButton_Round</include>
-					<include condition="true">Music_Tex_OSDButton</include>
-					<onclick condition="Player.Paused">$PARAM[onclick_paused]</onclick>
-					<onclick condition="!Player.Paused">$PARAM[onclick]</onclick>
-					<onup>87</onup>
-					<ondown>noop</ondown>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-				</control>
-				<control type="image">
-					<left>22</left>
-					<top>22</top>
-					<width>28</width>
-					<height>28</height>
-					<texture colordiffuse="text">$PARAM[icon]</texture>
-				</control>
-				<include content="Sen_FocusFrameAlways">
-					<param name="visible" value="Control.HasFocus($PARAM[id])"/>
-				</include>
-			</control>
-		</definition>
-	</include>
-	<!-- OSD button outline (#444 border_control per OSD.dc.html; brightens on focus) -->
-	<include name="Music_Tex_OSDButton">
-		<texturefocus border="8" colordiffuse="muted">sentence/outline6.png</texturefocus>
-		<texturenofocus border="8" colordiffuse="rule_strong">sentence/outline6.png</texturenofocus>
-	</include>
-	<include name="Music_Tex_OSDButton_Round">
-		<texturefocus border="8" colordiffuse="muted">sentence/outline6.png</texturefocus>
-		<texturenofocus border="8" colordiffuse="rule_strong">sentence/outline6.png</texturenofocus>
-	</include>
-
-	<!-- Caption + value OSD button (OSD.dc.html right group): mono caption over a 21 px value.
-	     params: id, width, caption, value, onclick, onclick2, visible, onleft, onright -->
-	<include name="Music_OSDTextButton">
-		<param name="width">160</param>
-		<param name="visible">true</param>
-		<param name="onclick2">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<definition>
-			<control type="group">
-				<top>8</top>  <!-- room for the focus frame: the grouplist clips to its own rect -->
-				<left>8</left>  <!-- + parent itemgap reduced by 8: left/right room for the frame -->
-				<width>$PARAM[width]</width>
-				<height>music_osd_btn</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="button" id="$PARAM[id]">
-					<width>$PARAM[width]</width>
-					<height>music_osd_btn</height>
-					<label></label>
-					<include condition="false">Music_Tex_OSDButton_Round</include>
-					<include condition="true">Music_Tex_OSDButton</include>
-					<onclick>$PARAM[onclick]</onclick>
-					<onclick>$PARAM[onclick2]</onclick>
-					<onup>87</onup>
-					<ondown>noop</ondown>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-				</control>
-				<control type="label">
-					<left>24</left>
-					<top>14</top>
-					<right>16</right>
-					<height>18</height>
-					<font>cap_20</font>
-					<textcolor>muted</textcolor>
-					<label>$PARAM[caption]</label>
-				</control>
-				<control type="label">
-					<left>24</left>
-					<top>34</top>
-					<right>16</right>
-					<height>28</height>
-					<font>ui_22_bold</font>
-					<textcolor>text</textcolor>
-					<label>$PARAM[value]</label>
-				</control>
-				<include content="Sen_FocusFrameAlways">
-					<param name="visible" value="Control.HasFocus($PARAM[id])"/>
-				</include>
-			</control>
-		</definition>
-	</include>
-
 	<!-- ===================================================== Now playing blur -->
 	<!-- Blur the playing cover once per album (window onload; MusicOSD re-checks on open).
 	     Only when the setting is on, TMDb Helper is enabled and there is no artist fanart. -->
@@ -811,64 +461,8 @@
 		<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Player.Art(fanart)) + !String.IsEmpty(Player.Art(thumb))">SetProperty(sentence.np.blursrc,$ESCINFO[Player.Art(thumb)],Home)</onload>
 	</include>
 
-	<!-- Library / info: blur source for the TMDb Helper image monitor. Saves the previous value
-	     (Home or video windows may use another source) and puts it back on unload.
-	     param slot: Home property that holds the saved value; must differ per window because the
-	     info dialog opens on top of the library (default sentence.blursrc.prev.music). -->
-	<include name="Music_BlurSourceOnload">
-		<param name="slot">sentence.blursrc.prev.music</param>
-		<definition>
-			<onload>SetProperty($PARAM[slot],$ESCINFO[Window(Home).Property(TMDbHelper.Blur.SourceImage)],Home)</onload>
-			<onload>SetProperty(TMDbHelper.Blur.SourceImage,Art(thumb),Home)</onload>
-			<onload condition="$EXP[ArtBackgroundOn] + !Skin.HasSetting(TMDbHelper.EnableBlur)">Skin.SetBool(TMDbHelper.EnableBlur)</onload>
-			<onunload>SetProperty(TMDbHelper.Blur.SourceImage,$ESCINFO[Window(Home).Property($PARAM[slot])],Home)</onunload>
-		</definition>
-	</include>
-
 	<!-- Info dialog: a description exists for this item type -->
 	<expression name="Music_InfoHasDescription">[$EXP[Music_InfoIsAlbum] + !String.IsEmpty(ListItem.Property(Album_Description))] | [$EXP[Music_InfoIsArtist] + !String.IsEmpty(ListItem.Property(Artist_Description))] | [$EXP[Music_InfoIsSong] + !String.IsEmpty(ListItem.Comment)]</expression>
-
-	<!-- Stat cell for the info dialog stat grid (DESIGN 7.5): mono caption over a stat_30 value,
-	     vertical rule on the left except for the first cell. Hidden cells collapse in the grouplist.
-	     params: label, value, width, visible, first -->
-	<include name="Music_StatCell">
-		<param name="width">200</param>
-		<param name="visible">true</param>
-		<param name="first">false</param>
-		<definition>
-			<control type="group">
-				<width>$PARAM[width]</width>
-				<height>84</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="image">
-					<left>0</left>
-					<top>14</top>
-					<width>1</width>
-					<height>56</height>
-					<texture colordiffuse="rule_strong">common/hairline_v.png</texture>
-					<visible>!$PARAM[first]</visible>
-				</control>
-				<control type="label">
-					<left>20</left>
-					<top>12</top>
-					<right>16</right>
-					<height>20</height>
-					<font>cap_20</font>
-					<textcolor>muted</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<left>20</left>
-					<top>34</top>
-					<right>16</right>
-					<height>40</height>
-					<font>ui_30_bold</font>
-					<textcolor>text</textcolor>
-					<label>$PARAM[value]</label>
-				</control>
-			</control>
-		</definition>
-	</include>
 
 	<!-- Info dialog list row (album tracklist: no · title · duration; artist discography: album · year) -->
 	<include name="Music_InfoRow">

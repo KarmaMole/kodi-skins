@@ -301,34 +301,9 @@
 				<focusedcolor>ink</focusedcolor>
 				<textoffsetx>14</textoffsetx>
 				<texturefocus colordiffuse="$VAR[ColorAccent]">common/white.png</texturefocus>
-				<texturenofocus border="10" colordiffuse="border_control">$VAR[ButtonOutline]</texturenofocus>
 				<label>$PARAM[label]</label>
 				<onclick>$PARAM[onclick]</onclick>
 				<onclick>$PARAM[onclick2]</onclick>
-				<visible>$PARAM[visible]</visible>
-			</control>
-		</definition>
-	</include>
-	<!-- Media flag: mono_13 text in a 1px border_control box, 30 high. An ENABLED auto-width button
-	     (disabled buttons skip their texture on device); nothing navigates to it, and if focus ever
-	     lands there every direction returns to the button row. params: label, visible -->
-	<include name="VidInfo_Flag">
-		<param name="visible">true</param>
-		<definition>
-			<control type="button">
-				<width>auto</width>
-				<height>30</height>
-				<font>mono_13</font>
-				<textcolor>text_secondary</textcolor>
-				<focusedcolor>text_secondary</focusedcolor>
-				<textoffsetx>10</textoffsetx>
-				<texturefocus border="10" colordiffuse="border_control">$VAR[ButtonOutline]</texturefocus>
-				<texturenofocus border="10" colordiffuse="border_control">$VAR[ButtonOutline]</texturenofocus>
-				<label>$PARAM[label]</label>
-				<onup>9000</onup>
-				<ondown>9000</ondown>
-				<onleft>9000</onleft>
-				<onright>9000</onright>
 				<visible>$PARAM[visible]</visible>
 			</control>
 		</definition>

@@ -1,3 +1,29 @@
+0.9.11 (2026-10-21)
+- New Look setting (Skin settings, first row): Colour (as before, the default), Light (near-white pages, black
+  type) or Dark (near-black pages, white type). Light and Dark have no section colours; the focused picture
+  still bursts into full colour. Switches at once, no reload. Sections stay apart by a step in tone and by
+  their halftone screen: films fine dots, series lines, music coarse dots, Search / Settings plain.
+- Light / Dark pictures: Kodi can't make a colour poster grey, so unfocused posters show as faded, greyish
+  "ghost" prints (as grey as they can be while still recognisable); the big Home and info pictures use TMDb
+  Helper's black-and-white copy when it is available. Only the focused item is in full colour: the list's side
+  picture and the now-playing thumbnails are prints too.
+- Under the hood: every colour now goes through a look token (colors/defaults.xml co_ / lt_ / dk_ triples,
+  1080i/Includes_Theme.xml from _src/make_theme.py, lint _src/check_tokens.py). The watched marker, the
+  framed dialog panel and the view-picker previews come in per-look versions; the halftone dots are tinted.
+- Skin settings rows are 72 high (ten rows + Reset fit the page).
+- Dark look: menus and dialogs now dim the screen behind them (a near-black veil) instead of brightening it.
+- Light / Dark: the Home spotlight no longer shows the previous pick's black-and-white picture under the new
+  title when it rotates.
+
+0.9.10 (2026-10-21)
+- Sets row in the Library panel; fix for controls disappearing with Reduce motion on. Code clean-up for the Kodi repository checks.
+- Clean-up details (kodi-review / kdk 0 errors): unused variables, includes and fonts removed, tags that repeat Defaults.xml dropped, label text moved to strings.po, Search now needs Skin Variables (script.skinvariables 2.1.21, required) to URL-encode the typed query, so titles with & + % | are found. Library panel: Unwatched only closes the panel first, like every other row.
+- Sets row in the Library panel: over films (when the library has sets) SETS opens all your sets in the same
+  window; pick one for its films. Back walks set -> all sets -> films. Not a Home item.
+- Fix for controls disappearing with Reduce motion on: every animation include has one Hidden animation now (Kodi
+  resets only the first one when a control shows again, so the reduce-motion twin stayed at fade 0). Fades keep
+  one unconditional fade; slides keep the normal animation, so with Reduce motion on they hide at once.
+
 0.9.9 (2026-10-21)
 - Library panel: press Left past the first column (or Right past the last) in any film, series or music view,
   or choose OPTIONS at the end of the header, for Update library (Stop the update while a scan runs), Clean library,

@@ -25,7 +25,6 @@
 				<width>428</width>
 				<height>22</height>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<scrollout>false</scrollout>
 				<pauseatend>2000</pauseatend>
 			</control>
@@ -36,7 +35,6 @@
 				<width>428</width>
 				<height>36</height>
 				<font>ui_22</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<scrollout>false</scrollout>
 				<pauseatend>2000</pauseatend>
 			</control>

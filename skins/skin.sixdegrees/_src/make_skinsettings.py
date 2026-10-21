@@ -8,6 +8,10 @@ focused setting. Back leaves (Kodi's own Back).
     python skins/skin.sixdegrees/_src/make_skinsettings.py
 """
 from pathlib import Path
+from strip_defaults import strip_defaults  # drops tags that repeat Defaults.xml (kdk xml.redundant)
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
+DEFAULTS_XML = Path(__file__).resolve().parent.parent / "1080i" / "Defaults.xml"
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "1080i" / "SkinSettings.xml"
@@ -170,7 +174,7 @@ def main():
 	</controls>
 </window>
 """
-    OUT.write_text(w, encoding="utf-8")
+    OUT.write_text(localize_xml(strip_defaults(w, DEFAULTS_XML), STRINGS_PO), encoding="utf-8", newline="\n")
     print("wrote", OUT)
 
 

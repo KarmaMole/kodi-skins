@@ -7,7 +7,7 @@
 -->
 <window>
 	<defaultcontrol>9000</defaultcontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>DT_Background</include>
@@ -34,91 +34,91 @@
 			<content>
 				<item>
 					<label>$LOCALIZE[31021]</label>
-					<label2>Duotone</label2>
+					<label2>$LOCALIZE[31024]</label2>
 					<property name="index">[UPPERCASE]01[/UPPERCASE]</property>
 					<property name="help">Duotone's own options: monotone prints, black-and-white source, halftone, motion, watched marks, spotlight, OSD.</property>
 					<onclick>ActivateWindow(skinsettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[14200]</label>
-					<label2>Playback, subtitles</label2>
+					<label2>$LOCALIZE[31357]</label2>
 					<property name="index">[UPPERCASE]02[/UPPERCASE]</property>
 					<property name="help">Video and music playback, refresh-rate matching, subtitle languages and look, discs.</property>
 					<onclick>ActivateWindow(PlayerSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[14211]</label>
-					<label2>Library, files</label2>
+					<label2>$LOCALIZE[31358]</label2>
 					<property name="index">[UPPERCASE]03[/UPPERCASE]</property>
 					<property name="help">Library behaviour, scrapers, file lists, artwork and what OK does on an item.</property>
 					<onclick>ActivateWindow(MediaSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[14206]</label>
-					<label2>Skin, region</label2>
+					<label2>$LOCALIZE[31359]</label2>
 					<property name="index">[UPPERCASE]04[/UPPERCASE]</property>
 					<property name="help">Skin, colours, fonts, region and language, screensaver. Switch to another skin here: Skin > Skin.</property>
 					<onclick>ActivateWindow(InterfaceSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[24001]</label>
-					<label2>Installed, updates</label2>
+					<label2>$LOCALIZE[31360]</label2>
 					<property name="index">[UPPERCASE]05[/UPPERCASE]</property>
 					<property name="help">Browse, update, configure or install add-ons.</property>
 					<onclick>ActivateWindow(addonbrowser)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[14036]</label>
-					<label2>Remote, sharing</label2>
+					<label2>$LOCALIZE[31361]</label2>
 					<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
 					<property name="help">Web server and JSON-RPC control, UPnP, AirPlay, Zeroconf, SMB client.</property>
 					<onclick>ActivateWindow(ServiceSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[13000]</label>
-					<label2>Display, audio</label2>
+					<label2>$LOCALIZE[31362]</label2>
 					<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
 					<property name="help">Display, audio output and passthrough, input, power saving, logging.</property>
 					<onclick>ActivateWindow(SystemSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[10003]</label>
-					<label2>Sources, files</label2>
+					<label2>$LOCALIZE[31363]</label2>
 					<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
 					<property name="help">Copy, move and delete files; add network sources.</property>
 					<onclick>ActivateWindow(filemanager)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[138]</label>
-					<label2>Hardware, storage</label2>
+					<label2>$LOCALIZE[31364]</label2>
 					<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
 					<property name="help">Kodi version, video renderer, storage, network and hardware details.</property>
 					<onclick>ActivateWindow(systeminfo)</onclick>
 				</item>
 				<item>
-					<label>Event log</label>
-					<label2>Recent events</label2>
+					<label>$LOCALIZE[31365]</label>
+					<label2>$LOCALIZE[31366]</label2>
 					<property name="index">[UPPERCASE]10[/UPPERCASE]</property>
 					<property name="help">What Kodi has done recently: scans, add-on updates, errors.</property>
 					<onclick>ActivateWindow(eventlog)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[13200]</label>
-					<label2>Users</label2>
+					<label2>$LOCALIZE[31367]</label2>
 					<property name="index">[UPPERCASE]11[/UPPERCASE]</property>
 					<property name="help">Profiles and the login screen.</property>
 					<onclick>ActivateWindow(Profiles)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[14204]</label>
-					<label2>Not used</label2>
+					<label2>$LOCALIZE[31368]</label2>
 					<property name="index">[UPPERCASE]12[/UPPERCASE]</property>
 					<property name="help">Live TV and PVR. Duotone only gives these screens a plain layout.</property>
 					<onclick>ActivateWindow(PVRSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[15016]</label>
-					<label2>Controllers</label2>
+					<label2>$LOCALIZE[31369]</label2>
 					<property name="index">[UPPERCASE]13[/UPPERCASE]</property>
 					<property name="help">Games and controllers.</property>
 					<onclick>ActivateWindow(GameSettings)</onclick>
@@ -139,7 +139,6 @@
 				<width>696</width>
 				<height>24</height>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[Container(9000).ListItem.Property(index)]$INFO[Container(9000).ListItem.Label2,  ·  ,]</label>
 			</control>
 			<control type="textbox">
@@ -148,7 +147,6 @@
 				<width>700</width>
 				<height>243</height>
 				<font>an_104</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[Container(9000).ListItem.Label]</label>
 			</control>
 			<include content="DT_RuleThick"><param name="top" value="264"/><param name="left" value="0"/><param name="width" value="696"/></include>
@@ -158,7 +156,6 @@
 				<width>696</width>
 				<height>144</height>
 				<font>body_26</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[Container(9000).ListItem.Property(help)]</label>
 			</control>
 			<control type="group">

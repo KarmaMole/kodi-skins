@@ -135,7 +135,6 @@
 					<width>music_np_text_w</width>
 					<height>40</height>
 					<font>title_28_semibold</font>
-					<textcolor>text_primary</textcolor>
 					<label>$INFO[MusicPlayer.Artist]</label>
 				</control>
 				<control type="label">
@@ -165,7 +164,6 @@
 			<width>page_width</width>
 			<height>36</height>
 			<font>card_21_bold</font>
-			<textcolor>text_primary</textcolor>
 			<label>$INFO[MusicPlayer.Title]$INFO[MusicPlayer.Artist,  ·  ,]</label>
 			<visible>Visualisation.Enabled + !Player.ShowInfo + !Window.IsVisible(musicosd)</visible>
 		</control>
@@ -176,8 +174,6 @@
 			<top>music_progress_y</top>
 			<width>page_width</width>
 			<height>4</height>
-			<texturebg colordiffuse="hairline_strong">common/white.png</texturebg>
-			<midtexture colordiffuse="$VAR[ColorAccent]">common/white.png</midtexture>
 			<info>Player.Progress</info>
 		</control>
 		<control type="label">
@@ -186,7 +182,6 @@
 			<width>600</width>
 			<height>30</height>
 			<font>mono_17</font>
-			<textcolor>text_primary</textcolor>
 			<label>$INFO[Player.Time]</label>
 		</control>
 		<control type="label">
@@ -217,7 +212,7 @@
 				<height>24</height>
 				<font>mono_13</font>
 				<textcolor>$VAR[ColorCaption]</textcolor>
-				<label>Up next</label>
+				<label>$LOCALIZE[31252]</label>
 			</control>
 			<control type="label">
 				<width max="1500">auto</width>

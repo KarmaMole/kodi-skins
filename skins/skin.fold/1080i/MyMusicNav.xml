@@ -26,8 +26,7 @@
 				<width>1200</width>
 				<height>80</height>
 				<font>disp_64</font>
-				<textcolor>ink</textcolor>
-				<label>Nothing in this folder.</label>
+				<label>$LOCALIZE[31398]</label>
 			</control>
 		</control>
 	</controls>

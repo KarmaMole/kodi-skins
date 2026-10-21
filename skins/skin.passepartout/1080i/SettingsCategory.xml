@@ -25,7 +25,6 @@
 			<top>162</top>
 			<width>460</width>
 			<height>704</height>
-			<itemgap>0</itemgap>
 			<orientation>vertical</orientation>
 			<onleft>noop</onleft>
 			<onright>5</onright>
@@ -52,7 +51,6 @@
 			<width>1120</width>
 			<height>112</height>
 			<font>disp_96</font>
-			<textcolor>ink</textcolor>
 			<label>$INFO[Control.GetLabel(2)]</label>
 		</control>
 		<control type="textbox" id="6">
@@ -78,7 +76,6 @@
 			<top>340</top>
 			<width>1120</width>
 			<height>684</height>
-			<itemgap>0</itemgap>
 			<pagecontrol>60</pagecontrol>
 			<onleft>3</onleft>
 			<onright>noop</onright>

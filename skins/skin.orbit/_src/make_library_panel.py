@@ -13,9 +13,10 @@ from pathlib import Path
 
 def items(prefix, video_word, ind="\t\t\t\t\t", direction_var="VidLib_Direction", watched_var="LibPanel_Watched",
           search="ActivateWindow(1150)", words=None):
-    w = dict(view="View", sort="Sort", order="Order", watched="Watched", search="Search",
-             update="Update library", stop="Stop updating", clean="Clean library",
-             settings="Library settings", kodi="Kodi", music="Music", upd_short="Update", cln_short="Clean")
+    w = dict(view="$LOCALIZE[31011]", sort="$LOCALIZE[31010]", order="$LOCALIZE[31300]", watched="$LOCALIZE[31301]", search="$LOCALIZE[31302]",
+             update="$LOCALIZE[31202]", stop="$LOCALIZE[31303]", clean="$LOCALIZE[31204]",
+             settings="$LOCALIZE[31304]", kodi="Kodi", music="$LOCALIZE[31305]", upd_short="$LOCALIZE[31306]", cln_short="$LOCALIZE[31307]",
+             sets="$LOCALIZE[20434]", sets_hint="$LOCALIZE[31308]")
     if words:
         w.update(words)
     lib = f"String.IsEmpty(Window(Home).Property({prefix}.libmode))"
@@ -48,6 +49,12 @@ def items(prefix, video_word, ind="\t\t\t\t\t", direction_var="VidLib_Direction"
          f"{lib} + Window.IsActive(videos) + !String.StartsWith(Container.FolderPath,videodb://inprogresstvshows) + "
          "[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | "
          "Container.Content(episodes) | Container.Content(musicvideos)]")
+    # Sets (docs/requests/SETS_AND_RM_BRIEF.md, 2026-10-21): the films' sets in this same Videos window, only while
+    # browsing films and the library has sets ($EXP[LibPanel_ShowSets], Includes_LibraryPanel.xml). SetFocus(50) first
+    # puts focus on the view (CGUIMediaWindow redirects 50 to the current view); Container.Update keeps the history,
+    # so Back walks set -> all sets -> films. Never a Home item (Omar).
+    item(w["sets"], w["sets_hint"], [close, "SetFocus(50)", "Container.Update(videodb://movies/sets/)"],
+         f"{lib} + $EXP[LibPanel_ShowSets]")
     item(w["search"], "", [close, search], lib)
     for kind, win, word in (("video", "videos", video_word), ("music", "music", w["music"])):
         scan = "Library.IsScanningVideo" if kind == "video" else "Library.IsScanningMusic"
@@ -172,14 +179,14 @@ frames.append(f"""			<control type="image">
 				<visible>!String.IsEmpty(Window(Home).Property({P}.libclean))</visible>
 			</control>""")
 
-words = dict(watched="Unwatched only")
-body = items(P, "Movies and TV shows", watched_var="LibPanel_Unwatched", direction_var="LibPanel_Direction", words=words)
-conf = confirm_items(P, "No, keep the library as it is", "Yes, clean it now")
+words = dict(watched="$LOCALIZE[31081]")
+body = items(P, "$LOCALIZE[31309]", watched_var="LibPanel_Unwatched", direction_var="LibPanel_Direction", words=words)
+conf = confirm_items(P, "$LOCALIZE[31310]", "$LOCALIZE[31311]")
 
 xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Orbit Library panel (custom dialog 1160; docs/requests/library-panel/BRIEF.md). The library's
-	general-purpose menu: View, Sort, Order, Unwatched only, Search, Update library, Clean library,
+	general-purpose menu: View, Sort, Order, Unwatched only, Sets (films), Search, Update library, Clean library,
 	Library settings. Opened by Right from any library view (arc, grid, episodes, dial list), Left past
 	the first pill of the option bar, the OPTIONS pill, and the System menu (Update / Clean library,
 	orbit.libmode = update / clean: choose Movies and TV shows or Music).
@@ -288,7 +295,7 @@ xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 	</controls>
 </window>
 """
-open(SKIN + "/Custom_1160_LibraryPanel.xml", "w", encoding="utf-8").write(xml)
+open(SKIN + "/Custom_1160_LibraryPanel.xml", "w", encoding="utf-8", newline="\n").write(xml)
 print("ok")
 
 # ---------------------------------------------------------------- orbit_picker.py
@@ -299,16 +306,18 @@ EPI = "Container.Content(episodes) | Container.Content(seasons)"
 MARC = "Container.Content(albums) | Container.Content(artists)"
 MGRID = "Container.Content(albums) | Container.Content(artists) | Container.Content(genres)"
 VIEWS = [
-    ("videos", 500, "Arc", "views/arc.png", ARC, "Pick_Cur_Arc"),
-    ("videos", 501, "Grid", "views/grid.png", ARC, "Pick_Cur_Grid"),
-    ("videos", 502, "Episodes", "views/episodes.png", EPI, "Pick_Cur_Episodes"),
-    ("videos", 50, "List", "views/list.png", None, "Pick_Cur_List"),
-    ("music", 504, "Arc", "views/music_arc.png", MARC, "Pick_Cur_Arc"),
-    ("music", 505, "Grid", "views/music_grid.png", MGRID, "Pick_Cur_Grid"),
-    ("music", 50, "List", "views/music_list.png", None, "Pick_Cur_List"),
+    ("videos", 500, "$LOCALIZE[31312]", "views/arc.png", ARC, "Pick_Cur_Arc"),
+    ("videos", 501, "$LOCALIZE[31313]", "views/grid.png", ARC, "Pick_Cur_Grid"),
+    ("videos", 502, "$LOCALIZE[31314]", "views/episodes.png", EPI, "Pick_Cur_Episodes"),
+    ("videos", 50, "$LOCALIZE[535]", "views/list.png", None, "Pick_Cur_List"),
+    ("music", 504, "$LOCALIZE[31312]", "views/music_arc.png", MARC, "Pick_Cur_Arc"),
+    ("music", 505, "$LOCALIZE[31313]", "views/music_grid.png", MGRID, "Pick_Cur_Grid"),
+    ("music", 50, "$LOCALIZE[535]", "views/music_list.png", None, "Pick_Cur_List"),
 ]
 PITCH = 380
-names = {}
+# display names (localized); VIEWS keeps the viewtype labels (string ids) that Container.Viewmode is compared with
+names = {("videos", 500): "$LOCALIZE[31312]", ("videos", 501): "$LOCALIZE[31313]", ("videos", 502): "$LOCALIZE[31314]", ("videos", 50): "$LOCALIZE[31315]",
+         ("music", 504): "$LOCALIZE[31312]", ("music", 505): "$LOCALIZE[31313]", ("music", 50): "$LOCALIZE[31315]"}
 
 frames = []
 for n in range(1, 5):
@@ -392,4 +401,4 @@ xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 	</controls>
 </window>
 """
-open(SKIN + "/Custom_1161_ViewPicker.xml", "w", encoding="utf-8").write(xml)
+open(SKIN + "/Custom_1161_ViewPicker.xml", "w", encoding="utf-8", newline="\n").write(xml)

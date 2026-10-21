@@ -12,6 +12,8 @@ info (Kodi writes its own label into it: it stays offscreen and our word sends a
 Fold ids: 9000 words, 9011 shuffle, 9012 play all (artist), 9013 artist/album word (SendClick(12)), 9014 refresh.
 """
 from pathlib import Path
+from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "DialogMusicInfo.xml"
 RM = "Skin.HasSetting(fold.reducemotion)"
@@ -500,7 +502,7 @@ def build():
     import re
     x = re.sub(r"(\s*)<textcolor>([^<]+)</textcolor>(?!\s*<selectedcolor>)",
                lambda m: f"{m.group(1)}<textcolor>{m.group(2)}</textcolor>{m.group(1)}<selectedcolor>{m.group(2)}</selectedcolor>", x)
-    OUT.write_text(x, encoding="utf-8", newline="\n")
+    OUT.write_text(finish_xml(strip_defaults(x, OUT.parent / "Defaults.xml")), encoding="utf-8", newline="\n")
     print("DialogMusicInfo.xml written", ww)
 
 

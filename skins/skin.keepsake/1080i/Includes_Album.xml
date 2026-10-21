@@ -62,50 +62,6 @@
 			</control>
 		</definition>
 	</include>
-	<include name="KS_LCD19">
-		<param name="align">left</param>
-		<param name="visible">true</param>
-		<param name="width">400</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>$PARAM[width]</width>
-				<height>25</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="label">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>25</height>
-					<align>$PARAM[align]</align>
-					<font>g2_19</font>
-					<textcolor>stamp_g2</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>25</height>
-					<align>$PARAM[align]</align>
-					<font>g1_19</font>
-					<textcolor>stamp_g1</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>25</height>
-					<align>$PARAM[align]</align>
-					<font>stamp_19</font>
-					<textcolor>stamp</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-			</control>
-		</definition>
-	</include>
 	<include name="KS_Stamp20">
 		<param name="right">16</param>
 		<param name="bottom">12</param>
@@ -160,50 +116,6 @@
 					<width>170</width>
 					<height>26</height>
 					<align>right</align>
-					<font>stamp_20</font>
-					<textcolor>stamp</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-			</control>
-		</definition>
-	</include>
-	<include name="KS_LCD20">
-		<param name="align">left</param>
-		<param name="visible">true</param>
-		<param name="width">400</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>$PARAM[width]</width>
-				<height>26</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="label">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>26</height>
-					<align>$PARAM[align]</align>
-					<font>g2_20</font>
-					<textcolor>stamp_g2</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>26</height>
-					<align>$PARAM[align]</align>
-					<font>g1_20</font>
-					<textcolor>stamp_g1</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>26</height>
-					<align>$PARAM[align]</align>
 					<font>stamp_20</font>
 					<textcolor>stamp</textcolor>
 					<label>$PARAM[label]</label>
@@ -421,67 +333,6 @@
 			</control>
 		</definition>
 	</include>
-	<include name="KS_Stamp30">
-		<param name="right">16</param>
-		<param name="bottom">12</param>
-		<param name="visible">true</param>
-		<definition>
-			<control type="group">
-				<right>$PARAM[right]</right>
-				<bottom>$PARAM[bottom]</bottom>
-				<width>234</width>
-				<height>1</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="image">
-					<right>-20</right>
-					<top>-40</top>
-					<width>234</width>
-					<height>51</height>
-					<texture colordiffuse="stamp_haze">ks/stamp_haze.png</texture>
-				</control>
-				<control type="label">
-					<right>0</right>
-					<top>-34</top>
-					<width>234</width>
-					<height>39</height>
-					<align>right</align>
-					<font>g2_30</font>
-					<textcolor>stamp_under</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<right>0</right>
-					<top>-34</top>
-					<width>234</width>
-					<height>39</height>
-					<align>right</align>
-					<font>g2_30</font>
-					<textcolor>stamp_g2</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<right>0</right>
-					<top>-34</top>
-					<width>234</width>
-					<height>39</height>
-					<align>right</align>
-					<font>g1_30</font>
-					<textcolor>stamp_g1</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<right>0</right>
-					<top>-34</top>
-					<width>234</width>
-					<height>39</height>
-					<align>right</align>
-					<font>stamp_30</font>
-					<textcolor>stamp</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-			</control>
-		</definition>
-	</include>
 	<include name="KS_LCD30">
 		<param name="align">left</param>
 		<param name="visible">true</param>
@@ -625,67 +476,6 @@
 					<height>44</height>
 					<align>$PARAM[align]</align>
 					<font>stamp_34</font>
-					<textcolor>stamp</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-			</control>
-		</definition>
-	</include>
-	<include name="KS_Stamp44">
-		<param name="right">16</param>
-		<param name="bottom">12</param>
-		<param name="visible">true</param>
-		<definition>
-			<control type="group">
-				<right>$PARAM[right]</right>
-				<bottom>$PARAM[bottom]</bottom>
-				<width>325</width>
-				<height>1</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="image">
-					<right>-20</right>
-					<top>-59</top>
-					<width>325</width>
-					<height>75</height>
-					<texture colordiffuse="stamp_haze">ks/stamp_haze.png</texture>
-				</control>
-				<control type="label">
-					<right>0</right>
-					<top>-51</top>
-					<width>325</width>
-					<height>57</height>
-					<align>right</align>
-					<font>g2_44</font>
-					<textcolor>stamp_under</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<right>0</right>
-					<top>-51</top>
-					<width>325</width>
-					<height>57</height>
-					<align>right</align>
-					<font>g2_44</font>
-					<textcolor>stamp_g2</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<right>0</right>
-					<top>-51</top>
-					<width>325</width>
-					<height>57</height>
-					<align>right</align>
-					<font>g1_44</font>
-					<textcolor>stamp_g1</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<right>0</right>
-					<top>-51</top>
-					<width>325</width>
-					<height>57</height>
-					<align>right</align>
-					<font>stamp_44</font>
 					<textcolor>stamp</textcolor>
 					<label>$PARAM[label]</label>
 				</control>
@@ -3013,43 +2803,34 @@
 		<animation effect="rotate" end="-1.2" center="auto" time="0" condition="!Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,9)">Conditional</animation>
 		<animation effect="rotate" end="1.6" center="auto" time="0" condition="!Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,0)">Conditional</animation>
 	</include>
-	<!-- focusedlayout inner group: straighten (cancel the tilt) and lift on Focus; back on Unfocus -->
+	<!-- focusedlayout inner group, while the list has focus: a tilted print straightens, a straight one lifts.
+	     params: focus (the list-has-focus condition, e.g. Control.HasFocus(530)), zoom -->
 	<include name="KS_TiltFocus">
 		<param name="zoom">106</param>
+		<param name="focus">false</param>
 		<definition>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,1)"><effect type="rotate" start="0" end="-1.8" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,1)"><effect type="rotate" start="0" end="-1.8" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,1)"><effect type="rotate" start="-1.8" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,2)"><effect type="rotate" start="0" end="1.6" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,2)"><effect type="rotate" start="0" end="1.6" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,2)"><effect type="rotate" start="1.6" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,3)"><effect type="rotate" start="0" end="1.4" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,3)"><effect type="rotate" start="0" end="1.4" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,3)"><effect type="rotate" start="1.4" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,4)"><effect type="rotate" start="0" end="-1.2" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,4)"><effect type="rotate" start="0" end="-1.2" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,4)"><effect type="rotate" start="-1.2" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,5)"><effect type="rotate" start="0" end="2.0" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,5)"><effect type="rotate" start="0" end="2.0" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,5)"><effect type="rotate" start="2.0" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,6)"><effect type="rotate" start="0" end="-1.5" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,6)"><effect type="rotate" start="0" end="-1.5" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,6)"><effect type="rotate" start="-1.5" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,7)"><effect type="rotate" start="0" end="-1.0" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,7)"><effect type="rotate" start="0" end="-1.0" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,7)"><effect type="rotate" start="-1.0" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,8)"><effect type="rotate" start="0" end="1.9" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,8)"><effect type="rotate" start="0" end="1.9" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,8)"><effect type="rotate" start="1.9" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,9)"><effect type="rotate" start="0" end="1.2" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,9)"><effect type="rotate" start="0" end="1.2" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,9)"><effect type="rotate" start="1.2" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,0)"><effect type="rotate" start="0" end="-1.6" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,0)"><effect type="rotate" start="0" end="-1.6" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,0)"><effect type="rotate" start="-1.6" end="0" center="auto" time="180" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="!Skin.HasSetting(keepsake.reducemotion)"><effect type="zoom" start="100" end="$PARAM[zoom]" center="auto" time="240" tween="cubic" easing="out"/></animation>
-			<animation type="Focus" condition="Skin.HasSetting(keepsake.reducemotion)"><effect type="zoom" start="100" end="$PARAM[zoom]" center="auto" time="0"/></animation>
-			<animation type="Unfocus" condition="!Skin.HasSetting(keepsake.reducemotion)"><effect type="zoom" start="$PARAM[zoom]" end="100" center="auto" time="180" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,1)" reversible="true"><effect type="rotate" start="0" end="-1.8" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,1)"><effect type="rotate" start="0" end="-1.8" center="auto" time="0"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,2)" reversible="true"><effect type="rotate" start="0" end="1.6" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,2)"><effect type="rotate" start="0" end="1.6" center="auto" time="0"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,3)" reversible="true"><effect type="rotate" start="0" end="1.4" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,3)"><effect type="rotate" start="0" end="1.4" center="auto" time="0"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,4)" reversible="true"><effect type="rotate" start="0" end="-1.2" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,4)"><effect type="rotate" start="0" end="-1.2" center="auto" time="0"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,5)" reversible="true"><effect type="rotate" start="0" end="2.0" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,5)"><effect type="rotate" start="0" end="2.0" center="auto" time="0"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,6)" reversible="true"><effect type="rotate" start="0" end="-1.5" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,6)"><effect type="rotate" start="0" end="-1.5" center="auto" time="0"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,7)" reversible="true"><effect type="rotate" start="0" end="-1.0" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,7)"><effect type="rotate" start="0" end="-1.0" center="auto" time="0"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,8)" reversible="true"><effect type="rotate" start="0" end="1.9" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,8)"><effect type="rotate" start="0" end="1.9" center="auto" time="0"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,9)" reversible="true"><effect type="rotate" start="0" end="1.2" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,9)"><effect type="rotate" start="0" end="1.2" center="auto" time="0"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,0)" reversible="true"><effect type="rotate" start="0" end="-1.6" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + !Skin.HasSetting(keepsake.straight) + String.EndsWith(ListItem.CurrentItem,0)"><effect type="rotate" start="0" end="-1.6" center="auto" time="0"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + !Skin.HasSetting(keepsake.reducemotion) + Skin.HasSetting(keepsake.straight)" reversible="true"><effect type="zoom" start="100" end="$PARAM[zoom]" center="auto" time="240" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="[$PARAM[focus]] + Skin.HasSetting(keepsake.reducemotion) + Skin.HasSetting(keepsake.straight)"><effect type="zoom" start="100" end="$PARAM[zoom]" center="auto" time="0"/></animation>
 		</definition>
 	</include>
 	<!-- one fixed tilt (Kodi degrees) -->
@@ -3162,68 +2943,6 @@
 			</control>
 		</definition>
 	</include>
-	<include name="KS_PenProgress360">
-		<param name="visible">true</param>
-		<param name="color">ink</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>360</width>
-				<height>28</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="image">
-					<left>0</left>
-					<top>13</top>
-					<width>360</width>
-					<height>4</height>
-					<aspectratio>center</aspectratio>
-					<texture colordiffuse="dotted">ks/dots_h.png</texture>
-				</control>
-				<control type="progress">
-					<left>0</left>
-					<top>0</top>
-					<width>350</width>
-					<height>28</height>
-					<texturebg>ks/progress_bg_350.png</texturebg>
-					<midtexture colordiffuse="$PARAM[color]">ks/pen_fill.png</midtexture>
-					<righttexture colordiffuse="$PARAM[color]">ks/pen_tick.png</righttexture>
-					<info>$PARAM[info]</info>
-				</control>
-			</control>
-		</definition>
-	</include>
-	<include name="KS_PenProgress520">
-		<param name="visible">true</param>
-		<param name="color">ink</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>520</width>
-				<height>28</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="image">
-					<left>0</left>
-					<top>13</top>
-					<width>520</width>
-					<height>4</height>
-					<aspectratio>center</aspectratio>
-					<texture colordiffuse="dotted">ks/dots_h.png</texture>
-				</control>
-				<control type="progress">
-					<left>0</left>
-					<top>0</top>
-					<width>510</width>
-					<height>28</height>
-					<texturebg>ks/progress_bg_510.png</texturebg>
-					<midtexture colordiffuse="$PARAM[color]">ks/pen_fill.png</midtexture>
-					<righttexture colordiffuse="$PARAM[color]">ks/pen_tick.png</righttexture>
-					<info>$PARAM[info]</info>
-				</control>
-			</control>
-		</definition>
-	</include>
 	<include name="KS_PenProgress750">
 		<param name="visible">true</param>
 		<param name="color">ink</param>
@@ -3255,37 +2974,6 @@
 			</control>
 		</definition>
 	</include>
-	<include name="KS_PenProgress1100">
-		<param name="visible">true</param>
-		<param name="color">ink</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>1100</width>
-				<height>28</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="image">
-					<left>0</left>
-					<top>13</top>
-					<width>1100</width>
-					<height>4</height>
-					<aspectratio>center</aspectratio>
-					<texture colordiffuse="dotted">ks/dots_h.png</texture>
-				</control>
-				<control type="progress">
-					<left>0</left>
-					<top>0</top>
-					<width>1090</width>
-					<height>28</height>
-					<texturebg>ks/progress_bg_1090.png</texturebg>
-					<midtexture colordiffuse="$PARAM[color]">ks/pen_fill.png</midtexture>
-					<righttexture colordiffuse="$PARAM[color]">ks/pen_tick.png</righttexture>
-					<info>$PARAM[info]</info>
-				</control>
-			</control>
-		</definition>
-	</include>
 	<!-- handwritten focusable word: faint ink at rest, bright + pen underline on focus (put font/size on the button) -->
 	<include name="KS_PenWordLook">
 		<textcolor>ink_faint</textcolor>
@@ -3308,16 +2996,6 @@
 			<width>1920</width>
 			<height>1080</height>
 			<texture>ks/paper_spread.jpg</texture>
-		</control>
-	</include>
-	<include name="KS_PageSingle">
-		<control type="image">
-			<description>one album leaf</description>
-			<left>0</left>
-			<top>0</top>
-			<width>1920</width>
-			<height>1080</height>
-			<texture>ks/paper_page.jpg</texture>
 		</control>
 	</include>
 </includes>

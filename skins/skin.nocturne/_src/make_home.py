@@ -13,6 +13,8 @@ Ids
 Runtime properties (Window(Home)): nocturne.section films|series|music, nocturne.slot a1..c3 (the lit slot).
 """
 from pathlib import Path
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "Includes_Home.xml"
 
@@ -492,7 +494,7 @@ def main():
              "</includes>", ""]
     text = "\n".join(parts)
     text = text.replace("<include name=\"Home_TorchNormal\">\n\t<control", "<include name=\"Home_TorchNormal\">\n\t<control", 1)
-    OUT.write_text(text, encoding="utf-8", newline="\n")
+    OUT.write_text(localize_xml(text, STRINGS_PO), encoding="utf-8", newline="\n")
     print("wrote", OUT, len(text))
 
 

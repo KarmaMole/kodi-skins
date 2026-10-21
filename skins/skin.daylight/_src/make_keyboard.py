@@ -123,7 +123,6 @@ def main():
 				<width>page_width</width>
 				<height>44</height>
 				<font>serif_32</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
 			</control>
 			<control type="image">
 				<left>page_margin</left>
@@ -138,7 +137,6 @@ def main():
 				<width>1660</width>
 				<height>76</height>
 				<font>ui_28_semibold</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
 				<textoffsetx>28</textoffsetx>
 				<texturefocus />
 				<texturenofocus />
@@ -181,7 +179,7 @@ def main():
 	</controls>
 </window>
 '''
-    OUT.write_text(xml, encoding="utf-8")
+    OUT.write_text(xml, encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

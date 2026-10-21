@@ -113,26 +113,14 @@
 		<value condition="Container.SortDirection(descending)">↓</value>
 		<value>↑</value>
 	</variable>
-	<!-- Active filter: accent underline texture + primary text -->
-	<variable name="VidView_TexNavAll">
-		<value condition="$EXP[VidView_NavActiveAll]">vidview/underline.png</value>
-		<value></value>
-	</variable>
+	<!-- Active filter: primary text -->
 	<variable name="VidView_ColNavAll">
 		<value condition="$EXP[VidView_NavActiveAll]">text_primary</value>
 		<value>text_secondary</value>
 	</variable>
-	<variable name="VidView_TexNavUnwatched">
-		<value condition="System.Setting(hidewatched)">vidview/underline.png</value>
-		<value></value>
-	</variable>
 	<variable name="VidView_ColNavUnwatched">
 		<value condition="System.Setting(hidewatched)">text_primary</value>
 		<value>text_secondary</value>
-	</variable>
-	<variable name="VidView_TexNavInProgress">
-		<value condition="$EXP[VidView_IsInProgressTV]">vidview/underline.png</value>
-		<value></value>
 	</variable>
 	<variable name="VidView_ColNavInProgress">
 		<value condition="$EXP[VidView_IsInProgressTV]">text_primary</value>
@@ -362,7 +350,7 @@
 					<align>center</align>
 					<font>mono_14</font>
 					<textcolor>text_tertiary</textcolor>
-					<label>UP ONE LEVEL</label>
+					<label>$LOCALIZE[31244]</label>
 					<visible>$PARAM[caption_visible]</visible>
 				</control>
 			</control>
@@ -847,7 +835,6 @@
 				<include>VidView_NavButtonLook</include>
 				<label>ALL $VAR[VidView_CountAll]</label>
 				<textcolor>$VAR[VidView_ColNavAll]</textcolor>
-				<texturenofocus colordiffuse="$VAR[ColorAccent]">$VAR[VidView_TexNavAll]</texturenofocus>
 				<onclick condition="$EXP[VidView_IsInProgressTV]">Action(ParentDir)</onclick>
 				<onclick condition="!$EXP[VidView_IsInProgressTV] + System.Setting(hidewatched)">SendClick(14)</onclick>
 				<visible>$EXP[VidView_IsLibraryVideo] | $EXP[VidView_IsInProgressTV]</visible>
@@ -857,7 +844,6 @@
 				<include>VidView_NavButtonLook</include>
 				<label>UNWATCHED $VAR[VidView_CountUnwatched]</label>
 				<textcolor>$VAR[VidView_ColNavUnwatched]</textcolor>
-				<texturenofocus colordiffuse="$VAR[ColorAccent]">$VAR[VidView_TexNavUnwatched]</texturenofocus>
 				<onclick condition="!System.Setting(hidewatched)">SendClick(14)</onclick>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)</visible>
 			</control>
@@ -866,7 +852,6 @@
 				<include>VidView_NavButtonLook</include>
 				<label>IN PROGRESS $VAR[VidView_CountInProgress]</label>
 				<textcolor>$VAR[VidView_ColNavInProgress]</textcolor>
-				<texturenofocus colordiffuse="$VAR[ColorAccent]">$VAR[VidView_TexNavInProgress]</texturenofocus>
 				<onclick condition="!$EXP[VidView_IsInProgressTV]">Container.Update(videodb://inprogresstvshows/)</onclick>
 				<visible>$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]</visible>
 			</control>
@@ -900,7 +885,7 @@
 			<!-- OPTIONS: the Library panel (also Left / Right past the edges of every view) -->
 			<control type="button" id="9327">
 				<include>VidView_NavButtonLook</include>
-				<label>OPTIONS</label>
+				<label>$LOCALIZE[31245]</label>
 				<textcolor>text_secondary</textcolor>
 				<texturenofocus />
 				<onclick>ActivateWindow(1155)</onclick>
@@ -943,7 +928,7 @@
 				<height>30</height>
 				<font>mono_15</font>
 				<textcolor>$VAR[ColorCaption]</textcolor>
-				<label>NOTHING HERE</label>
+				<label>$LOCALIZE[31246]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -952,7 +937,7 @@
 				<height>40</height>
 				<font>body_23</font>
 				<textcolor>text_secondary</textcolor>
-				<label>Unwatched only is on: press Up and choose ALL to show everything.</label>
+				<label>$LOCALIZE[31247]</label>
 				<visible>System.Setting(hidewatched)</visible>
 			</control>
 		</control>
@@ -1092,7 +1077,7 @@
 				<height>22</height>
 				<font>mono_15</font>
 				<textcolor>$VAR[ColorAccent]</textcolor>
-				<label>PARENT FOLDER</label>
+				<label>$LOCALIZE[31248]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -1101,7 +1086,7 @@
 				<height>110</height>
 				<font>$PARAM[title_font]</font>
 				<textcolor>text_primary</textcolor>
-				<label>Back</label>
+				<label>$LOCALIZE[31242]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -1110,7 +1095,7 @@
 				<height>26</height>
 				<font>mono_17</font>
 				<textcolor>text_secondary</textcolor>
-				<label>OK · UP ONE LEVEL</label>
+				<label>$LOCALIZE[31249]</label>
 			</control>
 		</definition>
 	</include>
@@ -1248,7 +1233,7 @@
 				<!-- past the first / last item: the Library panel (1.0.9) -->
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>ActivateWindow(1155)</onright>
-				<viewtype label="Showcase">list</viewtype>
+				<viewtype label="31306">list</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets)</visible>
 				<itemlayout width="vidview_strip_pitch" height="170">
 					<control type="group">
@@ -1350,7 +1335,7 @@
 				<!-- past the first / last item: the Library panel (1.0.9) -->
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>ActivateWindow(1155)</onright>
-				<viewtype label="Big Poster">list</viewtype>
+				<viewtype label="31307">list</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets)</visible>
 				<itemlayout width="vidview_big_pitch" height="543">
 					<control type="group">
@@ -1516,7 +1501,7 @@
 					<height>26</height>
 					<font>mono_17</font>
 					<textcolor>text_secondary</textcolor>
-					<label>OK · UP ONE LEVEL</label>
+					<label>$LOCALIZE[31249]</label>
 					<visible>ListItem.IsParentFolder</visible>
 				</control>
 			</control>
@@ -1647,7 +1632,7 @@
 				<ondown>noop</ondown>
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>ActivateWindow(1155)</onright>
-				<viewtype label="Wall">list</viewtype>
+				<viewtype label="31308">list</viewtype>
 				<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
 				<itemlayout width="vidview_wall_pitch_x" height="vidview_wall_pitch_y">
 					<control type="group">
@@ -1695,7 +1680,7 @@
 				<height>32</height>
 				<font>section_24</font>
 				<textcolor>text_primary</textcolor>
-				<label>Next up</label>
+				<label>$LOCALIZE[31250]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -1714,7 +1699,7 @@
 				<height>30</height>
 				<font>mono_15</font>
 				<textcolor>$VAR[ColorCaption]</textcolor>
-				<label>NOTHING IN PROGRESS</label>
+				<label>$LOCALIZE[31251]</label>
 				<visible>Integer.IsEqual(Container(9310).NumItems,0) + !Container(9310).IsUpdating</visible>
 			</control>
 			<control type="list" id="9310">
@@ -1883,7 +1868,7 @@
 				<ondown>noop</ondown>
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>63</onright>
-				<viewtype label="Episodes">list</viewtype>
+				<viewtype label="31309">list</viewtype>
 				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
 				<itemlayout width="page_width" height="vidview_ep_row_h">
 					<include>VidView_EpisodeRow</include>
@@ -2061,7 +2046,7 @@
 				<height>36</height>
 				<font>card_21_bold</font>
 				<textcolor>text_primary</textcolor>
-				<label>Back</label>
+				<label>$LOCALIZE[31242]</label>
 			</control>
 		</control>
 	</include>

@@ -90,7 +90,7 @@
 				<height>56</height>
 				<font>mono_13</font>
 				<textcolor>$VAR[ColorAccent]</textcolor>
-				<label>System</label>
+				<label>$LOCALIZE[31020]</label>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -120,7 +120,7 @@
 				<content>
 					<item>
 						<label>$LOCALIZE[31021]</label>
-						<label2>Majan</label2>
+						<label2>$LOCALIZE[31024]</label2>
 						<property name="index">[UPPERCASE]01[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(skinsettings)</onclick>
@@ -152,24 +152,24 @@
 					</item>
 					<!-- 1.0.9: the library jobs; the task panel (1157) asks which library, and Clean asks first -->
 					<item>
-						<label>Update library</label>
-						<label2>Library</label2>
+						<label>$LOCALIZE[31200]</label>
+						<label2>$LOCALIZE[31201]</label2>
 						<onclick>SetProperty(majan.libtask,update,home)</onclick>
 						<onclick>SetProperty(majan.libtarget,choose,home)</onclick>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(1157)</onclick>
 					</item>
 					<item>
-						<label>Clean library</label>
-						<label2>Library</label2>
+						<label>$LOCALIZE[31202]</label>
+						<label2>$LOCALIZE[31201]</label2>
 						<onclick>SetProperty(majan.libtask,clean,home)</onclick>
 						<onclick>SetProperty(majan.libtarget,choose,home)</onclick>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(1157)</onclick>
 					</item>
 					<item>
-						<label>Live TV</label>
-						<label2>Media</label2>
+						<label>$LOCALIZE[31203]</label>
+						<label2>$LOCALIZE[31204]</label2>
 						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(TVChannels)</onclick>
@@ -177,49 +177,49 @@
 					</item>
 					<item>
 						<label>$LOCALIZE[1]</label>
-						<label2>Media</label2>
+						<label2>$LOCALIZE[31204]</label2>
 						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(Pictures)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[10134]</label>
-						<label2>Media</label2>
+						<label2>$LOCALIZE[31204]</label2>
 						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(FavouritesBrowser)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[744]</label>
-						<label2>Media</label2>
+						<label2>$LOCALIZE[31204]</label2>
 						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(Videos,sources://video/,return)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[13012]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<property name="index">[UPPERCASE]10[/UPPERCASE]</property>
 						<onclick>Quit()</onclick>
 						<visible>System.ShowExitButton</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13013]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<property name="index">[UPPERCASE]11[/UPPERCASE]</property>
 						<onclick>Reset()</onclick>
 						<visible>System.CanReboot</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13016]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<property name="index">[UPPERCASE]12[/UPPERCASE]</property>
 						<onclick>Powerdown()</onclick>
 						<visible>System.CanPowerDown</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[31022]</label>
-						<label2>More</label2>
+						<label2>$LOCALIZE[31205]</label2>
 						<property name="index">[UPPERCASE]13[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(shutdownmenu)</onclick>

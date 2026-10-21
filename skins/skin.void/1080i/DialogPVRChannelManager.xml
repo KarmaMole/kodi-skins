@@ -227,8 +227,6 @@
 				<control type="togglebutton" id="34">
 					<description>TV / radio toggle</description>
 					<include content="Misc_RowLook"><param name="width" value="620"/></include>
-					<alttexturefocus />
-					<alttexturenofocus />
 					<label>$LOCALIZE[19024]</label>
 					<altlabel>$LOCALIZE[19023]</altlabel>
 					<usealttexture>!String.IsEmpty(Window.Property(IsRadio))</usealttexture>

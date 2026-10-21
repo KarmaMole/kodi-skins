@@ -232,58 +232,58 @@
 			<content>
 				<item>
 					<label>$LOCALIZE[31021]</label>
-					<label2>Orbit's own options: library view, ring style, motion, OSD.</label2>
+					<label2>$LOCALIZE[31227]</label2>
 					<icon>icons/knob.png</icon>
 					<onclick>ActivateWindow(skinsettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[5]</label>
-					<label2>Kodi's settings: player, media, interface, system.</label2>
+					<label2>$LOCALIZE[31228]</label2>
 					<icon>icons/sliders.png</icon>
 					<onclick>ActivateWindow(settings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[24001]</label>
-					<label2>Browse, update and configure add-ons.</label2>
+					<label2>$LOCALIZE[31229]</label2>
 					<icon>icons/addons.png</icon>
 					<onclick>ActivateWindow(addonbrowser)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[1036]</label>
-					<label2>Your favourites.</label2>
+					<label2>$LOCALIZE[31230]</label2>
 					<icon>icons/star.png</icon>
 					<onclick>ActivateWindow(favouritesbrowser)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[10003]</label>
-					<label2>Copy, move and delete files on your sources.</label2>
+					<label2>$LOCALIZE[31231]</label2>
 					<icon>icons/folder.png</icon>
 					<onclick>ActivateWindow(filemanager)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[138]</label>
-					<label2>Hardware, storage, network and video details.</label2>
+					<label2>$LOCALIZE[31232]</label2>
 					<icon>icons/info.png</icon>
 					<onclick>ActivateWindow(systeminfo)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[31022]</label>
-					<label2>Exit, reboot, power off, sleep timer.</label2>
+					<label2>$LOCALIZE[31233]</label2>
 					<icon>icons/power.png</icon>
 					<onclick>ActivateWindow(shutdownmenu)</onclick>
 				</item>
 				<!-- 0.9.9: library upkeep (Library panel 1160, orbit.libmode); after Power so the station's
 				     default item (wraplist focus position) stays the same -->
 				<item>
-					<label>Update library</label>
-					<label2>Look for new films, episodes and music in your sources.</label2>
+					<label>$LOCALIZE[31202]</label>
+					<label2>$LOCALIZE[31234]</label2>
 					<icon>icons/refresh.png</icon>
 					<onclick>SetProperty(orbit.libmode,update,home)</onclick>
 					<onclick>ActivateWindow(1160)</onclick>
 				</item>
 				<item>
-					<label>Clean library</label>
-					<label2>Take out what Kodi can no longer find. It asks first.</label2>
+					<label>$LOCALIZE[31204]</label>
+					<label2>$LOCALIZE[31235]</label2>
 					<icon>icons/minus.png</icon>
 					<onclick>SetProperty(orbit.libmode,clean,home)</onclick>
 					<onclick>ActivateWindow(1160)</onclick>
@@ -690,7 +690,7 @@
 				<height>28</height>
 				<font>label_20</font>
 				<textcolor>text_dim</textcolor>
-				<label>OK opens the album  ·  Left returns to the dial</label>
+				<label>$LOCALIZE[31236]</label>
 				<visible>Control.HasFocus(9301)</visible>
 			</control>
 		</control>
@@ -764,7 +764,7 @@
 					<height>24</height>
 					<font>label_20</font>
 					<textcolor>text_secondary</textcolor>
-					<label>Movies · TV · Episodes · Music</label>
+					<label>$LOCALIZE[31237]</label>
 				</control>
 				<control type="label">
 					<top>22</top>
@@ -780,7 +780,7 @@
 					<height>76</height>
 					<font>text_26</font>
 					<textcolor>text_secondary</textcolor>
-					<label>Press OK or Right to type. Results arrive on their own arcs as you type.</label>
+					<label>$LOCALIZE[31238]</label>
 				</control>
 			</control>
 		</control>

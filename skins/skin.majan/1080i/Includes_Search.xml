@@ -27,21 +27,29 @@
 
 	<!-- ================================================================ expressions -->
 	<expression name="Search_HasQuery">!String.IsEmpty(Control.GetLabel(9001).index(1))</expression>
+	<!-- The typed query reaches the xsp paths URL-encoded: the 1 px list 9710 (Custom_1150) runs script.skinvariables'
+	     get_encoded_string whenever the text changes, which writes Window(Home).Property(Majan.Search.Encoded)
+	     (quote_plus; Kodi decodes + back to a space), so & | + % search fine. Known limit: a query holding " or \
+	     reaches the JSON raw and finds nothing. Custom_1150 clears the property on unload. (Groove pattern, 2026-10-21) -->
+	<expression name="Search_HasEncoded">$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Majan.Search.Encoded))</expression>
+	<variable name="Search_EncoderPath">
+		<value condition="$EXP[Search_HasQuery]">plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;window_prop=Majan.Search.Encoded&amp;window_id=home&amp;&amp;$INFO[Control.GetLabel(9001).index(1)]</value>
+	</variable>
 
 	<!-- ================================================================ paths -->
 	<!-- xsp JSON, URL-encoded except the query itself. $ESCINFO quotes the query and escapes " and \ as JSON
 	     expects (QA 2026-10-18). Kodi has no URL-encode infolabel, so & % + in a query still break the path. -->
 	<variable name="Search_PathMovies">
-		<value condition="$EXP[Search_HasQuery]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Majan.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 	</variable>
 	<variable name="Search_PathTV">
-		<value condition="$EXP[Search_HasQuery]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Majan.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 	</variable>
 	<variable name="Search_PathAlbums">
-		<value condition="$EXP[Search_HasQuery]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Majan.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
 	</variable>
 	<variable name="Search_PathArtists">
-		<value condition="$EXP[Search_HasQuery]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Majan.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
 	</variable>
 
 	<!-- ================================================================ pieces -->
@@ -85,8 +93,8 @@
 						<height>24</height>
 						<font>mono_14</font>
 						<textcolor>$VAR[ColorCaption]</textcolor>
-						<label>No matches</label>
-						<visible>!Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
+						<label>$LOCALIZE[31234]</label>
+						<visible>!Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating + $EXP[Search_HasEncoded]</visible>
 					</control>
 					<control type="label">
 						<top>4</top>
@@ -94,8 +102,8 @@
 						<height>24</height>
 						<font>mono_14</font>
 						<textcolor>$VAR[ColorCaption]</textcolor>
-						<label>Searching</label>
-						<visible>Container($PARAM[id]).IsUpdating</visible>
+						<label>$LOCALIZE[31235]</label>
+						<visible>Container($PARAM[id]).IsUpdating | !$EXP[Search_HasEncoded]</visible>
 					</control>
 				</control>
 				<!-- focused item detail, right-aligned (only while the row has focus) -->
@@ -254,7 +262,7 @@
 			<height>20</height>
 			<font>mono_15</font>
 			<textcolor>$VAR[ColorAccent]</textcolor>
-			<label>Search the library / films, shows, albums, artists</label>
+			<label>$LOCALIZE[31236]</label>
 		</control>
 		<control type="edit" id="9001">
 			<left>page_margin</left>
@@ -268,7 +276,7 @@
 			<textoffsetx>0</textoffsetx>
 			<aligny>center</aligny>
 			<label></label>
-			<hinttext>Type a title</hinttext>
+			<hinttext>$LOCALIZE[31237]</hinttext>
 			<texturefocus />
 			<texturenofocus />
 			<onup>noop</onup>
@@ -295,7 +303,7 @@
 			<height>22</height>
 			<font>mono_14</font>
 			<textcolor>$VAR[ColorCaption]</textcolor>
-			<label>OK to type  ·  Down for results  ·  Back to close</label>
+			<label>$LOCALIZE[31238]</label>
 			<visible>Control.HasFocus(9001)</visible>
 		</control>
 	</include>
@@ -382,7 +390,7 @@
 			<height>30</height>
 			<font>credits_21</font>
 			<textcolor>text_secondary</textcolor>
-			<label>Films and shows match on title, albums on album name, artists on name. Library only.</label>
+			<label>$LOCALIZE[31239]</label>
 			<visible>!$EXP[Search_HasQuery]</visible>
 		</control>
 	</include>

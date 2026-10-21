@@ -46,7 +46,7 @@
 						<width>680</width>
 						<height>dialog_row_h</height>
 						<font>ui_24_bold</font>
-						<hinttext>Value</hinttext>
+						<hinttext>$LOCALIZE[31396]</hinttext>
 					</control>
 					<include content="Sen_DialogButton">
 						<param name="id" value="20"/>

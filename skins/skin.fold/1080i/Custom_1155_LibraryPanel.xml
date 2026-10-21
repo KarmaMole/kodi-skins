@@ -12,7 +12,8 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
      of the season cards and the concertina strip, the "Options" header word (video and music), and from Home's
      Settings cards "Update library" / "Clean library" (they set Window(Home).Property(fold.libpanel) first).
      In a library: Update library (Stop the update while scanning), Clean library, View, Sort by, Order,
-     Unwatched only (video), Search, Library settings. Update / Clean hide in add-on and plugin folders.
+     Unwatched only (video), Sets (films, when the library has sets: Container.Update to videodb://movies/sets/
+     in the same Videos window), Search, Library settings. Update / Clean hide in add-on and plugin folders.
      Clean never runs straight away: Kodi 21's CleanLibrary() builtin has NO confirmation of its own, so the row
      opens a confirm note (list 101, focus on No).
      Back closes the note; focus returns to the card you came from.
@@ -118,6 +119,17 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 		</control>
 		<control type="group">
 			<left>640</left>
+			<top>188</top>
+			<width>640</width>
+			<height>704</height>
+			<visible>String.IsEmpty(Window(Home).Property(fold.libconfirm)) + Integer.IsEqual(Container(100).NumItems,9)</visible>
+			<include content="Fold_GenericDialog">
+				<param name="header_label" value="$VAR[Fold_Lib_Title]"/>
+				<param name="kicker" value="$VAR[Fold_Lib_Caption]"/>
+			</include>
+		</control>
+		<control type="group">
+			<left>640</left>
 			<top>372</top>
 			<width>640</width>
 			<height>336</height>
@@ -129,22 +141,23 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 		</control>
 		<control type="group">
 			<left>640</left>
-			<top>220</top>
+			<top>188</top>
 			<width>640</width>
-			<height>640</height>
+			<height>704</height>
 			<visible>String.IsEmpty(Window(Home).Property(fold.libconfirm))</visible>
-			<animation effect="slide" start="0,0" end="0,224" time="0" condition="Integer.IsEqual(Container(100).NumItems,1)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,192" time="0" condition="Integer.IsEqual(Container(100).NumItems,2)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,160" time="0" condition="Integer.IsEqual(Container(100).NumItems,3)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,128" time="0" condition="Integer.IsEqual(Container(100).NumItems,4)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,96" time="0" condition="Integer.IsEqual(Container(100).NumItems,5)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,64" time="0" condition="Integer.IsEqual(Container(100).NumItems,6)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,32" time="0" condition="Integer.IsEqual(Container(100).NumItems,7)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,256" time="0" condition="Integer.IsEqual(Container(100).NumItems,1)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,224" time="0" condition="Integer.IsEqual(Container(100).NumItems,2)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,192" time="0" condition="Integer.IsEqual(Container(100).NumItems,3)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,160" time="0" condition="Integer.IsEqual(Container(100).NumItems,4)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,128" time="0" condition="Integer.IsEqual(Container(100).NumItems,5)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,96" time="0" condition="Integer.IsEqual(Container(100).NumItems,6)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,64" time="0" condition="Integer.IsEqual(Container(100).NumItems,7)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,32" time="0" condition="Integer.IsEqual(Container(100).NumItems,8)">Conditional</animation>
 			<control type="list" id="100">
 				<left>dialog_inset</left>
 				<top>104</top>
 				<width>592</width>
-				<height>512</height>
+				<height>576</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>
@@ -173,14 +186,14 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 						<onclick>SetFocus(101)</onclick>
 					</item>
 					<item>
-						<label>View</label>
+						<label>$LOCALIZE[31011]</label>
 						<label2>$VAR[Fold_Lib_ViewName]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + Integer.IsGreater(Container.ViewCount,1)</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>ActivateWindow(1156)</onclick>
 					</item>
 					<item>
-						<label>Sort by</label>
+						<label>$LOCALIZE[31376]</label>
 						<label2>$INFO[Container.SortMethod]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEmpty(Container.SortMethod)</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
@@ -188,16 +201,24 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 						<onclick condition="Window.IsActive(music)">SendClick(music,3)</onclick>
 					</item>
 					<item>
-						<label>Order</label>
+						<label>$LOCALIZE[31377]</label>
 						<label2>$INFO[Container.SortOrder]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEmpty(Container.SortMethod)</visible>
 						<onclick>Container.SetSortDirection</onclick>
 					</item>
 					<item>
-						<label>Unwatched only</label>
+						<label>$LOCALIZE[31081]</label>
 						<label2>$VAR[Fold_Lib_HideWatched]</label2>
 						<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]</visible>
-						<onclick>SendClick(videos,14)</onclick>
+						<onclick>Dialog.Close(1155,true)</onclick>
+						<onclick>SendClick(14)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[20434]</label>
+						<label2>$LOCALIZE[31378]</label2>
+						<visible>Window.IsActive(videos) + [Container.Content(movies) | String.IsEqual(Container.FolderPath,videodb://movies/) | String.IsEqual(Container.FolderPath,library://video/movies/)] + Library.HasContent(moviesets)</visible>
+						<onclick>Dialog.Close(1155,true)</onclick>
+						<onclick>Container.Update(videodb://movies/sets/)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[137]</label>
@@ -207,36 +228,36 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 						<onclick>ActivateWindow(1150)</onclick>
 					</item>
 					<item>
-						<label>Library settings</label>
-						<label2>Kodi</label2>
+						<label>$LOCALIZE[31379]</label>
+						<label2>$LOCALIZE[31300]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)]</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>ActivateWindow(mediasettings)</onclick>
 					</item>
 					<item>
 						<label>$VAR[Fold_Lib_UpdateVideoLabel]</label>
-						<label2>Films · series</label2>
+						<label2>$LOCALIZE[31380]</label2>
 						<visible>![Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEqual(Window(Home).Property(fold.libpanel),clean)</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>UpdateLibrary(video)</onclick>
 					</item>
 					<item>
 						<label>$VAR[Fold_Lib_UpdateMusicLabel]</label>
-						<label2>Albums · songs</label2>
+						<label2>$LOCALIZE[31381]</label2>
 						<visible>![Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEqual(Window(Home).Property(fold.libpanel),clean)</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>UpdateLibrary(music)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[3]</label>
-						<label2>Films · series</label2>
+						<label2>$LOCALIZE[31380]</label2>
 						<visible>![Window.IsActive(videos) | Window.IsActive(music)] + String.IsEqual(Window(Home).Property(fold.libpanel),clean) + !Library.IsScanningVideo</visible>
 						<onclick>SetProperty(fold.libconfirm,video,home)</onclick>
 						<onclick>SetFocus(101)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[2]</label>
-						<label2>Albums · songs</label2>
+						<label2>$LOCALIZE[31381]</label2>
 						<visible>![Window.IsActive(videos) | Window.IsActive(music)] + String.IsEqual(Window(Home).Property(fold.libpanel),clean) + !Library.IsScanningMusic</visible>
 						<onclick>SetProperty(fold.libconfirm,music,home)</onclick>
 						<onclick>SetFocus(101)</onclick>
@@ -257,9 +278,8 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 				<width>560</width>
 				<height>70</height>
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<selectedcolor>body</selectedcolor>
-				<label>Kodi removes every entry whose file it can no longer find. It can't be undone.</label>
+				<label>$LOCALIZE[31382]</label>
 				<visible>!String.IsEmpty(Window(Home).Property(fold.libconfirm))</visible>
 			</control>
 			<control type="list" id="101">
@@ -280,20 +300,20 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 				</include>
 				<content>
 					<item>
-						<label>No, keep everything</label>
+						<label>$LOCALIZE[31383]</label>
 						<label2></label2>
 						<visible>true</visible>
 						<onclick>Dialog.Close(1155)</onclick>
 					</item>
 					<item>
-						<label>Yes, clean the video library</label>
+						<label>$LOCALIZE[31384]</label>
 						<label2></label2>
 						<visible>String.IsEqual(Window(Home).Property(fold.libconfirm),video)</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>CleanLibrary(video)</onclick>
 					</item>
 					<item>
-						<label>Yes, clean the music library</label>
+						<label>$LOCALIZE[31385]</label>
 						<label2></label2>
 						<visible>String.IsEqual(Window(Home).Property(fold.libconfirm),music)</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>

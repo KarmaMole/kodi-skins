@@ -17,8 +17,6 @@
 			<width>1920</width>
 			<height>1080</height>
 			<label></label>
-			<texturefocus />
-			<texturenofocus />
 			<onright>StepForward</onright>
 			<onleft>StepBack</onleft>
 			<onup>ChapterOrBigStepForward</onup>
@@ -45,13 +43,11 @@
 				<height>404</height>
 				<orientation>vertical</orientation>
 				<align>right</align>
-				<itemgap>0</itemgap>
 				<usecontrolcoords>true</usecontrolcoords>
 				<control type="textbox">
 					<left>160</left>
 					<width>880</width>
 					<height max="160">auto</height>
-					<font>sans_28</font>
 					<textcolor>text_72</textcolor>
 					<label>$INFO[VideoPlayer.Plot]</label>
 				</control>
@@ -64,7 +60,6 @@
 						<width>1000</width>
 						<height>32</height>
 						<aligny>top</aligny>
-						<font>sans_26</font>
 						<textcolor>grey</textcolor>
 						<label>$VAR[OSD_FSMeta]</label>
 					</control>

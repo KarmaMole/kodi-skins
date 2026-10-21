@@ -33,7 +33,6 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 			<height>1080</height>
 			<label></label>
 			<texturefocus />
-			<texturenofocus />
 			<onclick>ActivateWindow(musicosd)</onclick>
 			<onup>ActivateWindow(musicosd)</onup>
 			<ondown>ActivateWindow(musicosd)</ondown>
@@ -139,9 +138,7 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 			<width>544</width>
 			<height>5</height>
 			<texturebg />
-			<lefttexture />
 			<midtexture colordiffuse="mari">common/white.png</midtexture>
-			<righttexture />
 			<info>Player.Progress</info>
 		</control>
 		<control type="slider">
@@ -160,8 +157,6 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 			<width>544</width>
 			<height>32</height>
 			<font>num_22</font>
-			<textcolor>ink</textcolor>
-			<selectedcolor>ink</selectedcolor>
 			<label>$INFO[Player.Time]</label>
 		</control>
 		<control type="label">
@@ -283,7 +278,6 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 			<width>1280</width>
 			<height>32</height>
 			<orientation>horizontal</orientation>
-			<itemgap>0</itemgap>
 			<visible>!Window.IsVisible(musicosd)</visible>
 			<include content="Fold_KeyHint"><param name="key" value="OK"/><param name="label" value="Controls"/></include>
 			<include content="Fold_KeyHint"><param name="key" value="← →"/><param name="label" value="Skip within the track"/></include>

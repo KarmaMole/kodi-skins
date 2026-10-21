@@ -16,6 +16,8 @@
 -->
 <includes>
 	<expression name="Lib_LibraryActions">!Container.Content(addons) + String.IsEmpty(Container.PluginName)</expression>
+	<!-- sets row (2026-10-21): only while the Videos window browses films and the library has sets -->
+	<expression name="Lib_ShowSets">Window.IsActive(videos) + [Container.Content(movies) | String.IsEqual(Container.FolderPath,videodb://movies/) | String.IsEqual(Container.FolderPath,library://video/movies/)] + Library.HasContent(moviesets)</expression>
 
 	<variable name="Lib_SortOrder">
 		<value condition="Container.SortDirection(descending)">descending</value>
@@ -114,7 +116,7 @@
 					<height>64</height>
 					<font>hand_40</font>
 					<include>KS_PenWordLook</include>
-					<label>library</label>
+					<label>$LOCALIZE[31303]</label>
 					<onclick>SetProperty(keepsake.lib.from,rail,home)</onclick>
 					<onclick>SetFocus(9801,0,absolute)</onclick>
 				</control>
@@ -143,11 +145,12 @@
 					<left>660</left>
 					<top>180</top>
 					<width>600</width>
-					<height>700</height>
+					<height>770</height>
 					<include content="Lib_Leaf"><param name="w" value="680"/><param name="h" value="512"/><param name="visible" value="!Integer.IsGreater(Container(9801).NumItems,5)"/></include>
 					<include content="Lib_Leaf"><param name="w" value="680"/><param name="h" value="580"/><param name="visible" value="Integer.IsEqual(Container(9801).NumItems,6)"/></include>
 					<include content="Lib_Leaf"><param name="w" value="680"/><param name="h" value="648"/><param name="visible" value="Integer.IsEqual(Container(9801).NumItems,7)"/></include>
-					<include content="Lib_Leaf"><param name="w" value="680"/><param name="h" value="716"/><param name="visible" value="Integer.IsGreaterOrEqual(Container(9801).NumItems,8)"/></include>
+					<include content="Lib_Leaf"><param name="w" value="680"/><param name="h" value="716"/><param name="visible" value="Integer.IsEqual(Container(9801).NumItems,8)"/></include>
+					<include content="Lib_Leaf"><param name="w" value="680"/><param name="h" value="784"/><param name="visible" value="Integer.IsGreaterOrEqual(Container(9801).NumItems,9)"/></include>
 					<control type="label">
 						<left>24</left>
 						<top>0</top>
@@ -155,7 +158,7 @@
 						<height>64</height>
 						<font>hand_48</font>
 						<textcolor>ink</textcolor>
-						<label>library</label>
+						<label>$LOCALIZE[31303]</label>
 					</control>
 					<control type="label">
 						<left>216</left>
@@ -172,7 +175,7 @@
 						<left>12</left>
 						<top>72</top>
 						<width>576</width>
-						<height>544</height>
+						<height>612</height>
 						<onup>9801</onup>
 						<ondown>9801</ondown>
 						<onleft>noop</onleft>
@@ -187,56 +190,63 @@
 						</include>
 						<content>
 							<item>
-								<label>view</label>
+								<label>$LOCALIZE[31352]</label>
 								<label2>$VAR[Lib_ViewName]</label2>
 								<onclick>SetProperty(keepsake.pick.from,panel,home)</onclick>
 								<include content="$PARAM[pick_focus]"/>
 								<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
 							</item>
 							<item>
-								<label>sort</label>
+								<label>$LOCALIZE[31353]</label>
 								<label2>$INFO[Container.SortMethod]</label2>
 								<onclick>SendClick(3)</onclick>
 								<visible>Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)</visible>
 							</item>
 							<item>
-								<label>order</label>
+								<label>$LOCALIZE[31354]</label>
 								<label2>$VAR[Lib_SortOrder]</label2>
 								<onclick>$PARAM[order_click]</onclick>
 								<visible>Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)</visible>
 							</item>
 							<item>
-								<label>unwatched only</label>
+								<label>$LOCALIZE[31355]</label>
 								<label2>$VAR[Lib_Unwatched]</label2>
 								<onclick>SendClick(14)</onclick>
 								<visible>$PARAM[is_video] + $EXP[VidView_IsLibraryVideo]</visible>
 							</item>
 							<item>
-								<label>search</label>
-								<label2>the whole album</label2>
+								<label>$LOCALIZE[31356]</label>
+								<label2>$LOCALIZE[31357]</label2>
+								<onclick>SetFocus(50)</onclick>
+								<onclick>Container.Update(videodb://movies/sets/)</onclick>
+								<visible>$PARAM[is_video] + $EXP[Lib_ShowSets]</visible>
+							</item>
+							<item>
+								<label>$LOCALIZE[31358]</label>
+								<label2>$LOCALIZE[31359]</label2>
 								<onclick>ActivateWindow(1150)</onclick>
 							</item>
 							<item>
-								<label>update library</label>
+								<label>$LOCALIZE[31302]</label>
 								<label2>$VAR[Lib_UpdateVideo]</label2>
 								<onclick>UpdateLibrary(video)</onclick>
 								<visible>$PARAM[video_cond] + $EXP[Lib_LibraryActions]</visible>
 							</item>
 							<item>
-								<label>update library</label>
+								<label>$LOCALIZE[31302]</label>
 								<label2>$VAR[Lib_UpdateMusic]</label2>
 								<onclick>UpdateLibrary(music)</onclick>
 								<visible>$PARAM[music_cond] + $EXP[Lib_LibraryActions]</visible>
 							</item>
 							<item>
-								<label>clean library</label>
+								<label>$LOCALIZE[31304]</label>
 								<label2>$PARAM[section]</label2>
 								<onclick>SetFocus(9891)</onclick>
 								<visible>$EXP[Lib_LibraryActions]</visible>
 							</item>
 							<item>
-								<label>media settings</label>
-								<label2>kodi</label2>
+								<label>$LOCALIZE[31360]</label>
+								<label2>$LOCALIZE[31361]</label2>
 								<onclick>ActivateWindow(MediaSettings)</onclick>
 							</item>
 						</content>
@@ -262,7 +272,7 @@
 						<height>80</height>
 						<font>hand_48</font>
 						<textcolor>ink</textcolor>
-						<label>clean the library?</label>
+						<label>$LOCALIZE[31310]</label>
 					</control>
 					<control type="image">
 						<left>40</left>
@@ -279,7 +289,7 @@
 						<font>body_24</font>
 						<textcolor>body</textcolor>
 						<wrapmultiline>true</wrapmultiline>
-						<label>Films and albums whose files can no longer be found are taken out of the album. Nothing is deleted from your drives.</label>
+						<label>$LOCALIZE[31311]</label>
 					</control>
 					<control type="grouplist" id="9893">
 						<left>40</left>
@@ -367,7 +377,7 @@
 					<height>44</height>
 					<font>hand_34</font>
 					<textcolor>ink2</textcolor>
-					<label>as it is now</label>
+					<label>$LOCALIZE[31362]</label>
 				</control>
 			</control>
 		</itemlayout>
@@ -411,7 +421,7 @@
 					<font>hand_34</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<label>as it is now</label>
+					<label>$LOCALIZE[31362]</label>
 				</control>
 			</control>
 		</focusedlayout>
@@ -440,7 +450,7 @@
 						<height>64</height>
 						<font>hand_48</font>
 						<textcolor>ink</textcolor>
-						<label>how it's laid out</label>
+						<label>$LOCALIZE[31363]</label>
 					</control>
 					<control type="list" id="9851">
 						<left>20</left>
@@ -479,7 +489,7 @@
 		</include>
 		<content>
 			<item>
-				<label>prints</label>
+				<label>$LOCALIZE[31364]</label>
 				<icon>ks/views/prints_films.png</icon>
 				<property name="view">v521</property>
 				<onclick>Container.SetViewMode(521)</onclick>
@@ -487,7 +497,7 @@
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(musicvideos)</visible>
 			</item>
 			<item>
-				<label>prints</label>
+				<label>$LOCALIZE[31364]</label>
 				<icon>ks/views/prints_series.png</icon>
 				<property name="view">v522</property>
 				<onclick>Container.SetViewMode(522)</onclick>
@@ -495,7 +505,7 @@
 				<visible>Container.Content(tvshows)</visible>
 			</item>
 			<item>
-				<label>seasons</label>
+				<label>$LOCALIZE[31365]</label>
 				<icon>ks/views/seasons.png</icon>
 				<property name="view">v523</property>
 				<onclick>Container.SetViewMode(523)</onclick>
@@ -503,7 +513,7 @@
 				<visible>Container.Content(seasons)</visible>
 			</item>
 			<item>
-				<label>a strip</label>
+				<label>$LOCALIZE[31366]</label>
 				<icon>ks/views/episodes.png</icon>
 				<property name="view">v524</property>
 				<onclick>Container.SetViewMode(524)</onclick>
@@ -511,7 +521,7 @@
 				<visible>Container.Content(episodes)</visible>
 			</item>
 			<item>
-				<label>a list</label>
+				<label>$LOCALIZE[31367]</label>
 				<icon>ks/views/list_video.png</icon>
 				<property name="view">v50</property>
 				<onclick>Container.SetViewMode(50)</onclick>
@@ -527,7 +537,7 @@
 		</include>
 		<content>
 			<item>
-				<label>instant prints</label>
+				<label>$LOCALIZE[31368]</label>
 				<icon>ks/views/instant_prints.png</icon>
 				<property name="view">v530</property>
 				<onclick>Container.SetViewMode(530)</onclick>
@@ -535,7 +545,7 @@
 				<visible>Container.Content(albums)</visible>
 			</item>
 			<item>
-				<label>prints</label>
+				<label>$LOCALIZE[31364]</label>
 				<icon>ks/views/artist_prints.png</icon>
 				<property name="view">v531</property>
 				<onclick>Container.SetViewMode(531)</onclick>
@@ -543,7 +553,7 @@
 				<visible>Container.Content(artists)</visible>
 			</item>
 			<item>
-				<label>a list</label>
+				<label>$LOCALIZE[31367]</label>
 				<icon>ks/views/list_music.png</icon>
 				<property name="view">v50</property>
 				<onclick>Container.SetViewMode(50)</onclick>

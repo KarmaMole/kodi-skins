@@ -44,7 +44,6 @@
 				<width>512</width>
 				<height>32</height>
 				<font>card_21</font>
-				<textcolor>text_primary</textcolor>
 			</control>
 			<control type="progress" id="32">
 				<left>24</left>

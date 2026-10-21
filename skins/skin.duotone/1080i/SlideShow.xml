@@ -14,14 +14,14 @@
 				<centertop>50%</centertop>
 				<width>160</width>
 				<height>160</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="image">
 				<centerleft>50%</centerleft>
 				<centertop>50%</centertop>
 				<width>64</width>
 				<height>64</height>
-				<texture colordiffuse="paper">icons/play.png</texture>
+				<texture colordiffuse="$VAR[paper]">icons/play.png</texture>
 			</control>
 		</control>
 		<control type="group">
@@ -36,7 +36,7 @@
 				<top>0</top>
 				<width>160</width>
 				<height>40</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -45,7 +45,7 @@
 				<height>40</height>
 				<align>center</align>
 				<font>cap_20</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<label>$LOCALIZE[112]</label>
 			</control>
 		</control>

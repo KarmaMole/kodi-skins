@@ -21,13 +21,13 @@ OUT = Path(__file__).resolve().parent.parent / "1080i" / "DialogKeyboard.xml"
 ROWS, COLS = 4, 13
 KEY_W, KEY_H, GAP = 96, 84, 0  # keep in sync with constants kb_key_w / kb_key_h
 FUNC = [  # id, label, width, columns it maps to (for up/down), type
-    (304, "Symbols", 192, [0, 1], "radiobutton"),
-    (303, "Caps", 96, [2], "radiobutton"),
-    (302, "Shift", 96, [3], "radiobutton"),
-    (32, "Space", 384, [4, 5, 6, 7], "button"),
+    (304, "$LOCALIZE[31330]", 192, [0, 1], "radiobutton"),
+    (303, "$LOCALIZE[31331]", 96, [2], "radiobutton"),
+    (302, "$LOCALIZE[31332]", 96, [3], "radiobutton"),
+    (32, "$LOCALIZE[31333]", 384, [4, 5, 6, 7], "button"),
     (305, "←", 96, [8], "button"),
     (306, "→", 96, [9], "button"),
-    (8, "Delete", 288, [10, 11, 12], "button"),
+    (8, "$LOCALIZE[31044]", 288, [10, 11, 12], "button"),
 ]
 SIDE = [(300, "$LOCALIZE[12321]"), (301, "$LOCALIZE[222]"), (310, ""), (309, ""), (307, "$LOCALIZE[1006]")]
 
@@ -76,13 +76,15 @@ def main():
         rows_xml.append(
             f'{t4}<control type="grouplist">\n{t5}<left>0</left>\n{t5}<top>{r * (KEY_H + GAP)}</top>\n'
             f'{t5}<width>1300</width>\n{t5}<height>kb_key_h</height>\n{t5}<orientation>horizontal</orientation>\n'
-            f'{t5}<itemgap>{GAP}</itemgap>\n{t5}<onleft>95200</onleft>\n{t5}<onright>95200</onright>\n'
+            + (f'{t5}<itemgap>{GAP}</itemgap>\n' if GAP else '')  # 0 = the grouplist default
+            + f'{t5}<onleft>95200</onleft>\n{t5}<onright>95200</onright>\n'
             f'{keys}\n{t4}</control>')
     funcs = "\n".join(func_button(*f, t5) for f in FUNC)
     rows_xml.append(
         f'{t4}<control type="grouplist">\n{t5}<left>0</left>\n{t5}<top>{ROWS * (KEY_H + GAP)}</top>\n'
         f'{t5}<width>1300</width>\n{t5}<height>kb_key_h</height>\n{t5}<orientation>horizontal</orientation>\n'
-        f'{t5}<itemgap>{GAP}</itemgap>\n{t5}<onleft>95200</onleft>\n{t5}<onright>95200</onright>\n'
+        + (f'{t5}<itemgap>{GAP}</itemgap>\n' if GAP else '')  # 0 = the grouplist default
+        + f'{t5}<onleft>95200</onleft>\n{t5}<onright>95200</onright>\n'
         f'{funcs}\n{t4}</control>')
     side = "\n".join(
         f'{t4}<include content="Void_DialogButton">\n{t5}<param name="id" value="{sid}"/>\n'
@@ -115,10 +117,8 @@ def main():
 				<height>132</height>
 				<font>serif_96</font>
 				<textcolor>text</textcolor>
-				<focusedcolor>text</focusedcolor>
 				<textoffsetx>8</textoffsetx>
 				<texturefocus border="0,0,0,3" colordiffuse="grey">common/underline.png</texturefocus>
-				<texturenofocus border="0,0,0,3" colordiffuse="sep">common/underline.png</texturenofocus>
 			</control>
 			<control type="label" id="313">
 				<left>160</left>
@@ -147,7 +147,6 @@ def main():
 				<width>340</width>
 				<height>460</height>
 				<orientation>vertical</orientation>
-				<itemgap>0</itemgap>
 				<onleft>100</onleft>
 				<onright>100</onright>
 				<onup>95200</onup>
@@ -162,13 +161,13 @@ def main():
 				<aligny>top</aligny>
 				<font>caps_20</font>
 				<textcolor>grey_soft</textcolor>
-				<label>Done is on the right[COLOR sep]  ·  [/COLOR]Back cancels</label>
+				<label>$LOCALIZE[31334][COLOR sep]  ·  [/COLOR]$LOCALIZE[31335]</label>
 			</control>
 		</control>
 	</controls>
 </window>
 '''
-    OUT.write_text(xml, encoding="utf-8")
+    OUT.write_text(xml, encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

@@ -23,14 +23,13 @@
 				<width>560</width>
 				<height>38</height>  <!-- 1 line exactly: no half-clipped line at the bottom -->
 				<font>bold_28</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 			</control>
 			<control type="image">
 				<left>dialog_pad</left>
 				<top>dialog_content_top</top>
 				<width>560</width>
 				<height>76</height>
-				<texture border="10" colordiffuse="ink">common/rect_outline_1.png</texture>
+				<texture border="10" colordiffuse="$VAR[ink]">common/rect_outline_1.png</texture>
 			</control>
 			<control type="label" id="4">
 				<left>dialog_pad</left>
@@ -39,7 +38,6 @@
 				<height>76</height>
 				<align>center</align>
 				<font>an_48</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 			</control>
 			<control type="button" id="11">
 				<left>40</left>

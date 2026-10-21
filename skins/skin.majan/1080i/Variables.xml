@@ -76,16 +76,6 @@
 		<value>common/rect_outline_1.png</value>
 	</variable>
 
-	<!-- Watched markers (DESIGN 7.3) -->
-	<variable name="MarkerUnwatched">
-		<value condition="$EXP[IsRounded]">markers/unwatched_round.png</value>
-		<value>markers/unwatched.png</value>
-	</variable>
-	<variable name="MarkerWatched">
-		<value condition="$EXP[IsRounded]">markers/watched_round.png</value>
-		<value>markers/watched.png</value>
-	</variable>
-
 	<!-- ====================================================================== labels -->
 
 	<variable name="DateLabel">
@@ -104,12 +94,6 @@
 	<variable name="SpotlightRuntime">
 		<value condition="Integer.IsGreater(Container(9101).ListItem.Duration(h),0)">$INFO[Container(9101).ListItem.Duration(h),,h ]$INFO[Container(9101).ListItem.Duration(m),,m]</value>
 		<value>$INFO[Container(9101).ListItem.Duration(m),,m]</value>
-	</variable>
-	<!-- Director (primary) + cast (secondary). ListItem.Cast is newline-separated, so this is shown in a
-	     1-line textbox: "Director  ·  first cast member". M2 (T12) may switch to TMDb Helper cast properties. -->
-	<variable name="SpotlightCredits">
-		<value condition="!String.IsEmpty(Container(9101).ListItem.Director)">[COLOR text_primary]$INFO[Container(9101).ListItem.Director][/COLOR]$INFO[Container(9101).ListItem.Cast,  ·  ,]</value>
-		<value>$INFO[Container(9101).ListItem.Cast]</value>
 	</variable>
 
 	<!-- Kodi stores US certifications as "Rated PG-13" (DATA.md 4.1): show the bare code -->
@@ -138,100 +122,16 @@
 		<value>$LOCALIZE[3]</value>
 	</variable>
 
-	<!-- OSD -->
-	<variable name="OSDTitle">
-		<value condition="VideoPlayer.Content(episodes)">$INFO[VideoPlayer.TVShowTitle]</value>
-		<value condition="Player.HasAudio + !Player.HasVideo">$INFO[MusicPlayer.Title]</value>
-		<value>$INFO[Player.Title]</value>
-	</variable>
-	<variable name="OSDKicker">
-		<value condition="VideoPlayer.Content(episodes)">$INFO[VideoPlayer.Season,S,]$INFO[VideoPlayer.Episode,E,]$INFO[VideoPlayer.Title,  ·  ,]</value>
-		<value condition="Player.HasAudio + !Player.HasVideo">$INFO[MusicPlayer.Artist]$INFO[MusicPlayer.Album,  ·  ,]</value>
-		<value>$INFO[VideoPlayer.Year]</value>
-	</variable>
 	<!-- ============================================================ skin settings -->
-	<!-- Cycle helpers: SkinSettings buttons run Skin.SetString(name,$VAR[Next...]) - one action, so
-	     there is no ordering issue between conditional onclicks. Defaults are stored as explicit
-	     keywords (thin / faint / both / 15 / added) that the expressions treat exactly like empty. -->
-	<variable name="NextFocusOutline">
-		<value condition="String.IsEqual(Skin.String(majan.focusoutline),medium)">off</value>
-		<value condition="String.IsEqual(Skin.String(majan.focusoutline),off)">thin</value>
-		<value>medium</value>
-	</variable>
 	<variable name="LabelFocusOutline">
 		<value condition="String.IsEqual(Skin.String(majan.focusoutline),medium)">$LOCALIZE[31071]</value>
 		<value condition="String.IsEqual(Skin.String(majan.focusoutline),off)">$LOCALIZE[31072]</value>
 		<value>$LOCALIZE[31070]</value>
-	</variable>
-	<variable name="NextArtBackground">
-		<value condition="String.IsEqual(Skin.String(majan.artbackground),soft)">visible</value>
-		<value condition="String.IsEqual(Skin.String(majan.artbackground),visible)">off</value>
-		<value condition="String.IsEqual(Skin.String(majan.artbackground),off)">faint</value>
-		<value>soft</value>
-	</variable>
-	<variable name="LabelArtBackground">
-		<value condition="!System.AddonIsEnabled(plugin.video.themoviedb.helper)">$LOCALIZE[31072]</value>
-		<value condition="String.IsEqual(Skin.String(majan.artbackground),soft)">$LOCALIZE[31076]</value>
-		<value condition="String.IsEqual(Skin.String(majan.artbackground),visible)">$LOCALIZE[31077]</value>
-		<value condition="String.IsEqual(Skin.String(majan.artbackground),off)">$LOCALIZE[31072]</value>
-		<value>$LOCALIZE[31075]</value>
-	</variable>
-	<variable name="NextWatchedMarkers">
-		<value condition="String.IsEqual(Skin.String(majan.watchedmarkers),unwatched)">watched</value>
-		<value condition="String.IsEqual(Skin.String(majan.watchedmarkers),watched)">off</value>
-		<value condition="String.IsEqual(Skin.String(majan.watchedmarkers),off)">both</value>
-		<value>unwatched</value>
 	</variable>
 	<variable name="LabelWatchedMarkers">
 		<value condition="String.IsEqual(Skin.String(majan.watchedmarkers),unwatched)">$LOCALIZE[31081]</value>
 		<value condition="String.IsEqual(Skin.String(majan.watchedmarkers),watched)">$LOCALIZE[31082]</value>
 		<value condition="String.IsEqual(Skin.String(majan.watchedmarkers),off)">$LOCALIZE[31072]</value>
 		<value>$LOCALIZE[31080]</value>
-	</variable>
-	<variable name="NextSpotlightRotate">
-		<value condition="String.IsEqual(Skin.String(majan.spotlightrotate),30)">off</value>
-		<value condition="String.IsEqual(Skin.String(majan.spotlightrotate),off)">8</value>
-		<value condition="String.IsEqual(Skin.String(majan.spotlightrotate),8)">15</value>
-		<value>30</value>
-	</variable>
-	<variable name="LabelSpotlightRotate">
-		<value condition="String.IsEqual(Skin.String(majan.spotlightrotate),off)">$LOCALIZE[31072]</value>
-		<value condition="String.IsEqual(Skin.String(majan.spotlightrotate),8)">8 s</value>
-		<value condition="String.IsEqual(Skin.String(majan.spotlightrotate),30)">30 s</value>
-		<value>15 s</value>
-	</variable>
-	<variable name="NextHomeNewest">
-		<value condition="String.IsEqual(Skin.String(majan.home.newest),release)">both</value>
-		<value condition="String.IsEqual(Skin.String(majan.home.newest),both)">added</value>
-		<value>release</value>
-	</variable>
-	<variable name="LabelHomeNewest">
-		<value condition="String.IsEqual(Skin.String(majan.home.newest),release)">$LOCALIZE[31086]</value>
-		<value condition="String.IsEqual(Skin.String(majan.home.newest),both)">$LOCALIZE[31087]</value>
-		<value>$LOCALIZE[31085]</value>
-	</variable>
-	<!-- ==================================================================== OSD extras -->
-	<variable name="OSDTimeLabel">
-		<value condition="!String.IsEmpty(Player.SeekNumeric)">$INFO[Player.SeekNumeric(hh:mm:ss)]$INFO[Player.Duration, / ,]</value>
-		<value condition="Player.Seeking">$INFO[Player.SeekTime]$INFO[Player.Duration, / ,]</value>
-		<value>$INFO[Player.Time]$INFO[Player.Duration, / ,]</value>
-	</variable>
-	<variable name="OSDStateLabel">
-		<value condition="!String.IsEmpty(Player.SeekStepSize)">$INFO[Player.SeekStepSize]</value>
-		<value condition="!String.IsEmpty(Player.SeekOffset) + Player.HasPerformedSeek(3)">$INFO[Player.SeekOffset]</value>
-		<value condition="Player.Paused">$LOCALIZE[112]</value>
-		<value condition="Player.Forwarding | Player.Rewinding">$INFO[Player.PlaySpeed,,x]</value>
-	</variable>
-	<variable name="OSDHelpLabel">
-		<value condition="Control.HasFocus(87)">$LOCALIZE[31120]</value>
-		<value condition="Control.HasFocus(600)">$LOCALIZE[31121]</value>
-		<value condition="Control.HasFocus(601)">$LOCALIZE[31122]</value>
-		<value condition="Control.HasFocus(602)">$LOCALIZE[31123]</value>
-		<value condition="Control.HasFocus(603)">$LOCALIZE[31124]</value>
-		<value condition="Control.HasFocus(606)">$LOCALIZE[31125]</value>
-		<value condition="Control.HasFocus(607)">$LOCALIZE[31126]</value>
-		<value condition="Control.HasFocus(70046)">$LOCALIZE[31127]</value>
-		<value condition="Control.HasFocus(70049)">$LOCALIZE[31128]</value>
-		<value condition="Control.HasFocus(70048)">$LOCALIZE[31129]</value>
 	</variable>
 </includes>

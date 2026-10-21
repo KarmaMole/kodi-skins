@@ -8,28 +8,7 @@
 -->
 <includes>
 	<!-- ================================================================== variables -->
-	<variable name="VidInfo_TypeTitle">
-		<value condition="String.IsEqual(ListItem.DBType,movie)">Movie</value>
-		<value condition="String.IsEqual(ListItem.DBType,episode)">Episode</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">TV show</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">Season</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection</value>
-		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">Music video</value>
-		<value>Video</value>
-	</variable>
-	<variable name="VidInfo_Index">
-		<value condition="String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)">03</value>
-		<value>02</value>
-	</variable>
 	<!-- mono accent line above the title -->
-	<variable name="VidInfo_Kicker">
-		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.TVShowTitle, · ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">TV SHOW$INFO[ListItem.Studio, · ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$INFO[ListItem.Property(Total), · , FILMS]</value>
-		<value condition="!String.IsEmpty(ListItem.Set)">MOVIE · $INFO[ListItem.Set]</value>
-		<value>MOVIE$INFO[ListItem.Studio, · ,]</value>
-	</variable>
 	<variable name="VidInfo_Title">
 		<value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
 		<value>$INFO[ListItem.Label]</value>
@@ -58,14 +37,6 @@
 		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[Container(50).NumItems,, FILMS]</value>
 		<value>$INFO[Container(50).NumItems,, PEOPLE]</value>
 	</variable>
-	<!-- context hint line (x 680, y 990) -->
-	<variable name="VidInfo_Hint">
-		<value condition="Control.HasFocus(9001)">OK FOR FULL PLOT · ↓ BUTTONS</value>
-		<value condition="ControlGroup(9100).HasFocus()">◀ ▶ CHOOSE · ↑ OR BACK TO RETURN</value>
-		<value condition="ControlGroup(9000).HasFocus() + Control.IsVisible(9001) + Integer.IsGreater(Container(50).NumItems,0)">↑ PLOT · ↓ $VAR[VidInfo_CastHeader]</value>
-		<value condition="ControlGroup(9000).HasFocus() + Control.IsVisible(9001)">↑ PLOT</value>
-		<value condition="ControlGroup(9000).HasFocus() + Integer.IsGreater(Container(50).NumItems,0)">↓ $VAR[VidInfo_CastHeader]</value>
-	</variable>
 	<!-- cast row items (inside list 50): actors, or the films of a collection -->
 	<variable name="VidInfo_CastArt">
 		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Art(poster)]</value>
@@ -91,13 +62,6 @@
 		<value condition="String.IsEqual(ListItem.HdrType,hdr10)">HDR10</value>
 		<value condition="String.IsEqual(ListItem.HdrType,hlg)">HLG</value>
 		<value>$INFO[ListItem.HdrType]</value>
-	</variable>
-	<variable name="VidInfo_FlagVideo">
-		<value condition="String.IsEqual(ListItem.VideoCodec,hevc) | String.IsEqual(ListItem.VideoCodec,h265) | String.IsEqual(ListItem.VideoCodec,hev1) | String.IsEqual(ListItem.VideoCodec,hvc1)">HEVC</value>
-		<value condition="String.IsEqual(ListItem.VideoCodec,h264) | String.IsEqual(ListItem.VideoCodec,avc1) | String.IsEqual(ListItem.VideoCodec,avc)">H.264</value>
-		<value condition="String.IsEqual(ListItem.VideoCodec,mpeg2video) | String.IsEqual(ListItem.VideoCodec,mpeg2)">MPEG-2</value>
-		<value condition="String.IsEqual(ListItem.VideoCodec,vc1) | String.IsEqual(ListItem.VideoCodec,wvc1) | String.IsEqual(ListItem.VideoCodec,vc-1)">VC-1</value>
-		<value>$INFO[ListItem.VideoCodec]</value>
 	</variable>
 	<variable name="VidInfo_AudioCodec">
 		<value condition="String.IsEqual(ListItem.AudioCodec,truehd_atmos)">TRUEHD ATMOS</value>
@@ -279,7 +243,7 @@
 				<label>$PARAM[label]</label>
 				<font>an_40</font>
 				<textcolor>$VAR[SectionText]</textcolor>
-				<focusedcolor>paper</focusedcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
 				<align>center</align>
 				<aligny>center</aligny>
 				<textoffsetx>0</textoffsetx>
@@ -304,9 +268,9 @@
 				<height>48</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText]</textcolor>
-				<focusedcolor>paper</focusedcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
 				<textoffsetx>16</textoffsetx>
-				<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+				<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 				<texturenofocus border="10" colordiffuse="$VAR[SectionText]">common/rect_outline_1.png</texturenofocus>
 				<label>$PARAM[label]</label>
 				<onclick>$PARAM[onclick]</onclick>
@@ -329,7 +293,7 @@
 				<top>0</top>
 				<width>760</width>
 				<height>screen_h</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -340,6 +304,7 @@
 				<fadetime>200</fadetime>
 				<texture background="true" colordiffuse="$VAR[SectionTint]">$VAR[VidInfo_Fanart]</texture>
 			</control>
+			<include>DT_PrintGhost</include>
 			<control type="image">
 				<left>0</left>
 				<top>0</top>
@@ -360,6 +325,7 @@
 				<texture background="true" colordiffuse="$VAR[SectionPrint]">$INFO[Window(Home).Property(TMDbHelper.ListItem.Current.DesaturateImage)]</texture>
 				<visible>$EXP[DT_DesatOn] + !String.IsEmpty(ListItem.Art(fanart)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DesaturateImage.Original),ListItem.Art(fanart)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Current.DesaturateImage.Original),ListItem.Art(fanart))</visible>
 			</control>
+			<include>DT_PrintVeil</include>
 			<include>DT_ArtDots</include>
 			<!-- section tag -->
 			<control type="button">
@@ -369,10 +335,10 @@
 				<height>48</height>
 				<font>cap_20</font>
 				<textoffsetx>18</textoffsetx>
-				<textcolor>paper</textcolor>
-				<focusedcolor>paper</focusedcolor>
-				<texturenofocus colordiffuse="ink">common/white.png</texturenofocus>
-				<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+				<textcolor>$VAR[paper]</textcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
+				<texturenofocus colordiffuse="$VAR[ink]">common/white.png</texturenofocus>
+				<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 				<label>$VAR[VidInfo_SectionTag]</label>
 				<onup>9000</onup>
 				<ondown>9000</ondown>
@@ -391,7 +357,7 @@
 					<top>0</top>
 					<width>520</width>
 					<height>252</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 				</control>
 				<control type="label">
 					<left>32</left>
@@ -400,7 +366,7 @@
 					<height>24</height>
 					<font>cap_20</font>
 					<textcolor>$VAR[SectionColor]</textcolor>
-					<label>Tagline</label>
+					<label>$LOCALIZE[31340]</label>
 				</control>
 				<control type="textbox">
 					<left>32</left>
@@ -408,7 +374,7 @@
 					<width>456</width>
 					<height>212</height>
 					<font>an_72</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$INFO[ListItem.Tagline]</label>
 				</control>
 			</control>
@@ -507,7 +473,7 @@
 				<width>600</width>
 				<height>118</height>
 				<label></label>
-				<texturefocus border="16" colordiffuse="ink">focus/frame_8.png</texturefocus>
+				<texturefocus border="16" colordiffuse="$VAR[ink]">focus/frame_8.png</texturefocus>
 				<texturenofocus />
 				<onup>noop</onup>
 				<ondown>9000</ondown>
@@ -541,7 +507,7 @@
 				<height>24</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText]</textcolor>
-				<label>Cast</label>
+				<label>$LOCALIZE[31341]</label>
 				<visible>!String.IsEmpty(ListItem.Cast)</visible>
 			</control>
 			<control type="textbox">
@@ -583,7 +549,7 @@
 					<width>192</width>
 					<height>67</height>
 					<font>an_48</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$PARAM[value]</label>
 				</control>
 				<control type="textbox" id="$PARAM[p2]">
@@ -592,7 +558,7 @@
 					<width>192</width>
 					<height>42</height>
 					<font>an_32</font>
-					<textcolor>00ffffff</textcolor>
+					<textcolor>clear</textcolor>
 					<label>$PARAM[value]</label>
 				</control>
 				<control type="label">
@@ -697,7 +663,7 @@
 			<height>24</height>
 			<font>cap_20</font>
 			<textcolor>$VAR[SectionText]</textcolor>
-			<label>More  ·  Back returns</label>
+			<label>$LOCALIZE[31342]</label>
 			<visible>ControlGroup(9100).HasFocus()</visible>
 		</control>
 		<control type="grouplist" id="9100">
@@ -923,7 +889,7 @@
 				<height>24</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText]</textcolor>
-				<label>Up / down scroll  ·  Back closes</label>
+				<label>$LOCALIZE[31343]</label>
 			</control>
 		</control>
 	</include>

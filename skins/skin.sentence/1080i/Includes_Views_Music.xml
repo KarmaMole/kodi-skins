@@ -218,7 +218,7 @@
 				<onright>ActivateWindow(1155)</onright>
 				<scrolltime tween="cubic" easing="out">240</scrolltime>
 				<preloaditems>2</preloaditems>
-				<viewtype label="a grid">icon</viewtype>
+				<viewtype label="31368">icon</viewtype>
 				<visible>Container.Content(albums) | Container.Content(artists)</visible>
 				<itemlayout width="228" height="292">
 					<include>Music_GridItem</include>
@@ -257,7 +257,7 @@
 					<height>60</height>
 					<font>ui_20</font>
 					<textcolor>muted</textcolor>
-					<label>OK opens it, Info explains it. Up takes you back to the sentence.</label>
+					<label>$LOCALIZE[31367]</label>
 				</control>
 			</control>
 		</control>
@@ -280,7 +280,7 @@
 				<onright>60</onright>
 				<pagecontrol>60</pagecontrol>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
-				<viewtype label="a list">list</viewtype>
+				<viewtype label="31366">list</viewtype>
 				<include content="Music_SongLayout">
 					<param name="condition" value="Container.Content(songs)"/>
 				</include>

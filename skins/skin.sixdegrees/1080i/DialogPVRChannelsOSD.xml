@@ -30,7 +30,6 @@
 				<width>880</width>
 				<height>topbar_item_h</height>
 				<font>xb_34</font>
-				<textcolor>ink</textcolor>
 				<label>$LOCALIZE[19019]$INFO[VideoPlayer.ChannelGroup,  ·  ,]</label>
 			</control>
 			<include content="SD_Rule">
@@ -45,7 +44,7 @@
 				<height>subnav_h</height>
 				<font>caps_20</font>
 				<textcolor>ink2</textcolor>
-				<label>Left / right: channel group</label>
+				<label>$LOCALIZE[31213]</label>
 			</control>
 			<control type="list" id="11">
 				<left>page_margin</left>

@@ -67,9 +67,6 @@
 	<variable name="Dlg_Ink3"><value condition="Control.HasFocus(3)">on_lilac</value><value>text</value></variable>
 	<variable name="Dlg_InkSoft3"><value condition="Control.HasFocus(3)">on_lilac</value><value>muted</value></variable>
 	<variable name="Dlg_InkMark3"><value condition="Control.HasFocus(3)">on_lilac</value><value>lilac</value></variable>
-	<variable name="Dlg_Ink5"><value condition="Control.HasFocus(5)">on_lilac</value><value>text</value></variable>
-	<variable name="Dlg_InkSoft5"><value condition="Control.HasFocus(5)">on_lilac</value><value>muted</value></variable>
-	<variable name="Dlg_InkMark5"><value condition="Control.HasFocus(5)">on_lilac</value><value>lilac</value></variable>
 	<variable name="Dlg_Ink6"><value condition="Control.HasFocus(6)">on_lilac</value><value>text</value></variable>
 	<variable name="Dlg_InkSoft6"><value condition="Control.HasFocus(6)">on_lilac</value><value>muted</value></variable>
 	<variable name="Dlg_InkMark6"><value condition="Control.HasFocus(6)">on_lilac</value><value>lilac</value></variable>
@@ -708,7 +705,7 @@
 				<height>dialog_row_h</height>
 				<font>cap_20</font>
 				<textcolor>muted</textcolor>
-				<label>There's nothing to choose from.</label>
+				<label>$LOCALIZE[31341]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<include content="Sen_Scrollbar">
@@ -914,7 +911,7 @@
 				<textoffsetx>56</textoffsetx>
 				<font>cap_20</font>
 				<textcolor>muted</textcolor>
-				<label>There's nothing to choose from.</label>
+				<label>$LOCALIZE[31341]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<control type="scrollbar" id="61">

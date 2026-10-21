@@ -12,6 +12,7 @@
 	<controls>
 		<include>SD_Background</include>
 		<include>Map_Data</include>
+		<include>Map_Encoder</include>
 		<include>Map_Lines</include>
 		<include>Map_Centre</include>
 		<include>Map_NextStop</include>

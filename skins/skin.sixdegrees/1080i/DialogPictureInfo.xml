@@ -50,7 +50,6 @@
 				<width>584</width>
 				<height>topbar_item_h</height>
 				<font>xb_34</font>
-				<textcolor>ink</textcolor>
 				<label>$INFO[ListItem.Label]</label>
 			</control>
 			<include content="SD_Rule">
@@ -127,9 +126,7 @@
 							<width>260</width>
 							<height>55</height>
 							<font>caps_20</font>
-							<textcolor>ink</textcolor>
 							<label>$INFO[ListItem.Label]</label>
-							<selectedcolor>ink</selectedcolor>
 							<visible>!Control.HasFocus(5)</visible>
 						</control>
 						<control type="label">
@@ -150,10 +147,8 @@
 							<height>55</height>
 							<align>right</align>
 							<font>reg_22</font>
-							<textcolor>ink</textcolor>
 							<scroll>true</scroll>
 							<label>$INFO[ListItem.Label2]</label>
-							<selectedcolor>ink</selectedcolor>
 							<visible>!Control.HasFocus(5)</visible>
 						</control>
 						<control type="label">

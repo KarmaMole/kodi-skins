@@ -20,6 +20,8 @@ Usage: python skins/skin.passepartout/_src/make_wall.py
 """
 from math import floor
 from pathlib import Path
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "1080i" / "Includes_Wall.xml"
@@ -502,7 +504,7 @@ def main():
     # 0.9.10: motion honours Reduce motion (rm_guard: time-0 twins under passepartout.reducemotion)
     from rm_guard import guard_text
     xml, _n = guard_text(xml, "Skin.HasSetting(passepartout.reducemotion)")
-    OUT.write_text(xml, encoding="utf-8", newline="\n")
+    OUT.write_text(localize_xml(xml, STRINGS_PO), encoding="utf-8", newline="\n")
     print(f"wrote {OUT.name}")
 
 

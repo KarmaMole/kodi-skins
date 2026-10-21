@@ -14,7 +14,6 @@
 		<font><name>serif_32</name><filename>DaylightSerif-Medium.ttf</filename><size>32</size></font>
 		<font><name>serif_30</name><filename>DaylightSerif-Medium.ttf</filename><size>30</size><linespacing>1.03</linespacing></font>
 		<font><name>serif_28</name><filename>DaylightSerif-Medium.ttf</filename><size>28</size></font>
-		<font><name>serif_26</name><filename>DaylightSerif-Medium.ttf</filename><size>26</size></font>
 		<font><name>clock_30</name><filename>Figtree-SemiBold.ttf</filename><size>30</size></font>
 		<font><name>ui_30_semibold</name><filename>Figtree-SemiBold.ttf</filename><size>30</size></font>
 		<font><name>ui_28</name><filename>Figtree-Medium.ttf</filename><size>28</size></font>
@@ -39,24 +38,22 @@
 		<font><name>small_20_bold</name><filename>Figtree-Bold.ttf</filename><size>20</size></font>
 		<font><name>cap_20</name><filename>Figtree-SemiBold.ttf</filename><size>20</size></font>
 		<font><name>cap_21</name><filename>Figtree-SemiBold.ttf</filename><size>21</size></font>
-		<font><name>cap_22</name><filename>Figtree-SemiBold.ttf</filename><size>22</size></font>
 		<font><name>num_20</name><filename>Figtree-Medium.ttf</filename><size>20</size></font>
 		<font><name>num_21</name><filename>Figtree-Medium.ttf</filename><size>21</size></font>
 		<font><name>num_22</name><filename>Figtree-SemiBold.ttf</filename><size>22</size></font>
 		<font><name>num_26</name><filename>Figtree-Medium.ttf</filename><size>26</size></font>
-		<font><name>tab_20</name><filename>Figtree-Bold.ttf</filename><size>20</size></font>
-		<font><name>font10</name><filename>Figtree-Regular.ttf</filename><size>21</size></font>
-		<font><name>font12</name><filename>Figtree-Regular.ttf</filename><size>23</size></font>
-		<font><name>font14</name><filename>Figtree-Regular.ttf</filename><size>28</size></font>
-		<font><name>font27</name><filename>Figtree-Regular.ttf</filename><size>27</size></font>
-		<font><name>font30</name><filename>Figtree-SemiBold.ttf</filename><size>30</size></font>
-		<font><name>font37</name><filename>Figtree-Bold.ttf</filename><size>37</size></font>
-		<font><name>font45</name><filename>Figtree-Bold.ttf</filename><size>45</size></font>
-		<font><name>font52_title</name><filename>DaylightDisplay-Medium.ttf</filename><size>52</size></font>
-		<font><name>font45_title</name><filename>DaylightDisplay-Medium.ttf</filename><size>45</size></font>
-		<font><name>font36_title</name><filename>DaylightSerif-Medium.ttf</filename><size>36</size></font>
-		<font><name>font30_title</name><filename>DaylightSerif-Medium.ttf</filename><size>30</size></font>
-		<font><name>font25_title</name><filename>Figtree-SemiBold.ttf</filename><size>25</size></font>
+		<font><name>font10</name><filename>Figtree-Regular.ttf</filename><size>21</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font12</name><filename>Figtree-Regular.ttf</filename><size>23</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font14</name><filename>Figtree-Regular.ttf</filename><size>28</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font27</name><filename>Figtree-Regular.ttf</filename><size>27</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30</name><filename>Figtree-SemiBold.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font37</name><filename>Figtree-Bold.ttf</filename><size>37</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45</name><filename>Figtree-Bold.ttf</filename><size>45</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font52_title</name><filename>DaylightDisplay-Medium.ttf</filename><size>52</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45_title</name><filename>DaylightDisplay-Medium.ttf</filename><size>45</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font36_title</name><filename>DaylightSerif-Medium.ttf</filename><size>36</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30_title</name><filename>DaylightSerif-Medium.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font25_title</name><filename>Figtree-SemiBold.ttf</filename><size>25</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
 		<font><name>Mono26</name><filename>Figtree-Medium.ttf</filename><size>26</size></font>
 	</fontset>
 	<!-- Fallback set: same names, Kodi's bundled arial.ttf (wider script coverage). -->
@@ -72,7 +69,6 @@
 		<font><name>serif_32</name><filename>arial.ttf</filename><size>32</size></font>
 		<font><name>serif_30</name><filename>arial.ttf</filename><size>30</size><linespacing>1.03</linespacing></font>
 		<font><name>serif_28</name><filename>arial.ttf</filename><size>28</size></font>
-		<font><name>serif_26</name><filename>arial.ttf</filename><size>26</size></font>
 		<font><name>clock_30</name><filename>arial.ttf</filename><size>30</size></font>
 		<font><name>ui_30_semibold</name><filename>arial.ttf</filename><size>30</size></font>
 		<font><name>ui_28</name><filename>arial.ttf</filename><size>28</size></font>
@@ -97,24 +93,22 @@
 		<font><name>small_20_bold</name><filename>arial.ttf</filename><size>20</size></font>
 		<font><name>cap_20</name><filename>arial.ttf</filename><size>20</size></font>
 		<font><name>cap_21</name><filename>arial.ttf</filename><size>21</size></font>
-		<font><name>cap_22</name><filename>arial.ttf</filename><size>22</size></font>
 		<font><name>num_20</name><filename>arial.ttf</filename><size>20</size></font>
 		<font><name>num_21</name><filename>arial.ttf</filename><size>21</size></font>
 		<font><name>num_22</name><filename>arial.ttf</filename><size>22</size></font>
 		<font><name>num_26</name><filename>arial.ttf</filename><size>26</size></font>
-		<font><name>tab_20</name><filename>arial.ttf</filename><size>20</size></font>
-		<font><name>font10</name><filename>arial.ttf</filename><size>21</size></font>
-		<font><name>font12</name><filename>arial.ttf</filename><size>23</size></font>
-		<font><name>font14</name><filename>arial.ttf</filename><size>28</size></font>
-		<font><name>font27</name><filename>arial.ttf</filename><size>27</size></font>
-		<font><name>font30</name><filename>arial.ttf</filename><size>30</size></font>
-		<font><name>font37</name><filename>arial.ttf</filename><size>37</size></font>
-		<font><name>font45</name><filename>arial.ttf</filename><size>45</size></font>
-		<font><name>font52_title</name><filename>arial.ttf</filename><size>52</size></font>
-		<font><name>font45_title</name><filename>arial.ttf</filename><size>45</size></font>
-		<font><name>font36_title</name><filename>arial.ttf</filename><size>36</size></font>
-		<font><name>font30_title</name><filename>arial.ttf</filename><size>30</size></font>
-		<font><name>font25_title</name><filename>arial.ttf</filename><size>25</size></font>
+		<font><name>font10</name><filename>arial.ttf</filename><size>21</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font12</name><filename>arial.ttf</filename><size>23</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font14</name><filename>arial.ttf</filename><size>28</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font27</name><filename>arial.ttf</filename><size>27</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30</name><filename>arial.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font37</name><filename>arial.ttf</filename><size>37</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45</name><filename>arial.ttf</filename><size>45</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font52_title</name><filename>arial.ttf</filename><size>52</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45_title</name><filename>arial.ttf</filename><size>45</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font36_title</name><filename>arial.ttf</filename><size>36</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30_title</name><filename>arial.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font25_title</name><filename>arial.ttf</filename><size>25</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
 		<font><name>Mono26</name><filename>arial.ttf</filename><size>26</size></font>
 	</fontset>
 </fonts>

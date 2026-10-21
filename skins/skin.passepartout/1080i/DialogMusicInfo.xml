@@ -59,7 +59,7 @@
 					<height>20</height>
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
-					<label>About</label>
+					<label>$LOCALIZE[31159]</label>
 				</control>
 				<include content="PP_Rule">
 					<param name="top" value="28"/>
@@ -72,7 +72,6 @@
 					<width>420</width>
 					<height>390</height>
 					<font>body_24</font>
-					<textcolor>body</textcolor>
 					<label>$VAR[Music_InfoDescription]</label>
 				</control>
 			</control>
@@ -130,7 +129,6 @@
 				<width>1248</width>
 				<height>26</height>
 				<font>cap_20</font>
-				<textcolor>ink</textcolor>
 				<label>$VAR[Music_InfoKicker]</label>
 			</control>
 			<control type="textbox">
@@ -148,7 +146,6 @@
 				<width>1248</width>
 				<height>40</height>
 				<font>sans_28_med</font>
-				<textcolor>ink</textcolor>
 				<label>$VAR[Music_InfoSubline]</label>
 			</control>
 
@@ -171,7 +168,6 @@
 				<width>1268</width>
 				<height>84</height>
 				<orientation>horizontal</orientation>
-				<itemgap>0</itemgap>
 				<include content="Music_StatCell">
 					<param name="label" value="Year"/>
 					<param name="value" value="$INFO[ListItem.Year]"/>

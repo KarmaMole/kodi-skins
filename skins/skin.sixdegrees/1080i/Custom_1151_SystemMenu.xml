@@ -89,8 +89,7 @@
 				<width>552</width>
 				<height>56</height>
 				<font>caps_20</font>
-				<textcolor>ink</textcolor>
-				<label>System</label>
+				<label>$LOCALIZE[31020]</label>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -120,7 +119,7 @@
 				<content>
 					<item>
 						<label>$LOCALIZE[31021]</label>
-						<label2>Six Degrees</label2>
+						<label2>$LOCALIZE[31024]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(skinsettings)</onclick>
 					</item>
@@ -156,51 +155,51 @@
 						<onclick>SetFocus(9871)</onclick>
 					</item>
 					<item>
-						<label>Live TV</label>
-						<label2>Media</label2>
+						<label>$LOCALIZE[31203]</label>
+						<label2>$LOCALIZE[31204]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(TVChannels)</onclick>
 						<visible>System.HasPVRAddon</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[1]</label>
-						<label2>Media</label2>
+						<label2>$LOCALIZE[31204]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(Pictures)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[10134]</label>
-						<label2>Media</label2>
+						<label2>$LOCALIZE[31204]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(FavouritesBrowser)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[744]</label>
-						<label2>Media</label2>
+						<label2>$LOCALIZE[31204]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(Videos,sources://video/,return)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[13012]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<onclick>Quit()</onclick>
 						<visible>System.ShowExitButton</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13013]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<onclick>Reset()</onclick>
 						<visible>System.CanReboot</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13016]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<onclick>Powerdown()</onclick>
 						<visible>System.CanPowerDown</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[31022]</label>
-						<label2>More</label2>
+						<label2>$LOCALIZE[31205]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(shutdownmenu)</onclick>
 					</item>
@@ -242,9 +241,7 @@
 					<top>0</top>
 					<width>880</width>
 					<height>88</height>
-					<aligny>center</aligny>
 					<font>xb_28</font>
-					<textcolor>ink</textcolor>
 					<label>$LOCALIZE[653]</label>
 				</control>
 				<control type="image">
@@ -262,7 +259,7 @@
 					<font>reg_24</font>
 					<textcolor>body</textcolor>
 					<wrapmultiline>true</wrapmultiline>
-					<label>Which library?</label>
+					<label>$LOCALIZE[31206]</label>
 				</control>
 				<control type="grouplist" id="9862">
 					<left>40</left>
@@ -330,9 +327,7 @@
 					<top>0</top>
 					<width>1040</width>
 					<height>88</height>
-					<aligny>center</aligny>
 					<font>xb_28</font>
-					<textcolor>ink</textcolor>
 					<label>$LOCALIZE[333]</label>
 				</control>
 				<control type="image">
@@ -350,7 +345,7 @@
 					<font>reg_24</font>
 					<textcolor>body</textcolor>
 					<wrapmultiline>true</wrapmultiline>
-					<label>Stations whose files can no longer be found are taken off the map. Nothing is deleted from your drives.</label>
+					<label>$LOCALIZE[31207]</label>
 				</control>
 				<control type="grouplist" id="9872">
 					<left>40</left>

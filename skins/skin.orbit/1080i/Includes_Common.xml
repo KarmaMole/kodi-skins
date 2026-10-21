@@ -283,11 +283,6 @@
 			</control>
 		</definition>
 	</include>
-	<!-- Row focus: raised fill + amber edge (own colours). Use as texturefocus border="8". -->
-	<include name="Orbit_TexRowFocus">
-		<texturefocus border="8">focus/row.png</texturefocus>
-		<texturenofocus />
-	</include>
 
 	<!-- ========================================================== posters -->
 	<!-- Poster/cover with 4px corners + plate fallback (title). Sits inside a group of the art size.
@@ -340,20 +335,6 @@
 		</control>
 	</include>
 
-	<!-- Legacy artwork API (Majan Home_Art params): art, mask_round, title, diffuse -->
-	<include name="Home_Art">
-		<param name="diffuse">white</param>
-		<param name="mask_round">masks/poster_r4.png</param>
-		<param name="mask_square">masks/poster_r4.png</param>
-		<param name="title">$INFO[ListItem.Label]</param>
-		<definition>
-			<include content="Orbit_Artwork">
-				<param name="art" value="$PARAM[art]"/>
-				<param name="mask" value="$PARAM[mask_round]"/>
-				<param name="title" value="$PARAM[title]"/>
-			</include>
-		</definition>
-	</include>
 
 	<!-- Watched badge (mockup .wt: 30px dark disc + check, 8px in from the top right) and
 	     resume bar along the bottom. Inside the poster group. -->
@@ -377,208 +358,15 @@
 			<visible>ListItem.IsResumable</visible>
 		</control>
 	</include>
-	<include name="Orbit_Markers">
-		<include>Orbit_WatchedMarkers</include>
-	</include>
 
 	<!-- ========================================================== round buttons -->
-	<!-- Instrument button (mockups OrbitInfo / OrbitOSD): disc with icon, label under it.
-	     Unfocused: panel disc + 1.5px ring + light icon (primary: light disc + dark icon).
-	     Focused: light disc + dark icon + halo ring 8px out.
-	     params: id, left, top, size (40|48|56|64|72|84|96|108|120), icon, icon_size, label,
-	             onclick, onclick2, onup, ondown, onleft, onright, onback, visible, primary, label_w,
-	             selected (condition: icon tinted amber, e.g. watched state) -->
-	<include name="Orbit_RoundButton">
-		<param name="size">96</param>
-		<param name="icon_size">34</param>
-		<param name="label"></param>
-		<param name="label_w">160</param>
-		<param name="onclick">noop</param>
-		<param name="onclick2">noop</param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<param name="onback">noop</param>
-		<param name="visible">true</param>
-		<param name="primary">false</param>
-		<param name="selected">false</param>
-		<param name="enable">true</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>$PARAM[size]</width>
-				<height>$PARAM[size]</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="button" id="$PARAM[id]">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[size]</width>
-					<height>$PARAM[size]</height>
-					<label></label>
-					<texturefocus />
-					<texturenofocus />
-					<enable>$PARAM[enable]</enable>
-					<onclick>$PARAM[onclick]</onclick>
-					<onclick>$PARAM[onclick2]</onclick>
-					<onup>$PARAM[onup]</onup>
-					<ondown>$PARAM[ondown]</ondown>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-					<onback>$PARAM[onback]</onback>
-				</control>
-				<!-- unfocused: panel disc + ring -->
-				<control type="group">
-					<visible>!Control.HasFocus($PARAM[id]) + !$PARAM[primary]</visible>
-					<control type="image">
-						<left>0</left>
-						<top>0</top>
-						<width>$PARAM[size]</width>
-						<height>$PARAM[size]</height>
-						<texture colordiffuse="panel">btn/disc_$PARAM[size].png</texture>
-					</control>
-					<control type="image">
-						<left>0</left>
-						<top>0</top>
-						<width>$PARAM[size]</width>
-						<height>$PARAM[size]</height>
-						<texture colordiffuse="border_button">btn/ring_$PARAM[size].png</texture>
-					</control>
-				</control>
-				<!-- focused or primary: light disc -->
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[size]</width>
-					<height>$PARAM[size]</height>
-					<texture colordiffuse="text_primary">btn/disc_$PARAM[size].png</texture>
-					<visible>Control.HasFocus($PARAM[id]) | $PARAM[primary]</visible>
-				</control>
-				<!-- halo ring on focus -->
-				<control type="image">
-					<left>-11</left>
-					<top>-11</top>
-					<right>-11</right>
-					<bottom>-11</bottom>
-					<texture colordiffuse="text_primary">btn/halo_$PARAM[size].png</texture>
-					<visible>Control.HasFocus($PARAM[id])</visible>
-					<animation effect="zoom" start="92" end="100" center="auto" time="160" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">Visible</animation>
-				</control>
-				<!-- icon -->
-				<control type="image">
-					<centerleft>50%</centerleft>
-					<centertop>50%</centertop>
-					<width>$PARAM[icon_size]</width>
-					<height>$PARAM[icon_size]</height>
-					<texture colordiffuse="ink">icons/$PARAM[icon].png</texture>
-					<visible>Control.HasFocus($PARAM[id]) | $PARAM[primary]</visible>
-				</control>
-				<control type="image">
-					<centerleft>50%</centerleft>
-					<centertop>50%</centertop>
-					<width>$PARAM[icon_size]</width>
-					<height>$PARAM[icon_size]</height>
-					<texture colordiffuse="accent">icons/$PARAM[icon].png</texture>
-					<visible>!Control.HasFocus($PARAM[id]) + !$PARAM[primary] + $PARAM[selected]</visible>
-				</control>
-				<control type="image">
-					<centerleft>50%</centerleft>
-					<centertop>50%</centertop>
-					<width>$PARAM[icon_size]</width>
-					<height>$PARAM[icon_size]</height>
-					<texture colordiffuse="text_primary">icons/$PARAM[icon].png</texture>
-					<visible>!Control.HasFocus($PARAM[id]) + !$PARAM[primary] + !$PARAM[selected]</visible>
-				</control>
-				<!-- label under the disc -->
-				<control type="label">
-					<centerleft>50%</centerleft>
-					<top>$PARAM[size]</top>
-					<width>$PARAM[label_w]</width>
-					<height>40</height>
-					<aligny>bottom</aligny>
-					<align>center</align>
-					<font>label_20</font>
-					<textcolor>text_secondary</textcolor>
-					<label>$PARAM[label]</label>
-					<visible>!Control.HasFocus($PARAM[id])</visible>
-				</control>
-				<control type="label">
-					<centerleft>50%</centerleft>
-					<top>$PARAM[size]</top>
-					<width>$PARAM[label_w]</width>
-					<height>40</height>
-					<aligny>bottom</aligny>
-					<align>center</align>
-					<font>label_20</font>
-					<textcolor>text_primary</textcolor>
-					<label>$PARAM[label]</label>
-					<visible>Control.HasFocus($PARAM[id])</visible>
-				</control>
-			</control>
-		</definition>
-	</include>
 
 	<!-- ========================================================== pill buttons -->
-	<include name="Orbit_Tex_ButtonPrimary">
-		<texturefocus border="22" colordiffuse="text_primary">common/pill_fill.png</texturefocus>
-		<texturenofocus border="22" colordiffuse="text_primary">common/pill_fill.png</texturenofocus>
-	</include>
-	<include name="Orbit_Tex_ButtonPrimary_Round">
-		<include>Orbit_Tex_ButtonPrimary</include>
-	</include>
 	<include name="Orbit_Tex_ButtonSecondary">
 		<texturefocus border="22" colordiffuse="text_primary">common/pill_fill.png</texturefocus>
 		<texturenofocus border="22" colordiffuse="border_button">common/pill_line.png</texturenofocus>
 	</include>
-	<include name="Orbit_Tex_ButtonSecondary_Round">
-		<include>Orbit_Tex_ButtonSecondary</include>
-	</include>
 
-	<!-- Pill action buttons (dialogs, settings, legacy windows), 58px.
-	     params: id, left, top, width, label, onclick, visible, onleft, onright, onup, ondown, icon -->
-	<include name="Orbit_ButtonPrimary">
-		<param name="visible">true</param>
-		<param name="top">0</param>
-		<param name="icon">icons/play.png</param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<param name="onback">noop</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>$PARAM[width]</width>
-				<height>button_h</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="button" id="$PARAM[id]">
-					<label>$PARAM[label]</label>
-					<font>label_22</font>
-					<textcolor>ink</textcolor>
-					<focusedcolor>ink</focusedcolor>
-					<align>center</align>
-					<textoffsetx>20</textoffsetx>
-					<include>Orbit_Tex_ButtonPrimary</include>
-					<onclick>$PARAM[onclick]</onclick>
-					<onup>$PARAM[onup]</onup>
-					<ondown>$PARAM[ondown]</ondown>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-					<onback>$PARAM[onback]</onback>
-				</control>
-				<control type="image">
-					<left>-8</left>
-					<top>-8</top>
-					<right>-8</right>
-					<bottom>-8</bottom>
-					<texture border="22" colordiffuse="text_primary">common/pill_line.png</texture>
-					<visible>Control.HasFocus($PARAM[id])</visible>
-				</control>
-			</control>
-		</definition>
-	</include>
 	<include name="Orbit_ButtonSecondary">
 		<param name="visible">true</param>
 		<param name="top">0</param>

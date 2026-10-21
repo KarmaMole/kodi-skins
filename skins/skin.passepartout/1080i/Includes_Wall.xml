@@ -65,7 +65,7 @@
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
 					<align>center</align>
-					<label>Back</label>
+					<label>$LOCALIZE[31196]</label>
 				</control>
 			</control>
 		</definition>
@@ -272,7 +272,7 @@
 			<onleft>ActivateWindow(1155)</onleft>
 			<onright>ActivateWindow(1155)</onright>
 			<onfocus>SetProperty(TMDbHelper.Colors.SourceImage,Art(poster)|Art(tvshow.poster)|Art(thumb)|Art(fanart),home)</onfocus>
-			<viewtype label="The wall">panel</viewtype>
+			<viewtype label="31150">panel</viewtype>
 			<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)</visible>
 			<!-- small, paper between: 10 across, print 164x246, pitch 192x274, 3 full rows + 258 px -->
 			<itemlayout width="192" height="274" condition="String.IsEqual(Skin.String(passepartout.wall.size),ten) + !Skin.HasSetting(passepartout.wall.butted)">
@@ -486,14 +486,11 @@
 					<animation type="Focus" reversible="false" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="100" end="112" center="96,137" time="380" tween="cubic" easing="out"/>
 					</animation>
-					<animation type="Focus" reversible="false" condition="Skin.HasSetting(passepartout.reducemotion)">
+					<animation type="Conditional" condition="Skin.HasSetting(passepartout.reducemotion) + Control.HasFocus(506)">
 						<effect type="zoom" start="100" end="112" center="96,137" time="0" tween="cubic" easing="out"/>
 					</animation>
 					<animation type="Unfocus" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="112" end="100" center="96,137" time="160"/>
-					</animation>
-					<animation type="Unfocus" condition="Skin.HasSetting(passepartout.reducemotion)">
-						<effect type="zoom" start="112" end="100" center="96,137" time="0"/>
 					</animation>
 					<control type="image">
 						<left>-42</left>
@@ -974,14 +971,11 @@
 					<animation type="Focus" reversible="false" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="100" end="112" center="96,144" time="380" tween="cubic" easing="out"/>
 					</animation>
-					<animation type="Focus" reversible="false" condition="Skin.HasSetting(passepartout.reducemotion)">
+					<animation type="Conditional" condition="Skin.HasSetting(passepartout.reducemotion) + Control.HasFocus(506)">
 						<effect type="zoom" start="100" end="112" center="96,144" time="0" tween="cubic" easing="out"/>
 					</animation>
 					<animation type="Unfocus" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="112" end="100" center="96,144" time="160"/>
-					</animation>
-					<animation type="Unfocus" condition="Skin.HasSetting(passepartout.reducemotion)">
-						<effect type="zoom" start="112" end="100" center="96,144" time="0"/>
 					</animation>
 					<control type="image">
 						<left>-42</left>
@@ -1310,14 +1304,11 @@
 					<animation type="Focus" reversible="false" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="100" end="112" center="120,170" time="380" tween="cubic" easing="out"/>
 					</animation>
-					<animation type="Focus" reversible="false" condition="Skin.HasSetting(passepartout.reducemotion)">
+					<animation type="Conditional" condition="Skin.HasSetting(passepartout.reducemotion) + Control.HasFocus(506)">
 						<effect type="zoom" start="100" end="112" center="120,170" time="0" tween="cubic" easing="out"/>
 					</animation>
 					<animation type="Unfocus" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="112" end="100" center="120,170" time="160"/>
-					</animation>
-					<animation type="Unfocus" condition="Skin.HasSetting(passepartout.reducemotion)">
-						<effect type="zoom" start="112" end="100" center="120,170" time="0"/>
 					</animation>
 					<control type="image">
 						<left>-72</left>
@@ -1954,14 +1945,11 @@
 					<animation type="Focus" reversible="false" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="100" end="112" center="120,180" time="380" tween="cubic" easing="out"/>
 					</animation>
-					<animation type="Focus" reversible="false" condition="Skin.HasSetting(passepartout.reducemotion)">
+					<animation type="Conditional" condition="Skin.HasSetting(passepartout.reducemotion) + Control.HasFocus(506)">
 						<effect type="zoom" start="100" end="112" center="120,180" time="0" tween="cubic" easing="out"/>
 					</animation>
 					<animation type="Unfocus" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="112" end="100" center="120,180" time="160"/>
-					</animation>
-					<animation type="Unfocus" condition="Skin.HasSetting(passepartout.reducemotion)">
-						<effect type="zoom" start="112" end="100" center="120,180" time="0"/>
 					</animation>
 					<control type="image">
 						<left>-72</left>
@@ -2330,14 +2318,11 @@
 					<animation type="Focus" reversible="false" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="100" end="110" center="160,228" time="380" tween="cubic" easing="out"/>
 					</animation>
-					<animation type="Focus" reversible="false" condition="Skin.HasSetting(passepartout.reducemotion)">
+					<animation type="Conditional" condition="Skin.HasSetting(passepartout.reducemotion) + Control.HasFocus(506)">
 						<effect type="zoom" start="100" end="110" center="160,228" time="0" tween="cubic" easing="out"/>
 					</animation>
 					<animation type="Unfocus" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="110" end="100" center="160,228" time="160"/>
-					</animation>
-					<animation type="Unfocus" condition="Skin.HasSetting(passepartout.reducemotion)">
-						<effect type="zoom" start="110" end="100" center="160,228" time="0"/>
 					</animation>
 					<control type="image">
 						<left>-76</left>
@@ -2974,14 +2959,11 @@
 					<animation type="Focus" reversible="false" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="100" end="110" center="160,240" time="380" tween="cubic" easing="out"/>
 					</animation>
-					<animation type="Focus" reversible="false" condition="Skin.HasSetting(passepartout.reducemotion)">
+					<animation type="Conditional" condition="Skin.HasSetting(passepartout.reducemotion) + Control.HasFocus(506)">
 						<effect type="zoom" start="100" end="110" center="160,240" time="0" tween="cubic" easing="out"/>
 					</animation>
 					<animation type="Unfocus" condition="!Skin.HasSetting(passepartout.reducemotion)">
 						<effect type="zoom" start="110" end="100" center="160,240" time="160"/>
-					</animation>
-					<animation type="Unfocus" condition="Skin.HasSetting(passepartout.reducemotion)">
-						<effect type="zoom" start="110" end="100" center="160,240" time="0"/>
 					</animation>
 					<control type="image">
 						<left>-76</left>

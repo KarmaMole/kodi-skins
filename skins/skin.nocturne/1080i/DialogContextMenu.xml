@@ -66,14 +66,7 @@
 			<width>544</width>
 			<height>dialog_row_h</height>
 			<font>sans_26</font>
-			<textcolor>text_secondary</textcolor>
 			<focusedcolor>text_lit</focusedcolor>
-			<disabledcolor>disabled</disabledcolor>
-			<textoffsetx>24</textoffsetx>
-			<aligny>center</aligny>
-			<pulseonselect>false</pulseonselect>
-			<texturefocus border="64,0,64,0" colordiffuse="light">noc/glow_bar.png</texturefocus>
-			<texturenofocus />
 		</control>
 	</controls>
 </window>

@@ -27,7 +27,7 @@
 			<height>110</height>
 			<font>hand_46</font>
 			<textcolor>ink_faint</textcolor>
-			<label>This page is empty. Up for albums, artists or songs.</label>
+			<label>$LOCALIZE[31392]</label>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 		</control>
 		<include>Music_Header</include>

@@ -89,7 +89,6 @@
 					<width>240</width>
 					<height>40</height>
 					<font>sans_22_semi</font>
-					<textcolor>ink</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 				</control>
 			</focusedlayout>
@@ -112,7 +111,6 @@
 			<label>$LOCALIZE[31022]</label>
 			<font>word_26</font>
 			<textcolor>ink</textcolor>
-			<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 			<align>center</align>
 			<textoffsetx>16</textoffsetx>
 			<texturefocus border="10" colordiffuse="$VAR[FoldAccent]">common/rect_square.png</texturefocus>

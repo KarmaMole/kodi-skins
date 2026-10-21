@@ -597,7 +597,7 @@
 					<height>48</height>
 					<font>serif_34</font>
 					<textcolor>$VAR[DL_Ink]</textcolor>
-					<label>Nothing here.</label>
+					<label>$LOCALIZE[31230]</label>
 				</control>
 			</control>
 			<include>Misc_HiddenSortControls</include>
@@ -1081,7 +1081,7 @@
 					<top>80</top>
 					<width>420</width>
 					<height>dialog_row_h</height>
-					<label>PVR &amp; Live TV settings</label>
+					<label>$LOCALIZE[31231]</label>
 					<font>button_22_semibold</font>
 					<textcolor>$VAR[DL_Ink]</textcolor>
 					<focusedcolor>$VAR[DL_OnAccent]</focusedcolor>
@@ -1417,7 +1417,7 @@
 						<height>88</height>
 						<texture>$INFO[ListItem.Icon]</texture>
 						<portaddress>$INFO[ListItem.FilenameAndPath]</portaddress>
-						<controllerdiffuse>text_secondary</controllerdiffuse>
+						<controllerdiffuse>$VAR[DL_Ink2]</controllerdiffuse>
 					</control>
 					<control type="image">
 						<left>0</left>
@@ -1485,7 +1485,7 @@
 						<height>88</height>
 						<texture>$INFO[ListItem.Icon]</texture>
 						<portaddress>$INFO[ListItem.FilenameAndPath]</portaddress>
-						<controllerdiffuse>text_primary</controllerdiffuse>
+						<controllerdiffuse>$VAR[DL_Ink]</controllerdiffuse>
 					</control>
 				</focusedlayout>
 			</control>
@@ -1543,7 +1543,7 @@
 						<texture>$INFO[ListItem.Icon]</texture>
 						<controllerid>$INFO[ListItem.Property(game.controllerid)]</controllerid>
 						<peripherallocation>$INFO[ListItem.FilenameAndPath]</peripherallocation>
-						<controllerdiffuse>text_secondary</controllerdiffuse>
+						<controllerdiffuse>$VAR[DL_Ink2]</controllerdiffuse>
 					</control>
 				</itemlayout>
 				<focusedlayout width="96" height="96">
@@ -1551,7 +1551,7 @@
 						<texture>$INFO[ListItem.Icon]</texture>
 						<controllerid>$INFO[ListItem.Property(game.controllerid)]</controllerid>
 						<peripherallocation>$INFO[ListItem.FilenameAndPath]</peripherallocation>
-						<controllerdiffuse>text_secondary</controllerdiffuse>
+						<controllerdiffuse>$VAR[DL_Ink2]</controllerdiffuse>
 					</control>
 				</focusedlayout>
 			</control>
@@ -1606,7 +1606,7 @@
 							<texture>$INFO[ListItem.Icon]</texture>
 							<controllerid>$INFO[ListItem.Property(game.controllerid)]</controllerid>
 							<controlleraddress>$INFO[ListItem.FilenameAndPath]</controlleraddress>
-							<controllerdiffuse>text_secondary</controllerdiffuse>
+							<controllerdiffuse>$VAR[DL_Ink2]</controllerdiffuse>
 						</control>
 					</itemlayout>
 					<focusedlayout width="96" height="96">
@@ -1614,7 +1614,7 @@
 							<texture>$INFO[ListItem.Icon]</texture>
 							<controllerid>$INFO[ListItem.Property(game.controllerid)]</controllerid>
 							<controlleraddress>$INFO[ListItem.FilenameAndPath]</controlleraddress>
-							<controllerdiffuse>text_secondary</controllerdiffuse>
+							<controllerdiffuse>$VAR[DL_Ink2]</controllerdiffuse>
 						</control>
 					</focusedlayout>
 				</control>
@@ -1676,5 +1676,144 @@
 				</include>
 			</control>
 		</control>
+	</include>
+	<!-- EPG grid layouts of MyPVRGuide (Kodi widens every control with an id 1-14 in a programme layout to the
+	     programme's length: 1 / 4 = title labels, 2 / 3 = block images). Kept in an include so the window file has
+	     no repeated ids (Groove pattern, 2026-10-21). -->
+	<include name="Misc_EPGLayouts">
+		<rulerlayout height="45" width="238">
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1</width>
+				<height>45</height>
+				<texture colordiffuse="$VAR[DL_Line2]">common/hairline_v.png</texture>
+			</control>
+			<control type="label">
+				<left>10</left>
+				<top>0</top>
+				<width>220</width>
+				<height>45</height>
+				<font>cap_20</font>
+				<textcolor>$VAR[DL_Ink3]</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+			</control>
+		</rulerlayout>
+		<channellayout height="66" width="300">
+			<control type="label">
+				<left>12</left>
+				<top>0</top>
+				<width>60</width>
+				<height>66</height>
+				<font>num_21</font>
+				<textcolor>$VAR[DL_Ink3]</textcolor>
+				<label>$INFO[ListItem.ChannelNumberLabel]</label>
+			</control>
+			<control type="label" id="1">
+				<left>76</left>
+				<top>0</top>
+				<width>212</width>
+				<height>66</height>
+				<font>ui_22</font>
+				<textcolor>$VAR[DL_Ink2]</textcolor>
+				<label>$INFO[ListItem.ChannelName]</label>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<bottom>0</bottom>
+				<width>300</width>
+				<height>rule_h</height>
+				<texture colordiffuse="$VAR[DL_Line]">common/hairline.png</texture>
+			</control>
+		</channellayout>
+		<focusedchannellayout height="66" width="300">
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>list_bar_w</width>
+				<height>66</height>
+				<texture colordiffuse="$VAR[DL_Accent]">common/white.png</texture>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="label">
+				<left>12</left>
+				<top>0</top>
+				<width>60</width>
+				<height>66</height>
+				<font>num_21</font>
+				<textcolor>$VAR[DL_Ink2]</textcolor>
+				<label>$INFO[ListItem.ChannelNumberLabel]</label>
+			</control>
+			<control type="label" id="1">
+				<left>76</left>
+				<top>0</top>
+				<width>212</width>
+				<height>66</height>
+				<font>ui_22_bold</font>
+				<label>$INFO[ListItem.ChannelName]</label>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<bottom>0</bottom>
+				<width>300</width>
+				<height>rule_h</height>
+				<texture colordiffuse="$VAR[DL_Line]">common/hairline.png</texture>
+			</control>
+		</focusedchannellayout>
+		<itemlayout height="66" width="40">
+			<control type="image" id="2">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture border="10" colordiffuse="$VAR[DL_Line]">common/rect_outline_1.png</texture>
+			</control>
+			<control type="label" id="1">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>small_20</font>
+				<textcolor>$VAR[DL_Ink2]</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+			</control>
+		</itemlayout>
+		<focusedlayout height="66" width="40">
+			<control type="image" id="2">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture border="10" colordiffuse="$VAR[DL_Accent]">common/rect_square.png</texture>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="image" id="3">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture border="10" colordiffuse="$VAR[DL_Line2]">common/rect_outline_1.png</texture>
+				<visible>!Control.HasFocus(50)</visible>
+			</control>
+			<control type="label" id="1">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>small_20_bold</font>
+				<textcolor>$VAR[DL_OnAccent]</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="label" id="4">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>small_20</font>
+				<label>$INFO[ListItem.Label]</label>
+				<visible>!Control.HasFocus(50)</visible>
+			</control>
+		</focusedlayout>
 	</include>
 </includes>

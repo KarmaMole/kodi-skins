@@ -13,9 +13,10 @@ from pathlib import Path
 
 def items(prefix, video_word, ind="\t\t\t\t\t", direction_var="VidLib_Direction", watched_var="LibPanel_Watched",
           search="ActivateWindow(1150)", words=None):
-    w = dict(view="View", sort="Sort", order="Order", watched="Watched", search="Search",
-             update="Update library", stop="Stop updating", clean="Clean library",
-             settings="Library settings", kodi="Kodi", music="Music", upd_short="Update", cln_short="Clean")
+    w = dict(view="$LOCALIZE[31011]", sort="$LOCALIZE[31010]", order="$LOCALIZE[31300]", watched="$LOCALIZE[31301]", search="$LOCALIZE[31302]",
+             update="$LOCALIZE[31203]", stop="$LOCALIZE[31303]", clean="$LOCALIZE[31205]",
+             settings="$LOCALIZE[31304]", kodi="Kodi", music="$LOCALIZE[31305]", upd_short="$LOCALIZE[31306]", cln_short="$LOCALIZE[31307]",
+             sets="$LOCALIZE[20434]", sets_hint="$LOCALIZE[31308]")
     if words:
         w.update(words)
     lib = f"String.IsEmpty(Window(Home).Property({prefix}.libmode))"
@@ -48,6 +49,12 @@ def items(prefix, video_word, ind="\t\t\t\t\t", direction_var="VidLib_Direction"
          f"{lib} + Window.IsActive(videos) + !String.StartsWith(Container.FolderPath,videodb://inprogresstvshows) + "
          "[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | "
          "Container.Content(episodes) | Container.Content(musicvideos)]")
+    # Sets (docs/requests/SETS_AND_RM_BRIEF.md, 2026-10-21): the films' sets in this same Videos window, only while
+    # browsing films and the library has sets ($EXP[LibPanel_ShowSets], Includes_LibraryPanel.xml). SetFocus(50) first
+    # puts focus on the view (CGUIMediaWindow redirects 50 to the current view); Container.Update keeps the history,
+    # so Back walks set -> all sets -> films. Never a Home item (Omar).
+    item(w["sets"], w["sets_hint"], [close, "SetFocus(50)", "Container.Update(videodb://movies/sets/)"],
+         f"{lib} + $EXP[LibPanel_ShowSets]")
     item(w["search"], "", [close, search], lib)
     for kind, win, word in (("video", "videos", video_word), ("music", "music", w["music"])):
         scan = "Library.IsScanningVideo" if kind == "video" else "Library.IsScanningMusic"
@@ -172,15 +179,15 @@ frames.append(f"""			<control type="group">
 				<visible>!String.IsEmpty(Window(Home).Property({P}.libclean))</visible>
 				<include>DL_Card</include>
 			</control>""")
-words = dict(watched="Unwatched only", update="Update library", clean="Clean library", settings="Library settings",
-             kodi="Kodi", stop="Stop updating", upd_short="Update", cln_short="Clean")
-body = items(P, "Films and shows", watched_var="LibPanel_Unwatched", direction_var="LibPanel_Direction", words=words)
-conf = confirm_items(P, "No, keep it as it is", "Yes, clean it now")
+words = dict(watched="$LOCALIZE[31081]", update="$LOCALIZE[31203]", clean="$LOCALIZE[31205]", settings="$LOCALIZE[31304]",
+             kodi="Kodi", stop="$LOCALIZE[31303]", upd_short="$LOCALIZE[31306]", cln_short="$LOCALIZE[31307]")
+body = items(P, "$LOCALIZE[31309]", watched_var="LibPanel_Unwatched", direction_var="LibPanel_Direction", words=words)
+conf = confirm_items(P, "$LOCALIZE[31310]", "$LOCALIZE[31311]")
 
 panel = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Daylight Library panel (custom dialog 1160; docs/requests/library-panel/BRIEF.md). The library's
-	general-purpose menu: View, Sort, Order, Unwatched only, Search, Update library, Clean library,
+	general-purpose menu: View, Sort, Order, Unwatched only, Sets (films), Search, Update library, Clean library,
 	Library settings. Opened by Left / Right past the edges of any library view, Left / Right past the
 	ends of the header pills, the Options pill, and the System menu (Update / Clean library,
 	daylight.libmode = update / clean: choose Films and shows or Music).
@@ -220,9 +227,7 @@ panel = f"""<?xml version="1.0" encoding="UTF-8"?>
 				<top>12</top>
 				<width>552</width>
 				<height>56</height>
-				<aligny>center</aligny>
 				<font>serif_28</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
 				<label>$VAR[LibPanel_Title]</label>
 			</control>
 			<control type="label">
@@ -231,7 +236,6 @@ panel = f"""<?xml version="1.0" encoding="UTF-8"?>
 				<width>552</width>
 				<height>56</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>small_20</font>
 				<textcolor>$VAR[DL_Ink2]</textcolor>
 				<label>$VAR[LibPanel_Where]</label>
@@ -290,17 +294,17 @@ panel = f"""<?xml version="1.0" encoding="UTF-8"?>
 	</controls>
 </window>
 """
-open(SKIN + "/Custom_1160_LibraryPanel.xml", "w", encoding="utf-8").write(panel)
+open(SKIN + "/Custom_1160_LibraryPanel.xml", "w", encoding="utf-8", newline="\n").write(panel)
 
 # ------------------------------------------------------------------ picker 1161
 G = "Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)"
 VIEWS = [
-    ("videos", 500, "Grid", "views/grid", G, "Pick_Cur_Grid"),
-    ("videos", 501, "Wall", "views/wall", G, "Pick_Cur_Wall"),
-    ("videos", 503, "Episodes", "views/episodes", "Container.Content(episodes)", "Pick_Cur_Episodes"),
-    ("videos", 50, "List", "views/list", None, "Pick_Cur_List"),
-    ("music", 504, "Grid", "views/music_grid", "Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)", "Pick_Cur_Grid"),
-    ("music", 50, "List", "views/music_list", None, "Pick_Cur_List"),
+    ("videos", 500, "$LOCALIZE[31312]", "views/grid", G, "Pick_Cur_Grid"),
+    ("videos", 501, "$LOCALIZE[31313]", "views/wall", G, "Pick_Cur_Wall"),
+    ("videos", 503, "$LOCALIZE[31314]", "views/episodes", "Container.Content(episodes)", "Pick_Cur_Episodes"),
+    ("videos", 50, "$LOCALIZE[535]", "views/list", None, "Pick_Cur_List"),
+    ("music", 504, "$LOCALIZE[31312]", "views/music_grid", "Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)", "Pick_Cur_Grid"),
+    ("music", 50, "$LOCALIZE[535]", "views/music_list", None, "Pick_Cur_List"),
 ]
 PITCH = 380
 cards = []
@@ -314,7 +318,10 @@ for n in range(1, 5):
 				<include>DL_Card</include>
 			</control>""")
 slides = [f'\t\t\t<animation effect="slide" end="{(4 - n) * PITCH // 2},0" time="0" condition="Integer.IsEqual(Container(100).NumItems,{n})">Conditional</animation>' for n in range(1, 4)]
-pitems = picker_items(VIEWS)
+# display names (localized); VIEWS keeps the viewtype labels (string ids) that Container.Viewmode is compared with
+names = {("videos", 500): "$LOCALIZE[31312]", ("videos", 501): "$LOCALIZE[31313]", ("videos", 503): "$LOCALIZE[31314]", ("videos", 50): "$LOCALIZE[31315]",
+         ("music", 504): "$LOCALIZE[31312]", ("music", 50): "$LOCALIZE[31315]"}
+pitems = picker_items(VIEWS, name_map=names)
 pitems = re.sub(r"<icon>(views/[a-z_]+)</icon>", r'<property name="prev">\1</property>', pitems)
 picker = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!--
@@ -355,17 +362,14 @@ picker = f"""<?xml version="1.0" encoding="UTF-8"?>
 				<top>16</top>
 				<width>600</width>
 				<height>56</height>
-				<aligny>center</aligny>
 				<font>serif_28</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
-				<label>View</label>
+				<label>$LOCALIZE[31011]</label>
 			</control>
 			<control type="label">
 				<left>124</left>
 				<top>19</top>
 				<width>600</width>
 				<height>56</height>
-				<aligny>center</aligny>
 				<font>small_20</font>
 				<textcolor>$VAR[DL_Ink2]</textcolor>
 				<label>$VAR[LibPanel_Where]</label>
@@ -395,5 +399,5 @@ picker = f"""<?xml version="1.0" encoding="UTF-8"?>
 	</controls>
 </window>
 """
-open(SKIN + "/Custom_1161_ViewPicker.xml", "w", encoding="utf-8").write(picker)
+open(SKIN + "/Custom_1161_ViewPicker.xml", "w", encoding="utf-8", newline="\n").write(picker)
 print("ok")

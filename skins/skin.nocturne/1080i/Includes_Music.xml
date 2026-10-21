@@ -81,50 +81,11 @@
 	<expression name="Music_PlayerBlurReady">!String.IsEmpty(Window(Home).Property(TMDbHelper.NocturnePlayer.BlurImage)) + String.IsEqual(Window(Home).Property(nocturne.np.blursrc),Player.Art(thumb))</expression>
 
 	<!-- ============================================================ variables -->
-	<!-- Artwork background opacity (setting 4; Big Album / info / Now playing use the same level) -->
-	<variable name="Music_ArtOpacity">
-		<value condition="String.IsEqual(Skin.String(nocturne.artbackground),soft)">art_soft</value>
-		<value condition="String.IsEqual(Skin.String(nocturne.artbackground),visible)">art_visible</value>
-		<value>art_faint</value>
-	</variable>
-
-	<!-- Big Album background: artist fanart -> TMDb Helper blurred cover -> none (SPEC 6 / DATA 4.10).
-	     The blur is not synced to the focused item on purpose: while scrolling, the last blur stays
-	     up and crossfades, instead of flashing to black. -->
-	<variable name="Music_StageArt">
-		<value condition="!String.IsEmpty(Container(505).ListItem.Art(artist.fanart))">$INFO[Container(505).ListItem.Art(artist.fanart)]</value>
-		<value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.BlurImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</value>
-	</variable>
-
-	<!-- Info dialog background: artist fanart (albums get artist fanart via Art(fanart) too) ->
-	     blur of this item's cover (only when the monitor's .Original matches, so a stale blur
-	     from Home is never shown) -> none -->
-	<variable name="Music_InfoArt">
-		<value condition="!String.IsEmpty(ListItem.Art(artist.fanart))">$INFO[ListItem.Art(artist.fanart)]</value>
-		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
-		<value condition="!String.IsEmpty(ListItem.Art(thumb)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.BlurImage.Original),ListItem.Art(thumb))">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</value>
-	</variable>
-
-	<!-- Now playing background: artist fanart -> blurred cover of the current track -> none -->
-	<variable name="Music_PlayerArt">
-		<value condition="!String.IsEmpty(Player.Art(artist.fanart))">$INFO[Player.Art(artist.fanart)]</value>
-		<value condition="!String.IsEmpty(Player.Art(fanart))">$INFO[Player.Art(fanart)]</value>
-		<value condition="$EXP[Music_PlayerBlurReady]">$INFO[Window(Home).Property(TMDbHelper.NocturnePlayer.BlurImage)]</value>
-	</variable>
 
 	<!-- Title for any item; the ".." parent item (filelists.showparentdiritems = on) reads "Back" -->
 	<variable name="Music_ItemLabel">
 		<value condition="ListItem.IsParentFolder">Back</value>
 		<value>$INFO[ListItem.Label]</value>
-	</variable>
-	<!-- Big Album left column: previous item, or "Back" when the previous slot holds the ".." item -->
-	<variable name="Music_PrevCaption">
-		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">◀  Back</value>
-		<value>◀  Previous</value>
-	</variable>
-	<variable name="Music_PrevTitle">
-		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">Up one level</value>
-		<value>$INFO[Container(505).ListItemNoWrap(-1).Label]$INFO[Container(505).ListItemNoWrap(-1).Artist,  ·  ,]</value>
 	</variable>
 
 	<!-- Header tabs -->
@@ -161,26 +122,10 @@
 		<value condition="Container.SortDirection(descending)">↓</value>
 		<value>↑</value>
 	</variable>
-	<!-- Page header caption: the folder name once you drill below a tab root -->
-	<variable name="Music_HeaderSub">
-		<value condition="!$EXP[Music_AtTabRoot] + !String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
-	</variable>
-	<!-- Big Album kicker: ALBUM · 14 / 229 · SORTED BY DATE ADDED -->
-	<variable name="Music_BigKicker">
-		<value>Album$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]$INFO[Container.SortMethod,  ·  Sorted by ,]</value>
-	</variable>
 	<!-- Now playing kicker -->
 	<variable name="Music_NPKicker">
 		<value condition="Player.Paused">Paused$INFO[Playlist.Position(music),  ·  ,]$INFO[Playlist.Length(music), / ,]</value>
 		<value>Now playing$INFO[Playlist.Position(music),  ·  ,]$INFO[Playlist.Length(music), / ,]</value>
-	</variable>
-	<!-- Shuffle / repeat state caption (Now playing) -->
-	<variable name="Music_PlayModes">
-		<value condition="Playlist.IsRandom + Playlist.IsRepeatOne">Shuffle  ·  Repeat one</value>
-		<value condition="Playlist.IsRandom + Playlist.IsRepeat">Shuffle  ·  Repeat all</value>
-		<value condition="Playlist.IsRandom">Shuffle</value>
-		<value condition="Playlist.IsRepeatOne">Repeat one</value>
-		<value condition="Playlist.IsRepeat">Repeat all</value>
 	</variable>
 	<!-- Info dialog -->
 	<variable name="Music_InfoKicker">
@@ -328,55 +273,11 @@
 					<align>center</align>
 					<font>caps_20</font>
 					<textcolor>text_tertiary</textcolor>
-					<label>Up one level</label>
+					<label>$LOCALIZE[31340]</label>
 					<visible>$PARAM[caption_visible]</visible>
 				</control>
 			</control>
 		</definition>
-	</include>
-
-	<!-- Fixed-slot dimming for the Big Album fixedlist (focus never leaves slot 2): a baked-alpha black
-	     overlay over the slot in window coordinates, visible only while an item fills that slot.
-	     Covers stay opaque. Per-item ListItem.CurrentItem comparisons do not evaluate in layouts on
-	     device; same technique and textures as Builder B's VidView_SlotDim (media/vidview/dim_*.png:
-	     dim_passed = 55 % black = brightness .45, dim_ahead = 20 % black = .80).
-	     params: offset (-1 previous, 1.. ahead), left, tex -->
-	<include name="Music_SlotDim">
-		<param name="tex">vidview/dim_ahead.png</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>230</top>
-				<width>music_big</width>
-				<height>music_big</height>
-				<visible>Control.IsVisible(505) + !String.IsEmpty(Container(505).ListItemNoWrap($PARAM[offset]).Label)</visible>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<right>0</right>
-					<bottom>0</bottom>
-					<include>Music_Anim_BackdropFade</include>
-					<texture diffuse="masks/square_round8_large.png">$PARAM[tex]</texture>
-					<visible>false</visible>
-				</control>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<right>0</right>
-					<bottom>0</bottom>
-					<include>Music_Anim_BackdropFade</include>
-					<texture>$PARAM[tex]</texture>
-					<visible>true</visible>
-				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Own open/close fades for large translucent images (device rule, BUILD_BRIEF 2026-10-18:
-	     without them they are drawn on top of the window content during window animations). -->
-	<include name="Music_Anim_BackdropFade">
-		<animation effect="fade" start="0" end="100" time="200" tween="cubic" easing="out">WindowOpen</animation>
-		<animation effect="fade" start="100" end="0" time="140" tween="cubic" easing="in">WindowClose</animation>
 	</include>
 
 	<!-- ===================================================== now-playing bar -->
@@ -588,205 +489,15 @@
 	</variable>
 
 	<!-- ================================================== stage background -->
-	<!-- One art layer + the stage gradient (DESIGN 6 "Music stage"). Off = not rendered at all.
-	     params: art (variable), visible -->
-	<include name="Music_StageBackground">
-		<param name="art">$VAR[Music_StageArt]</param>
-		<param name="visible">true</param>
-		<param name="scrim_left">false</param>
-		<definition>
-			<control type="group">
-				<visible>$EXP[ArtBackgroundOn] + $PARAM[visible]</visible>
-				<include>Anim_FadeVisible</include>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<width>screen_w</width>
-					<height>screen_h</height>
-					<aspectratio>scale</aspectratio>
-					<include>Anim_BackgroundCrossfade</include>
-					<include>Music_Anim_BackdropFade</include>
-					<texture background="true" colordiffuse="$VAR[Music_ArtOpacity]">$PARAM[art]</texture>
-				</control>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<width>screen_w</width>
-					<height>screen_h</height>
-					<!-- own fades: a translucent image without them is drawn over the window content on Shield (QA 2026-10-18) -->
-					<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
-					<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
-					<include>Music_Anim_BackdropFade</include>
-					<texture colordiffuse="scrim">common/gradient_stage.png</texture>
-				</control>
-				<!-- text-column scrim (DESIGN 2.5) for screens with text over the upper half -->
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<width>2600</width>
-					<height>screen_h</height>
-					<!-- own fades: a translucent image without them is drawn over the window content on Shield (QA 2026-10-18) -->
-					<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
-					<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
-					<include>Music_Anim_BackdropFade</include>
-					<texture colordiffuse="scrim">common/scrim_left.png</texture>
-					<visible>$PARAM[scrim_left]</visible>
-				</control>
-			</control>
-		</definition>
-	</include>
 
 	<!-- ========================================================== music OSD -->
-	<variable name="Music_OSDShuffleValue">
-		<value condition="Playlist.IsRandom">On</value>
-		<value>Off</value>
-	</variable>
-	<variable name="Music_OSDRepeatValue">
-		<value condition="Playlist.IsRepeatOne">One</value>
-		<value condition="Playlist.IsRepeat">All</value>
-		<value>Off</value>
-	</variable>
 	<!-- Play queue page caption: "1 item" / "12 items · 45:10" (1.0.4: was "1 items") -->
 	<variable name="Music_PlaylistSub">
 		<value condition="Integer.IsEqual(Container.NumItems,1)">1 item$INFO[Container.TotalTime,  ·  ,]</value>
 		<value>$INFO[Container.NumItems,, items]$INFO[Container.TotalTime,  ·  ,]</value>
 	</variable>
-	<!-- Queue button value: "1 track" / "12 tracks" (1.0.4: was "1 tracks") -->
-	<variable name="Music_OSDQueueValue">
-		<value condition="Integer.IsEqual(Playlist.Length(music),1)">1 track</value>
-		<value>$INFO[Playlist.Length(music),, tracks]</value>
-	</variable>
-	<variable name="Music_OSDHint">
-		<value condition="Control.HasFocus(87)">◀ ▶  Seek   ·   ▼  Controls   ·   Back  Hides</value>
-		<value>▲  Seek   ·   ◀ ▶  Move   ·   Back  Hides</value>
-	</variable>
-
-	<!-- 72 px square transport button (OSD.dc.html): 1 px outline, white icon; focus = accent frame.
-	     Wrapped in a group (for the frame), so navigation is explicit.
-	     params: id, icon, onclick, onclick_paused (while paused; default unpause), visible, onleft, onright -->
-	<include name="Music_OSDIconButton">
-		<param name="visible">true</param>
-		<param name="onclick_paused">PlayerControl(Play)</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<definition>
-			<control type="group">
-				<top>8</top>  <!-- room for the focus frame: the grouplist clips to its own rect -->
-				<left>8</left>  <!-- + parent itemgap reduced by 8: left/right room for the frame -->
-				<width>music_osd_btn</width>
-				<height>music_osd_btn</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="button" id="$PARAM[id]">
-					<width>music_osd_btn</width>
-					<height>music_osd_btn</height>
-					<label></label>
-					<include condition="false">Music_Tex_OSDButton_Round</include>
-					<include condition="true">Music_Tex_OSDButton</include>
-					<onclick condition="Player.Paused">$PARAM[onclick_paused]</onclick>
-					<onclick condition="!Player.Paused">$PARAM[onclick]</onclick>
-					<onup>87</onup>
-					<ondown>noop</ondown>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-				</control>
-				<control type="image">
-					<left>22</left>
-					<top>22</top>
-					<width>28</width>
-					<height>28</height>
-					<texture colordiffuse="text_primary">$PARAM[icon]</texture>
-				</control>
-				<include content="Noc_FocusFrameAlways">
-					<param name="visible" value="Control.HasFocus($PARAM[id])"/>
-				</include>
-			</control>
-		</definition>
-	</include>
-	<!-- OSD button outline (#444 border_control per OSD.dc.html; brightens on focus) -->
-	<include name="Music_Tex_OSDButton">
-		<texturefocus border="10" colordiffuse="text_secondary">common/rect_outline_1.png</texturefocus>
-		<texturenofocus border="10" colordiffuse="border_control">common/rect_outline_1.png</texturenofocus>
-	</include>
-	<include name="Music_Tex_OSDButton_Round">
-		<texturefocus border="10" colordiffuse="text_secondary">common/rect_outline_1_round8.png</texturefocus>
-		<texturenofocus border="10" colordiffuse="border_control">common/rect_outline_1_round8.png</texturenofocus>
-	</include>
-
-	<!-- Caption + value OSD button (OSD.dc.html right group): mono caption over a 21 px value.
-	     params: id, width, caption, value, onclick, onclick2, visible, onleft, onright -->
-	<include name="Music_OSDTextButton">
-		<param name="width">160</param>
-		<param name="visible">true</param>
-		<param name="onclick2">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<definition>
-			<control type="group">
-				<top>8</top>  <!-- room for the focus frame: the grouplist clips to its own rect -->
-				<left>8</left>  <!-- + parent itemgap reduced by 8: left/right room for the frame -->
-				<width>$PARAM[width]</width>
-				<height>music_osd_btn</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="button" id="$PARAM[id]">
-					<width>$PARAM[width]</width>
-					<height>music_osd_btn</height>
-					<label></label>
-					<include condition="false">Music_Tex_OSDButton_Round</include>
-					<include condition="true">Music_Tex_OSDButton</include>
-					<onclick>$PARAM[onclick]</onclick>
-					<onclick>$PARAM[onclick2]</onclick>
-					<onup>87</onup>
-					<ondown>noop</ondown>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-				</control>
-				<control type="label">
-					<left>24</left>
-					<top>14</top>
-					<right>16</right>
-					<height>18</height>
-					<font>caps_20</font>
-					<textcolor>text_tertiary</textcolor>
-					<label>$PARAM[caption]</label>
-				</control>
-				<control type="label">
-					<left>24</left>
-					<top>34</top>
-					<right>16</right>
-					<height>28</height>
-					<font>sans_22</font>
-					<textcolor>text_primary</textcolor>
-					<label>$PARAM[value]</label>
-				</control>
-				<include content="Noc_FocusFrameAlways">
-					<param name="visible" value="Control.HasFocus($PARAM[id])"/>
-				</include>
-			</control>
-		</definition>
-	</include>
 
 	<!-- ===================================================== Now playing blur -->
-	<!-- Blur the playing cover once per album (window onload; MusicOSD re-checks on open).
-	     Only when the setting is on, TMDb Helper is enabled and there is no artist fanart. -->
-	<include name="Music_PlayerBlurOnload">
-		<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Player.Art(fanart)) + !String.IsEmpty(Player.Art(thumb)) + !String.IsEqual(Window(Home).Property(nocturne.np.blursrc),Player.Art(thumb))">ClearProperty(TMDbHelper.NocturnePlayer.BlurImage,Home)</onload>
-		<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Player.Art(fanart)) + !String.IsEmpty(Player.Art(thumb)) + !String.IsEqual(Window(Home).Property(nocturne.np.blursrc),Player.Art(thumb))">RunScript(plugin.video.themoviedb.helper,"blur_image=$INFO[Player.Art(thumb)]",prefix=NocturnePlayer)</onload>
-		<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Player.Art(fanart)) + !String.IsEmpty(Player.Art(thumb))">SetProperty(nocturne.np.blursrc,$ESCINFO[Player.Art(thumb)],Home)</onload>
-	</include>
-
-	<!-- Library / info: blur source for the TMDb Helper image monitor. Saves the previous value
-	     (Home or video windows may use another source) and puts it back on unload.
-	     param slot: Home property that holds the saved value; must differ per window because the
-	     info dialog opens on top of the library (default nocturne.blursrc.prev.music). -->
-	<include name="Music_BlurSourceOnload">
-		<param name="slot">nocturne.blursrc.prev.music</param>
-		<definition>
-			<onload>SetProperty($PARAM[slot],$ESCINFO[Window(Home).Property(TMDbHelper.Blur.SourceImage)],Home)</onload>
-			<onload>SetProperty(TMDbHelper.Blur.SourceImage,Art(thumb),Home)</onload>
-			<onload condition="$EXP[ArtBackgroundOn] + !Skin.HasSetting(TMDbHelper.EnableBlur)">Skin.SetBool(TMDbHelper.EnableBlur)</onload>
-			<onunload>SetProperty(TMDbHelper.Blur.SourceImage,$ESCINFO[Window(Home).Property($PARAM[slot])],Home)</onunload>
-		</definition>
-	</include>
 
 	<!-- Info dialog: a description exists for this item type -->
 	<expression name="Music_InfoHasDescription">[$EXP[Music_InfoIsAlbum] + !String.IsEmpty(ListItem.Property(Album_Description))] | [$EXP[Music_InfoIsArtist] + !String.IsEmpty(ListItem.Property(Artist_Description))] | [$EXP[Music_InfoIsSong] + !String.IsEmpty(ListItem.Comment)]</expression>

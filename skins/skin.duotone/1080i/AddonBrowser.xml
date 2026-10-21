@@ -9,7 +9,7 @@
 <window>
 	<defaultcontrol always="true">50</defaultcontrol>
 	<menucontrol>9000</menucontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<views>50</views>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
@@ -27,7 +27,6 @@
 			<width>list_wd</width>
 			<height>72</height>
 			<font>an_48</font>
-			<textcolor>$VAR[SectionText]</textcolor>
 			<label>$LOCALIZE[31012]</label>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 		</control>

@@ -31,7 +31,6 @@
 				<width>page_width</width>
 				<height>30</height>
 				<font>num_20</font>
-				<textcolor>ink</textcolor>
 			</control>
 			<control type="label" id="11">
 				<left>page_margin</left>
@@ -39,7 +38,6 @@
 				<width>page_width</width>
 				<height>30</height>
 				<font>num_20</font>
-				<textcolor>ink</textcolor>
 			</control>
 			<control type="label" id="12">
 				<left>page_margin</left>
@@ -47,7 +45,6 @@
 				<width>page_width</width>
 				<height>30</height>
 				<font>num_20</font>
-				<textcolor>ink</textcolor>
 			</control>
 		</control>
 
@@ -74,7 +71,7 @@
 				<height>30</height>
 				<font>cap_20</font>
 				<textcolor>ink2</textcolor>
-				<label>BUFFERING</label>
+				<label>$LOCALIZE[31255]</label>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -83,7 +80,6 @@
 				<height>30</height>
 				<align>right</align>
 				<font>num_20</font>
-				<textcolor>ink</textcolor>
 				<label>$INFO[Player.CacheLevel,,%]</label>
 			</control>
 			<control type="progress">
@@ -93,7 +89,6 @@
 				<height>2</height>
 				<info>Player.CacheLevel</info>
 				<texturebg colordiffuse="rule_strong">common/white.png</texturebg>
-				<midtexture colordiffuse="ink">common/white.png</midtexture>
 			</control>
 		</control>
 	</controls>

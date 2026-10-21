@@ -36,7 +36,6 @@
 				<width>428</width>
 				<height>36</height>
 				<font>card_21</font>
-				<textcolor>text_primary</textcolor>
 				<scrollout>false</scrollout>
 				<pauseatend>2000</pauseatend>
 			</control>

@@ -19,7 +19,6 @@
 			<height>screen_h</height>
 			<label></label>
 			<texturefocus />
-			<texturenofocus />
 			<onright>StepForward</onright>
 			<onleft>StepBack</onleft>
 			<onup>ChapterOrBigStepForward</onup>
@@ -59,7 +58,6 @@
 					<width>1528</width>
 					<height>24</height>
 					<font>cap_20</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 					<label>$VAR[OSD_Meta]</label>
 				</control>
 				<control type="textbox">
@@ -68,7 +66,6 @@
 					<width>1180</width>
 					<height>136</height>
 					<font>body_24</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 					<label>$INFO[VideoPlayer.Plot]</label>
 					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
 				</control>
@@ -94,14 +91,12 @@
 						<width>auto</width>
 						<height>24</height>
 						<font>cap_20</font>
-						<textcolor>$VAR[SectionText]</textcolor>
-						<label>Next</label>
+						<label>$LOCALIZE[31126]</label>
 					</control>
 					<control type="label">
 						<width max="700">auto</width>
 						<height>36</height>
 						<font>bold_24</font>
-						<textcolor>$VAR[SectionText]</textcolor>
 						<label>$VAR[OSD_NextLabel]</label>
 					</control>
 				</control>
@@ -113,7 +108,6 @@
 				<width>800</width>
 				<height>34</height>
 				<font>bold_28</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$VAR[OSD_SeekTimeLabel]</label>
 			</control>
 			<control type="label">
@@ -123,7 +117,6 @@
 				<height>24</height>
 				<align>right</align>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[Player.TimeRemaining,−,]$INFO[Player.Duration,  /  ,]</label>
 			</control>
 			<include content="OSD_Track">

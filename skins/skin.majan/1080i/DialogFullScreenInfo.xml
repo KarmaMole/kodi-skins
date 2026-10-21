@@ -20,7 +20,6 @@
 			<height>screen_h</height>
 			<label></label>
 			<texturefocus />
-			<texturenofocus />
 			<onright>StepForward</onright>
 			<onleft>StepBack</onleft>
 			<onup>ChapterOrBigStepForward</onup>
@@ -94,7 +93,6 @@
 				<width>1180</width>
 				<height>101</height>  <!-- 3 lines exactly: no half-clipped line at the bottom -->
 				<font>body_23</font>
-				<textcolor>text_body</textcolor>
 				<label>$INFO[VideoPlayer.Plot]</label>
 				<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
 				<visible>!String.IsEmpty(VideoPlayer.Plot)</visible>
@@ -117,13 +115,12 @@
 					<height>30</height>
 					<font>mono_13</font>
 					<textcolor>$VAR[ColorAccent]</textcolor>
-					<label>NEXT</label>
+					<label>$LOCALIZE[31209]</label>
 				</control>
 				<control type="label">
 					<width max="700">auto</width>
 					<height>32</height>
 					<font>credits_21_semibold</font>
-					<textcolor>text_primary</textcolor>
 					<label>$VAR[OSD_NextLabel]</label>
 				</control>
 			</control>

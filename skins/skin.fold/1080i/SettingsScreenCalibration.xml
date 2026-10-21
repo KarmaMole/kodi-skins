@@ -86,7 +86,6 @@
 			<height>50</height>
 			<align>center</align>
 			<font>head_34</font>
-			<textcolor>ink</textcolor>
 			<label>$LOCALIZE[214]</label>
 		</control>
 		<control type="label" id="2">
@@ -117,7 +116,6 @@
 			<height>44</height>
 			<align>center</align>
 			<font>head_28</font>
-			<textcolor>ink</textcolor>
 		</control>
 	</controls>
 </window>

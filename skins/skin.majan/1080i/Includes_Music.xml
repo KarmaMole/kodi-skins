@@ -327,7 +327,7 @@
 					<align>center</align>
 					<font>mono_14</font>
 					<textcolor>text_tertiary</textcolor>
-					<label>Up one level</label>
+					<label>$LOCALIZE[31232]</label>
 					<visible>$PARAM[caption_visible]</visible>
 				</control>
 			</control>

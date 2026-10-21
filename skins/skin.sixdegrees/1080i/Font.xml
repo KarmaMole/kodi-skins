@@ -37,18 +37,18 @@
 		<font><name>caps_20</name><filename>SixDegreesCaps-SemiBold.ttf</filename><size>20</size><style>uppercase</style></font>
 		<font><name>capsxb_22</name><filename>SixDegreesCapsXB-ExtraBold.ttf</filename><size>22</size></font>
 		<font><name>capsxb_21</name><filename>SixDegreesCapsXB-ExtraBold.ttf</filename><size>21</size></font>
-		<font><name>font10</name><filename>SixDegreesText-Regular.ttf</filename><size>21</size></font>
-		<font><name>font12</name><filename>SixDegreesText-Regular.ttf</filename><size>22</size></font>
-		<font><name>font14</name><filename>SixDegreesText-Regular.ttf</filename><size>26</size></font>
-		<font><name>font27</name><filename>SixDegreesText-Regular.ttf</filename><size>26</size></font>
-		<font><name>font30</name><filename>SixDegreesText-SemiBold.ttf</filename><size>30</size></font>
-		<font><name>font37</name><filename>SixDegreesText-ExtraBold.ttf</filename><size>34</size></font>
-		<font><name>font45</name><filename>SixDegreesText-ExtraBold.ttf</filename><size>44</size></font>
-		<font><name>font52_title</name><filename>SixDegreesDisplay-ExtraBold.ttf</filename><size>52</size></font>
-		<font><name>font45_title</name><filename>SixDegreesDisplay-ExtraBold.ttf</filename><size>44</size></font>
-		<font><name>font36_title</name><filename>SixDegreesDisplay-ExtraBold.ttf</filename><size>36</size></font>
-		<font><name>font30_title</name><filename>SixDegreesText-ExtraBold.ttf</filename><size>30</size></font>
-		<font><name>font25_title</name><filename>SixDegreesText-ExtraBold.ttf</filename><size>26</size></font>
+		<font><name>font10</name><filename>SixDegreesText-Regular.ttf</filename><size>21</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font12</name><filename>SixDegreesText-Regular.ttf</filename><size>22</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font14</name><filename>SixDegreesText-Regular.ttf</filename><size>26</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font27</name><filename>SixDegreesText-Regular.ttf</filename><size>26</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30</name><filename>SixDegreesText-SemiBold.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font37</name><filename>SixDegreesText-ExtraBold.ttf</filename><size>34</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45</name><filename>SixDegreesText-ExtraBold.ttf</filename><size>44</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font52_title</name><filename>SixDegreesDisplay-ExtraBold.ttf</filename><size>52</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45_title</name><filename>SixDegreesDisplay-ExtraBold.ttf</filename><size>44</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font36_title</name><filename>SixDegreesDisplay-ExtraBold.ttf</filename><size>36</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30_title</name><filename>SixDegreesText-ExtraBold.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font25_title</name><filename>SixDegreesText-ExtraBold.ttf</filename><size>26</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
 		<font><name>Mono26</name><filename>SixDegreesText-SemiBold.ttf</filename><size>26</size></font>
 	</fontset>
 	<!-- Fallback set: same names, Kodi's bundled arial.ttf (wider script coverage). -->
@@ -87,18 +87,18 @@
 		<font><name>caps_20</name><filename>arial.ttf</filename><size>20</size><style>uppercase</style></font>
 		<font><name>capsxb_22</name><filename>arial.ttf</filename><size>22</size></font>
 		<font><name>capsxb_21</name><filename>arial.ttf</filename><size>21</size></font>
-		<font><name>font10</name><filename>arial.ttf</filename><size>21</size></font>
-		<font><name>font12</name><filename>arial.ttf</filename><size>22</size></font>
-		<font><name>font14</name><filename>arial.ttf</filename><size>26</size></font>
-		<font><name>font27</name><filename>arial.ttf</filename><size>26</size></font>
-		<font><name>font30</name><filename>arial.ttf</filename><size>30</size></font>
-		<font><name>font37</name><filename>arial.ttf</filename><size>34</size></font>
-		<font><name>font45</name><filename>arial.ttf</filename><size>44</size></font>
-		<font><name>font52_title</name><filename>arial.ttf</filename><size>52</size></font>
-		<font><name>font45_title</name><filename>arial.ttf</filename><size>44</size></font>
-		<font><name>font36_title</name><filename>arial.ttf</filename><size>36</size></font>
-		<font><name>font30_title</name><filename>arial.ttf</filename><size>30</size></font>
-		<font><name>font25_title</name><filename>arial.ttf</filename><size>26</size></font>
+		<font><name>font10</name><filename>arial.ttf</filename><size>21</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font12</name><filename>arial.ttf</filename><size>22</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font14</name><filename>arial.ttf</filename><size>26</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font27</name><filename>arial.ttf</filename><size>26</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30</name><filename>arial.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font37</name><filename>arial.ttf</filename><size>34</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45</name><filename>arial.ttf</filename><size>44</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font52_title</name><filename>arial.ttf</filename><size>52</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45_title</name><filename>arial.ttf</filename><size>44</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font36_title</name><filename>arial.ttf</filename><size>36</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30_title</name><filename>arial.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font25_title</name><filename>arial.ttf</filename><size>26</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
 		<font><name>Mono26</name><filename>arial.ttf</filename><size>26</size></font>
 	</fontset>
 </fonts>

@@ -23,8 +23,8 @@
 	<expression name="Home_HasShow">!Integer.IsGreater(Container(9130).NumItems,0) + Integer.IsGreater(Container(9132).NumItems,0)</expression>
 	<expression name="Home_HasBig">Integer.IsGreater(Container(9130).NumItems,0) | Integer.IsGreater(Container(9132).NumItems,0)</expression>
 	<expression name="Home_HasFilms">Integer.IsGreater(Container(9140).NumItems,0)</expression>
-	<expression name="Home_SV">System.HasAddon(script.skinvariables) + !Skin.HasSetting(keepsake.notime)</expression>
-	<expression name="Home_MemSV">System.HasAddon(script.skinvariables) + !Skin.HasSetting(keepsake.notime) + String.IsEqual(Container(9171).ListItem.DBID,Container(9110).ListItem.DBID) + !String.IsEmpty(Container(9171).ListItem.Property(lastplayed))</expression>
+	<expression name="Home_SV">!Skin.HasSetting(keepsake.notime)</expression>
+	<expression name="Home_MemSV">!Skin.HasSetting(keepsake.notime) + String.IsEqual(Container(9171).ListItem.DBID,Container(9110).ListItem.DBID) + !String.IsEmpty(Container(9171).ListItem.Property(lastplayed))</expression>
 	<expression name="Home_LongMemTitle">Integer.IsGreater(Container(9181).NumPages,1)</expression>
 	<expression name="Home_LongShowTitle">Integer.IsGreater(Container(9182).NumPages,1)</expression>
 
@@ -139,7 +139,7 @@
 			<param name="sortby" value="dateadded"/>
 			<param name="sortorder" value="ascending"/>
 		</include>
-		<!-- Skin Variables (optional): the raw last-played datetime gives the time of day -->
+		<!-- Skin Variables: the raw last-played datetime gives the time of day -->
 		<control type="group">
 			<visible>$EXP[Home_SV]</visible>
 			<include content="Home_CountList"><param name="id" value="9171"/><param name="path" value="plugin://script.skinvariables/?info=get_dbitem_movie_details&amp;dbid=$INFO[Container(9110).ListItem.DBID]"/></include>
@@ -222,7 +222,7 @@
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
-			<label>today's page  ·  [COLOR label_hi]what you were watching, and when[/COLOR]</label>
+			<label>$LOCALIZE[31338]</label>
 		</control>
 
 		<!-- memory card: print list 9110 (one at a time, Left/Right browse) -->
@@ -298,7 +298,7 @@
 				<height>60</height>
 				<font>hand_44</font>
 				<textcolor>ink</textcolor>
-				<label>you watched</label>
+				<label>$LOCALIZE[31339]</label>
 			</control>
 			<!-- short title: one line, Caveat bold 64, pen underline -->
 			<control type="group">
@@ -378,7 +378,7 @@
 			<height>200</height>
 			<font>hand_44</font>
 			<textcolor>ink_faint</textcolor>
-			<label>Nothing in the album yet. Watch a film and it will be pressed in here, with the date stamped in the corner.</label>
+			<label>$LOCALIZE[31340]</label>
 			<visible>!$EXP[Home_HasMemory] + !Container(9110).IsUpdating</visible>
 		</control>
 
@@ -414,7 +414,7 @@
 				<height>27</height>
 				<font>lbl_20</font>
 				<textcolor>label</textcolor>
-				<label>nothing left half-watched</label>
+				<label>$LOCALIZE[31341]</label>
 			</control>
 			<control type="textbox">
 				<left>116</left>
@@ -423,7 +423,7 @@
 				<height>130</height>
 				<font>hand_42</font>
 				<textcolor>ink2</textcolor>
-				<label>You finished everything you started.</label>
+				<label>$LOCALIZE[31342]</label>
 			</control>
 		</control>
 
@@ -469,7 +469,7 @@
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
-			<label>this year</label>
+			<label>$LOCALIZE[31343]</label>
 		</control>
 		<control type="grouplist">
 			<left>116</left>
@@ -507,7 +507,7 @@
 				<height>60</height>
 				<font>hand_44</font>
 				<textcolor>$VAR[Home_StatColor1]</textcolor>
-				<label>series</label>
+				<label>$LOCALIZE[31344]</label>
 			</control>
 		</control>
 		<control type="image">
@@ -525,7 +525,7 @@
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
-			<label>waiting five years or more</label>
+			<label>$LOCALIZE[31345]</label>
 		</control>
 		<control type="grouplist">
 			<left>498</left>
@@ -582,7 +582,7 @@
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
-			<label>you stopped</label>
+			<label>$LOCALIZE[31346]</label>
 		</control>
 		<control type="label">
 			<left>438</left>
@@ -641,7 +641,7 @@
 			<height>90</height>
 			<font>hand_66</font>
 			<textcolor>ink</textcolor>
-			<label>Pick up where you left off</label>
+			<label>$LOCALIZE[31347]</label>
 		</control>
 		<control type="label">
 			<left>1068</left>
@@ -650,7 +650,7 @@
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
-			<label>in progress  ·  [COLOR label_hi]most recent first[/COLOR]</label>
+			<label>$LOCALIZE[31348]</label>
 			<visible>!Player.HasMedia</visible>
 		</control>
 		<control type="label">
@@ -744,7 +744,7 @@
 			<height>160</height>
 			<font>hand_44</font>
 			<textcolor>ink_faint</textcolor>
-			<label>Nothing half-watched. When you stop a film or an episode part way, it waits here.</label>
+			<label>$LOCALIZE[31349]</label>
 			<visible>!$EXP[Home_HasBig] + !$EXP[Home_HasFilms] + !Container(9130).IsUpdating + !Container(9132).IsUpdating</visible>
 		</control>
 	</include>
@@ -767,7 +767,7 @@
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
-			<label>you're on</label>
+			<label>$LOCALIZE[31350]</label>
 		</control>
 		<control type="label">
 			<left>566</left>
@@ -852,7 +852,7 @@
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
-			<label>you're on</label>
+			<label>$LOCALIZE[31350]</label>
 		</control>
 		<control type="label">
 			<left>566</left>
@@ -892,7 +892,7 @@
 				<height>54</height>
 				<font>hand_40</font>
 				<textcolor>$VAR[Home_EpColor]</textcolor>
-				<label>watched so far</label>
+				<label>$LOCALIZE[31351]</label>
 			</control>
 			<control type="label">
 				<left>568</left>
@@ -968,7 +968,7 @@
 				<control type="group">
 					<width>358</width>
 					<height>214</height>
-					<include>KS_TiltFocus</include>
+					<include content="KS_TiltFocus"><param name="focus" value="Control.HasFocus(9140)"/></include>
 					<include content="Home_FilmPrint"><param name="lift" value="Control.HasFocus(9140)"/></include>
 				</control>
 			</control>
@@ -1074,15 +1074,4 @@
 		<value condition="Player.HasVideo">ActivateWindow(fullscreenvideo)</value>
 		<value>ActivateWindow(visualisation)</value>
 	</variable>
-	<!-- search results use the same photo-with-fallback as everything else -->
-	<include name="Home_Art">
-		<param name="diffuse">white</param>
-		<param name="title">$INFO[ListItem.Label]</param>
-		<definition>
-			<include content="KS_Artwork">
-				<param name="art" value="$PARAM[art]"/>
-				<param name="title" value="$PARAM[title]"/>
-			</include>
-		</definition>
-	</include>
 </includes>

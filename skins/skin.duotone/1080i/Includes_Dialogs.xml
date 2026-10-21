@@ -68,12 +68,12 @@
 		<include condition="true">Dlg_Tex_DialogButton_Square</include>
 	</include>
 	<include name="Dlg_Tex_DialogButton_Square">
-		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-		<texturenofocus border="16" colordiffuse="ink">common/rect_outline_8.png</texturenofocus>
+		<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
+		<texturenofocus border="16" colordiffuse="$VAR[ink]">common/rect_outline_8.png</texturenofocus>
 	</include>
 	<include name="Dlg_Tex_DialogButton_Round">
-		<texturefocus border="10" colordiffuse="ink">common/rect_round8.png</texturefocus>
-		<texturenofocus border="10" colordiffuse="ink">common/rect_outline_1_round8.png</texturenofocus>
+		<texturefocus border="10" colordiffuse="$VAR[ink]">common/rect_round8.png</texturefocus>
+		<texturenofocus border="10" colordiffuse="$VAR[ink]">common/rect_outline_1_round8.png</texturenofocus>
 	</include>
 
 	<!-- Focus of Kodi-cloned rows: a solid ink bar (the row's focusedcolor is paper) -->
@@ -83,14 +83,14 @@
 		<include condition="false + !String.IsEqual(Skin.String(duotone.focusoutline),medium)">Dlg_Tex_RowFocus_R2</include>
 		<include condition="false + String.IsEqual(Skin.String(duotone.focusoutline),medium)">Dlg_Tex_RowFocus_R3</include>
 	</include>
-	<include name="Dlg_Tex_RowFocus_S2"><texturefocus colordiffuse="ink">common/white.png</texturefocus></include>
-	<include name="Dlg_Tex_RowFocus_S3"><texturefocus colordiffuse="ink">common/white.png</texturefocus></include>
-	<include name="Dlg_Tex_RowFocus_R2"><texturefocus colordiffuse="ink">common/white.png</texturefocus></include>
-	<include name="Dlg_Tex_RowFocus_R3"><texturefocus colordiffuse="ink">common/white.png</texturefocus></include>
+	<include name="Dlg_Tex_RowFocus_S2"><texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus></include>
+	<include name="Dlg_Tex_RowFocus_S3"><texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus></include>
+	<include name="Dlg_Tex_RowFocus_R2"><texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus></include>
+	<include name="Dlg_Tex_RowFocus_R3"><texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus></include>
 
 	<!-- Hairline under a row (texturenofocus of Kodi-cloned rows). flip = true gives a top rule. -->
 	<include name="Dlg_Tex_RowRule">
-		<param name="color">ink</param>
+		<param name="color">$VAR[ink]</param>
 		<param name="flip">false</param>
 		<definition>
 			<texturenofocus border="0,0,0,4" colordiffuse="$PARAM[color]">dialogs/row_rule.png</texturenofocus>
@@ -114,7 +114,7 @@
 				<height>6000</height>
 				<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
 				<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
-				<texture colordiffuse="ink_70">common/white.png</texture>
+				<texture colordiffuse="$VAR[scrim]">common/white.png</texture>
 			</control>
 			<control type="image">
 				<description>panel</description>
@@ -130,8 +130,26 @@
 				<width>$PARAM[width]</width>
 				<height>$PARAM[height]</height>
 				<aspectratio>center</aspectratio>
-				<texture colordiffuse="bfffffff">overlays/dots.png</texture>
-				<visible>$EXP[DT_Halftone]</visible>
+				<texture colordiffuse="$VAR[dots]">overlays/dots.png</texture>
+				<visible>$EXP[DT_Halftone] + $EXP[DT_ScreenDots]</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>$PARAM[width]</width>
+				<height>$PARAM[height]</height>
+				<aspectratio>center</aspectratio>
+				<texture colordiffuse="$VAR[dots]">overlays/screen_lines.png</texture>
+				<visible>$EXP[DT_Halftone] + $EXP[DT_ScreenLines]</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>$PARAM[width]</width>
+				<height>$PARAM[height]</height>
+				<aspectratio>center</aspectratio>
+				<texture colordiffuse="$VAR[dots]">overlays/screen_coarse.png</texture>
+				<visible>$EXP[DT_Halftone] + $EXP[DT_ScreenCoarse]</visible>
 			</control>
 			<control type="image">
 				<description>8px ink frame</description>
@@ -139,7 +157,7 @@
 				<top>0</top>
 				<width>$PARAM[width]</width>
 				<height>$PARAM[height]</height>
-				<texture border="16" colordiffuse="ink">common/rect_outline_8.png</texture>
+				<texture border="16" colordiffuse="$VAR[ink]">common/rect_outline_8.png</texture>
 			</control>
 			<control type="label" id="$PARAM[header_id]">
 				<description>heading</description>
@@ -168,7 +186,7 @@
 				<top>dialog_header_h</top>
 				<width>$PARAM[width]</width>
 				<height>rule_thick</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 		</definition>
 	</include>
@@ -190,7 +208,7 @@
 				<label>$PARAM[label]</label>
 				<font>btn_24</font>
 				<textcolor>$VAR[SectionText]</textcolor>
-				<focusedcolor>paper</focusedcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
 				<disabledcolor>$VAR[SectionText3]</disabledcolor>
 				<align>center</align>
 				<textoffsetx>16</textoffsetx>
@@ -239,7 +257,7 @@
 				<top>0</top>
 				<width>$PARAM[width]</width>
 				<height>$PARAM[height]</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 				<visible>Control.HasFocus($PARAM[list_id])</visible>
 			</control>
 		</definition>
@@ -260,14 +278,14 @@
 					<bottom>0</bottom>
 					<width>$PARAM[width]</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 				</control>
 				<control type="image">
 					<left>dlg_row_pad</left>
 					<centertop>50%</centertop>
 					<width>dlg_check</width>
 					<height>dlg_check</height>
-					<texture colordiffuse="ink">markers/check.png</texture>
+					<texture colordiffuse="$VAR[ink]">markers/check.png</texture>
 					<visible>ListItem.IsSelected</visible>
 				</control>
 				<control type="label">
@@ -296,7 +314,7 @@
 					<bottom>0</bottom>
 					<width>$PARAM[width]</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 				</control>
 				<include content="Dlg_RowFocus">
 					<param name="list_id" value="$PARAM[list_id]"/>
@@ -308,7 +326,7 @@
 					<centertop>50%</centertop>
 					<width>dlg_check</width>
 					<height>dlg_check</height>
-					<texture colordiffuse="ink">markers/check.png</texture>
+					<texture colordiffuse="$VAR[ink]">markers/check.png</texture>
 					<visible>[ListItem.IsSelected] + [!Control.HasFocus($PARAM[list_id])]</visible>
 				</control>
 				<control type="image">
@@ -316,7 +334,7 @@
 					<centertop>50%</centertop>
 					<width>dlg_check</width>
 					<height>dlg_check</height>
-					<texture colordiffuse="paper">markers/check.png</texture>
+					<texture colordiffuse="$VAR[paper]">markers/check.png</texture>
 					<visible>[ListItem.IsSelected] + [Control.HasFocus($PARAM[list_id])]</visible>
 				</control>
 				<control type="label">
@@ -336,7 +354,7 @@
 					<right>240</right>
 					<height>$PARAM[height]</height>
 					<font>bold_26</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<scroll>true</scroll>
 					<label>$PARAM[label]</label>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
@@ -359,7 +377,7 @@
 					<height>$PARAM[height]</height>
 					<align>right</align>
 					<font>bold_22</font>
-					<textcolor>paper_80</textcolor>
+					<textcolor>$VAR[paper_80]</textcolor>
 					<label>$PARAM[label2]</label>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
@@ -387,7 +405,7 @@
 					<top>0</top>
 					<width>$PARAM[width]</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 				</control>
 				<control type="label">
 					<left>20</left>
@@ -424,7 +442,7 @@
 					<top>0</top>
 					<width>$PARAM[width]</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 				</control>
 				<include content="Dlg_RowFocus">
 					<param name="list_id" value="$PARAM[list_id]"/>
@@ -447,7 +465,7 @@
 					<width>40</width>
 					<height>$PARAM[height]</height>
 					<font>cap_20</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$VAR[Dlg_RowIndex]</label>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
@@ -467,7 +485,7 @@
 					<right>128</right>
 					<height>$PARAM[height]</height>
 					<font>bold_26</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
@@ -489,7 +507,7 @@
 					<height>$PARAM[height]</height>
 					<align>right</align>
 					<font>cap_20</font>
-					<textcolor>paper_80</textcolor>
+					<textcolor>$VAR[paper_80]</textcolor>
 					<label>$INFO[ListItem.Label2]</label>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
@@ -508,7 +526,7 @@
 					<bottom>0</bottom>
 					<width>dlg_panel_in_w</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink_20">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink_20]">common/hairline.png</texture>
 				</control>
 				<include>Dlg_TrackRowContent</include>
 			</itemlayout>
@@ -518,7 +536,7 @@
 					<bottom>0</bottom>
 					<width>dlg_panel_in_w</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink_20">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink_20]">common/hairline.png</texture>
 				</control>
 				<include content="Dlg_RowFocus">
 					<param name="list_id" value="$PARAM[list_id]"/>
@@ -530,7 +548,7 @@
 					<top>19</top>
 					<width>20</width>
 					<height>20</height>
-					<texture colordiffuse="ink">markers/check.png</texture>
+					<texture colordiffuse="$VAR[ink]">markers/check.png</texture>
 					<visible>[ListItem.IsSelected] + [!Control.HasFocus($PARAM[list_id])]</visible>
 				</control>
 				<control type="image">
@@ -538,7 +556,7 @@
 					<top>19</top>
 					<width>20</width>
 					<height>20</height>
-					<texture colordiffuse="paper">markers/check.png</texture>
+					<texture colordiffuse="$VAR[paper]">markers/check.png</texture>
 					<visible>[ListItem.IsSelected] + [Control.HasFocus($PARAM[list_id])]</visible>
 				</control>
 				<control type="label">
@@ -557,7 +575,7 @@
 					<right>150</right>
 					<height>dlg_track_row_h</height>
 					<font>btn_24</font>
-					<textcolor>paper_80</textcolor>
+					<textcolor>$VAR[paper_80]</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 					<visible>[!ListItem.IsSelected] + [Control.HasFocus($PARAM[list_id])]</visible>
 				</control>
@@ -577,7 +595,7 @@
 					<right>150</right>
 					<height>dlg_track_row_h</height>
 					<font>btn_24</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 					<visible>[ListItem.IsSelected] + [Control.HasFocus($PARAM[list_id])]</visible>
 				</control>
@@ -599,7 +617,7 @@
 					<height>dlg_track_row_h</height>
 					<align>right</align>
 					<font>cap_20</font>
-					<textcolor>paper_70</textcolor>
+					<textcolor>$VAR[paper_70]</textcolor>
 					<label>$INFO[ListItem.Label2]</label>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
@@ -612,7 +630,7 @@
 			<top>19</top>
 			<width>20</width>
 			<height>20</height>
-			<texture colordiffuse="ink">markers/check.png</texture>
+			<texture colordiffuse="$VAR[ink]">markers/check.png</texture>
 			<visible>ListItem.IsSelected</visible>
 		</control>
 		<control type="label">
@@ -658,9 +676,9 @@
 				<top>$PARAM[top]</top>
 				<width>4</width>
 				<height>$PARAM[height]</height>
-				<texturesliderbackground colordiffuse="ink_12">common/white.png</texturesliderbackground>
-				<texturesliderbar colordiffuse="ink">common/white.png</texturesliderbar>
-				<texturesliderbarfocus colordiffuse="ink">common/white.png</texturesliderbarfocus>
+				<texturesliderbackground colordiffuse="$VAR[ink_12]">common/white.png</texturesliderbackground>
+				<texturesliderbar colordiffuse="$VAR[ink]">common/white.png</texturesliderbar>
+				<texturesliderbarfocus colordiffuse="$VAR[ink]">common/white.png</texturesliderbarfocus>
 				<onleft>$PARAM[onleft]</onleft>
 				<onright>$PARAM[onright]</onright>
 				<orientation>vertical</orientation>
@@ -680,7 +698,7 @@
 			<!-- own fades: without them Kodi draws this dim over the dialog (seen on Shield 2026-10-18) -->
 			<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
 			<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
-			<texture colordiffuse="ink_70">common/white.png</texture>
+			<texture colordiffuse="$VAR[scrim]">common/white.png</texture>
 		</control>
 		<control type="group">
 			<left>dlg_panel_x</left>
@@ -697,7 +715,7 @@
 				<top>0</top>
 				<width>rule_thick</width>
 				<height>screen_h</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 		</control>
 	</include>
@@ -751,7 +769,7 @@
 						<bottom>0</bottom>
 						<width>768</width>
 						<height>rule_h</height>
-						<texture colordiffuse="ink">common/hairline.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 					</control>
 					<include>Dlg_SelectDetailRow</include>
 				</itemlayout>
@@ -761,7 +779,7 @@
 						<bottom>0</bottom>
 						<width>768</width>
 						<height>rule_h</height>
-						<texture colordiffuse="ink">common/hairline.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 					</control>
 					<include content="Dlg_RowFocus">
 						<param name="list_id" value="6"/>
@@ -781,7 +799,7 @@
 						<top>42</top>
 						<width>dlg_check</width>
 						<height>dlg_check</height>
-						<texture colordiffuse="ink">markers/check.png</texture>
+						<texture colordiffuse="$VAR[ink]">markers/check.png</texture>
 						<visible>[ListItem.IsSelected] + [!Control.HasFocus(6)]</visible>
 					</control>
 					<control type="image">
@@ -789,7 +807,7 @@
 						<top>42</top>
 						<width>dlg_check</width>
 						<height>dlg_check</height>
-						<texture colordiffuse="paper">markers/check.png</texture>
+						<texture colordiffuse="$VAR[paper]">markers/check.png</texture>
 						<visible>[ListItem.IsSelected] + [Control.HasFocus(6)]</visible>
 					</control>
 					<control type="label">
@@ -808,7 +826,7 @@
 						<right>56</right>
 						<height>40</height>
 						<font>bold_26</font>
-						<textcolor>paper</textcolor>
+						<textcolor>$VAR[paper]</textcolor>
 						<label>$INFO[ListItem.Label]</label>
 						<visible>Control.HasFocus(6)</visible>
 					</control>
@@ -828,7 +846,7 @@
 						<right>56</right>
 						<height>34</height>
 						<font>ui_22</font>
-						<textcolor>paper_80</textcolor>
+						<textcolor>$VAR[paper_80]</textcolor>
 						<label>$INFO[ListItem.Label2]</label>
 						<visible>Control.HasFocus(6)</visible>
 					</control>
@@ -842,7 +860,7 @@
 				<height>dialog_row_h</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText3]</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31325]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<include content="DT_Scrollbar">
@@ -894,7 +912,7 @@
 			<top>42</top>
 			<width>dlg_check</width>
 			<height>dlg_check</height>
-			<texture colordiffuse="ink">markers/check.png</texture>
+			<texture colordiffuse="$VAR[ink]">markers/check.png</texture>
 			<visible>ListItem.IsSelected</visible>
 		</control>
 		<control type="label">
@@ -974,7 +992,7 @@
 				<top>176</top>
 				<width>dlg_panel_in_w</width>
 				<height>rule_h</height>
-				<texture colordiffuse="ink">common/hairline.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 			</control>
 			<control type="list" id="3">
 				<left>dlg_panel_pad</left>
@@ -1010,7 +1028,7 @@
 				<textoffsetx>56</textoffsetx>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText3]</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31325]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<control type="scrollbar" id="61">
@@ -1018,9 +1036,9 @@
 				<top>177</top>
 				<width>2</width>
 				<height>754</height>
-				<texturesliderbackground colordiffuse="ink_12">common/white.png</texturesliderbackground>
-				<texturesliderbar colordiffuse="ink">common/white.png</texturesliderbar>
-				<texturesliderbarfocus colordiffuse="ink">common/white.png</texturesliderbarfocus>
+				<texturesliderbackground colordiffuse="$VAR[ink_12]">common/white.png</texturesliderbackground>
+				<texturesliderbar colordiffuse="$VAR[ink]">common/white.png</texturesliderbar>
+				<texturesliderbarfocus colordiffuse="$VAR[ink]">common/white.png</texturesliderbarfocus>
 				<orientation>vertical</orientation>
 			</control>
 			<control type="grouplist" id="9100">
@@ -1081,20 +1099,20 @@
 		<height>subnav_h</height>
 		<font>cap_20</font>
 		<textcolor>$VAR[SectionText]</textcolor>
-		<focusedcolor>paper</focusedcolor>
+		<focusedcolor>$VAR[paper]</focusedcolor>
 		<disabledcolor>$VAR[SectionText3]</disabledcolor>
 		<textoffsetx>12</textoffsetx>
 		<aligny>center</aligny>
 		<pulseonselect>false</pulseonselect>
-		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+		<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 		<texturenofocus />
 		<radiowidth>18</radiowidth>
 		<radioheight>18</radioheight>
 		<radioposx>262</radioposx>
-		<textureradioonfocus colordiffuse="paper">markers/check.png</textureradioonfocus>
-		<textureradioonnofocus colordiffuse="ink">markers/check.png</textureradioonnofocus>
-		<textureradioofffocus border="10" colordiffuse="paper">common/rect_outline_1.png</textureradioofffocus>
-		<textureradiooffnofocus border="10" colordiffuse="ink">common/rect_outline_1.png</textureradiooffnofocus>
+		<textureradioonfocus colordiffuse="$VAR[paper]">markers/check.png</textureradioonfocus>
+		<textureradioonnofocus colordiffuse="$VAR[ink]">markers/check.png</textureradioonnofocus>
+		<textureradioofffocus border="10" colordiffuse="$VAR[paper]">common/rect_outline_1.png</textureradioofffocus>
+		<textureradiooffnofocus border="10" colordiffuse="$VAR[ink]">common/rect_outline_1.png</textureradiooffnofocus>
 	</include>
 
 	<!-- ============================================================ toasts -->
@@ -1115,7 +1133,7 @@
 				<top>0</top>
 				<width>toast_w</width>
 				<height>$PARAM[height]</height>
-				<texture border="16" colordiffuse="ink">common/rect_outline_8.png</texture>
+				<texture border="16" colordiffuse="$VAR[ink]">common/rect_outline_8.png</texture>
 			</control>
 		</definition>
 	</include>
@@ -1126,7 +1144,7 @@
 	<include name="DT_KeyboardKey">
 		<font>an_40</font>
 		<textcolor>$VAR[SectionText]</textcolor>
-		<focusedcolor>paper</focusedcolor>
+		<focusedcolor>$VAR[paper]</focusedcolor>
 		<disabledcolor>$VAR[SectionText3]</disabledcolor>
 		<align>center</align>
 		<aligny>center</aligny>
@@ -1138,7 +1156,7 @@
 	<include name="DT_KeyboardFunc">
 		<font>capt_20</font>
 		<textcolor>$VAR[SectionText2]</textcolor>
-		<focusedcolor>paper</focusedcolor>
+		<focusedcolor>$VAR[paper]</focusedcolor>
 		<disabledcolor>$VAR[SectionText3]</disabledcolor>
 		<align>center</align>
 		<aligny>center</aligny>
@@ -1148,11 +1166,11 @@
 		<include condition="true">Dlg_Tex_Key_Square</include>
 	</include>
 	<include name="Dlg_Tex_Key_Square">
-		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-		<texturenofocus border="10" colordiffuse="ink">common/rect_outline_1.png</texturenofocus>
+		<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
+		<texturenofocus border="10" colordiffuse="$VAR[ink]">common/rect_outline_1.png</texturenofocus>
 	</include>
 	<include name="Dlg_Tex_Key_Round">
-		<texturefocus border="10" colordiffuse="ink">common/rect_round8.png</texturefocus>
-		<texturenofocus border="10" colordiffuse="ink">common/rect_outline_1_round8.png</texturenofocus>
+		<texturefocus border="10" colordiffuse="$VAR[ink]">common/rect_round8.png</texturefocus>
+		<texturenofocus border="10" colordiffuse="$VAR[ink]">common/rect_outline_1_round8.png</texturenofocus>
 	</include>
 </includes>

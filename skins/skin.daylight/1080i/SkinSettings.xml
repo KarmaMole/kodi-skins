@@ -286,8 +286,8 @@
 					<onleft>SetFocus(9553)</onleft>
 					<onunfocus>ClearProperty(daylight.resetarmed,home)</onunfocus>
 				</control>
-				<control type="label"><left>400</left><top>0</top><width>460</width><height>100</height><align>right</align><font>small_20_semibold</font><textcolor>$VAR[DL_Ink2]</textcolor><label>OK to reset</label><visible>String.IsEmpty(Window(Home).Property(daylight.resetarmed))</visible></control>
-				<control type="label"><left>400</left><top>0</top><width>460</width><height>100</height><align>right</align><font>small_20_bold</font><textcolor>$VAR[DL_AccentText]</textcolor><label>Press OK again to reset everything</label><visible>!String.IsEmpty(Window(Home).Property(daylight.resetarmed))</visible></control>
+				<control type="label"><left>400</left><top>0</top><width>460</width><height>100</height><align>right</align><font>small_20_semibold</font><textcolor>$VAR[DL_Ink2]</textcolor><label>$LOCALIZE[31316]</label><visible>String.IsEmpty(Window(Home).Property(daylight.resetarmed))</visible></control>
+				<control type="label"><left>400</left><top>0</top><width>460</width><height>100</height><align>right</align><font>small_20_bold</font><textcolor>$VAR[DL_AccentText]</textcolor><label>$LOCALIZE[31317]</label><visible>!String.IsEmpty(Window(Home).Property(daylight.resetarmed))</visible></control>
 			</control>
 		</control>
 		<control type="group">

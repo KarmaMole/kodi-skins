@@ -25,7 +25,6 @@
 				<width>428</width>
 				<height>22</height>
 				<font>caps_20</font>
-				<textcolor>ink</textcolor>
 				<scrollout>false</scrollout>
 				<pauseatend>2000</pauseatend>
 			</control>
@@ -36,7 +35,6 @@
 				<width>428</width>
 				<height>36</height>
 				<font>reg_22</font>
-				<textcolor>ink</textcolor>
 				<scrollout>false</scrollout>
 				<pauseatend>2000</pauseatend>
 			</control>

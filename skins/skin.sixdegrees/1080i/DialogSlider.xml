@@ -49,7 +49,6 @@
 				<height>40</height>
 				<align>right</align>
 				<font>semi_26</font>
-				<textcolor>ink</textcolor>
 			</control>
 
 			<!-- 2px track + zero tick (offsets are symmetric, so zero is the centre) -->

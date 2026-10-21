@@ -110,10 +110,6 @@
 		<value condition="!String.IsEmpty(ListItem.Director)">$INFO[ListItem.Director]</value>
 		<value>$INFO[ListItem.Studio]</value>
 	</variable>
-	<variable name="VidView_ProgressInfo">
-		<value condition="$EXP[VidView_IsTVType]">ListItem.Property(WatchedEpisodePercent)</value>
-		<value>ListItem.PercentPlayed</value>
-	</variable>
 	<variable name="VidView_ProgressFrame">
 		<value condition="$EXP[VidView_IsTVType]">$INFO[ListItem.Property(WatchedEpisodePercent)]</value>
 		<value condition="Integer.IsGreater(ListItem.PlayCount,0) + !ListItem.IsResumable">100</value>
@@ -238,7 +234,7 @@
 			<control type="button" id="9323">
 				<include>VidView_NavButtonLook</include>
 				<width>auto</width>
-				<label>IN PROGRESS</label>
+				<label>$LOCALIZE[31252]</label>
 				<textcolor>$VAR[VidView_NavColInProgress]</textcolor>
 				<onclick condition="!$EXP[VidView_IsInProgressTV]">Container.Update(videodb://inprogresstvshows/)</onclick>
 				<visible>$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]</visible>
@@ -246,7 +242,7 @@
 			<control type="button" id="9327">
 				<include>VidView_NavButtonLook</include>
 				<width>176</width>
-				<label>OPTIONS</label>
+				<label>$LOCALIZE[31253]</label>
 				<textcolor>text_secondary</textcolor>
 				<onclick>ActivateWindow(1160)</onclick>
 			</control>
@@ -304,7 +300,7 @@
 			<height>34</height>
 			<font>text_24</font>
 			<textcolor>accent</textcolor>
-			<label>Unwatched only is on: Left, then ALL shows everything.</label>
+			<label>$LOCALIZE[31254]</label>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + System.Setting(hidewatched)</visible>
 		</control>
 	</include>
@@ -508,7 +504,7 @@
 				<include>Arc_HiddenList</include>
 				<onleft>9000</onleft>
 				<onright>ActivateWindow(1160)</onright>  <!-- 0.9.9: Right = Library panel -->
-				<viewtype label="Arc">list</viewtype>
+				<viewtype label="31312">list</viewtype>
 				<visible>$EXP[VidView_ArcContent]</visible>
 			</control>
 			<include content="Arc_LibraryPosters">
@@ -534,7 +530,7 @@
 					<height>80</height>
 					<font>wide_66</font>
 					<textcolor>text_primary</textcolor>
-					<label>Back</label>
+					<label>$LOCALIZE[31251]</label>
 				</control>
 				<control type="label">
 					<left>64</left>
@@ -543,7 +539,7 @@
 					<height>30</height>
 					<font>label_20</font>
 					<textcolor>text_secondary</textcolor>
-					<label>OK goes up one level</label>
+					<label>$LOCALIZE[31255]</label>
 				</control>
 			</control>
 		</control>
@@ -591,7 +587,7 @@
 				<ondown>9000</ondown>
 				<scrolltime tween="cubic" easing="out">220</scrolltime>
 				<preloaditems>2</preloaditems>
-				<viewtype label="Grid">icon</viewtype>
+				<viewtype label="31313">icon</viewtype>
 				<visible>$EXP[VidView_ArcContent]</visible>
 				<itemlayout width="230" height="352">
 					<control type="group">
@@ -614,7 +610,8 @@
 						<width>196</width>
 						<height>294</height>
 						<animation effect="zoom" start="100" end="106" center="auto" time="160" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">Focus</animation>
-						<animation effect="zoom" start="100" end="106" center="auto" time="0" tween="cubic" easing="out" condition="Skin.HasSetting(orbit.reducemotion)">Focus</animation>
+						<!-- reduce motion: a time-0 Conditional, not a second Focus animation (Kodi resets only the first Focus on unfocus; a twin stayed at 106 %) -->
+						<animation effect="zoom" start="100" end="106" center="auto" time="0" condition="Skin.HasSetting(orbit.reducemotion) + Control.HasFocus(501)">Conditional</animation>
 						<include content="Orbit_Artwork">
 							<param name="art" value="$VAR[VidView_PosterArt]"/>
 						</include>
@@ -651,7 +648,7 @@
 				<include>Arc_HiddenListIcon</include>
 				<onleft>9000</onleft>
 				<onright>ActivateWindow(1160)</onright>  <!-- 0.9.9: Right = Library panel -->
-				<viewtype label="Episodes">list</viewtype>
+				<viewtype label="31314">list</viewtype>
 				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
 			</control>
 			<include content="DialList_RowsNarrow">

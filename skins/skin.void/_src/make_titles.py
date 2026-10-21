@@ -127,7 +127,7 @@ def main():
              placed_title("Title_OSD", "OSD title, bottom edge y 904, x 156, 1600 wide", 156, 1600,
                           [(64, 1), (52, 1), (40, 2)], bottom=904),
              "</includes>", ""]
-    OUT.write_text("\n".join(parts), encoding="utf-8")
+    OUT.write_text("\n".join(parts), encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

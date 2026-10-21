@@ -10,9 +10,9 @@
 	<include>Anim_DialogOpenClose</include>
 	<controls>
 		<include>KS_Page</include>
-		<!-- Skin Variables (optional): when exactly you last watched it -->
+		<!-- Skin Variables: when exactly you last watched it -->
 		<control type="group">
-			<visible>System.HasAddon(script.skinvariables) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode)]</visible>
+			<visible>[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode)]</visible>
 			<control type="list" id="9175">
 				<left>-40</left>
 				<top>-40</top>

@@ -19,9 +19,11 @@ Model
 from __future__ import annotations
 
 from pathlib import Path
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
 
 from make_map import (P, RM, OPEN, rule, close, prop, info, img, lbl, group, DEPTH, FIELDS, map_timers,
-                      ruleq, esc_info, url_safe, qvar)
+                      ruleq, qvar, kdk_mute, Encoder, excl_value)
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "1080i"
@@ -348,6 +350,9 @@ def pvprop(n):
     return prop("pv." + n)
 
 
+HOME_ENC = Encoder("Home", [pvprop("kind"), pvprop("dbid"), "Container(9201).ListItem.DBID"], "$EXP[Home_PvReady]")
+
+
 def pv_variables():
     v = []
     a = v.append
@@ -368,10 +373,6 @@ def pv_variables():
     a("</variable>")
     for n in range(4):
         a(f'<variable name="Home_PvCast{n}"><value condition="$EXP[Home_PvMatch]">$INFO[Container(9201).ListItem.Property(cast.{n}.name)]</value></variable>')
-    a('<variable name="Home_PvGenre">')
-    a(f'\t<value condition="$EXP[Home_PvMatch]">$INFO[Container(9201).ListItem.Property(genre.0)]</value>')
-    a(f'\t<value condition="{is_mu}">$INFO[{pvprop("genre")}]</value>')
-    a("</variable>")
     a('<variable name="Home_PvCo">')
     a('\t<value condition="Integer.IsGreaterOrEqual(Container(9221).NumItems,2)">$VAR[Home_PvCast1]</value>')
     a('\t<value condition="Integer.IsGreaterOrEqual(Container(9222).NumItems,2)">$VAR[Home_PvCast2]</value>')
@@ -382,12 +383,12 @@ def pv_variables():
     # values with '&' or '%' can't sit in the URL and become "" (see make_map.qvar)
     v.extend(qvar("Home_PvUpQ", [(f"$EXP[Home_PvMatch] + {is_tv}", "Container(9201).ListItem.Property(studio.0)"),
                                  ("$EXP[Home_PvMatch]", "Container(9201).ListItem.Property(director.0)"),
-                                 (None, pvprop("dir"))]))
+                                 (None, pvprop("dir"))], HOME_ENC))
     for n in range(4):
-        v.extend(qvar(f"Home_PvCast{n}Q", [("$EXP[Home_PvMatch]", f"Container(9201).ListItem.Property(cast.{n}.name)")]))
+        v.extend(qvar(f"Home_PvCast{n}Q", [("$EXP[Home_PvMatch]", f"Container(9201).ListItem.Property(cast.{n}.name)")], HOME_ENC))
     v.extend(qvar("Home_PvGenreQ", [("$EXP[Home_PvMatch]", "Container(9201).ListItem.Property(genre.0)"),
-                                    (is_mu, pvprop("genre"))]))
-    v.extend(qvar("Home_PvCentreGenreQ", [(None, pvprop("genre"))]))
+                                    (is_mu, pvprop("genre"))], HOME_ENC))
+    v.extend(qvar("Home_PvCentreGenreQ", [(None, pvprop("genre"))], HOME_ENC))
     a('<variable name="Home_PvCoQ">')
     a('\t<value condition="Integer.IsGreaterOrEqual(Container(9221).NumItems,2)">$VAR[Home_PvCast1Q]</value>')
     a('\t<value condition="Integer.IsGreaterOrEqual(Container(9222).NumItems,2)">$VAR[Home_PvCast2Q]</value>')
@@ -395,8 +396,8 @@ def pv_variables():
     a("\t<value>$VAR[Home_PvCast1Q]</value>")
     a("</variable>")
     a('<variable name="Home_PvExcl">')
-    a(f'\t<value condition="{url_safe(pvprop("title"))} + {is_mu}">%2C{ruleq("album", "isnot", esc_info(pvprop("title")))}</value>')
-    a(f'\t<value condition="{url_safe(pvprop("title"))}">%2C{ruleq("title", "isnot", esc_info(pvprop("title")))}</value>')
+    a("\t" + excl_value(HOME_ENC, "album", pvprop("title"), is_mu))
+    a("\t" + excl_value(HOME_ENC, "title", pvprop("title"), f"!{is_mu}"))
     a("</variable>")
     upf = {"movies": "director", "tvshows": "studio", "albums": "albumartist"}
     for kind in ("movies", "tvshows", "albums"):
@@ -416,6 +417,8 @@ def pv_variables():
             paths["Left"] = f"{R}{OPEN}{ruleq('actor', 'is', '$VAR[Home_PvCoQ]')}{tail}"
             for n in (1, 2, 3):
                 paths[f"P{n}"] = f"{R}{OPEN}{ruleq('actor', 'is', f'$VAR[Home_PvCast{n}Q]')}{tail}"
+        if kind == "albums":
+            del paths["DownY"]  # albums go down by year only: Home_PvPathDown_albums carries it
         for k, pth in paths.items():
             a(f'<variable name="Home_PvPath{k}_{kind}"><value>{pth}</value></variable>')
     for k in ("Up", "Right", "Left", "P1", "P2", "P3"):
@@ -594,9 +597,8 @@ def section_nav():
 
 # ------------------------------------------------------------------ preview text + buttons
 def preview_block():
-    sel = "$VAR[Home_Sel]"
     ch = [lbl(64, 752, 860, 30, "Preview  ·  four lines out", "caps_21", "ink2", aligny="top"),
-          lbl(60, 782, 900, 64, f"$INFO[{sel}.Label]".replace(f"$INFO[{sel}.Label]", "$VAR[Home_SelTitle]"), "disp_52", "ink"),
+          lbl(60, 782, 900, 64, "$VAR[Home_SelTitle]", "disp_52", "ink"),
           lbl(64, 850, 1000, 34, "$VAR[Home_SelMeta]", "semi_24", "ink2")]
 
     def kbtn(cid, x, w, key, word, onclick, left, right, icon=None):
@@ -690,12 +692,7 @@ def home_variables():
     for sec, s in SECTIONS.items():
         a(f'\t<value condition="$EXP[Home_Is_{sec}]">SetFocus({s["list"]})</value>')
     a("</variable>")
-    a('<variable name="Home_Sel">')
-    a("\t<value>unused</value>")
-    a("</variable>")
-    for fld, expr in (("Title", "Label"), ("Dbid", "Property(dbid)"), ("Why", "Property(why)"), ("Dir", "Property(dir)"),
-                      ("Year", "Property(year)"), ("Icon", "Icon"), ("Kind", "Property(kind)"), ("Tmdb", "Property(tmdb)"),
-                      ("Genre", "Property(genre)"), ("File", "Property(file)")):
+    for fld, expr in (("Title", "Label"),):
         a(f'<variable name="Home_Sel{fld}">')
         for sec, s in SECTIONS.items():
             a(f'\t<value condition="$EXP[Home_Is_{sec}]">$INFO[Container({s["list"]}).ListItem.{expr}]</value>')
@@ -729,22 +726,10 @@ def home_variables():
     a("\t<value>Every film, A to Z  ·  $INFO[Container(9106).NumItems] films</value>")
     a("</variable>")
     # buttons under the preview act on the selected starter
-    a('<variable name="Home_BoardClick">')
-    for sec, s_ in SECTIONS.items():
-        a(f'	<value condition="$EXP[Home_Is_{sec}]">SendClick({s_["list"]})</value>')
-    a("</variable>")
     a('<variable name="Home_PlayClick">')
     a('	<value condition="$EXP[Home_Is_music]">PlayMedia(musicdb://albums/$INFO[Container(9130).ListItem.Property(dbid)]/,isdir)</value>')
     a('	<value condition="$EXP[Home_Is_tvshows]">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[Container(9120).ListItem.Property(dbid)]/,return)</value>')
     a("	<value>PlayMedia($ESCINFO[Container(9110).ListItem.Property(file)],resume)</value>")
-    a("</variable>")
-    # station page = Kodi info on the hidden data list item behind the selected starter
-    a('<variable name="Home_InfoFocus">')
-    for sec, s in SECTIONS.items():
-        d = DATA[sec]
-        plan = [(d[0][0], 0), (d[0][0], 1), (d[1][0], 0), (d[2][0], 0), (d[2][0], 1), (d[3][0], 0)]
-        for src, idx in plan:
-            a(f'\t<value condition="$EXP[Home_Is_{sec}] + String.IsEqual(Container({s["list"]}).ListItem.Property(dbid),Container({src}).ListItemAbsolute({idx}).{"TvShowDBID" if src == 9122 else "DBID"})">SetFocus({src},{idx},absolute)</value>')
     a("</variable>")
     # "added 4 Oct" from the region date (dd/mm/yyyy on Omar's box; other formats fall back to the raw date)
     da = "Container(9102).ListItemAbsolute(0).DateAdded"
@@ -796,7 +781,9 @@ def timers():
         t += ["\t<timer>",
               f"\t\t<name>sd_preview_{sec}</name>",
               f"\t\t<start reset=\"false\">Window.IsActive(home) + {IS_SEC[sec]} + System.IdleTime(1) + String.IsEmpty({li}.Property(terminus)) + !String.IsEmpty({li}.Property(dbid)) + {mismatch}</start>",
-              f"\t\t<stop>{same} | !Window.IsActive(home)</stop>",
+              # Kodi checks timers every 500 ms (CApplication::ProcessSlow): a key press before the tick that saw
+              # the match left the timer running for good, and a running timer never restarts (pass 2, 2026-10-21)
+              f"\t\t<stop>{same} | !System.IdleTime(1) | !Window.IsActive(home)</stop>",
               f"\t\t<onstart>SetProperty({P}.pv.title,$ESCINFO[{li}.Label],home)</onstart>",
               f"\t\t<onstart>SetProperty({P}.pv.year,$INFO[{li}.Property(year)],home)</onstart>",
               f"\t\t<onstart>SetProperty({P}.pv.dir,$ESCINFO[{li}.Property(dir)],home)</onstart>",
@@ -845,7 +832,11 @@ def includes():
     inc("Home_Headline", [lbl(60, 140, 900, 96, "Start somewhere", "disp_76", "ink"),
                           '<control type="textbox"><left>720</left><top>176</top><width>1040</width><height>70</height>'
                           "<font>reg_26</font><textcolor>ink2</textcolor><label>$VAR[Home_Sub]</label></control>"])
-    inc("Home_StartLines", [start_list(sec) for sec in SECTIONS])
+    # The three start lines sit in group 9109 so the window's defaultcontrol lands on whichever one is
+    # visible (a group hands focus to its first focusable child). Pointing defaultcontrol at 9110 logged
+    # "Control 9110 ... can't" on every Home open with Series or Music active (it is hidden then).
+    inc("Home_StartLines", ['<control type="group" id="9109">']
+        + ["\t" + x for x in "\n".join(start_list(sec) for sec in SECTIONS).split("\n")] + ["</control>"])
     inc("Home_Preview", [preview_block(), index_preview(), minimap()])
     inc("Home_NowPlaying", [now_playing()])
     # kept for Search (Includes_Search.xml): poster/cover art with fallback
@@ -861,8 +852,9 @@ def includes():
 				<texture background="true" diffuse="$PARAM[mask_round]" colordiffuse="$PARAM[diffuse]">$PARAM[art]</texture></control>
 		</definition>
 	</include>''')
+    parts += ["\t" + x for x in HOME_ENC.include("Home_Encoder")]
     parts.append("</includes>")
-    (OUT / "Includes_Home.xml").write_text("\n".join(parts) + "\n", encoding="utf-8")
+    (OUT / "Includes_Home.xml").write_text(localize_xml(kdk_mute("\n".join(parts)) + "\n", STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 def home_window():
@@ -870,11 +862,11 @@ def home_window():
 <!--
 	GENERATED by _src/make_home.py. Home = "Start somewhere" (board SixDegreesHome).
 	Focus: words 9001 Movies / 9002 Series / 9003 Music, 9005 Search, 9006 Index, 9007 System;
-	start lines 9110 / 9120 / 9130 (OK = board the map); buttons 9151 board / 9152 play / 9153 station page.
+	start lines 9110 / 9120 / 9130 in group 9109 = defaultcontrol (OK = board the map); buttons 9151 board / 9152 play / 9153 station page.
 	Back: buttons -> start line -> section word (Home has nowhere further to go, Kodi keeps it).
 -->
 <window>
-	<defaultcontrol always="true">9110</defaultcontrol>
+	<defaultcontrol always="true">9109</defaultcontrol>
 	<menucontrol>9001</menucontrol>
 	<backgroundcolor>ground</backgroundcolor>
 	<onload condition="$EXP[Home_Is_tvshows]">SetFocus(9120)</onload>
@@ -885,6 +877,7 @@ def home_window():
 	<controls>
 		<include>SD_Background</include>
 		<include>Home_DataLists</include>
+		<include>Home_Encoder</include>
 		<include>Home_Headline</include>
 		<include>Home_StartLines</include>
 		<include>Home_Preview</include>
@@ -893,11 +886,11 @@ def home_window():
 	</controls>
 </window>
 """
-    (OUT / "Home.xml").write_text(w, encoding="utf-8")
+    (OUT / "Home.xml").write_text(localize_xml(w, STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 if __name__ == "__main__":
     includes()
     home_window()
-    (OUT / "Timers.xml").write_text(timers(), encoding="utf-8")
+    (OUT / "Timers.xml").write_text(timers(), encoding="utf-8", newline="\n")
     print("wrote Home.xml, Includes_Home.xml, Timers.xml")

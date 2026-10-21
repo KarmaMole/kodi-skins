@@ -10,6 +10,8 @@ $VAR[Date_<key>] gives "23 June 2026", or the raw label when it isn't in that sh
 Usage: python skins/skin.passepartout/_src/make_dates.py
 """
 from pathlib import Path
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "Includes_Dates.xml"
 MONTHS = "January February March April May June July August September October November December".split()
@@ -48,7 +50,7 @@ def main():
             out.append(f'\t\t<value condition="String.Contains({lab},/{y})">[UPPERCASE]{y}[/UPPERCASE]</value>')
         out.append("\t</variable>")
     out += ["</includes>", ""]
-    OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
+    OUT.write_text(localize_xml("\n".join(out), STRINGS_PO), encoding="utf-8", newline="\n")
     print("wrote", OUT)
 
 

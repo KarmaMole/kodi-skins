@@ -14,8 +14,7 @@
 			<width>page_width</width>
 			<height>140</height>
 			<font>ttl_84</font>
-			<textcolor>ink_bold</textcolor>
-			<label>Keepsake</label>
+			<label>$LOCALIZE[31024]</label>
 		</control>
 	</controls>
 </window>

@@ -51,7 +51,6 @@
 				<font>serif_44</font>
 				<textcolor>lilac</textcolor>
 				<focusedcolor>lilac</focusedcolor>
-				<textoffsetx>24</textoffsetx>
 				<texturefocus />
 				<texturenofocus />
 			</control>
@@ -495,8 +494,6 @@
 						<radiowidth>14</radiowidth>
 						<radioheight>14</radioheight>
 						<radioposx>152</radioposx>
-						<align>left</align>
-						<textoffsetx>14</textoffsetx>
 						<onup>160</onup>
 						<ondown>100</ondown>
 					</control>
@@ -508,8 +505,6 @@
 						<radiowidth>14</radiowidth>
 						<radioheight>14</radioheight>
 						<radioposx>100</radioposx>
-						<align>left</align>
-						<textoffsetx>14</textoffsetx>
 						<onup>162</onup>
 						<ondown>102</ondown>
 					</control>
@@ -521,8 +516,6 @@
 						<radiowidth>14</radiowidth>
 						<radioheight>14</radioheight>
 						<radioposx>100</radioposx>
-						<align>left</align>
-						<textoffsetx>14</textoffsetx>
 						<onup>164</onup>
 						<ondown>104</ondown>
 					</control>

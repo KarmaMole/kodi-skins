@@ -337,7 +337,7 @@
 				<height>list_row_h</height>
 				<font>cap_20</font>
 				<textcolor>muted</textcolor>
-				<label>Nothing here</label>
+				<label>$LOCALIZE[31352]</label>
 				<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 			</control>
 			<include>Misc_HiddenSortControls</include>
@@ -774,7 +774,7 @@
 					<top>80</top>
 					<width>420</width>
 					<height>dialog_row_h</height>
-					<label>PVR &amp; Live TV settings</label>
+					<label>$LOCALIZE[31353]</label>
 					<font>ui_24_bold</font>
 					<textcolor>text</textcolor>
 					<focusedcolor>on_lilac</focusedcolor>
@@ -1108,7 +1108,7 @@
 						<height>88</height>
 						<texture>$INFO[ListItem.Icon]</texture>
 						<portaddress>$INFO[ListItem.FilenameAndPath]</portaddress>
-						<controllerdiffuse>text_secondary</controllerdiffuse>
+						<controllerdiffuse>muted</controllerdiffuse>
 					</control>
 					<control type="image">
 						<left>0</left>
@@ -1161,7 +1161,7 @@
 						<height>88</height>
 						<texture>$INFO[ListItem.Icon]</texture>
 						<portaddress>$INFO[ListItem.FilenameAndPath]</portaddress>
-						<controllerdiffuse>text_primary</controllerdiffuse>
+						<controllerdiffuse>text</controllerdiffuse>
 					</control>
 				</focusedlayout>
 			</control>
@@ -1219,7 +1219,7 @@
 						<texture>$INFO[ListItem.Icon]</texture>
 						<controllerid>$INFO[ListItem.Property(game.controllerid)]</controllerid>
 						<peripherallocation>$INFO[ListItem.FilenameAndPath]</peripherallocation>
-						<controllerdiffuse>text_secondary</controllerdiffuse>
+						<controllerdiffuse>muted</controllerdiffuse>
 					</control>
 				</itemlayout>
 				<focusedlayout width="96" height="96">
@@ -1227,7 +1227,7 @@
 						<texture>$INFO[ListItem.Icon]</texture>
 						<controllerid>$INFO[ListItem.Property(game.controllerid)]</controllerid>
 						<peripherallocation>$INFO[ListItem.FilenameAndPath]</peripherallocation>
-						<controllerdiffuse>text_secondary</controllerdiffuse>
+						<controllerdiffuse>muted</controllerdiffuse>
 					</control>
 				</focusedlayout>
 			</control>
@@ -1282,7 +1282,7 @@
 							<texture>$INFO[ListItem.Icon]</texture>
 							<controllerid>$INFO[ListItem.Property(game.controllerid)]</controllerid>
 							<controlleraddress>$INFO[ListItem.FilenameAndPath]</controlleraddress>
-							<controllerdiffuse>text_secondary</controllerdiffuse>
+							<controllerdiffuse>muted</controllerdiffuse>
 						</control>
 					</itemlayout>
 					<focusedlayout width="96" height="96">
@@ -1290,7 +1290,7 @@
 							<texture>$INFO[ListItem.Icon]</texture>
 							<controllerid>$INFO[ListItem.Property(game.controllerid)]</controllerid>
 							<controlleraddress>$INFO[ListItem.FilenameAndPath]</controlleraddress>
-							<controllerdiffuse>text_secondary</controllerdiffuse>
+							<controllerdiffuse>muted</controllerdiffuse>
 						</control>
 					</focusedlayout>
 				</control>
@@ -1360,5 +1360,143 @@
 				</include>
 			</control>
 		</control>
+	</include>
+	<!-- EPG grid layouts of MyPVRGuide (epggrid 50). Each programme layout has Kodi's label 1 / image 2,
+	     the controls it stretches to the programme's width. -->
+	<include name="Misc_EPGLayouts">
+		<rulerlayout height="45" width="238">
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1</width>
+				<height>45</height>
+				<texture colordiffuse="rule_strong">common/hairline_v.png</texture>
+			</control>
+			<control type="label">
+				<left>10</left>
+				<top>0</top>
+				<width>220</width>
+				<height>45</height>
+				<font>cap_20</font>
+				<textcolor>muted</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+			</control>
+		</rulerlayout>
+		<channellayout height="66" width="300">
+			<control type="label">
+				<left>12</left>
+				<top>0</top>
+				<width>60</width>
+				<height>66</height>
+				<font>num_20</font>
+				<textcolor>muted</textcolor>
+				<label>$INFO[ListItem.ChannelNumberLabel]</label>
+			</control>
+			<control type="label" id="1">
+				<left>76</left>
+				<top>0</top>
+				<width>212</width>
+				<height>66</height>
+				<font>ui_22</font>
+				<textcolor>muted</textcolor>
+				<label>$INFO[ListItem.ChannelName]</label>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<bottom>0</bottom>
+				<width>300</width>
+				<height>rule_h</height>
+				<texture colordiffuse="rule">common/hairline.png</texture>
+			</control>
+		</channellayout>
+		<focusedchannellayout height="66" width="300">
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>list_bar_w</width>
+				<height>66</height>
+				<texture colordiffuse="lilac">common/white.png</texture>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="label">
+				<left>12</left>
+				<top>0</top>
+				<width>60</width>
+				<height>66</height>
+				<font>num_20</font>
+				<textcolor>muted</textcolor>
+				<label>$INFO[ListItem.ChannelNumberLabel]</label>
+			</control>
+			<control type="label" id="1">
+				<left>76</left>
+				<top>0</top>
+				<width>212</width>
+				<height>66</height>
+				<font>ui_22_bold</font>
+				<label>$INFO[ListItem.ChannelName]</label>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<bottom>0</bottom>
+				<width>300</width>
+				<height>rule_h</height>
+				<texture colordiffuse="rule">common/hairline.png</texture>
+			</control>
+		</focusedchannellayout>
+		<itemlayout height="66" width="40">
+			<control type="image" id="2">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture border="8" colordiffuse="rule">sentence/outline6.png</texture>
+			</control>
+			<control type="label" id="1">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>ui_20</font>
+				<textcolor>muted</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+			</control>
+		</itemlayout>
+		<focusedlayout height="66" width="40">
+			<control type="image" id="2">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture border="8" colordiffuse="lilac">sentence/round6.png</texture>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="image" id="2">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture border="8" colordiffuse="rule_strong">sentence/outline6.png</texture>
+				<visible>!Control.HasFocus(50)</visible>
+			</control>
+			<control type="label" id="1">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>ui_20_bold</font>
+				<textcolor>on_lilac</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="label" id="1">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>ui_20</font>
+				<label>$INFO[ListItem.Label]</label>
+				<visible>!Control.HasFocus(50)</visible>
+			</control>
+		</focusedlayout>
 	</include>
 </includes>

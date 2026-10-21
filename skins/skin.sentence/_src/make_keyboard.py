@@ -15,6 +15,8 @@ row from y 620; Done / Cancel / layout / voice / IP down the right at x 1500.
 Usage:  python skins/skin.sentence/_src/make_keyboard.py
 """
 from pathlib import Path
+from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parent.parent / "1080i" / "DialogKeyboard.xml"
 
@@ -61,7 +63,8 @@ def func_button(fid, label, width, cols, ctype, t):
     extra = ""
     if ctype == "radiobutton":
         extra = (f'{t}\t<radiowidth>14</radiowidth>\n{t}\t<radioheight>14</radioheight>\n'
-                 f'{t}\t<radioposx>{width - 24}</radioposx>\n{t}\t<align>left</align>\n{t}\t<textoffsetx>14</textoffsetx>\n')
+                 f'{t}\t<radioposx>{width - 24}</radioposx>\n')
+        # no <align> / <textoffsetx> here: Sen_KeyboardFunc sets them first and Kodi reads only the first copy
     return (f'{t}<control type="{ctype}" id="{fid}">\n'
             f'{t}\t<width>{width}</width>\n{t}\t<height>kb_key_h</height>\n'
             f'{t}\t<label>{label}</label>\n'
@@ -186,7 +189,7 @@ def main():
 	</controls>
 </window>
 '''
-    OUT.write_text(xml, encoding="utf-8")
+    OUT.write_text(finish_xml(strip_defaults(xml, OUT.parent / "Defaults.xml")), encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

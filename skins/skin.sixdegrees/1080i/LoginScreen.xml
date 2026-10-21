@@ -89,7 +89,6 @@
 					<width>240</width>
 					<height>40</height>
 					<font>xb_22</font>
-					<textcolor>ink</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 				</control>
 			</focusedlayout>

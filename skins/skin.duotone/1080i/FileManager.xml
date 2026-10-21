@@ -7,7 +7,7 @@
 -->
 <window>
 	<defaultcontrol always="true">20</defaultcontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>DT_Background</include>
@@ -67,7 +67,7 @@
 			<top>list_top</top>
 			<width>rule_h</width>
 			<height>858</height>
-			<texture colordiffuse="ink">common/hairline_v.png</texture>
+			<texture colordiffuse="$VAR[ink]">common/hairline_v.png</texture>
 		</control>
 		<!-- ====== right -->
 		<control type="label" id="102">

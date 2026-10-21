@@ -88,8 +88,7 @@
 				<width>552</width>
 				<height>56</height>
 				<font>serif_34</font>
-				<textcolor>text</textcolor>
-				<label>What would you like?</label>
+				<label>$LOCALIZE[31300]</label>
 			</control>
 			<control type="list" id="100">
 				<left>12</left>
@@ -108,95 +107,95 @@
 				</include>
 				<content>
 					<item>
-						<label>How Sentence behaves</label>
-						<label2>this skin</label2>
+						<label>$LOCALIZE[31021]</label>
+						<label2>$LOCALIZE[31301]</label2>
 						<property name="index">[UPPERCASE]01[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(skinsettings)</onclick>
 					</item>
 					<item>
-						<label>Kodi's own settings</label>
-						<label2>Kodi</label2>
+						<label>$LOCALIZE[31302]</label>
+						<label2>$LOCALIZE[31303]</label2>
 						<property name="index">[UPPERCASE]02[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(settings)</onclick>
 					</item>
 					<item>
-						<label>Your files</label>
+						<label>$LOCALIZE[31304]</label>
 						<property name="index">[UPPERCASE]03[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(filemanager)</onclick>
 					</item>
 					<item>
-						<label>About this system</label>
+						<label>$LOCALIZE[31305]</label>
 						<property name="index">[UPPERCASE]04[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(systeminfo)</onclick>
 					</item>
 					<item>
-						<label>Add-ons</label>
+						<label>$LOCALIZE[31306]</label>
 						<property name="index">[UPPERCASE]05[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(addonbrowser)</onclick>
 					</item>
 					<item>
-						<label>Update the library</label>
-						<label2>films, shows, music</label2>
+						<label>$LOCALIZE[31307]</label>
+						<label2>$LOCALIZE[31308]</label2>
 						<onclick>SetProperty(sentence.libpanel,update,home)</onclick>
 						<onclick>ActivateWindow(1155)</onclick>
 					</item>
 					<item>
-						<label>Clean the library</label>
-						<label2>films, shows, music</label2>
+						<label>$LOCALIZE[31309]</label>
+						<label2>$LOCALIZE[31308]</label2>
 						<onclick>SetProperty(sentence.libpanel,clean,home)</onclick>
 						<onclick>ActivateWindow(1155)</onclick>
 					</item>
 					<item>
-						<label>Watch live TV</label>
-						<label2>media</label2>
+						<label>$LOCALIZE[31310]</label>
+						<label2>$LOCALIZE[31311]</label2>
 						<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(TVChannels)</onclick>
 						<visible>System.HasPVRAddon</visible>
 					</item>
 					<item>
-						<label>Your favourites</label>
-						<label2>media</label2>
+						<label>$LOCALIZE[31312]</label>
+						<label2>$LOCALIZE[31311]</label2>
 						<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(FavouritesBrowser)</onclick>
 					</item>
 					<item>
-						<label>Browse sources</label>
-						<label2>media</label2>
+						<label>$LOCALIZE[31313]</label>
+						<label2>$LOCALIZE[31311]</label2>
 						<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(Videos,sources://video/,return)</onclick>
 					</item>
 					<item>
-						<label>Leave Kodi</label>
-						<label2>power</label2>
+						<label>$LOCALIZE[31314]</label>
+						<label2>$LOCALIZE[31315]</label2>
 						<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
 						<onclick>Quit()</onclick>
 						<visible>System.ShowExitButton</visible>
 					</item>
 					<item>
-						<label>Restart the Shield</label>
-						<label2>power</label2>
+						<label>$LOCALIZE[31316]</label>
+						<label2>$LOCALIZE[31315]</label2>
 						<property name="index">[UPPERCASE]10[/UPPERCASE]</property>
 						<onclick>Reset()</onclick>
 						<visible>System.CanReboot</visible>
 					</item>
 					<item>
-						<label>Switch it off</label>
-						<label2>power</label2>
+						<label>$LOCALIZE[31317]</label>
+						<label2>$LOCALIZE[31315]</label2>
 						<property name="index">[UPPERCASE]11[/UPPERCASE]</property>
 						<onclick>Powerdown()</onclick>
 						<visible>System.CanPowerDown</visible>
 					</item>
 					<item>
-						<label>More ways to stop</label>
-						<label2>power</label2>
+						<label>$LOCALIZE[31318]</label>
+						<label2>$LOCALIZE[31315]</label2>
 						<property name="index">[UPPERCASE]12[/UPPERCASE]</property>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(shutdownmenu)</onclick>

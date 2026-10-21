@@ -11,7 +11,7 @@
 -->
 <window>
 	<defaultcontrol></defaultcontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>DT_Background</include>
@@ -22,7 +22,6 @@
 			<width>1200</width>
 			<height>24</height>
 			<font>cap_20</font>
-			<textcolor>$VAR[SectionText]</textcolor>
 			<label>$VAR[Music_NPKicker]</label>
 		</control>
 		<include>DT_Clock</include>
@@ -64,7 +63,6 @@
 				<width>1128</width>
 				<height>24</height>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[MusicPlayer.Album]$INFO[MusicPlayer.Year,  ·  ,]$INFO[MusicPlayer.TrackNumber,  ·  Track ,]</label>
 			</control>
 			<include content="Title_NowPlaying"><param name="left" value="0"/><param name="top" value="70"/></include>
@@ -73,9 +71,7 @@
 				<top>246</top>
 				<width>1130</width>
 				<height>64</height>
-				<aligny>center</aligny>
 				<font>an_60</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[MusicPlayer.Artist]</label>
 			</control>
 			<control type="label">
@@ -84,7 +80,6 @@
 				<width>1128</width>
 				<height>24</height>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[MusicPlayer.Genre,,  ·  ]$INFO[MusicPlayer.Codec]$INFO[MusicPlayer.BitRate,  ·  , kbps]$INFO[MusicPlayer.SampleRate,  ·  , kHz]</label>
 			</control>
 			<control type="label">
@@ -103,9 +98,7 @@
 				<top>417</top>
 				<width>1132</width>
 				<height>136</height>
-				<aligny>center</aligny>
 				<font>an_136</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[Player.Time]</label>
 			</control>
 			<control type="label">
@@ -115,7 +108,6 @@
 				<height>24</height>
 				<align>right</align>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[Player.TimeRemaining,−,]$INFO[Player.Duration,  /  ,]</label>
 			</control>
 		</control>
@@ -136,7 +128,6 @@
 			<width>page_width</width>
 			<height>24</height>
 			<font>cap_20</font>
-			<textcolor>$VAR[SectionText]</textcolor>
 			<label>$INFO[MusicPlayer.Title]$INFO[MusicPlayer.Artist,  ·  ,]</label>
 		</control>
 
@@ -156,18 +147,14 @@
 				<height>40</height>
 				<font>cap_20</font>
 				<textoffsetx>14</textoffsetx>
-				<aligny>center</aligny>
-				<textcolor>paper</textcolor>
-				<focusedcolor>paper</focusedcolor>
-				<texturenofocus colordiffuse="ink">common/white.png</texturenofocus>
-				<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-				<label>Up next</label>
+				<textcolor>$VAR[paper]</textcolor>
+				<texturenofocus colordiffuse="$VAR[ink]">common/white.png</texturenofocus>
+				<label>$LOCALIZE[31351]</label>
 			</control>
 			<control type="label">
 				<width max="1500">auto</width>
 				<height>40</height>
 				<font>bold_26</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[MusicPlayer.offset(1).Title]$INFO[MusicPlayer.offset(1).Artist,  ·  ,]</label>
 			</control>
 		</control>

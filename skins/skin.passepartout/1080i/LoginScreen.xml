@@ -89,7 +89,6 @@
 					<width>240</width>
 					<height>40</height>
 					<font>sans_22_med</font>
-					<textcolor>ink</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 				</control>
 			</focusedlayout>
@@ -111,7 +110,6 @@
 			<height>dialog_row_h</height>
 			<label>$LOCALIZE[31022]</label>
 			<font>capw_22</font>
-			<textcolor>ink</textcolor>
 			<focusedcolor>on_ink</focusedcolor>
 			<align>center</align>
 			<textoffsetx>16</textoffsetx>

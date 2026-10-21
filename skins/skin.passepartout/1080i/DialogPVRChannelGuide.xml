@@ -24,7 +24,6 @@
 			<width>1300</width>
 			<height>topbar_item_h</height>
 			<font>ttl_40</font>
-			<textcolor>ink</textcolor>
 			<label>$LOCALIZE[19069]$INFO[Container(11).ListItem.StartDate,  ·  ,]</label>
 		</control>
 		<include>PP_Clock</include>
@@ -80,7 +79,6 @@
 				<width>list_panel_w</width>
 				<height>40</height>
 				<font>sans_22_med</font>
-				<textcolor>ink</textcolor>
 				<label>$INFO[Container(11).ListItem.Label]$INFO[Container(11).ListItem.EpisodeName,  ·  ,]</label>
 			</control>
 			<control type="label">
@@ -98,7 +96,6 @@
 				<width>list_panel_w</width>
 				<height>424</height>  <!-- 13 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<label>$INFO[Container(11).ListItem.Plot]</label>
 				<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
 			</control>

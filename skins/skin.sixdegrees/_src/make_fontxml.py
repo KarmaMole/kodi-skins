@@ -84,13 +84,20 @@ FONTS = [
 ]
 
 
+
+# Estuary font names kept for third-party script windows (add-on dialogs ask for them by name; Kodi only falls
+# back to font13). kdk (the Kodi repository review bot) reports them as unused: each line carries a kdk-ignore.
+ESTUARY_ALIASES = {"font10", "font12", "font14", "font27", "font30", "font37", "font45", "font52_title",
+                   "font45_title", "font36_title", "font30_title", "font25_title"}
+KDK_ALIAS = " <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->"
+
 def font_xml(name, filename, size, ls, style):
     parts = [f"<name>{name}</name>", f"<filename>{filename}</filename>", f"<size>{size}</size>"]
     if ls is not None:
         parts.append(f"<linespacing>{ls}</linespacing>")
     if style:
         parts.append(f"<style>{style}</style>")
-    return "\t\t<font>" + "".join(parts) + "</font>"
+    return "\t\t<font>" + "".join(parts) + "</font>" + (KDK_ALIAS if name in ESTUARY_ALIASES else "")
 
 
 def main():
@@ -110,7 +117,7 @@ def main():
         out.append(font_xml(name, "arial.ttf", size, ls, style))
     out += ["\t</fontset>", "</fonts>", ""]
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text("\n".join(out), encoding="utf-8")
+    OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
     print(f"wrote {OUT} ({len(FONTS)} fonts per set)")
 
 

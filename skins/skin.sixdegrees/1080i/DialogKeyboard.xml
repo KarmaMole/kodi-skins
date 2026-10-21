@@ -33,7 +33,6 @@
 				<width>page_width</width>
 				<height>28</height>
 				<font>caps_20</font>
-				<textcolor>ink</textcolor>
 			</control>
 			<control type="image">
 				<left>page_margin</left>
@@ -48,8 +47,6 @@
 				<width>page_width</width>
 				<height>76</height>
 				<font>semi_28</font>
-				<textcolor>ink</textcolor>
-				<textoffsetx>24</textoffsetx>
 				<texturefocus />
 				<texturenofocus />
 			</control>

@@ -16,6 +16,8 @@
 <includes>
 	<!-- ============================================================ shared -->
 	<expression name="Lib_LibraryActions">!Container.Content(addons) + String.IsEmpty(Container.PluginName)</expression>
+	<!-- the Sets row (docs/requests/SETS_AND_RM_BRIEF.md): films (or the films root) from the library, and the library has sets -->
+	<expression name="Lib_ShowSets">Window.IsActive(videos) + [Container.Content(movies) | String.IsEqual(Container.FolderPath,videodb://movies/)] + Library.HasContent(moviesets) + String.IsEmpty(Container.PluginName)</expression>
 
 	<variable name="Lib_SortOrder">
 		<value condition="Container.SortDirection(descending)">$LOCALIZE[585]</value>
@@ -148,6 +150,7 @@
 					<top>190</top>
 					<width>600</width>
 					<height>700</height>
+					<!-- frames per visible-row count: 56 caption + 68 per row (films: up to 9 rows with Sets) -->
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
@@ -178,7 +181,15 @@
 						<width>600</width>
 						<height>600</height>
 						<texture border="2">dialogs/panel_framed.png</texture>
-						<visible>Integer.IsGreaterOrEqual(Container(9801).NumItems,8)</visible>
+						<visible>Integer.IsEqual(Container(9801).NumItems,8)</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>600</width>
+						<height>668</height>
+						<texture border="2">dialogs/panel_framed.png</texture>
+						<visible>Integer.IsGreaterOrEqual(Container(9801).NumItems,9)</visible>
 					</control>
 					<control type="label">
 						<left>24</left>
@@ -203,7 +214,7 @@
 						<left>12</left>
 						<top>56</top>
 						<width>576</width>
-						<height>544</height>
+						<height>612</height>
 						<onup>9801</onup>
 						<ondown>9801</ondown>
 						<onleft>noop</onleft>
@@ -241,6 +252,15 @@
 								<label2>$VAR[Lib_Unwatched]</label2>
 								<onclick>SendClick(14)</onclick>
 								<visible>$PARAM[is_video] + $EXP[VidView_IsLibraryVideo] + !$EXP[VidView_IsInProgressTV]</visible>
+							</item>
+							<!-- Sets: the films' sets in this same window; Container.Update keeps the history, so Back walks
+							     set -> all sets -> films. SetFocus(50) hands focus to the view on show (the card fades out). -->
+							<item>
+								<label>$LOCALIZE[20434]</label>
+								<label2>$LOCALIZE[31316]</label2>
+								<onclick>Container.Update(videodb://movies/sets/)</onclick>
+								<onclick>SetFocus(50)</onclick>
+								<visible>$PARAM[is_video] + $EXP[Lib_ShowSets]</visible>
 							</item>
 							<item>
 								<label>$LOCALIZE[137]</label>

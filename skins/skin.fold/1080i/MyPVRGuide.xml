@@ -37,142 +37,7 @@
 				<rulerunit>6</rulerunit>
 				<viewtype label="19069">list</viewtype>
 				<progresstexture border="0,0,2,0" colordiffuse="$VAR[FoldAccent]">misc/epg_now.png</progresstexture>
-				<rulerlayout height="45" width="238">
-					<control type="image">
-						<left>0</left>
-						<top>0</top>
-						<width>1</width>
-						<height>45</height>
-						<texture colordiffuse="rule">common/hairline_v.png</texture>
-					</control>
-					<control type="label">
-						<left>10</left>
-						<top>0</top>
-						<width>220</width>
-						<height>45</height>
-						<font>caps_20</font>
-						<textcolor>cap</textcolor>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-				</rulerlayout>
-				<channellayout height="66" width="300">
-					<control type="label">
-						<left>12</left>
-						<top>0</top>
-						<width>60</width>
-						<height>66</height>
-						<font>num_20</font>
-						<textcolor>cap</textcolor>
-						<label>$INFO[ListItem.ChannelNumberLabel]</label>
-					</control>
-					<control type="label" id="1">
-						<left>76</left>
-						<top>0</top>
-						<width>212</width>
-						<height>66</height>
-						<font>body_22</font>
-						<textcolor>ink2</textcolor>
-						<label>$INFO[ListItem.ChannelName]</label>
-					</control>
-					<control type="image">
-						<left>0</left>
-						<bottom>0</bottom>
-						<width>300</width>
-						<height>rule_h</height>
-						<texture colordiffuse="rule_soft">common/hairline.png</texture>
-					</control>
-				</channellayout>
-				<focusedchannellayout height="66" width="300">
-					<control type="image">
-						<left>0</left>
-						<top>0</top>
-						<width>list_bar_w</width>
-						<height>66</height>
-						<texture colordiffuse="$VAR[FoldAccent]">common/white.png</texture>
-						<visible>Control.HasFocus(50)</visible>
-					</control>
-					<control type="label">
-						<left>12</left>
-						<top>0</top>
-						<width>60</width>
-						<height>66</height>
-						<font>num_20</font>
-						<textcolor>ink2</textcolor>
-						<label>$INFO[ListItem.ChannelNumberLabel]</label>
-					</control>
-					<control type="label" id="1">
-						<left>76</left>
-						<top>0</top>
-						<width>212</width>
-						<height>66</height>
-						<font>sans_22_semi</font>
-						<textcolor>ink</textcolor>
-						<label>$INFO[ListItem.ChannelName]</label>
-					</control>
-					<control type="image">
-						<left>0</left>
-						<bottom>0</bottom>
-						<width>300</width>
-						<height>rule_h</height>
-						<texture colordiffuse="rule_soft">common/hairline.png</texture>
-					</control>
-				</focusedchannellayout>
-				<itemlayout height="66" width="40">
-					<control type="image" id="2">
-						<left>0</left>
-						<top>0</top>
-						<width>40</width>
-						<height>66</height>
-						<texture border="10" colordiffuse="rule_soft">common/rect_outline_1.png</texture>
-					</control>
-					<control type="label" id="1">
-						<left>12</left>
-						<top>0</top>
-						<width>20</width>
-						<height>66</height>
-						<font>body_20</font>
-						<textcolor>ink2</textcolor>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-				</itemlayout>
-				<focusedlayout height="66" width="40">
-					<control type="image" id="2">
-						<left>0</left>
-						<top>0</top>
-						<width>40</width>
-						<height>66</height>
-						<texture border="10" colordiffuse="$VAR[FoldAccent]">common/rect_square.png</texture>
-						<visible>Control.HasFocus(50)</visible>
-					</control>
-					<control type="image" id="2">
-						<left>0</left>
-						<top>0</top>
-						<width>40</width>
-						<height>66</height>
-						<texture border="10" colordiffuse="rule_strong">common/rect_outline_1.png</texture>
-						<visible>!Control.HasFocus(50)</visible>
-					</control>
-					<control type="label" id="1">
-						<left>12</left>
-						<top>0</top>
-						<width>20</width>
-						<height>66</height>
-						<font>sans_20_semi</font>
-						<textcolor>on_card</textcolor>
-						<label>$INFO[ListItem.Label]</label>
-						<visible>Control.HasFocus(50)</visible>
-					</control>
-					<control type="label" id="1">
-						<left>12</left>
-						<top>0</top>
-						<width>20</width>
-						<height>66</height>
-						<font>body_20</font>
-						<textcolor>ink</textcolor>
-						<label>$INFO[ListItem.Label]</label>
-						<visible>!Control.HasFocus(50)</visible>
-					</control>
-				</focusedlayout>
+				<include>Misc_EPGLayouts</include>  <!-- Includes_Misc.xml: label 1 / image 2 in every layout (Kodi stretches them) -->
 			</control>
 			<include content="Misc_EmptyStateButton">
 				<param name="top" value="misc_pvr_top"/>
@@ -210,7 +75,6 @@
 					<width max="1000">auto</width>
 					<height>40</height>
 					<font>sans_22_semi</font>
-					<textcolor>ink</textcolor>
 					<label>$VAR[Misc_PVRTitle]$INFO[ListItem.EpisodeName,  ·  ,]</label>
 				</control>
 				<control type="label">
@@ -228,7 +92,6 @@
 				<width>page_width</width>
 				<height>66</height>
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<label>$INFO[ListItem.Plot]</label>
 				<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
 			</control>

@@ -34,20 +34,6 @@
 	<!-- Date + clock, right side of the top bar (DESIGN 7.4) -->
 
 
-	<!-- Page header for library / settings windows: mono index (accent) + page name.
-	     params: index ("02"), title (label), sub (optional mono caption after the title) -->
-	<include name="Noc_PageHeader">
-		<param name="index"></param>
-		<param name="title"></param>
-		<param name="sub"></param>
-		<definition>
-			<include content="Noc_Crumbs">
-				<param name="first" value="$PARAM[title]"/>
-				<param name="second" value="$PARAM[sub]"/>
-			</include>
-		</definition>
-	</include>
-
 	<!-- Full top bar for non-Home windows: header + clock + rule -->
 	<include name="Noc_TopBar">
 		<param name="index"></param>
@@ -64,21 +50,6 @@
 	</include>
 
 	<!-- ===================================================== focus frames -->
-	<!-- Put inside a group sized to the item; the frame grows 7px on each side (DESIGN 7.2).
-	     param visible: condition (e.g. Control.HasFocus(9110)); omit inside focusedlayouts. -->
-	<include name="Noc_FocusFrame">
-		<param name="visible">true</param>
-		<definition>
-			<control type="image">
-				<left>focus_out</left>
-				<top>focus_out</top>
-				<right>focus_out</right>
-				<bottom>focus_out</bottom>
-				<texture border="16" colordiffuse="light">$VAR[FocusFrame]</texture>
-				<visible>$PARAM[visible]</visible>
-			</control>
-		</definition>
-	</include>
 	<!-- Same, but never hidden by the "Off" setting (buttons, menus, dialogs) -->
 	<include name="Noc_FocusFrameAlways">
 		<param name="visible">true</param>
@@ -95,52 +66,6 @@
 	</include>
 
 	<!-- ========================================================== posters -->
-	<!-- Poster/cover image with corner mask chosen at window load (DESIGN 7.1; changing the
-	     corners setting runs ReloadSkin()). Sits inside a group of the poster size.
-	     params: art (infolabel), mask_round, mask_square, title (fallback label) -->
-	<include name="Noc_Artwork">
-		<param name="art">$INFO[ListItem.Art(poster)]</param>
-		<param name="mask_round">masks/poster_round8.png</param>
-		<param name="mask_square">masks/poster_square.png</param>
-		<param name="title">$INFO[ListItem.Label]</param>
-		<definition>
-			<!-- fallback: raised block + title, covered by the artwork when it loads -->
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<texture colordiffuse="bg_raised">common/white.png</texture>
-			</control>
-			<control type="label">
-				<left>12</left>
-				<right>12</right>
-				<top>12</top>
-				<height>60</height>
-				<font>sans_20</font>
-				<textcolor>text_secondary</textcolor>
-				<label>$PARAM[title]</label>
-			</control>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<aspectratio>scale</aspectratio>
-				<texture background="true" diffuse="$PARAM[mask_round]">$PARAM[art]</texture>
-				<visible>false</visible>
-			</control>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<aspectratio>scale</aspectratio>
-				<texture background="true">$PARAM[art]</texture>
-				<visible>true</visible>
-			</control>
-		</definition>
-	</include>
 
 	<!-- Watched markers for a movie/episode poster (DESIGN 7.3 / SPEC 6). Inside the poster group. -->
 	<include name="Noc_WatchedMarkers">
@@ -173,10 +98,6 @@
 		<texturefocus border="30,0,30,0">noc/rail_on.png</texturefocus>
 		<texturenofocus border="26,0,26,0">noc/plaque_dim.png</texturenofocus>
 	</include>
-	<include name="Noc_Tex_ButtonSecondary_Round">
-		<texturefocus border="10" colordiffuse="text_primary">common/rect_outline_1_round8.png</texturefocus>
-		<texturenofocus border="10" colordiffuse="border_button">common/rect_outline_1_round8.png</texturenofocus>
-	</include>
 
 	<!-- Primary (accent fill, ink text) / secondary (1px outline) action buttons, 58px.
 	     Each lives in its own group so the focus frame can grow around it.
@@ -186,15 +107,15 @@
 		<param name="visible">true</param>
 		<param name="top">0</param>
 		<param name="icon"></param>
-		<param name="onup"></param>
-		<param name="ondown"></param>
-		<param name="onleft"></param>
+		<param name="onup">noop</param>
+		<param name="ondown">noop</param>
+		<param name="onleft">noop</param>
 		<param name="onleft_if">false</param>
 		<param name="onleft_then">noop</param>
-		<param name="onright"></param>
+		<param name="onright">noop</param>
 		<param name="onright_if">false</param>
 		<param name="onright_then">noop</param>
-		<param name="onback"></param>
+		<param name="onback">noop</param>
 		<definition>
 			<control type="group">
 				<left>$PARAM[left]</left>
@@ -228,15 +149,15 @@
 		<param name="top">0</param>
 		<param name="focus_also">false</param>
 		<param name="onclick2">noop</param>
-		<param name="onup"></param>
-		<param name="ondown"></param>
-		<param name="onleft"></param>
+		<param name="onup">noop</param>
+		<param name="ondown">noop</param>
+		<param name="onleft">noop</param>
 		<param name="onleft_if">false</param>
 		<param name="onleft_then">noop</param>
-		<param name="onright"></param>
+		<param name="onright">noop</param>
 		<param name="onright_if">false</param>
 		<param name="onright_then">noop</param>
-		<param name="onback"></param>
+		<param name="onback">noop</param>
 		<definition>
 			<control type="group">
 				<left>$PARAM[left]</left>

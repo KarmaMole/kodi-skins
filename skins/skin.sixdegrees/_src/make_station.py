@@ -9,7 +9,7 @@ resumable; browse for tvshow / season / set), 9 resume (enabled by Kodi only wit
 kept offscreen and clicked from our pills (SendClick) so every pill has a fixed width (rule 5).
 
 Six Degrees ids: 9000 pill row (9001 Play/Resume, 9002 From start, 9003 Trailer, 9004 Board this line,
-9005 More), 9100 More row, 9200 full story, 9301-9304 the four lines (OK = board the map on that line),
+9005 More), 9100 More row, 9200 full story (focus 61 / 9203), 9301-9304 the four lines (OK = board the map on that line),
 data: 9601 skinvariables details, 9611-9614 lines, 9621-9623 second-star probes.
 A map station opened with Info is a script.skinvariables item (a folder): Play then uses its file.
 
@@ -20,9 +20,11 @@ from __future__ import annotations
 from pathlib import Path
 
 from PIL import ImageFont
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
 
 from make_map import (P, RM, OPEN, rule, close, prop, info, img, lbl, group, DEPTH, FIELDS, push_actions,
-                      ruleq, esc_info, url_safe, qvar)
+                      ruleq, qvar, kdk_mute, Encoder, excl_value)
 
 HERE = Path(__file__).resolve().parent
 SKIN = HERE.parent
@@ -62,6 +64,11 @@ def tag(name, value, cond=None):
     return f"<{name}{c}>{value}</{name}>"
 
 
+# gate: the details list has this item (movie / show), or there is no details list for this kind
+ST_ENC = Encoder("Station", ["ListItem.DBType", "ListItem.DBID", "Container(9601).ListItem.DBID"],
+                 f"[$EXP[St_Match] | [!{IS_MOVIE} + !{IS_TV}]]")
+
+
 # ------------------------------------------------------------------ variables
 def variables():
     v = []
@@ -80,7 +87,6 @@ def variables():
     a("</variable>")
     for n in range(4):
         a(f'<variable name="St_Cast{n}"><value condition="$EXP[St_Match]">$INFO[Container(9601).ListItem.Property(cast.{n}.name)]</value></variable>')
-    a('<variable name="St_Genre"><value condition="$EXP[St_Match]">$INFO[Container(9601).ListItem.Property(genre.0)]</value></variable>')
     a('<variable name="St_Co">')
     for n, cid in ((1, 9621), (2, 9622), (3, 9623)):
         a(f'\t<value condition="Integer.IsGreaterOrEqual(Container({cid}).NumItems,2)">$VAR[St_Cast{n}]</value>')
@@ -90,17 +96,17 @@ def variables():
     v.extend(qvar("St_UpQ", [(f"$EXP[St_Match] + {IS_TV}", "Container(9601).ListItem.Property(studio.0)"),
                              ("$EXP[St_Match]", "Container(9601).ListItem.Property(director.0)"),
                              (IS_TV, "ListItem.Studio"),
-                             (None, "ListItem.Director")]))
+                             (None, "ListItem.Director")], ST_ENC))
     for n in range(4):
-        v.extend(qvar(f"St_Cast{n}Q", [("$EXP[St_Match]", f"Container(9601).ListItem.Property(cast.{n}.name)")]))
-    v.extend(qvar("St_GenreQ", [("$EXP[St_Match]", "Container(9601).ListItem.Property(genre.0)")]))
+        v.extend(qvar(f"St_Cast{n}Q", [("$EXP[St_Match]", f"Container(9601).ListItem.Property(cast.{n}.name)")], ST_ENC))
+    v.extend(qvar("St_GenreQ", [("$EXP[St_Match]", "Container(9601).ListItem.Property(genre.0)")], ST_ENC))
     a('<variable name="St_CoQ">')
     for n, cid in ((1, 9621), (2, 9622), (3, 9623)):
         a(f'\t<value condition="Integer.IsGreaterOrEqual(Container({cid}).NumItems,2)">$VAR[St_Cast{n}Q]</value>')
     a("\t<value>$VAR[St_Cast1Q]</value>")
     a("</variable>")
     a('<variable name="St_Excl">')
-    a(f'\t<value condition="{url_safe("ListItem.Title")}">%2C{ruleq("title", "isnot", esc_info("ListItem.Title"))}</value>')
+    a("\t" + excl_value(ST_ENC, "title", "ListItem.Title"))
     a("</variable>")
     roots = {"movies": "videodb://movies/titles/?xsp=", "tvshows": "videodb://tvshows/titles/?xsp="}
     upf = {"movies": "director", "tvshows": "studio"}
@@ -147,11 +153,31 @@ def variables():
     a('<variable name="St_Caption">')
     a(f'\t<value condition="{IS_EP}">Station · $INFO[ListItem.TVShowTitle] · $INFO[ListItem.Season,S,]$INFO[ListItem.Episode, E,]</value>')
     a(f'\t<value condition="{IS_SEASON}">Station · $INFO[ListItem.TVShowTitle]</value>')
-    a(f'\t<value condition="{IS_SET}">Collection$INFO[Container(50).NumItems, · , films]</value>')
+    # 0.9.10: the Line view shows this caption too, where Container(50) is not the set's films ("0 films" for a
+    # 4-film set); a set item carries its count in Property(Total) (Daylight / Fold); the dialog's list 50 stays
+    # the fallback
+    a(f'\t<value condition="{IS_SET} + !String.IsEmpty(ListItem.Property(Total))">Collection$INFO[ListItem.Property(Total), · , films]</value>')
+    a(f'\t<value condition="{IS_SET} + Window.IsVisible(movieinformation)">Collection$INFO[Container(50).NumItems, · , films]</value>')
+    a(f'\t<value condition="{IS_SET}">Collection</value>')
     a("\t<value>Station$INFO[ListItem.Year, · ,] · $VAR[St_GenreCaps]</value>")
     a("</variable>")
     a('<variable name="St_GenreCaps"><value>$INFO[ListItem.Genre]</value></variable>')
     # facts row values (separators drawn as hair pipes)
+    # 0.9.10: a pipe shows only between two shown parts (part shown + any earlier part shown). Sets have no
+    # director / time / MPAA, so the old per-part pipes drew a stray "|" before the rating. Used by the
+    # station page and the Line view (Includes_Views_Video.xml).
+    tvlike = f"[{IS_TV} | {IS_EP} | {IS_SEASON}]"
+    on = {"Lead": f"[{tvlike} + !String.IsEmpty(ListItem.Studio)] | [!{tvlike} + !String.IsEmpty(ListItem.Director)]",
+          "Time": f"Integer.IsGreater(ListItem.Duration,0) | [{IS_TV} + !String.IsEmpty(ListItem.Property(TotalSeasons))]",
+          "Mpaa": "!String.IsEmpty(ListItem.MPAA)",
+          "Rating": "!String.IsEmpty(ListItem.Rating)"}
+    keys = list(on)
+    for k in keys:
+        a(f'<expression name="St_Fact{k}_On">[{on[k]}]</expression>')  # bracketed: safe inside + and |
+    for i, k in enumerate(keys[1:] + ["Watched"], start=1):
+        before = " | ".join(f"$EXP[St_Fact{x}_On]" for x in keys[:i])
+        mine = "" if k == "Watched" else f"$EXP[St_Fact{k}_On] + "
+        a(f'<expression name="St_FactPipe_{k}">{mine}[{before}]</expression>')
     a('<variable name="St_FactLead">')
     a(f'\t<value condition="{IS_TV} | {IS_EP} | {IS_SEASON}">$INFO[ListItem.Studio]</value>')
     a("\t<value>$INFO[ListItem.Director]</value>")
@@ -188,10 +214,6 @@ def variables():
     a('\t<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>')
     a('\t<value condition="!String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>')
     a("\t<value>$INFO[ListItem.Art(tvshow.fanart)]</value>")
-    a("</variable>")
-    a('<variable name="St_BackHint">')
-    a('\t<value condition="Window.IsVisible(1160)">back to the map</value>')
-    a("\t<value>back</value>")
     a("</variable>")
     for key, col, arrow, kind, cid, tx in ROWS:
         a(f'<expression name="St_Row_{key}">{HAS_LINES} + Integer.IsGreater(Container({cid}).NumItems,0) + !Container({cid}).IsUpdating + [$EXP[St_Match] | !{sv}]</expression>')
@@ -238,20 +260,20 @@ def text_column():
     ch.append(lbl(TX - 4, 196, 1380, 104, "$INFO[ListItem.Title]", "disp_84", "ink", vis="!Integer.IsGreater(Container(9701).NumPages,1)"))
     ch.append(lbl(TX - 2, 210, 1380, 80, "$INFO[ListItem.Title]", "disp_60", "ink", vis="Integer.IsGreater(Container(9701).NumPages,1)"))
     # facts: Director | 1 h 40 | Rated R | (star) 8.0 | Studio | never watched
-    def fact(text, vis="true", first=False):
+    def fact(text, vis="true", first=False, pipe_vis=None):
         pipe = "" if first else ('<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor>'
-                                 f"<align>center</align><label>|</label><visible>{vis}</visible></control>")
+                                 f"<align>center</align><label>|</label><visible>{pipe_vis or vis}</visible></control>")
         return pipe + (f'<control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor>'
                        f"<label>{text}</label><visible>{vis}</visible></control>")
     gl = ['<control type="grouplist"><left>480</left><top>308</top><width>1376</width><height>40</height>',
           "<orientation>horizontal</orientation><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords>",
-          fact("$VAR[St_FactLead]", "!String.IsEmpty(ListItem.Director) | !String.IsEmpty(ListItem.Studio)", first=True),
-          fact("$VAR[St_FactTime]", "Integer.IsGreater(ListItem.Duration,0) | String.IsEqual(ListItem.DBType,tvshow)"),
-          fact("$INFO[ListItem.MPAA]", "!String.IsEmpty(ListItem.MPAA)"),
-          '<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>!String.IsEmpty(ListItem.Rating)</visible></control>',
+          fact("$VAR[St_FactLead]", "$EXP[St_FactLead_On]", first=True),
+          fact("$VAR[St_FactTime]", "$EXP[St_FactTime_On]", pipe_vis="$EXP[St_FactPipe_Time]"),
+          fact("$INFO[ListItem.MPAA]", "$EXP[St_FactMpaa_On]", pipe_vis="$EXP[St_FactPipe_Mpaa]"),
+          '<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Rating]</visible></control>',
           '<control type="image"><top>9</top><width>22</width><height>22</height><texture colordiffuse="ink">sd/star.png</texture><visible>!String.IsEmpty(ListItem.Rating)</visible></control>',
           '<control type="label"><left>8</left><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$INFO[ListItem.Rating]</label><visible>!String.IsEmpty(ListItem.Rating)</visible></control>',
-          fact("$VAR[St_FactWatched]"),
+          fact("$VAR[St_FactWatched]", pipe_vis="$EXP[St_FactPipe_Watched]"),
           "</control>"]
     ch.append("\n".join(gl))
     # journey: now -> arrives (OSD idea as an inset)
@@ -386,7 +408,11 @@ def more_row():
     items = [(443, "Collection", ["Dialog.Close(all,true)", "ActivateWindow(Videos,videodb://movies/sets/$INFO[ListItem.SetId]/?setid=$INFO[ListItem.SetId],return)"],
               "!String.IsEmpty(ListItem.SetID)"),
              (9202, "Trailer", ["SendClick(11)"], "!Skin.HasSetting(sixdegrees.hidetrailer) + !String.IsEmpty(ListItem.Trailer) + Control.IsEnabled(9) + !ListItem.IsFolder"),
-             (9201, "Full story", ["SetFocus(9200)"], "!String.IsEmpty(ListItem.Plot)"),
+             # the card is always processed (faded out), so the textbox's page count is known: a plot longer than
+             # the card opens on its scrollbar (Up / Down scroll), a short one on the card's own focus holder 9203
+             (9201, "Full story", [("SetFocus(61)", "Integer.IsGreater(Container(9200).NumPages,1)"),
+                                   ("SetFocus(9203)", "!Integer.IsGreater(Container(9200).NumPages,1)")],
+              "!String.IsEmpty(ListItem.Plot)"),
              (13, "More by director", None, "!String.IsEmpty(ListItem.Director) + !ListItem.IsFolder"),
              (7, "My rating$INFO[ListItem.UserRating,: ,]", None, "Control.IsEnabled(7)"),
              (14, "Versions", None, f"{IS_MOVIE} + !ListItem.IsFolder"),
@@ -406,7 +432,7 @@ def more_row():
              '<texturenofocus border="24" colordiffuse="hair">sd/pill_48_o3.png</texturenofocus>',
              f"<label>{label}</label><visible>{vis}</visible>"]
         if acts:
-            b += [tag("onclick", a) for a in acts]
+            b += [tag("onclick", *a) if isinstance(a, tuple) else tag("onclick", a) for a in acts]
         b.append("</control>")
         gl.append("".join(b))
     gl.append("</control>")
@@ -546,20 +572,27 @@ def set_films():
 
 
 def full_story():
+    """The full plot on a card over the page. The card is always processed but faded out until 61 / 9203 have focus
+    (a hidden group's textbox has no page count and its scrollbar can't take focus; the textbox itself never can).
+    Back / Left return to the Full story pill 9201 (if the More row can't take it, the grouplist's own Back: 9005)."""
+    shown = "Control.HasFocus(61) | Control.HasFocus(9203)"
     return group([
-        img(-2000, -2000, 6000, 6000, "common/white.png", diffuse="veil",
-            extra='<animation effect="fade" start="0" end="100" time="160">Visible</animation>'),
+        img(-2000, -2000, 6000, 6000, "common/white.png", diffuse="veil"),
         img(320 - 60, 140 - 46, 1280 + 120, 800 + 120, "sd/shadow_card.png", diffuse="shadow", border="90"),
         img(320, 140, 1280, 800, "sd/rr20.png", diffuse="card", border="20"),
         lbl(384, 180, 1100, 30, "The full story", "caps_21", "ink2", aligny="top"),
         lbl(384, 212, 1152, 70, "$INFO[ListItem.Title]", "disp_52", "ink"),
         '<control type="textbox" id="9200"><left>384</left><top>310</top><width>1100</width><height>585</height>'
         "<font>reg_26</font><textcolor>body</textcolor><label>$INFO[ListItem.Plot]</label>"
-        "<pagecontrol>61</pagecontrol><onback>9005</onback><onleft>9005</onleft><onup>9200</onup><ondown>9200</ondown>"
-        "<onclick>SetFocus(9005)</onclick></control>",
+        "<pagecontrol>61</pagecontrol></control>",
         '<control type="scrollbar" id="61"><left>1520</left><top>310</top><width>6</width><height>585</height>'
-        "<orientation>vertical</orientation><onleft>9200</onleft><onback>9005</onback></control>",
-    ], vis="Control.HasFocus(9200) | Control.HasFocus(61)", desc="full story")
+        "<orientation>vertical</orientation><onleft>9201</onleft><onback>9201</onback></control>",
+        '<control type="button" id="9203"><left>320</left><top>140</top><width>1280</width><height>800</height>'
+        "<texturefocus /><texturenofocus /><label></label>"
+        "<onup>noop</onup><ondown>noop</ondown><onleft>9201</onleft><onright>noop</onright><onback>9201</onback></control>",
+    ], anims=(f'<animation effect="fade" start="100" end="0" time="0" condition="![{shown}]">Conditional</animation>\n'
+              f'<animation effect="fade" start="0" end="100" time="160" condition="{shown}">Conditional</animation>'),
+        desc="full story")
 
 
 def includes():
@@ -581,8 +614,9 @@ def includes():
     inc("St_Buttons", [buttons(), more_row()])
     inc("St_SetFilms", set_films())
     inc("St_FullStory", [full_story()])
+    parts += ["\t" + x for x in ST_ENC.include("St_Encoder")]
     parts.append("</includes>")
-    (OUT / "Includes_VideoInfo.xml").write_text("\n".join(parts) + "\n", encoding="utf-8")
+    (OUT / "Includes_VideoInfo.xml").write_text(localize_xml(kdk_mute("\n".join(parts)) + "\n", STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 def window():
@@ -591,7 +625,7 @@ def window():
 	GENERATED by _src/make_station.py. The station page (board SixDegreesStation): poster in an interchange
 	ring, title, facts, now -> arrives, plot, fanart, pills, and the four lines out of this station with their
 	counts (OK on a line boards the map on it). Kodi id contract and Six Degrees ids: see the generator.
-	Focus: 9000 pills (Down -> the lines, or the films of a collection), More -> 9100, Full story -> 9200.
+	Focus: 9000 pills (Down -> the lines, or the films of a collection), More -> 9100, Full story -> 61 (scrollbar) or 9203.
 -->
 <window>
 	<defaultcontrol always="true">9000</defaultcontrol>
@@ -600,6 +634,7 @@ def window():
 	<controls>
 		<include>SD_Background</include>
 		<include>St_Data</include>
+		<include>St_Encoder</include>
 		<include>St_Lines</include>
 		<include>St_Poster</include>
 		<include>St_Text</include>
@@ -610,7 +645,7 @@ def window():
 	</controls>
 </window>
 """
-    (OUT / "DialogVideoInfo.xml").write_text(w, encoding="utf-8")
+    (OUT / "DialogVideoInfo.xml").write_text(localize_xml(w, STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 if __name__ == "__main__":

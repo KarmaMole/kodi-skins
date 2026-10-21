@@ -17,6 +17,7 @@ Window(Home) properties
   fold.n.films / fold.n.series / fold.n.music   tab counts for the other windows' decorative tabs
 """
 from pathlib import Path
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "Includes_Home.xml"
 
@@ -45,16 +46,18 @@ ROWB_FOCUS = {
 RM = "Skin.HasSetting(fold.reducemotion)"
 
 
-def anim_focus_lift(cx, bottom, scale):
+def anim_focus_lift(cx, bottom, scale, list_id):
     """Lift on focus (0.9.3): ONE zoom + tilt on ONE group, about the bottom edge, 180 ms sine out, no overshoot.
-    Both layouts are the resting size, so the row never reflows; the lift is the zoom."""
+    Both layouts are the resting size, so the row never reflows; the lift is the zoom.
+    Reduce motion (0.9.8): the lifted state is a time-0 Conditional on the list's focus, not a second Focus animation
+    (Kodi resets only the FIRST Focus animation on unfocus, so a reduce-motion Focus twin stayed lifted)."""
     z = f"{scale:.1f}"
     return f"""
 						<animation type="Focus" condition="!{RM}">
 							<effect type="zoom" start="100" end="{z}" center="{cx},{bottom}" time="180" tween="sine" easing="out"/>
 							<effect type="rotatex" start="0" end="-9" center="{bottom}" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="{RM}">
+						<animation type="Conditional" condition="{RM} + Control.HasFocus({list_id})">
 							<effect type="zoom" start="{z}" end="{z}" center="{cx},{bottom}" time="0"/>
 							<effect type="rotatex" start="-9" end="-9" center="{bottom}" time="0"/>
 						</animation>
@@ -171,7 +174,7 @@ def card_layout(kind, focused, list_id):
 						<top>{top}</top>
 						<width>{w}</width>
 						<height>{h}</height>
-						<camera x="{PAD + w // 2}" y="{CAM_Y}"/>{anim_focus_lift(cx, bottom, scale) if focused else ''}
+						<camera x="{PAD + w // 2}" y="{CAM_Y}"/>{anim_focus_lift(cx, bottom, scale, list_id) if focused else ''}
 						<include content="Fold_CardBody">
 							<param name="w" value="{w}"/>
 							<param name="h" value="{h}"/>
@@ -239,7 +242,7 @@ def cream_card(focused, list_id, kind):
 						<animation type="Focus" condition="!{RM}">
 							<effect type="slide" start="0,0" end="0,-10" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="{RM}">
+						<animation type="Conditional" condition="{RM} + Control.HasFocus({list_id})">
 							<effect type="slide" start="0,-10" end="0,-10" time="0"/>
 						</animation>
 						<animation type="Unfocus" condition="!{RM}">
@@ -1028,7 +1031,7 @@ def build():
 </includes>
 """)
     out = postprocess("".join(x))
-    OUT.write_text(out, encoding="utf-8", newline="\n")
+    OUT.write_text(finish_xml(out), encoding="utf-8", newline="\n")
     print("Includes_Home.xml written")
 
 

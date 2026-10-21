@@ -343,3 +343,487 @@ msgstr ""
 msgctxt "#31204"
 msgid "Settings"
 msgstr ""
+
+msgctxt "#31300"
+msgid "Kodi"
+msgstr ""
+
+msgctxt "#31301"
+msgid "Live TV"
+msgstr ""
+
+msgctxt "#31302"
+msgid "Media"
+msgstr ""
+
+msgctxt "#31303"
+msgid "More"
+msgstr ""
+
+msgctxt "#31304"
+msgid "Add-on"
+msgstr ""
+
+msgctxt "#31305"
+msgid "About this setting"
+msgstr ""
+
+msgctxt "#31306"
+msgid "Timer"
+msgstr ""
+
+msgctxt "#31307"
+msgid "Left / right: channel group"
+msgstr ""
+
+msgctxt "#31308"
+msgid "Add group"
+msgstr ""
+
+msgctxt "#31309"
+msgid "Rename group"
+msgstr ""
+
+msgctxt "#31310"
+msgid "Delete group"
+msgstr ""
+
+msgctxt "#31311"
+msgid "Jump through the guide  ·  Back to close"
+msgstr ""
+
+msgctxt "#31312"
+msgid "PLAYER  ·  PROCESS INFO"
+msgstr ""
+
+msgctxt "#31313"
+msgid "OK OR BACK CLOSES"
+msgstr ""
+
+msgctxt "#31314"
+msgid "Find subtitles"
+msgstr ""
+
+msgctxt "#31315"
+msgid "SERVICE"
+msgstr ""
+
+msgctxt "#31316"
+msgid "STATUS"
+msgstr ""
+
+msgctxt "#31317"
+msgid "THIS FILE ALREADY HAS SUBTITLE TRACKS"
+msgstr ""
+
+msgctxt "#31318"
+msgid "SYNC = TIMED TO YOUR FILE"
+msgstr ""
+
+msgctxt "#31319"
+msgid "No subtitles listed yet. Pick a service or search manually."
+msgstr ""
+
+msgctxt "#31320"
+msgid "No events"
+msgstr ""
+
+msgctxt "#31321"
+msgid "Back to continue"
+msgstr ""
+
+msgctxt "#31322"
+msgid "Nothing to choose"
+msgstr ""
+
+msgctxt "#31323"
+msgid "PVR & Live TV settings"
+msgstr ""
+
+msgctxt "#31324"
+msgid "Up one level"
+msgstr ""
+
+msgctxt "#31325"
+msgid "SYNC"
+msgstr ""
+
+msgctxt "#31326"
+msgid "No matches"
+msgstr ""
+
+msgctxt "#31327"
+msgid "Searching"
+msgstr ""
+
+msgctxt "#31328"
+msgid "Search[COLOR cap2]   films · series · albums · artists, in your library[/COLOR]"
+msgstr ""
+
+msgctxt "#31329"
+msgid "Type a title"
+msgstr ""
+
+msgctxt "#31330"
+msgid "OK to type  ·  Down for the results  ·  Back to close"
+msgstr ""
+
+msgctxt "#31331"
+msgid "Films and shows match on title, albums on album name, artists on name. Library only."
+msgstr ""
+
+msgctxt "#31332"
+msgid "Offsets apply to this film only. Choosing an offset hides this panel so you can sync against the picture."
+msgstr ""
+
+msgctxt "#31333"
+msgid "Library"
+msgstr ""
+
+msgctxt "#31334"
+msgid "Playlist"
+msgstr ""
+
+msgctxt "#31335"
+msgid "Empty. Pick songs or albums on the left and press OK to add them."
+msgstr ""
+
+msgctxt "#31336"
+msgid "The queue is empty"
+msgstr ""
+
+msgctxt "#31337"
+msgid "No weather data. Choose a weather service in Settings, Services, Weather."
+msgstr ""
+
+msgctxt "#31338"
+msgid "Playback"
+msgstr ""
+
+msgctxt "#31339"
+msgid "Skin, region"
+msgstr ""
+
+msgctxt "#31340"
+msgid "Installed"
+msgstr ""
+
+msgctxt "#31341"
+msgid "Sharing"
+msgstr ""
+
+msgctxt "#31342"
+msgid "Display, audio"
+msgstr ""
+
+msgctxt "#31343"
+msgid "Sources"
+msgstr ""
+
+msgctxt "#31344"
+msgid "Hardware"
+msgstr ""
+
+msgctxt "#31345"
+msgid "Event log"
+msgstr ""
+
+msgctxt "#31346"
+msgid "Recent events"
+msgstr ""
+
+msgctxt "#31347"
+msgid "Users"
+msgstr ""
+
+msgctxt "#31348"
+msgid "Not used"
+msgstr ""
+
+msgctxt "#31349"
+msgid "Controllers"
+msgstr ""
+
+msgctxt "#31350"
+msgid "Login screen"
+msgstr ""
+
+msgctxt "#31351"
+msgid "Auto login"
+msgstr ""
+
+msgctxt "#31352"
+msgid "How the card behaves on this TV."
+msgstr ""
+
+msgctxt "#31353"
+msgid "Options"
+msgstr ""
+
+msgctxt "#31354"
+msgid "Order direction"
+msgstr ""
+
+msgctxt "#31355"
+msgid "Select a rule to edit it. Use the context menu to delete a rule."
+msgstr ""
+
+msgctxt "#31356"
+msgid "Value"
+msgstr ""
+
+msgctxt "#31357"
+msgid "BUFFERING"
+msgstr ""
+
+msgctxt "#31358"
+msgid "No chapters or bookmarks yet. Create one with the first button."
+msgstr ""
+
+msgctxt "#31359"
+msgid "OK JUMPS TO THE CHAPTER  ·  BACK CLOSES"
+msgstr ""
+
+msgctxt "#31360"
+msgid "Play"
+msgstr ""
+
+msgctxt "#31361"
+msgid "Play all"
+msgstr ""
+
+msgctxt "#31362"
+msgid "Shuffle"
+msgstr ""
+
+msgctxt "#31363"
+msgid "Refresh"
+msgstr ""
+
+msgctxt "#31364"
+msgid "Skin"
+msgstr ""
+
+msgctxt "#31365"
+msgid "Add-ons"
+msgstr ""
+
+msgctxt "#31366"
+msgid "Update"
+msgstr ""
+
+msgctxt "#31367"
+msgid "Videos · music"
+msgstr ""
+
+msgctxt "#31368"
+msgid "Clean up"
+msgstr ""
+
+msgctxt "#31369"
+msgid "Favourites"
+msgstr ""
+
+msgctxt "#31370"
+msgid "Shortcuts"
+msgstr ""
+
+msgctxt "#31371"
+msgid "Files"
+msgstr ""
+
+msgctxt "#31372"
+msgid "Info"
+msgstr ""
+
+msgctxt "#31373"
+msgid "Quit · Reboot"
+msgstr ""
+
+msgctxt "#31374"
+msgid "Films, series, albums, artists and people."
+msgstr ""
+
+msgctxt "#31375"
+msgid "Press OK and start typing"
+msgstr ""
+
+msgctxt "#31376"
+msgid "Sort by"
+msgstr ""
+
+msgctxt "#31377"
+msgid "Order"
+msgstr ""
+
+msgctxt "#31378"
+msgid "Film collections"
+msgstr ""
+
+msgctxt "#31379"
+msgid "Library settings"
+msgstr ""
+
+msgctxt "#31380"
+msgid "Films · series"
+msgstr ""
+
+msgctxt "#31381"
+msgid "Albums · songs"
+msgstr ""
+
+msgctxt "#31382"
+msgid "Kodi removes every entry whose file it can no longer find. It can't be undone."
+msgstr ""
+
+msgctxt "#31383"
+msgid "No, keep everything"
+msgstr ""
+
+msgctxt "#31384"
+msgid "Yes, clean the video library"
+msgstr ""
+
+msgctxt "#31385"
+msgid "Yes, clean the music library"
+msgstr ""
+
+msgctxt "#31386"
+msgid "Shelf"
+msgstr ""
+
+msgctxt "#31387"
+msgid "Now"
+msgstr ""
+
+msgctxt "#31388"
+msgid "Cards"
+msgstr ""
+
+msgctxt "#31389"
+msgid "Strip"
+msgstr ""
+
+msgctxt "#31390"
+msgid "List"
+msgstr ""
+
+msgctxt "#31391"
+msgid "Sleeves"
+msgstr ""
+
+msgctxt "#31392"
+msgid "Queue"
+msgstr ""
+
+msgctxt "#31393"
+msgid "Up a level"
+msgstr ""
+
+msgctxt "#31394"
+msgid "Albums"
+msgstr ""
+
+msgctxt "#31395"
+msgid "Artists"
+msgstr ""
+
+msgctxt "#31396"
+msgid "Songs"
+msgstr ""
+
+msgctxt "#31397"
+msgid "Genres"
+msgstr ""
+
+msgctxt "#31398"
+msgid "Nothing in this folder."
+msgstr ""
+
+msgctxt "#31399"
+msgid "Chapters"
+msgstr ""
+
+msgctxt "#31400"
+msgid "Video"
+msgstr ""
+
+msgctxt "#31401"
+msgid "Player"
+msgstr ""
+
+msgctxt "#31402"
+msgid "Facts"
+msgstr ""
+
+msgctxt "#31403"
+msgid "Resume"
+msgstr ""
+
+msgctxt "#31404"
+msgid "Open"
+msgstr ""
+
+msgctxt "#31405"
+msgid "Trailer"
+msgstr ""
+
+msgctxt "#31406"
+msgid "Play from the start"
+msgstr ""
+
+msgctxt "#31407"
+msgid "Read the full plot"
+msgstr ""
+
+msgctxt "#31408"
+msgid "Go to the collection"
+msgstr ""
+
+msgctxt "#31409"
+msgid "More by the director"
+msgstr ""
+
+msgctxt "#31410"
+msgid "Versions"
+msgstr ""
+
+msgctxt "#31411"
+msgid "Extras"
+msgstr ""
+
+msgctxt "#31412"
+msgid "Choose art"
+msgstr ""
+
+msgctxt "#31413"
+msgid "Choose fanart"
+msgstr ""
+
+msgctxt "#31414"
+msgid "Refresh information"
+msgstr ""
+
+msgctxt "#31415"
+msgid "The story"
+msgstr ""
+
+msgctxt "#31416"
+msgid "Seasons"
+msgstr ""
+
+msgctxt "#31417"
+msgid "Concertina"
+msgstr ""
+
+msgctxt "#31418"
+msgid "In progress"
+msgstr ""
+
+msgctxt "#31419"
+msgid "Back folds it closed."
+msgstr ""
+
+msgctxt "#31420"
+msgid "Order:"
+msgstr ""

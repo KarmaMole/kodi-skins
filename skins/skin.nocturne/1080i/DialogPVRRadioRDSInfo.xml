@@ -89,7 +89,6 @@
 				<width>760</width>
 				<height>230</height>
 				<font>body_24</font>
-				<textcolor>text_body</textcolor>
 				<label>$INFO[RDS.GetLine(0),,[CR]]$INFO[RDS.GetLine(1),,[CR]]$INFO[RDS.GetLine(2),,[CR]]$INFO[RDS.GetLine(3)]$INFO[RDS.InfoNews,[CR][CR]News  ,]$INFO[RDS.InfoSport,[CR]Sport  ,]$INFO[RDS.InfoWeather,[CR]Weather  ,]</label>
 				<autoscroll time="3000" delay="5000" repeat="8000">true</autoscroll>
 			</control>

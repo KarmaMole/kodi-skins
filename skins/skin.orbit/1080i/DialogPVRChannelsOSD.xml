@@ -30,7 +30,6 @@
 				<width>880</width>
 				<height>topbar_item_h</height>
 				<font>header_34</font>
-				<textcolor>text_primary</textcolor>
 				<label>$LOCALIZE[19019]$INFO[VideoPlayer.ChannelGroup,  ·  ,]</label>
 			</control>
 			<include content="Orbit_Rule">
@@ -45,7 +44,7 @@
 				<height>subnav_h</height>
 				<font>mono_14</font>
 				<textcolor>text_tertiary</textcolor>
-				<label>Left / right: channel group</label>
+				<label>$LOCALIZE[31210]</label>
 			</control>
 			<control type="list" id="11">
 				<left>page_margin</left>

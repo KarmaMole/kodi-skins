@@ -100,57 +100,6 @@
 	</variable>
 
 	<!-- ===================================================== library option bar -->
-	<!-- Pills along the bottom-left (Left from a view reaches it). params: show_watched -->
-	<include name="Orbit_LibraryHeaderBar">
-		<param name="show_watched">false</param>
-		<definition>
-			<control type="grouplist" id="9000">
-				<left>52</left>
-				<top>1000</top>
-				<width>1000</width>
-				<height>subnav_h</height>
-				<orientation>horizontal</orientation>
-				<itemgap>14</itemgap>
-				<onleft>noop</onleft>
-				<onright>50</onright>
-				<onup>50</onup>
-				<ondown>noop</ondown>
-				<onback>50</onback>
-				<include content="Orbit_SubNavButton">
-					<param name="id" value="10"/>
-					<param name="label" value="$LOCALIZE[16100]"/>
-					<param name="visible" value="$PARAM[show_watched] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]"/>
-				</include>
-				<include content="Orbit_SubNavButton">
-					<param name="id" value="6051"/>
-					<param name="width" value="276"/>
-					<param name="label" value="$LOCALIZE[31011]: $INFO[Container.Viewmode]"/>
-					<param name="onclick" value="Container.NextViewMode"/>
-					<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
-				</include>
-				<include content="Orbit_SubNavButton">
-					<param name="id" value="6053"/>
-					<param name="label" value="$LOCALIZE[31010]: $INFO[Container.SortMethod]"/>
-					<param name="onclick" value="SendClick(3)"/>
-					<param name="visible" value="Control.IsEnabled(3)"/>
-				</include>
-				<include content="Orbit_SubNavButton">
-					<param name="id" value="6052"/>
-					<param name="label" value="$INFO[Container.SortOrder]"/>
-					<param name="onclick" value="Container.SetSortDirection"/>
-					<param name="visible" value="Control.IsEnabled(3)"/>
-				</include>
-			</control>
-			<control type="button" id="3">
-				<description>Sort by (Kodi)</description>
-				<include>Orbit_Hidden</include>
-			</control>
-			<control type="button" id="4">
-				<description>Sort order (Kodi)</description>
-				<include>Orbit_Hidden</include>
-			</control>
-		</definition>
-	</include>
 
 	<!-- "0412" style position + dim "/ 1360" for headers -->
 	<variable name="Orbit_PosPad">
@@ -163,26 +112,6 @@
 	</variable>
 
 	<!-- ========================================== generic list window -->
-	<!-- Ground + header + dial list + option bar. params: index (unused), title -->
-	<include name="Orbit_GenericListWindow">
-		<param name="index">01</param>
-		<param name="title">$VAR[LibraryTitle]</param>
-		<param name="show_watched">false</param>
-		<definition>
-			<include content="Orbit_Page">
-				<param name="ground" value="list"/>
-			</include>
-			<include content="Orbit_Header">
-				<param name="title" value="$PARAM[title]"/>
-				<param name="sub" value="$VAR[Orbit_Position]"/>
-			</include>
-			<include content="Orbit_LibraryHeaderBar">
-				<param name="show_watched" value="$PARAM[show_watched]"/>
-			</include>
-			<include>View_50_List</include>
-			<include>Orbit_EmptyFolder</include>
-		</definition>
-	</include>
 
 	<!-- Empty folder / filtered away: an engraved empty ring + caption at the lens -->
 	<include name="Orbit_EmptyFolder">
@@ -211,7 +140,7 @@
 				<height>34</height>
 				<font>text_24</font>
 				<textcolor>text_secondary</textcolor>
-				<label>Left reaches the options below. Back goes up a level.</label>
+				<label>$LOCALIZE[31250]</label>
 			</control>
 		</control>
 	</include>

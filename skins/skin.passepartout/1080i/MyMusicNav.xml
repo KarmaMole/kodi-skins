@@ -29,9 +29,8 @@
 				<width>1680</width>
 				<height>84</height>
 				<font>ttl_72</font>
-				<textcolor>ink</textcolor>
 				<align>center</align>
-				<label>The walls are bare</label>
+				<label>$LOCALIZE[31178]</label>
 			</control>
 			<control type="label">
 				<left>120</left>
@@ -41,7 +40,7 @@
 				<font>body_24</font>
 				<textcolor>ink2</textcolor>
 				<align>center</align>
-				<label>This node is empty. Press Up for Albums, Artists, Songs or Genres.</label>
+				<label>$LOCALIZE[31203]</label>
 			</control>
 		</control>
 		<include>Music_PPHeader</include>

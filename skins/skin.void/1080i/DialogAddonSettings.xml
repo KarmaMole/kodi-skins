@@ -28,7 +28,7 @@
 				<height>30</height>
 				<font>mono_14</font>
 				<textcolor>grey</textcolor>
-				<label>Add-on</label>
+				<label>$LOCALIZE[31222]</label>
 			</control>
 			<control type="label" id="2">
 				<description>heading (Kodi)</description>
@@ -48,7 +48,6 @@
 			<top>content_top</top>
 			<width>settings_cat_w</width>
 			<height>576</height>
-			<itemgap>0</itemgap>
 			<orientation>vertical</orientation>
 			<onleft>noop</onleft>
 			<onright>5</onright>
@@ -74,7 +73,6 @@
 			<top>content_top</top>
 			<width>860</width>
 			<height>864</height>
-			<itemgap>0</itemgap>
 			<pagecontrol>60</pagecontrol>
 			<onleft>3</onleft>
 			<onright>9000</onright>
@@ -120,7 +118,7 @@
 				<height>20</height>
 				<font>mono_13</font>
 				<textcolor>grey_soft</textcolor>
-				<label>About this setting</label>
+				<label>$LOCALIZE[31223]</label>
 			</control>
 			<include content="Void_Rule">
 				<param name="top" value="32"/>

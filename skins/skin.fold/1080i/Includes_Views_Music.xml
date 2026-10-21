@@ -60,7 +60,7 @@ Timers for these views are written by make_views.py (Timers.xml).
 				<onright>9000</onright>
 				<onleft>ActivateWindow(1155)</onleft>
 				<onback condition="$EXP[Music_AtTabRoot]">9398</onback>
-				<viewtype label="Sleeves">icon</viewtype>
+				<viewtype label="31391">icon</viewtype>
 				<visible>Container.Content(albums) | Container.Content(artists)</visible>
 				<itemlayout width="268" height="300">
 			<control type="image">
@@ -124,7 +124,7 @@ Timers for these views are written by make_views.py (Timers.xml).
 					<font>tab_22</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<label>Up a level</label>
+					<label>$LOCALIZE[31393]</label>
 				</control>
 			</control>
 				</itemlayout>
@@ -145,7 +145,7 @@ Timers for these views are written by make_views.py (Timers.xml).
 					<effect type="zoom" start="90.5" end="100" center="154,286" time="260" tween="back" easing="out"/>
 					<effect type="rotatex" start="0" end="-9" center="286" time="260" tween="back" easing="out"/>
 				</animation>
-				<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+				<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(504)">
 					<effect type="rotatex" start="-9" end="-9" center="286" time="0"/>
 				</animation>
 				<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
@@ -208,7 +208,7 @@ Timers for these views are written by make_views.py (Timers.xml).
 					<font>tab_22</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<label>Up a level</label>
+					<label>$LOCALIZE[31393]</label>
 				</control>
 			</control>
 				</focusedlayout>
@@ -315,7 +315,7 @@ Timers for these views are written by make_views.py (Timers.xml).
 				<textoffsetx>12</textoffsetx>
 				<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
 				<texturenofocus border="6" colordiffuse="$VAR[Music_TabChip_Albums]">fold/chip.png</texturenofocus>
-				<label>Albums</label>
+				<label>$LOCALIZE[31394]</label>
 				<onclick>ReplaceWindow(Music,musicdb://albums/,return)</onclick>
 				<visible>true</visible>
 			</control>
@@ -330,7 +330,7 @@ Timers for these views are written by make_views.py (Timers.xml).
 				<textoffsetx>12</textoffsetx>
 				<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
 				<texturenofocus border="6" colordiffuse="$VAR[Music_TabChip_Artists]">fold/chip.png</texturenofocus>
-				<label>Artists</label>
+				<label>$LOCALIZE[31395]</label>
 				<onclick>ReplaceWindow(Music,musicdb://artists/,return)</onclick>
 				<visible>true</visible>
 			</control>
@@ -345,7 +345,7 @@ Timers for these views are written by make_views.py (Timers.xml).
 				<textoffsetx>12</textoffsetx>
 				<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
 				<texturenofocus border="6" colordiffuse="$VAR[Music_TabChip_Songs]">fold/chip.png</texturenofocus>
-				<label>Songs</label>
+				<label>$LOCALIZE[31396]</label>
 				<onclick>ReplaceWindow(Music,musicdb://songs/,return)</onclick>
 				<visible>true</visible>
 			</control>
@@ -360,7 +360,7 @@ Timers for these views are written by make_views.py (Timers.xml).
 				<textoffsetx>12</textoffsetx>
 				<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
 				<texturenofocus border="6" colordiffuse="$VAR[Music_TabChip_Genres]">fold/chip.png</texturenofocus>
-				<label>Genres</label>
+				<label>$LOCALIZE[31397]</label>
 				<onclick>ReplaceWindow(Music,musicdb://genres/,return)</onclick>
 				<visible>true</visible>
 			</control>
@@ -390,7 +390,7 @@ Timers for these views are written by make_views.py (Timers.xml).
 				<textoffsetx>12</textoffsetx>
 				<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
 				<texturenofocus />
-				<label>Options</label>
+				<label>$LOCALIZE[31353]</label>
 				<onclick>ActivateWindow(1155)</onclick>
 				<visible>true</visible>
 			</control>

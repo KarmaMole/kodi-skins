@@ -2,7 +2,7 @@
 <!--
 	Search as a sentence: "Find [the prestige] in your library." (Custom_1150_Search.xml; forked from Majan).
 	Library-only: four result rows fed by library paths filtered with ?xsp= JSON (title / album / artist
-	"contains" the query). No online search, no helper add-on.
+	"contains" the query). No online search; Skin Variables URL-encodes the query (Search_Encoder).
 	The query is the text of edit control 9001: $INFO[Control.GetLabel(9001).index(1)]. Paths are empty
 	until something is typed, so opening the window costs nothing.
 	Rows never hide (a hidden container is not processed, so it could never load the next query's
@@ -27,6 +27,7 @@
 
 	<!-- ================================================================ expressions -->
 	<expression name="Search_HasQuery">!String.IsEmpty(Control.GetLabel(9001).index(1))</expression>
+	<expression name="Search_Encoded">$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Sentence.Search.Encoded))</expression>
 	<variable name="Search_Dim">
 		<value condition="Control.HasFocus(9101) | Control.HasFocus(9102) | Control.HasFocus(9103) | Control.HasFocus(9104)">dim_art</value>
 		<value>white</value>
@@ -63,26 +64,47 @@
 	</variable>
 	<!-- "3 films, 1 show and 2 albums match." -->
 	<variable name="Search_Summary">
-		<value condition="Container(9101).IsUpdating | Container(9102).IsUpdating | Container(9103).IsUpdating">Looking…</value>
+		<value condition="Container(9101).IsUpdating | Container(9102).IsUpdating | Container(9103).IsUpdating | [$EXP[Search_HasQuery] + !$EXP[Search_Encoded]]">Looking…</value>
 		<value condition="Integer.IsEqual(Container(9101).NumItems,0) + Integer.IsEqual(Container(9102).NumItems,0) + Integer.IsEqual(Container(9103).NumItems,0) + Integer.IsEqual(Container(9104).NumItems,0)">Nothing in your library is called that. Try fewer letters.</value>
 		<value>$VAR[Search_NFilms]$VAR[Search_NShows]$VAR[Search_NAlbums]$VAR[Search_NArtists] match.</value>
 	</variable>
 
 	<!-- ================================================================ paths -->
-	<!-- xsp JSON, URL-encoded except the query itself. $ESCINFO quotes the query and escapes " and \ as JSON
-	     expects (QA 2026-10-18). Kodi has no URL-encode infolabel, so & % + in a query still break the path. -->
+	<!-- xsp JSON, fully URL-encoded. The query is encoded by script.skinvariables (a required import since
+	     2026-10-21, as in Groove): the 1 px list 9190 (Search_Encoder) runs get_encoded_string whenever the
+	     typed text changes, which writes Window(Home).Property(Sentence.Search.Encoded) (quote_plus), so & % + | in a query
+	     no longer break the path (kodi-review xml.xsp-unencoded). Paths wait for that property. -->
 	<variable name="Search_PathMovies">
-		<value condition="$EXP[Search_HasQuery]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Sentence.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 	</variable>
 	<variable name="Search_PathTV">
-		<value condition="$EXP[Search_HasQuery]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Sentence.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 	</variable>
 	<variable name="Search_PathAlbums">
-		<value condition="$EXP[Search_HasQuery]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Sentence.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
 	</variable>
 	<variable name="Search_PathArtists">
-		<value condition="$EXP[Search_HasQuery]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Sentence.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
 	</variable>
+
+	<!-- ================================================================ query encoder
+	     The plugin path changes with every letter, so the list reloads and Skin Variables writes the
+	     URL-encoded query to Window(Home).Property(Sentence.Search.Encoded) (cleared first, so a path never
+	     carries the previous query). Offscreen but visible: a hidden container never loads. -->
+	<variable name="Search_EncoderPath">
+		<value condition="$EXP[Search_HasQuery]">plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;window_prop=Sentence.Search.Encoded&amp;window_id=home&amp;&amp;$INFO[Control.GetLabel(9001).index(1)]</value>
+	</variable>
+	<include name="Search_Encoder">
+		<control type="list" id="9190">
+			<left>-3840</left>
+			<top>-3840</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1"/>
+			<focusedlayout width="1" height="1"/>
+			<content>$VAR[Search_EncoderPath]</content>
+		</control>
+	</include>
 
 	<!-- ================================================================ pieces -->
 	<!-- Row header: rule, title 24/700, mono count + focused item on the right.
@@ -134,8 +156,8 @@
 						<height>24</height>
 						<font>cap_20</font>
 						<textcolor>muted</textcolor>
-						<label>No matches</label>
-						<visible>!Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
+						<label>$LOCALIZE[31356]</label>
+						<visible>$EXP[Search_Encoded] + !Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
 					</control>
 					<control type="label">
 						<top>4</top>
@@ -143,7 +165,7 @@
 						<height>24</height>
 						<font>cap_20</font>
 						<textcolor>muted</textcolor>
-						<label>Searching</label>
+						<label>$LOCALIZE[31357]</label>
 						<visible>Container($PARAM[id]).IsUpdating</visible>
 					</control>
 				</control>
@@ -320,7 +342,7 @@
 				<height>100</height>
 				<font>serif_66</font>
 				<textcolor>text</textcolor>
-				<label>Find</label>
+				<label>$LOCALIZE[31358]</label>
 			</control>
 			<control type="edit" id="9001">
 				<left>8</left>  <!-- the same gap as Home's phrases: the focused block no longer touches "Find" -->
@@ -334,7 +356,7 @@
 				<textoffsetx>24</textoffsetx>
 				<aligny>center</aligny>
 				<label></label>
-				<hinttext>something</hinttext>
+				<hinttext>$LOCALIZE[31359]</hinttext>
 				<texturefocus border="14" colordiffuse="lilac">sentence/phrase_block.png</texturefocus>
 				<texturenofocus border="24,0,24,6" colordiffuse="lilac">sentence/phrase_under.png</texturenofocus>
 				<onup>noop</onup>
@@ -456,7 +478,7 @@
 			<height>30</height>
 			<font>ui_22</font>
 			<textcolor>muted</textcolor>
-			<label>Films and shows match on their title, albums and artists on their name. Only your library is searched.</label>
+			<label>$LOCALIZE[31360]</label>
 			<visible>!$EXP[Search_HasQuery]</visible>
 		</control>
 	</include>

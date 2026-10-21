@@ -15,6 +15,10 @@ block), so rows are grouplists with itemgap 8 - 48 = -40 placed 24px left / 4px 
 Usage:  python skins/skin.passepartout/_src/make_keyboard.py
 """
 from pathlib import Path
+from strip_defaults import strip_defaults  # drops tags that repeat Defaults.xml (kdk xml.redundant)
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
+DEFAULTS_XML = Path(__file__).resolve().parent.parent / "1080i" / "Defaults.xml"
 
 OUT = Path(__file__).resolve().parent.parent / "1080i" / "DialogKeyboard.xml"
 
@@ -182,7 +186,7 @@ def main():
 	</controls>
 </window>
 '''
-    OUT.write_text(xml, encoding="utf-8", newline="\n")
+    OUT.write_text(localize_xml(strip_defaults(xml, DEFAULTS_XML), STRINGS_PO), encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

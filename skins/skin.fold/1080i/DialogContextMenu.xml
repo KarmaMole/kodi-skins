@@ -66,14 +66,6 @@
 			<width>544</width>
 			<height>dialog_row_h</height>
 			<font>sans_26_semi</font>
-			<textcolor>ink2</textcolor>
-			<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
-			<disabledcolor>disabled</disabledcolor>
-			<textoffsetx>24</textoffsetx>
-			<aligny>center</aligny>
-			<pulseonselect>false</pulseonselect>
-			<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-			<texturenofocus />
 		</control>
 	</controls>
 </window>

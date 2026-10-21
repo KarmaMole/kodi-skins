@@ -179,14 +179,6 @@
 		<value condition="Player.Paused">Paused$INFO[Playlist.Position(music),  ·  ,]$INFO[Playlist.Length(music), / ,]</value>
 		<value>Now playing$INFO[Playlist.Position(music),  ·  ,]$INFO[Playlist.Length(music), / ,]</value>
 	</variable>
-	<!-- Shuffle / repeat state caption (Now playing) -->
-	<variable name="Music_PlayModes">
-		<value condition="Playlist.IsRandom + Playlist.IsRepeatOne">Shuffle  ·  Repeat one</value>
-		<value condition="Playlist.IsRandom + Playlist.IsRepeat">Shuffle  ·  Repeat all</value>
-		<value condition="Playlist.IsRandom">Shuffle</value>
-		<value condition="Playlist.IsRepeatOne">Repeat one</value>
-		<value condition="Playlist.IsRepeat">Repeat all</value>
-	</variable>
 	<!-- Info dialog -->
 	<variable name="Music_InfoKicker">
 		<value condition="$EXP[Music_InfoIsArtist]">Artist</value>
@@ -332,7 +324,7 @@
 					<align>center</align>
 					<font>caps_20</font>
 					<textcolor>ink2</textcolor>
-					<label>Up one level</label>
+					<label>$LOCALIZE[31258]</label>
 					<visible>$PARAM[caption_visible]</visible>
 				</control>
 			</control>
@@ -673,123 +665,8 @@
 		<value condition="Integer.IsEqual(Playlist.Length(music),1)">1 track</value>
 		<value>$INFO[Playlist.Length(music),, tracks]</value>
 	</variable>
-	<variable name="Music_OSDHint">
-		<value condition="Control.HasFocus(87)">◀ ▶  Seek   ·   ▼  Controls   ·   Back  Hides</value>
-		<value>▲  Seek   ·   ◀ ▶  Move   ·   Back  Hides</value>
-	</variable>
-
-	<!-- 72 px square transport button (OSD.dc.html): 1 px outline, white icon; focus = accent frame.
-	     Wrapped in a group (for the frame), so navigation is explicit.
-	     params: id, icon, onclick, onclick_paused (while paused; default unpause), visible, onleft, onright -->
-	<include name="Music_OSDIconButton">
-		<param name="visible">true</param>
-		<param name="onclick_paused">PlayerControl(Play)</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<definition>
-			<control type="group">
-				<top>8</top>  <!-- room for the focus frame: the grouplist clips to its own rect -->
-				<left>8</left>  <!-- + parent itemgap reduced by 8: left/right room for the frame -->
-				<width>music_osd_btn</width>
-				<height>music_osd_btn</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="button" id="$PARAM[id]">
-					<width>music_osd_btn</width>
-					<height>music_osd_btn</height>
-					<label></label>
-					<include condition="true">Music_Tex_OSDButton_Round</include>
-					<include condition="false">Music_Tex_OSDButton</include>
-					<onclick condition="Player.Paused">$PARAM[onclick_paused]</onclick>
-					<onclick condition="!Player.Paused">$PARAM[onclick]</onclick>
-					<onup>87</onup>
-					<ondown>noop</ondown>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-				</control>
-				<control type="image">
-					<left>22</left>
-					<top>22</top>
-					<width>28</width>
-					<height>28</height>
-					<texture colordiffuse="ink">$PARAM[icon]</texture>
-				</control>
-				<include content="SD_FocusFrameAlways">
-					<param name="visible" value="Control.HasFocus($PARAM[id])"/>
-				</include>
-			</control>
-		</definition>
-	</include>
-	<!-- OSD button outline (#444 border_control per OSD.dc.html; brightens on focus) -->
-	<include name="Music_Tex_OSDButton">
-		<texturefocus border="10" colordiffuse="ink2">common/rect_outline_1.png</texturefocus>
-		<texturenofocus border="10" colordiffuse="hair_strong">common/rect_outline_1.png</texturenofocus>
-	</include>
-	<include name="Music_Tex_OSDButton_Round">
-		<texturefocus border="10" colordiffuse="ink2">common/rect_outline_1_round8.png</texturefocus>
-		<texturenofocus border="10" colordiffuse="hair_strong">common/rect_outline_1_round8.png</texturenofocus>
-	</include>
-
-	<!-- Caption + value OSD button (OSD.dc.html right group): mono caption over a 21 px value.
-	     params: id, width, caption, value, onclick, onclick2, visible, onleft, onright -->
-	<include name="Music_OSDTextButton">
-		<param name="width">160</param>
-		<param name="visible">true</param>
-		<param name="onclick2">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<definition>
-			<control type="group">
-				<top>8</top>  <!-- room for the focus frame: the grouplist clips to its own rect -->
-				<left>8</left>  <!-- + parent itemgap reduced by 8: left/right room for the frame -->
-				<width>$PARAM[width]</width>
-				<height>music_osd_btn</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="button" id="$PARAM[id]">
-					<width>$PARAM[width]</width>
-					<height>music_osd_btn</height>
-					<label></label>
-					<include condition="true">Music_Tex_OSDButton_Round</include>
-					<include condition="false">Music_Tex_OSDButton</include>
-					<onclick>$PARAM[onclick]</onclick>
-					<onclick>$PARAM[onclick2]</onclick>
-					<onup>87</onup>
-					<ondown>noop</ondown>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-				</control>
-				<control type="label">
-					<left>24</left>
-					<top>14</top>
-					<right>16</right>
-					<height>18</height>
-					<font>caps_20</font>
-					<textcolor>ink2</textcolor>
-					<label>$PARAM[caption]</label>
-				</control>
-				<control type="label">
-					<left>24</left>
-					<top>34</top>
-					<right>16</right>
-					<height>28</height>
-					<font>semi_22</font>
-					<textcolor>ink</textcolor>
-					<label>$PARAM[value]</label>
-				</control>
-				<include content="SD_FocusFrameAlways">
-					<param name="visible" value="Control.HasFocus($PARAM[id])"/>
-				</include>
-			</control>
-		</definition>
-	</include>
 
 	<!-- ===================================================== Now playing blur -->
-	<!-- Blur the playing cover once per album (window onload; MusicOSD re-checks on open).
-	     Only when the setting is on, TMDb Helper is enabled and there is no artist fanart. -->
-	<include name="Music_PlayerBlurOnload">
-		<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Player.Art(fanart)) + !String.IsEmpty(Player.Art(thumb)) + !String.IsEqual(Window(Home).Property(sixdegrees.np.blursrc),Player.Art(thumb))">ClearProperty(TMDbHelper.SDPlayer.BlurImage,Home)</onload>
-		<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Player.Art(fanart)) + !String.IsEmpty(Player.Art(thumb)) + !String.IsEqual(Window(Home).Property(sixdegrees.np.blursrc),Player.Art(thumb))">RunScript(plugin.video.themoviedb.helper,"blur_image=$INFO[Player.Art(thumb)]",prefix=SDPlayer)</onload>
-		<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Player.Art(fanart)) + !String.IsEmpty(Player.Art(thumb))">SetProperty(sixdegrees.np.blursrc,$ESCINFO[Player.Art(thumb)],Home)</onload>
-	</include>
 
 	<!-- Library / info: blur source for the TMDb Helper image monitor. Saves the previous value
 	     (Home or video windows may use another source) and puts it back on unload.

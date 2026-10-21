@@ -40,12 +40,10 @@
 				<height>76</height>
 				<font>sans_26</font>
 				<textoffsetx>28</textoffsetx>
-				<aligny>center</aligny>
 				<textcolor>b8e2d0b4</textcolor>
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
-				<texturenofocus />
-				<label>Darkness of the room</label>
+				<label>$LOCALIZE[31363]</label>
 				<onup>9509</onup>
 				<ondown>9502</ondown>
 				<onright condition="[!String.IsEqual(Skin.String(nocturne.darkness),dusk) + !String.IsEqual(Skin.String(nocturne.darkness),deep)]">Skin.SetString(nocturne.darkness,dusk)</onright>
@@ -64,7 +62,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[SkinSet_Value_9501]</label>
@@ -76,7 +73,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>◀   $VAR[SkinSet_Value_9501]   ▶</label>
@@ -117,12 +113,10 @@
 				<height>76</height>
 				<font>sans_26</font>
 				<textoffsetx>28</textoffsetx>
-				<aligny>center</aligny>
 				<textcolor>b8e2d0b4</textcolor>
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
-				<texturenofocus />
-				<label>Dust in the beam</label>
+				<label>$LOCALIZE[31364]</label>
 				<onup>9501</onup>
 				<ondown>9503</ondown>
 				<onright>Skin.ToggleSetting(nocturne.dust)</onright>
@@ -135,7 +129,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[SkinSet_Value_9502]</label>
@@ -147,7 +140,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>◀   $VAR[SkinSet_Value_9502]   ▶</label>
@@ -188,12 +180,10 @@
 				<height>76</height>
 				<font>sans_26</font>
 				<textoffsetx>28</textoffsetx>
-				<aligny>center</aligny>
 				<textcolor>b8e2d0b4</textcolor>
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
-				<texturenofocus />
-				<label>Wandering torch</label>
+				<label>$LOCALIZE[31365]</label>
 				<onup>9502</onup>
 				<ondown>9504</ondown>
 				<onright>Skin.ToggleSetting(nocturne.noambient)</onright>
@@ -206,7 +196,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[SkinSet_Value_9503]</label>
@@ -218,7 +207,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>◀   $VAR[SkinSet_Value_9503]   ▶</label>
@@ -259,12 +247,10 @@
 				<height>76</height>
 				<font>sans_26</font>
 				<textoffsetx>28</textoffsetx>
-				<aligny>center</aligny>
 				<textcolor>b8e2d0b4</textcolor>
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
-				<texturenofocus />
-				<label>Light takes the picture&apos;s colour</label>
+				<label>$LOCALIZE[31366]</label>
 				<onup>9503</onup>
 				<ondown>9505</ondown>
 				<onright>Skin.ToggleSetting(nocturne.halocolour)</onright>
@@ -277,7 +263,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[SkinSet_Value_9504]</label>
@@ -289,7 +274,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>◀   $VAR[SkinSet_Value_9504]   ▶</label>
@@ -330,12 +314,10 @@
 				<height>76</height>
 				<font>sans_26</font>
 				<textoffsetx>28</textoffsetx>
-				<aligny>center</aligny>
 				<textcolor>b8e2d0b4</textcolor>
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
-				<texturenofocus />
-				<label>Brass pins on watched films</label>
+				<label>$LOCALIZE[31367]</label>
 				<onup>9504</onup>
 				<ondown>9506</ondown>
 				<onright>Skin.ToggleSetting(nocturne.nopins)</onright>
@@ -348,7 +330,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[SkinSet_Value_9505]</label>
@@ -360,7 +341,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>◀   $VAR[SkinSet_Value_9505]   ▶</label>
@@ -401,12 +381,10 @@
 				<height>76</height>
 				<font>sans_26</font>
 				<textoffsetx>28</textoffsetx>
-				<aligny>center</aligny>
 				<textcolor>b8e2d0b4</textcolor>
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
-				<texturenofocus />
-				<label>Trailer on the brass rail</label>
+				<label>$LOCALIZE[31368]</label>
 				<onup>9505</onup>
 				<ondown>9507</ondown>
 				<onright>Skin.ToggleSetting(nocturne.hidetrailer)</onright>
@@ -419,7 +397,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[SkinSet_Value_9506]</label>
@@ -431,7 +408,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>◀   $VAR[SkinSet_Value_9506]   ▶</label>
@@ -472,12 +448,10 @@
 				<height>76</height>
 				<font>sans_26</font>
 				<textoffsetx>28</textoffsetx>
-				<aligny>center</aligny>
 				<textcolor>b8e2d0b4</textcolor>
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
-				<texturenofocus />
-				<label>Playback controls hide after</label>
+				<label>$LOCALIZE[31369]</label>
 				<onup>9506</onup>
 				<ondown>9508</ondown>
 				<onright condition="[!String.IsEqual(Skin.String(nocturne.osdhide),10) + !String.IsEqual(Skin.String(nocturne.osdhide),off) + !String.IsEqual(Skin.String(nocturne.osdhide),3)]">Skin.SetString(nocturne.osdhide,10)</onright>
@@ -499,7 +473,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[SkinSet_Value_9507]</label>
@@ -511,7 +484,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>◀   $VAR[SkinSet_Value_9507]   ▶</label>
@@ -552,12 +524,10 @@
 				<height>76</height>
 				<font>sans_26</font>
 				<textoffsetx>28</textoffsetx>
-				<aligny>center</aligny>
 				<textcolor>b8e2d0b4</textcolor>
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
-				<texturenofocus />
-				<label>Reduce motion</label>
+				<label>$LOCALIZE[31058]</label>
 				<onup>9507</onup>
 				<ondown>9509</ondown>
 				<onright>SetProperty(nocturne.refocus,9508,home)</onright>
@@ -576,7 +546,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[SkinSet_Value_9508]</label>
@@ -588,7 +557,6 @@
 				<width>420</width>
 				<height>76</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>◀   $VAR[SkinSet_Value_9508]   ▶</label>
@@ -613,7 +581,6 @@
 				<height>64</height>
 				<font>btn_22</font>
 				<align>center</align>
-				<aligny>center</aligny>
 				<textcolor>brass_word</textcolor>
 				<focusedcolor>ink</focusedcolor>
 				<texturenofocus border="26,0,26,0">noc/plaque_dim.png</texturenofocus>
@@ -650,7 +617,6 @@
 				<top>0</top>
 				<width>590</width>
 				<height>32</height>
-				<aligny>center</aligny>
 				<font>caps_20</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$LOCALIZE[31291]</label>

@@ -56,7 +56,7 @@
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
 					<align>center</align>
-					<label>Back</label>
+					<label>$LOCALIZE[31196]</label>
 				</control>
 			</control>
 		</definition>
@@ -81,7 +81,7 @@
 				<ondown>noop</ondown>
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>ActivateWindow(1155)</onright>
-				<viewtype label="The hang">list</viewtype>
+				<viewtype label="31147">list</viewtype>
 				<visible>Container.Content(albums) | Container.Content(artists)</visible>
 				<itemlayout width="368" height="940">
 					<control type="group">
@@ -136,7 +136,7 @@
 				<!-- Left past the first column / Right past the last one: the Library card -->
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>ActivateWindow(1155)</onright>
-				<viewtype label="Salon">panel</viewtype>
+				<viewtype label="31149">panel</viewtype>
 				<onfocus condition="!Skin.HasSetting(passepartout.vi.music)">Container.SetViewMode(504)</onfocus>
 				<onfocus>Skin.SetBool(passepartout.vi.music)</onfocus>
 				<visible>Container.Content(albums) | Container.Content(artists)</visible>
@@ -158,14 +158,11 @@
 						<animation type="Focus" reversible="false" condition="!Skin.HasSetting(passepartout.reducemotion)">
 							<effect type="zoom" start="100" end="112" center="108,108" time="260" tween="cubic" easing="out"/>
 						</animation>
-						<animation type="Focus" reversible="false" condition="Skin.HasSetting(passepartout.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(passepartout.reducemotion) + Control.HasFocus(505)">
 							<effect type="zoom" start="100" end="112" center="108,108" time="0" tween="cubic" easing="out"/>
 						</animation>
 						<animation type="Unfocus" condition="!Skin.HasSetting(passepartout.reducemotion)">
 							<effect type="zoom" start="112" end="100" center="108,108" time="160"/>
-						</animation>
-						<animation type="Unfocus" condition="Skin.HasSetting(passepartout.reducemotion)">
-							<effect type="zoom" start="112" end="100" center="108,108" time="0"/>
 						</animation>
 						<control type="image">
 							<left>-24</left>

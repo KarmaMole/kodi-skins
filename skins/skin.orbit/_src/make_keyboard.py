@@ -157,8 +157,6 @@ def main():
 				<width>page_width</width>
 				<height>76</height>
 				<font>text_36_semi</font>
-				<textcolor>text_primary</textcolor>
-				<textoffsetx>24</textoffsetx>
 				<texturefocus />
 				<texturenofocus />
 			</control>
@@ -200,7 +198,7 @@ def main():
 	</controls>
 </window>
 '''
-    OUT.write_text(xml, encoding="utf-8")
+    OUT.write_text(xml, encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

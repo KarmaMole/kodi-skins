@@ -7,6 +7,7 @@ them. Omar's region prints dd/mm/yyyy (verified on the device for Passe-partout,
 $VAR[Date_<key>] gives "11 Jun 2026", or the raw label when it isn't in that shape.
 """
 from pathlib import Path
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "Includes_Dates.xml"
 MONTHS = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
@@ -40,7 +41,7 @@ def main():
             out.append(f'\t\t<value condition="String.Contains({lab},/{y})">[UPPERCASE]{y}[/UPPERCASE]</value>')
         out.append("\t</variable>")
     out += ["</includes>", ""]
-    OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
+    OUT.write_text(finish_xml("\n".join(out)), encoding="utf-8", newline="\n")
     print("wrote", OUT.name)
 
 

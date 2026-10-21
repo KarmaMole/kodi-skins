@@ -16,6 +16,7 @@ orange LCD digits (21:47 -> 23:57)" (docs/concepts/round4/keepsake.md):
   OSD_InfoRow / OSD_SubtitleRow / OSD_BookmarkItem   process info rows, subtitle results, chapter prints
 """
 from pathlib import Path
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 P = Path(__file__).resolve().parents[1] / "1080i" / "Includes_OSD.xml"
 MARK = "\t<!-- ============================================================= textures -->"
@@ -356,7 +357,7 @@ TAIL = r'''	<!-- ============================================================= K
 	     params: id, label, width, onclick, onclick2, onleft, onright, onup, visible -->
 	<include name="OSD_PenWord">
 		<param name="visible">true</param>
-		<param name="onclick2"></param>
+		<param name="onclick2">noop</param>
 		<param name="onup">87</param>
 		<param name="ondown">noop</param>
 		<definition>
@@ -383,7 +384,7 @@ TAIL = r'''	<!-- ============================================================= K
 	<!-- an icon in a pen circle (PlayerControls). params: id, icon, onclick, onclick2, onleft, onright, visible -->
 	<include name="OSD_BoxButton">
 		<param name="visible">true</param>
-		<param name="onclick2"></param>
+		<param name="onclick2">noop</param>
 		<param name="icon_size">osd_box_icon</param>
 		<param name="icon_pos">osd_box_icon_pos</param>
 		<param name="icon_color">ink_bold</param>
@@ -649,31 +650,6 @@ TAIL = r'''	<!-- ============================================================= K
 			</control>
 		</definition>
 	</include>
-
-	<!-- legacy names (music OSD / visualisation) -->
-	<include name="OSD_Gradients">
-		<include content="OSD_Scrims"><param name="bottom_h" value="460"/></include>
-	</include>
-	<include name="OSD_Progress">
-		<include content="OSD_ProgressBlock"><param name="top" value="902"/></include>
-	</include>
-	<include name="OSD_Title">
-		<include content="OSD_TitleBlock"><param name="top" value="776"/></include>
-	</include>
-	<include name="OSD_IconButton">
-		<param name="visible">true</param>
-		<definition>
-			<control type="button" id="$PARAM[id]">
-				<width>56</width>
-				<height>56</height>
-				<label></label>
-				<texturefocus colordiffuse="ink_bold">$PARAM[icon]</texturefocus>
-				<texturenofocus colordiffuse="ink2">$PARAM[icon]</texturenofocus>
-				<onclick>$PARAM[onclick]</onclick>
-				<visible>$PARAM[visible]</visible>
-			</control>
-		</definition>
-	</include>
 </includes>
 '''
 
@@ -682,7 +658,7 @@ def main():
     s = P.read_text(encoding="utf-8")
     i = s.index(MARK) if MARK in s else s.index("\t<!-- ============================================================= Keepsake OSD pieces")
     s = s[:i] + TAIL.replace("@@SLIDES@@", bubble_slides())
-    P.write_text(s, encoding="utf-8", newline="\n")
+    P.write_text(finish_xml(s), encoding="utf-8", newline="\n")
     print("wrote", P)
 
 

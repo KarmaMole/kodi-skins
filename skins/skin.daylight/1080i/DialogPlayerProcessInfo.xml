@@ -43,7 +43,7 @@
 				<height>30</height>
 				<font>small_20_bold</font>
 				<textcolor>$VAR[DL_AccentText]</textcolor>
-				<label>Playing on this Shield</label>
+				<label>$LOCALIZE[31215]</label>
 			</control>
 			<control type="label">
 				<left>40</left>
@@ -51,7 +51,6 @@
 				<width>880</width>
 				<height>48</height>
 				<font>serif_34</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
 				<label>$VAR[OSD_Title]</label>
 			</control>
 			<control type="label">
@@ -61,7 +60,7 @@
 				<height>30</height>
 				<font>small_20</font>
 				<textcolor>$VAR[DL_Ink2]</textcolor>
-				<label>OK or Back closes</label>
+				<label>$LOCALIZE[31216]</label>
 			</control>
 		</control>
 
@@ -71,7 +70,6 @@
 			<width>880</width>
 			<height>520</height>
 			<orientation>vertical</orientation>
-			<itemgap>0</itemgap>
 			<!-- video -->
 			<include content="OSD_InfoRow">
 				<param name="key" value="Source"/>

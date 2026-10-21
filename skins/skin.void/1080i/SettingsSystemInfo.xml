@@ -89,7 +89,6 @@
 			<width>1220</width>
 			<height>591</height>  <!-- 18 lines exactly: no half-clipped line at the bottom -->
 			<font>body_23</font>
-			<textcolor>text_body</textcolor>
 			<pagecontrol>60</pagecontrol>
 			<autoscroll delay="5000" repeat="7500" time="5000">!Control.HasFocus(60)</autoscroll>
 		</control>
@@ -113,7 +112,6 @@
 				<width>misc_col_w</width>
 				<height>100</height>
 				<font>body_23</font>
-				<textcolor>text_body</textcolor>
 				<label>$LOCALIZE[12397]</label>
 			</control>
 			<control type="multiimage" id="103">

@@ -36,12 +36,12 @@
 			<control type="radiobutton" id="4">
 				<description>Show login screen on startup</description>
 				<include content="Misc_RowLook"><param name="width" value="misc_menu_w"/></include>
-				<label>Login screen</label>
+				<label>$LOCALIZE[31313]</label>
 			</control>
 			<control type="button" id="5">
 				<description>Auto login profile</description>
 				<include content="Misc_RowLook"><param name="width" value="misc_menu_w"/></include>
-				<label>Auto login</label>
+				<label>$LOCALIZE[31314]</label>
 				<label2>$INFO[System.ProfileAutoLogin]</label2>
 				<enable>!Window.IsVisible(ProfileSettings) + !System.HasLoginScreen</enable>
 			</control>
@@ -137,9 +137,7 @@
 					<width>900</width>
 					<height>40</height>
 					<font>xb_26</font>
-					<textcolor>ink</textcolor>
 					<label>$INFO[ListItem.Label]</label>
-					<selectedcolor>ink</selectedcolor>
 					<visible>!Control.HasFocus(2)</visible>
 				</control>
 				<control type="label">

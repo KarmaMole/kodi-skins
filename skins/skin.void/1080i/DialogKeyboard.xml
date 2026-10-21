@@ -24,10 +24,8 @@
 				<height>132</height>
 				<font>serif_96</font>
 				<textcolor>text</textcolor>
-				<focusedcolor>text</focusedcolor>
 				<textoffsetx>8</textoffsetx>
 				<texturefocus border="0,0,0,3" colordiffuse="grey">common/underline.png</texturefocus>
-				<texturenofocus border="0,0,0,3" colordiffuse="sep">common/underline.png</texturenofocus>
 			</control>
 			<control type="label" id="313">
 				<left>160</left>
@@ -54,7 +52,6 @@
 					<width>1300</width>
 					<height>kb_key_h</height>
 					<orientation>horizontal</orientation>
-					<itemgap>0</itemgap>
 					<onleft>95200</onleft>
 					<onright>95200</onright>
 					<control type="button" id="100">
@@ -155,7 +152,6 @@
 					<width>1300</width>
 					<height>kb_key_h</height>
 					<orientation>horizontal</orientation>
-					<itemgap>0</itemgap>
 					<onleft>95200</onleft>
 					<onright>95200</onright>
 					<control type="button" id="120">
@@ -256,7 +252,6 @@
 					<width>1300</width>
 					<height>kb_key_h</height>
 					<orientation>horizontal</orientation>
-					<itemgap>0</itemgap>
 					<onleft>95200</onleft>
 					<onright>95200</onright>
 					<control type="button" id="140">
@@ -357,7 +352,6 @@
 					<width>1300</width>
 					<height>kb_key_h</height>
 					<orientation>horizontal</orientation>
-					<itemgap>0</itemgap>
 					<onleft>95200</onleft>
 					<onright>95200</onright>
 					<control type="button" id="160">
@@ -458,13 +452,12 @@
 					<width>1300</width>
 					<height>kb_key_h</height>
 					<orientation>horizontal</orientation>
-					<itemgap>0</itemgap>
 					<onleft>95200</onleft>
 					<onright>95200</onright>
 					<control type="radiobutton" id="304">
 						<width>192</width>
 						<height>kb_key_h</height>
-						<label>Symbols</label>
+						<label>$LOCALIZE[31330]</label>
 						<include>Void_KeyboardFunc</include>
 						<radiowidth>10</radiowidth>
 						<radioheight>10</radioheight>
@@ -476,7 +469,7 @@
 					<control type="radiobutton" id="303">
 						<width>96</width>
 						<height>kb_key_h</height>
-						<label>Caps</label>
+						<label>$LOCALIZE[31331]</label>
 						<include>Void_KeyboardFunc</include>
 						<radiowidth>10</radiowidth>
 						<radioheight>10</radioheight>
@@ -488,7 +481,7 @@
 					<control type="radiobutton" id="302">
 						<width>96</width>
 						<height>kb_key_h</height>
-						<label>Shift</label>
+						<label>$LOCALIZE[31332]</label>
 						<include>Void_KeyboardFunc</include>
 						<radiowidth>10</radiowidth>
 						<radioheight>10</radioheight>
@@ -500,7 +493,7 @@
 					<control type="button" id="32">
 						<width>384</width>
 						<height>kb_key_h</height>
-						<label>Space</label>
+						<label>$LOCALIZE[31333]</label>
 						<include>Void_KeyboardFunc</include>
 						<onup>164</onup>
 						<ondown>104</ondown>
@@ -524,7 +517,7 @@
 					<control type="button" id="8">
 						<width>288</width>
 						<height>kb_key_h</height>
-						<label>Delete</label>
+						<label>$LOCALIZE[31044]</label>
 						<include>Void_KeyboardFunc</include>
 						<onup>170</onup>
 						<ondown>110</ondown>
@@ -537,7 +530,6 @@
 				<width>340</width>
 				<height>460</height>
 				<orientation>vertical</orientation>
-				<itemgap>0</itemgap>
 				<onleft>100</onleft>
 				<onright>100</onright>
 				<onup>95200</onup>
@@ -586,7 +578,7 @@
 				<aligny>top</aligny>
 				<font>caps_20</font>
 				<textcolor>grey_soft</textcolor>
-				<label>Done is on the right[COLOR sep]  ·  [/COLOR]Back cancels</label>
+				<label>$LOCALIZE[31334][COLOR sep]  ·  [/COLOR]$LOCALIZE[31335]</label>
 			</control>
 		</control>
 	</controls>

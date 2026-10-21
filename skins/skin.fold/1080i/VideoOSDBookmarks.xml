@@ -84,7 +84,7 @@
 			<height>40</height>
 			<font>body_22</font>
 			<textcolor>ink2</textcolor>
-			<label>No chapters or bookmarks yet. Create one with the first button.</label>
+			<label>$LOCALIZE[31358]</label>
 			<visible>Integer.IsEqual(Container(11).NumItems,0)</visible>
 		</control>
 		<control type="panel" id="11">
@@ -126,7 +126,7 @@
 			<height>24</height>
 			<font>caps_20</font>
 			<textcolor>cap</textcolor>
-			<label>OK JUMPS TO THE CHAPTER  ·  BACK CLOSES</label>
+			<label>$LOCALIZE[31359]</label>
 		</control>
 	</controls>
 </window>

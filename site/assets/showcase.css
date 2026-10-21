@@ -1,4 +1,4 @@
-/* Eleven skins for Kodi: showcase page. No framework; one file. */
+/* Kodi skins showcase page. No framework; one file. */
 :root {
   --bg: #0f0f0e;
   --bg-2: #161614;
@@ -119,19 +119,35 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .show-cap { margin: 0; display: flex; gap: 16px; align-items: baseline; min-height: 1.6em; }
 .show-count { font: 500 12px var(--mono); color: var(--accent-ink); letter-spacing: .08em; white-space: nowrap; }
 .show-text { color: var(--ink-2); font-size: 15px; }
-.dots { display: flex; gap: 6px; flex: none; }
+.dots { display: flex; flex-wrap: wrap; gap: 0 6px; flex: none; max-width: 100%; }
 .dot { width: 28px; height: 28px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
 .dot::before { content: ""; position: absolute; left: 4px; right: 4px; top: 13px; height: 2px; background: var(--rule-2); transition: background .25s; }
 .dot.is-active::before { background: var(--accent-ink); }
 .dot:hover::before { background: var(--ink-2); }
 
-.skin-body { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); padding-top: clamp(40px, 5vw, 64px); }
+.skin-body {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 6vw, 96px); padding-top: clamp(40px, 5vw, 64px);
+}
 .concept p { margin: 0 0 1em; font-size: clamp(18px, 1.55vw, 21px); line-height: 1.55; color: var(--ink); }
 .concept p + p { color: var(--ink-2); }
 .features ol { list-style: none; margin: 0; padding: 0; counter-reset: f; }
 .features li { counter-increment: f; position: relative; padding: 14px 0 14px 44px; border-top: 1px solid var(--rule); color: var(--ink-2); font-size: 16px; line-height: 1.55; }
 .features li:last-child { border-bottom: 1px solid var(--rule); }
 .features li::before { content: counter(f, decimal-leading-zero); position: absolute; left: 0; top: 17px; font: 500 11px var(--mono); color: var(--accent-ink); letter-spacing: .06em; }
+/* add-ons: a full-width band under the idea + features, small even cards (required first) */
+.addons { margin-top: clamp(36px, 4vw, 56px); padding-top: 22px; border-top: 1px solid var(--rule); }
+.addons .label { margin-bottom: 14px; }
+.addons ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px; }
+.addons li { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 14px 16px; border: 1px solid var(--rule); border-radius: 4px; background: var(--bg-2); }
+.addons p { margin: 0; }
+.ao-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-size: 15px; line-height: 1.35; }
+.ao-head b { min-width: 0; }
+.ao-tag { flex: none; font: 500 10.5px/1.6 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); border: 1px solid var(--rule-2); border-radius: 999px; padding: 0 8px; }
+.ao-tag.is-req { color: var(--accent-ink); border-color: var(--accent-ink); }
+.ao-what { flex: 1; color: var(--ink-2); font-size: 14px; line-height: 1.45; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+.ao-where { color: var(--ink-3); font-size: 12.5px; line-height: 1.4; }
+.ao-k { font: 500 10.5px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 .stamp { font: 600 .92em var(--mono); color: #ff6a1f; letter-spacing: .04em; }
 
 /* ---------- install ---------- */

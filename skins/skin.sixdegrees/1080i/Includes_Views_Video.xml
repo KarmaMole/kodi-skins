@@ -60,7 +60,6 @@
 	<!-- Next up strip: TV root while the Wall is the active view -->
 	<expression name="VidView_ShowNextUp">Container.Content(tvshows) + String.StartsWith(Container.FolderPath,videodb://tvshows/titles) + Control.IsVisible(502)</expression>
 	<expression name="VidView_HasNextUp">Container.Content(tvshows) + String.StartsWith(Container.FolderPath,videodb://tvshows/titles) + Control.IsVisible(502) + Integer.IsGreater(Container(9310).NumItems,0)</expression>
-	<expression name="VidView_NavActiveAll">!System.Setting(hidewatched) + !String.StartsWith(Container.FolderPath,videodb://inprogresstvshows)</expression>
 	<expression name="VidView_IsFolderType">String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,set)</expression>
 	<expression name="VidView_IsTVType">String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)</expression>
 	<expression name="VidView_HasRating">!String.IsEmpty(ListItem.Rating) + !String.IsEqual(ListItem.Rating,0.0) + !String.IsEqual(ListItem.Rating,0)</expression>
@@ -82,10 +81,6 @@
 		<value condition="$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]">$LOCALIZE[20343]</value>
 		<value condition="!String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
 		<value>$LOCALIZE[3]</value>
-	</variable>
-	<variable name="VidView_Index">
-		<value condition="Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)">03</value>
-		<value>02</value>
 	</variable>
 	<variable name="VidView_Sub">
 		<value condition="Container.Content(episodes)">$INFO[ListItem.TVShowTitle]</value>
@@ -111,31 +106,6 @@
 		<value condition="Container.SortDirection(descending)">↓</value>
 		<value>↑</value>
 	</variable>
-	<!-- Active filter: accent underline texture + primary text -->
-	<variable name="VidView_TexNavAll">
-		<value condition="$EXP[VidView_NavActiveAll]">sd/pill_46_o3.png</value>
-		<value></value>
-	</variable>
-	<variable name="VidView_ColNavAll">
-		<value condition="$EXP[VidView_NavActiveAll]">ink</value>
-		<value>ink2</value>
-	</variable>
-	<variable name="VidView_TexNavUnwatched">
-		<value condition="System.Setting(hidewatched)">sd/pill_46_o3.png</value>
-		<value></value>
-	</variable>
-	<variable name="VidView_ColNavUnwatched">
-		<value condition="System.Setting(hidewatched)">ink</value>
-		<value>ink2</value>
-	</variable>
-	<variable name="VidView_TexNavInProgress">
-		<value condition="$EXP[VidView_IsInProgressTV]">sd/pill_46_o3.png</value>
-		<value></value>
-	</variable>
-	<variable name="VidView_ColNavInProgress">
-		<value condition="$EXP[VidView_IsInProgressTV]">ink</value>
-		<value>ink2</value>
-	</variable>
 
 	<!-- Artwork background (setting 4). One TMDb Helper pre-blurred image. The window sets
 	     TMDbHelper.Blur.SourceImage on load; TMDb Helper 6.17.9 writes <prefix>.BlurImage
@@ -150,13 +120,6 @@
 		<value>clear</value>
 	</variable>
 
-	<!-- "0002" style position (mockups: 0002 / 1360) -->
-	<variable name="VidView_PosPad">
-		<value condition="Integer.IsLess(Container.CurrentItem,10)">000</value>
-		<value condition="Integer.IsLess(Container.CurrentItem,100)">00</value>
-		<value condition="Integer.IsLess(Container.CurrentItem,1000)">0</value>
-	</variable>
-
 	<!-- Kodi stores US certifications as "Rated PG-13" (DATA 4.1): show the bare code -->
 	<variable name="VidView_MPAA">
 		<value condition="String.IsEqual(ListItem.MPAA,Rated R)">R</value>
@@ -169,11 +132,6 @@
 		<value condition="String.IsEqual(ListItem.MPAA,Rated TV-14)">TV-14</value>
 		<value condition="String.IsEqual(ListItem.MPAA,Rated TV-PG)">TV-PG</value>
 		<value>$INFO[ListItem.MPAA]</value>
-	</variable>
-	<!-- "2h 25m" (Duration(m) = minutes within the hour, StringUtils::SecondsToTimeString) -->
-	<variable name="VidView_Runtime">
-		<value condition="Integer.IsGreater(ListItem.Duration(h),0)">$INFO[ListItem.Duration(h),,h ]$INFO[ListItem.Duration(m),,m]</value>
-		<value>$INFO[ListItem.Duration(m),,m]</value>
 	</variable>
 	<variable name="VidView_Status">
 		<value condition="String.IsEqual(ListItem.DBType,set) + $EXP[VidView_SetDone]">Watched</value>
@@ -216,54 +174,6 @@
 	<variable name="VidView_CastLead">
 		<value condition="!String.IsEmpty(ListItem.Director)">$INFO[ListItem.Cast,· ,]</value>
 		<value>$INFO[ListItem.Cast]</value>
-	</variable>
-
-	<!-- Facts strip (5 cells, DESIGN 7.5): label / value per DBType -->
-	<variable name="VidView_Fact1L">
-		<value condition="String.IsEqual(ListItem.DBType,episode)">AIRED</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">SEASON</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">FILMS</value>
-		<value>YEAR</value>
-	</variable>
-	<variable name="VidView_Fact1V">
-		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Premiered]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Season]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total)]</value>
-		<value>$INFO[ListItem.Year]</value>
-	</variable>
-	<variable name="VidView_Fact2L">
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">SEASONS</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">EPISODES</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">WATCHED</value>
-		<value>RUNTIME</value>
-	</variable>
-	<variable name="VidView_Fact2V">
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(TotalSeasons)]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes)]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Watched)]</value>
-		<value>$VAR[VidView_Runtime]</value>
-	</variable>
-	<variable name="VidView_Fact3L">
-		<value condition="String.IsEqual(ListItem.DBType,season)">WATCHED</value>
-		<value>RATING</value>
-	</variable>
-	<variable name="VidView_Fact3V">
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(WatchedEpisodes)]</value>
-		<value>$INFO[ListItem.Rating]</value>
-	</variable>
-	<variable name="VidView_Fact4L">
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">EPISODES</value>
-		<value>RATED</value>
-	</variable>
-	<variable name="VidView_Fact4V">
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(TotalEpisodes)]</value>
-		<value>$VAR[VidView_MPAA]</value>
-	</variable>
-
-	<!-- Showcase caption under the hero poster (right half) -->
-	<variable name="VidView_HeroCaption">
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$INFO[ListItem.Property(Total), · , FILMS]</value>
-		<value>$INFO[ListItem.DateAdded,ADDED ,]</value>
 	</variable>
 
 	<!-- Wall header (focused show of the wall, container 502) -->
@@ -360,57 +270,9 @@
 					<align>center</align>
 					<font>caps_20</font>
 					<textcolor>ink2</textcolor>
-					<label>UP ONE LEVEL</label>
+					<label>$LOCALIZE[31286]</label>
 					<visible>$PARAM[caption_visible]</visible>
 				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Fixed-slot dimming for fixedlists with focus fixed in slot 2 (DESIGN 6): an overlay of
-	     baked-alpha black sits over the slot in window coordinates, shown only when an item
-	     occupies that slot (Container(id).ListItemNoWrap(offset)). The poster stays opaque.
-	     Per-item ListItem.CurrentItem comparisons inside layouts did not evaluate on device.
-	     params: list, offset (-1 previous / 1, 2 ... ahead), left, top, width, height, mask, tex -->
-	<include name="VidView_SlotDim">
-		<param name="tex">vidview/dim_ahead.png</param>
-		<param name="mask">masks/poster_round8.png</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>$PARAM[width]</width>
-				<height>$PARAM[height]</height>
-				<visible>!String.IsEmpty(Container($PARAM[list]).ListItemNoWrap($PARAM[offset]).Label)</visible>
-				<include content="VidView_SlotDimRound" condition="true">
-					<param name="tex" value="$PARAM[tex]"/>
-					<param name="mask" value="$PARAM[mask]"/>
-				</include>
-				<include content="VidView_SlotDimSquare" condition="false">
-					<param name="tex" value="$PARAM[tex]"/>
-				</include>
-			</control>
-		</definition>
-	</include>
-	<include name="VidView_SlotDimRound">
-		<definition>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<texture diffuse="$PARAM[mask]">$PARAM[tex]</texture>
-			</control>
-		</definition>
-	</include>
-	<include name="VidView_SlotDimSquare">
-		<definition>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<texture>$PARAM[tex]</texture>
 			</control>
 		</definition>
 	</include>
@@ -808,8 +670,7 @@
 				<textoffsetx>18</textoffsetx>
 				<texturefocus border="22" colordiffuse="ink">sd/pill_46.png</texturefocus>
 				<label>All $VAR[VidView_CountAll]</label>
-				<textcolor>$VAR[VidView_ColNavAll]</textcolor>
-				<texturenofocus border="22" colordiffuse="ink">$VAR[VidView_TexNavAll]</texturenofocus>
+				<texturenofocus />
 				<onclick condition="$EXP[VidView_IsInProgressTV]">Action(ParentDir)</onclick>
 				<onclick condition="!$EXP[VidView_IsInProgressTV] + System.Setting(hidewatched)">SendClick(14)</onclick>
 				<visible>$EXP[VidView_IsLibraryVideo] | $EXP[VidView_IsInProgressTV]</visible>
@@ -824,8 +685,7 @@
 				<textoffsetx>18</textoffsetx>
 				<texturefocus border="22" colordiffuse="ink">sd/pill_46.png</texturefocus>
 				<label>Unwatched $VAR[VidView_CountUnwatched]</label>
-				<textcolor>$VAR[VidView_ColNavUnwatched]</textcolor>
-				<texturenofocus border="22" colordiffuse="ink">$VAR[VidView_TexNavUnwatched]</texturenofocus>
+				<texturenofocus />
 				<onclick condition="!System.Setting(hidewatched)">SendClick(14)</onclick>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)</visible>
 			</control>
@@ -839,8 +699,7 @@
 				<textoffsetx>18</textoffsetx>
 				<texturefocus border="22" colordiffuse="ink">sd/pill_46.png</texturefocus>
 				<label>In progress $VAR[VidView_CountInProgress]</label>
-				<textcolor>$VAR[VidView_ColNavInProgress]</textcolor>
-				<texturenofocus border="22" colordiffuse="ink">$VAR[VidView_TexNavInProgress]</texturenofocus>
+				<texturenofocus />
 				<onclick condition="!$EXP[VidView_IsInProgressTV]">Container.Update(videodb://inprogresstvshows/)</onclick>
 				<visible>$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]</visible>
 			</control>
@@ -898,15 +757,6 @@
 			<include>SD_Hidden</include>
 		</control>
 	</include>
-	<!-- Look shared by the filter-bar buttons: mono 15, accent fill + ink text on focus -->
-	<include name="VidView_NavButtonLook">
-		<width>auto</width>
-		<height>subnav_h</height>
-		<font>caps_20</font>
-		<focusedcolor>on_ink</focusedcolor>
-		<textoffsetx>12</textoffsetx>
-		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-	</include>
 
 	<!-- Empty folder (or everything filtered away) -->
 	<include name="VidView_Empty">
@@ -923,7 +773,7 @@
 				<height>30</height>
 				<font>caps_20</font>
 				<textcolor>ink2</textcolor>
-				<label>NOTHING HERE</label>
+				<label>$LOCALIZE[31287]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -932,128 +782,13 @@
 				<height>40</height>
 				<font>reg_24</font>
 				<textcolor>ink2</textcolor>
-				<label>Unwatched only is on: press Up and choose ALL to show everything.</label>
+				<label>$LOCALIZE[31288]</label>
 				<visible>System.Setting(hidewatched)</visible>
 			</control>
 		</control>
 	</include>
 
 	<!-- ============================================================ shared text blocks -->
-
-	<!-- 5-cell facts strip between two rules (Movies.dc, DESIGN 7.5) -->
-	<include name="VidView_FactCell">
-		<param name="label"></param>
-		<param name="value"></param>
-		<param name="visible">true</param>
-		<definition>
-			<control type="group">
-				<width>vidview_fact_w</width>
-				<height>vidview_fact_h</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="label">
-					<left>0</left>
-					<top>16</top>
-					<width>208</width>
-					<height>20</height>
-					<font>caps_20</font>
-					<textcolor>ink2</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="label">
-					<left>0</left>
-					<top>40</top>
-					<width>208</width>
-					<height>42</height>
-					<font>xb_30</font>
-					<textcolor>ink</textcolor>
-					<label>$PARAM[value]</label>
-				</control>
-			</control>
-		</definition>
-	</include>
-	<include name="VidView_Facts">
-		<control type="group">
-			<width>vidview_col_w</width>
-			<height>vidview_fact_h</height>
-			<include content="SD_Rule">
-				<param name="top" value="0"/>
-				<param name="left" value="0"/>
-				<param name="width" value="vidview_col_w"/>
-				<param name="color" value="hair_strong"/>
-			</include>
-			<include content="SD_Rule">
-				<param name="top" value="95"/>
-				<param name="left" value="0"/>
-				<param name="width" value="vidview_col_w"/>
-				<param name="color" value="hair_strong"/>
-			</include>
-			<control type="grouplist">
-				<left>0</left>
-				<top>0</top>
-				<width>vidview_col_w</width>
-				<height>vidview_fact_h</height>
-				<orientation>horizontal</orientation>
-				<itemgap>0</itemgap>
-				<include content="VidView_FactCell">
-					<param name="label" value="$VAR[VidView_Fact1L]"/>
-					<param name="value" value="$VAR[VidView_Fact1V]"/>
-					<param name="visible" value="$EXP[VidView_Fact1Visible]"/>
-				</include>
-				<include content="VidView_FactCell">
-					<param name="label" value="$VAR[VidView_Fact2L]"/>
-					<param name="value" value="$VAR[VidView_Fact2V]"/>
-					<param name="visible" value="$EXP[VidView_Fact2Visible]"/>
-				</include>
-				<include content="VidView_FactCell">
-					<param name="label" value="$VAR[VidView_Fact3L]"/>
-					<param name="value" value="$VAR[VidView_Fact3V]"/>
-					<param name="visible" value="$EXP[VidView_Fact3Visible]"/>
-				</include>
-				<include content="VidView_FactCell">
-					<param name="label" value="$VAR[VidView_Fact4L]"/>
-					<param name="value" value="$VAR[VidView_Fact4V]"/>
-					<param name="visible" value="$EXP[VidView_Fact4Visible]"/>
-				</include>
-				<include content="VidView_FactCell">
-					<param name="label" value="STATUS"/>
-					<param name="value" value="$VAR[VidView_Status]"/>
-				</include>
-			</control>
-		</control>
-	</include>
-
-	<!-- Definition-list row (DIRECTOR / CAST / GENRE...): mono label column 160 + 1-line value.
-	     The value is a 1-line textbox so newline-separated lists (cast) clip to the first entry. -->
-	<include name="VidView_DefRow">
-		<param name="label"></param>
-		<param name="value"></param>
-		<param name="visible">true</param>
-		<definition>
-			<control type="group">
-				<width>vidview_col_w</width>
-				<height>30</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="label">
-					<left>0</left>
-					<top>4</top>
-					<width>160</width>
-					<height>22</height>
-					<font>caps_20</font>
-					<textcolor>ink2</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="textbox">
-					<left>160</left>
-					<top>0</top>
-					<width>984</width>
-					<height>30</height>
-					<font>reg_22</font>
-					<textcolor>ink</textcolor>
-					<label>$PARAM[value]</label>
-				</control>
-			</control>
-		</definition>
-	</include>
 
 	<!-- ================================================================ View 500 -->
 	<!-- Poster Showcase (Movies.dc.html): hero poster + info column + browse strip (the container).
@@ -1072,7 +807,7 @@
 				<height>22</height>
 				<font>caps_20</font>
 				<textcolor>ink</textcolor>
-				<label>PARENT FOLDER</label>
+				<label>$LOCALIZE[31289]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -1081,7 +816,7 @@
 				<height>110</height>
 				<font>$PARAM[title_font]</font>
 				<textcolor>ink</textcolor>
-				<label>Back</label>
+				<label>$LOCALIZE[31284]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -1090,7 +825,7 @@
 				<height>26</height>
 				<font>caps_21</font>
 				<textcolor>ink2</textcolor>
-				<label>OK · UP ONE LEVEL</label>
+				<label>$LOCALIZE[31290]</label>
 			</control>
 		</definition>
 	</include>
@@ -1133,14 +868,14 @@
 				<control type="grouplist">
 					<left>480</left><top>308</top><width>1376</width><height>40</height>
 					<orientation>horizontal</orientation><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords>
-					<control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactLead]</label></control>
-					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>Integer.IsGreater(ListItem.Duration,0) | String.IsEqual(ListItem.DBType,tvshow)</visible></control>
+					<control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactLead]</label><visible>$EXP[St_FactLead_On]</visible></control>
+					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Time]</visible></control>
 					<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactTime]</label></control>
-					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>!String.IsEmpty(ListItem.MPAA)</visible></control>
+					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Mpaa]</visible></control>
 					<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$INFO[ListItem.MPAA]</label></control>
-					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>!String.IsEmpty(ListItem.Rating)</visible></control>
+					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Rating]</visible></control>
 					<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$INFO[ListItem.Rating,★ ,]</label></control>
-					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label></control>
+					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Watched]</visible></control>
 					<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactWatched]</label></control>
 				</control>
 				<control type="textbox">
@@ -1206,18 +941,6 @@
 				<label>◀ ▶ ride the line   ·   OK play or station page   ·   hold OK for options   ·   ▲ filter and sort</label>
 			</control>
 		</control>
-	</include>
-	<include name="VidView_StripDimAhead">
-		<definition>
-			<include content="VidView_SlotDim">
-				<param name="list" value="500"/>
-				<param name="offset" value="$PARAM[offset]"/>
-				<param name="left" value="$PARAM[left]"/>
-				<param name="top" value="818"/>
-				<param name="width" value="vidview_strip_w"/>
-				<param name="height" value="vidview_strip_h"/>
-			</include>
-		</definition>
 	</include>
 
 	<!-- ================================================================ View 501 -->
@@ -1399,7 +1122,7 @@
 					<height>26</height>
 					<font>caps_21</font>
 					<textcolor>ink2</textcolor>
-					<label>OK · UP ONE LEVEL</label>
+					<label>$LOCALIZE[31290]</label>
 					<visible>ListItem.IsParentFolder</visible>
 				</control>
 			</control>
@@ -1409,19 +1132,6 @@
 		<value condition="ListItem.IsParentFolder">PARENT FOLDER</value>
 		<value>Station $INFO[Container.CurrentItem] of $INFO[Container.NumItems]$INFO[ListItem.DateAdded, · added ,]</value>
 	</variable>
-	<include name="VidView_BigDimAhead">
-		<definition>
-			<include content="VidView_SlotDim">
-				<param name="list" value="501"/>
-				<param name="offset" value="$PARAM[offset]"/>
-				<param name="mask" value="masks/poster_round8_large.png"/>
-				<param name="left" value="$PARAM[left]"/>
-				<param name="top" value="160"/>
-				<param name="width" value="vidview_big_w"/>
-				<param name="height" value="vidview_big_h"/>
-			</include>
-		</definition>
-	</include>
 
 	<!-- ================================================================ View 502 -->
 	<!-- Wall (TV.dc.html): 10 x 2 posters under a header line. Above it: the Next up strip at the
@@ -1530,7 +1240,7 @@
 				<ondown>noop</ondown>
 				<include>Lib_OpenLeft</include>
 				<include>Lib_OpenRight</include>
-				<viewtype label="Wall">list</viewtype>
+				<viewtype label="31245">list</viewtype>
 				<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
 				<itemlayout width="vidview_wall_pitch_x" height="vidview_wall_pitch_y">
 					<control type="group">
@@ -1578,7 +1288,7 @@
 				<height>32</height>
 				<font>caps_22</font>
 				<textcolor>ink</textcolor>
-				<label>Next up</label>
+				<label>$LOCALIZE[31291]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -1597,7 +1307,7 @@
 				<height>30</height>
 				<font>caps_20</font>
 				<textcolor>ink2</textcolor>
-				<label>NOTHING IN PROGRESS</label>
+				<label>$LOCALIZE[31292]</label>
 				<visible>Integer.IsEqual(Container(9310).NumItems,0) + !Container(9310).IsUpdating</visible>
 			</control>
 			<control type="list" id="9310">
@@ -1765,7 +1475,7 @@
 				<ondown>noop</ondown>
 				<include>Lib_OpenLeft</include>
 				<onright>63</onright>
-				<viewtype label="Episodes">list</viewtype>
+				<viewtype label="31246">list</viewtype>
 				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
 				<itemlayout width="page_width" height="vidview_ep_row_h">
 					<include>VidView_EpisodeRow</include>
@@ -1944,7 +1654,7 @@
 				<height>36</height>
 				<font>xb_22</font>
 				<textcolor>ink</textcolor>
-				<label>Back</label>
+				<label>$LOCALIZE[31284]</label>
 			</control>
 		</control>
 	</include>

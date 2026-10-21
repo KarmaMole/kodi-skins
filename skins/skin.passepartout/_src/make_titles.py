@@ -12,6 +12,8 @@ Geist line pitch in Kodi = 1.2 x size x linespacing (make_fontxml.py).
 Usage: python skins/skin.passepartout/_src/make_titles.py
 """
 from pathlib import Path
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "Includes_Titles.xml"
 PITCH = {"disp_112": 132, "disp_96": 112, "ttl_72": 84, "ttl_64": 76, "ttl_56": 66, "ttl_48": 58, "ttl_44": 54, "ttl_40": 50}
@@ -93,7 +95,6 @@ SPECS = [
     ("Title_Music", 1260, 84, ["ttl_72", "ttl_56", "ttl_44"], 7231, "$VAR[Music_Title]", "left"),
     ("Title_OSD", 520, 76, ["ttl_64", "ttl_48", "ttl_40"], 7241, "$VAR[OSD_PPTitle]", "left"),
     ("Title_OSDWide", 1680, 76, ["ttl_64", "ttl_48", "ttl_40"], 7251, "$VAR[OSD_PPTitle]", "left"),
-    ("Title_Context", 400, 76, ["ttl_64", "ttl_48", "ttl_40"], 7261, "$INFO[ListItem.Label]", "left"),
     ("Title_Room", 1680, 76, ["ttl_64", "ttl_48"], 7271, "$VAR[Home_RoomTitle]", "left"),
     ("Title_NowPlaying", 1600, 84, ["ttl_72", "ttl_56", "ttl_44"], 7281, "$INFO[MusicPlayer.Title]", "center"),
 ]
@@ -106,7 +107,7 @@ def main():
     parts += [single(*s) for s in SPECS]
     parts.append(wall_title())
     parts.append("</includes>\n")
-    OUT.write_text("\n".join(parts), encoding="utf-8", newline="\n")
+    OUT.write_text(localize_xml("\n".join(parts), STRINGS_PO), encoding="utf-8", newline="\n")
     print("wrote", OUT)
 
 

@@ -26,7 +26,6 @@
 				<width>860</width>
 				<height>84</height>
 				<texturefocus />
-				<texturenofocus />
 				<onup>9515</onup>
 				<ondown>9511</ondown>
 				<onright condition="String.IsEmpty(Skin.String(keepsake.stamp))">Skin.SetString(keepsake.stamp,dmy)</onright>
@@ -46,7 +45,7 @@
 				<height>64</height>
 				<font>hand_46</font>
 				<textcolor>$VAR[SkinSet_Ink_9510]</textcolor>
-				<label>the date stamp</label>
+				<label>$LOCALIZE[31421]</label>
 			</control>
 			<control type="image">
 				<left>-4</left>
@@ -108,7 +107,7 @@
 				<align>center</align>
 				<font>lbln_20</font>
 				<textcolor>$VAR[SkinSet_Opt_9510]</textcolor>
-				<label>none</label>
+				<label>$LOCALIZE[31422]</label>
 			</control>
 		</control>
 		<!-- the prints -->
@@ -123,7 +122,6 @@
 				<width>860</width>
 				<height>84</height>
 				<texturefocus />
-				<texturenofocus />
 				<onup>9510</onup>
 				<ondown>9512</ondown>
 				<onright condition="!Skin.HasSetting(keepsake.straight)">Skin.SetBool(keepsake.straight)</onright>
@@ -140,7 +138,7 @@
 				<height>64</height>
 				<font>hand_46</font>
 				<textcolor>$VAR[SkinSet_Ink_9511]</textcolor>
-				<label>the prints</label>
+				<label>$LOCALIZE[31423]</label>
 			</control>
 			<control type="image">
 				<left>-4</left>
@@ -166,7 +164,7 @@
 				<align>center</align>
 				<font>lbln_20</font>
 				<textcolor>$VAR[SkinSet_Opt_9511]</textcolor>
-				<label>hand-placed</label>
+				<label>$LOCALIZE[31424]</label>
 			</control>
 			<control type="image">
 				<left>526</left>
@@ -184,7 +182,7 @@
 				<align>center</align>
 				<font>lbln_20</font>
 				<textcolor>$VAR[SkinSet_Opt_9511]</textcolor>
-				<label>straight</label>
+				<label>$LOCALIZE[31425]</label>
 			</control>
 		</control>
 		<!-- the time of day -->
@@ -199,7 +197,6 @@
 				<width>860</width>
 				<height>84</height>
 				<texturefocus />
-				<texturenofocus />
 				<onup>9511</onup>
 				<ondown>9513</ondown>
 				<onright condition="!Skin.HasSetting(keepsake.notime)">Skin.SetBool(keepsake.notime)</onright>
@@ -216,7 +213,7 @@
 				<height>64</height>
 				<font>hand_46</font>
 				<textcolor>$VAR[SkinSet_Ink_9512]</textcolor>
-				<label>the time of day</label>
+				<label>$LOCALIZE[31426]</label>
 			</control>
 			<control type="image">
 				<left>-4</left>
@@ -242,7 +239,7 @@
 				<align>center</align>
 				<font>lbln_20</font>
 				<textcolor>$VAR[SkinSet_Opt_9512]</textcolor>
-				<label>written</label>
+				<label>$LOCALIZE[31427]</label>
 			</control>
 			<control type="image">
 				<left>526</left>
@@ -260,7 +257,7 @@
 				<align>center</align>
 				<font>lbln_20</font>
 				<textcolor>$VAR[SkinSet_Opt_9512]</textcolor>
-				<label>left out</label>
+				<label>$LOCALIZE[31428]</label>
 			</control>
 		</control>
 		<!-- the trailer word -->
@@ -275,7 +272,6 @@
 				<width>860</width>
 				<height>84</height>
 				<texturefocus />
-				<texturenofocus />
 				<onup>9512</onup>
 				<ondown>9514</ondown>
 				<onright condition="!Skin.HasSetting(keepsake.hidetrailer)">Skin.SetBool(keepsake.hidetrailer)</onright>
@@ -292,7 +288,7 @@
 				<height>64</height>
 				<font>hand_46</font>
 				<textcolor>$VAR[SkinSet_Ink_9513]</textcolor>
-				<label>the trailer word</label>
+				<label>$LOCALIZE[31429]</label>
 			</control>
 			<control type="image">
 				<left>-4</left>
@@ -318,7 +314,7 @@
 				<align>center</align>
 				<font>lbln_20</font>
 				<textcolor>$VAR[SkinSet_Opt_9513]</textcolor>
-				<label>shown</label>
+				<label>$LOCALIZE[31430]</label>
 			</control>
 			<control type="image">
 				<left>526</left>
@@ -336,7 +332,7 @@
 				<align>center</align>
 				<font>lbln_20</font>
 				<textcolor>$VAR[SkinSet_Opt_9513]</textcolor>
-				<label>hidden</label>
+				<label>$LOCALIZE[31431]</label>
 			</control>
 		</control>
 		<!-- motion -->
@@ -351,7 +347,6 @@
 				<width>860</width>
 				<height>84</height>
 				<texturefocus />
-				<texturenofocus />
 				<onup>9513</onup>
 				<ondown>9515</ondown>
 				<onright condition="!Skin.HasSetting(keepsake.reducemotion)">Skin.SetBool(keepsake.reducemotion)</onright>
@@ -368,7 +363,7 @@
 				<height>64</height>
 				<font>hand_46</font>
 				<textcolor>$VAR[SkinSet_Ink_9514]</textcolor>
-				<label>motion</label>
+				<label>$LOCALIZE[31432]</label>
 			</control>
 			<control type="image">
 				<left>-4</left>
@@ -394,7 +389,7 @@
 				<align>center</align>
 				<font>lbln_20</font>
 				<textcolor>$VAR[SkinSet_Opt_9514]</textcolor>
-				<label>full</label>
+				<label>$LOCALIZE[31433]</label>
 			</control>
 			<control type="image">
 				<left>526</left>
@@ -412,7 +407,7 @@
 				<align>center</align>
 				<font>lbln_20</font>
 				<textcolor>$VAR[SkinSet_Opt_9514]</textcolor>
-				<label>reduced</label>
+				<label>$LOCALIZE[31434]</label>
 			</control>
 		</control>
 		<!-- the words hide after -->
@@ -427,7 +422,6 @@
 				<width>860</width>
 				<height>84</height>
 				<texturefocus />
-				<texturenofocus />
 				<onup>9514</onup>
 				<ondown>9510</ondown>
 				<onright condition="String.IsEqual(Skin.String(keepsake.osdhide),3)">Skin.Reset(keepsake.osdhide)</onright>
@@ -450,7 +444,7 @@
 				<height>64</height>
 				<font>hand_46</font>
 				<textcolor>$VAR[SkinSet_Ink_9515]</textcolor>
-				<label>the words hide after</label>
+				<label>$LOCALIZE[31435]</label>
 			</control>
 			<control type="image">
 				<left>-4</left>
@@ -530,7 +524,7 @@
 				<align>center</align>
 				<font>lbln_20</font>
 				<textcolor>$VAR[SkinSet_Opt_9515]</textcolor>
-				<label>never</label>
+				<label>$LOCALIZE[31436]</label>
 			</control>
 		</control>
 		<control type="list" id="9590">

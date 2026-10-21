@@ -45,7 +45,6 @@ U = "uppercase"
 FONTS = [
     ("font13", REG, 26, None, None),
     # ---- wide headings (uppercase) -------------------------------------
-    ("wide_104", WIDE, 104, ls(104, 118), U),
     ("wide_84", WIDE, 84, ls(84, 96), U),
     ("wide_66", WIDE, 66, ls(66, 78), U),
     ("wide_56", WIDE, 56, ls(56, 66), U),
@@ -55,13 +54,10 @@ FONTS = [
     ("wide_34", WIDE, 34, ls(34, 44), U),
     ("wide_30", WIDE, 30, ls(30, 38), U),
     ("wide_26", WIDE, 26, ls(26, 32), U),
-    ("wide_22", WIDE, 22, None, U),
     # ---- engraved labels (uppercase, tracked) ----------------------------
-    ("label_24", LABEL, 24, None, U),
     ("label_22", LABEL, 22, None, U),
     ("label_20", LABEL, 20, None, U),
     # ---- text ------------------------------------------------------------
-    ("text_30", REG, 30, ls(30, 42), None),
     ("text_28", REG, 28, ls(28, 42), None),
     ("text_26", REG, 26, ls(26, 38), None),
     ("text_24", REG, 24, ls(24, 34), None),
@@ -71,7 +67,6 @@ FONTS = [
     ("text_30_med", MED, 30, None, None),
     ("text_26_semi", SEMI, 26, None, None),
     ("text_26_med", MED, 26, None, None),
-    ("text_24_semi", SEMI, 24, None, None),
     ("text_24_med", MED, 24, None, None),
     ("text_22_med", MED, 22, None, None),
     # ---- mono numerals ---------------------------------------------------
@@ -83,34 +78,21 @@ FONTS = [
     ("mono_34", MONO_M, 34, None, None),
     ("mono_30", MONO, 30, None, None),
     ("mono_26", MONO, 26, None, None),
-    ("mono_24", MONO, 24, None, None),
     ("mono_22", MONO, 22, None, None),
     ("mono_20", MONO, 20, None, None),
     # ---- legacy names (Majan-derived windows) -> Orbit faces ----------------
     ("display_100", WIDE, 84, ls(84, 96), U),
-    ("display_92", WIDE, 76, ls(76, 88), U),
-    ("display_72", WIDE, 60, ls(60, 70), U),
-    ("display_68", WIDE, 56, ls(56, 66), U),
-    ("display_64", WIDE, 54, ls(54, 64), U),
-    ("display_48", WIDE, 40, ls(40, 48), U),
-    ("ghost_220", WIDE, 180, None, U),
     ("header_34", WIDE, 34, None, U),
     ("clock_34", MONO_M, 34, None, None),
     ("stat_30", MONO_M, 30, None, None),
     ("title_28_bold", SEMI, 28, None, None),
-    ("title_28_medium", MED, 28, None, None),
     ("title_28_semibold", SEMI, 28, None, None),
-    ("menu_26_bold", SEMI, 26, None, None),
-    ("menu_26_medium", MED, 26, None, None),
-    ("body_26", REG, 26, ls(26, 38), None),
     ("body_25", REG, 25, ls(25, 36), None),
     ("label_25_semibold", SEMI, 25, None, None),
     ("label_25_bold", SEMI, 25, None, None),
-    ("section_24", LABEL, 22, None, U),
     ("body_23", REG, 24, ls(24, 34), None),
     ("button_23_bold", LABEL, 22, None, U),
     ("button_23_semibold", LABEL, 22, None, U),
-    ("credits_22", REG, 22, None, None),
     ("credits_21", REG, 22, None, None),
     ("credits_21_semibold", SEMI, 22, None, None),
     ("card_21_bold", SEMI, 22, None, None),
@@ -119,13 +101,11 @@ FONTS = [
     ("small_19_bold", SEMI, 20, None, None),
     ("small_19", REG, 20, ls(20, 28), None),
     ("small_16", REG, 20, None, None),
-    ("mono_17", LABEL, 20, None, U),
     ("mono_15", LABEL, 20, None, U),
     ("mono_14", LABEL, 20, None, U),
     ("mono_13", LABEL, 20, None, U),
     ("num_16", MONO, 20, None, None),
     ("num_14", MONO, 20, None, None),
-    ("tab_13", MONO_M, 20, None, None),
     # ---- Estuary-name aliases for third-party script windows ----------------
     ("font10", REG, 22, None, None),
     ("font12", REG, 24, None, None),
@@ -140,8 +120,14 @@ FONTS = [
     ("font30_title", WIDE, 28, None, U),
     ("font25_title", WIDE, 24, None, U),
     ("Mono26", MONO, 26, None, None),
-    ("num_22", MONO, 22, None, None),
 ]
+
+
+# Estuary font names kept for third-party script windows (add-on dialogs ask for them by name; Kodi only falls
+# back to font13). kdk (the Kodi repository review bot) reports them as unused: each line carries a kdk-ignore.
+ESTUARY_ALIASES = {"font10", "font12", "font14", "font27", "font30", "font37", "font45", "font52_title",
+                   "font45_title", "font36_title", "font30_title", "font25_title"}
+KDK_ALIAS = " <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->"
 
 
 def font_xml(name, filename, size, lsp, style):
@@ -150,7 +136,7 @@ def font_xml(name, filename, size, lsp, style):
         parts.append(f"<linespacing>{lsp}</linespacing>")
     if style:
         parts.append(f"<style>{style}</style>")
-    return "\t\t<font>" + "".join(parts) + "</font>"
+    return "\t\t<font>" + "".join(parts) + "</font>" + (KDK_ALIAS if name in ESTUARY_ALIASES else "")
 
 
 def main():
@@ -169,7 +155,7 @@ def main():
     for name, _file, size, lsp, style in FONTS:
         out.append(font_xml(name, "arial.ttf", size, lsp, style))
     out += ["\t</fontset>", "</fonts>", ""]
-    OUT.write_text("\n".join(out), encoding="utf-8")
+    OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
     print(f"wrote {OUT} ({len(FONTS)} fonts per set)")
 
 

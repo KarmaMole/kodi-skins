@@ -4,7 +4,7 @@ guard_text(text, rm) rewrites every slide/zoom/rotate animation (time > 1) whose
 already test reduce motion into a pair:
   original  condition = [C] + !RM
   twin      condition = [C] + RM, motion effects at time 0 / delay 0, fades unchanged
-(no twin for loops, nor for leaving animations without a fade). End states (layout slides, lifts)
+(no twin for loops, nor for leaving animations without a fade, nor EVER for Hidden: one Hidden per control). End states (layout slides, lifts)
 are kept, movement is not.
 """
 import re
@@ -52,6 +52,22 @@ def still(attr_text):
     return a
 
 
+LIST_OPEN = re.compile(r'<control\s+type="(?:list|panel|fixedlist|wraplist)"[^>]*?\bid="(\d+)"')
+
+
+def focus_test(text, at, cond):
+    """' + Control.HasFocus(<list>)' when the animation sits in a container's focusedlayout; '' when its own condition
+    already carries the focus test (a focusedlayout include param such as Search_Item's focused)."""
+    fo = text.rfind("<focusedlayout", 0, at)
+    if fo > text.rfind("</focusedlayout>", 0, at):
+        ids = LIST_OPEN.findall(text, 0, fo)
+        if ids:
+            return " + Control.HasFocus(%s)" % ids[-1]
+    if cond.strip():
+        return ""
+    raise ValueError("rm_guard: Focus animation with no focus context near offset %d; give it a focus condition" % at)
+
+
 def combine(cond, extra):
     if not cond:
         return extra
@@ -90,9 +106,23 @@ def process(text):
         orig_head = setattr_(head, "condition", combine(cond, "!" + RM))
         orig = "<animation" + orig_head + ">" + body + "</animation>"
         twin = None
-        need_twin = not loop and (anim_type in ("Conditional", "Focus", "Unfocus") or fades_left)
+        # Never a second Hidden animation (LESSONS, Groove device pass 2): Kodi resets only the FIRST Hidden animation
+        # when a control shows again, so a reduce-motion Hidden twin that has run stays at fade 0 and the control never
+        # comes back. A moving Hidden keeps the normal animation only: reduce motion hides at once.
+        # Focus works like Hidden (LESSONS 2026-10-21, Void/Orbit/Daylight): on unfocus Kodi resets only the FIRST Focus
+        # animation, so a reduce-motion Focus twin that ends off identity (zoom 112) stays applied. The reduce-motion
+        # end state becomes a time-0 Conditional on the same focus instead (in a focusedlayout: Control.HasFocus(list)),
+        # which Kodi reverses by itself. Unfocus then needs no twin unless a fade must still run.
+        need_twin = not loop and anim_type != "Hidden" and (anim_type in ("Conditional", "Focus") or fades_left)
         if need_twin:
             th = setattr_(head, "condition", combine(cond, RM))
+            if anim_type == "Focus":
+                th = setattr_(head, "condition", combine(cond, RM + focus_test(text, m.start(), cond)))
+                th = re.sub(r'\s+reversible="[^"]*"', "", th)
+                if get(th, "type"):
+                    th = setattr_(th, "type", "Conditional")
+                else:
+                    body = body.replace("Focus", "Conditional")
             if get(head, "effect"):
                 th = still(th) if is_moving(th) else th
                 tbody = body

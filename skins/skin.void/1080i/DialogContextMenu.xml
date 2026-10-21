@@ -49,15 +49,8 @@
 			<top>0</top>
 			<width>auto</width>
 			<height>60</height>
-			<font>sans_28_med</font>
 			<textcolor>grey</textcolor>
-			<focusedcolor>text</focusedcolor>
-			<disabledcolor>disabled</disabledcolor>
 			<textoffsetx>14</textoffsetx>
-			<aligny>center</aligny>
-			<pulseonselect>false</pulseonselect>
-			<texturefocus />
-			<texturenofocus />
 			<include content="Void_Anim_FocusText"><param name="zoom" value="112"/></include>
 		</control>
 	</controls>

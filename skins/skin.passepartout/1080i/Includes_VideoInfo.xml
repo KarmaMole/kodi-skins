@@ -147,7 +147,7 @@
 				<height>28</height>
 				<font>cap_20</font>
 				<textcolor>ink</textcolor>
-				<label>The wall label</label>
+				<label>$LOCALIZE[31193]</label>
 			</control>
 		</control>
 		<include>PP_Clock</include>
@@ -467,7 +467,7 @@
 				<animation type="Focus" condition="[$PARAM[focused]] + !Skin.HasSetting(passepartout.reducemotion)">
 					<effect type="zoom" start="100" end="110" center="80,120" time="240" tween="cubic" easing="out"/>
 				</animation>
-				<animation type="Focus" condition="[$PARAM[focused]] + Skin.HasSetting(passepartout.reducemotion)">
+				<animation type="Conditional" condition="[$PARAM[focused]] + Skin.HasSetting(passepartout.reducemotion) + Control.HasFocus(50)">
 					<effect type="zoom" start="100" end="110" center="80,120" time="0" tween="cubic" easing="out"/>
 				</animation>
 				<control type="group">
@@ -532,7 +532,7 @@
 					<height>28</height>
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
-					<label>The curator's text</label>
+					<label>$LOCALIZE[31194]</label>
 				</control>
 				<control type="label">
 					<left>64</left>
@@ -578,7 +578,7 @@
 					<height>28</height>
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
-					<label>Up and down to read · Back to close</label>
+					<label>$LOCALIZE[31195]</label>
 				</control>
 			</control>
 		</control>

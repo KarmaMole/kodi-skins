@@ -5,6 +5,10 @@
 Labels and expressions live in 1080i/Includes_Library.xml. Run: python make_library_dialogs.py
 """
 from pathlib import Path
+from strip_defaults import strip_defaults  # drops tags that repeat Defaults.xml (kdk xml.redundant)
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
+DEFAULTS_XML = Path(__file__).resolve().parent.parent / "1080i" / "Defaults.xml"
 
 OUT = Path(__file__).resolve().parent.parent / "1080i"
 
@@ -64,6 +68,9 @@ def panel():
         item("Sort", "$VAR[PP_LibSortHint]", [c, "SendClick(3)"], f"!String.IsEmpty(Container.SortMethod) + !{INPROG}"),
         item("Order", "$VAR[PP_LibOrderHint]", [c, "Container.SetSortDirection"], f"!String.IsEmpty(Container.SortMethod) + !{INPROG}"),
         item("Show", "$VAR[VidView_FilterWord]", [c, "SendClick(14)"], "$EXP[PP_LibHasWatchedFilter]"),
+        # Sets (docs/requests/SETS_AND_RM_BRIEF.md): the films' sets in this same Videos window; Container.Update keeps
+        # the history, so Back walks set -> all sets -> films. The header calls that folder "Collections".
+        item("$LOCALIZE[20434]", "Collections", [c, "Container.Update(videodb://movies/sets/)"], "$EXP[PP_LibShowSets]"),
         item("$LOCALIZE[137]", "", [c, "ActivateWindow(1150)"]),
         item("Library settings", "Kodi", [c, "ActivateWindow(MediaSettings)"]),
     ]
@@ -74,7 +81,7 @@ def panel():
 	card (PP_Card) hung at the right under the header, "Library" + where you are as its caption, the rows of
 	the System card (Dlg_IndexListLayout: Geist 28 on 68 px, the ink placard on focus). Only the rows that
 	apply: Update / Clean hide in add-on and plug-in folders (as Estuary's menu 9000), Show only where Kodi's
-	watched filter works, View only with more than one view.
+	watched filter works, View only with more than one view, Sets only over films when the library has sets.
 	Every row closes the card first, then runs the window's own action (SendClick(3) sort chooser,
 	Container.SetSortDirection, SendClick(14) watched filter: what the header words run).
 	Back closes it; focus is back on the print you came from (Kodi restores the window's focus). -->
@@ -91,9 +98,9 @@ def panel():
 			<left>1160</left>
 			<top>below_bar_top</top>
 			<width>640</width>
-			<height>720</height>
-			<!-- card sized to the visible rows: 80 caption + 68 per row + 16 -->
-{cards(640, 96, 2, 8)}
+			<height>788</height>
+			<!-- card sized to the visible rows: 80 caption + 68 per row + 16 (films: up to 9 rows with Sets) -->
+{cards(640, 96, 2, 9)}
 			<control type="label">
 				<left>40</left>
 				<top>24</top>
@@ -124,7 +131,7 @@ def panel():
 				<left>16</left>
 				<top>80</top>
 				<width>608</width>
-				<height>544</height>
+				<height>612</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>
@@ -146,7 +153,7 @@ def panel():
 	</controls>
 </window>
 """
-    (OUT / "Custom_1155_LibraryPanel.xml").write_text(xml, encoding="utf-8", newline="\n")
+    (OUT / "Custom_1155_LibraryPanel.xml").write_text(localize_xml(strip_defaults(xml, DEFAULTS_XML), STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 def task():
@@ -238,7 +245,7 @@ def task():
 	</controls>
 </window>
 """
-    (OUT / "Custom_1157_LibraryTask.xml").write_text(xml, encoding="utf-8", newline="\n")
+    (OUT / "Custom_1157_LibraryTask.xml").write_text(localize_xml(strip_defaults(xml, DEFAULTS_XML), STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 # view picker: (key, label, preview, window, visible, viewmode id, skin flag set first)
@@ -292,8 +299,8 @@ def picker():
 	     -CurrentItem lands on the last item and +1 on the first (LESSONS, Nocturne). -->
 	<onload>Control.Move(100,-$INFO[Container(100).CurrentItem])</onload>
 	<onload>Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,Salon)">Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,The wall)">Control.Move(100,2)</onload>
+	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31149])">Control.Move(100,1)</onload>
+	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31150])">Control.Move(100,2)</onload>
 	<onload condition="$EXP[PP_PickIsList]">Control.Move(100,-1)</onload>
 	<controls>
 		<include>PP_Veil</include>
@@ -379,7 +386,7 @@ def picker():
 	</controls>
 </window>
 """
-    (OUT / "Custom_1156_ViewPicker.xml").write_text(xml, encoding="utf-8", newline="\n")
+    (OUT / "Custom_1156_ViewPicker.xml").write_text(localize_xml(strip_defaults(xml, DEFAULTS_XML), STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 if __name__ == "__main__":

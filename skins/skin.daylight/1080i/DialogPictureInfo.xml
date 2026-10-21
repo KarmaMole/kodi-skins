@@ -58,7 +58,6 @@
 				<width>548</width>
 				<height>48</height>
 				<font>serif_32</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
 				<label>$VAR[PicInfo_Name]</label>
 			</control>
 			<control type="group" id="9000">

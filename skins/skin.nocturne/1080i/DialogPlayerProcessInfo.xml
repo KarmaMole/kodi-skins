@@ -43,7 +43,7 @@
 			<height>30</height>
 			<font>caps_20</font>
 			<textcolor>light</textcolor>
-			<label>PLAYER  ·  PROCESS INFO</label>
+			<label>$LOCALIZE[31327]</label>
 		</control>
 		<control type="label">
 			<left>page_margin</left>
@@ -51,7 +51,6 @@
 			<width>900</width>
 			<height>48</height>
 			<font>title_40</font>
-			<textcolor>text_primary</textcolor>
 			<label>$VAR[OSD_Title]</label>
 		</control>
 
@@ -61,7 +60,6 @@
 			<width>860</width>
 			<height>760</height>
 			<orientation>vertical</orientation>
-			<itemgap>0</itemgap>
 			<!-- video -->
 			<include content="OSD_InfoRow">
 				<param name="key" value="SOURCE"/>
@@ -128,7 +126,7 @@
 			<height>24</height>
 			<font>caps_20</font>
 			<textcolor>text_tertiary</textcolor>
-			<label>OK OR BACK CLOSES</label>
+			<label>$LOCALIZE[31328]</label>
 		</control>
 	</controls>
 </window>

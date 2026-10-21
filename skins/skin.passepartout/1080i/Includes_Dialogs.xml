@@ -41,14 +41,6 @@
 		<value condition="Control.IsVisible(6)">$INFO[Container(6).CurrentItem]$INFO[Container(6).NumItems, / ,]</value>
 		<value>$INFO[Container(3).CurrentItem]$INFO[Container(3).NumItems, / ,]</value>
 	</variable>
-	<variable name="Dlg_PlayState">
-		<value condition="Player.Paused">Paused · $INFO[Player.Time]$INFO[Player.Duration, / ,]</value>
-		<value>$INFO[Player.Time]$INFO[Player.Duration, / ,]</value>
-	</variable>
-	<variable name="Dlg_PlayTitle">
-		<value condition="VideoPlayer.Content(episodes)">$INFO[VideoPlayer.TVShowTitle]</value>
-		<value>$INFO[VideoPlayer.Title]</value>
-	</variable>
 	<variable name="Dlg_AddonNewsLabel">
 		<value condition="!String.IsEmpty(Window(Home).Property(passepartout.addonnews))">Description</value>
 		<value>What's new</value>
@@ -59,8 +51,6 @@
 		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
 		<texturenofocus border="2" colordiffuse="rule">pp/frame_1.png</texturenofocus>
 	</include>
-	<include name="Dlg_Tex_DialogButton_Square"><include>Dlg_Tex_DialogButton</include></include>
-	<include name="Dlg_Tex_DialogButton_Round"><include>Dlg_Tex_DialogButton</include></include>
 	<!-- focused Kodi-cloned rows (settings controls): the ink placard -->
 	<include name="Dlg_Tex_RowFocus">
 		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
@@ -598,7 +588,7 @@
 				<height>68</height>
 				<font>body_26</font>
 				<textcolor>ink2</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31176]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<include content="PP_Scrollbar">
@@ -748,7 +738,7 @@
 				<height>dlg_track_row_h</height>
 				<font>body_26</font>
 				<textcolor>ink2</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31176]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<control type="scrollbar" id="61">
@@ -849,35 +839,6 @@
 		</definition>
 	</include>
 
-	<!-- context menu header text: "OPTIONS", the title (Geist Light 64 / 76), the artist line -->
-	<variable name="Dlg_ContextSub">
-		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Season, · Season ,]$INFO[ListItem.Episode, · Episode ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,song)">$INFO[ListItem.Artist]$INFO[ListItem.Year,$COMMA ,]</value>
-		<value condition="!String.IsEmpty(ListItem.Director)">$INFO[ListItem.Director]$INFO[ListItem.Year,$COMMA ,]</value>
-		<value>$INFO[ListItem.Year]</value>
-	</variable>
-	<include name="Dlg_ContextHeaderText">
-		<control type="label">
-			<left>0</left>
-			<top>54</top>
-			<width>400</width>
-			<height>28</height>
-			<font>cap_20</font>
-			<textcolor>ink2</textcolor>
-			<label>Options</label>
-		</control>
-		<include content="Title_Context"><param name="top" value="88"/></include>
-		<control type="label">
-			<left>0</left>
-			<top>166</top>
-			<width>400</width>
-			<height>28</height>
-			<font>cap_20</font>
-			<textcolor>ink</textcolor>
-			<label>$VAR[Dlg_ContextSub]</label>
-		</control>
-	</include>
-
 	<!-- ============================================================ keyboard keys -->
 	<!-- Keys (Search board): lowercase Geist 34, 1px 12% frame at rest, ink placard with paper text on focus. -->
 	<include name="PP_KeyboardKey">
@@ -904,9 +865,4 @@
 		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
 		<texturenofocus border="2" colordiffuse="rule">pp/frame_1.png</texturenofocus>
 	</include>
-	<include name="Dlg_Tex_Key_Square">
-		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-		<texturenofocus border="2" colordiffuse="rule_row">pp/frame_1.png</texturenofocus>
-	</include>
-	<include name="Dlg_Tex_Key_Round"><include>Dlg_Tex_Key_Square</include></include>
 </includes>

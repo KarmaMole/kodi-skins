@@ -28,14 +28,13 @@
 				<height>30</height>
 				<font>caps_20</font>
 				<textcolor>light</textcolor>
-				<label>Add-on</label>
+				<label>$LOCALIZE[31319]</label>
 			</control>
 			<control type="label" id="2">
 				<description>heading (Kodi)</description>
 				<width max="1100">auto</width>
 				<height>topbar_item_h</height>
 				<font>title_40</font>
-				<textcolor>text_primary</textcolor>
 			</control>
 		</control>
 		<include>Noc_Clock</include>
@@ -48,7 +47,6 @@
 			<top>content_top</top>
 			<width>settings_cat_w</width>
 			<height>576</height>
-			<itemgap>0</itemgap>
 			<orientation>vertical</orientation>
 			<onleft>noop</onleft>
 			<onright>5</onright>
@@ -74,7 +72,6 @@
 			<top>content_top</top>
 			<width>860</width>
 			<height>864</height>
-			<itemgap>0</itemgap>
 			<pagecontrol>60</pagecontrol>
 			<onleft>3</onleft>
 			<onright>9000</onright>
@@ -120,7 +117,7 @@
 				<height>20</height>
 				<font>caps_20</font>
 				<textcolor>text_tertiary</textcolor>
-				<label>About this setting</label>
+				<label>$LOCALIZE[31320]</label>
 			</control>
 			<include content="Noc_Rule">
 				<param name="top" value="32"/>

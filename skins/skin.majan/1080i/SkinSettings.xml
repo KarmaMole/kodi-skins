@@ -515,7 +515,7 @@
 					<align>right</align>
 					<font>mono_13</font>
 					<textcolor>text_tertiary</textcolor>
-					<label>OK to reset</label>
+					<label>$LOCALIZE[31273]</label>
 					<visible>String.IsEmpty(Window(Home).Property(majan.resetarmed))</visible>
 				</control>
 				<control type="label">
@@ -526,7 +526,7 @@
 					<align>right</align>
 					<font>mono_13</font>
 					<textcolor>$VAR[ColorAccent]</textcolor>
-					<label>Press OK again to reset everything</label>
+					<label>$LOCALIZE[31274]</label>
 					<visible>!String.IsEmpty(Window(Home).Property(majan.resetarmed))</visible>
 				</control>
 			</control>

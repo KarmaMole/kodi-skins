@@ -90,11 +90,9 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
 					<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>PlayerControl(Play)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -102,15 +100,13 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 				<control type="button" id="603">
 					<width>104</width>
 					<height>56</height>
-					<label>Stop</label>
+					<label>$LOCALIZE[31124]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
 					<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>PlayerControl(Stop)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -127,15 +123,13 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 				<control type="button" id="600">
 					<width>171</width>
 					<height>56</height>
-					<label>Previous</label>
+					<label>$LOCALIZE[31121]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
 					<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>PlayerControl(Previous)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -143,15 +137,13 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 				<control type="button" id="607">
 					<width>106</width>
 					<height>56</height>
-					<label>Next</label>
+					<label>$LOCALIZE[31126]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
 					<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>PlayerControl(Next)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -172,11 +164,9 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
 					<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>PlayerControl(Random)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -188,11 +178,9 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
 					<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>PlayerControl(Repeat)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -200,15 +188,13 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 				<control type="button" id="70051">
 					<width>123</width>
 					<height>56</height>
-					<label>Queue</label>
+					<label>$LOCALIZE[31392]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
 					<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>ActivateWindow(musicplaylist)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -220,7 +206,6 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 			<width>1300</width>
 			<height>32</height>
 			<orientation>horizontal</orientation>
-			<itemgap>0</itemgap>
 			<include content="Fold_KeyHint"><param name="key" value="↑"/><param name="label" value="Seek"/><param name="visible" value="Player.SeekEnabled"/></include>
 			<include content="Fold_KeyHint"><param name="key" value="← →"/><param name="label" value="The words"/></include>
 			<include content="Fold_KeyHint"><param name="key" value="BACK"/><param name="label" value="Fold it away"/></include>

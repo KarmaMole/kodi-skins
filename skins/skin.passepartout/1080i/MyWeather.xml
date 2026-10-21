@@ -32,7 +32,6 @@
 				<width>800</width>
 				<height>30</height>
 				<font>cap_20</font>
-				<textcolor>ink</textcolor>
 				<label>$INFO[Weather.Location]$INFO[Window(Weather).Property(Updated),  ·  ,]</label>
 			</control>
 			<control type="label">
@@ -41,7 +40,6 @@
 				<width>800</width>
 				<height>110</height>
 				<font>ttl_72</font>
-				<textcolor>ink</textcolor>
 				<label>$INFO[Weather.Temperature]</label>
 			</control>
 			<control type="label">
@@ -87,7 +85,6 @@
 				<width>800</width>
 				<height>40</height>
 				<font>cap_20</font>
-				<textcolor>ink</textcolor>
 				<label>$LOCALIZE[503]</label>
 				<visible>String.StartsWith(Weather.Temperature,$LOCALIZE[503])</visible>
 			</control>
@@ -97,8 +94,7 @@
 				<width>800</width>
 				<height>111</height>  <!-- 3 lines exactly: no half-clipped line at the bottom -->
 				<font>body_26</font>
-				<textcolor>body</textcolor>
-				<label>No weather data. Choose a weather service in Settings, Services, Weather.</label>
+				<label>$LOCALIZE[31207]</label>
 				<visible>!String.StartsWith(Weather.Temperature,$LOCALIZE[503])</visible>
 			</control>
 		</control>
@@ -209,7 +205,6 @@
 						<width>300</width>
 						<height>40</height>
 						<font>sans_26_med</font>
-						<textcolor>ink</textcolor>
 						<label>$INFO[ListItem.Label]</label>
 						<visible>!Control.HasFocus(15100)</visible>
 					</control>
@@ -250,7 +245,6 @@
 						<height>88</height>
 						<align>right</align>
 						<font>num_20</font>
-						<textcolor>ink</textcolor>
 						<label>$INFO[ListItem.Label2]</label>
 						<visible>!Control.HasFocus(15100)</visible>
 					</control>

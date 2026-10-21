@@ -25,7 +25,6 @@
 				<width>960</width>
 				<height>136</height>  <!-- 4 whole lines of body_24 (34px) -->
 				<font>body_24</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<autoscroll time="3000" delay="4000" repeat="5000">true</autoscroll>
 			</control>
 			<control type="progress" id="20">

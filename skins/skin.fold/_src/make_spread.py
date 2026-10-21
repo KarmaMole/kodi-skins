@@ -19,6 +19,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 9100 More note, 9101 Full plot, 9200 full-plot note + scrollbar 61, 9310-9312 title probes.
 """
 from pathlib import Path
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 ROOT = Path(__file__).resolve().parents[1] / "1080i"
 OUT = ROOT / "Includes_VideoInfo.xml"
@@ -1140,7 +1141,7 @@ def build():
 	</include>
 </includes>
 """
-    OUT.write_text(x, encoding="utf-8", newline="\n")
+    OUT.write_text(finish_xml(x), encoding="utf-8", newline="\n")
     print("Includes_VideoInfo.xml written")
 
 

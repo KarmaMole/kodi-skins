@@ -27,7 +27,6 @@
 			<height>1080</height>
 			<label></label>
 			<texturefocus />
-			<texturenofocus />
 			<onclick>ActivateWindow(musicosd)</onclick>
 			<onup>ActivateWindow(musicosd)</onup>
 			<ondown>ActivateWindow(musicosd)</ondown>
@@ -166,7 +165,7 @@
 			<align>center</align>
 			<font>hand_34</font>
 			<textcolor>ink_ghost</textcolor>
-			<label>ok for the words  ·  left / right to skip  ·  back to leave</label>
+			<label>$LOCALIZE[31391]</label>
 			<visible>!Window.IsVisible(musicosd)</visible>
 		</control>
 	</controls>

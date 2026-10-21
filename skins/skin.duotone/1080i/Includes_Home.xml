@@ -109,9 +109,6 @@
 		<value condition="!String.IsEmpty(ListItem.Art(albumartist.fanart))">$INFO[ListItem.Art(albumartist.fanart)]</value>
 		<value>$INFO[ListItem.Art(thumb)]</value>
 	</variable>
-	<!-- TMDb Helper's black-and-white print of the spotlight fanart, only when it belongs to this item.
-	     (The texture reads the property with $INFO directly: a $VAR there rendered nothing on device.) -->
-	<expression name="Home_DesatReady">$EXP[DT_DesatOn] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.DesaturateImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DesaturateImage.Original),ListItem.Art(fanart))</expression>
 
 	<!-- "S02E05" (zero padded) for episode tiles -->
 	<variable name="Home_EpCode">
@@ -142,11 +139,6 @@
 		</animation>
 		<animation type="Visible" condition="Skin.HasSetting(duotone.reducemotion)">
 			<effect type="fade" start="0" end="100" time="80"/>
-		</animation>
-	</include>
-	<include name="Home_AnimSpotZoom">
-		<animation type="Focus" reversible="true" condition="!Skin.HasSetting(duotone.reducemotion)">
-			<effect type="zoom" start="100" end="103" center="auto" time="140" tween="cubic" easing="out"/>
 		</animation>
 	</include>
 
@@ -183,14 +175,14 @@
 		</definition>
 	</include>
 	<include name="Home_Fields">
-		<include content="Home_FieldPair"><param name="color" value="vermilion"/><param name="visible" value="$EXP[Home_SecFilms]"/></include>
-		<include content="Home_FieldPair"><param name="color" value="cobalt"/><param name="visible" value="$EXP[Home_SecSeries]"/></include>
-		<include content="Home_FieldPair"><param name="color" value="acid"/><param name="visible" value="$EXP[Home_SecMusic]"/></include>
-		<include content="Home_FieldPair"><param name="color" value="paper"/><param name="visible" value="$EXP[Home_SecSearch]"/></include>
-		<include content="Home_FieldOver"><param name="color" value="vermilion"/><param name="visible" value="$EXP[Home_SecFilms]"/></include>
-		<include content="Home_FieldOver"><param name="color" value="cobalt"/><param name="visible" value="$EXP[Home_SecSeries]"/></include>
-		<include content="Home_FieldOver"><param name="color" value="acid"/><param name="visible" value="$EXP[Home_SecMusic]"/></include>
-		<include content="Home_FieldOver"><param name="color" value="paper"/><param name="visible" value="$EXP[Home_SecSearch]"/></include>
+		<include content="Home_FieldPair"><param name="color" value="$VAR[sec_films]"/><param name="visible" value="$EXP[Home_SecFilms]"/></include>
+		<include content="Home_FieldPair"><param name="color" value="$VAR[sec_series]"/><param name="visible" value="$EXP[Home_SecSeries]"/></include>
+		<include content="Home_FieldPair"><param name="color" value="$VAR[sec_music]"/><param name="visible" value="$EXP[Home_SecMusic]"/></include>
+		<include content="Home_FieldPair"><param name="color" value="$VAR[sec_paper]"/><param name="visible" value="$EXP[Home_SecSearch]"/></include>
+		<include content="Home_FieldOver"><param name="color" value="$VAR[sec_films]"/><param name="visible" value="$EXP[Home_SecFilms]"/></include>
+		<include content="Home_FieldOver"><param name="color" value="$VAR[sec_series]"/><param name="visible" value="$EXP[Home_SecSeries]"/></include>
+		<include content="Home_FieldOver"><param name="color" value="$VAR[sec_music]"/><param name="visible" value="$EXP[Home_SecMusic]"/></include>
+		<include content="Home_FieldOver"><param name="color" value="$VAR[sec_paper]"/><param name="visible" value="$EXP[Home_SecSearch]"/></include>
 		<include>DT_FieldDots</include>
 	</include>
 
@@ -203,7 +195,7 @@
 			<height>24</height>
 			<font>cap_20</font>
 			<textcolor>$VAR[SectionText]</textcolor>
-			<label>Home</label>
+			<label>$LOCALIZE[31019]</label>
 		</control>
 		<control type="label">
 			<left>164</left>
@@ -313,25 +305,25 @@
 			</focusedlayout>
 			<content>
 				<item>
-					<label>Films</label>
+					<label>$LOCALIZE[31326]</label>
 					<label2>$INFO[Window(Home).Property(Movies.Count)]</label2>
 					<property name="section">films</property>
 					<onclick>ActivateWindow(Videos,videodb://movies/titles/,return)</onclick>
 				</item>
 				<item>
-					<label>Series</label>
+					<label>$LOCALIZE[31327]</label>
 					<label2>$INFO[Window(Home).Property(TVShows.Count)]</label2>
 					<property name="section">series</property>
 					<onclick>ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick>
 				</item>
 				<item>
-					<label>Music</label>
+					<label>$LOCALIZE[31328]</label>
 					<label2>$INFO[Window(Home).Property(Music.AlbumsCount)]</label2>
 					<property name="section">music</property>
 					<onclick>ActivateWindow(Music,musicdb://albums/,return)</onclick>
 				</item>
 				<item>
-					<label>Search</label>
+					<label>$LOCALIZE[31329]</label>
 					<label2>→</label2>
 					<property name="section">search</property>
 					<onclick>ActivateWindow(1150)</onclick>
@@ -433,8 +425,8 @@
 					<textoffsetx>32</textoffsetx>
 					<textcolor>clear</textcolor>
 					<focusedcolor>clear</focusedcolor>
-					<texturenofocus colordiffuse="ink">common/white.png</texturenofocus>
-					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+					<texturenofocus colordiffuse="$VAR[ink]">common/white.png</texturenofocus>
+					<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 					<label>$INFO[Container($PARAM[id]).ListItem.Label]</label>
 				</control>
 				<control type="label">
@@ -453,7 +445,7 @@
 					<width>968</width>
 					<height>24</height>
 					<font>cap_20</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$PARAM[meta]</label>
 				</control>
 			</control>
@@ -482,7 +474,7 @@
 					<top>0</top>
 					<width>192</width>
 					<height>48</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 				</control>
 				<control type="label">
 					<left>40</left>
@@ -492,7 +484,7 @@
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>cap_20</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$INFO[Container($PARAM[id]).CurrentItem]  /  $INFO[Container($PARAM[id]).NumItems]</label>
 				</control>
 				<control type="label">
@@ -503,7 +495,7 @@
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>bold_28</font>
-					<textcolor>paper_30</textcolor>
+					<textcolor>$VAR[paper_30]</textcolor>
 					<label>‹</label>
 					<visible>!Control.HasFocus($PARAM[btn]) | !Integer.IsGreater(Container($PARAM[id]).CurrentItem,1)</visible>
 				</control>
@@ -527,7 +519,7 @@
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>bold_28</font>
-					<textcolor>paper_30</textcolor>
+					<textcolor>$VAR[paper_30]</textcolor>
 					<label>›</label>
 					<visible>!Control.HasFocus($PARAM[btn])</visible>
 				</control>
@@ -557,7 +549,7 @@
 				<top>0</top>
 				<width>1032</width>
 				<height>320</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -569,16 +561,13 @@
 				<texture background="true" colordiffuse="$VAR[SectionTint]">$VAR[Home_WideArt]</texture>
 				<visible>!Control.HasFocus($PARAM[listid])</visible>
 			</control>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<width>1032</width>
-				<height>320</height>
-				<aspectratio aligny="top">scale</aspectratio>
-				<fadetime>200</fadetime>
-				<texture background="true" colordiffuse="$VAR[SectionPrint]">$INFO[Window(Home).Property(TMDbHelper.ListItem.DesaturateImage)]</texture>
-				<visible>!Control.HasFocus($PARAM[listid]) + $EXP[Home_DesatReady]</visible>
-			</control>
+			<include content="DT_PrintGhost">
+				<param name="visible" value="!Control.HasFocus($PARAM[listid])"/>
+			</include>
+			<!-- (TMDb Helper's black-and-white print is drawn over the list by Home_SpotPrint, not here) -->
+			<include content="DT_PrintVeil">
+				<param name="visible" value="!Control.HasFocus($PARAM[listid])"/>
+			</include>
 			<control type="image">
 				<left>0</left>
 				<top>0</top>
@@ -591,6 +580,41 @@
 			<include content="DT_ArtDots">
 				<param name="visible" value="!Control.HasFocus($PARAM[listid])"/>
 			</include>
+		</definition>
+	</include>
+
+	<!-- TMDb Helper's black-and-white print of the spotlight fanart, over the list (layers 4-6 of Home_SpotArt),
+	     shown only while its .Original is the current pick's fanart. Not inside the item layout: a layout
+	     resolves a texture path only when the layout is built (no infoupdate), while its <visible> runs every
+	     frame, so on rotation the new pick showed the previous pick's print under the new title (device check
+	     2026-10-21, Light). Out here the path follows the property each frame and the gate drops the old print
+	     the moment the pick (and its title) changes. (The texture reads the property with $INFO directly: a $VAR
+	     there rendered nothing on device.) params: id, btn -->
+	<include name="Home_SpotPrint">
+		<param name="id"/>
+		<param name="btn"/>
+		<definition>
+			<control type="group">
+				<left>824</left>
+				<top>200</top>
+				<width>1032</width>
+				<height>320</height>
+				<visible>!Control.HasFocus($PARAM[btn]) + $EXP[DT_DesatOn] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.DesaturateImage)) + !String.IsEmpty(Container($PARAM[id]).ListItem.Art(fanart)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DesaturateImage.Original),Container($PARAM[id]).ListItem.Art(fanart))</visible>
+				<animation type="Conditional" reversible="true" condition="Control.HasFocus($PARAM[btn]) + !Skin.HasSetting(duotone.reducemotion)">
+					<effect type="zoom" start="100" end="103" center="1340,360" time="140" tween="cubic" easing="out"/>
+				</animation>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>1032</width>
+					<height>320</height>
+					<aspectratio aligny="top">scale</aspectratio>
+					<fadetime>200</fadetime>
+					<texture background="true" colordiffuse="$VAR[SectionPrint]">$INFO[Window(Home).Property(TMDbHelper.ListItem.DesaturateImage)]</texture>
+				</control>
+				<include content="DT_PrintVeil"/>
+				<include content="DT_ArtDots"/>
+			</control>
 		</definition>
 	</include>
 
@@ -643,6 +667,10 @@
 				</focusedlayout>
 				<content target="$PARAM[target]" limit="5">$PARAM[content]</content>
 			</control>
+			<include content="Home_SpotPrint">
+				<param name="id" value="$PARAM[id]"/>
+				<param name="btn" value="$PARAM[btn]"/>
+			</include>
 			<include content="Home_SpotBlock">
 				<param name="kicker" value="$PARAM[kicker]"/>
 				<param name="id" value="$PARAM[id]"/>
@@ -727,7 +755,7 @@
 				<top>0</top>
 				<width>272</width>
 				<height>44</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="label">
 				<left>16</left>
@@ -735,7 +763,7 @@
 				<width>240</width>
 				<height>44</height>
 				<font>cap_20</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<label>$VAR[Home_EpCode]</label>
 			</control>
 		</control>
@@ -911,7 +939,7 @@
 					<aligny>center</aligny>
 					<angle>90</angle>
 					<font>an_88</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$PARAM[label]</label>
 					<visible>Control.HasFocus($PARAM[id])</visible>
 				</control>
@@ -1178,7 +1206,7 @@
 					<height>$PARAM[label_h]</height>
 					<aligny>center</aligny>
 					<font>$PARAM[font]</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$PARAM[label]</label>
 					<visible>Control.HasFocus($PARAM[id])</visible>
 				</control>
@@ -1213,7 +1241,7 @@
 				<align>right</align>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionColor]</textcolor>
-				<label>Films  ·  series  ·  artists  ·  albums</label>
+				<label>$LOCALIZE[31330]</label>
 				<visible>Control.HasFocus(341)</visible>
 			</control>
 			<control type="label">
@@ -1224,7 +1252,7 @@
 				<align>right</align>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText]</textcolor>
-				<label>Films  ·  series  ·  artists  ·  albums</label>
+				<label>$LOCALIZE[31330]</label>
 				<visible>!Control.HasFocus(341)</visible>
 			</control>
 			<include content="Home_RowCaptions">
@@ -1296,15 +1324,24 @@
 				<top>0</top>
 				<width>696</width>
 				<height>80</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
-			<control type="image">
+			<!-- now-playing thumb: a print (ghost + veil in Light / Dark), never the focused item -->
+			<control type="group">
 				<left>16</left>
 				<top>16</top>
 				<width>48</width>
 				<height>48</height>
-				<aspectratio>scale</aspectratio>
-				<texture background="true" colordiffuse="$VAR[SectionTint]">$INFO[Player.Art(thumb)]</texture>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>48</width>
+					<height>48</height>
+					<aspectratio>scale</aspectratio>
+					<texture background="true" colordiffuse="$VAR[SectionTint]">$INFO[Player.Art(thumb)]</texture>
+				</control>
+				<include>DT_PrintGhost</include>
+				<include>DT_PrintVeil</include>
 			</control>
 			<control type="label">
 				<left>84</left>
@@ -1321,8 +1358,8 @@
 				<width>440</width>
 				<height>30</height>
 				<font>bold_24</font>
-				<textcolor>paper</textcolor>
-				<label>$INFO[MusicPlayer.Title]$INFO[MusicPlayer.Artist,[COLOR paper_55]  ·  [/COLOR],]</label>
+				<textcolor>$VAR[paper]</textcolor>
+				<label>$INFO[MusicPlayer.Title][COLOR $VAR[paper_55]]$INFO[MusicPlayer.Artist,  ·  ,][/COLOR]</label>
 			</control>
 			<control type="label">
 				<left>480</left>
@@ -1331,7 +1368,7 @@
 				<height>24</height>
 				<align>right</align>
 				<font>cap_20</font>
-				<textcolor>paper_70</textcolor>
+				<textcolor>$VAR[paper_70]</textcolor>
 				<label>$INFO[Player.Time]$INFO[Player.Duration, / ,]</label>
 			</control>
 			<control type="progress">
@@ -1339,7 +1376,7 @@
 				<top>72</top>
 				<width>696</width>
 				<height>8</height>
-				<texturebg colordiffuse="paper_22">common/white.png</texturebg>
+				<texturebg colordiffuse="$VAR[paper_22]">common/white.png</texturebg>
 				<midtexture colordiffuse="$VAR[SectionColor]">common/white.png</midtexture>
 				<info>Player.Progress</info>
 			</control>

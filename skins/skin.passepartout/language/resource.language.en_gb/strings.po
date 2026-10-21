@@ -1,8 +1,8 @@
-# Kodi skin strings - skin.majan (en_GB)
+# Kodi skin strings - skin.passepartout (en_GB)
 # Ids 31000-31999. Use $LOCALIZE[id] or a bare id in <label>.
 msgid ""
 msgstr ""
-"Project-Id-Version: skin.majan\n"
+"Project-Id-Version: skin.passepartout\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -314,6 +314,522 @@ msgstr ""
 
 msgctxt "#31129"
 msgid "Video settings"
+msgstr ""
+
+msgctxt "#31130"
+msgid "Films"
+msgstr ""
+
+msgctxt "#31131"
+msgid "Series"
+msgstr ""
+
+msgctxt "#31132"
+msgid "Music"
+msgstr ""
+
+msgctxt "#31133"
+msgid "Search"
+msgstr ""
+
+msgctxt "#31134"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#31135"
+msgid "Passe-partout"
+msgstr ""
+
+msgctxt "#31136"
+msgid "Update library"
+msgstr ""
+
+msgctxt "#31137"
+msgid "Library"
+msgstr ""
+
+msgctxt "#31138"
+msgid "Clean library"
+msgstr ""
+
+msgctxt "#31139"
+msgid "Live TV"
+msgstr ""
+
+msgctxt "#31140"
+msgid "Media"
+msgstr ""
+
+msgctxt "#31141"
+msgid "More"
+msgstr ""
+
+msgctxt "#31142"
+msgid "Asks first"
+msgstr ""
+
+msgctxt "#31143"
+msgid "Order"
+msgstr ""
+
+msgctxt "#31144"
+msgid "Show"
+msgstr ""
+
+msgctxt "#31145"
+msgid "Collections"
+msgstr ""
+
+msgctxt "#31146"
+msgid "Library settings"
+msgstr ""
+
+msgctxt "#31147"
+msgid "The hang"
+msgstr ""
+
+msgctxt "#31148"
+msgid "The series hang"
+msgstr ""
+
+msgctxt "#31149"
+msgid "Salon"
+msgstr ""
+
+msgctxt "#31150"
+msgid "The wall"
+msgstr ""
+
+msgctxt "#31151"
+msgid "List"
+msgstr ""
+
+msgctxt "#31152"
+msgid "No, leave it as it is"
+msgstr ""
+
+msgctxt "#31153"
+msgid "Clean films & series"
+msgstr ""
+
+msgctxt "#31154"
+msgid "Clean music"
+msgstr ""
+
+msgctxt "#31155"
+msgid "Add-on"
+msgstr ""
+
+msgctxt "#31156"
+msgid "About this setting"
+msgstr ""
+
+msgctxt "#31157"
+msgid "Timer"
+msgstr ""
+
+msgctxt "#31158"
+msgid "Options"
+msgstr ""
+
+msgctxt "#31159"
+msgid "About"
+msgstr ""
+
+msgctxt "#31160"
+msgid "Left / right: channel group"
+msgstr ""
+
+msgctxt "#31161"
+msgid "Add group"
+msgstr ""
+
+msgctxt "#31162"
+msgid "Rename group"
+msgstr ""
+
+msgctxt "#31163"
+msgid "Delete group"
+msgstr ""
+
+msgctxt "#31164"
+msgid "Jump through the guide  ·  Back to close"
+msgstr ""
+
+msgctxt "#31165"
+msgid "PLAYER  ·  PROCESS INFO"
+msgstr ""
+
+msgctxt "#31166"
+msgid "OK OR BACK CLOSES"
+msgstr ""
+
+msgctxt "#31167"
+msgid "Find subtitles"
+msgstr ""
+
+msgctxt "#31168"
+msgid "SERVICE"
+msgstr ""
+
+msgctxt "#31169"
+msgid "STATUS"
+msgstr ""
+
+msgctxt "#31170"
+msgid "THIS FILE ALREADY HAS SUBTITLE TRACKS"
+msgstr ""
+
+msgctxt "#31171"
+msgid "SYNC = TIMED TO YOUR FILE"
+msgstr ""
+
+msgctxt "#31172"
+msgid "No subtitles listed yet. Pick a service or search manually."
+msgstr ""
+
+msgctxt "#31173"
+msgid "Order:"
+msgstr ""
+
+msgctxt "#31174"
+msgid "No events"
+msgstr ""
+
+msgctxt "#31175"
+msgid "Back to continue"
+msgstr ""
+
+msgctxt "#31176"
+msgid "Nothing to choose"
+msgstr ""
+
+msgctxt "#31177"
+msgid "The exhibition"
+msgstr ""
+
+msgctxt "#31178"
+msgid "The walls are bare"
+msgstr ""
+
+msgctxt "#31179"
+msgid "Nothing in this exhibition yet. Press Select on the section's name to open the whole library."
+msgstr ""
+
+msgctxt "#31180"
+msgid "Recently played"
+msgstr ""
+
+msgctxt "#31181"
+msgid "The rest of the room"
+msgstr ""
+
+msgctxt "#31182"
+msgid "PVR & Live TV settings"
+msgstr ""
+
+msgctxt "#31183"
+msgid "Up one level"
+msgstr ""
+
+msgctxt "#31184"
+msgid "SYNC"
+msgstr ""
+
+msgctxt "#31185"
+msgid "Paused"
+msgstr ""
+
+msgctxt "#31186"
+msgid "Search the collection"
+msgstr ""
+
+msgctxt "#31187"
+msgid "Results follow your typing. Press"
+msgstr ""
+
+msgctxt "#31188"
+msgid "RIGHT"
+msgstr ""
+
+msgctxt "#31189"
+msgid "to walk the hang."
+msgstr ""
+
+msgctxt "#31190"
+msgid "Nothing in the collection by that name yet."
+msgstr ""
+
+msgctxt "#31191"
+msgid "Films and series match on title, music on the album's name."
+msgstr ""
+
+msgctxt "#31192"
+msgid "Offsets apply to this film only. Choosing an offset hides this panel so you can sync against the picture."
+msgstr ""
+
+msgctxt "#31193"
+msgid "The wall label"
+msgstr ""
+
+msgctxt "#31194"
+msgid "The curator's text"
+msgstr ""
+
+msgctxt "#31195"
+msgid "Up and down to read · Back to close"
+msgstr ""
+
+msgctxt "#31196"
+msgid "Back"
+msgstr ""
+
+msgctxt "#31197"
+msgid "Watched"
+msgstr ""
+
+msgctxt "#31198"
+msgid "Seasons"
+msgstr ""
+
+msgctxt "#31199"
+msgid "Next up"
+msgstr ""
+
+msgctxt "#31200"
+msgid "Nothing hangs here. Press Back to return."
+msgstr ""
+
+msgctxt "#31201"
+msgid "Unwatched only is on: press Up and choose the filter word to show everything."
+msgstr ""
+
+msgctxt "#31202"
+msgid "Left and right to seek · Down for the controls"
+msgstr ""
+
+msgctxt "#31203"
+msgid "This node is empty. Press Up for Albums, Artists, Songs or Genres."
+msgstr ""
+
+msgctxt "#31204"
+msgid "Playlist"
+msgstr ""
+
+msgctxt "#31205"
+msgid "Empty. Pick songs or albums on the left and press OK to add them."
+msgstr ""
+
+msgctxt "#31206"
+msgid "The queue is empty"
+msgstr ""
+
+msgctxt "#31207"
+msgid "No weather data. Choose a weather service in Settings, Services, Weather."
+msgstr ""
+
+msgctxt "#31208"
+msgid "Playback, subtitles"
+msgstr ""
+
+msgctxt "#31209"
+msgid "Library, files"
+msgstr ""
+
+msgctxt "#31210"
+msgid "Skin, region"
+msgstr ""
+
+msgctxt "#31211"
+msgid "Installed, updates"
+msgstr ""
+
+msgctxt "#31212"
+msgid "Remote, sharing"
+msgstr ""
+
+msgctxt "#31213"
+msgid "Display, audio"
+msgstr ""
+
+msgctxt "#31214"
+msgid "Sources, files"
+msgstr ""
+
+msgctxt "#31215"
+msgid "Hardware, storage"
+msgstr ""
+
+msgctxt "#31216"
+msgid "Event log"
+msgstr ""
+
+msgctxt "#31217"
+msgid "Recent events"
+msgstr ""
+
+msgctxt "#31218"
+msgid "Users"
+msgstr ""
+
+msgctxt "#31219"
+msgid "Not used"
+msgstr ""
+
+msgctxt "#31220"
+msgid "Controllers"
+msgstr ""
+
+msgctxt "#31221"
+msgid "Login screen"
+msgstr ""
+
+msgctxt "#31222"
+msgid "Auto login"
+msgstr ""
+
+msgctxt "#31223"
+msgid "Paper"
+msgstr ""
+
+msgctxt "#31224"
+msgid "Libraries"
+msgstr ""
+
+msgctxt "#31225"
+msgid "Playback"
+msgstr ""
+
+msgctxt "#31226"
+msgid "Motion"
+msgstr ""
+
+msgctxt "#31227"
+msgid "Kodi settings"
+msgstr ""
+
+msgctxt "#31228"
+msgid "The page takes its colour from the artwork in focus, made pale and quiet so ink always reads."
+msgstr ""
+
+msgctxt "#31229"
+msgid "Paper colour"
+msgstr ""
+
+msgctxt "#31230"
+msgid "Luminance"
+msgstr ""
+
+msgctxt "#31231"
+msgid "Saturation"
+msgstr ""
+
+msgctxt "#31232"
+msgid "Shadow under the focused print"
+msgstr ""
+
+msgctxt "#31233"
+msgid "What hangs in the exhibition on Home. Left and right turn the prints; down shows the rest of the room."
+msgstr ""
+
+msgctxt "#31234"
+msgid "How the hang, the salon and the wall mark what you have seen, and what the wall label offers."
+msgstr ""
+
+msgctxt "#31235"
+msgid "Watched dots"
+msgstr ""
+
+msgctxt "#31236"
+msgid "Print size"
+msgstr ""
+
+msgctxt "#31237"
+msgid "Paper between the prints"
+msgstr ""
+
+msgctxt "#31238"
+msgid "A mat around the chosen print"
+msgstr ""
+
+msgctxt "#31239"
+msgid "Wall label beside the print"
+msgstr ""
+
+msgctxt "#31240"
+msgid "The caption bar while a film plays."
+msgstr ""
+
+msgctxt "#31241"
+msgid "Controls hide after"
+msgstr ""
+
+msgctxt "#31242"
+msgid "Sync strip sits"
+msgstr ""
+
+msgctxt "#31243"
+msgid "Prints grow and slide into place. Reduce motion makes every change instant."
+msgstr ""
+
+msgctxt "#31244"
+msgid "Player, library, interface and system settings, and the add-ons."
+msgstr ""
+
+msgctxt "#31245"
+msgid "Open Kodi's settings"
+msgstr ""
+
+msgctxt "#31246"
+msgid "The wall, as set"
+msgstr ""
+
+msgctxt "#31247"
+msgid "Choose the wall under View, beside The hang and Salon. Up from the top row shows the words."
+msgstr ""
+
+msgctxt "#31248"
+msgid "Papers"
+msgstr ""
+
+msgctxt "#31249"
+msgid "This page"
+msgstr ""
+
+msgctxt "#31250"
+msgid "Neutral"
+msgstr ""
+
+msgctxt "#31251"
+msgid "Luminance sets how pale, saturation how much hue. New values show on the next print you focus."
+msgstr ""
+
+msgctxt "#31252"
+msgid "Order direction"
+msgstr ""
+
+msgctxt "#31253"
+msgid "Select a rule to edit it. Use the context menu to delete a rule."
+msgstr ""
+
+msgctxt "#31254"
+msgid "Value"
+msgstr ""
+
+msgctxt "#31255"
+msgid "BUFFERING"
+msgstr ""
+
+msgctxt "#31256"
+msgid "Left and right to skip · Down for the controls"
+msgstr ""
+
+msgctxt "#31257"
+msgid "No chapters or bookmarks yet. Create one with the first button."
+msgstr ""
+
+msgctxt "#31258"
+msgid "OK JUMPS TO THE CHAPTER  ·  BACK CLOSES"
 msgstr ""
 
 msgctxt "#31900"

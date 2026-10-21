@@ -9,7 +9,7 @@
 <window>
 	<defaultcontrol always="true">9100</defaultcontrol>
 	<menucontrol>9000</menucontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<views>50</views>
 	<include>Anim_WindowOpenClose</include>
 	<controls>

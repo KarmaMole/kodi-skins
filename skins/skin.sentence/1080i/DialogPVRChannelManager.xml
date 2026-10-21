@@ -96,7 +96,6 @@
 						<width>480</width>
 						<height>dialog_row_h</height>
 						<font>ui_24_bold</font>
-						<textcolor>text</textcolor>
 						<scroll>true</scroll>
 						<label>$INFO[ListItem.Property(Number),,  ]$INFO[ListItem.Property(Name)]</label>
 					</control>
@@ -228,7 +227,6 @@
 					<description>TV / radio toggle</description>
 					<include content="Misc_RowLook"><param name="width" value="620"/></include>
 					<alttexturefocus border="16" colordiffuse="lilac">sentence/ring.png</alttexturefocus>
-					<alttexturenofocus />
 					<label>$LOCALIZE[19024]</label>
 					<altlabel>$LOCALIZE[19023]</altlabel>
 					<usealttexture>!String.IsEmpty(Window.Property(IsRadio))</usealttexture>

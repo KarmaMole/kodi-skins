@@ -71,7 +71,6 @@
 					<width>620</width>
 					<height>80</height>
 					<font>display_52</font>
-					<textcolor>$VAR[DL_Ink]</textcolor>
 					<label>$INFO[ListItem.AddonName]</label>
 				</control>
 				<control type="textbox">
@@ -190,13 +189,10 @@
 				<width>238</width>
 				<height>dialog_row_h</height>
 				<font>ui_22_semibold</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
-				<focusedcolor>$VAR[DL_OnAccent]</focusedcolor>
 				<textoffsetx>16</textoffsetx>
 				<radiowidth>18</radiowidth>
 				<radioheight>18</radioheight>
 				<include>Dlg_Tex_DialogButton</include>
-				<textureradioonfocus colordiffuse="$VAR[DL_OnAccent]">markers/check.png</textureradioonfocus>
 				<textureradioonnofocus colordiffuse="$VAR[DL_AccentText]">markers/check.png</textureradioonnofocus>
 				<textureradioofffocus colordiffuse="$VAR[DL_OnAccent]">daylight/nib_ring.png</textureradioofffocus>
 				<textureradiooffnofocus colordiffuse="$VAR[DL_Line2]">daylight/nib_ring.png</textureradiooffnofocus>
@@ -245,7 +241,6 @@
 				<width>600</width>
 				<height>36</height>
 				<font>serif_28</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
 				<label>$VAR[AddonInfo_TextTitle]</label>
 			</control>
 			<control type="button" id="9202">
@@ -256,9 +251,6 @@
 				<font>ui_22_semibold</font>
 				<align>center</align>
 				<textoffsetx>0</textoffsetx>
-				<textcolor>$VAR[DL_Ink]</textcolor>
-				<focusedcolor>$VAR[DL_OnAccent]</focusedcolor>
-				<pulseonselect>false</pulseonselect>
 				<texturefocus border="22,0,22,0" colordiffuse="$VAR[DL_Accent]">daylight/pill_44.png</texturefocus>
 				<texturenofocus border="22,0,22,0" colordiffuse="$VAR[DL_Raised]">daylight/pill_44.png</texturenofocus>
 				<label>$VAR[Dlg_AddonNewsLabel]</label>
@@ -276,7 +268,6 @@
 				<width>960</width>
 				<height>180</height>
 				<font>body_24</font>
-				<textcolor>$VAR[DL_Body]</textcolor>
 				<label>$VAR[AddonInfo_Text]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 			</control>
@@ -295,8 +286,7 @@
 				<width>532</width>
 				<height>36</height>
 				<font>serif_28</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
-				<label>Details</label>
+				<label>$LOCALIZE[31105]</label>
 			</control>
 			<control type="group">
 				<left>36</left>

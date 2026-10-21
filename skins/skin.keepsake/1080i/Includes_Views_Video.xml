@@ -20,7 +20,7 @@
 	<!-- ================================================================== expressions -->
 	<expression name="VidView_IsDiary">Window.IsActive(1161)</expression>
 	<expression name="VidView_IsFilms">Container.Content(movies) | Container.Content(sets) | Container.Content(musicvideos)</expression>
-	<expression name="VidView_DiarySV">System.HasAddon(script.skinvariables) + !Skin.HasSetting(keepsake.notime) + String.IsEqual(Container(9174).ListItem.DBID,Container(520).ListItem.DBID) + !String.IsEmpty(Container(9174).ListItem.Property(lastplayed))</expression>
+	<expression name="VidView_DiarySV">!Skin.HasSetting(keepsake.notime) + String.IsEqual(Container(9174).ListItem.DBID,Container(520).ListItem.DBID) + !String.IsEmpty(Container(9174).ListItem.Property(lastplayed))</expression>
 	<expression name="VidView_DiaryLongTitle">Integer.IsGreater(Container(5291).NumPages,1)</expression>
 	<expression name="VidView_EpLongTitle">Integer.IsGreater(Container(5292).NumPages,1)</expression>
 	<expression name="VidView_IsLibraryVideo">Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)</expression>
@@ -115,7 +115,7 @@
 				<font>hand_52</font>
 				<textcolor>ink_ghost</textcolor>
 				<include>KS_PenWordLook</include>
-				<label>the unwatched</label>
+				<label>$LOCALIZE[31385]</label>
 				<onclick>ActivateWindow(1160)</onclick>
 				<visible>$EXP[VidView_IsDiary]</visible>
 			</control>
@@ -127,7 +127,7 @@
 				<font>hand_52</font>
 				<textcolor>ink_ghost</textcolor>
 				<include>KS_PenWordLook</include>
-				<label>the diary</label>
+				<label>$LOCALIZE[31386]</label>
 				<onclick>ActivateWindow(1161)</onclick>
 				<visible>String.StartsWith(Container.FolderPath,videodb://movies/titles)</visible>
 			</control>
@@ -362,50 +362,11 @@
 	</include>
 
 	<!-- the sticky month above the timeline + month dividers in the gutter + the focused print's details -->
-	<include name="VidView_DiaryMonthLabel">
-		<control type="label" id="$PARAM[id]">
-			<left>-3000</left>
-			<top>0</top>
-			<width>400</width>
-			<height>20</height>
-			<font>lbl_20</font>
-			<label>$VAR[$PARAM[var]]</label>
-		</control>
-	</include>
-	<include name="VidView_DiaryDivider">
-		<!-- params: top (label top), k (slot offset of the lower item), prev, cur (hidden label ids), case (condition) -->
-		<control type="group">
-			<left>0</left>
-			<top>$PARAM[top]</top>
-			<width>1920</width>
-			<height>80</height>
-			<visible>$PARAM[case] + !Container(520).Scrolling + !String.IsEmpty(Control.GetLabel($PARAM[cur])) + !String.IsEqual(Control.GetLabel($PARAM[prev]),Control.GetLabel($PARAM[cur]))</visible>
-			<animation effect="fade" start="0" end="100" time="220" delay="120">Visible</animation>
-			<control type="image">
-				<left>790</left>
-				<top>-12</top>
-				<width>340</width>
-				<height>86</height>
-				<texture colordiffuse="paper">ks/erase.png</texture>
-			</control>
-			<control type="label">
-				<left>760</left>
-				<top>0</top>
-				<width>400</width>
-				<height>66</height>
-				<align>center</align>
-				<font>hand_48</font>
-				<textcolor>ink2</textcolor>
-				<label>$VAR[$PARAM[disp]]</label>
-			</control>
-		</control>
-	</include>
 	<include name="VidView_DiaryOverlay">
 		<control type="group">
 			<visible>Control.IsVisible(520)</visible>
-			<!-- Skin Variables (optional): the exact time of the focused film's last play -->
+			<!-- Skin Variables: the exact time of the focused film's last play -->
 			<control type="group">
-				<visible>System.HasAddon(script.skinvariables)</visible>
 				<control type="list" id="9174">
 					<left>-40</left>
 					<top>-40</top>
@@ -520,7 +481,7 @@
 			<height>118</height>
 			<font>hand_92</font>
 			<textcolor>ink</textcolor>
-			<label>the diary</label>
+			<label>$LOCALIZE[31386]</label>
 		</control>
 		<control type="grouplist" id="9300">
 			<left>508</left>
@@ -540,7 +501,7 @@
 				<font>hand_52</font>
 				<textcolor>ink_ghost</textcolor>
 				<include>KS_PenWordLook</include>
-				<label>the unwatched</label>
+				<label>$LOCALIZE[31385]</label>
 				<onclick>ReplaceWindow(1160)</onclick>
 			</control>
 			<control type="button" id="9303">
@@ -550,7 +511,7 @@
 				<font>hand_52</font>
 				<textcolor>ink_ghost</textcolor>
 				<include>KS_PenWordLook</include>
-				<label>every film</label>
+				<label>$LOCALIZE[31387]</label>
 				<onclick>ActivateWindow(Videos,videodb://movies/titles/,return)</onclick>
 			</control>
 		</control>
@@ -577,7 +538,7 @@
 			<height>110</height>
 			<font>hand_46</font>
 			<textcolor>ink_faint</textcolor>
-			<label>No pages yet: the diary fills itself as you watch.</label>
+			<label>$LOCALIZE[31388]</label>
 			<visible>!Integer.IsGreater(Container(520).NumItems,0) + !Container(520).IsUpdating</visible>
 		</control>
 	</include>
@@ -629,7 +590,7 @@
 				<aligny>center</aligny>
 				<font>hand_52</font>
 				<textcolor>ink_faint</textcolor>
-				<label>back</label>
+				<label>$LOCALIZE[31384]</label>
 				<visible>ListItem.IsParentFolder</visible>
 			</control>
 			<control type="group">
@@ -780,7 +741,7 @@
 				<ondown>noop</ondown>
 				<include>Lib_OpenLeft</include>
 				<include>Lib_OpenRight</include>
-				<viewtype label="seasons">list</viewtype>
+				<viewtype label="31365">list</viewtype>
 				<visible>Container.Content(seasons)</visible>
 				<itemlayout width="302" height="560">
 					<include content="VidView_SeasonPrint">
@@ -830,7 +791,7 @@
 				<aligny>center</aligny>
 				<font>hand_52</font>
 				<textcolor>ink_faint</textcolor>
-				<label>back</label>
+				<label>$LOCALIZE[31384]</label>
 				<visible>ListItem.IsParentFolder</visible>
 			</control>
 			<control type="group">
@@ -905,7 +866,7 @@
 				<ondown>noop</ondown>
 				<include>Lib_OpenLeft</include>
 				<include>Lib_OpenRight</include>
-				<viewtype label="episodes">list</viewtype>
+				<viewtype label="31389">list</viewtype>
 				<visible>Container.Content(episodes)</visible>
 				<itemlayout width="404" height="380">
 					<include content="VidView_EpisodePrint">
@@ -979,7 +940,7 @@
 				<height>27</height>
 				<font>lbl_20</font>
 				<textcolor>label</textcolor>
-				<label>your history with it</label>
+				<label>$LOCALIZE[31375]</label>
 			</control>
 			<control type="textbox">
 				<left>1258</left>
@@ -1003,7 +964,7 @@
 				<aligny>center</aligny>
 				<font>hand_52</font>
 				<textcolor>ink_faint</textcolor>
-				<label>back</label>
+				<label>$LOCALIZE[31384]</label>
 				<visible>ListItem.IsParentFolder</visible>
 			</control>
 			<control type="group">

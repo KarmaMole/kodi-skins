@@ -50,7 +50,6 @@
 				<width>584</width>
 				<height>topbar_item_h</height>
 				<font>hand_48</font>
-				<textcolor>ink_bold</textcolor>
 				<label>$INFO[ListItem.Label]</label>
 			</control>
 			<include content="KS_Rule">
@@ -127,7 +126,6 @@
 							<width>260</width>
 							<height>55</height>
 							<font>lbl_20</font>
-							<textcolor>ink_bold</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
 						<control type="label">
@@ -137,7 +135,6 @@
 							<height>55</height>
 							<align>right</align>
 							<font>body_24</font>
-							<textcolor>ink_bold</textcolor>
 							<scroll>true</scroll>
 							<label>$INFO[ListItem.Label2]</label>
 						</control>

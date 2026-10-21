@@ -52,7 +52,6 @@
 				<width>page_width</width>
 				<height>66</height>
 				<font>serif_44</font>
-				<textcolor>text</textcolor>
 				<label>$VAR[OSDS_SeekLine]</label>
 			</control>
 			<include content="OSDS_Progress">

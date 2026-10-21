@@ -31,7 +31,7 @@
 				<top>0</top>
 				<width>400</width>
 				<height>400</height>
-				<texture colordiffuse="ink_12">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 			</control>
 			<control type="image">
 				<left>40</left>
@@ -58,7 +58,6 @@
 					<width>360</width>
 					<height>22</height>
 					<font>cap_20</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 					<label>$INFO[ListItem.AddonLifecycleType]</label>
 				</control>
 				<control type="textbox">
@@ -93,7 +92,6 @@
 				<width>1000</width>
 				<height>40</height>
 				<font>bold_26</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[ListItem.AddonSummary]</label>
 			</control>
 			<control type="group">
@@ -109,12 +107,7 @@
 					<height>subnav_h</height>
 					<align>right</align>
 					<font>cap_20</font>
-					<textcolor>$VAR[SectionText2]</textcolor>
-					<focusedcolor>paper</focusedcolor>
 					<textoffsetx>12</textoffsetx>
-					<pulseonselect>false</pulseonselect>
-					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-					<texturenofocus />
 					<label>$VAR[Dlg_AddonNewsLabel]</label>
 					<onclick condition="String.IsEmpty(Window(Home).Property(duotone.addonnews))">SetProperty(duotone.addonnews,1,home)</onclick>
 					<onclick condition="!String.IsEmpty(Window(Home).Property(duotone.addonnews))">ClearProperty(duotone.addonnews,home)</onclick>
@@ -136,7 +129,6 @@
 				<width>1264</width>
 				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[ListItem.AddonDescription]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 				<visible>String.IsEmpty(Window(Home).Property(duotone.addonnews))</visible>
@@ -147,7 +139,6 @@
 				<width>1264</width>
 				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$INFO[ListItem.AddonNews]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 				<visible>!String.IsEmpty(Window(Home).Property(duotone.addonnews))</visible>
@@ -181,7 +172,7 @@
 						<top>8</top>
 						<width>400</width>
 						<height>225</height>
-						<texture colordiffuse="ink_12">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 					</control>
 					<control type="image">
 						<left>8</left>
@@ -198,7 +189,7 @@
 						<top>8</top>
 						<width>400</width>
 						<height>225</height>
-						<texture colordiffuse="ink_12">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 					</control>
 					<control type="image">
 						<left>8</left>
@@ -251,15 +242,10 @@
 				<height>dialog_row_h</height>
 				<font>bold_22</font>
 				<textcolor>$VAR[SectionText]</textcolor>
-				<focusedcolor>paper</focusedcolor>
 				<textoffsetx>16</textoffsetx>
 				<radiowidth>18</radiowidth>
 				<radioheight>18</radioheight>
 				<include>Dlg_Tex_DialogButton</include>
-				<textureradioonfocus colordiffuse="paper">markers/check.png</textureradioonfocus>
-				<textureradioonnofocus colordiffuse="ink">markers/check.png</textureradioonnofocus>
-				<textureradioofffocus border="10" colordiffuse="paper">common/rect_outline_1.png</textureradioofffocus>
-				<textureradiooffnofocus border="10" colordiffuse="ink">common/rect_outline_1.png</textureradiooffnofocus>
 				<visible>Control.IsEnabled(13)</visible>
 			</control>
 			<include content="DT_DialogButton">

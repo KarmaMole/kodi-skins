@@ -165,85 +165,22 @@
 		</definition>
 	</include>
 
-	<!-- watched = the date stamp, in progress = pen progress along the bottom. Inside the photo group. -->
-	<include name="KS_WatchedMarkers">
-		<control type="image">
-			<right>0</right>
-			<bottom>0</bottom>
-			<width>60%</width>
-			<height>55%</height>
-			<texture>ks/stamp_shade.png</texture>
-			<visible>$EXP[ListItemWatched] + !String.IsEmpty(ListItem.LastPlayed) + !String.IsEqual(Skin.String(keepsake.stamp),off)</visible>
-		</control>
-		<include content="KS_Stamp19">
-			<param name="label" value="$VAR[KS_LP_Stamp]"/>
-			<param name="right" value="10"/>
-			<param name="bottom" value="10"/>
-			<param name="visible" value="$EXP[ListItemWatched] + !String.IsEmpty(ListItem.LastPlayed)"/>
-		</include>
-		<control type="progress">
-			<left>8</left>
-			<right>8</right>
-			<bottom>6</bottom>
-			<height>14</height>
-			<texturebg>ks/progress_bg_170.png</texturebg>
-			<midtexture colordiffuse="ink_bold">ks/pen_fill.png</midtexture>
-			<info>ListItem.PercentPlayed</info>
-			<visible>ListItem.IsResumable</visible>
-		</control>
-	</include>
-
 	<!-- ========================================================== buttons -->
 	<!-- handwritten action words (mockup "play it again" / "trailer"): params id, left, top, width, label,
-	     onclick, visible, onup/ondown/onleft/onright (+ _if/_then), onback, icon (ignored) -->
-	<include name="KS_ButtonPrimary">
-		<param name="visible">true</param>
-		<param name="top">0</param>
-		<param name="icon"></param>
-		<param name="onup"></param>
-		<param name="ondown"></param>
-		<param name="onleft"></param>
-		<param name="onleft_if">false</param>
-		<param name="onleft_then"></param>
-		<param name="onright"></param>
-		<param name="onright_if">false</param>
-		<param name="onright_then"></param>
-		<param name="onback"></param>
-		<definition>
-			<control type="button" id="$PARAM[id]">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>$PARAM[width]</width>
-				<height>button_h</height>
-				<label>$PARAM[label]</label>
-				<font>hand_52b</font>
-				<include>KS_PenWordLook</include>
-				<visible>$PARAM[visible]</visible>
-				<onclick>$PARAM[onclick]</onclick>
-				<onup>$PARAM[onup]</onup>
-				<ondown>$PARAM[ondown]</ondown>
-				<onleft condition="$PARAM[onleft_if]">$PARAM[onleft_then]</onleft>
-				<onleft>$PARAM[onleft]</onleft>
-				<onright condition="$PARAM[onright_if]">$PARAM[onright_then]</onright>
-				<onright>$PARAM[onright]</onright>
-				<onback>$PARAM[onback]</onback>
-			</control>
-		</definition>
-	</include>
+	     onclick, visible, onup/ondown/onleft/onright (+ _if/_then), icon (ignored) -->
 	<include name="KS_ButtonSecondary">
 		<param name="visible">true</param>
 		<param name="top">0</param>
 		<param name="focus_also">false</param>
-		<param name="onclick2"></param>
-		<param name="onup"></param>
-		<param name="ondown"></param>
-		<param name="onleft"></param>
+		<param name="onclick2">noop</param>
+		<param name="onup">noop</param>
+		<param name="ondown">noop</param>
+		<param name="onleft">noop</param>
 		<param name="onleft_if">false</param>
 		<param name="onleft_then"></param>
 		<param name="onright"></param>
 		<param name="onright_if">false</param>
 		<param name="onright_then"></param>
-		<param name="onback"></param>
 		<definition>
 			<control type="button" id="$PARAM[id]">
 				<left>$PARAM[left]</left>
@@ -262,7 +199,6 @@
 				<onleft>$PARAM[onleft]</onleft>
 				<onright condition="$PARAM[onright_if]">$PARAM[onright_then]</onright>
 				<onright>$PARAM[onright]</onright>
-				<onback>$PARAM[onback]</onback>
 			</control>
 		</definition>
 	</include>
@@ -270,7 +206,7 @@
 	<!-- DM Mono small caps word (library / OSD option words): tape strip + dark ink on focus. -->
 	<include name="KS_SubNavButton">
 		<param name="visible">true</param>
-		<param name="onclick"></param>
+		<param name="onclick">noop</param>
 		<definition>
 			<control type="button" id="$PARAM[id]">
 				<width>auto</width>
@@ -286,15 +222,6 @@
 				<visible>$PARAM[visible]</visible>
 			</control>
 		</definition>
-	</include>
-
-	<!-- engine button textures (OSD / music OSD boxes): tape on focus -->
-	<include name="KS_Tex_ButtonPrimary">
-		<texturefocus border="24,0,24,0" colordiffuse="tape">ks/tape_row.png</texturefocus>
-		<texturenofocus />
-	</include>
-	<include name="KS_Tex_ButtonPrimary_Round">
-		<include>KS_Tex_ButtonPrimary</include>
 	</include>
 
 	<!-- Off-screen object (template/hidden controls Kodi needs but the user never sees) -->

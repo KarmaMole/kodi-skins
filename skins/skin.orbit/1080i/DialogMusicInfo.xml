@@ -66,7 +66,6 @@
 				<width>1300</width>
 				<height>40</height>
 				<font>text_30_med</font>
-				<textcolor>text_primary</textcolor>
 				<label>$VAR[Music_InfoSubline]</label>
 			</control>
 			<include content="Fit_MusicInfo">
@@ -155,7 +154,6 @@
 			<width>640</width>
 			<height>164</height>
 			<orientation>horizontal</orientation>
-			<itemgap>0</itemgap>
 			<onup>noop</onup>
 			<!-- Down reaches the tracklist / discography beside the row from any button -->
 			<ondown condition="Integer.IsGreater(Container(50).NumItems,0)">50</ondown>
@@ -211,8 +209,6 @@
 			<control type="textbox">
 				<width>1096</width>
 				<height max="152">auto</height>
-				<font>text_26</font>
-				<textcolor>text_body</textcolor>
 				<label>$VAR[Music_InfoDescription]</label>
 				<visible>$EXP[Music_InfoHasDescription]</visible>
 			</control>

@@ -72,8 +72,6 @@
 				<width>page_width</width>
 				<height>76</height>
 				<font>sans_28_semi</font>
-				<textcolor>ink</textcolor>
-				<textoffsetx>24</textoffsetx>
 				<texturefocus />
 				<texturenofocus />
 			</control>

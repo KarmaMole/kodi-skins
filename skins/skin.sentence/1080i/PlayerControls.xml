@@ -68,7 +68,6 @@
 				<width>708</width>
 				<height>50</height>
 				<font>serif_34</font>
-				<textcolor>text</textcolor>
 				<label>$VAR[OSD_Title]</label>
 			</control>
 			<control type="label">
@@ -96,7 +95,6 @@
 				<height>2</height>
 				<info>Player.SeekBar</info>
 				<texturebg colordiffuse="clear">common/white.png</texturebg>
-				<midtexture colordiffuse="lilac">common/white.png</midtexture>
 			</control>
 			<control type="image">
 				<left>292</left>
@@ -112,7 +110,6 @@
 				<width>708</width>
 				<height>30</height>
 				<font>num_20</font>
-				<textcolor>text</textcolor>
 				<label>$VAR[OSD_SeekTimeLabel]</label>
 			</control>
 			<control type="label">

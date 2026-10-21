@@ -38,13 +38,6 @@
 		<value condition="!String.IsEmpty(ListItem.Art(album.thumb))">$INFO[ListItem.Art(album.thumb)]</value>
 		<value>$INFO[ListItem.Icon]</value>
 	</variable>
-	<variable name="MusicView_TabTitle">
-		<value condition="$EXP[Music_TabAlbums]">Albums</value>
-		<value condition="$EXP[Music_TabArtists]">Artists</value>
-		<value condition="$EXP[Music_TabSongs]">Songs</value>
-		<value condition="$EXP[Music_TabGenres]">Genres</value>
-		<value>Music</value>
-	</variable>
 
 	<!-- ============================================================ grid item -->
 	<include name="MusicView_GridItem">
@@ -110,7 +103,7 @@
 			<onright>ActivateWindow(1160)</onright>
 			<preloaditems>2</preloaditems>
 			<scrolltime tween="cubic" easing="out">260</scrolltime>
-			<viewtype label="Grid">icon</viewtype>
+			<viewtype label="31312">icon</viewtype>
 			<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)</visible>
 			<itemlayout width="214" height="282">
 				<include>MusicView_GridItem</include>

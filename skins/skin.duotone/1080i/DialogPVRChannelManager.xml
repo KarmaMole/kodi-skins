@@ -63,7 +63,6 @@
 						<height>dialog_row_h</height>
 						<align>right</align>
 						<font>cap_20</font>
-						<textcolor>$VAR[SectionText]</textcolor>
 						<label>$VAR[Misc_ChannelMgrFlags]</label>
 					</control>
 					<control type="image">
@@ -71,7 +70,7 @@
 						<bottom>0</bottom>
 						<width>640</width>
 						<height>rule_h</height>
-						<texture colordiffuse="ink">common/hairline.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 					</control>
 				</itemlayout>
 				<focusedlayout width="640" height="dialog_row_h">
@@ -80,7 +79,7 @@
 						<top>0</top>
 						<width>640</width>
 						<height>dialog_row_h</height>
-						<texture colordiffuse="ink_12">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 						<visible>Control.HasFocus(20)</visible>
 					</control>
 					<control type="image">
@@ -88,7 +87,7 @@
 						<top>0</top>
 						<width>list_bar_w</width>
 						<height>dialog_row_h</height>
-						<texture colordiffuse="ink">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 					</control>
 					<control type="label">
 						<left>list_text_x</left>
@@ -96,7 +95,6 @@
 						<width>480</width>
 						<height>dialog_row_h</height>
 						<font>bold_26</font>
-						<textcolor>$VAR[SectionText]</textcolor>
 						<scroll>true</scroll>
 						<label>$INFO[ListItem.Property(Number),,  ]$INFO[ListItem.Property(Name)]</label>
 					</control>
@@ -107,7 +105,6 @@
 						<height>dialog_row_h</height>
 						<align>right</align>
 						<font>cap_20</font>
-						<textcolor>$VAR[SectionText]</textcolor>
 						<label>$VAR[Misc_ChannelMgrFlags]</label>
 					</control>
 					<control type="image">
@@ -115,7 +112,7 @@
 						<bottom>0</bottom>
 						<width>640</width>
 						<height>rule_h</height>
-						<texture colordiffuse="ink">common/hairline.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 					</control>
 				</focusedlayout>
 			</control>
@@ -227,8 +224,7 @@
 				<control type="togglebutton" id="34">
 					<description>TV / radio toggle</description>
 					<include content="Misc_RowLook"><param name="width" value="620"/></include>
-					<alttexturefocus border="16" colordiffuse="ink">focus/outline_2.png</alttexturefocus>
-					<alttexturenofocus />
+					<alttexturefocus border="16" colordiffuse="$VAR[ink]">focus/outline_2.png</alttexturefocus>
 					<label>$LOCALIZE[19024]</label>
 					<altlabel>$LOCALIZE[19023]</altlabel>
 					<usealttexture>!String.IsEmpty(Window.Property(IsRadio))</usealttexture>

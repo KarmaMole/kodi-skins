@@ -1,6 +1,6 @@
 # KarmaMole's Kodi Skins
 
-Eleven skins for **Kodi 21 Omega**, designed for the TV and tested on an NVIDIA Shield. Each one is a different idea
+Twelve skins for **Kodi 21 Omega**, designed for the TV and tested on an NVIDIA Shield. Each one is a different idea
 about how a media library should feel.
 
 | Skin | Idea |
@@ -16,6 +16,7 @@ about how a media library should feel.
 | **Six Degrees** | Every direction on the remote is a connection: director, lead actor, second star, year. |
 | **Fold** | Everything unfolds: cards, spreads and concertinas on real 3D hinges. |
 | **Keepsake** | The skin that remembers: a black photo album of what you've watched, date-stamped. |
+| **Groove** | For record collectors: art as light, a spinning record, crates, shelves, a time machine and a genre wheel. |
 
 ## Install
 
@@ -25,16 +26,29 @@ about how a media library should feel.
 4. Go to **Add-ons → Install from repository → KarmaMole's Kodi Skins → Look and feel → Skin** and choose a skin.
    Updates arrive automatically.
 
-Every skin works on its own. A few features get richer when these optional add-ons are installed:
-- [TMDb Helper](https://github.com/jurialmunkey/plugin.video.themoviedb.helper) adds artwork colours, blur and cast.
-- [Skin Variables](https://github.com/jurialmunkey/script.skinvariables) is used by Six Degrees and Keepsake.
-- Embuary Helper adds next-up episodes.
+Every skin requires [Skin Variables](https://github.com/jurialmunkey/script.skinvariables) 2.1.21 or later (Search
+uses it). Kodi installs it from its official repository along with the skin.
+
+### Optional add-ons
+
+The skins work without these; with them, some features get richer. Each skin's section on the
+[showcase page](https://karmamole.github.io/kodi-skins/) lists the ones it uses.
+- [TMDb Helper](https://github.com/jurialmunkey/plugin.video.themoviedb.helper) (Kodi's official repository): artwork
+  colours and blurred backgrounds, in every skin except Void.
+- Embuary Helper (Kodi's official repository): a real Next up row for TV.
+- **KarmaMole Skin Helper** (`script.karmamole.helper`, this repository): one optional helper for these skins; each
+  skin turns on only the features it uses. Today that is Groove: album colours while browsing, colour-matched spines,
+  Up next reordering, true shuffle, and style and mood rings on the wheel. Groove's Settings has an Install button.
+- **Album colours for visualisers** (`service.vizpalette`, this repository): the playing album's colours for Groove's
+  room and the Shadertoy visualiser. Also installs from Groove's Settings.
+- Shadertoy and YouTube (Kodi's official repository): Groove's visualiser and its Watch the video button.
 
 ## Repository layout
 
 | Path | What |
 |---|---|
 | `skins/skin.<id>/` | each skin, the add-on itself; `_src/` holds the generators for its fonts, textures and generated XML |
+| `addons/<id>/` | helper add-ons some skins use: `script.karmamole.helper` (the shared skin helper) and `service.vizpalette` (Groove's companion) |
 | `repository.karmamole/` | the Kodi repository add-on |
 | `site/` | the showcase page served as the front page of https://karmamole.github.io/kodi-skins/ (the plain install page moves to `install.html`; delete `site/` to go back) |
 | `tools/build_repo.py` | builds the Kodi repository (zips, `addons.xml`, landing page) |

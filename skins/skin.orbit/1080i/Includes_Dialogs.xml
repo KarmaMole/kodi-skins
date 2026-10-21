@@ -67,22 +67,12 @@
 		<texturefocus border="22" colordiffuse="text_primary">common/pill_fill.png</texturefocus>
 		<texturenofocus border="22" colordiffuse="border_button">common/pill_line.png</texturenofocus>
 	</include>
-	<include name="Dlg_Tex_DialogButton_Square">
-		<include>Dlg_Tex_DialogButton</include>
-	</include>
-	<include name="Dlg_Tex_DialogButton_Round">
-		<include>Dlg_Tex_DialogButton</include>
-	</include>
 
 	<!-- Accent frame drawn AT the control rect (stroke sits 1-3px inside), for Kodi-cloned rows -->
 	<!-- Row focus for Kodi-cloned rows: raised fill + amber edge (own colours, focus/row.png) -->
 	<include name="Dlg_Tex_RowFocus">
 		<texturefocus border="8">focus/row.png</texturefocus>
 	</include>
-	<include name="Dlg_Tex_RowFocus_S2"><texturefocus border="8">focus/row.png</texturefocus></include>
-	<include name="Dlg_Tex_RowFocus_S3"><texturefocus border="8">focus/row.png</texturefocus></include>
-	<include name="Dlg_Tex_RowFocus_R2"><texturefocus border="8">focus/row.png</texturefocus></include>
-	<include name="Dlg_Tex_RowFocus_R3"><texturefocus border="8">focus/row.png</texturefocus></include>
 
 	<!-- Hairline under a row (texturenofocus of Kodi-cloned rows). flip = true gives a top rule. -->
 	<include name="Dlg_Tex_RowRule">
@@ -627,7 +617,7 @@
 				<height>dialog_row_h</height>
 				<font>mono_15</font>
 				<textcolor>text_tertiary</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31226]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<include content="Orbit_Scrollbar">
@@ -795,7 +785,7 @@
 				<textoffsetx>56</textoffsetx>
 				<font>mono_15</font>
 				<textcolor>text_tertiary</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31226]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<control type="scrollbar" id="61">

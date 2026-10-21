@@ -255,7 +255,7 @@
 					<height>30</height>
 					<font>small_20_bold</font>
 					<textcolor>$VAR[DL_AccentText]</textcolor>
-					<label>Up next</label>
+					<label>$LOCALIZE[31235]</label>
 				</control>
 				<control type="label">
 					<left>200</left>
@@ -303,7 +303,7 @@
 					<height>48</height>
 					<font>serif_34</font>
 					<textcolor>$VAR[DL_Ink]</textcolor>
-					<label>The last one in the queue</label>
+					<label>$LOCALIZE[31236]</label>
 				</control>
 				<control type="label">
 					<left>136</left>

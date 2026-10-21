@@ -15,6 +15,8 @@ y 640, side blocks (Done / Cancel / layout / voice / IP) in a column at x 1504.
 Usage:  python skins/skin.duotone/_src/make_keyboard.py
 """
 from pathlib import Path
+from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parent.parent / "1080i" / "DialogKeyboard.xml"
 
@@ -105,7 +107,7 @@ def main():
 				<height>6000</height>
 				<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
 				<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
-				<texture colordiffuse="ink_70">common/white.png</texture>
+				<texture colordiffuse="$VAR[scrim]">common/white.png</texture>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -120,15 +122,33 @@ def main():
 				<width>screen_w</width>
 				<height>680</height>
 				<aspectratio aligny="top">center</aspectratio>
-				<texture colordiffuse="bfffffff">overlays/dots.png</texture>
-				<visible>$EXP[DT_Halftone]</visible>
+				<texture colordiffuse="$VAR[dots]">overlays/dots.png</texture>
+				<visible>$EXP[DT_Halftone] + $EXP[DT_ScreenDots]</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>400</top>
+				<width>screen_w</width>
+				<height>680</height>
+				<aspectratio aligny="top">center</aspectratio>
+				<texture colordiffuse="$VAR[dots]">overlays/screen_lines.png</texture>
+				<visible>$EXP[DT_Halftone] + $EXP[DT_ScreenLines]</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>400</top>
+				<width>screen_w</width>
+				<height>680</height>
+				<aspectratio aligny="top">center</aspectratio>
+				<texture colordiffuse="$VAR[dots]">overlays/screen_coarse.png</texture>
+				<visible>$EXP[DT_Halftone] + $EXP[DT_ScreenCoarse]</visible>
 			</control>
 			<control type="image">
 				<left>0</left>
 				<top>400</top>
 				<width>screen_w</width>
 				<height>rule_thick</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="label" id="311">
 				<left>page_margin</left>
@@ -144,7 +164,7 @@ def main():
 				<top>488</top>
 				<width>page_width</width>
 				<height>96</height>
-				<texture border="16" colordiffuse="ink">common/rect_outline_8.png</texture>
+				<texture border="16" colordiffuse="$VAR[ink]">common/rect_outline_8.png</texture>
 			</control>
 			<control type="edit" id="312">
 				<left>page_margin</left>
@@ -197,7 +217,7 @@ def main():
 	</controls>
 </window>
 '''
-    OUT.write_text(xml, encoding="utf-8")
+    OUT.write_text(finish_xml(strip_defaults(xml, OUT.parent / "Defaults.xml")), encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

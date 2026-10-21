@@ -10,7 +10,7 @@
 -->
 <window>
 	<defaultcontrol>3</defaultcontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>DT_Background</include>
@@ -27,7 +27,6 @@
 			<top>176</top>
 			<width>settings_cat_w</width>
 			<height>648</height>
-			<itemgap>0</itemgap>
 			<orientation>vertical</orientation>
 			<onleft>noop</onleft>
 			<onright>5</onright>
@@ -53,7 +52,6 @@
 			<top>176</top>
 			<width>920</width>
 			<height>792</height>
-			<itemgap>0</itemgap>
 			<pagecontrol>60</pagecontrol>
 			<onleft>3</onleft>
 			<onright>noop</onright>
@@ -85,8 +83,7 @@
 				<width>368</width>
 				<height>24</height>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
-				<label>About this setting</label>
+				<label>$LOCALIZE[31306]</label>
 			</control>
 			<control type="textbox" id="6">
 				<description>description (Kodi)</description>
@@ -95,7 +92,6 @@
 				<width>368</width>
 				<height>748</height>  <!-- 22 lines of 34 -->
 				<font>body_24</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 			</control>
 		</control>

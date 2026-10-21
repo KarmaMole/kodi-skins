@@ -1,3 +1,21 @@
+0.9.10 (2026-10-21)
+- Sets row in the Library panel; fix for controls disappearing with Reduce motion on. Code clean-up for the Kodi repository checks.
+- Library panel: a Sets row (films only, when the library has sets) opens all sets in the same window; pick a set for its films, Back walks set -> all sets -> films. Sets use the films' views (Line, Platform, Index).
+- Reduce motion: every animation include has one Hidden animation (Kodi resets only the first one when a control shows again, so the reduce-motion twin left OSD, seek bar, dialogs and view groups invisible after their first hide). Fades keep the normal timing; the volume / slider strip hides without its slide. _src/collapse_hidden_twins.py.
+- Code clean-up for the Kodi repository checks (kdk, kodi-addon-checker): unused includes, variables and fonts
+  removed, label text moved to strings.po, tags that repeat Defaults.xml dropped. Search now needs Script Skin
+  Variables (2.1.21+, installed with the skin): it URL-encodes the typed text, so queries with & or + work.
+- Lines out of a station (map, Home preview, station page) now work for names with & or % (R&B, Simon & Garfunkel):
+  the names go through Skin Variables' URL encoding. The station page's "Full story" opens again (it took no focus).
+- Map, Home preview and station page: lines no longer stay empty after a move now and then (about 1 hop in 10). The
+  encoded names are read from the encoder list itself, which always holds the newest result, and the encoder runs once
+  per film, after its details arrive. A collection in the Line view reads "Collection · 4 films" (it said 0).
+- Home: the "Four lines out" preview no longer freezes after quick moves (it kept the last film until Home closed;
+  Kodi checks skin timers only every half second, so the preview timer could miss its stop and never restart).
+- Facts row (station page, Line view): the "|" separators show only between two shown facts, so a collection no
+  longer starts with a stray "|" before its rating. Home opens on the visible start line (the films' line was the
+  default focus even with Series or Music chosen, and Kodi logged that it could not focus it).
+
 0.9.9 (2026-10-21)
 - Music library: the header tabs (Albums, Artists, Songs, Genres, Sort, View) moved to their own line above the "Home - Music" route, which they overlapped by about 60 px; the Options pill now sits on the route line next to the clock, like the video header. Navigation unchanged.
 

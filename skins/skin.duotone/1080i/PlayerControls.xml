@@ -31,7 +31,7 @@
 				<top>0</top>
 				<width>1040</width>
 				<height>420</height>
-				<texture border="16" colordiffuse="ink">common/rect_outline_8.png</texture>
+				<texture border="16" colordiffuse="$VAR[ink]">common/rect_outline_8.png</texture>
 			</control>
 
 			<!-- art -->
@@ -40,7 +40,7 @@
 				<top>40</top>
 				<width>220</width>
 				<height>220</height>
-				<texture colordiffuse="ink_12">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 			</control>
 			<control type="image">
 				<left>40</left>
@@ -59,7 +59,6 @@
 				<width>708</width>
 				<height>26</height>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$VAR[OSD_State]  ·  $VAR[OSD_Type]</label>
 			</control>
 			<control type="label">
@@ -67,9 +66,7 @@
 				<top>72</top>
 				<width>708</width>
 				<height>60</height>
-				<aligny>center</aligny>
 				<font>an_60</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$VAR[OSD_Title]</label>
 			</control>
 			<control type="label">
@@ -104,7 +101,7 @@
 				<top>196</top>
 				<width>724</width>
 				<height>32</height>
-				<texture border="16" colordiffuse="ink">focus/frame_8.png</texture>
+				<texture border="16" colordiffuse="$VAR[ink]">focus/frame_8.png</texture>
 				<visible>Control.HasFocus(87)</visible>
 			</control>
 			<control type="label">
@@ -113,7 +110,6 @@
 				<width>708</width>
 				<height>30</height>
 				<font>bold_22</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$VAR[OSD_SeekTimeLabel]</label>
 			</control>
 			<control type="label">

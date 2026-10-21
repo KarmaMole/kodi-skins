@@ -82,8 +82,7 @@
 				<width>1036</width>
 				<height>52</height>
 				<font>head_34</font>
-				<textcolor>ink</textcolor>
-				<label>Find subtitles</label>
+				<label>$LOCALIZE[31314]</label>
 			</control>
 
 			<!-- ====== left column: service + status + manual search -->
@@ -99,7 +98,7 @@
 					<height>24</height>
 					<font>caps_20</font>
 					<textcolor>cap</textcolor>
-					<label>SERVICE</label>
+					<label>$LOCALIZE[31315]</label>
 				</control>
 				<include content="Fold_Rule">
 					<param name="top" value="31"/>
@@ -132,7 +131,6 @@
 							<width>232</width>
 							<height>59</height>
 							<font>sans_22_semi</font>
-							<textcolor>ink</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 							<visible>ListItem.IsSelected</visible>
 						</control>
@@ -177,7 +175,6 @@
 							<width>232</width>
 							<height>59</height>
 							<font>sans_22_semi</font>
-							<textcolor>ink</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
 						<control type="image">
@@ -205,7 +202,7 @@
 					<height>24</height>
 					<font>caps_20</font>
 					<textcolor>cap</textcolor>
-					<label>STATUS</label>
+					<label>$LOCALIZE[31316]</label>
 				</control>
 				<include content="Fold_Rule">
 					<param name="top" value="269"/>
@@ -222,7 +219,6 @@
 					<aligny>top</aligny>
 					<wrapmultiline>true</wrapmultiline>
 					<font>body_22</font>
-					<textcolor>ink</textcolor>
 				</control>
 				<control type="label" id="130">
 					<description>shown by Kodi when the file already has subtitle streams</description>
@@ -234,7 +230,7 @@
 					<wrapmultiline>true</wrapmultiline>
 					<font>caps_20</font>
 					<textcolor>ink2</textcolor>
-					<label>THIS FILE ALREADY HAS SUBTITLE TRACKS</label>
+					<label>$LOCALIZE[31317]</label>
 				</control>
 
 				<control type="group">
@@ -278,7 +274,7 @@
 					<align>right</align>
 					<font>caps_20</font>
 					<textcolor>cap</textcolor>
-					<label>SYNC = TIMED TO YOUR FILE</label>
+					<label>$LOCALIZE[31318]</label>
 				</control>
 				<include content="Fold_Rule">
 					<param name="top" value="31"/>
@@ -294,7 +290,7 @@
 					<height>40</height>
 					<font>body_22</font>
 					<textcolor>ink2</textcolor>
-					<label>No subtitles listed yet. Pick a service or search manually.</label>
+					<label>$LOCALIZE[31319]</label>
 					<visible>Integer.IsEqual(Container(120).NumItems,0)</visible>
 				</control>
 

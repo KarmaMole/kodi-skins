@@ -198,8 +198,8 @@ def main():
                 a(f'\t\t\t\t\t<param name="row" value="{rid}"/><param name="label" value="$VAR[DL_BedtimeLabelLong]"/>')
                 a("\t\t\t\t</include>")
             elif kind == "reset":
-                a('\t\t\t\t<control type="label"><left>400</left><top>0</top><width>460</width><height>100</height><align>right</align><font>small_20_semibold</font><textcolor>$VAR[DL_Ink2]</textcolor><label>OK to reset</label><visible>String.IsEmpty(Window(Home).Property(daylight.resetarmed))</visible></control>')
-                a('\t\t\t\t<control type="label"><left>400</left><top>0</top><width>460</width><height>100</height><align>right</align><font>small_20_bold</font><textcolor>$VAR[DL_AccentText]</textcolor><label>Press OK again to reset everything</label><visible>!String.IsEmpty(Window(Home).Property(daylight.resetarmed))</visible></control>')
+                a('\t\t\t\t<control type="label"><left>400</left><top>0</top><width>460</width><height>100</height><align>right</align><font>small_20_semibold</font><textcolor>$VAR[DL_Ink2]</textcolor><label>$LOCALIZE[31316]</label><visible>String.IsEmpty(Window(Home).Property(daylight.resetarmed))</visible></control>')
+                a('\t\t\t\t<control type="label"><left>400</left><top>0</top><width>460</width><height>100</height><align>right</align><font>small_20_bold</font><textcolor>$VAR[DL_AccentText]</textcolor><label>$LOCALIZE[31317]</label><visible>!String.IsEmpty(Window(Home).Property(daylight.resetarmed))</visible></control>')
             a("\t\t\t</control>")
         a("\t\t</control>")
     # aside: help card

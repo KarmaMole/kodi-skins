@@ -509,7 +509,7 @@ def build() -> str:
 					<ondown>noop</ondown>
 					<onleft>ActivateWindow(1155)</onleft>
 					<onright>ActivateWindow(1155)</onright>
-					<viewtype label="Poster wall">list</viewtype>
+					<viewtype label="31310">list</viewtype>
 					<visible>{CONTENT}</visible>
 {ind(lay, 5)}
 				</control>
@@ -551,7 +551,7 @@ def main():
     textures()
     xml = build()
     assert xml.count("<?xml") == 1
-    OUT.write_text(xml, encoding="utf-8")
+    OUT.write_text(xml, encoding="utf-8", newline="\n")
     print(f"wrote {OUT} ({len(xml):,} bytes)")
 
 

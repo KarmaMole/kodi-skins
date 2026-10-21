@@ -2,7 +2,7 @@
 <!--
 	Fold Search (Custom_1150_Search.xml, SPEC 5 / T16). Owner: Builder A.
 	Library-only: four result rows fed by library paths filtered with ?xsp= JSON (title / album / artist
-	"contains" the query). No online search, no helper add-on.
+	"contains" the query). No online search; Skin Variables URL-encodes the query (Search_Encoder).
 	The query is the text of edit control 9001: $INFO[Control.GetLabel(9001).index(1)]. Paths are empty
 	until something is typed, so opening the window costs nothing.
 	Rows never hide (a hidden container is not processed, so it could never load the next query's
@@ -27,22 +27,44 @@
 
 	<!-- ================================================================ expressions -->
 	<expression name="Search_HasQuery">!String.IsEmpty(Control.GetLabel(9001).index(1))</expression>
+	<expression name="Search_Encoded">$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Fold.Search.Encoded))</expression>
 
 	<!-- ================================================================ paths -->
-	<!-- xsp JSON, URL-encoded except the query itself. $ESCINFO quotes the query and escapes " and \ as JSON
-	     expects (QA 2026-10-18). Kodi has no URL-encode infolabel, so & % + in a query still break the path. -->
+	<!-- xsp JSON, fully URL-encoded. The query is encoded by script.skinvariables (a required import since
+	     2026-10-21, as in Groove): the 1 px list 9190 (Search_Encoder) runs get_encoded_string whenever the
+	     typed text changes, which writes Window(Home).Property(Fold.Search.Encoded) (quote_plus), so & % + | in a query
+	     no longer break the path (kodi-review xml.xsp-unencoded). Paths wait for that property. -->
 	<variable name="Search_PathMovies">
-		<value condition="$EXP[Search_HasQuery]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Fold.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 	</variable>
 	<variable name="Search_PathTV">
-		<value condition="$EXP[Search_HasQuery]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Fold.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 	</variable>
 	<variable name="Search_PathAlbums">
-		<value condition="$EXP[Search_HasQuery]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Fold.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
 	</variable>
 	<variable name="Search_PathArtists">
-		<value condition="$EXP[Search_HasQuery]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Fold.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
 	</variable>
+
+	<!-- ================================================================ query encoder
+	     The plugin path changes with every letter, so the list reloads and Skin Variables writes the
+	     URL-encoded query to Window(Home).Property(Fold.Search.Encoded) (cleared first, so a path never
+	     carries the previous query). Offscreen but visible: a hidden container never loads. -->
+	<variable name="Search_EncoderPath">
+		<value condition="$EXP[Search_HasQuery]">plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;window_prop=Fold.Search.Encoded&amp;window_id=home&amp;&amp;$INFO[Control.GetLabel(9001).index(1)]</value>
+	</variable>
+	<include name="Search_Encoder">
+		<control type="list" id="9190">
+			<left>-3840</left>
+			<top>-3840</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1"/>
+			<focusedlayout width="1" height="1"/>
+			<content>$VAR[Search_EncoderPath]</content>
+		</control>
+	</include>
 
 	<!-- ================================================================ pieces -->
 	<!-- Row header: rule, title 24/700, mono count + focused item on the right.
@@ -91,8 +113,8 @@
 						<font>caps_20</font>
 						<textcolor>cap2</textcolor>
 						<selectedcolor>cap2</selectedcolor>
-						<label>No matches</label>
-						<visible>!Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
+						<label>$LOCALIZE[31326]</label>
+						<visible>$EXP[Search_Encoded] + !Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
 					</control>
 					<control type="label">
 						<width>auto</width>
@@ -100,7 +122,7 @@
 						<font>caps_20</font>
 						<textcolor>cap2</textcolor>
 						<selectedcolor>cap2</selectedcolor>
-						<label>Searching</label>
+						<label>$LOCALIZE[31327]</label>
 						<visible>Container($PARAM[id]).IsUpdating</visible>
 					</control>
 				</control>
@@ -285,7 +307,7 @@
 			<font>caps_20_b</font>
 			<textcolor>jade</textcolor>
 			<selectedcolor>jade</selectedcolor>
-			<label>Search[COLOR cap2]   films · series · albums · artists, in your library[/COLOR]</label>
+			<label>$LOCALIZE[31328]</label>
 		</control>
 		<control type="image">
 			<left>64</left>
@@ -328,7 +350,7 @@
 			<textoffsetx>0</textoffsetx>
 			<aligny>center</aligny>
 			<label></label>
-			<hinttext>Type a title</hinttext>
+			<hinttext>$LOCALIZE[31329]</hinttext>
 			<texturefocus />
 			<texturenofocus />
 			<onup>noop</onup>
@@ -352,7 +374,7 @@
 			<font>caps_20</font>
 			<textcolor>cap</textcolor>
 			<selectedcolor>cap</selectedcolor>
-			<label>OK to type  ·  Down for the results  ·  Back to close</label>
+			<label>$LOCALIZE[31330]</label>
 			<visible>Control.HasFocus(9001)</visible>
 		</control>
 	</include>
@@ -446,7 +468,7 @@
 			<font>body_22</font>
 			<textcolor>ink2</textcolor>
 			<selectedcolor>ink2</selectedcolor>
-			<label>Films and shows match on title, albums on album name, artists on name. Library only.</label>
+			<label>$LOCALIZE[31331]</label>
 			<visible>!$EXP[Search_HasQuery]</visible>
 		</control>
 	</include>

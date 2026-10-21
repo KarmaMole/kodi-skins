@@ -541,7 +541,7 @@
 					<height>34</height>
 					<font>ui_24</font>
 					<textcolor>$VAR[DL_Ink2]</textcolor>
-					<label>Browse the whole library instead.</label>
+					<label>$LOCALIZE[31227]</label>
 				</control>
 			</control>
 		</control>
@@ -662,7 +662,7 @@
 						<align>center</align>
 						<font>ui_22_semibold</font>
 						<textcolor>$VAR[DL_Ink2]</textcolor>
-						<label>See all</label>
+						<label>$LOCALIZE[31228]</label>
 					</control>
 				</control>
 				<include content="DL_FocusRing" condition="$PARAM[focused]">
@@ -847,7 +847,7 @@
 				<height>90</height>
 				<font>ui_24</font>
 				<textcolor>$VAR[DL_Ink2]</textcolor>
-				<label>No shows in progress. Start one from Shows.</label>
+				<label>$LOCALIZE[31229]</label>
 				<visible>!$EXP[Home_HasB] + !Container(9130).IsUpdating</visible>
 			</control>
 			<control type="list" id="9130">

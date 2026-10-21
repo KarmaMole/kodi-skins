@@ -11,7 +11,7 @@
 	12 choose fanart, 13 director search, 14 versions, 15 extras, 443 go to collection (Estuary convention).
 	Keepsake ids: 9000 action words, 9001 plot (OK = full plot), 9010 more, 9012 open (re-sends 8),
 	9013 from the start (re-sends 8), 9020 cast, 9100 more row, 9200 full plot, 61 its scrollbar,
-	9081 / 9082 title probes, 9175 Skin Variables details (time of day, optional).
+	9081 / 9082 title probes, 9175 Skin Variables details (time of day).
 	Focus: the action words. Up = plot, Down = more row; "cast" swaps the plot for the cast strip (50).
 	Back from the cast / more row / full plot returns to the words, Back on the words closes.
 -->
@@ -22,7 +22,7 @@
 	<expression name="VidInfo_ShowPlay">!Control.IsEnabled(9) + !$EXP[VidInfo_IsFolder]</expression>
 	<expression name="VidInfo_ShowTrailer">$EXP[ShowTrailerButton] + !String.IsEmpty(ListItem.Trailer)</expression>
 	<expression name="VidInfo_Watched">Integer.IsGreater(ListItem.PlayCount,0) + !String.IsEmpty(ListItem.LastPlayed)</expression>
-	<expression name="VidInfo_SV">System.HasAddon(script.skinvariables) + !Skin.HasSetting(keepsake.notime) + String.IsEqual(Container(9175).ListItem.DBID,ListItem.DBID) + !String.IsEmpty(Container(9175).ListItem.Property(lastplayed))</expression>
+	<expression name="VidInfo_SV">!Skin.HasSetting(keepsake.notime) + String.IsEqual(Container(9175).ListItem.DBID,ListItem.DBID) + !String.IsEmpty(Container(9175).ListItem.Property(lastplayed))</expression>
 	<expression name="VidInfo_Tier1">!Integer.IsGreater(Container(9081).NumPages,1)</expression>
 	<expression name="VidInfo_Tier2">Integer.IsGreater(Container(9081).NumPages,1) + !Integer.IsGreater(Container(9082).NumPages,1)</expression>
 	<expression name="VidInfo_Tier3">Integer.IsGreater(Container(9082).NumPages,1)</expression>
@@ -81,10 +81,6 @@
 	<variable name="VidInfo_Cast3">
 		<value condition="Integer.IsGreater(Container(50).NumItems,0) + !String.IsEqual(ListItem.DBType,set)">with $INFO[Container(50).ListItemAbsolute(0).Label]$INFO[Container(50).ListItemAbsolute(1).Label,$COMMA[CR],]$INFO[Container(50).ListItemAbsolute(2).Label,$COMMA ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[Container(50).NumItems,, films in this collection]</value>
-	</variable>
-	<variable name="VidInfo_MPAA">
-		<value condition="String.StartsWith(ListItem.MPAA,Rated )">$INFO[ListItem.MPAA]</value>
-		<value>$INFO[ListItem.MPAA]</value>
 	</variable>
 	<variable name="VidInfo_Meta">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Season,  ·  s,]$INFO[ListItem.Episode, e,]$INFO[ListItem.Duration(mins),  ·  , min]$INFO[ListItem.Premiered,  ·  ,]</value>
@@ -327,7 +323,7 @@
 				<height>27</height>
 				<font>lbl_20</font>
 				<textcolor>label</textcolor>
-				<label>your history with it</label>
+				<label>$LOCALIZE[31375]</label>
 			</control>
 			<control type="textbox">
 				<left>1084</left>
@@ -420,12 +416,12 @@
 			<onright>noop</onright>
 			<control type="button" id="9">
 				<include>VidInfo_PrimaryLook</include>
-				<label>resume</label>
+				<label>$LOCALIZE[31376]</label>
 				<visible>$EXP[VidInfo_ShowResume]</visible>
 			</control>
 			<control type="button" id="9013">
 				<include>VidInfo_SecondaryLook</include>
-				<label>from the start</label>
+				<label>$LOCALIZE[31377]</label>
 				<onclick>SendClick(8)</onclick>
 				<visible>$EXP[VidInfo_ShowResume]</visible>
 			</control>
@@ -436,13 +432,13 @@
 			</control>
 			<control type="button" id="9012">
 				<include>VidInfo_PrimaryLook</include>
-				<label>open it</label>
+				<label>$LOCALIZE[31378]</label>
 				<onclick>SendClick(8)</onclick>
 				<visible>$EXP[VidInfo_IsFolder]</visible>
 			</control>
 			<control type="button" id="11">
 				<include>VidInfo_SecondaryLook</include>
-				<label>trailer</label>
+				<label>$LOCALIZE[31379]</label>
 				<visible>$EXP[VidInfo_ShowTrailer]</visible>
 			</control>
 			<control type="button" id="9020">
@@ -453,7 +449,7 @@
 			</control>
 			<control type="button" id="9010">
 				<include>VidInfo_SecondaryLook</include>
-				<label>more</label>
+				<label>$LOCALIZE[31380]</label>
 				<onclick>SetFocus(9100)</onclick>
 			</control>
 		</control>
@@ -525,8 +521,8 @@
 		<include>KS_PenWordLook</include>
 	</include>
 	<include name="VidInfo_MoreWord">
-		<param name="onclick"></param>
-		<param name="onclick2"></param>
+		<param name="onclick">noop</param>
+		<param name="onclick2">noop</param>
 		<definition>
 			<control type="button" id="$PARAM[id]">
 				<width>auto</width>
@@ -558,7 +554,7 @@
 				<control type="group">
 					<width>136</width>
 					<height>196</height>
-					<include condition="$PARAM[focused]">KS_TiltFocus</include>
+					<include content="KS_TiltFocus" condition="$PARAM[focused]"><param name="focus" value="Control.HasFocus(50)"/></include>
 					<include content="KS_Print_Cast">
 						<param name="art" value="$VAR[VidInfo_CastArt]"/>
 						<param name="lift" value="$PARAM[focused]"/>
@@ -606,7 +602,7 @@
 				<height>27</height>
 				<font>lbl_20</font>
 				<textcolor>label</textcolor>
-				<label>the story</label>
+				<label>$LOCALIZE[31381]</label>
 			</control>
 			<control type="label">
 				<left>356</left>
@@ -648,7 +644,7 @@
 				<height>40</height>
 				<font>hand_34</font>
 				<textcolor>ink_faint</textcolor>
-				<label>up and down to read on, back to close</label>
+				<label>$LOCALIZE[31382]</label>
 			</control>
 		</control>
 	</include>

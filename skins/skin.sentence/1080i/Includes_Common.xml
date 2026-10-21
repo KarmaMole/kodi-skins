@@ -152,19 +152,6 @@
 
 	<!-- ===================================================== focus frames -->
 	<!-- Ring round a control (forked windows). Inside a group sized to the item; grows 7px. -->
-	<include name="Sen_FocusFrame">
-		<param name="visible">true</param>
-		<definition>
-			<control type="image">
-				<left>focus_out</left>
-				<top>focus_out</top>
-				<right>focus_out</right>
-				<bottom>focus_out</bottom>
-				<texture border="16" colordiffuse="lilac">sentence/ring.png</texture>
-				<visible>$PARAM[visible]</visible>
-			</control>
-		</definition>
-	</include>
 	<include name="Sen_FocusFrameAlways">
 		<param name="visible">true</param>
 		<definition>
@@ -174,21 +161,6 @@
 				<right>focus_out</right>
 				<bottom>focus_out</bottom>
 				<texture border="16" colordiffuse="lilac">sentence/ring.png</texture>
-				<visible>$PARAM[visible]</visible>
-			</control>
-		</definition>
-	</include>
-	<!-- Poster focus: 3px lilac bar under the art (SentenceResults). params: top (bar y), visible -->
-	<include name="Sen_PosterBar">
-		<param name="top">0</param>
-		<param name="visible">true</param>
-		<definition>
-			<control type="image">
-				<left>0</left>
-				<right>0</right>
-				<top>$PARAM[top]</top>
-				<height>3</height>
-				<texture colordiffuse="lilac">sentence/round6.png</texture>
 				<visible>$PARAM[visible]</visible>
 			</control>
 		</definition>
@@ -289,99 +261,12 @@
 		<aligny>center</aligny>
 	</include>
 
-	<!-- A phrase button (auto width). params: id, label, font, height, onclick, onup/ondown/onleft/onright/onback, visible -->
-	<include name="Sen_Phrase">
-		<param name="font">ui_24_bold</param>
-		<param name="height">56</param>
-		<param name="visible">true</param>
-		<param name="onclick">noop</param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<param name="onback">noop</param>
-		<param name="onfocus">noop</param>
-		<definition>
-			<control type="button" id="$PARAM[id]">
-				<width>auto</width>
-				<height>$PARAM[height]</height>
-				<font>$PARAM[font]</font>
-				<label>$PARAM[label]</label>
-				<include>Sen_PhraseTextures</include>
-				<onclick>$PARAM[onclick]</onclick>
-				<onup>$PARAM[onup]</onup>
-				<ondown>$PARAM[ondown]</ondown>
-				<onleft>$PARAM[onleft]</onleft>
-				<onright>$PARAM[onright]</onright>
-				<onback>$PARAM[onback]</onback>
-				<onfocus>$PARAM[onfocus]</onfocus>
-				<visible>$PARAM[visible]</visible>
-			</control>
-		</definition>
-	</include>
-	<!-- Connective text inside a phrase row (auto width). params: label, font, height, color, visible -->
-	<include name="Sen_Words">
-		<param name="font">ui_24</param>
-		<param name="height">56</param>
-		<param name="color">muted</param>
-		<param name="visible">true</param>
-		<definition>
-			<control type="label">
-				<width>auto</width>
-				<height>$PARAM[height]</height>
-				<font>$PARAM[font]</font>
-				<textcolor>$PARAM[color]</textcolor>
-				<label>$PARAM[label]</label>
-				<visible>$PARAM[visible]</visible>
-			</control>
-		</definition>
-	</include>
-
 	<!-- Legacy button includes from the forked engine, restyled as phrases (fixed width group) -->
 	<include name="Sen_Tex_ButtonPrimary">
 		<include>Sen_PhraseTextures</include>
 	</include>
 	<include name="Sen_Tex_ButtonPrimary_Round">
 		<include>Sen_PhraseTextures</include>
-	</include>
-	<include name="Sen_Tex_ButtonSecondary">
-		<include>Sen_PhraseTextures</include>
-	</include>
-	<include name="Sen_Tex_ButtonSecondary_Round">
-		<include>Sen_PhraseTextures</include>
-	</include>
-	<include name="Sen_ButtonPrimary">
-		<param name="visible">true</param>
-		<param name="top">0</param>
-		<param name="icon"></param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<param name="onback">noop</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>$PARAM[width]</width>
-				<height>button_h</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="button" id="$PARAM[id]">
-					<label>$PARAM[label]</label>
-					<font>ui_24_bold</font>
-					<align>center</align>
-					<textoffsetx>0</textoffsetx>
-					<texturenofocus border="14" colordiffuse="lilac_halo">sentence/phrase_block.png</texturenofocus>
-					<include>Sen_PhraseTextures</include>
-					<onclick>$PARAM[onclick]</onclick>
-					<onup>$PARAM[onup]</onup>
-					<ondown>$PARAM[ondown]</ondown>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-					<onback>$PARAM[onback]</onback>
-				</control>
-			</control>
-		</definition>
 	</include>
 	<include name="Sen_ButtonSecondary">
 		<param name="visible">true</param>

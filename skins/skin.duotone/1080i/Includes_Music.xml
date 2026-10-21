@@ -81,50 +81,11 @@
 	<expression name="Music_PlayerBlurReady">!String.IsEmpty(Window(Home).Property(TMDbHelper.DuotonePlayer.BlurImage)) + String.IsEqual(Window(Home).Property(duotone.np.blursrc),Player.Art(thumb))</expression>
 
 	<!-- ============================================================ variables -->
-	<!-- Artwork background opacity (setting 4; Big Album / info / Now playing use the same level) -->
-	<variable name="Music_ArtOpacity">
-		<value condition="String.IsEqual(Skin.String(duotone.artbackground),soft)">white</value>
-		<value condition="String.IsEqual(Skin.String(duotone.artbackground),visible)">white</value>
-		<value>white</value>
-	</variable>
-
-	<!-- Big Album background: artist fanart -> TMDb Helper blurred cover -> none (SPEC 6 / DATA 4.10).
-	     The blur is not synced to the focused item on purpose: while scrolling, the last blur stays
-	     up and crossfades, instead of flashing to black. -->
-	<variable name="Music_StageArt">
-		<value condition="!String.IsEmpty(Container(505).ListItem.Art(artist.fanart))">$INFO[Container(505).ListItem.Art(artist.fanart)]</value>
-		<value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.BlurImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</value>
-	</variable>
-
-	<!-- Info dialog background: artist fanart (albums get artist fanart via Art(fanart) too) ->
-	     blur of this item's cover (only when the monitor's .Original matches, so a stale blur
-	     from Home is never shown) -> none -->
-	<variable name="Music_InfoArt">
-		<value condition="!String.IsEmpty(ListItem.Art(artist.fanart))">$INFO[ListItem.Art(artist.fanart)]</value>
-		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
-		<value condition="!String.IsEmpty(ListItem.Art(thumb)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.BlurImage.Original),ListItem.Art(thumb))">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</value>
-	</variable>
-
-	<!-- Now playing background: artist fanart -> blurred cover of the current track -> none -->
-	<variable name="Music_PlayerArt">
-		<value condition="!String.IsEmpty(Player.Art(artist.fanart))">$INFO[Player.Art(artist.fanart)]</value>
-		<value condition="!String.IsEmpty(Player.Art(fanart))">$INFO[Player.Art(fanart)]</value>
-		<value condition="$EXP[Music_PlayerBlurReady]">$INFO[Window(Home).Property(TMDbHelper.DuotonePlayer.BlurImage)]</value>
-	</variable>
 
 	<!-- Title for any item; the ".." parent item (filelists.showparentdiritems = on) reads "Back" -->
 	<variable name="Music_ItemLabel">
 		<value condition="ListItem.IsParentFolder">Back</value>
 		<value>$INFO[ListItem.Label]</value>
-	</variable>
-	<!-- Big Album left column: previous item, or "Back" when the previous slot holds the ".." item -->
-	<variable name="Music_PrevCaption">
-		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">◀  Back</value>
-		<value>◀  Previous</value>
-	</variable>
-	<variable name="Music_PrevTitle">
-		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">Up one level</value>
-		<value>$INFO[Container(505).ListItemNoWrap(-1).Label]$INFO[Container(505).ListItemNoWrap(-1).Artist,  ·  ,]</value>
 	</variable>
 
 	<!-- Header tabs -->
@@ -160,14 +121,6 @@
 	<variable name="Music_SortArrow">
 		<value condition="Container.SortDirection(descending)">↓</value>
 		<value>↑</value>
-	</variable>
-	<!-- Page header caption: the folder name once you drill below a tab root -->
-	<variable name="Music_HeaderSub">
-		<value condition="!$EXP[Music_AtTabRoot] + !String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
-	</variable>
-	<!-- Big Album kicker: ALBUM · 14 / 229 · SORTED BY DATE ADDED -->
-	<variable name="Music_BigKicker">
-		<value>Album$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]$INFO[Container.SortMethod,  ·  Sorted by ,]</value>
 	</variable>
 	<!-- Now playing kicker -->
 	<variable name="Music_NPKicker">
@@ -258,7 +211,7 @@
 				<top>0</top>
 				<right>0</right>
 				<bottom>0</bottom>
-				<texture colordiffuse="ink_12">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 			</control>
 			<control type="textbox">
 				<left>16</left>
@@ -310,7 +263,7 @@
 					<top>0</top>
 					<right>0</right>
 					<bottom>0</bottom>
-					<texture border="10" colordiffuse="ink">$VAR[ButtonOutline]</texture>
+					<texture border="10" colordiffuse="$VAR[ink]">$VAR[ButtonOutline]</texture>
 				</control>
 				<control type="image">
 					<centerleft>50%</centerleft>
@@ -327,55 +280,11 @@
 					<align>center</align>
 					<font>cap_20</font>
 					<textcolor>$VAR[SectionText3]</textcolor>
-					<label>Up one level</label>
+					<label>$LOCALIZE[31332]</label>
 					<visible>$PARAM[caption_visible]</visible>
 				</control>
 			</control>
 		</definition>
-	</include>
-
-	<!-- Fixed-slot dimming for the Big Album fixedlist (focus never leaves slot 2): a baked-alpha black
-	     overlay over the slot in window coordinates, visible only while an item fills that slot.
-	     Covers stay opaque. Per-item ListItem.CurrentItem comparisons do not evaluate in layouts on
-	     device; same technique and textures as Builder B's VidView_SlotDim (media/vidview/dim_*.png:
-	     dim_passed = 55 % black = brightness .45, dim_ahead = 20 % black = .80).
-	     params: offset (-1 previous, 1.. ahead), left, tex -->
-	<include name="Music_SlotDim">
-		<param name="tex">vidview/dim_ahead.png</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>230</top>
-				<width>music_big</width>
-				<height>music_big</height>
-				<visible>Control.IsVisible(505) + !String.IsEmpty(Container(505).ListItemNoWrap($PARAM[offset]).Label)</visible>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<right>0</right>
-					<bottom>0</bottom>
-					<include>Music_Anim_BackdropFade</include>
-					<texture diffuse="masks/square_round8_large.png">$PARAM[tex]</texture>
-					<visible>false</visible>
-				</control>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<right>0</right>
-					<bottom>0</bottom>
-					<include>Music_Anim_BackdropFade</include>
-					<texture>$PARAM[tex]</texture>
-					<visible>true</visible>
-				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Own open/close fades for large translucent images (device rule, BUILD_BRIEF 2026-10-18:
-	     without them they are drawn on top of the window content during window animations). -->
-	<include name="Music_Anim_BackdropFade">
-		<animation effect="fade" start="0" end="100" time="200" tween="cubic" easing="out">WindowOpen</animation>
-		<animation effect="fade" start="100" end="0" time="140" tween="cubic" easing="in">WindowClose</animation>
 	</include>
 
 	<!-- ===================================================== now-playing bar -->
@@ -398,15 +307,24 @@
 					<top>0</top>
 					<width>screen_w</width>
 					<height>80</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 				</control>
-				<control type="image">
+				<!-- now-playing thumb: a print (ghost + veil in Light / Dark), never the focused item -->
+				<control type="group">
 					<left>page_margin</left>
 					<top>16</top>
 					<width>48</width>
 					<height>48</height>
-					<aspectratio>scale</aspectratio>
-					<texture background="true" colordiffuse="$VAR[SectionTint]">$INFO[Player.Art(thumb)]</texture>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>48</width>
+						<height>48</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true" colordiffuse="$VAR[SectionTint]">$INFO[Player.Art(thumb)]</texture>
+					</control>
+					<include>DT_PrintGhost</include>
+					<include>DT_PrintVeil</include>
 				</control>
 				<control type="label">
 					<left>136</left>
@@ -423,7 +341,7 @@
 					<width>660</width>
 					<height>28</height>
 					<font>bold_24</font>
-					<textcolor>paper</textcolor>
+					<textcolor>$VAR[paper]</textcolor>
 					<label>$INFO[MusicPlayer.TrackNumber,Track ,  ·  ]$INFO[MusicPlayer.Title]$INFO[MusicPlayer.Artist,  ·  ,]</label>
 				</control>
 				<control type="image">
@@ -431,7 +349,7 @@
 					<top>26</top>
 					<width>28</width>
 					<height>28</height>
-					<texture colordiffuse="paper">icons/pause.png</texture>
+					<texture colordiffuse="$VAR[paper]">icons/pause.png</texture>
 					<visible>!Player.Paused</visible>
 				</control>
 				<control type="image">
@@ -439,7 +357,7 @@
 					<top>26</top>
 					<width>28</width>
 					<height>28</height>
-					<texture colordiffuse="paper">icons/play.png</texture>
+					<texture colordiffuse="$VAR[paper]">icons/play.png</texture>
 					<visible>Player.Paused</visible>
 				</control>
 				<control type="progress">
@@ -447,7 +365,7 @@
 					<top>36</top>
 					<width>760</width>
 					<height>8</height>
-					<texturebg colordiffuse="paper_22">common/white.png</texturebg>
+					<texturebg colordiffuse="$VAR[paper_22]">common/white.png</texturebg>
 					<midtexture colordiffuse="$VAR[SectionColor]">common/white.png</midtexture>
 					<info>Player.Progress</info>
 				</control>
@@ -458,8 +376,8 @@
 					<height>24</height>
 					<align>right</align>
 					<font>cap_20</font>
-					<textcolor>paper</textcolor>
-					<label>$INFO[Player.Time]$INFO[Player.Duration,[COLOR paper_55] / ,[/COLOR]]</label>
+					<textcolor>$VAR[paper]</textcolor>
+					<label>$INFO[Player.Time][COLOR $VAR[paper_55]]$INFO[Player.Duration, / ,][/COLOR]</label>
 				</control>
 			</control>
 		</definition>
@@ -480,14 +398,14 @@
 				<height>subnav_h</height>
 				<font>cap_20</font>
 				<textcolor>$PARAM[textcolor]</textcolor>
-				<focusedcolor>paper</focusedcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
 				<textoffsetx>12</textoffsetx>
 				<aligny>center</aligny>
 				<label>$PARAM[label]</label>
 				<altlabel>$PARAM[label]</altlabel>
-				<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+				<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 				<texturenofocus />
-				<alttexturefocus colordiffuse="ink">common/white.png</alttexturefocus>
+				<alttexturefocus colordiffuse="$VAR[ink]">common/white.png</alttexturefocus>
 				<alttexturenofocus border="0,0,0,6" colordiffuse="$VAR[SectionText]">vidview/underline.png</alttexturenofocus>
 				<usealttexture>$PARAM[active]</usealttexture>
 				<onclick>$PARAM[onclick]</onclick>
@@ -650,7 +568,7 @@
 					<top>22</top>
 					<width>28</width>
 					<height>28</height>
-					<texture colordiffuse="paper">$PARAM[icon]</texture>
+					<texture colordiffuse="$VAR[paper]">$PARAM[icon]</texture>
 					<visible>Control.HasFocus($PARAM[id])</visible>
 				</control>
 			</control>
@@ -658,12 +576,12 @@
 	</include>
 	<!-- OSD button outline (#444 border_control per OSD.dc.html; brightens on focus) -->
 	<include name="Music_Tex_OSDButton">
-		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+		<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 		<texturenofocus border="10" colordiffuse="$VAR[SectionText]">common/rect_outline_1.png</texturenofocus>
 	</include>
 	<include name="Music_Tex_OSDButton_Round">
 		<texturefocus border="10" colordiffuse="$VAR[SectionText2]">common/rect_outline_1_round8.png</texturefocus>
-		<texturenofocus border="10" colordiffuse="ink">common/rect_outline_1_round8.png</texturenofocus>
+		<texturenofocus border="10" colordiffuse="$VAR[ink]">common/rect_outline_1_round8.png</texturenofocus>
 	</include>
 
 	<!-- Caption + value OSD button (OSD.dc.html right group): mono caption over a 21 px value.
@@ -732,7 +650,7 @@
 						<right>16</right>
 						<height>30</height>
 						<font>bold_24</font>
-						<textcolor>paper</textcolor>
+						<textcolor>$VAR[paper]</textcolor>
 						<label>$PARAM[value]</label>
 					</control>
 				</control>
@@ -741,27 +659,6 @@
 	</include>
 
 	<!-- ===================================================== Now playing blur -->
-	<!-- Blur the playing cover once per album (window onload; MusicOSD re-checks on open).
-	     Only when the setting is on, TMDb Helper is enabled and there is no artist fanart. -->
-	<include name="Music_PlayerBlurOnload">
-		<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Player.Art(fanart)) + !String.IsEmpty(Player.Art(thumb)) + !String.IsEqual(Window(Home).Property(duotone.np.blursrc),Player.Art(thumb))">ClearProperty(TMDbHelper.DuotonePlayer.BlurImage,Home)</onload>
-		<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Player.Art(fanart)) + !String.IsEmpty(Player.Art(thumb)) + !String.IsEqual(Window(Home).Property(duotone.np.blursrc),Player.Art(thumb))">RunScript(plugin.video.themoviedb.helper,"blur_image=$INFO[Player.Art(thumb)]",prefix=DuotonePlayer)</onload>
-		<onload condition="$EXP[ArtBackgroundOn] + String.IsEmpty(Player.Art(fanart)) + !String.IsEmpty(Player.Art(thumb))">SetProperty(duotone.np.blursrc,$ESCINFO[Player.Art(thumb)],Home)</onload>
-	</include>
-
-	<!-- Library / info: blur source for the TMDb Helper image monitor. Saves the previous value
-	     (Home or video windows may use another source) and puts it back on unload.
-	     param slot: Home property that holds the saved value; must differ per window because the
-	     info dialog opens on top of the library (default duotone.blursrc.prev.music). -->
-	<include name="Music_BlurSourceOnload">
-		<param name="slot">duotone.blursrc.prev.music</param>
-		<definition>
-			<onload>SetProperty($PARAM[slot],$ESCINFO[Window(Home).Property(TMDbHelper.Blur.SourceImage)],Home)</onload>
-			<onload>SetProperty(TMDbHelper.Blur.SourceImage,Art(thumb),Home)</onload>
-			<onload condition="$EXP[ArtBackgroundOn] + !Skin.HasSetting(TMDbHelper.EnableBlur)">Skin.SetBool(TMDbHelper.EnableBlur)</onload>
-			<onunload>SetProperty(TMDbHelper.Blur.SourceImage,$ESCINFO[Window(Home).Property($PARAM[slot])],Home)</onunload>
-		</definition>
-	</include>
 
 	<!-- Info dialog: a description exists for this item type -->
 	<expression name="Music_InfoHasDescription">[$EXP[Music_InfoIsAlbum] + !String.IsEmpty(ListItem.Property(Album_Description))] | [$EXP[Music_InfoIsArtist] + !String.IsEmpty(ListItem.Property(Artist_Description))] | [$EXP[Music_InfoIsSong] + !String.IsEmpty(ListItem.Comment)]</expression>
@@ -783,7 +680,7 @@
 					<top>14</top>
 					<width>rule_thick</width>
 					<height>56</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 					<visible>!$PARAM[first]</visible>
 				</control>
 				<control type="label">
@@ -892,7 +789,7 @@
 				<bottom>0</bottom>
 				<right>0</right>
 				<height>rule_h</height>
-				<texture colordiffuse="ink">common/hairline.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 			</control>
 		</definition>
 	</include>
@@ -906,7 +803,7 @@
 				<height>56</height>
 				<aligny>center</aligny>
 				<font>an_32</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<label>$INFO[ListItem.TrackNumber]</label>
 				<visible>String.IsEqual(ListItem.DBType,song)</visible>
 			</control>
@@ -916,7 +813,7 @@
 				<right>120</right>
 				<height>56</height>
 				<font>ui_24</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<label>$INFO[ListItem.Title]</label>
 				<visible>!$PARAM[focused] + String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)</visible>
 			</control>
@@ -926,7 +823,7 @@
 				<right>120</right>
 				<height>56</height>
 				<font>bold_22</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<scroll>true</scroll>
 				<label>$INFO[ListItem.Title]</label>
 				<visible>$PARAM[focused] + String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)</visible>
@@ -937,7 +834,7 @@
 				<right>120</right>
 				<height>56</height>
 				<font>ui_24</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<label>$INFO[ListItem.Label]</label>
 				<visible>!$PARAM[focused] + [!String.IsEqual(ListItem.DBType,song) | String.IsEmpty(ListItem.Title)]</visible>
 			</control>
@@ -947,7 +844,7 @@
 				<right>120</right>
 				<height>56</height>
 				<font>bold_22</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<scroll>true</scroll>
 				<label>$INFO[ListItem.Label]</label>
 				<visible>$PARAM[focused] + [!String.IsEqual(ListItem.DBType,song) | String.IsEmpty(ListItem.Title)]</visible>
@@ -959,7 +856,7 @@
 				<height>56</height>
 				<align>right</align>
 				<font>bold_22</font>
-				<textcolor>paper_70</textcolor>
+				<textcolor>$VAR[paper_70]</textcolor>
 				<label>$INFO[ListItem.Duration]</label>
 				<visible>String.IsEqual(ListItem.DBType,song)</visible>
 			</control>
@@ -970,7 +867,7 @@
 				<height>56</height>
 				<align>right</align>
 				<font>bold_22</font>
-				<textcolor>paper_70</textcolor>
+				<textcolor>$VAR[paper_70]</textcolor>
 				<label>$INFO[ListItem.Label2]</label>
 				<visible>!String.IsEqual(ListItem.DBType,song)</visible>
 			</control>
@@ -979,7 +876,7 @@
 				<bottom>0</bottom>
 				<right>0</right>
 				<height>rule_h</height>
-				<texture colordiffuse="ink">common/hairline.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 			</control>
 		</definition>
 	</include>
@@ -1017,7 +914,7 @@
 					<bottom>0</bottom>
 					<width>$PARAM[width]</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 				</control>
 			</itemlayout>
 			<focusedlayout width="$PARAM[width]" height="66" condition="$PARAM[condition]">
@@ -1026,7 +923,7 @@
 					<top>0</top>
 					<width>$PARAM[width]</width>
 					<height>66</height>
-					<texture colordiffuse="ink_12">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
 				<control type="image">
@@ -1034,7 +931,7 @@
 					<top>0</top>
 					<width>list_bar_w</width>
 					<height>66</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
 				<control type="label">
@@ -1062,7 +959,7 @@
 					<bottom>0</bottom>
 					<width>$PARAM[width]</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 				</control>
 			</focusedlayout>
 		</definition>
@@ -1091,7 +988,7 @@
 					<top>0</top>
 					<width>$PARAM[width]</width>
 					<height>66</height>
-					<texture colordiffuse="ink_12">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
 				<control type="image">
@@ -1099,7 +996,7 @@
 					<top>0</top>
 					<width>list_bar_w</width>
 					<height>66</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
 				<include content="Music_SongRow">
@@ -1185,7 +1082,7 @@
 				<bottom>0</bottom>
 				<width>$PARAM[width]</width>
 				<height>rule_h</height>
-				<texture colordiffuse="ink">common/hairline.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 			</control>
 		</definition>
 	</include>

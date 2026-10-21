@@ -39,7 +39,7 @@
 						<top>8</top>
 						<width>126</width>
 						<height>64</height>
-						<texture colordiffuse="ink_12">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 					</control>
 					<control type="image">
 						<left>10</left>
@@ -61,7 +61,7 @@
 							<top>0</top>
 							<width>126</width>
 							<height>64</height>
-							<texture colordiffuse="ink_12">common/white.png</texture>
+							<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 						</control>
 						<control type="image">
 							<left>0</left>

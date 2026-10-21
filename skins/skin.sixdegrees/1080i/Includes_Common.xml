@@ -75,7 +75,7 @@
 				<height>48</height>
 				<font>xb_28</font>
 				<textcolor>ink</textcolor>
-				<label>Six Degrees</label>
+				<label>$LOCALIZE[31024]</label>
 			</control>
 			<control type="grouplist">
 				<left>420</left>
@@ -178,52 +178,6 @@
 	</include>
 
 	<!-- ========================================================== posters -->
-	<!-- Poster/cover image with corner mask chosen at window load (DESIGN 7.1; changing the
-	     corners setting runs ReloadSkin()). Sits inside a group of the poster size.
-	     params: art (infolabel), mask_round, mask_square, title (fallback label) -->
-	<include name="SD_Artwork">
-		<param name="art">$INFO[ListItem.Art(poster)]</param>
-		<param name="mask_round">masks/poster_round8.png</param>
-		<param name="mask_square">masks/poster_square.png</param>
-		<param name="title">$INFO[ListItem.Label]</param>
-		<definition>
-			<!-- fallback: raised block + title, covered by the artwork when it loads -->
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<texture colordiffuse="card">common/white.png</texture>
-			</control>
-			<control type="label">
-				<left>12</left>
-				<right>12</right>
-				<top>12</top>
-				<height>60</height>
-				<font>xb_20</font>
-				<textcolor>ink2</textcolor>
-				<label>$PARAM[title]</label>
-			</control>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<aspectratio>scale</aspectratio>
-				<texture background="true" diffuse="$PARAM[mask_round]">$PARAM[art]</texture>
-				<visible>true</visible>
-			</control>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<aspectratio>scale</aspectratio>
-				<texture background="true">$PARAM[art]</texture>
-				<visible>false</visible>
-			</control>
-		</definition>
-	</include>
 
 	<!-- Watched markers for a movie/episode poster (DESIGN 7.3 / SPEC 6). Inside the poster group. -->
 	<include name="SD_WatchedMarkers">

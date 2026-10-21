@@ -769,7 +769,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 							<align>center</align>
 							<font>caps_20</font>
 							<textcolor>$VAR[FoldAccentInk]</textcolor>
-							<label>Rating</label>
+							<label>$LOCALIZE[31103]</label>
 						</control>
 					</control>
 					<control type="label">
@@ -779,7 +779,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 						<height>32</height>
 						<font>caps_20_b</font>
 						<textcolor>$VAR[FoldAccentInk]</textcolor>
-						<label>Facts</label>
+						<label>$LOCALIZE[31402]</label>
 					</control>
 					<control type="grouplist">
 						<left>1296</left>
@@ -1235,7 +1235,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 						<control type="button" id="9">
 							<width>179</width>
 							<height>66</height>
-							<label>Resume</label>
+							<label>$LOCALIZE[31403]</label>
 							<font>word_36</font>
 							<textcolor>ink</textcolor>
 							<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1252,7 +1252,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 						<control type="button" id="8">
 							<width>118</width>
 							<height>66</height>
-							<label>Play</label>
+							<label>$LOCALIZE[31360]</label>
 							<font>word_36</font>
 							<textcolor>ink</textcolor>
 							<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1269,7 +1269,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 						<control type="button" id="9012">
 							<width>125</width>
 							<height>66</height>
-							<label>Open</label>
+							<label>$LOCALIZE[31404]</label>
 							<font>word_36</font>
 							<textcolor>ink</textcolor>
 							<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1296,7 +1296,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 						<control type="button" id="11">
 							<width>173</width>
 							<height>66</height>
-							<label>Trailer</label>
+							<label>$LOCALIZE[31405]</label>
 							<font>word_36</font>
 							<textcolor>ink</textcolor>
 							<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1322,7 +1322,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 						<control type="button" id="9010">
 							<width>132</width>
 							<height>66</height>
-							<label>More</label>
+							<label>$LOCALIZE[31303]</label>
 							<font>word_36</font>
 							<textcolor>ink</textcolor>
 							<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1387,7 +1387,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<height>32</height>
 					<font>caps_20_b</font>
 					<textcolor>$VAR[FoldAccentInk]</textcolor>
-					<label>More</label>
+					<label>$LOCALIZE[31303]</label>
 				</control>
 				<control type="grouplist" id="9100">
 					<left>16</left>
@@ -1402,7 +1402,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<control type="button" id="9013">
 						<width>448</width>
 						<height>48</height>
-						<label>Play from the start</label>
+						<label>$LOCALIZE[31406]</label>
 						<font>caps_22_b</font>
 						<textcolor>ink</textcolor>
 						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1415,7 +1415,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<control type="button" id="9101">
 						<width>448</width>
 						<height>48</height>
-						<label>Read the full plot</label>
+						<label>$LOCALIZE[31407]</label>
 						<font>caps_22_b</font>
 						<textcolor>ink</textcolor>
 						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1428,7 +1428,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<control type="button" id="443">
 						<width>448</width>
 						<height>48</height>
-						<label>Go to the collection</label>
+						<label>$LOCALIZE[31408]</label>
 						<font>caps_22_b</font>
 						<textcolor>ink</textcolor>
 						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1440,7 +1440,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<control type="button" id="13">
 						<width>448</width>
 						<height>48</height>
-						<label>More by the director</label>
+						<label>$LOCALIZE[31409]</label>
 						<font>caps_22_b</font>
 						<textcolor>ink</textcolor>
 						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1464,7 +1464,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<control type="button" id="14">
 						<width>448</width>
 						<height>48</height>
-						<label>Versions</label>
+						<label>$LOCALIZE[31410]</label>
 						<font>caps_22_b</font>
 						<textcolor>ink</textcolor>
 						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1476,7 +1476,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<control type="button" id="15">
 						<width>448</width>
 						<height>48</height>
-						<label>Extras</label>
+						<label>$LOCALIZE[31411]</label>
 						<font>caps_22_b</font>
 						<textcolor>ink</textcolor>
 						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1488,7 +1488,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<control type="button" id="10">
 						<width>448</width>
 						<height>48</height>
-						<label>Choose art</label>
+						<label>$LOCALIZE[31412]</label>
 						<font>caps_22_b</font>
 						<textcolor>ink</textcolor>
 						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1500,7 +1500,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<control type="button" id="12">
 						<width>448</width>
 						<height>48</height>
-						<label>Choose fanart</label>
+						<label>$LOCALIZE[31413]</label>
 						<font>caps_22_b</font>
 						<textcolor>ink</textcolor>
 						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1512,7 +1512,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<control type="button" id="6">
 						<width>448</width>
 						<height>48</height>
-						<label>Refresh information</label>
+						<label>$LOCALIZE[31414]</label>
 						<font>caps_22_b</font>
 						<textcolor>ink</textcolor>
 						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
@@ -1594,7 +1594,7 @@ Fold ids: 9000 action words, 9010 More, 9012 Open (folders, sends 8), 9013 From 
 					<height>32</height>
 					<font>caps_20_b</font>
 					<textcolor>$VAR[FoldAccentInk]</textcolor>
-					<label>The story</label>
+					<label>$LOCALIZE[31415]</label>
 				</control>
 				<control type="label">
 					<left>64</left>

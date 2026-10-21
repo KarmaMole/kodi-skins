@@ -39,7 +39,6 @@
 				<height>76</height>
 				<align>center</align>
 				<font>stamp_34</font>
-				<textcolor>ink_bold</textcolor>
 			</control>
 			<control type="button" id="11">
 				<left>40</left>

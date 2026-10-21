@@ -177,8 +177,7 @@
 				<width>544</width>
 				<height>58</height>
 				<font>ttl_48</font>
-				<textcolor>ink</textcolor>
-				<label>Options</label>
+				<label>$LOCALIZE[31158]</label>
 			</control>
 			<control type="image">
 				<left>48</left>
@@ -203,14 +202,7 @@
 			<width>640</width>
 			<height>68</height>
 			<font>body_28</font>
-			<textcolor>ink</textcolor>
-			<focusedcolor>$VAR[PaperColor]</focusedcolor>
-			<disabledcolor>disabled</disabledcolor>
 			<textoffsetx>48</textoffsetx>
-			<aligny>center</aligny>
-			<pulseonselect>false</pulseonselect>
-			<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-			<texturenofocus />
 		</control>
 	</controls>
 </window>

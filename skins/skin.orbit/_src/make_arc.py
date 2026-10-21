@@ -589,7 +589,6 @@ def main():
     L += art_variables("ArcArt9301", 9301, SQUARE_CHAIN, wrap=True)
     L += art_variables("ArcArt500", 500, POSTER_CHAIN)
     L += art_variables("ArcArt504", 504, SQUARE_CHAIN)
-    L += art_variables("ArcArt9601", 9601, POSTER_CHAIN)
     for cid, chain in ((9101, POSTER_CHAIN), (9102, POSTER_CHAIN), (9103, SQUARE_CHAIN), (9104, SQUARE_CHAIN)):
         L += art_variables(f"ArcArt{cid}", cid, chain)
     L.append("")
@@ -602,8 +601,6 @@ def main():
     g = GEOM["lib"]
     L += poster_arc("Arc_LibraryPosters", arc_slots(**{k: g[k] for k in ("cx", "cy", "R", "F", "H", "aspect", "extra_h", "gap")}),
                     "ArcArt500", "masks/poster_r4.png", "Library arc (view 500): posters, lens at 1300,540", shadows=2)
-    L += poster_arc("Arc_SimilarPosters", arc_slots(**{k: g[k] for k in ("cx", "cy", "R", "F", "H", "aspect", "extra_h", "gap")}),
-                    "ArcArt9601", "masks/poster_r4.png", "Info page 'similar' / cast arc (container 9601)", shadows=1)
     g = GEOM["libsq"]
     L += poster_arc("Arc_LibrarySquares", arc_slots(**{k: g[k] for k in ("cx", "cy", "R", "F", "H", "aspect", "extra_h", "gap")}),
                     "ArcArt504", "masks/square_r4.png", "Music arc (view 504): album covers / artist discs",
@@ -626,8 +623,6 @@ def main():
     L += hidden_list("Arc_HiddenListIcon", "Same, art = icon (generic items)", art="ListItem.Icon")
     L += dial()
     # dial list: rows on a circle centred (-760,540), R 960 -> focused row at x 200
-    L += dial_list("DialList_Rows", -760, 540, 960, [84, 70, 62, 58, 56], 820,
-                   "Dial list: rows on a circle bulging right (focused row x 200, y 540)")
     L += dial_list("DialList_RowsNarrow", -760, 540, 960, [84, 70, 62, 58, 56], 640,
                    "Dial list, narrower rows (info panel on the right)")
     L += cast_arc()
@@ -636,7 +631,7 @@ def main():
     # 0.9.8: the arc glides honour Reduce motion (items land in place and crossfade instead)
     from rm_guard import guard_text
     text, _n = guard_text("\n".join(L) + "\n", "Skin.HasSetting(orbit.reducemotion)")
-    OUT.write_text(text, encoding="utf-8")
+    OUT.write_text(text, encoding="utf-8", newline="\n")
     print(f"wrote {OUT} ({len(L)} lines)")
     for nm, g in GEOM.items():
         s = arc_slots(g["cx"], g["cy"], g["R"], g["F"], g["H"], g["aspect"], g["extra_h"])

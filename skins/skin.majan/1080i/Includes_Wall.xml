@@ -77,7 +77,7 @@
 					<ondown>noop</ondown>
 					<onleft>ActivateWindow(1155)</onleft>
 					<onright>ActivateWindow(1155)</onright>
-					<viewtype label="Poster wall">list</viewtype>
+					<viewtype label="31310">list</viewtype>
 					<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)</visible>
 					<itemlayout width="176" height="256" condition="String.IsEqual(Skin.String(majan.wall.size),small) + !Skin.HasSetting(majan.wall.nogap)">
 						<control type="group">

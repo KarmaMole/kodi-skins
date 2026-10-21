@@ -16,10 +16,6 @@
 	<expression name="Sen_CK_album">String.IsEqual(Skin.String(sentence.kind),4)</expression>
 	<expression name="Sen_Shown_album">[Integer.IsEqual(Container(399).CurrentItem,2) + String.IsEqual(Container(311).ListItem.Property(key),album)] | [!Integer.IsEqual(Container(399).CurrentItem,2) + String.IsEqual(Skin.String(sentence.kind),4)]</expression>
 	<expression name="Sen_LiveHasLen">String.IsEqual(Container(311).ListItem.Property(key),film) | String.IsEqual(Container(311).ListItem.Property(key),episode)</expression>
-	<variable name="Sen_Idx_film_len">
-		<value condition="!String.IsEmpty(Skin.String(sentence.film.len))">$INFO[Skin.String(sentence.film.len)]</value>
-		<value>[UPPERCASE]3[/UPPERCASE]</value>
-	</variable>
 	<variable name="Sen_CL_film_len">
 		<value condition="String.IsEqual(Skin.String(sentence.film.len),1)">any length</value>
 		<value condition="String.IsEqual(Skin.String(sentence.film.len),2)">under 90 minutes</value>
@@ -35,10 +31,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.film.len),2)">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%225400%22%5D%7D</value>
 		<value condition="[String.IsEqual(Skin.String(sentence.film.len),3) | String.IsEmpty(Skin.String(sentence.film.len))]">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%227200%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.film.len),4)">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%228100%22%5D%7D</value>
-	</variable>
-	<variable name="Sen_Idx_film_genre">
-		<value condition="!String.IsEmpty(Skin.String(sentence.film.genre))">$INFO[Skin.String(sentence.film.genre)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
 	</variable>
 	<variable name="Sen_CL_film_genre">
 		<value condition="[String.IsEqual(Skin.String(sentence.film.genre),1) | String.IsEmpty(Skin.String(sentence.film.genre))]">any genre</value>
@@ -101,10 +93,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.film.genre),18)">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Music%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.film.genre),19)">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Western%22%5D%7D</value>
 	</variable>
-	<variable name="Sen_Idx_film_decade">
-		<value condition="!String.IsEmpty(Skin.String(sentence.film.decade))">$INFO[Skin.String(sentence.film.decade)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
 	<variable name="Sen_CL_film_decade">
 		<value condition="[String.IsEqual(Skin.String(sentence.film.decade),1) | String.IsEmpty(Skin.String(sentence.film.decade))]">any decade</value>
 		<value condition="String.IsEqual(Skin.String(sentence.film.decade),2)">the 2020s</value>
@@ -133,10 +121,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.film.decade),7)">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221969%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.film.decade),8)">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221970%22%5D%7D</value>
 	</variable>
-	<variable name="Sen_Idx_film_seen">
-		<value condition="!String.IsEmpty(Skin.String(sentence.film.seen))">$INFO[Skin.String(sentence.film.seen)]</value>
-		<value>[UPPERCASE]2[/UPPERCASE]</value>
-	</variable>
 	<variable name="Sen_CL_film_seen">
 		<value condition="String.IsEqual(Skin.String(sentence.film.seen),1)">may have seen</value>
 		<value condition="[String.IsEqual(Skin.String(sentence.film.seen),2) | String.IsEmpty(Skin.String(sentence.film.seen))]">haven't seen</value>
@@ -152,18 +136,6 @@
 		<value condition="[String.IsEqual(Skin.String(sentence.film.seen),2) | String.IsEmpty(Skin.String(sentence.film.seen))]">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.film.seen),3)">%2C%7B%22field%22%3A%22inprogress%22%2C%22operator%22%3A%22true%22%2C%22value%22%3A%5B%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.film.seen),4)">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</value>
-	</variable>
-	<variable name="Sen_Idx_film_order">
-		<value condition="!String.IsEmpty(Skin.String(sentence.film.order))">$INFO[Skin.String(sentence.film.order)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
-	<variable name="Sen_CL_film_order">
-		<value condition="[String.IsEqual(Skin.String(sentence.film.order),1) | String.IsEmpty(Skin.String(sentence.film.order))]">best rated first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.film.order),2)">newest first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.film.order),3)">recently added first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.film.order),4)">shortest first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.film.order),5)">in no order at all</value>
-		<value condition="String.IsEqual(Skin.String(sentence.film.order),6)">A to Z</value>
 	</variable>
 	<variable name="Sen_CS_film">
 		<value condition="[String.IsEqual(Skin.String(sentence.film.order),1) | String.IsEmpty(Skin.String(sentence.film.order))]">rating</value>
@@ -181,10 +153,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.film.order),5)">ascending</value>
 		<value condition="String.IsEqual(Skin.String(sentence.film.order),6)">ascending</value>
 	</variable>
-	<variable name="Sen_Idx_episode_len">
-		<value condition="!String.IsEmpty(Skin.String(sentence.episode.len))">$INFO[Skin.String(sentence.episode.len)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
 	<variable name="Sen_CL_episode_len">
 		<value condition="[String.IsEqual(Skin.String(sentence.episode.len),1) | String.IsEmpty(Skin.String(sentence.episode.len))]">any length</value>
 		<value condition="String.IsEqual(Skin.String(sentence.episode.len),2)">under 30 minutes</value>
@@ -200,10 +168,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.episode.len),2)">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221800%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.episode.len),3)">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%223600%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.episode.len),4)">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%223599%22%5D%7D</value>
-	</variable>
-	<variable name="Sen_Idx_episode_genre">
-		<value condition="!String.IsEmpty(Skin.String(sentence.episode.genre))">$INFO[Skin.String(sentence.episode.genre)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
 	</variable>
 	<variable name="Sen_CL_episode_genre">
 		<value condition="[String.IsEqual(Skin.String(sentence.episode.genre),1) | String.IsEmpty(Skin.String(sentence.episode.genre))]">any genre</value>
@@ -248,10 +212,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.episode.genre),12)">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Horror%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.episode.genre),13)">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Documentary%22%5D%7D</value>
 	</variable>
-	<variable name="Sen_Idx_episode_decade">
-		<value condition="!String.IsEmpty(Skin.String(sentence.episode.decade))">$INFO[Skin.String(sentence.episode.decade)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
 	<variable name="Sen_CL_episode_decade">
 		<value condition="[String.IsEqual(Skin.String(sentence.episode.decade),1) | String.IsEmpty(Skin.String(sentence.episode.decade))]">any decade</value>
 		<value condition="String.IsEqual(Skin.String(sentence.episode.decade),2)">the 2020s</value>
@@ -280,10 +240,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.episode.decade),7)">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221969%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.episode.decade),8)">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221970%22%5D%7D</value>
 	</variable>
-	<variable name="Sen_Idx_episode_seen">
-		<value condition="!String.IsEmpty(Skin.String(sentence.episode.seen))">$INFO[Skin.String(sentence.episode.seen)]</value>
-		<value>[UPPERCASE]2[/UPPERCASE]</value>
-	</variable>
 	<variable name="Sen_CL_episode_seen">
 		<value condition="String.IsEqual(Skin.String(sentence.episode.seen),1)">may have seen</value>
 		<value condition="[String.IsEqual(Skin.String(sentence.episode.seen),2) | String.IsEmpty(Skin.String(sentence.episode.seen))]">haven't seen</value>
@@ -300,17 +256,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.episode.seen),3)">%2C%7B%22field%22%3A%22inprogress%22%2C%22operator%22%3A%22true%22%2C%22value%22%3A%5B%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.episode.seen),4)">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</value>
 	</variable>
-	<variable name="Sen_Idx_episode_order">
-		<value condition="!String.IsEmpty(Skin.String(sentence.episode.order))">$INFO[Skin.String(sentence.episode.order)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
-	<variable name="Sen_CL_episode_order">
-		<value condition="[String.IsEqual(Skin.String(sentence.episode.order),1) | String.IsEmpty(Skin.String(sentence.episode.order))]">recently added first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.episode.order),2)">newest first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.episode.order),3)">best rated first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.episode.order),4)">shortest first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.episode.order),5)">in no order at all</value>
-	</variable>
 	<variable name="Sen_CS_episode">
 		<value condition="[String.IsEqual(Skin.String(sentence.episode.order),1) | String.IsEmpty(Skin.String(sentence.episode.order))]">dateadded</value>
 		<value condition="String.IsEqual(Skin.String(sentence.episode.order),2)">year</value>
@@ -324,10 +269,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.episode.order),3)">descending</value>
 		<value condition="String.IsEqual(Skin.String(sentence.episode.order),4)">ascending</value>
 		<value condition="String.IsEqual(Skin.String(sentence.episode.order),5)">ascending</value>
-	</variable>
-	<variable name="Sen_Idx_show_genre">
-		<value condition="!String.IsEmpty(Skin.String(sentence.show.genre))">$INFO[Skin.String(sentence.show.genre)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
 	</variable>
 	<variable name="Sen_CL_show_genre">
 		<value condition="[String.IsEqual(Skin.String(sentence.show.genre),1) | String.IsEmpty(Skin.String(sentence.show.genre))]">any genre</value>
@@ -372,10 +313,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.show.genre),12)">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Horror%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.show.genre),13)">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Documentary%22%5D%7D</value>
 	</variable>
-	<variable name="Sen_Idx_show_decade">
-		<value condition="!String.IsEmpty(Skin.String(sentence.show.decade))">$INFO[Skin.String(sentence.show.decade)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
 	<variable name="Sen_CL_show_decade">
 		<value condition="[String.IsEqual(Skin.String(sentence.show.decade),1) | String.IsEmpty(Skin.String(sentence.show.decade))]">any decade</value>
 		<value condition="String.IsEqual(Skin.String(sentence.show.decade),2)">the 2020s</value>
@@ -404,10 +341,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.show.decade),7)">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221969%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.show.decade),8)">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221970%22%5D%7D</value>
 	</variable>
-	<variable name="Sen_Idx_show_seen">
-		<value condition="!String.IsEmpty(Skin.String(sentence.show.seen))">$INFO[Skin.String(sentence.show.seen)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
 	<variable name="Sen_CL_show_seen">
 		<value condition="[String.IsEqual(Skin.String(sentence.show.seen),1) | String.IsEmpty(Skin.String(sentence.show.seen))]">may have seen</value>
 		<value condition="String.IsEqual(Skin.String(sentence.show.seen),2)">haven't started</value>
@@ -424,17 +357,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.show.seen),3)">%2C%7B%22field%22%3A%22inprogress%22%2C%22operator%22%3A%22true%22%2C%22value%22%3A%5B%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.show.seen),4)">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</value>
 	</variable>
-	<variable name="Sen_Idx_show_order">
-		<value condition="!String.IsEmpty(Skin.String(sentence.show.order))">$INFO[Skin.String(sentence.show.order)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
-	<variable name="Sen_CL_show_order">
-		<value condition="[String.IsEqual(Skin.String(sentence.show.order),1) | String.IsEmpty(Skin.String(sentence.show.order))]">recently added first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.show.order),2)">newest first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.show.order),3)">best rated first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.show.order),4)">in no order at all</value>
-		<value condition="String.IsEqual(Skin.String(sentence.show.order),5)">A to Z</value>
-	</variable>
 	<variable name="Sen_CS_show">
 		<value condition="[String.IsEqual(Skin.String(sentence.show.order),1) | String.IsEmpty(Skin.String(sentence.show.order))]">dateadded</value>
 		<value condition="String.IsEqual(Skin.String(sentence.show.order),2)">year</value>
@@ -448,10 +370,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.show.order),3)">descending</value>
 		<value condition="String.IsEqual(Skin.String(sentence.show.order),4)">ascending</value>
 		<value condition="String.IsEqual(Skin.String(sentence.show.order),5)">ascending</value>
-	</variable>
-	<variable name="Sen_Idx_album_genre">
-		<value condition="!String.IsEmpty(Skin.String(sentence.album.genre))">$INFO[Skin.String(sentence.album.genre)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
 	</variable>
 	<variable name="Sen_CL_album_genre">
 		<value condition="[String.IsEqual(Skin.String(sentence.album.genre),1) | String.IsEmpty(Skin.String(sentence.album.genre))]">any style</value>
@@ -487,10 +405,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.album.genre),9)">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Electronic%22%2C%22Dance%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.album.genre),10)">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Comedy%22%5D%7D</value>
 	</variable>
-	<variable name="Sen_Idx_album_decade">
-		<value condition="!String.IsEmpty(Skin.String(sentence.album.decade))">$INFO[Skin.String(sentence.album.decade)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
 	<variable name="Sen_CL_album_decade">
 		<value condition="[String.IsEqual(Skin.String(sentence.album.decade),1) | String.IsEmpty(Skin.String(sentence.album.decade))]">any decade</value>
 		<value condition="String.IsEqual(Skin.String(sentence.album.decade),2)">the 2020s</value>
@@ -516,10 +430,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.album.decade),6)">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221979%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221990%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.album.decade),7)">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</value>
 	</variable>
-	<variable name="Sen_Idx_album_seen">
-		<value condition="!String.IsEmpty(Skin.String(sentence.album.seen))">$INFO[Skin.String(sentence.album.seen)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
 	<variable name="Sen_CL_album_seen">
 		<value condition="[String.IsEqual(Skin.String(sentence.album.seen),1) | String.IsEmpty(Skin.String(sentence.album.seen))]">may have played</value>
 		<value condition="String.IsEqual(Skin.String(sentence.album.seen),2)">haven't played</value>
@@ -532,17 +442,6 @@
 	<variable name="Sen_CE_album_seen">
 		<value condition="String.IsEqual(Skin.String(sentence.album.seen),2)">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</value>
 		<value condition="String.IsEqual(Skin.String(sentence.album.seen),3)">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</value>
-	</variable>
-	<variable name="Sen_Idx_album_order">
-		<value condition="!String.IsEmpty(Skin.String(sentence.album.order))">$INFO[Skin.String(sentence.album.order)]</value>
-		<value>[UPPERCASE]1[/UPPERCASE]</value>
-	</variable>
-	<variable name="Sen_CL_album_order">
-		<value condition="[String.IsEqual(Skin.String(sentence.album.order),1) | String.IsEmpty(Skin.String(sentence.album.order))]">newest first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.album.order),2)">recently added first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.album.order),3)">in no order at all</value>
-		<value condition="String.IsEqual(Skin.String(sentence.album.order),4)">most played first</value>
-		<value condition="String.IsEqual(Skin.String(sentence.album.order),5)">A to Z</value>
 	</variable>
 	<variable name="Sen_CS_album">
 		<value condition="[String.IsEqual(Skin.String(sentence.album.order),1) | String.IsEmpty(Skin.String(sentence.album.order))]">year</value>
@@ -557,12 +456,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.album.order),3)">ascending</value>
 		<value condition="String.IsEqual(Skin.String(sentence.album.order),4)">descending</value>
 		<value condition="String.IsEqual(Skin.String(sentence.album.order),5)">ascending</value>
-	</variable>
-	<variable name="Sen_CL_kind">
-		<value condition="[String.IsEmpty(Skin.String(sentence.kind)) | String.IsEqual(Skin.String(sentence.kind),1)]">a film</value>
-		<value condition="String.IsEqual(Skin.String(sentence.kind),2)">an episode</value>
-		<value condition="String.IsEqual(Skin.String(sentence.kind),3)">a show</value>
-		<value condition="String.IsEqual(Skin.String(sentence.kind),4)">an album</value>
 	</variable>
 	<variable name="Sen_CL_len">
 		<value condition="[String.IsEmpty(Skin.String(sentence.kind)) | String.IsEqual(Skin.String(sentence.kind),1)]">$VAR[Sen_CL_film_len]</value>
@@ -585,12 +478,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.kind),2)">$VAR[Sen_CL_episode_seen]</value>
 		<value condition="String.IsEqual(Skin.String(sentence.kind),3)">$VAR[Sen_CL_show_seen]</value>
 		<value condition="String.IsEqual(Skin.String(sentence.kind),4)">$VAR[Sen_CL_album_seen]</value>
-	</variable>
-	<variable name="Sen_CL_order">
-		<value condition="[String.IsEmpty(Skin.String(sentence.kind)) | String.IsEqual(Skin.String(sentence.kind),1)]">$VAR[Sen_CL_film_order]</value>
-		<value condition="String.IsEqual(Skin.String(sentence.kind),2)">$VAR[Sen_CL_episode_order]</value>
-		<value condition="String.IsEqual(Skin.String(sentence.kind),3)">$VAR[Sen_CL_show_order]</value>
-		<value condition="String.IsEqual(Skin.String(sentence.kind),4)">$VAR[Sen_CL_album_order]</value>
 	</variable>
 	<variable name="Sen_LL_kind_m1"><value>$INFO[Container(311).ListItem(-1).Label]</value></variable>
 	<variable name="Sen_LL_len_m1">
@@ -721,12 +608,6 @@
 		<value condition="String.IsEqual(Container(311).ListItem.Property(key),show)">videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22doesnotcontain%22%2C%22value%22%3A%5B%22~~~%22%5D%7D$INFO[Container(333).ListItem.Property(enc)]$INFO[Container(334).ListItem.Property(enc)]$INFO[Container(335).ListItem.Property(enc)]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 		<value condition="String.IsEqual(Container(311).ListItem.Property(key),album)">musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22doesnotcontain%22%2C%22value%22%3A%5B%22~~~%22%5D%7D$INFO[Container(343).ListItem.Property(enc)]$INFO[Container(344).ListItem.Property(enc)]$INFO[Container(345).ListItem.Property(enc)]%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
 	</variable>
-	<variable name="Sen_LibPathC">
-		<value condition="[String.IsEmpty(Skin.String(sentence.kind)) | String.IsEqual(Skin.String(sentence.kind),1)]">videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22doesnotcontain%22%2C%22value%22%3A%5B%22~~~%22%5D%7D$VAR[Sen_CE_film_len]$VAR[Sen_CE_film_genre]$VAR[Sen_CE_film_decade]$VAR[Sen_CE_film_seen]%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
-		<value condition="String.IsEqual(Skin.String(sentence.kind),2)">videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22doesnotcontain%22%2C%22value%22%3A%5B%22~~~%22%5D%7D$VAR[Sen_CE_episode_len]$VAR[Sen_CE_episode_genre]$VAR[Sen_CE_episode_decade]$VAR[Sen_CE_episode_seen]%5D%7D%2C%22type%22%3A%22episodes%22%7D</value>
-		<value condition="String.IsEqual(Skin.String(sentence.kind),3)">videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22doesnotcontain%22%2C%22value%22%3A%5B%22~~~%22%5D%7D$VAR[Sen_CE_show_genre]$VAR[Sen_CE_show_decade]$VAR[Sen_CE_show_seen]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
-		<value condition="String.IsEqual(Skin.String(sentence.kind),4)">musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22doesnotcontain%22%2C%22value%22%3A%5B%22~~~%22%5D%7D$VAR[Sen_CE_album_genre]$VAR[Sen_CE_album_decade]$VAR[Sen_CE_album_seen]%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
-	</variable>
 	<variable name="Sen_NounMany">
 		<value condition="$EXP[Sen_Shown_film]">films</value>
 		<value condition="$EXP[Sen_Shown_episode]">episodes</value>
@@ -814,10 +695,10 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>a film</label><property name="key">film</property><onclick>noop</onclick></item>
-				<item><label>an episode</label><property name="key">episode</property><onclick>noop</onclick></item>
-				<item><label>a show</label><property name="key">show</property><onclick>noop</onclick></item>
-				<item><label>an album</label><property name="key">album</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31401]</label><property name="key">film</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31402]</label><property name="key">episode</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31403]</label><property name="key">show</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31404]</label><property name="key">album</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="312">
@@ -825,10 +706,10 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>any length</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>under 90 minutes</label><property name="key">u90</property><property name="rule">,{"field":"time","operator":"lessthan","value":["5400"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%225400%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>under 2 hours</label><property name="key">u120</property><property name="rule">,{"field":"time","operator":"lessthan","value":["7200"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%227200%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>something long</label><property name="key">long</property><property name="rule">,{"field":"time","operator":"greaterthan","value":["8100"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%228100%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31405]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31406]</label><property name="key">u90</property><property name="rule">,{"field":"time","operator":"lessthan","value":["5400"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%225400%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31407]</label><property name="key">u120</property><property name="rule">,{"field":"time","operator":"lessthan","value":["7200"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%227200%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31408]</label><property name="key">long</property><property name="rule">,{"field":"time","operator":"greaterthan","value":["8100"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%228100%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="313">
@@ -836,25 +717,25 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>any genre</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>serious</label><property name="key">drama</property><property name="rule">,{"field":"genre","operator":"is","value":["Drama"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Drama%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>funny</label><property name="key">comedy</property><property name="rule">,{"field":"genre","operator":"is","value":["Comedy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Comedy%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>thrilling</label><property name="key">thriller</property><property name="rule">,{"field":"genre","operator":"is","value":["Thriller"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Thriller%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>action-packed</label><property name="key">action</property><property name="rule">,{"field":"genre","operator":"is","value":["Action"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Action%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>science fiction</label><property name="key">scifi</property><property name="rule">,{"field":"genre","operator":"is","value":["Science Fiction"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Science%20Fiction%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>adventurous</label><property name="key">adventure</property><property name="rule">,{"field":"genre","operator":"is","value":["Adventure"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Adventure%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>about crime</label><property name="key">crime</property><property name="rule">,{"field":"genre","operator":"is","value":["Crime"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Crime%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>fantastical</label><property name="key">fantasy</property><property name="rule">,{"field":"genre","operator":"is","value":["Fantasy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Fantasy%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>romantic</label><property name="key">romance</property><property name="rule">,{"field":"genre","operator":"is","value":["Romance"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Romance%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>mysterious</label><property name="key">mystery</property><property name="rule">,{"field":"genre","operator":"is","value":["Mystery"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Mystery%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>historical</label><property name="key">history</property><property name="rule">,{"field":"genre","operator":"is","value":["History"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22History%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>scary</label><property name="key">horror</property><property name="rule">,{"field":"genre","operator":"is","value":["Horror"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Horror%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>documentary</label><property name="key">documentary</property><property name="rule">,{"field":"genre","operator":"is","value":["Documentary"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Documentary%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>for the family</label><property name="key">family</property><property name="rule">,{"field":"genre","operator":"is","value":["Family"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Family%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>animated</label><property name="key">animation</property><property name="rule">,{"field":"genre","operator":"is","value":["Animation"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Animation%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>about war</label><property name="key">war</property><property name="rule">,{"field":"genre","operator":"is","value":["War"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22War%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>about music</label><property name="key">music</property><property name="rule">,{"field":"genre","operator":"is","value":["Music"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Music%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>a western</label><property name="key">western</property><property name="rule">,{"field":"genre","operator":"is","value":["Western"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Western%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31409]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31410]</label><property name="key">drama</property><property name="rule">,{"field":"genre","operator":"is","value":["Drama"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Drama%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31411]</label><property name="key">comedy</property><property name="rule">,{"field":"genre","operator":"is","value":["Comedy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Comedy%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31412]</label><property name="key">thriller</property><property name="rule">,{"field":"genre","operator":"is","value":["Thriller"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Thriller%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31413]</label><property name="key">action</property><property name="rule">,{"field":"genre","operator":"is","value":["Action"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Action%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31414]</label><property name="key">scifi</property><property name="rule">,{"field":"genre","operator":"is","value":["Science Fiction"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Science%20Fiction%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31415]</label><property name="key">adventure</property><property name="rule">,{"field":"genre","operator":"is","value":["Adventure"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Adventure%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31416]</label><property name="key">crime</property><property name="rule">,{"field":"genre","operator":"is","value":["Crime"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Crime%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31417]</label><property name="key">fantasy</property><property name="rule">,{"field":"genre","operator":"is","value":["Fantasy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Fantasy%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31418]</label><property name="key">romance</property><property name="rule">,{"field":"genre","operator":"is","value":["Romance"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Romance%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31419]</label><property name="key">mystery</property><property name="rule">,{"field":"genre","operator":"is","value":["Mystery"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Mystery%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31420]</label><property name="key">history</property><property name="rule">,{"field":"genre","operator":"is","value":["History"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22History%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31421]</label><property name="key">horror</property><property name="rule">,{"field":"genre","operator":"is","value":["Horror"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Horror%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31422]</label><property name="key">documentary</property><property name="rule">,{"field":"genre","operator":"is","value":["Documentary"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Documentary%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31423]</label><property name="key">family</property><property name="rule">,{"field":"genre","operator":"is","value":["Family"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Family%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31424]</label><property name="key">animation</property><property name="rule">,{"field":"genre","operator":"is","value":["Animation"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Animation%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31425]</label><property name="key">war</property><property name="rule">,{"field":"genre","operator":"is","value":["War"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22War%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31426]</label><property name="key">music</property><property name="rule">,{"field":"genre","operator":"is","value":["Music"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Music%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31427]</label><property name="key">western</property><property name="rule">,{"field":"genre","operator":"is","value":["Western"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22Western%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="314">
@@ -862,14 +743,14 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>any decade</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>the 2020s</label><property name="key">d2020</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2019"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222019%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 2010s</label><property name="key">d2010</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2009"]},{"field":"year","operator":"lessthan","value":["2020"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222009%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222020%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 2000s</label><property name="key">d2000</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1999"]},{"field":"year","operator":"lessthan","value":["2010"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221999%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222010%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 90s</label><property name="key">d1990</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1989"]},{"field":"year","operator":"lessthan","value":["2000"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221989%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222000%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 80s</label><property name="key">d1980</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1979"]},{"field":"year","operator":"lessthan","value":["1990"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221979%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221990%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 70s</label><property name="key">d1970</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1969"]},{"field":"year","operator":"lessthan","value":["1980"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221969%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>before 1970</label><property name="key">old</property><property name="rule">,{"field":"year","operator":"lessthan","value":["1970"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221970%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31428]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31429]</label><property name="key">d2020</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2019"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222019%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31430]</label><property name="key">d2010</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2009"]},{"field":"year","operator":"lessthan","value":["2020"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222009%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222020%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31431]</label><property name="key">d2000</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1999"]},{"field":"year","operator":"lessthan","value":["2010"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221999%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222010%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31432]</label><property name="key">d1990</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1989"]},{"field":"year","operator":"lessthan","value":["2000"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221989%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222000%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31433]</label><property name="key">d1980</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1979"]},{"field":"year","operator":"lessthan","value":["1990"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221979%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221990%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31434]</label><property name="key">d1970</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1969"]},{"field":"year","operator":"lessthan","value":["1980"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221969%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31435]</label><property name="key">old</property><property name="rule">,{"field":"year","operator":"lessthan","value":["1970"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221970%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="315">
@@ -877,10 +758,10 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>may have seen</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>haven't seen</label><property name="key">unseen</property><property name="rule">,{"field":"playcount","operator":"is","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>have started</label><property name="key">started</property><property name="rule">,{"field":"inprogress","operator":"true","value":[]}</property><property name="enc">%2C%7B%22field%22%3A%22inprogress%22%2C%22operator%22%3A%22true%22%2C%22value%22%3A%5B%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>have seen</label><property name="key">seen</property><property name="rule">,{"field":"playcount","operator":"greaterthan","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31436]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31437]</label><property name="key">unseen</property><property name="rule">,{"field":"playcount","operator":"is","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31438]</label><property name="key">started</property><property name="rule">,{"field":"inprogress","operator":"true","value":[]}</property><property name="enc">%2C%7B%22field%22%3A%22inprogress%22%2C%22operator%22%3A%22true%22%2C%22value%22%3A%5B%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31439]</label><property name="key">seen</property><property name="rule">,{"field":"playcount","operator":"greaterthan","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="316">
@@ -888,12 +769,12 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>best rated first</label><property name="key">rating</property><property name="sortby">rating</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>newest first</label><property name="key">newest</property><property name="sortby">year</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>recently added first</label><property name="key">added</property><property name="sortby">dateadded</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>shortest first</label><property name="key">short</property><property name="sortby">time</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
-				<item><label>in no order at all</label><property name="key">random</property><property name="sortby">random</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
-				<item><label>A to Z</label><property name="key">az</property><property name="sortby">title</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31440]</label><property name="key">rating</property><property name="sortby">rating</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31441]</label><property name="key">newest</property><property name="sortby">year</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31442]</label><property name="key">added</property><property name="sortby">dateadded</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31443]</label><property name="key">short</property><property name="sortby">time</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31444]</label><property name="key">random</property><property name="sortby">random</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31445]</label><property name="key">az</property><property name="sortby">title</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="322">
@@ -901,10 +782,10 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>any length</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>under 30 minutes</label><property name="key">u30</property><property name="rule">,{"field":"time","operator":"lessthan","value":["1800"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221800%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>under an hour</label><property name="key">u60</property><property name="rule">,{"field":"time","operator":"lessthan","value":["3600"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%223600%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>over an hour</label><property name="key">o60</property><property name="rule">,{"field":"time","operator":"greaterthan","value":["3599"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%223599%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31405]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31446]</label><property name="key">u30</property><property name="rule">,{"field":"time","operator":"lessthan","value":["1800"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221800%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31447]</label><property name="key">u60</property><property name="rule">,{"field":"time","operator":"lessthan","value":["3600"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%223600%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31448]</label><property name="key">o60</property><property name="rule">,{"field":"time","operator":"greaterthan","value":["3599"]}</property><property name="enc">%2C%7B%22field%22%3A%22time%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%223599%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="323">
@@ -912,19 +793,19 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>any genre</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>serious</label><property name="key">drama</property><property name="rule">,{"field":"genre","operator":"contains","value":["Drama"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Drama%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>funny</label><property name="key">comedy</property><property name="rule">,{"field":"genre","operator":"contains","value":["Comedy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Comedy%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>science fiction</label><property name="key">scifi</property><property name="rule">,{"field":"genre","operator":"contains","value":["Sci-Fi","Science Fiction"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Sci-Fi%22%2C%22Science%20Fiction%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>about crime</label><property name="key">crime</property><property name="rule">,{"field":"genre","operator":"contains","value":["Crime"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Crime%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>mysterious</label><property name="key">mystery</property><property name="rule">,{"field":"genre","operator":"contains","value":["Mystery"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Mystery%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>action-packed</label><property name="key">action</property><property name="rule">,{"field":"genre","operator":"contains","value":["Action"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Action%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>adventurous</label><property name="key">adventure</property><property name="rule">,{"field":"genre","operator":"contains","value":["Adventure"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Adventure%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>fantastical</label><property name="key">fantasy</property><property name="rule">,{"field":"genre","operator":"contains","value":["Fantasy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Fantasy%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>thrilling</label><property name="key">thriller</property><property name="rule">,{"field":"genre","operator":"contains","value":["Thriller","Suspense"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Thriller%22%2C%22Suspense%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>animated</label><property name="key">animation</property><property name="rule">,{"field":"genre","operator":"contains","value":["Animation","Anime"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Animation%22%2C%22Anime%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>scary</label><property name="key">horror</property><property name="rule">,{"field":"genre","operator":"contains","value":["Horror"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Horror%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>documentary</label><property name="key">documentary</property><property name="rule">,{"field":"genre","operator":"contains","value":["Documentary"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Documentary%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31409]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31410]</label><property name="key">drama</property><property name="rule">,{"field":"genre","operator":"contains","value":["Drama"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Drama%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31411]</label><property name="key">comedy</property><property name="rule">,{"field":"genre","operator":"contains","value":["Comedy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Comedy%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31414]</label><property name="key">scifi</property><property name="rule">,{"field":"genre","operator":"contains","value":["Sci-Fi","Science Fiction"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Sci-Fi%22%2C%22Science%20Fiction%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31416]</label><property name="key">crime</property><property name="rule">,{"field":"genre","operator":"contains","value":["Crime"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Crime%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31419]</label><property name="key">mystery</property><property name="rule">,{"field":"genre","operator":"contains","value":["Mystery"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Mystery%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31413]</label><property name="key">action</property><property name="rule">,{"field":"genre","operator":"contains","value":["Action"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Action%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31415]</label><property name="key">adventure</property><property name="rule">,{"field":"genre","operator":"contains","value":["Adventure"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Adventure%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31417]</label><property name="key">fantasy</property><property name="rule">,{"field":"genre","operator":"contains","value":["Fantasy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Fantasy%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31412]</label><property name="key">thriller</property><property name="rule">,{"field":"genre","operator":"contains","value":["Thriller","Suspense"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Thriller%22%2C%22Suspense%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31424]</label><property name="key">animation</property><property name="rule">,{"field":"genre","operator":"contains","value":["Animation","Anime"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Animation%22%2C%22Anime%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31421]</label><property name="key">horror</property><property name="rule">,{"field":"genre","operator":"contains","value":["Horror"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Horror%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31422]</label><property name="key">documentary</property><property name="rule">,{"field":"genre","operator":"contains","value":["Documentary"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Documentary%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="324">
@@ -932,14 +813,14 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>any decade</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>the 2020s</label><property name="key">d2020</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2019"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222019%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 2010s</label><property name="key">d2010</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2009"]},{"field":"year","operator":"lessthan","value":["2020"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222009%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222020%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 2000s</label><property name="key">d2000</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1999"]},{"field":"year","operator":"lessthan","value":["2010"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221999%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222010%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 90s</label><property name="key">d1990</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1989"]},{"field":"year","operator":"lessthan","value":["2000"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221989%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222000%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 80s</label><property name="key">d1980</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1979"]},{"field":"year","operator":"lessthan","value":["1990"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221979%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221990%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 70s</label><property name="key">d1970</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1969"]},{"field":"year","operator":"lessthan","value":["1980"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221969%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>before 1970</label><property name="key">old</property><property name="rule">,{"field":"year","operator":"lessthan","value":["1970"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221970%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31428]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31429]</label><property name="key">d2020</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2019"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222019%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31430]</label><property name="key">d2010</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2009"]},{"field":"year","operator":"lessthan","value":["2020"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222009%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222020%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31431]</label><property name="key">d2000</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1999"]},{"field":"year","operator":"lessthan","value":["2010"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221999%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222010%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31432]</label><property name="key">d1990</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1989"]},{"field":"year","operator":"lessthan","value":["2000"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221989%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222000%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31433]</label><property name="key">d1980</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1979"]},{"field":"year","operator":"lessthan","value":["1990"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221979%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221990%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31434]</label><property name="key">d1970</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1969"]},{"field":"year","operator":"lessthan","value":["1980"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221969%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31435]</label><property name="key">old</property><property name="rule">,{"field":"year","operator":"lessthan","value":["1970"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221970%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="325">
@@ -947,10 +828,10 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>may have seen</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>haven't seen</label><property name="key">unseen</property><property name="rule">,{"field":"playcount","operator":"is","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>have started</label><property name="key">started</property><property name="rule">,{"field":"inprogress","operator":"true","value":[]}</property><property name="enc">%2C%7B%22field%22%3A%22inprogress%22%2C%22operator%22%3A%22true%22%2C%22value%22%3A%5B%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>have seen</label><property name="key">seen</property><property name="rule">,{"field":"playcount","operator":"greaterthan","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31436]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31437]</label><property name="key">unseen</property><property name="rule">,{"field":"playcount","operator":"is","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31438]</label><property name="key">started</property><property name="rule">,{"field":"inprogress","operator":"true","value":[]}</property><property name="enc">%2C%7B%22field%22%3A%22inprogress%22%2C%22operator%22%3A%22true%22%2C%22value%22%3A%5B%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31439]</label><property name="key">seen</property><property name="rule">,{"field":"playcount","operator":"greaterthan","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="326">
@@ -958,11 +839,11 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>recently added first</label><property name="key">added</property><property name="sortby">dateadded</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>newest first</label><property name="key">newest</property><property name="sortby">year</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>best rated first</label><property name="key">rating</property><property name="sortby">rating</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>shortest first</label><property name="key">short</property><property name="sortby">time</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
-				<item><label>in no order at all</label><property name="key">random</property><property name="sortby">random</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31442]</label><property name="key">added</property><property name="sortby">dateadded</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31441]</label><property name="key">newest</property><property name="sortby">year</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31440]</label><property name="key">rating</property><property name="sortby">rating</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31443]</label><property name="key">short</property><property name="sortby">time</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31444]</label><property name="key">random</property><property name="sortby">random</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="333">
@@ -970,19 +851,19 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>any genre</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>serious</label><property name="key">drama</property><property name="rule">,{"field":"genre","operator":"contains","value":["Drama"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Drama%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>funny</label><property name="key">comedy</property><property name="rule">,{"field":"genre","operator":"contains","value":["Comedy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Comedy%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>science fiction</label><property name="key">scifi</property><property name="rule">,{"field":"genre","operator":"contains","value":["Sci-Fi","Science Fiction"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Sci-Fi%22%2C%22Science%20Fiction%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>about crime</label><property name="key">crime</property><property name="rule">,{"field":"genre","operator":"contains","value":["Crime"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Crime%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>mysterious</label><property name="key">mystery</property><property name="rule">,{"field":"genre","operator":"contains","value":["Mystery"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Mystery%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>action-packed</label><property name="key">action</property><property name="rule">,{"field":"genre","operator":"contains","value":["Action"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Action%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>adventurous</label><property name="key">adventure</property><property name="rule">,{"field":"genre","operator":"contains","value":["Adventure"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Adventure%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>fantastical</label><property name="key">fantasy</property><property name="rule">,{"field":"genre","operator":"contains","value":["Fantasy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Fantasy%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>thrilling</label><property name="key">thriller</property><property name="rule">,{"field":"genre","operator":"contains","value":["Thriller","Suspense"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Thriller%22%2C%22Suspense%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>animated</label><property name="key">animation</property><property name="rule">,{"field":"genre","operator":"contains","value":["Animation","Anime"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Animation%22%2C%22Anime%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>scary</label><property name="key">horror</property><property name="rule">,{"field":"genre","operator":"contains","value":["Horror"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Horror%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>documentary</label><property name="key">documentary</property><property name="rule">,{"field":"genre","operator":"contains","value":["Documentary"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Documentary%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31409]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31410]</label><property name="key">drama</property><property name="rule">,{"field":"genre","operator":"contains","value":["Drama"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Drama%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31411]</label><property name="key">comedy</property><property name="rule">,{"field":"genre","operator":"contains","value":["Comedy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Comedy%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31414]</label><property name="key">scifi</property><property name="rule">,{"field":"genre","operator":"contains","value":["Sci-Fi","Science Fiction"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Sci-Fi%22%2C%22Science%20Fiction%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31416]</label><property name="key">crime</property><property name="rule">,{"field":"genre","operator":"contains","value":["Crime"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Crime%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31419]</label><property name="key">mystery</property><property name="rule">,{"field":"genre","operator":"contains","value":["Mystery"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Mystery%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31413]</label><property name="key">action</property><property name="rule">,{"field":"genre","operator":"contains","value":["Action"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Action%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31415]</label><property name="key">adventure</property><property name="rule">,{"field":"genre","operator":"contains","value":["Adventure"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Adventure%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31417]</label><property name="key">fantasy</property><property name="rule">,{"field":"genre","operator":"contains","value":["Fantasy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Fantasy%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31412]</label><property name="key">thriller</property><property name="rule">,{"field":"genre","operator":"contains","value":["Thriller","Suspense"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Thriller%22%2C%22Suspense%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31424]</label><property name="key">animation</property><property name="rule">,{"field":"genre","operator":"contains","value":["Animation","Anime"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Animation%22%2C%22Anime%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31421]</label><property name="key">horror</property><property name="rule">,{"field":"genre","operator":"contains","value":["Horror"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Horror%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31422]</label><property name="key">documentary</property><property name="rule">,{"field":"genre","operator":"contains","value":["Documentary"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Documentary%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="334">
@@ -990,14 +871,14 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>any decade</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>the 2020s</label><property name="key">d2020</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2019"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222019%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 2010s</label><property name="key">d2010</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2009"]},{"field":"year","operator":"lessthan","value":["2020"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222009%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222020%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 2000s</label><property name="key">d2000</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1999"]},{"field":"year","operator":"lessthan","value":["2010"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221999%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222010%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 90s</label><property name="key">d1990</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1989"]},{"field":"year","operator":"lessthan","value":["2000"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221989%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222000%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 80s</label><property name="key">d1980</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1979"]},{"field":"year","operator":"lessthan","value":["1990"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221979%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221990%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 70s</label><property name="key">d1970</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1969"]},{"field":"year","operator":"lessthan","value":["1980"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221969%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>before 1970</label><property name="key">old</property><property name="rule">,{"field":"year","operator":"lessthan","value":["1970"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221970%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31428]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31429]</label><property name="key">d2020</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2019"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222019%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31430]</label><property name="key">d2010</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2009"]},{"field":"year","operator":"lessthan","value":["2020"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222009%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222020%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31431]</label><property name="key">d2000</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1999"]},{"field":"year","operator":"lessthan","value":["2010"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221999%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222010%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31432]</label><property name="key">d1990</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1989"]},{"field":"year","operator":"lessthan","value":["2000"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221989%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222000%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31433]</label><property name="key">d1980</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1979"]},{"field":"year","operator":"lessthan","value":["1990"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221979%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221990%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31434]</label><property name="key">d1970</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1969"]},{"field":"year","operator":"lessthan","value":["1980"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221969%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31435]</label><property name="key">old</property><property name="rule">,{"field":"year","operator":"lessthan","value":["1970"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221970%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="335">
@@ -1005,10 +886,10 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>may have seen</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>haven't started</label><property name="key">unseen</property><property name="rule">,{"field":"numwatched","operator":"is","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22numwatched%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>have started</label><property name="key">started</property><property name="rule">,{"field":"inprogress","operator":"true","value":[]}</property><property name="enc">%2C%7B%22field%22%3A%22inprogress%22%2C%22operator%22%3A%22true%22%2C%22value%22%3A%5B%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>have finished</label><property name="key">seen</property><property name="rule">,{"field":"playcount","operator":"greaterthan","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31436]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31449]</label><property name="key">unseen</property><property name="rule">,{"field":"numwatched","operator":"is","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22numwatched%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31438]</label><property name="key">started</property><property name="rule">,{"field":"inprogress","operator":"true","value":[]}</property><property name="enc">%2C%7B%22field%22%3A%22inprogress%22%2C%22operator%22%3A%22true%22%2C%22value%22%3A%5B%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31450]</label><property name="key">seen</property><property name="rule">,{"field":"playcount","operator":"greaterthan","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="336">
@@ -1016,11 +897,11 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>recently added first</label><property name="key">added</property><property name="sortby">dateadded</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>newest first</label><property name="key">newest</property><property name="sortby">year</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>best rated first</label><property name="key">rating</property><property name="sortby">rating</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>in no order at all</label><property name="key">random</property><property name="sortby">random</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
-				<item><label>A to Z</label><property name="key">az</property><property name="sortby">title</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31442]</label><property name="key">added</property><property name="sortby">dateadded</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31441]</label><property name="key">newest</property><property name="sortby">year</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31440]</label><property name="key">rating</property><property name="sortby">rating</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31444]</label><property name="key">random</property><property name="sortby">random</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31445]</label><property name="key">az</property><property name="sortby">title</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="343">
@@ -1028,16 +909,16 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>any style</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>rock</label><property name="key">rock</property><property name="rule">,{"field":"genre","operator":"contains","value":["Rock"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Rock%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>alternative</label><property name="key">alternative</property><property name="rule">,{"field":"genre","operator":"contains","value":["Alternative","Alt."]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Alternative%22%2C%22Alt.%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>indie</label><property name="key">indie</property><property name="rule">,{"field":"genre","operator":"contains","value":["Indie"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Indie%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>pop</label><property name="key">pop</property><property name="rule">,{"field":"genre","operator":"contains","value":["Pop"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Pop%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>metal</label><property name="key">metal</property><property name="rule">,{"field":"genre","operator":"contains","value":["Metal"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Metal%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>soundtracks</label><property name="key">soundtrack</property><property name="rule">,{"field":"genre","operator":"contains","value":["Soundtrack"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Soundtrack%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>classical music</label><property name="key">classical</property><property name="rule">,{"field":"genre","operator":"contains","value":["Classical"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Classical%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>electronic music</label><property name="key">electronic</property><property name="rule">,{"field":"genre","operator":"contains","value":["Electronic","Dance"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Electronic%22%2C%22Dance%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>comedy</label><property name="key">comedy</property><property name="rule">,{"field":"genre","operator":"contains","value":["Comedy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Comedy%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31451]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31452]</label><property name="key">rock</property><property name="rule">,{"field":"genre","operator":"contains","value":["Rock"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Rock%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31453]</label><property name="key">alternative</property><property name="rule">,{"field":"genre","operator":"contains","value":["Alternative","Alt."]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Alternative%22%2C%22Alt.%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31454]</label><property name="key">indie</property><property name="rule">,{"field":"genre","operator":"contains","value":["Indie"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Indie%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31455]</label><property name="key">pop</property><property name="rule">,{"field":"genre","operator":"contains","value":["Pop"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Pop%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31456]</label><property name="key">metal</property><property name="rule">,{"field":"genre","operator":"contains","value":["Metal"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Metal%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31457]</label><property name="key">soundtrack</property><property name="rule">,{"field":"genre","operator":"contains","value":["Soundtrack"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Soundtrack%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31458]</label><property name="key">classical</property><property name="rule">,{"field":"genre","operator":"contains","value":["Classical"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Classical%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31459]</label><property name="key">electronic</property><property name="rule">,{"field":"genre","operator":"contains","value":["Electronic","Dance"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Electronic%22%2C%22Dance%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31460]</label><property name="key">comedy</property><property name="rule">,{"field":"genre","operator":"contains","value":["Comedy"]}</property><property name="enc">%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22Comedy%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="344">
@@ -1045,13 +926,13 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>any decade</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>the 2020s</label><property name="key">d2020</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2019"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222019%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 2010s</label><property name="key">d2010</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2009"]},{"field":"year","operator":"lessthan","value":["2020"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222009%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222020%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 2000s</label><property name="key">d2000</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1999"]},{"field":"year","operator":"lessthan","value":["2010"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221999%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222010%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 90s</label><property name="key">d1990</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1989"]},{"field":"year","operator":"lessthan","value":["2000"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221989%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222000%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>the 80s</label><property name="key">d1980</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1979"]},{"field":"year","operator":"lessthan","value":["1990"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221979%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221990%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>before 1980</label><property name="key">old</property><property name="rule">,{"field":"year","operator":"lessthan","value":["1980"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31428]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31429]</label><property name="key">d2020</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2019"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222019%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31430]</label><property name="key">d2010</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["2009"]},{"field":"year","operator":"lessthan","value":["2020"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%222009%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222020%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31431]</label><property name="key">d2000</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1999"]},{"field":"year","operator":"lessthan","value":["2010"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221999%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222010%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31432]</label><property name="key">d1990</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1989"]},{"field":"year","operator":"lessthan","value":["2000"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221989%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%222000%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31433]</label><property name="key">d1980</property><property name="rule">,{"field":"year","operator":"greaterthan","value":["1979"]},{"field":"year","operator":"lessthan","value":["1990"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%221979%22%5D%7D%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221990%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31461]</label><property name="key">old</property><property name="rule">,{"field":"year","operator":"lessthan","value":["1980"]}</property><property name="enc">%2C%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22lessthan%22%2C%22value%22%3A%5B%221980%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="345">
@@ -1059,9 +940,9 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>may have played</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
-				<item><label>haven't played</label><property name="key">unseen</property><property name="rule">,{"field":"playcount","operator":"is","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
-				<item><label>have played</label><property name="key">seen</property><property name="rule">,{"field":"playcount","operator":"greaterthan","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31462]</label><property name="key">any</property><property name="rule"></property><property name="enc"></property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31463]</label><property name="key">unseen</property><property name="rule">,{"field":"playcount","operator":"is","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31464]</label><property name="key">seen</property><property name="rule">,{"field":"playcount","operator":"greaterthan","value":["0"]}</property><property name="enc">%2C%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22greaterthan%22%2C%22value%22%3A%5B%220%22%5D%7D</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<control type="wraplist" id="346">
@@ -1069,11 +950,11 @@
 			<orientation>vertical</orientation><focusposition>0</focusposition><scrolltime>0</scrolltime>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>
-				<item><label>newest first</label><property name="key">newest</property><property name="sortby">year</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>recently added first</label><property name="key">added</property><property name="sortby">dateadded</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>in no order at all</label><property name="key">random</property><property name="sortby">random</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
-				<item><label>most played first</label><property name="key">played</property><property name="sortby">playcount</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
-				<item><label>A to Z</label><property name="key">az</property><property name="sortby">album</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31441]</label><property name="key">newest</property><property name="sortby">year</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31442]</label><property name="key">added</property><property name="sortby">dateadded</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31444]</label><property name="key">random</property><property name="sortby">random</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31465]</label><property name="key">played</property><property name="sortby">playcount</property><property name="sortorder">descending</property><onclick>noop</onclick></item>
+				<item><label>$LOCALIZE[31445]</label><property name="key">az</property><property name="sortby">album</property><property name="sortorder">ascending</property><onclick>noop</onclick></item>
 			</content>
 		</control>
 		<!-- rest timer: item 2 = the sentence has rested REST ms since the last spin -->
@@ -1084,54 +965,12 @@
 			<include condition="!String.IsEqual(Skin.String(sentence.resttime),quick) + !String.IsEqual(Skin.String(sentence.resttime),patient)">Sen_Timer400</include>
 			<include condition="String.IsEqual(Skin.String(sentence.resttime),patient)">Sen_Timer700</include>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
-			<content><item><label>moving</label><onclick>noop</onclick></item><item><label>rested</label><onclick>noop</onclick></item></content>
+			<content><item><label>$LOCALIZE[31466]</label><onclick>noop</onclick></item><item><label>$LOCALIZE[31467]</label><onclick>noop</onclick></item></content>
 		</control>
 	</include>
 	<include name="Sen_Timer250"><autoscroll time="250">Integer.IsEqual(Container(399).CurrentItem,1)</autoscroll></include>
 	<include name="Sen_Timer400"><autoscroll time="400">Integer.IsEqual(Container(399).CurrentItem,1)</autoscroll></include>
 	<include name="Sen_Timer700"><autoscroll time="700">Integer.IsEqual(Container(399).CurrentItem,1)</autoscroll></include>
-	<include name="Sen_Commit_onleft">
-		<onleft>Skin.SetString(sentence.kind,$INFO[Container(311).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.len,$INFO[Container(312).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.genre,$INFO[Container(313).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.decade,$INFO[Container(314).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.seen,$INFO[Container(315).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.order,$INFO[Container(316).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.len,$INFO[Container(322).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.genre,$INFO[Container(323).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.decade,$INFO[Container(324).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.seen,$INFO[Container(325).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.order,$INFO[Container(326).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.genre,$INFO[Container(333).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.decade,$INFO[Container(334).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.seen,$INFO[Container(335).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.order,$INFO[Container(336).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.genre,$INFO[Container(343).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.decade,$INFO[Container(344).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.seen,$INFO[Container(345).CurrentItem])</onleft>
-		<onleft condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.order,$INFO[Container(346).CurrentItem])</onleft>
-	</include>
-	<include name="Sen_Commit_onright">
-		<onright>Skin.SetString(sentence.kind,$INFO[Container(311).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.len,$INFO[Container(312).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.genre,$INFO[Container(313).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.decade,$INFO[Container(314).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.seen,$INFO[Container(315).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.order,$INFO[Container(316).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.len,$INFO[Container(322).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.genre,$INFO[Container(323).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.decade,$INFO[Container(324).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.seen,$INFO[Container(325).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.order,$INFO[Container(326).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.genre,$INFO[Container(333).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.decade,$INFO[Container(334).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.seen,$INFO[Container(335).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.order,$INFO[Container(336).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.genre,$INFO[Container(343).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.decade,$INFO[Container(344).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.seen,$INFO[Container(345).CurrentItem])</onright>
-		<onright condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.order,$INFO[Container(346).CurrentItem])</onright>
-	</include>
 	<include name="Sen_Commit_onclick">
 		<onclick>Skin.SetString(sentence.kind,$INFO[Container(311).CurrentItem])</onclick>
 		<onclick condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.len,$INFO[Container(312).CurrentItem])</onclick>
@@ -1153,27 +992,6 @@
 		<onclick condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.seen,$INFO[Container(345).CurrentItem])</onclick>
 		<onclick condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.order,$INFO[Container(346).CurrentItem])</onclick>
 	</include>
-	<include name="Sen_Commit_onback">
-		<onback>Skin.SetString(sentence.kind,$INFO[Container(311).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.len,$INFO[Container(312).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.genre,$INFO[Container(313).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.decade,$INFO[Container(314).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.seen,$INFO[Container(315).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.order,$INFO[Container(316).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.len,$INFO[Container(322).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.genre,$INFO[Container(323).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.decade,$INFO[Container(324).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.seen,$INFO[Container(325).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.order,$INFO[Container(326).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.genre,$INFO[Container(333).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.decade,$INFO[Container(334).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.seen,$INFO[Container(335).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.order,$INFO[Container(336).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.genre,$INFO[Container(343).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.decade,$INFO[Container(344).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.seen,$INFO[Container(345).CurrentItem])</onback>
-		<onback condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.order,$INFO[Container(346).CurrentItem])</onback>
-	</include>
 	<include name="Sen_Commit_onunfocus">
 		<onunfocus>Skin.SetString(sentence.kind,$INFO[Container(311).CurrentItem])</onunfocus>
 		<onunfocus condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.len,$INFO[Container(312).CurrentItem])</onunfocus>
@@ -1194,48 +1012,6 @@
 		<onunfocus condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.decade,$INFO[Container(344).CurrentItem])</onunfocus>
 		<onunfocus condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.seen,$INFO[Container(345).CurrentItem])</onunfocus>
 		<onunfocus condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.order,$INFO[Container(346).CurrentItem])</onunfocus>
-	</include>
-	<include name="Sen_Commit_onup">
-		<onup>Skin.SetString(sentence.kind,$INFO[Container(311).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.len,$INFO[Container(312).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.genre,$INFO[Container(313).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.decade,$INFO[Container(314).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.seen,$INFO[Container(315).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.order,$INFO[Container(316).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.len,$INFO[Container(322).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.genre,$INFO[Container(323).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.decade,$INFO[Container(324).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.seen,$INFO[Container(325).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.order,$INFO[Container(326).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.genre,$INFO[Container(333).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.decade,$INFO[Container(334).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.seen,$INFO[Container(335).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.order,$INFO[Container(336).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.genre,$INFO[Container(343).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.decade,$INFO[Container(344).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.seen,$INFO[Container(345).CurrentItem])</onup>
-		<onup condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.order,$INFO[Container(346).CurrentItem])</onup>
-	</include>
-	<include name="Sen_Commit_ondown">
-		<ondown>Skin.SetString(sentence.kind,$INFO[Container(311).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.len,$INFO[Container(312).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.genre,$INFO[Container(313).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.decade,$INFO[Container(314).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.seen,$INFO[Container(315).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),film)">Skin.SetString(sentence.film.order,$INFO[Container(316).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.len,$INFO[Container(322).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.genre,$INFO[Container(323).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.decade,$INFO[Container(324).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.seen,$INFO[Container(325).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),episode)">Skin.SetString(sentence.episode.order,$INFO[Container(326).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.genre,$INFO[Container(333).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.decade,$INFO[Container(334).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.seen,$INFO[Container(335).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),show)">Skin.SetString(sentence.show.order,$INFO[Container(336).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.genre,$INFO[Container(343).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.decade,$INFO[Container(344).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.seen,$INFO[Container(345).CurrentItem])</ondown>
-		<ondown condition="String.IsEqual(Container(311).ListItem.Property(key),album)">Skin.SetString(sentence.album.order,$INFO[Container(346).CurrentItem])</ondown>
 	</include>
 	<include name="Sen_CommitOnUnload">
 		<onunload>Skin.SetString(sentence.kind,$INFO[Container(311).CurrentItem])</onunload>
@@ -1911,9 +1687,6 @@
 		<value condition="String.IsEqual(Skin.String(sentence.kind),2)">Episodes</value>
 		<value condition="String.IsEqual(Skin.String(sentence.kind),3)">Shows that are</value>
 		<value condition="String.IsEqual(Skin.String(sentence.kind),4)">Albums of</value>
-	</variable>
-	<variable name="Sen_LibSeenLead">
-		<value>that you</value>
 	</variable>
 	<expression name="Sen_CHas_len">[String.IsEmpty(Skin.String(sentence.kind)) | String.IsEqual(Skin.String(sentence.kind),1)] | String.IsEqual(Skin.String(sentence.kind),2)</expression>
 	<include name="Sen_LibOnclick_len">

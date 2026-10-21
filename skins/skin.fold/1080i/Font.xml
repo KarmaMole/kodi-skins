@@ -8,12 +8,10 @@
 		<font><name>disp_132</name><filename>FoldDisplay-ExtraBold.ttf</filename><size>132</size><linespacing>0.783</linespacing></font>
 		<font><name>disp_112</name><filename>FoldDisplay-ExtraBold.ttf</filename><size>112</size><linespacing>0.804</linespacing></font>
 		<font><name>disp_96</name><filename>FoldDisplay-ExtraBold.ttf</filename><size>96</size><linespacing>0.816</linespacing></font>
-		<font><name>disp_80</name><filename>FoldDisplay-ExtraBold.ttf</filename><size>80</size><linespacing>0.833</linespacing></font>
 		<font><name>disp_72</name><filename>FoldDisplay-ExtraBold.ttf</filename><size>72</size><linespacing>0.833</linespacing></font>
 		<font><name>disp_64</name><filename>FoldDisplay-ExtraBold.ttf</filename><size>64</size><linespacing>0.833</linespacing></font>
 		<font><name>disp_60</name><filename>FoldDisplay-ExtraBold.ttf</filename><size>60</size></font>
 		<font><name>disp_50</name><filename>FoldDisplay-ExtraBold.ttf</filename><size>50</size></font>
-		<font><name>disp_44</name><filename>FoldDisplay-ExtraBold.ttf</filename><size>44</size></font>
 		<font><name>head_50</name><filename>FoldHead-Bold.ttf</filename><size>50</size><linespacing>0.9</linespacing></font>
 		<font><name>head_40</name><filename>FoldHead-Bold.ttf</filename><size>40</size><linespacing>0.958</linespacing></font>
 		<font><name>head_34</name><filename>FoldHead-Bold.ttf</filename><size>34</size><linespacing>0.98</linespacing></font>
@@ -21,14 +19,12 @@
 		<font><name>light_34</name><filename>FoldText-Light.ttf</filename><size>34</size><linespacing>1.029</linespacing></font>
 		<font><name>light_32</name><filename>FoldText-Light.ttf</filename><size>32</size><linespacing>1.042</linespacing></font>
 		<font><name>light_30</name><filename>FoldText-Light.ttf</filename><size>30</size><linespacing>1.056</linespacing></font>
-		<font><name>light_26</name><filename>FoldText-Light.ttf</filename><size>26</size><linespacing>1.09</linespacing></font>
 		<font><name>body_28</name><filename>FoldText-Regular.ttf</filename><size>28</size><linespacing>1.19</linespacing></font>
 		<font><name>body_26</name><filename>FoldText-Regular.ttf</filename><size>26</size><linespacing>1.186</linespacing></font>
 		<font><name>body_26_spread</name><filename>FoldText-Regular.ttf</filename><size>26</size><linespacing>1.218</linespacing></font>
 		<font><name>body_24</name><filename>FoldText-Regular.ttf</filename><size>24</size><linespacing>1.181</linespacing></font>
 		<font><name>body_22</name><filename>FoldText-Regular.ttf</filename><size>22</size><linespacing>1.174</linespacing></font>
 		<font><name>body_20</name><filename>FoldText-Regular.ttf</filename><size>20</size><linespacing>1.167</linespacing></font>
-		<font><name>sans_32_semi</name><filename>FoldText-SemiBold.ttf</filename><size>32</size><linespacing>1.042</linespacing></font>
 		<font><name>sans_28_semi</name><filename>FoldText-SemiBold.ttf</filename><size>28</size><linespacing>1.071</linespacing></font>
 		<font><name>sans_26_semi</name><filename>FoldText-SemiBold.ttf</filename><size>26</size><linespacing>1.09</linespacing></font>
 		<font><name>sans_24_semi</name><filename>FoldText-SemiBold.ttf</filename><size>24</size><linespacing>0.972</linespacing></font>
@@ -36,39 +32,31 @@
 		<font><name>sans_20_semi</name><filename>FoldText-SemiBold.ttf</filename><size>20</size><linespacing>1.083</linespacing></font>
 		<font><name>tab_26</name><filename>FoldTab-SemiBold.ttf</filename><size>26</size></font>
 		<font><name>tab_22</name><filename>FoldTab-SemiBold.ttf</filename><size>22</size></font>
-		<font><name>tab_20</name><filename>FoldTab-SemiBold.ttf</filename><size>20</size></font>
-		<font><name>word_40</name><filename>FoldWord-ExtraBold.ttf</filename><size>40</size></font>
 		<font><name>word_36</name><filename>FoldWord-ExtraBold.ttf</filename><size>36</size></font>
-		<font><name>word_32</name><filename>FoldWord-ExtraBold.ttf</filename><size>32</size></font>
 		<font><name>word_26</name><filename>FoldWord-ExtraBold.ttf</filename><size>26</size></font>
-		<font><name>word_22</name><filename>FoldWord-ExtraBold.ttf</filename><size>22</size></font>
 		<font><name>caps_20</name><filename>FoldCaps-Regular.ttf</filename><size>20</size><linespacing>1.231</linespacing></font>
 		<font><name>caps_22</name><filename>FoldCaps-Regular.ttf</filename><size>22</size><linespacing>1.189</linespacing></font>
 		<font><name>caps_20_b</name><filename>FoldCaps-SemiBold.ttf</filename><size>20</size><linespacing>1.231</linespacing></font>
 		<font><name>caps_22_b</name><filename>FoldCaps-SemiBold.ttf</filename><size>22</size><linespacing>1.189</linespacing></font>
 		<font><name>meta_22</name><filename>FoldMeta-Regular.ttf</filename><size>22</size></font>
-		<font><name>meta_20</name><filename>FoldMeta-Regular.ttf</filename><size>20</size></font>
-		<font><name>num_48</name><filename>FoldNum-Medium.ttf</filename><size>48</size></font>
 		<font><name>num_38</name><filename>FoldNum-Medium.ttf</filename><size>38</size></font>
 		<font><name>num_34</name><filename>FoldNum-Medium.ttf</filename><size>34</size></font>
 		<font><name>num_26</name><filename>FoldNum-Medium.ttf</filename><size>26</size></font>
 		<font><name>num_22</name><filename>FoldNum-Medium.ttf</filename><size>22</size></font>
 		<font><name>num_20</name><filename>FoldNum-Medium.ttf</filename><size>20</size></font>
 		<font><name>numr_20</name><filename>FoldNum-Regular.ttf</filename><size>20</size></font>
-		<font><name>numr_22</name><filename>FoldNum-Regular.ttf</filename><size>22</size></font>
-		<font><name>key_32</name><filename>FoldText-SemiBold.ttf</filename><size>32</size></font>
-		<font><name>font10</name><filename>FoldText-Regular.ttf</filename><size>21</size></font>
-		<font><name>font12</name><filename>FoldText-Regular.ttf</filename><size>23</size></font>
-		<font><name>font14</name><filename>FoldText-Regular.ttf</filename><size>28</size></font>
-		<font><name>font27</name><filename>FoldText-Regular.ttf</filename><size>27</size></font>
-		<font><name>font30</name><filename>FoldText-SemiBold.ttf</filename><size>30</size></font>
-		<font><name>font37</name><filename>FoldHead-Bold.ttf</filename><size>37</size></font>
-		<font><name>font45</name><filename>FoldHead-Bold.ttf</filename><size>45</size></font>
-		<font><name>font52_title</name><filename>FoldHead-Bold.ttf</filename><size>52</size></font>
-		<font><name>font45_title</name><filename>FoldHead-Bold.ttf</filename><size>45</size></font>
-		<font><name>font36_title</name><filename>FoldHead-Bold.ttf</filename><size>36</size></font>
-		<font><name>font30_title</name><filename>FoldHead-Bold.ttf</filename><size>30</size></font>
-		<font><name>font25_title</name><filename>FoldHead-Bold.ttf</filename><size>25</size></font>
+		<font><name>font10</name><filename>FoldText-Regular.ttf</filename><size>21</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font12</name><filename>FoldText-Regular.ttf</filename><size>23</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font14</name><filename>FoldText-Regular.ttf</filename><size>28</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font27</name><filename>FoldText-Regular.ttf</filename><size>27</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30</name><filename>FoldText-SemiBold.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font37</name><filename>FoldHead-Bold.ttf</filename><size>37</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45</name><filename>FoldHead-Bold.ttf</filename><size>45</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font52_title</name><filename>FoldHead-Bold.ttf</filename><size>52</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45_title</name><filename>FoldHead-Bold.ttf</filename><size>45</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font36_title</name><filename>FoldHead-Bold.ttf</filename><size>36</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30_title</name><filename>FoldHead-Bold.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font25_title</name><filename>FoldHead-Bold.ttf</filename><size>25</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
 		<font><name>Mono26</name><filename>FoldNum-Regular.ttf</filename><size>26</size></font>
 	</fontset>
 	<!-- Fallback set: same names, Kodi's bundled arial.ttf (wider script coverage). -->
@@ -78,12 +66,10 @@
 		<font><name>disp_132</name><filename>arial.ttf</filename><size>132</size><linespacing>0.783</linespacing></font>
 		<font><name>disp_112</name><filename>arial.ttf</filename><size>112</size><linespacing>0.804</linespacing></font>
 		<font><name>disp_96</name><filename>arial.ttf</filename><size>96</size><linespacing>0.816</linespacing></font>
-		<font><name>disp_80</name><filename>arial.ttf</filename><size>80</size><linespacing>0.833</linespacing></font>
 		<font><name>disp_72</name><filename>arial.ttf</filename><size>72</size><linespacing>0.833</linespacing></font>
 		<font><name>disp_64</name><filename>arial.ttf</filename><size>64</size><linespacing>0.833</linespacing></font>
 		<font><name>disp_60</name><filename>arial.ttf</filename><size>60</size></font>
 		<font><name>disp_50</name><filename>arial.ttf</filename><size>50</size></font>
-		<font><name>disp_44</name><filename>arial.ttf</filename><size>44</size></font>
 		<font><name>head_50</name><filename>arial.ttf</filename><size>50</size><linespacing>0.9</linespacing></font>
 		<font><name>head_40</name><filename>arial.ttf</filename><size>40</size><linespacing>0.958</linespacing></font>
 		<font><name>head_34</name><filename>arial.ttf</filename><size>34</size><linespacing>0.98</linespacing></font>
@@ -91,14 +77,12 @@
 		<font><name>light_34</name><filename>arial.ttf</filename><size>34</size><linespacing>1.029</linespacing></font>
 		<font><name>light_32</name><filename>arial.ttf</filename><size>32</size><linespacing>1.042</linespacing></font>
 		<font><name>light_30</name><filename>arial.ttf</filename><size>30</size><linespacing>1.056</linespacing></font>
-		<font><name>light_26</name><filename>arial.ttf</filename><size>26</size><linespacing>1.09</linespacing></font>
 		<font><name>body_28</name><filename>arial.ttf</filename><size>28</size><linespacing>1.19</linespacing></font>
 		<font><name>body_26</name><filename>arial.ttf</filename><size>26</size><linespacing>1.186</linespacing></font>
 		<font><name>body_26_spread</name><filename>arial.ttf</filename><size>26</size><linespacing>1.218</linespacing></font>
 		<font><name>body_24</name><filename>arial.ttf</filename><size>24</size><linespacing>1.181</linespacing></font>
 		<font><name>body_22</name><filename>arial.ttf</filename><size>22</size><linespacing>1.174</linespacing></font>
 		<font><name>body_20</name><filename>arial.ttf</filename><size>20</size><linespacing>1.167</linespacing></font>
-		<font><name>sans_32_semi</name><filename>arial.ttf</filename><size>32</size><linespacing>1.042</linespacing></font>
 		<font><name>sans_28_semi</name><filename>arial.ttf</filename><size>28</size><linespacing>1.071</linespacing></font>
 		<font><name>sans_26_semi</name><filename>arial.ttf</filename><size>26</size><linespacing>1.09</linespacing></font>
 		<font><name>sans_24_semi</name><filename>arial.ttf</filename><size>24</size><linespacing>0.972</linespacing></font>
@@ -106,39 +90,31 @@
 		<font><name>sans_20_semi</name><filename>arial.ttf</filename><size>20</size><linespacing>1.083</linespacing></font>
 		<font><name>tab_26</name><filename>arial.ttf</filename><size>26</size></font>
 		<font><name>tab_22</name><filename>arial.ttf</filename><size>22</size></font>
-		<font><name>tab_20</name><filename>arial.ttf</filename><size>20</size></font>
-		<font><name>word_40</name><filename>arial.ttf</filename><size>40</size></font>
 		<font><name>word_36</name><filename>arial.ttf</filename><size>36</size></font>
-		<font><name>word_32</name><filename>arial.ttf</filename><size>32</size></font>
 		<font><name>word_26</name><filename>arial.ttf</filename><size>26</size></font>
-		<font><name>word_22</name><filename>arial.ttf</filename><size>22</size></font>
 		<font><name>caps_20</name><filename>arial.ttf</filename><size>20</size><linespacing>1.231</linespacing></font>
 		<font><name>caps_22</name><filename>arial.ttf</filename><size>22</size><linespacing>1.189</linespacing></font>
 		<font><name>caps_20_b</name><filename>arial.ttf</filename><size>20</size><linespacing>1.231</linespacing></font>
 		<font><name>caps_22_b</name><filename>arial.ttf</filename><size>22</size><linespacing>1.189</linespacing></font>
 		<font><name>meta_22</name><filename>arial.ttf</filename><size>22</size></font>
-		<font><name>meta_20</name><filename>arial.ttf</filename><size>20</size></font>
-		<font><name>num_48</name><filename>arial.ttf</filename><size>48</size></font>
 		<font><name>num_38</name><filename>arial.ttf</filename><size>38</size></font>
 		<font><name>num_34</name><filename>arial.ttf</filename><size>34</size></font>
 		<font><name>num_26</name><filename>arial.ttf</filename><size>26</size></font>
 		<font><name>num_22</name><filename>arial.ttf</filename><size>22</size></font>
 		<font><name>num_20</name><filename>arial.ttf</filename><size>20</size></font>
 		<font><name>numr_20</name><filename>arial.ttf</filename><size>20</size></font>
-		<font><name>numr_22</name><filename>arial.ttf</filename><size>22</size></font>
-		<font><name>key_32</name><filename>arial.ttf</filename><size>32</size></font>
-		<font><name>font10</name><filename>arial.ttf</filename><size>21</size></font>
-		<font><name>font12</name><filename>arial.ttf</filename><size>23</size></font>
-		<font><name>font14</name><filename>arial.ttf</filename><size>28</size></font>
-		<font><name>font27</name><filename>arial.ttf</filename><size>27</size></font>
-		<font><name>font30</name><filename>arial.ttf</filename><size>30</size></font>
-		<font><name>font37</name><filename>arial.ttf</filename><size>37</size></font>
-		<font><name>font45</name><filename>arial.ttf</filename><size>45</size></font>
-		<font><name>font52_title</name><filename>arial.ttf</filename><size>52</size></font>
-		<font><name>font45_title</name><filename>arial.ttf</filename><size>45</size></font>
-		<font><name>font36_title</name><filename>arial.ttf</filename><size>36</size></font>
-		<font><name>font30_title</name><filename>arial.ttf</filename><size>30</size></font>
-		<font><name>font25_title</name><filename>arial.ttf</filename><size>25</size></font>
+		<font><name>font10</name><filename>arial.ttf</filename><size>21</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font12</name><filename>arial.ttf</filename><size>23</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font14</name><filename>arial.ttf</filename><size>28</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font27</name><filename>arial.ttf</filename><size>27</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30</name><filename>arial.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font37</name><filename>arial.ttf</filename><size>37</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45</name><filename>arial.ttf</filename><size>45</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font52_title</name><filename>arial.ttf</filename><size>52</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45_title</name><filename>arial.ttf</filename><size>45</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font36_title</name><filename>arial.ttf</filename><size>36</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30_title</name><filename>arial.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font25_title</name><filename>arial.ttf</filename><size>25</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
 		<font><name>Mono26</name><filename>arial.ttf</filename><size>26</size></font>
 	</fontset>
 </fonts>

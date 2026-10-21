@@ -68,26 +68,6 @@
 		</control>
 	</include>
 
-	<!-- Warm glow (glow_warm.png 512) behind a lit cornice word. params: x (word centre), alpha (0-100) -->
-	<include name="Noc_WordGlow">
-		<param name="alpha">90</param>
-		<param name="visible">true</param>
-		<param name="cy">72</param>
-		<definition>
-			<control type="image">
-				<left>$PARAM[x]</left>
-				<top>$PARAM[cy]</top>
-				<width>400</width>
-				<height>300</height>
-				<texture>noc/glow_warm.png</texture>
-				<animation effect="slide" start="0,0" end="-200,-150" time="0" condition="true">Conditional</animation>
-				<animation effect="fade" start="100" end="$PARAM[alpha]" time="0" condition="true">Conditional</animation>
-				<visible>$PARAM[visible]</visible>
-				<include>Anim_FadeVisible</include>
-			</control>
-		</definition>
-	</include>
-
 	<!-- Breadcrumb in the cornice for library / info / settings windows:
 	     WORD (lit) · second (55 %) · third (40 %). params: first, second, third -->
 	<include name="Noc_Crumbs">
@@ -319,7 +299,6 @@
 				</control>
 				<control type="button">
 					<width>auto</width>
-					<maxwidth>760</maxwidth>
 					<height>64</height>
 					<font>title_34</font>
 					<textoffsetx>0</textoffsetx>

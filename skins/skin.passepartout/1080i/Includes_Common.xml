@@ -206,13 +206,6 @@
 	</include>
 
 	<!-- ===================================================== focus frames -->
-	<!-- Prints show focus by size and shadow: there are no outlines in Passe-partout. -->
-	<include name="PP_FocusFrame">
-		<param name="visible">true</param>
-		<definition>
-			<control type="group"><visible>false</visible></control>
-		</definition>
-	</include>
 	<!-- Generic "this is focused" mark for the few forked controls that draw their own focus over a
 	     label: a 2px ink bar along the bottom edge (never covers text). -->
 	<include name="PP_FocusFrameAlways">
@@ -292,7 +285,6 @@
 			</control>
 		</definition>
 	</include>
-	<include name="PP_Noop"><animation effect="fade" start="100" end="100" time="0">WindowOpen</animation></include>
 
 	<!-- Bevel + shadow pieces for list layouts (inside a group of the picture size) -->
 	<include name="PP_Bevel">
@@ -369,21 +361,6 @@
 				<fadetime>120</fadetime>
 				<texture background="true">$PARAM[art]</texture>
 			</control>
-		</definition>
-	</include>
-
-	<!-- Forked windows: poster/cover image, now matted. params: art, title -->
-	<include name="PP_Artwork">
-		<param name="art">$INFO[ListItem.Art(poster)]</param>
-		<param name="mask_round"></param>
-		<param name="mask_square"></param>
-		<param name="title">$INFO[ListItem.Label]</param>
-		<definition>
-			<include content="PP_Picture">
-				<param name="art" value="$PARAM[art]"/>
-				<param name="title" value="$PARAM[title]"/>
-			</include>
-			<include>PP_Bevel</include>
 		</definition>
 	</include>
 
@@ -518,11 +495,6 @@
 		<texturenofocus />
 	</include>
 	<include name="PP_Tex_ButtonPrimary_Round"><include>PP_Tex_ButtonPrimary</include></include>
-	<include name="PP_Tex_ButtonSecondary">
-		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-		<texturenofocus border="2" colordiffuse="rule">pp/frame_1.png</texturenofocus>
-	</include>
-	<include name="PP_Tex_ButtonSecondary_Round"><include>PP_Tex_ButtonSecondary</include></include>
 
 	<!-- Off-screen object (template/hidden controls Kodi needs but the user never sees) -->
 	<include name="PP_Hidden">

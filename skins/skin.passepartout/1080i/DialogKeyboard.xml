@@ -15,7 +15,6 @@
 				<width>1300</width>
 				<height>28</height>
 				<font>cap_20</font>
-				<textcolor>ink</textcolor>
 			</control>
 			<include>PP_Clock</include>
 			<control type="edit" id="312">
@@ -24,10 +23,8 @@
 				<width>1680</width>
 				<height>124</height>
 				<font>disp_104</font>
-				<textcolor>ink</textcolor>
 				<focusedcolor>ink</focusedcolor>
 				<textoffsetx>0</textoffsetx>
-				<aligny>center</aligny>
 				<texturefocus />
 				<texturenofocus />
 			</control>
@@ -70,16 +67,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>304</onup>
 						<ondown>120</ondown>
 					</control>
@@ -87,16 +79,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>304</onup>
 						<ondown>121</ondown>
 					</control>
@@ -104,16 +91,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>303</onup>
 						<ondown>122</ondown>
 					</control>
@@ -121,16 +103,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>302</onup>
 						<ondown>123</ondown>
 					</control>
@@ -138,16 +115,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>32</onup>
 						<ondown>124</ondown>
 					</control>
@@ -155,16 +127,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>32</onup>
 						<ondown>125</ondown>
 					</control>
@@ -172,16 +139,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>32</onup>
 						<ondown>126</ondown>
 					</control>
@@ -189,16 +151,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>32</onup>
 						<ondown>127</ondown>
 					</control>
@@ -206,16 +163,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>305</onup>
 						<ondown>128</ondown>
 					</control>
@@ -223,16 +175,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>306</onup>
 						<ondown>129</ondown>
 					</control>
@@ -240,16 +187,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>8</onup>
 						<ondown>130</ondown>
 					</control>
@@ -257,16 +199,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>8</onup>
 						<ondown>131</ondown>
 					</control>
@@ -274,16 +211,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>8</onup>
 						<ondown>132</ondown>
 					</control>
@@ -301,16 +233,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>100</onup>
 						<ondown>140</ondown>
 					</control>
@@ -318,16 +245,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>101</onup>
 						<ondown>141</ondown>
 					</control>
@@ -335,16 +257,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>102</onup>
 						<ondown>142</ondown>
 					</control>
@@ -352,16 +269,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>103</onup>
 						<ondown>143</ondown>
 					</control>
@@ -369,16 +281,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>104</onup>
 						<ondown>144</ondown>
 					</control>
@@ -386,16 +293,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>105</onup>
 						<ondown>145</ondown>
 					</control>
@@ -403,16 +305,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>106</onup>
 						<ondown>146</ondown>
 					</control>
@@ -420,16 +317,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>107</onup>
 						<ondown>147</ondown>
 					</control>
@@ -437,16 +329,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>108</onup>
 						<ondown>148</ondown>
 					</control>
@@ -454,16 +341,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>109</onup>
 						<ondown>149</ondown>
 					</control>
@@ -471,16 +353,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>110</onup>
 						<ondown>150</ondown>
 					</control>
@@ -488,16 +365,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>111</onup>
 						<ondown>151</ondown>
 					</control>
@@ -505,16 +377,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>112</onup>
 						<ondown>152</ondown>
 					</control>
@@ -532,16 +399,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>120</onup>
 						<ondown>160</ondown>
 					</control>
@@ -549,16 +411,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>121</onup>
 						<ondown>161</ondown>
 					</control>
@@ -566,16 +423,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>122</onup>
 						<ondown>162</ondown>
 					</control>
@@ -583,16 +435,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>123</onup>
 						<ondown>163</ondown>
 					</control>
@@ -600,16 +447,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>124</onup>
 						<ondown>164</ondown>
 					</control>
@@ -617,16 +459,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>125</onup>
 						<ondown>165</ondown>
 					</control>
@@ -634,16 +471,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>126</onup>
 						<ondown>166</ondown>
 					</control>
@@ -651,16 +483,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>127</onup>
 						<ondown>167</ondown>
 					</control>
@@ -668,16 +495,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>128</onup>
 						<ondown>168</ondown>
 					</control>
@@ -685,16 +507,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>129</onup>
 						<ondown>169</ondown>
 					</control>
@@ -702,16 +519,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>130</onup>
 						<ondown>170</ondown>
 					</control>
@@ -719,16 +531,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>131</onup>
 						<ondown>171</ondown>
 					</control>
@@ -736,16 +543,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>132</onup>
 						<ondown>172</ondown>
 					</control>
@@ -763,16 +565,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>140</onup>
 						<ondown>304</ondown>
 					</control>
@@ -780,16 +577,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>141</onup>
 						<ondown>304</ondown>
 					</control>
@@ -797,16 +589,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>142</onup>
 						<ondown>303</ondown>
 					</control>
@@ -814,16 +601,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>143</onup>
 						<ondown>302</ondown>
 					</control>
@@ -831,16 +613,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>144</onup>
 						<ondown>32</ondown>
 					</control>
@@ -848,16 +625,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>145</onup>
 						<ondown>32</ondown>
 					</control>
@@ -865,16 +637,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>146</onup>
 						<ondown>32</ondown>
 					</control>
@@ -882,16 +649,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>147</onup>
 						<ondown>32</ondown>
 					</control>
@@ -899,16 +661,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>148</onup>
 						<ondown>305</ondown>
 					</control>
@@ -916,16 +673,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>149</onup>
 						<ondown>306</ondown>
 					</control>
@@ -933,16 +685,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>150</onup>
 						<ondown>8</ondown>
 					</control>
@@ -950,16 +697,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>151</onup>
 						<ondown>8</ondown>
 					</control>
@@ -967,16 +709,11 @@
 						<width>136</width>
 						<height>148</height>
 						<font>key_34</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>28</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>152</onup>
 						<ondown>8</ondown>
 					</control>
@@ -995,16 +732,12 @@
 						<height>148</height>
 						<label>$LOCALIZE[31040]</label>
 						<font>cap_20</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>36</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
 						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<radiowidth>1</radiowidth>
 						<radioheight>1</radioheight>
 						<textureradioonfocus />
@@ -1019,16 +752,12 @@
 						<height>148</height>
 						<label>$LOCALIZE[31041]</label>
 						<font>cap_20</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>36</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
 						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<radiowidth>1</radiowidth>
 						<radioheight>1</radioheight>
 						<textureradioonfocus />
@@ -1043,16 +772,12 @@
 						<height>148</height>
 						<label>$LOCALIZE[31042]</label>
 						<font>cap_20</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>36</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
 						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<radiowidth>1</radiowidth>
 						<radioheight>1</radioheight>
 						<textureradioonfocus />
@@ -1067,16 +792,11 @@
 						<height>148</height>
 						<label>$LOCALIZE[31043]</label>
 						<font>cap_20</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>36</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>164</onup>
 						<ondown>104</ondown>
 					</control>
@@ -1085,16 +805,11 @@
 						<height>148</height>
 						<label>←</label>
 						<font>cap_20</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>36</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>168</onup>
 						<ondown>108</ondown>
 					</control>
@@ -1103,16 +818,11 @@
 						<height>148</height>
 						<label>→</label>
 						<font>cap_20</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>36</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>169</onup>
 						<ondown>109</ondown>
 					</control>
@@ -1121,16 +831,11 @@
 						<height>148</height>
 						<label>$LOCALIZE[31044]</label>
 						<font>cap_20</font>
-						<textcolor>ink</textcolor>
 						<textoffsety>36</textoffsety>
 						<texturefocus border="74,0,74,0">pp/placard_btn_key.png</texturefocus>
 						<texturenofocus border="26,6,26,58" colordiffuse="rule_row">pp/frame_pad.png</texturenofocus>
-						<focusedcolor>$VAR[PaperColor]</focusedcolor>
-						<disabledcolor>disabled</disabledcolor>
 						<align>center</align>
 						<aligny>top</aligny>
-						<textoffsetx>24</textoffsetx>
-						<pulseonselect>false</pulseonselect>
 						<onup>170</onup>
 						<ondown>110</ondown>
 					</control>

@@ -45,7 +45,7 @@
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label_hi</textcolor>
-			<label>left / right to skip  ·  down for the words</label>
+			<label>$LOCALIZE[31390]</label>
 			<visible>Control.HasFocus(87)</visible>
 		</control>
 

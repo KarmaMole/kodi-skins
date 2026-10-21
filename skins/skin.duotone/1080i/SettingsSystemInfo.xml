@@ -9,7 +9,7 @@
 -->
 <window>
 	<defaultcontrol always="true">95</defaultcontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>DT_Background</include>
@@ -69,18 +69,18 @@
 			<width>misc_col_w</width>
 			<height>600</height>
 			<orientation>vertical</orientation>
-			<control type="label" id="2"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="3"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="4"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="5"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="6"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="7"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="8"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="9"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="10"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="11"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="12"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
-			<control type="label" id="13"><width>misc_col_w</width><height>50</height><font>bold_26</font><textcolor>$VAR[SectionText]</textcolor></control>
+			<control type="label" id="2"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="3"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="4"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="5"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="6"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="7"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="8"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="9"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="10"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="11"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="12"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
+			<control type="label" id="13"><width>misc_col_w</width><height>50</height><font>bold_26</font></control>
 		</control>
 		<control type="textbox" id="30">
 			<description>Privacy policy</description>
@@ -89,7 +89,6 @@
 			<width>1220</width>
 			<height>591</height>  <!-- 18 lines exactly: no half-clipped line at the bottom -->
 			<font>body_24</font>
-			<textcolor>$VAR[SectionText]</textcolor>
 			<pagecontrol>60</pagecontrol>
 			<autoscroll delay="5000" repeat="7500" time="5000">!Control.HasFocus(60)</autoscroll>
 		</control>
@@ -113,7 +112,6 @@
 				<width>misc_col_w</width>
 				<height>100</height>
 				<font>body_24</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$LOCALIZE[12397]</label>
 			</control>
 			<control type="multiimage" id="103">
@@ -141,7 +139,7 @@
 		<!-- ====== footer: memory / CPU / build -->
 		<include content="DT_Rule">
 			<param name="top" value="800"/>
-			<param name="color" value="ink"/>
+			<param name="color" value="$VAR[ink]"/>
 		</include>
 		<control type="group">
 			<left>page_margin</left>

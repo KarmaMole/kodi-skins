@@ -152,7 +152,7 @@
 				<height>30</height>
 				<font>cap_20</font>
 				<textcolor>muted</textcolor>
-				<label>Jump through the guide  ·  Back to close</label>
+				<label>$LOCALIZE[31330]</label>
 			</control>
 		</control>
 	</controls>

@@ -61,7 +61,6 @@
 				<width>552</width>
 				<height>97</height>
 				<font>body_23</font>
-				<textcolor>text_body</textcolor>
 				<label>$VAR[MJ_TaskBody]</label>
 			</control>
 			<control type="list" id="100">
@@ -84,34 +83,34 @@
 				</include>
 				<content>
 					<item>
-						<label>No, leave it as it is</label>
+						<label>$LOCALIZE[31314]</label>
 						<onclick>Dialog.Close(1157,true)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(majan.libtask),clean)</visible>
 					</item>
 					<item>
-						<label>Clean videos</label>
-						<label2>MOVIES + TV</label2>
+						<label>$LOCALIZE[31315]</label>
+						<label2>$LOCALIZE[31316]</label2>
 						<onclick>Dialog.Close(1157,true)</onclick>
 						<onclick>CleanLibrary(video)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(majan.libtask),clean) + [String.IsEqual(Window(Home).Property(majan.libtarget),video) | String.IsEqual(Window(Home).Property(majan.libtarget),choose)]</visible>
 					</item>
 					<item>
-						<label>Clean music</label>
-						<label2>MUSIC</label2>
+						<label>$LOCALIZE[31317]</label>
+						<label2>$LOCALIZE[31318]</label2>
 						<onclick>Dialog.Close(1157,true)</onclick>
 						<onclick>CleanLibrary(music)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(majan.libtask),clean) + [String.IsEqual(Window(Home).Property(majan.libtarget),music) | String.IsEqual(Window(Home).Property(majan.libtarget),choose)]</visible>
 					</item>
 					<item>
 						<label>$VAR[MJ_TaskUpdateVideo]</label>
-						<label2>MOVIES + TV</label2>
+						<label2>$LOCALIZE[31316]</label2>
 						<onclick>Dialog.Close(1157,true)</onclick>
 						<onclick>UpdateLibrary(video)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(majan.libtask),update) + [String.IsEqual(Window(Home).Property(majan.libtarget),video) | String.IsEqual(Window(Home).Property(majan.libtarget),choose)]</visible>
 					</item>
 					<item>
 						<label>$VAR[MJ_TaskUpdateMusic]</label>
-						<label2>MUSIC</label2>
+						<label2>$LOCALIZE[31318]</label2>
 						<onclick>Dialog.Close(1157,true)</onclick>
 						<onclick>UpdateLibrary(music)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(majan.libtask),update) + [String.IsEqual(Window(Home).Property(majan.libtarget),music) | String.IsEqual(Window(Home).Property(majan.libtarget),choose)]</visible>

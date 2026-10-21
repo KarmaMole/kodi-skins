@@ -25,7 +25,6 @@
 				<width>880</width>
 				<height>180</height>  <!-- 5 lines; progress at 300 exactly: no half-clipped line at the bottom -->
 				<font>body_26</font>
-				<textcolor>text_body</textcolor>
 				<autoscroll time="3000" delay="4000" repeat="5000">true</autoscroll>
 			</control>
 			<control type="progress" id="20">

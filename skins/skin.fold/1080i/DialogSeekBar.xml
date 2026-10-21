@@ -55,8 +55,6 @@
 				<width>1100</width>
 				<height>40</height>
 				<font>sans_28_semi</font>
-				<textcolor>ink</textcolor>
-				<selectedcolor>ink</selectedcolor>
 				<label>$VAR[OSD_Title][COLOR cap]   $VAR[OSD_State][/COLOR]</label>
 			</control>
 			<control type="label">
@@ -66,8 +64,6 @@
 				<height>40</height>
 				<align>right</align>
 				<font>num_26</font>
-				<textcolor>ink</textcolor>
-				<selectedcolor>ink</selectedcolor>
 				<label>$VAR[OSD_SeekTimeLabel][COLOR cap]$INFO[Player.Duration, / ,][/COLOR]</label>
 			</control>
 
@@ -85,9 +81,6 @@
 				<width>1728</width>
 				<height>5</height>
 				<texturebg />
-				<lefttexture />
-				<midtexture colordiffuse="$VAR[FoldAccent]">common/white.png</midtexture>
-				<righttexture />
 				<info>Player.Progress</info>
 			</control>
 			<control type="slider">

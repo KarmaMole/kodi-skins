@@ -57,8 +57,7 @@
 				<width>1040</width>
 				<height>48</height>
 				<font>serif_34</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
-				<label>Nothing here.</label>
+				<label>$LOCALIZE[31230]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -67,7 +66,7 @@
 				<height>34</height>
 				<font>ui_24</font>
 				<textcolor>$VAR[DL_Ink2]</textcolor>
-				<label>Choose Albums, Artists, Songs or Genres above.</label>
+				<label>$LOCALIZE[31248]</label>
 			</control>
 		</control>
 		<include>MusicView_Header</include>

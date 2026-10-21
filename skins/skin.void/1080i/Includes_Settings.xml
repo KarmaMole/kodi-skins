@@ -330,7 +330,7 @@
 					<height>90</height>
 					<font>sans_22</font>
 					<textcolor>grey_soft</textcolor>
-					<label>Offsets apply to this film only. Choosing one hides this panel so you can sync against the picture.</label>
+					<label>$LOCALIZE[31253]</label>
 					<visible>Window.IsActive(osdaudiosettings) | Window.IsActive(osdsubtitlesettings)</visible>
 				</control>
 			</control>

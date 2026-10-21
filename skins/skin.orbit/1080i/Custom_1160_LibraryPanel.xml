@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Orbit Library panel (custom dialog 1160; docs/requests/library-panel/BRIEF.md). The library's
-	general-purpose menu: View, Sort, Order, Unwatched only, Search, Update library, Clean library,
+	general-purpose menu: View, Sort, Order, Unwatched only, Sets (films), Search, Update library, Clean library,
 	Library settings. Opened by Right from any library view (arc, grid, episodes, dial list), Left past
 	the first pill of the option bar, the OPTIONS pill, and the System menu (Update / Clean library,
 	orbit.libmode = update / clean: choose Movies and TV shows or Music).
@@ -154,21 +154,21 @@
 				<content>
 					<!-- ===== the library underneath (orbit.libmode empty) ===== -->
 					<item>
-						<label>View</label>
+						<label>$LOCALIZE[31011]</label>
 						<label2>$INFO[Container.Viewmode]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>ActivateWindow(1161)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + Integer.IsGreater(Container.ViewCount,1)</visible>
 					</item>
 					<item>
-						<label>Sort</label>
+						<label>$LOCALIZE[31010]</label>
 						<label2>$INFO[Container.SortMethod]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>SendClick(3)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + !String.IsEmpty(Container.SortMethod)</visible>
 					</item>
 					<item>
-						<label>Order</label>
+						<label>$LOCALIZE[31300]</label>
 						<label2>$VAR[LibPanel_Direction]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick condition="Window.IsActive(videos)">SendClick(4)</onclick>
@@ -176,62 +176,70 @@
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + !String.IsEmpty(Container.SortMethod)</visible>
 					</item>
 					<item>
-						<label>Unwatched only</label>
+						<label>$LOCALIZE[31081]</label>
 						<label2>$VAR[LibPanel_Unwatched]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>SendClick(14)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + Window.IsActive(videos) + !String.StartsWith(Container.FolderPath,videodb://inprogresstvshows) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]</visible>
 					</item>
 					<item>
-						<label>Search</label>
+						<label>$LOCALIZE[20434]</label>
+						<label2>$LOCALIZE[31308]</label2>
+						<onclick>Dialog.Close(1160,true)</onclick>
+						<onclick>SetFocus(50)</onclick>
+						<onclick>Container.Update(videodb://movies/sets/)</onclick>
+						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + $EXP[LibPanel_ShowSets]</visible>
+					</item>
+					<item>
+						<label>$LOCALIZE[31302]</label>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>ActivateWindow(1150)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode))</visible>
 					</item>
 					<item>
-						<label>Update library</label>
-						<label2>Movies and TV shows</label2>
+						<label>$LOCALIZE[31202]</label>
+						<label2>$LOCALIZE[31309]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>UpdateLibrary(video)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + Window.IsActive(videos) + !Library.IsScanningVideo + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
 					</item>
 					<item>
-						<label>Stop updating</label>
-						<label2>Movies and TV shows</label2>
+						<label>$LOCALIZE[31303]</label>
+						<label2>$LOCALIZE[31309]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>UpdateLibrary(video)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + Window.IsActive(videos) + Library.IsScanningVideo + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
 					</item>
 					<item>
-						<label>Update library</label>
-						<label2>Music</label2>
+						<label>$LOCALIZE[31202]</label>
+						<label2>$LOCALIZE[31305]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>UpdateLibrary(music)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + Window.IsActive(music) + !Library.IsScanningMusic + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
 					</item>
 					<item>
-						<label>Stop updating</label>
-						<label2>Music</label2>
+						<label>$LOCALIZE[31303]</label>
+						<label2>$LOCALIZE[31305]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>UpdateLibrary(music)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + Window.IsActive(music) + Library.IsScanningMusic + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
 					</item>
 					<item>
-						<label>Clean library</label>
-						<label2>Movies and TV shows</label2>
+						<label>$LOCALIZE[31204]</label>
+						<label2>$LOCALIZE[31309]</label2>
 						<onclick>SetProperty(orbit.libclean,video,home)</onclick>
 						<onclick>SetFocus(200,0,absolute)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + Window.IsActive(videos) + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
 					</item>
 					<item>
-						<label>Clean library</label>
-						<label2>Music</label2>
+						<label>$LOCALIZE[31204]</label>
+						<label2>$LOCALIZE[31305]</label2>
 						<onclick>SetProperty(orbit.libclean,music,home)</onclick>
 						<onclick>SetFocus(200,0,absolute)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(orbit.libmode)) + Window.IsActive(music) + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
 					</item>
 					<item>
-						<label>Library settings</label>
+						<label>$LOCALIZE[31304]</label>
 						<label2>Kodi</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>ActivateWindow(MediaSettings)</onclick>
@@ -239,44 +247,44 @@
 					</item>
 					<!-- ===== from the System menu: Update library ===== -->
 					<item>
-						<label>Movies and TV shows</label>
-						<label2>Update</label2>
+						<label>$LOCALIZE[31309]</label>
+						<label2>$LOCALIZE[31306]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>UpdateLibrary(video)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(orbit.libmode),update) + !Library.IsScanningVideo</visible>
 					</item>
 					<item>
-						<label>Movies and TV shows</label>
-						<label2>Stop updating</label2>
+						<label>$LOCALIZE[31309]</label>
+						<label2>$LOCALIZE[31303]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>UpdateLibrary(video)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(orbit.libmode),update) + Library.IsScanningVideo</visible>
 					</item>
 					<item>
-						<label>Music</label>
-						<label2>Update</label2>
+						<label>$LOCALIZE[31305]</label>
+						<label2>$LOCALIZE[31306]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>UpdateLibrary(music)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(orbit.libmode),update) + !Library.IsScanningMusic</visible>
 					</item>
 					<item>
-						<label>Music</label>
-						<label2>Stop updating</label2>
+						<label>$LOCALIZE[31305]</label>
+						<label2>$LOCALIZE[31303]</label2>
 						<onclick>Dialog.Close(1160,true)</onclick>
 						<onclick>UpdateLibrary(music)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(orbit.libmode),update) + Library.IsScanningMusic</visible>
 					</item>
 					<!-- ===== from the System menu: Clean library ===== -->
 					<item>
-						<label>Movies and TV shows</label>
-						<label2>Clean</label2>
+						<label>$LOCALIZE[31309]</label>
+						<label2>$LOCALIZE[31307]</label2>
 						<onclick>SetProperty(orbit.libclean,video,home)</onclick>
 						<onclick>SetFocus(200,0,absolute)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(orbit.libmode),clean)</visible>
 					</item>
 					<item>
-						<label>Music</label>
-						<label2>Clean</label2>
+						<label>$LOCALIZE[31305]</label>
+						<label2>$LOCALIZE[31307]</label2>
 						<onclick>SetProperty(orbit.libclean,music,home)</onclick>
 						<onclick>SetFocus(200,0,absolute)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(orbit.libmode),clean)</visible>
@@ -311,12 +319,12 @@
 				</include>
 				<content>
 					<item>
-						<label>No, keep the library as it is</label>
+						<label>$LOCALIZE[31310]</label>
 						<onclick>ClearProperty(orbit.libclean,home)</onclick>
 						<onclick>SetFocus(100)</onclick>
 					</item>
 					<item>
-						<label>Yes, clean it now</label>
+						<label>$LOCALIZE[31311]</label>
 						<onclick condition="String.IsEqual(Window(Home).Property(orbit.libclean),video)">CleanLibrary(video)</onclick>
 						<onclick condition="String.IsEqual(Window(Home).Property(orbit.libclean),music)">CleanLibrary(music)</onclick>
 						<onclick>Dialog.Close(1160,true)</onclick>

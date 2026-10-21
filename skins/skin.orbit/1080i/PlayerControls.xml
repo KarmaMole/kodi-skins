@@ -75,7 +75,6 @@
 				<width>720</width>
 				<height>44</height>
 				<font>text_30_semi</font>
-				<textcolor>text_primary</textcolor>
 				<label>$VAR[OSD_Title]</label>
 			</control>
 			<control type="label">
@@ -103,7 +102,6 @@
 				<height>4</height>
 				<info>Player.SeekBar</info>
 				<texturebg colordiffuse="clear">common/white.png</texturebg>
-				<midtexture colordiffuse="accent">common/white.png</midtexture>
 			</control>
 			<control type="image">
 				<left>280</left>
@@ -119,7 +117,6 @@
 				<width>360</width>
 				<height>30</height>
 				<font>mono_22</font>
-				<textcolor>text_primary</textcolor>
 				<label>$VAR[OSDO_TimeLabel]</label>
 			</control>
 			<control type="label">

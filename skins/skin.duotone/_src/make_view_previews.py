@@ -7,9 +7,14 @@ the view (numbers copied from Includes_Views_Video.xml / Includes_Views.xml / In
 scaled down, so the layout reads at a glance. No artwork: tiles are neutral grey blocks with a hint of a
 title line. The PNGs are greyscale (paper = white, ink = black); the picker tints them with the section
 colour (colordiffuse = $VAR[SectionColor]), which turns them into Duotone's one-colour prints.
+The Dark look can't get a light print from a near-black multiply, so media/duotone/views/dark/<view>.png is the
+same preview inverted onto the Dark palette (dk_sec_paper field, dk_ink marks, read from colors/defaults.xml)
+and drawn untinted (the picker's second image, ListItem.Property(dark)).
 """
 from pathlib import Path
 from PIL import Image, ImageDraw
+
+from theme_tokens import palette, rgba
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "media" / "duotone" / "views"
@@ -68,6 +73,16 @@ def save(im, name):
     ImageDraw.Draw(small).rectangle([0, 0, SIZE[0] - 1, SIZE[1] - 1], outline=INK, width=2)  # the print's ink edge
     small.save(OUT / f"{name}.png", optimize=True)
     print("wrote", OUT / f"{name}.png")
+    # Dark: luminance inverted between the Dark field (v = 255) and the Dark ink (v = INK)
+    pal = palette()
+    field, ink = rgba(pal["dk_sec_paper"])[:3], rgba(pal["dk_ink"])[:3]
+    lut = []
+    for c in range(3):
+        for v in range(256):
+            t = min(max((FIELD - v) / (FIELD - INK), 0.0), 1.0)
+            lut.append(round(field[c] + t * (ink[c] - field[c])))
+    (OUT / "dark").mkdir(exist_ok=True)
+    small.convert("RGB").point(lut).save(OUT / "dark" / f"{name}.png", optimize=True)
 
 
 def wall():

@@ -1,3 +1,12 @@
+0.9.9 (2026-10-21)
+- Sets row in the Library panel; fix for controls disappearing with Reduce motion on. Code clean-up for the Kodi repository checks.
+- Clean-up details (kodi-review / kdk 0 errors): unused variables, includes and fonts removed, tags that repeat Defaults.xml dropped, label text moved to strings.po, Search now needs Skin Variables (script.skinvariables 2.1.21, required) to URL-encode the typed query, so titles with & + % | are found. "Or would you like to...": showing only the unseen closes the panel first, like every other row. Game controller pictures (controller settings) were drawn with undefined colour names, so invisible; they use the skin colours now.
+- Sets row in the Library panel: over films (when the library has sets) "see the sets" opens all your sets in
+  the same window; pick one for its films. Back walks set -> all sets -> films. Not a Home item.
+- Fix for controls disappearing with Reduce motion on: every animation include has one Hidden animation now (Kodi
+  resets only the first one when a control shows again, so the reduce-motion twin stayed at fade 0). Fades keep
+  one unconditional fade; slides keep the normal animation, so with Reduce motion on they hide at once.
+
 0.9.8 (2026-10-21)
 - The header sentence ends "..., or [more]": it opens "Or would you like to..." - update the library (or stop
   updating it), clean the library, see them another way, sort them another way, turn the order round, show only

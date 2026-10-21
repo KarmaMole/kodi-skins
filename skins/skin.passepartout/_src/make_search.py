@@ -18,6 +18,8 @@ groups from any print; the group in focus slides to x 840 and the groups before 
 Usage:  python skins/skin.passepartout/_src/make_search.py
 """
 from pathlib import Path
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "1080i" / "Includes_Search.xml"
@@ -25,6 +27,9 @@ OUT = HERE.parent / "1080i" / "Includes_Search.xml"
 MAXLEN = 40
 KEYS = list("abcdefghijklmnopqrstuvwxyz0123456789")
 Q = "Window(Home).Property(passepartout.q)"
+# the query URL-encoded by script.skinvariables (get_encoded_string, see Search_Encoder)
+QENC_PROP = "Passepartout.Search.Encoded"
+QENC = f"Window(Home).Property({QENC_PROP})"
 QN = "Window(Home).Property(passepartout.qn)"
 
 
@@ -77,10 +82,10 @@ def key_items():
 
 
 def xsp(dbtype, field, method, base):
-    # URL-encoded smart-playlist JSON; the query goes in as $ESCINFO (quoted, JSON-escaped)
+    # URL-encoded smart-playlist JSON; the query goes in URL-encoded by the encoder list, inside %22 quotes
     return (f"{base}?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22method%22%3A%22{method}%22%7D"
             f"%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22{field}%22%2C%22operator%22%3A%22contains%22"
-            f"%2C%22value%22%3A%5B$ESCINFO[{Q}]%5D%7D%5D%7D%2C%22type%22%3A%22{dbtype}%22%7D")
+            f"%2C%22value%22%3A%5B%22$INFO[{QENC}]%22%5D%7D%5D%7D%2C%22type%22%3A%22{dbtype}%22%7D")
 
 
 def offsets(prev_ids):
@@ -218,16 +223,30 @@ def main():
 -->
 <includes>
 	<expression name="Search_HasQuery">!String.IsEmpty({Q})</expression>
+	<!-- The query, URL-encoded for the ?xsp= paths: script.skinvariables' get_encoded_string (quote_plus) runs
+	     whenever the query changes (this list's content path holds it) and writes
+	     Window(Home).Property({QENC_PROP}). The list must stay visible: hidden containers never load. -->
+	<include name="Search_Encoder">
+		<control type="list" id="9095">
+			<left>0</left>
+			<top>0</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1"/>
+			<focusedlayout width="1" height="1"/>
+			<content>plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;window_prop={QENC_PROP}&amp;window_id=home&amp;&amp;$INFO[{Q}]</content>
+		</control>
+	</include>
 	<expression name="Search_HasResults">Integer.IsGreater(Container(9101).NumItems,0) | Integer.IsGreater(Container(9102).NumItems,0) | Integer.IsGreater(Container(9103).NumItems,0)</expression>
 
 	<variable name="Search_PathMovies">
-		<value condition="$EXP[Search_HasQuery]">{xsp("movies", "title", "sorttitle", "videodb://movies/titles/")}</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty({QENC})">{xsp("movies", "title", "sorttitle", "videodb://movies/titles/")}</value>
 	</variable>
 	<variable name="Search_PathTV">
-		<value condition="$EXP[Search_HasQuery]">{xsp("tvshows", "title", "sorttitle", "videodb://tvshows/titles/")}</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty({QENC})">{xsp("tvshows", "title", "sorttitle", "videodb://tvshows/titles/")}</value>
 	</variable>
 	<variable name="Search_PathAlbums">
-		<value condition="$EXP[Search_HasQuery]">{xsp("albums", "album", "album", "musicdb://albums/")}</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty({QENC})">{xsp("albums", "album", "album", "musicdb://albums/")}</value>
 	</variable>
 	<variable name="Search_FirstResults">
 		<value condition="Integer.IsGreater(Container(9101).NumItems,0)">SetFocus(9101)</value>
@@ -484,7 +503,7 @@ def main():
 			<font>body_24</font>
 			<textcolor>ink2</textcolor>
 			<label>Nothing in the collection by that name yet.</label>
-			<visible>$EXP[Search_HasQuery] + !$EXP[Search_HasResults] + !Container(9101).IsUpdating + !Container(9102).IsUpdating + !Container(9103).IsUpdating</visible>
+			<visible>$EXP[Search_HasQuery] + !String.IsEmpty({QENC}) + !$EXP[Search_HasResults] + !Container(9101).IsUpdating + !Container(9102).IsUpdating + !Container(9103).IsUpdating</visible>
 		</control>
 		<control type="label">
 			<left>840</left>
@@ -502,7 +521,7 @@ def main():
     # 0.9.10: motion honours Reduce motion (rm_guard: time-0 twins under passepartout.reducemotion)
     from rm_guard import guard_text
     xml, _n = guard_text(xml, "Skin.HasSetting(passepartout.reducemotion)")
-    OUT.write_text(xml, encoding="utf-8", newline="\n")
+    OUT.write_text(localize_xml(xml, STRINGS_PO), encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

@@ -51,8 +51,6 @@
 				<top>803</top>
 				<width>page_width</width>
 				<height>10</height>
-				<texturebg colordiffuse="hairline_strong">common/white.png</texturebg>
-				<midtexture colordiffuse="$VAR[ColorAccent]">common/white.png</midtexture>
 				<info>Player.Progress</info>
 			</control>
 			<control type="label">

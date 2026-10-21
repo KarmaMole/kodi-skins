@@ -12,6 +12,8 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 from pathlib import Path
 from PIL import ImageFont
 import re
+from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 ROOT = Path(__file__).resolve().parents[1]
 X = ROOT / "1080i"
@@ -442,8 +444,8 @@ def music_osd():
 
 
 def main():
-    (X / "MusicVisualisation.xml").write_text(selcol(now_playing()), encoding="utf-8", newline="\n")
-    (X / "MusicOSD.xml").write_text(selcol(music_osd()), encoding="utf-8", newline="\n")
+    (X / "MusicVisualisation.xml").write_text(finish_xml(strip_defaults(selcol(now_playing()), X / "Defaults.xml")), encoding="utf-8", newline="\n")
+    (X / "MusicOSD.xml").write_text(finish_xml(strip_defaults(selcol(music_osd()), X / "Defaults.xml")), encoding="utf-8", newline="\n")
     print("music player written", {wd[1]: w(*wd[2]) for wd in WORDS})
 
 

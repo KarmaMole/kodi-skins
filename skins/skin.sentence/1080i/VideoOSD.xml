@@ -52,7 +52,6 @@
 				<height>64</height>
 				<orientation>horizontal</orientation>
 				<usecontrolcoords>true</usecontrolcoords>
-				<itemgap>0</itemgap>
 				<onleft>noop</onleft>
 				<onright>noop</onright>
 				<onup>87</onup>
@@ -115,7 +114,7 @@
 					<height>44</height>
 					<font>cap_20</font>
 					<textcolor>muted</textcolor>
-					<label>Also</label>
+					<label>$LOCALIZE[31363]</label>
 				</control>
 				<include content="OSDS_Also"><param name="id" value="600"/><param name="label" value="$VAR[OSDS_PrevLabel]"/><param name="onclick" value="PlayerControl(Previous)"/><param name="visible" value="$EXP[OSD_HasPrevNext]"/></include>
 				<include content="OSDS_Also"><param name="id" value="607"/><param name="label" value="$VAR[OSDS_NextLabel]"/><param name="onclick" value="PlayerControl(Next)"/><param name="visible" value="$EXP[OSD_HasPrevNext]"/></include>

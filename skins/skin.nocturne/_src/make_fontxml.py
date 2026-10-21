@@ -23,7 +23,6 @@ CLOCK = "NocturneClock-Medium.ttf"
 FONTS = [  # name, file, size, linespacing
     ("font13", REG, 26, None),
     # Cormorant italic 600: titles, plaques, now playing
-    ("title_120", SBI, 120, 0.86),
     ("title_76", SBI, 76, 0.88),
     ("title_64", SBI, 64, 0.88),
     ("title_56", SBI, 56, 0.9),
@@ -34,12 +33,10 @@ FONTS = [  # name, file, size, linespacing
     ("serif_32", MI, 32, 1.0),          # "With Ralph Fiennes..."
     ("serif_28", MI, 28, 1.0),
     ("serifr_40", SM, 40, None),        # "Wes Anderson, 2014"
-    ("serifr_32", SM, 32, None),
     # Inter Tight
     ("clock_30", CLOCK, 30, None),
     ("sans_28", MED, 28, None),
     ("sans_26", MED, 26, None),
-    ("sans_24", MED, 24, None),
     ("sans_22", MED, 22, None),
     ("sans_20", MED, 20, None),
     ("body_26", REG, 26, 1.29),         # plot: 26 / 1.56
@@ -50,11 +47,9 @@ FONTS = [  # name, file, size, linespacing
     ("caps_22", CAPS, 22, None),
     ("nav_24", NAV, 24, None),
     ("capss_20", CAPSS, 20, None),      # plaque meta
-    ("capss_22", CAPSS, 22, None),
     ("btn_22", BTN, 22, None),
     ("btn_20", BTN, 20, None),
     ("num_20", MED, 20, None),
-    ("num_22", MED, 22, None),
     ("num_26", MED, 26, None),
     # Estuary aliases for third-party script windows
     ("font10", REG, 22, None),
@@ -73,11 +68,18 @@ FONTS = [  # name, file, size, linespacing
 ]
 
 
+
+# Estuary font names kept for third-party script windows (add-on dialogs ask for them by name; Kodi only falls
+# back to font13). kdk (the Kodi repository review bot) reports them as unused: each line carries a kdk-ignore.
+ESTUARY_ALIASES = {"font10", "font12", "font14", "font27", "font30", "font37", "font45", "font52_title",
+                   "font45_title", "font36_title", "font30_title", "font25_title"}
+KDK_ALIAS = " <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->"
+
 def font_xml(name, filename, size, ls):
     p = f"<name>{name}</name><filename>{filename}</filename><size>{size}</size>"
     if ls is not None:
         p += f"<linespacing>{ls}</linespacing>"
-    return "\t\t<font>" + p + "</font>"
+    return "\t\t<font>" + p + "</font>" + (KDK_ALIAS if name in ESTUARY_ALIASES else "")
 
 
 def main():

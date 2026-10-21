@@ -16,6 +16,8 @@
 -->
 <includes>
 	<expression name="Lib_LibraryActions">!Container.Content(addons) + String.IsEmpty(Container.PluginName)</expression>
+	<!-- Sets row (2026-10-21): only while the Videos window browses films and the library has sets -->
+	<expression name="Lib_ShowSets">Window.IsActive(videos) + [Container.Content(movies) | String.IsEqual(Container.FolderPath,videodb://movies/) | String.IsEqual(Container.FolderPath,library://video/movies/)] + Library.HasContent(moviesets)</expression>
 
 	<variable name="Lib_SortOrder">
 		<value condition="Container.SortDirection(descending)">$LOCALIZE[585]</value>
@@ -146,7 +148,7 @@
 		<textoffsetx>$PARAM[offset]</textoffsetx>
 		<texturefocus border="$PARAM[height],0,23,0" colordiffuse="ink">sd/pill_station_$PARAM[height].png</texturefocus>
 		<texturenofocus border="$PARAM[height],0,23,0" colordiffuse="ink">sd/pill_station_$PARAM[height]_off.png</texturenofocus>
-		<label>Options</label>
+		<label>$LOCALIZE[31240]</label>
 		<onclick>SetProperty(sixdegrees.lib.from,rail,home)</onclick>
 		<onclick>SetFocus(9801,0,absolute)</onclick>
 	</include>
@@ -172,7 +174,7 @@
 					<left>660</left>
 					<top>190</top>
 					<width>600</width>
-					<height>700</height>
+					<height>770</height>
 					<include content="Lib_Card">
 						<param name="sl" value="-60"/><param name="st" value="-46"/><param name="sw" value="720"/><param name="sh" value="516"/>
 						<param name="left" value="0"/><param name="top" value="0"/><param name="width" value="600"/><param name="height" value="396"/>
@@ -191,7 +193,12 @@
 					<include content="Lib_Card">
 						<param name="sl" value="-60"/><param name="st" value="-46"/><param name="sw" value="720"/><param name="sh" value="720"/>
 						<param name="left" value="0"/><param name="top" value="0"/><param name="width" value="600"/><param name="height" value="600"/>
-						<param name="visible" value="Integer.IsGreaterOrEqual(Container(9801).NumItems,8)"/>
+						<param name="visible" value="Integer.IsEqual(Container(9801).NumItems,8)"/>
+					</include>
+					<include content="Lib_Card">
+						<param name="sl" value="-60"/><param name="st" value="-46"/><param name="sw" value="720"/><param name="sh" value="788"/>
+						<param name="left" value="0"/><param name="top" value="0"/><param name="width" value="600"/><param name="height" value="668"/>
+						<param name="visible" value="Integer.IsGreaterOrEqual(Container(9801).NumItems,9)"/>
 					</include>
 					<control type="label">
 						<left>24</left>
@@ -216,7 +223,7 @@
 						<left>12</left>
 						<top>56</top>
 						<width>576</width>
-						<height>544</height>
+						<height>612</height>
 						<onup>9801</onup>
 						<ondown>9801</ondown>
 						<onleft>noop</onleft>
@@ -232,33 +239,40 @@
 						</include>
 						<content>
 							<item>
-								<label>View</label>
+								<label>$LOCALIZE[31011]</label>
 								<label2>$PARAM[view_name]</label2>
 								<onclick>SetProperty(sixdegrees.pick.from,panel,home)</onclick>
 								<include content="$PARAM[pick_focus]"/>
 								<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
 							</item>
 							<item>
-								<label>Sort</label>
+								<label>$LOCALIZE[31010]</label>
 								<label2>$INFO[Container.SortMethod]</label2>
 								<onclick>SendClick(3)</onclick>
 								<visible>Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)</visible>
 							</item>
 							<item>
-								<label>Order</label>
+								<label>$LOCALIZE[31241]</label>
 								<label2>$VAR[Lib_SortOrder]</label2>
 								<onclick>$PARAM[order_click]</onclick>
 								<visible>Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)</visible>
 							</item>
 							<item>
-								<label>Unwatched only</label>
+								<label>$LOCALIZE[31081]</label>
 								<label2>$VAR[Lib_Unwatched]</label2>
 								<onclick>SendClick(14)</onclick>
 								<visible>$PARAM[is_video] + $EXP[VidView_IsLibraryVideo] + !$EXP[VidView_IsInProgressTV]</visible>
 							</item>
 							<item>
+								<label>$LOCALIZE[20434]</label>
+								<label2>$LOCALIZE[31242]</label2>
+								<onclick>SetFocus(50)</onclick>
+								<onclick>Container.Update(videodb://movies/sets/)</onclick>
+								<visible>$PARAM[is_video] + $EXP[Lib_ShowSets]</visible>
+							</item>
+							<item>
 								<label>$LOCALIZE[137]</label>
-								<label2>Your library</label2>
+								<label2>$LOCALIZE[31243]</label2>
 								<onclick>ActivateWindow(1150)</onclick>
 							</item>
 							<item>
@@ -329,7 +343,7 @@
 						<font>reg_24</font>
 						<textcolor>body</textcolor>
 						<wrapmultiline>true</wrapmultiline>
-						<label>Stations whose files can no longer be found are taken off the map. Nothing is deleted from your drives.</label>
+						<label>$LOCALIZE[31207]</label>
 					</control>
 					<control type="grouplist" id="9893">
 						<left>40</left>
@@ -426,7 +440,7 @@
 					<aligny>center</aligny>
 					<font>caps_20</font>
 					<textcolor>ink</textcolor>
-					<label>You are here</label>
+					<label>$LOCALIZE[31244]</label>
 				</control>
 			</control>
 		</itemlayout>
@@ -485,7 +499,7 @@
 					<font>caps_20</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<label>You are here</label>
+					<label>$LOCALIZE[31244]</label>
 				</control>
 			</control>
 		</focusedlayout>
@@ -527,7 +541,7 @@
 						<aligny>center</aligny>
 						<font>caps_20</font>
 						<textcolor>ink</textcolor>
-						<label>View</label>
+						<label>$LOCALIZE[31011]</label>
 					</control>
 					<control type="label">
 						<left>792</left>
@@ -600,7 +614,7 @@
 				<visible>Container.Content(movies) | Container.Content(sets)</visible>
 			</item>
 			<item>
-				<label>Wall</label>
+				<label>$LOCALIZE[31245]</label>
 				<icon>sd/views/wall.png</icon>
 				<property name="view">v502</property>
 				<onclick>Container.SetViewMode(502)</onclick>
@@ -608,7 +622,7 @@
 				<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
 			</item>
 			<item>
-				<label>Episodes</label>
+				<label>$LOCALIZE[31246]</label>
 				<icon>sd/views/episodes.png</icon>
 				<property name="view">v503</property>
 				<onclick>Container.SetViewMode(503)</onclick>
@@ -632,7 +646,7 @@
 		</include>
 		<content>
 			<item>
-				<label>Grid</label>
+				<label>$LOCALIZE[31247]</label>
 				<icon>sd/views/grid.png</icon>
 				<property name="view">v504</property>
 				<onclick>Container.SetViewMode(504)</onclick>
@@ -640,7 +654,7 @@
 				<visible>Container.Content(albums) | Container.Content(artists)</visible>
 			</item>
 			<item>
-				<label>Big album</label>
+				<label>$LOCALIZE[31248]</label>
 				<icon>sd/views/big_album.png</icon>
 				<property name="view">v505</property>
 				<onclick>Container.SetViewMode(505)</onclick>

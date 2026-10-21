@@ -46,7 +46,7 @@
 						<width>680</width>
 						<height>dialog_row_h</height>
 						<font>sans_26</font>
-						<hinttext>Value</hinttext>
+						<hinttext>$LOCALIZE[31373]</hinttext>
 					</control>
 					<include content="Noc_DialogButton">
 						<param name="id" value="20"/>

@@ -218,8 +218,6 @@ Fold ids: 9000 words, 9011 shuffle, 9012 play all (artist), 9013 artist/album wo
 					<width>544</width>
 					<height>64</height>
 					<font>head_50</font>
-					<textcolor>ink</textcolor>
-					<selectedcolor>ink</selectedcolor>
 					<label>$VAR[Music_InfoTitle]</label>
 					<visible>!Integer.IsGreater(Container(9320).NumPages,1)</visible>
 				</control>
@@ -229,8 +227,6 @@ Fold ids: 9000 words, 9011 shuffle, 9012 play all (artist), 9013 artist/album wo
 					<width>544</width>
 					<height>56</height>
 					<font>head_34</font>
-					<textcolor>ink</textcolor>
-					<selectedcolor>ink</selectedcolor>
 					<label>$VAR[Music_InfoTitle]</label>
 					<visible>Integer.IsGreater(Container(9320).NumPages,1)</visible>
 				</control>
@@ -285,7 +281,6 @@ Fold ids: 9000 words, 9011 shuffle, 9012 play all (artist), 9013 artist/album wo
 					<width>544</width>
 					<height>306</height>
 					<font>body_24</font>
-					<textcolor>body</textcolor>
 					<selectedcolor>body</selectedcolor>
 					<label>$VAR[Music_InfoDescription]</label>
 					<visible>!Integer.IsGreater(Container(50).NumItems,0)</visible>
@@ -304,44 +299,38 @@ Fold ids: 9000 words, 9011 shuffle, 9012 play all (artist), 9013 artist/album wo
 					<control type="button" id="8">
 						<width>98</width>
 						<height>52</height>
-						<label>Play</label>
+						<label>$LOCALIZE[31360]</label>
 						<font>word_26</font>
 						<textcolor>ink</textcolor>
 						<selectedcolor>ink</selectedcolor>
-						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 						<align>center</align>
 						<textoffsetx>0</textoffsetx>
 						<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-						<texturenofocus />
 						<visible>!$EXP[Music_InfoIsArtist]</visible>
 					</control>
 					<control type="button" id="9012">
 						<width>154</width>
 						<height>52</height>
-						<label>Play all</label>
+						<label>$LOCALIZE[31361]</label>
 						<font>word_26</font>
 						<textcolor>ink</textcolor>
 						<selectedcolor>ink</selectedcolor>
-						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 						<align>center</align>
 						<textoffsetx>0</textoffsetx>
 						<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-						<texturenofocus />
 						<visible>$EXP[Music_InfoIsArtist] + Integer.IsGreater(ListItem.DBID,0)</visible>
 						<onclick>PlayMedia(musicdb://artists/$INFO[ListItem.DBID]/,isdir)</onclick>
 					</control>
 					<control type="button" id="9011">
 						<width>149</width>
 						<height>52</height>
-						<label>Shuffle</label>
+						<label>$LOCALIZE[31362]</label>
 						<font>word_26</font>
 						<textcolor>ink</textcolor>
 						<selectedcolor>ink</selectedcolor>
-						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 						<align>center</align>
 						<textoffsetx>0</textoffsetx>
 						<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-						<texturenofocus />
 						<visible>[$EXP[Music_InfoIsAlbum] | $EXP[Music_InfoIsArtist]] + Integer.IsGreater(ListItem.DBID,0)</visible>
 						<onclick>$VAR[Music_InfoShuffleAction]</onclick>
 					</control>
@@ -352,26 +341,22 @@ Fold ids: 9000 words, 9011 shuffle, 9012 play all (artist), 9013 artist/album wo
 						<font>word_26</font>
 						<textcolor>ink</textcolor>
 						<selectedcolor>ink</selectedcolor>
-						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 						<align>center</align>
 						<textoffsetx>0</textoffsetx>
 						<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-						<texturenofocus />
 						<visible>!$EXP[Music_InfoIsArtist]</visible>
 						<onclick>SendClick(12)</onclick>
 					</control>
 					<control type="button" id="9014">
 						<width>154</width>
 						<height>52</height>
-						<label>Refresh</label>
+						<label>$LOCALIZE[31363]</label>
 						<font>word_26</font>
 						<textcolor>ink</textcolor>
 						<selectedcolor>ink</selectedcolor>
-						<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 						<align>center</align>
 						<textoffsetx>0</textoffsetx>
 						<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
-						<texturenofocus />
 						<visible>!$EXP[Music_InfoIsSong]</visible>
 						<onclick>SendClick(6)</onclick>
 					</control>
@@ -608,7 +593,6 @@ Fold ids: 9000 words, 9011 shuffle, 9012 play all (artist), 9013 artist/album wo
 				<width>1280</width>
 				<height>32</height>
 				<orientation>horizontal</orientation>
-				<itemgap>0</itemgap>
 				<animation type="WindowOpen"><effect type="fade" start="0" end="100" delay="280" time="120"/></animation>
 				<include content="Fold_KeyHint"><param name="key" value="OK"/><param name="label" value="$VAR[Gate_Hint]"/></include>
 				<include content="Fold_KeyHint"><param name="key" value="↑ ↓"/><param name="label" value="Tracks and words"/></include>

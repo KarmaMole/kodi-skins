@@ -59,7 +59,7 @@
 					<height>20</height>
 					<font>mono_13</font>
 					<textcolor>$VAR[ColorCaption]</textcolor>
-					<label>About</label>
+					<label>$LOCALIZE[31210]</label>
 				</control>
 				<include content="Majan_Rule">
 					<param name="top" value="28"/>
@@ -72,7 +72,6 @@
 					<width>420</width>
 					<height>390</height>
 					<font>body_23</font>
-					<textcolor>text_body</textcolor>
 					<label>$VAR[Music_InfoDescription]</label>
 				</control>
 			</control>
@@ -148,7 +147,6 @@
 				<width>1248</width>
 				<height>40</height>
 				<font>title_28_semibold</font>
-				<textcolor>text_primary</textcolor>
 				<label>$VAR[Music_InfoSubline]</label>
 			</control>
 
@@ -171,7 +169,6 @@
 				<width>1268</width>
 				<height>84</height>
 				<orientation>horizontal</orientation>
-				<itemgap>0</itemgap>
 				<include content="Music_StatCell">
 					<param name="label" value="Year"/>
 					<param name="value" value="$INFO[ListItem.Year]"/>

@@ -1,3 +1,16 @@
+0.9.10 (2026-10-21)
+- Sets row in the Library panel; fix for controls disappearing with Reduce motion on. Code clean-up for the Kodi repository checks.
+- Code clean-up for the Kodi repository checks: unused code and fonts removed, on-screen text moved to the strings file, LF line endings. Search now encodes the typed text with Skin Variables (script.skinvariables, now required), so titles with & + % are found.
+- More like this (info page) asks TMDb Helper by the film's / show's TMDb id instead of its title; the button hides for items without a TMDb id.
+- Sets: while you browse movies (and the library has sets), the Library panel has a "Sets" row: it opens the
+  list of sets in the same window, with the same views as movies (Arc, Grid, List); picking a set opens its
+  movies, and Back walks back set -> all sets -> movies. Not a Home item.
+- Reduce motion: Anim_FadeVisible, Anim_TopStrip, Anim_RowStagger and Anim_BackgroundCrossfade carried two Hidden
+  animations (Kodi only resets the first when a control shows again, so with Reduce motion on, for example, the seek bar, the
+  slider strip, the music backdrop and the list view stayed invisible after their first hide); now one each.
+- Reduce motion: the grid posters / covers kept their 106 % focus scale when focus left the grid; the reduce-motion
+  scale is now a Conditional animation on the grid's focus. _src/rm_guard.py never writes a Hidden twin.
+
 0.9.9 (2026-10-21)
 - Library panel: the library's own menu (View, Sort, Order, Unwatched only, Search, Update library, Clean
   library, Library settings) in Orbit's framed dialog. Reach it with Right from any library view (arc, grid,

@@ -13,7 +13,7 @@
 <window>
 	<defaultcontrol always="true">50</defaultcontrol>
 	<menucontrol>9000</menucontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<views>50</views>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
@@ -57,7 +57,7 @@
 			<height>24</height>
 			<font>cap_20</font>
 			<textcolor>$VAR[SectionText3]</textcolor>
-			<label>Library</label>
+			<label>$LOCALIZE[31301]</label>
 		</control>
 		<control type="label" id="12">
 			<left>page_margin</left>
@@ -105,8 +105,7 @@
 			<width>400</width>
 			<height>24</height>
 			<font>cap_20</font>
-			<textcolor>$VAR[SectionText]</textcolor>
-			<label>Playlist</label>
+			<label>$LOCALIZE[31353]</label>
 		</control>
 		<control type="label" id="101">
 			<left>1004</left>
@@ -153,7 +152,7 @@
 			<height>66</height>
 			<font>body_24</font>
 			<textcolor>$VAR[SectionText3]</textcolor>
-			<label>Empty. Pick songs or albums on the left and press OK to add them.</label>
+			<label>$LOCALIZE[31354]</label>
 			<visible>Integer.IsEqual(Container(100).NumItems,0)</visible>
 		</control>
 	</controls>

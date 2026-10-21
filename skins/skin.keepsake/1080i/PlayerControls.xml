@@ -59,7 +59,6 @@
 				<width>708</width>
 				<height>26</height>
 				<font>lbl_20</font>
-				<textcolor>ink_bold</textcolor>
 				<label>$VAR[OSD_State]  ·  $VAR[OSD_Type]</label>
 			</control>
 			<control type="label">
@@ -68,7 +67,6 @@
 				<width>708</width>
 				<height>50</height>
 				<font>hand_48</font>
-				<textcolor>ink_bold</textcolor>
 				<label>$VAR[OSD_Title]</label>
 			</control>
 			<control type="label">
@@ -96,7 +94,6 @@
 				<height>2</height>
 				<info>Player.SeekBar</info>
 				<texturebg colordiffuse="clear">common/white.png</texturebg>
-				<midtexture colordiffuse="ink_bold">common/white.png</midtexture>
 			</control>
 			<control type="image">
 				<left>292</left>
@@ -112,7 +109,6 @@
 				<width>708</width>
 				<height>30</height>
 				<font>mono_20</font>
-				<textcolor>ink_bold</textcolor>
 				<label>$VAR[OSD_SeekTimeLabel]</label>
 			</control>
 			<control type="label">

@@ -41,7 +41,6 @@
 				<width>800</width>
 				<height>110</height>
 				<font>title_76</font>
-				<textcolor>text_primary</textcolor>
 				<label>$INFO[Weather.Temperature]</label>
 			</control>
 			<control type="label">
@@ -97,8 +96,7 @@
 				<width>800</width>
 				<height>111</height>  <!-- 3 lines exactly: no half-clipped line at the bottom -->
 				<font>body_26</font>
-				<textcolor>text_body</textcolor>
-				<label>No weather data. Choose a weather service in Settings, Services, Weather.</label>
+				<label>$LOCALIZE[31347]</label>
 				<visible>!String.StartsWith(Weather.Temperature,$LOCALIZE[503])</visible>
 			</control>
 		</control>
@@ -217,7 +215,6 @@
 						<width>300</width>
 						<height>40</height>
 						<font>sans_26</font>
-						<textcolor>text_primary</textcolor>
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 					<control type="label">
@@ -236,7 +233,6 @@
 						<height>88</height>
 						<align>right</align>
 						<font>num_20</font>
-						<textcolor>text_primary</textcolor>
 						<label>$INFO[ListItem.Label2]</label>
 					</control>
 					<control type="image">

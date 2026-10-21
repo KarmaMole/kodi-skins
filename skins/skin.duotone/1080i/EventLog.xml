@@ -10,7 +10,7 @@
 <window>
 	<defaultcontrol always="true">9100</defaultcontrol>
 	<menucontrol>9000</menucontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<views>50</views>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
@@ -77,7 +77,7 @@
 						<bottom>0</bottom>
 						<width>1230</width>
 						<height>rule_h</height>
-						<texture colordiffuse="ink">common/hairline.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 					</control>
 				</itemlayout>
 				<focusedlayout width="1230" height="120">
@@ -86,7 +86,7 @@
 						<top>0</top>
 						<width>1230</width>
 						<height>120</height>
-						<texture colordiffuse="ink_12">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 						<visible>Control.HasFocus(50)</visible>
 					</control>
 					<control type="image">
@@ -94,7 +94,7 @@
 						<top>0</top>
 						<width>list_bar_w</width>
 						<height>120</height>
-						<texture colordiffuse="ink">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 						<visible>Control.HasFocus(50)</visible>
 					</control>
 					<control type="image">
@@ -111,7 +111,6 @@
 						<width>820</width>
 						<height>36</height>
 						<font>bold_22</font>
-						<textcolor>$VAR[SectionText]</textcolor>
 						<scroll>true</scroll>
 						<label>$INFO[ListItem.Label]</label>
 					</control>
@@ -131,7 +130,6 @@
 						<width>1100</width>
 						<height>56</height>
 						<font>ui_22</font>
-						<textcolor>$VAR[SectionText]</textcolor>
 						<label>$INFO[ListItem.Property(Event.Description)]</label>
 					</control>
 					<control type="image">
@@ -139,7 +137,7 @@
 						<bottom>0</bottom>
 						<width>1230</width>
 						<height>rule_h</height>
-						<texture colordiffuse="ink">common/hairline.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 					</control>
 				</focusedlayout>
 			</control>
@@ -158,10 +156,9 @@
 				<control type="togglebutton" id="4">
 					<description>Sort order</description>
 					<include content="Misc_RowLook"><param name="width" value="misc_menu_w"/></include>
-					<alttexturefocus border="16" colordiffuse="ink">focus/outline_2.png</alttexturefocus>
-					<alttexturenofocus />
-					<label>Order: $LOCALIZE[584]</label>
-					<altlabel>Order: $LOCALIZE[585]</altlabel>
+					<alttexturefocus border="16" colordiffuse="$VAR[ink]">focus/outline_2.png</alttexturefocus>
+					<label>$LOCALIZE[31407] $LOCALIZE[584]</label>
+					<altlabel>$LOCALIZE[31407] $LOCALIZE[585]</altlabel>
 				</control>
 				<control type="button" id="21">
 					<description>Level filter (Kodi sets the label)</description>
@@ -199,7 +196,7 @@
 			<height>list_row_h</height>
 			<font>cap_20</font>
 			<textcolor>$VAR[SectionText3]</textcolor>
-			<label>No events</label>
+			<label>$LOCALIZE[31323]</label>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 		</control>
 	</controls>

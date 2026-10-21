@@ -15,7 +15,7 @@
 			<height>140</height>
 			<font>display_100</font>
 			<textcolor>text_primary</textcolor>
-			<label>Void</label>
+			<label>$LOCALIZE[31336]</label>
 		</control>
 	</controls>
 </window>

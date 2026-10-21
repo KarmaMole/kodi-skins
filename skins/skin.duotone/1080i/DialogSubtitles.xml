@@ -27,7 +27,7 @@
 			<!-- own fades: without them Kodi draws this dim over the dialog (seen on Shield 2026-10-18) -->
 			<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
 			<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
-			<texture colordiffuse="ink_70">common/white.png</texture>
+			<texture colordiffuse="$VAR[scrim]">common/white.png</texture>
 		</control>
 
 		<control type="group">
@@ -47,7 +47,7 @@
 				<top>0</top>
 				<width>1</width>
 				<height>screen_h</height>
-				<texture colordiffuse="ink">common/hairline_v.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/hairline_v.png</texture>
 			</control>
 
 			<!-- Kodi-filled service name / logo: not part of the design, kept hidden -->
@@ -73,7 +73,6 @@
 				<width>1036</width>
 				<height>28</height>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>DOWNLOAD SUBTITLES$VAR[OSD_ShortTitle,  ·  ,]</label>
 			</control>
 			<control type="label">
@@ -82,8 +81,7 @@
 				<width>1036</width>
 				<height>52</height>
 				<font>an_48</font>
-				<textcolor>$VAR[SectionText]</textcolor>
-				<label>Find subtitles</label>
+				<label>$LOCALIZE[31317]</label>
 			</control>
 
 			<!-- ====== left column: service + status + manual search -->
@@ -99,13 +97,13 @@
 					<height>24</height>
 					<font>cap_20</font>
 					<textcolor>$VAR[SectionText3]</textcolor>
-					<label>SERVICE</label>
+					<label>$LOCALIZE[31318]</label>
 				</control>
 				<include content="DT_Rule">
 					<param name="top" value="31"/>
 					<param name="left" value="0"/>
 					<param name="width" value="280"/>
-					<param name="color" value="ink"/>
+					<param name="color" value="$VAR[ink]"/>
 				</include>
 				<control type="list" id="150">
 					<left>0</left>
@@ -123,7 +121,7 @@
 							<top>26</top>
 							<width>8</width>
 							<height>8</height>
-							<texture colordiffuse="ink">common/white.png</texture>
+							<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 							<visible>ListItem.IsSelected</visible>
 						</control>
 						<control type="label">
@@ -132,7 +130,6 @@
 							<width>232</width>
 							<height>59</height>
 							<font>bold_22</font>
-							<textcolor>$VAR[SectionText]</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 							<visible>ListItem.IsSelected</visible>
 						</control>
@@ -151,7 +148,7 @@
 							<bottom>0</bottom>
 							<width>280</width>
 							<height>rule_h</height>
-							<texture colordiffuse="ink">common/hairline.png</texture>
+							<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 						</control>
 					</itemlayout>
 					<focusedlayout width="280" height="60">
@@ -160,7 +157,7 @@
 							<top>0</top>
 							<width>280</width>
 							<height>60</height>
-							<texture colordiffuse="ink_12">common/white.png</texture>
+							<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 							<visible>Control.HasFocus(150)</visible>
 						</control>
 						<control type="image">
@@ -168,7 +165,7 @@
 							<top>26</top>
 							<width>8</width>
 							<height>8</height>
-							<texture colordiffuse="ink">common/white.png</texture>
+							<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 							<visible>ListItem.IsSelected</visible>
 						</control>
 						<control type="label">
@@ -177,7 +174,6 @@
 							<width>232</width>
 							<height>59</height>
 							<font>bold_22</font>
-							<textcolor>$VAR[SectionText]</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
 						<control type="image">
@@ -185,14 +181,14 @@
 							<bottom>0</bottom>
 							<width>280</width>
 							<height>rule_h</height>
-							<texture colordiffuse="ink">common/hairline.png</texture>
+							<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 						</control>
 						<control type="image">
 							<left>0</left>  <!-- inside the row: lists clip, so -1 lost an edge of the 3px frame -->
 							<top>0</top>
 							<width>280</width>
 							<height>60</height>
-							<texture border="16" colordiffuse="ink">$VAR[FocusFrameAlways]</texture>
+							<texture border="16" colordiffuse="$VAR[ink]">$VAR[FocusFrameAlways]</texture>
 							<visible>Control.HasFocus(150)</visible>
 						</control>
 					</focusedlayout>
@@ -205,13 +201,13 @@
 					<height>24</height>
 					<font>cap_20</font>
 					<textcolor>$VAR[SectionText3]</textcolor>
-					<label>STATUS</label>
+					<label>$LOCALIZE[31319]</label>
 				</control>
 				<include content="DT_Rule">
 					<param name="top" value="269"/>
 					<param name="left" value="0"/>
 					<param name="width" value="280"/>
-					<param name="color" value="ink"/>
+					<param name="color" value="$VAR[ink]"/>
 				</include>
 				<control type="label" id="140">
 					<description>Kodi status: searching / n subtitles found / downloading</description>
@@ -222,7 +218,6 @@
 					<aligny>top</aligny>
 					<wrapmultiline>true</wrapmultiline>
 					<font>ui_22</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 				</control>
 				<control type="label" id="130">
 					<description>shown by Kodi when the file already has subtitle streams</description>
@@ -234,7 +229,7 @@
 					<wrapmultiline>true</wrapmultiline>
 					<font>cap_20</font>
 					<textcolor>$VAR[SectionText2]</textcolor>
-					<label>THIS FILE ALREADY HAS SUBTITLE TRACKS</label>
+					<label>$LOCALIZE[31320]</label>
 				</control>
 
 				<control type="group">
@@ -278,13 +273,13 @@
 					<align>right</align>
 					<font>cap_20</font>
 					<textcolor>$VAR[SectionText3]</textcolor>
-					<label>SYNC = TIMED TO YOUR FILE</label>
+					<label>$LOCALIZE[31321]</label>
 				</control>
 				<include content="DT_Rule">
 					<param name="top" value="31"/>
 					<param name="left" value="0"/>
 					<param name="width" value="708"/>
-					<param name="color" value="ink"/>
+					<param name="color" value="$VAR[ink]"/>
 				</include>
 				<!-- empty state (Kodi's status line explains why) -->
 				<control type="label">
@@ -294,7 +289,7 @@
 					<height>40</height>
 					<font>ui_22</font>
 					<textcolor>$VAR[SectionText2]</textcolor>
-					<label>No subtitles listed yet. Pick a service or search manually.</label>
+					<label>$LOCALIZE[31322]</label>
 					<visible>Integer.IsEqual(Container(120).NumItems,0)</visible>
 				</control>
 
@@ -320,7 +315,7 @@
 							<top>0</top>
 							<width>696</width>
 							<height>84</height>
-							<texture colordiffuse="ink_12">common/white.png</texture>
+							<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 							<visible>Control.HasFocus(120)</visible>
 						</control>
 						<include content="OSD_SubtitleRow">
@@ -331,7 +326,7 @@
 							<top>0</top>
 							<width>696</width>
 							<height>84</height>
-							<texture border="16" colordiffuse="ink">$VAR[FocusFrameAlways]</texture>
+							<texture border="16" colordiffuse="$VAR[ink]">$VAR[FocusFrameAlways]</texture>
 							<visible>Control.HasFocus(120)</visible>
 						</control>
 					</focusedlayout>

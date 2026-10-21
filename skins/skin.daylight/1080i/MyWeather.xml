@@ -61,7 +61,6 @@
 					<width>560</width>
 					<height>120</height>
 					<font>display_84</font>
-					<textcolor>$VAR[DL_Ink]</textcolor>
 					<label>$INFO[Weather.Temperature]</label>
 				</control>
 				<control type="label">
@@ -70,7 +69,6 @@
 					<width>680</width>
 					<height>48</height>
 					<font>serif_34</font>
-					<textcolor>$VAR[DL_Ink]</textcolor>
 					<label>$VAR[DL_WeatherWordCap]</label>
 				</control>
 				<control type="grouplist">
@@ -97,7 +95,6 @@
 					<width>680</width>
 					<height>48</height>
 					<font>serif_34</font>
-					<textcolor>$VAR[DL_Ink]</textcolor>
 					<label>$LOCALIZE[503]</label>
 					<visible>String.StartsWith(Weather.Temperature,$LOCALIZE[503])</visible>
 				</control>
@@ -107,8 +104,7 @@
 					<width>680</width>
 					<height>48</height>
 					<font>serif_34</font>
-					<textcolor>$VAR[DL_Ink]</textcolor>
-					<label>No weather yet.</label>
+					<label>$LOCALIZE[31252]</label>
 					<visible>!String.StartsWith(Weather.Temperature,$LOCALIZE[503])</visible>
 				</control>
 				<control type="textbox">
@@ -117,8 +113,7 @@
 					<width>680</width>
 					<height>111</height>
 					<font>body_24</font>
-					<textcolor>$VAR[DL_Body]</textcolor>
-					<label>Choose a weather service under Settings, Services, Weather.</label>
+					<label>$LOCALIZE[31253]</label>
 					<visible>!String.StartsWith(Weather.Temperature,$LOCALIZE[503])</visible>
 				</control>
 			</control>
@@ -173,8 +168,7 @@
 				<width>800</width>
 				<height>40</height>
 				<font>serif_28</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
-				<label>The next few days</label>
+				<label>$LOCALIZE[31254]</label>
 			</control>
 			<control type="list" id="15100">
 				<left>20</left>

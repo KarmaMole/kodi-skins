@@ -46,7 +46,7 @@
 						<width>680</width>
 						<height>dialog_row_h</height>
 						<font>label_25_semibold</font>
-						<hinttext>Value</hinttext>
+						<hinttext>$LOCALIZE[31278]</hinttext>
 					</control>
 					<include content="Majan_DialogButton">
 						<param name="id" value="20"/>

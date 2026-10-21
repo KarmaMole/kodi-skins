@@ -17,7 +17,6 @@
 			<height>screen_h</height>
 			<label></label>
 			<texturefocus />
-			<texturenofocus />
 			<onright>StepForward</onright>
 			<onleft>StepBack</onleft>
 			<onup>ChapterOrBigStepForward</onup>
@@ -43,13 +42,12 @@
 				<height>440</height>
 				<orientation>vertical</orientation>
 				<usecontrolcoords>true</usecontrolcoords>
-				<itemgap>0</itemgap>
 				<control type="label">
 					<width>1300</width>
 					<height>28</height>
 					<font>cap_20</font>
 					<textcolor>muted</textcolor>
-					<label>About what's playing</label>
+					<label>$LOCALIZE[31322]</label>
 				</control>
 				<control type="textbox">
 					<top>14</top>
@@ -64,7 +62,6 @@
 					<width>1000</width>
 					<height max="120">auto</height>
 					<font>body_26</font>
-					<textcolor>body</textcolor>
 					<label>$INFO[VideoPlayer.Plot]</label>
 				</control>
 			</control>
@@ -86,7 +83,7 @@
 				<align>right</align>
 				<font>ui_20</font>
 				<textcolor>muted</textcolor>
-				<label>OK opens the controls. Info or Back hides this.</label>
+				<label>$LOCALIZE[31323]</label>
 			</control>
 		</control>
 	</controls>

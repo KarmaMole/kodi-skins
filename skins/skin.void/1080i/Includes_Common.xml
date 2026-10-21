@@ -114,16 +114,6 @@
 			<include>Void_Clock</include>
 		</definition>
 	</include>
-	<include name="Void_PageHeader">
-		<param name="index"></param>
-		<param name="title"></param>
-		<param name="sub"></param>
-		<definition>
-			<include content="Void_SectionLabel">
-				<param name="label" value="$PARAM[title]"/>
-			</include>
-		</definition>
-	</include>
 
 	<!-- Hint line (dwell). params: label, top, visible -->
 	<include name="Void_Hint">
@@ -197,89 +187,7 @@
 	</include>
 
 	<!-- ========================================================== text buttons -->
-	<!-- One text button: grey -> white + 8% scale on focus. Width auto inside grouplists.
-	     params: id, label, onclick(+2,3), visible, font, onup/ondown/onleft/onright/onback, width, height -->
-	<include name="Void_TextButton">
-		<param name="visible">true</param>
-		<param name="font">sans_28_med</param>
-		<param name="width">auto</param>
-		<param name="height">56</param>
-		<param name="onclick">noop</param>
-		<param name="onclick2">noop</param>
-		<param name="onclick3">noop</param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<param name="onback">noop</param>
-		<param name="center">auto</param>
-		<param name="color">grey_dim</param>
-		<definition>
-			<control type="button" id="$PARAM[id]">
-				<width>$PARAM[width]</width>
-				<height>$PARAM[height]</height>
-				<font>$PARAM[font]</font>
-				<textcolor>$PARAM[color]</textcolor>
-				<focusedcolor>text</focusedcolor>
-				<textoffsetx>14</textoffsetx>
-				<label>$PARAM[label]</label>
-				<onclick>$PARAM[onclick]</onclick>
-				<onclick>$PARAM[onclick2]</onclick>
-				<onclick>$PARAM[onclick3]</onclick>
-				<onup>$PARAM[onup]</onup>
-				<ondown>$PARAM[ondown]</ondown>
-				<onleft>$PARAM[onleft]</onleft>
-				<onright>$PARAM[onright]</onright>
-				<onback>$PARAM[onback]</onback>
-				<visible>$PARAM[visible]</visible>
-				<include content="Void_Anim_FocusText">
-					<param name="center" value="$PARAM[center]"/>
-				</include>
-			</control>
-		</definition>
-	</include>
 
-	<!-- Engine-compatible button includes (same params as before), now Void text buttons -->
-	<include name="Void_ButtonPrimary">
-		<param name="visible">true</param>
-		<param name="top">0</param>
-		<param name="icon"></param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-		<param name="onback">noop</param>
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>$PARAM[top]</top>
-				<width>$PARAM[width]</width>
-				<height>56</height>
-				<visible>$PARAM[visible]</visible>
-				<control type="button" id="$PARAM[id]">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>56</height>
-					<label>$PARAM[label]</label>
-					<font>sans_28_med</font>
-					<textcolor>grey</textcolor>
-					<focusedcolor>text</focusedcolor>
-					<align>left</align>
-					<textoffsetx>0</textoffsetx>
-					<onclick>$PARAM[onclick]</onclick>
-					<onup>$PARAM[onup]</onup>
-					<ondown>$PARAM[ondown]</ondown>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-					<onback>$PARAM[onback]</onback>
-					<include content="Void_Anim_FocusText">
-						<param name="center" value="0,28"/>
-					</include>
-				</control>
-			</control>
-		</definition>
-	</include>
 	<include name="Void_ButtonSecondary">
 		<param name="visible">true</param>
 		<param name="top">0</param>
@@ -357,14 +265,6 @@
 	</include>
 
 	<!-- ===================================================== retired engine pieces -->
-	<!-- Void never draws focus frames or header rules; these names stay defined (and draw nothing)
-	     so engine windows that still reference them keep loading. -->
-	<include name="Void_FocusFrame">
-		<param name="visible">true</param>
-		<definition>
-			<control type="group"><visible>false</visible></control>
-		</definition>
-	</include>
 	<include name="Void_FocusFrameAlways">
 		<param name="visible">true</param>
 		<definition>
@@ -373,21 +273,5 @@
 	</include>
 	<include name="Void_TopRule">
 		<control type="group"><visible>false</visible></control>
-	</include>
-	<include name="Void_Tex_ButtonPrimary">
-		<texturefocus />
-		<texturenofocus />
-	</include>
-	<include name="Void_Tex_ButtonPrimary_Round">
-		<texturefocus />
-		<texturenofocus />
-	</include>
-	<include name="Void_Tex_ButtonSecondary">
-		<texturefocus />
-		<texturenofocus />
-	</include>
-	<include name="Void_Tex_ButtonSecondary_Round">
-		<texturefocus />
-		<texturenofocus />
 	</include>
 </includes>

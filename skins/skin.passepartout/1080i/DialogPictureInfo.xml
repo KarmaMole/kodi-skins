@@ -50,7 +50,6 @@
 				<width>584</width>
 				<height>topbar_item_h</height>
 				<font>ttl_40</font>
-				<textcolor>ink</textcolor>
 				<label>$INFO[ListItem.Label]</label>
 			</control>
 			<include content="PP_Rule">
@@ -119,7 +118,6 @@
 							<width>260</width>
 							<height>55</height>
 							<font>cap_20</font>
-							<textcolor>ink</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 							<visible>!Control.HasFocus(5)</visible>
 						</control>
@@ -140,7 +138,6 @@
 							<height>55</height>
 							<align>right</align>
 							<font>body_22</font>
-							<textcolor>ink</textcolor>
 							<scroll>true</scroll>
 							<label>$INFO[ListItem.Label2]</label>
 							<visible>!Control.HasFocus(5)</visible>

@@ -108,7 +108,6 @@
 					<width>auto</width>
 					<height>44</height>
 					<font>mono_34</font>
-					<textcolor>text_primary</textcolor>
 					<label>$INFO[Player.Time]</label>
 				</control>
 				<control type="label">
@@ -145,7 +144,6 @@
 					<width>856</width>
 					<height>40</height>
 					<font>text_30_med</font>
-					<textcolor>text_primary</textcolor>
 					<label>$INFO[MusicPlayer.Artist]</label>
 				</control>
 				<control type="label">
@@ -215,7 +213,6 @@
 				<width>856</width>
 				<height>30</height>
 				<font>mono_22</font>
-				<textcolor>text_primary</textcolor>
 				<label>[COLOR text_secondary]Next  [/COLOR]$INFO[MusicPlayer.offset(1).Title]$INFO[MusicPlayer.offset(1).Artist,  ·  ,]</label>
 				<visible>!String.IsEmpty(MusicPlayer.offset(1).Title) + !Window.IsVisible(musicosd)</visible>
 			</control>

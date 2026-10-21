@@ -20,7 +20,7 @@
 				<top>-12</top>
 				<width>272</width>
 				<height>72</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -29,7 +29,7 @@
 				<height>24</height>
 				<align>right</align>
 				<font>cap_20</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 				<label>$LOCALIZE[31013]$INFO[Control.GetLabel(10),  ·  ,%]</label>
 			</control>
 			<control type="image">
@@ -37,7 +37,7 @@
 				<top>34</top>
 				<width>240</width>
 				<height>8</height>
-				<texture colordiffuse="paper_22">common/white.png</texture>
+				<texture colordiffuse="$VAR[paper_22]">common/white.png</texture>
 			</control>
 			<control type="image">
 				<left>0</left>

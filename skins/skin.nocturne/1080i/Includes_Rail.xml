@@ -8,10 +8,10 @@
 	<!-- One engraved word on a playback rail. Fixed width (no judder). params: id, label, width, onclick, onleft, onright, onup, ondown, visible -->
 	<include name="Rail_Word">
 		<param name="onclick">noop</param>
-		<param name="onclick2"></param>
+		<param name="onclick2">noop</param>
 		<param name="visible">true</param>
 		<param name="onup">87</param>
-		<param name="ondown"></param>
+		<param name="ondown">noop</param>
 		<definition>
 			<control type="button" id="$PARAM[id]">
 				<width>$PARAM[width]</width>

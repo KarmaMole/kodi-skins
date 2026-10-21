@@ -516,20 +516,6 @@
 			</control>
 		</definition>
 	</include>
-	<!-- Engine names (posters / buttons): a rounded accent ring just outside the item. -->
-	<include name="DL_FocusFrame">
-		<param name="visible">true</param>
-		<definition>
-			<control type="image">
-				<left>focus_out</left>
-				<top>focus_out</top>
-				<right>focus_out</right>
-				<bottom>focus_out</bottom>
-				<texture border="16" colordiffuse="$VAR[DL_Accent]">focus/outline_3_round.png</texture>
-				<visible>$PARAM[visible]</visible>
-			</control>
-		</definition>
-	</include>
 	<include name="DL_FocusFrameAlways">
 		<param name="visible">true</param>
 		<definition>
@@ -617,15 +603,6 @@
 	<include name="DL_Tex_ButtonPrimary">
 		<texturefocus border="28,0,28,0" colordiffuse="$VAR[DL_Accent]">daylight/pill_56.png</texturefocus>
 		<texturenofocus border="28,0,28,0" colordiffuse="$VAR[DL_Line2]">daylight/pill_56_line.png</texturenofocus>
-	</include>
-	<include name="DL_Tex_ButtonPrimary_Round">
-		<include>DL_Tex_ButtonPrimary</include>
-	</include>
-	<include name="DL_Tex_ButtonSecondary">
-		<include>DL_Tex_ButtonPrimary</include>
-	</include>
-	<include name="DL_Tex_ButtonSecondary_Round">
-		<include>DL_Tex_ButtonPrimary</include>
 	</include>
 
 	<!-- Focus halo behind a focused 56 px pill (ring 5 px at 22 % + soft glow). params: id -->

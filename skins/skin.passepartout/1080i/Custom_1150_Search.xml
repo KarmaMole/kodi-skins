@@ -13,6 +13,7 @@
 	<backgroundcolor>paper</backgroundcolor>
 	<onload>ClearProperty(TMDbHelper.WidgetContainer,home)</onload>
 	<onunload>ClearProperty(TMDbHelper.WidgetContainer,home)</onunload>
+	<onunload>ClearProperty(Passepartout.Search.Encoded,home)</onunload>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>PP_Background</include>
@@ -24,25 +25,25 @@
 				<height>38</height>
 				<orientation>horizontal</orientation>
 				<itemgap>52</itemgap>
-				<control type="label"><width>auto</width><height>28</height><font>cap_20</font><textcolor>ink2</textcolor><label>Films</label></control>
-				<control type="label"><width>auto</width><height>28</height><font>cap_20</font><textcolor>ink2</textcolor><label>Series</label></control>
-				<control type="label"><width>auto</width><height>28</height><font>cap_20</font><textcolor>ink2</textcolor><label>Music</label></control>
+				<control type="label"><width>auto</width><height>28</height><font>cap_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31130]</label></control>
+				<control type="label"><width>auto</width><height>28</height><font>cap_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31131]</label></control>
+				<control type="label"><width>auto</width><height>28</height><font>cap_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31132]</label></control>
 				<control type="button">
 					<width>auto</width>
 					<height>37</height>
 					<font>cap_20</font>
-					<textcolor>ink</textcolor>
 					<disabledcolor>ink</disabledcolor>
 					<textoffsetx>0</textoffsetx>
 					<aligny>top</aligny>
 					<texturenofocus border="0,0,0,2" colordiffuse="ink">pp/underline.png</texturenofocus>
 					<texturefocus border="0,0,0,2" colordiffuse="ink">pp/underline.png</texturefocus>
-					<label>Search</label>
+					<label>$LOCALIZE[31133]</label>
 				</control>
-				<control type="label"><width>auto</width><height>28</height><font>cap_20</font><textcolor>ink2</textcolor><label>Settings</label></control>
+				<control type="label"><width>auto</width><height>28</height><font>cap_20</font><textcolor>ink2</textcolor><label>$LOCALIZE[31134]</label></control>
 			</control>
 			<include>PP_Clock</include>
 		</control>
+		<include>Search_Encoder</include>
 		<include>Search_Query</include>
 		<include>Search_Results</include>
 	</controls>

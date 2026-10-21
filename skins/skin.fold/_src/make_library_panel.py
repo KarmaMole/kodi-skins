@@ -10,7 +10,8 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
      of the season cards and the concertina strip, the "Options" header word (video and music), and from Home's
      Settings cards "Update library" / "Clean library" (they set Window(Home).Property(fold.libpanel) first).
      In a library: Update library (Stop the update while scanning), Clean library, View, Sort by, Order,
-     Unwatched only (video), Search, Library settings. Update / Clean hide in add-on and plugin folders.
+     Unwatched only (video), Sets (films, when the library has sets: Container.Update to videodb://movies/sets/
+     in the same Videos window), Search, Library settings. Update / Clean hide in add-on and plugin folders.
      Clean never runs straight away: Kodi 21's CleanLibrary() builtin has NO confirmation of its own, so the row
      opens a confirm note (list 101, focus on No).
      Back closes the note; focus returns to the card you came from.
@@ -20,6 +21,8 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 """
 import re
 from pathlib import Path
+from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 ROOT = Path(__file__).resolve().parents[1] / "1080i"
 SK = "fold"
@@ -34,6 +37,10 @@ CONF = f"Window(Home).Property({SK}.libconfirm)"
 VIDLIB = ("[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | "
           "Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]")
 SORTABLE = "!String.IsEmpty(Container.SortMethod)"
+# Sets row (docs/requests/SETS_AND_RM_BRIEF.md): only while Videos browses films and the library has sets
+FILMS = ("[Container.Content(movies) | String.IsEqual(Container.FolderPath,videodb://movies/) | "
+         "String.IsEqual(Container.FolderPath,library://video/movies/)]")
+SETS = f"{V} + {FILMS} + Library.HasContent(moviesets)"
 
 ROW_H = 64            # dialog_row_h
 LIST_TOP = 104        # dialog_header_h + 16
@@ -70,7 +77,8 @@ PANEL_ITEMS = [
     item("Sort by", "$INFO[Container.SortMethod]", f"{INLIB} + {SORTABLE}",
          [CLOSE, (V, "SendClick(videos,3)"), (M, "SendClick(music,3)")]),
     item("Order", "$INFO[Container.SortOrder]", f"{INLIB} + {SORTABLE}", [("", "Container.SetSortDirection")]),
-    item("Unwatched only", "$VAR[Fold_Lib_HideWatched]", f"{V} + {VIDLIB}", [("", "SendClick(videos,14)")]),
+    item("Unwatched only", "$VAR[Fold_Lib_HideWatched]", f"{V} + {VIDLIB}", [CLOSE, ("", "SendClick(14)")]),
+    item("$LOCALIZE[20434]", "Film collections", SETS, [CLOSE, ("", "Container.Update(videodb://movies/sets/)")]),
     item("$LOCALIZE[137]", "", INLIB, [CLOSE, ("", "ActivateWindow(1150)")]),
     item("Library settings", "Kodi", INLIB, [CLOSE, ("", "ActivateWindow(mediasettings)")]),
     # from Home (the Settings cards)
@@ -88,7 +96,7 @@ CONFIRM_ITEMS = [
     item("Yes, clean the music library", "", f"String.IsEqual({CONF},music)", [CLOSE, ("", "CleanLibrary(music)")]),
 ]
 
-MAXROWS = 8
+MAXROWS = 9           # films: update, clean, view, sort, order, unwatched, sets, search, settings
 
 
 def note(w, h, vis, title, kicker):
@@ -243,7 +251,7 @@ def picker():
 						<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
 							<effect type="zoom" start="100" end="104" center="160,180" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(100)">
 							<effect type="zoom" start="104" end="104" center="160,180" time="0"/>
 						</animation>""" if focused else ""
         shadow = "fold/shadow_lift_s.png" if focused else "fold/shadow_card.png"
@@ -406,8 +414,8 @@ def selcol(xml):
 
 
 if __name__ == "__main__":
-    (ROOT / "Custom_1155_LibraryPanel.xml").write_text(selcol(panel()), encoding="utf-8", newline="\n")
+    (ROOT / "Custom_1155_LibraryPanel.xml").write_text(finish_xml(strip_defaults(selcol(panel()), ROOT / "Defaults.xml")), encoding="utf-8", newline="\n")
     xml, nowvars = picker()
-    (ROOT / "Custom_1156_ViewPicker.xml").write_text(selcol(xml), encoding="utf-8", newline="\n")
-    (ROOT / "Includes_Library.xml").write_text(variables(nowvars), encoding="utf-8", newline="\n")
+    (ROOT / "Custom_1156_ViewPicker.xml").write_text(finish_xml(strip_defaults(selcol(xml), ROOT / "Defaults.xml")), encoding="utf-8", newline="\n")
+    (ROOT / "Includes_Library.xml").write_text(finish_xml(variables(nowvars)), encoding="utf-8", newline="\n")
     print("wrote Custom_1155_LibraryPanel.xml, Custom_1156_ViewPicker.xml, Includes_Library.xml")

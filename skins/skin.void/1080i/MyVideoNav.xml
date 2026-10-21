@@ -26,7 +26,7 @@
 			</include>
 			<include>LibPanel_HeaderWord</include>
 		</control>
-		<include content="Void_View50"><param name="viewlabel" value="Index"/><param name="libpanel" value="true"/></include>
+		<include content="Void_View50"><param name="viewlabel" value="31217"/><param name="libpanel" value="true"/></include>
 		<include>Void_View51</include>
 		<include content="Void_LibraryEmpty">
 			<param name="hint" value="Up for sort, filter and view. With Unwatched on, everything may be filtered away."/>

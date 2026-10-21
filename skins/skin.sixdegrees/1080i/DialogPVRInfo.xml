@@ -35,7 +35,6 @@
 				<width>1160</width>
 				<height>30</height>
 				<font>caps_20</font>
-				<textcolor>ink</textcolor>
 				<label>$INFO[ListItem.ChannelName]$INFO[ListItem.Season,  ·  S,]$INFO[ListItem.Episode,E,]$INFO[ListItem.EpisodeName,  ·  ,]</label>
 			</control>
 			<control type="label">
@@ -53,7 +52,6 @@
 				<width>1160</width>
 				<height>471</height>  <!-- 13 lines exactly: no half-clipped line at the bottom -->
 				<font>reg_26</font>
-				<textcolor>body</textcolor>
 				<label>$INFO[ListItem.Plot]$INFO[ListItem.Director,[CR][CR]Director  ,]$INFO[ListItem.Cast,[CR]Cast  ,]</label>
 				<autoscroll time="3000" delay="6000" repeat="8000">true</autoscroll>
 			</control>

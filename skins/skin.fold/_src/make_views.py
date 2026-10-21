@@ -19,11 +19,14 @@ view mode), and the first visit of each content type opens the Fold view.
 from pathlib import Path
 from fold_geo import (SHELF_X, SHELF_Y, SHELF_SLOT_W, SHELF_SLOT_H, SHELF_PAD_X, SHELF_PAD_Y,
                       SHELF_CARD_W, SHELF_CARD_H, SHELF_LIFT_W, SHELF_LIFT_H, SHELF_COLS)
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 ROOT = Path(__file__).resolve().parents[1] / "1080i"
 OUT = ROOT / "Includes_Views_Video.xml"
 TIMERS = ROOT / "Timers.xml"
 RM = "Skin.HasSetting(fold.reducemotion)"
+# Reduce motion keeps a focused lift as a time-0 Conditional on the list's focus, never as a second Focus animation:
+# Kodi resets only the FIRST Focus animation on unfocus, so a reduce-motion Focus twin stayed applied (0.9.8).
 
 SHELF_CONTENT = "Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)"
 
@@ -60,7 +63,7 @@ def shelf_card(focused):
 						<effect type="zoom" start="{SHELF_CARD_W / SHELF_LIFT_W * 100:.1f}" end="100" center="{cx},{bottom}" time="260" tween="back" easing="out"/>
 						<effect type="rotatex" start="0" end="-9" center="{bottom}" time="260" tween="back" easing="out"/>
 					</animation>
-					<animation type="Focus" condition="{RM}">
+					<animation type="Conditional" condition="{RM} + Control.HasFocus(500)">
 						<effect type="rotatex" start="-9" end="-9" center="{bottom}" time="0"/>
 					</animation>
 					<animation type="Unfocus" condition="!{RM}">
@@ -425,7 +428,7 @@ def panel(focused):
 				<animation type="Focus" condition="!{RM}">
 					<effect type="zoom" start="100" end="116" center="{cx},{cy}" time="220" tween="cubic" easing="out"/>
 				</animation>
-				<animation type="Focus" condition="{RM}">
+				<animation type="Conditional" condition="{RM} + Control.HasFocus(502)">
 					<effect type="zoom" start="116" end="116" center="{cx},{cy}" time="0"/>
 				</animation>
 				<animation type="Unfocus">
@@ -900,7 +903,7 @@ def build():
 	<expression name="VidView_IsTVType">String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)</expression>
 	<expression name="Shelf_Watched">[!$EXP[VidView_IsFolderType] + Integer.IsGreater(ListItem.PlayCount,0)] | [$EXP[VidView_IsTVType] + Integer.IsEqual(ListItem.Property(UnWatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)]</expression>
 	<!-- the library's start folder (Back leaves to Home from here in one press) -->
-	<expression name="Lib_AtRoot">String.IsEqual(Container.FolderPath,videodb://movies/titles/) | String.IsEqual(Container.FolderPath,videodb://tvshows/titles/) | String.IsEqual(Container.FolderPath,videodb://inprogresstvshows/) | String.IsEqual(Container.FolderPath,videodb://movies/sets/)</expression>
+	<expression name="Lib_AtRoot">String.IsEqual(Container.FolderPath,videodb://movies/titles/) | String.IsEqual(Container.FolderPath,videodb://tvshows/titles/) | String.IsEqual(Container.FolderPath,videodb://inprogresstvshows/)</expression>
 
 	<!-- ================================================================== variables -->
 	<variable name="VidView_Title">
@@ -974,10 +977,6 @@ def build():
 		<value condition="String.IsEqual(ListItem.MPAA,Rated NR) | String.IsEqual(ListItem.MPAA,Rated)"></value>
 		<value condition="String.IsEqual(ListItem.MPAA,Rated NC-17)">NC-17</value>
 		<value>$INFO[ListItem.MPAA]</value>
-	</variable>
-	<variable name="VidView_EpCode">
-		<value condition="String.IsEmpty(ListItem.Episode)"></value>
-		<value>S$INFO[ListItem.Season] · E$INFO[ListItem.Episode]</value>
 	</variable>
 	<!-- shelf -->
 	<variable name="Shelf_CardColor">
@@ -1115,7 +1114,7 @@ def build():
 	</include>
 </includes>
 """
-    OUT.write_text(selcol(x), encoding="utf-8", newline="\n")
+    OUT.write_text(finish_xml(selcol(x)), encoding="utf-8", newline="\n")
     print("Includes_Views_Video.xml written")
 
     t = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -1157,7 +1156,7 @@ def build():
 		<onstart>Container.SetViewMode(50)</onstart>
 	</timer>""")
     t.append("</timers>\n")
-    TIMERS.write_text("\n".join(t), encoding="utf-8", newline="\n")
+    TIMERS.write_text(finish_xml("\n".join(t)), encoding="utf-8", newline="\n")
     print("Timers.xml written")
 
 

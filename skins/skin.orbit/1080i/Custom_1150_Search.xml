@@ -15,7 +15,19 @@
 	<defaultcontrol always="true">9099</defaultcontrol>
 	<backgroundcolor>bg</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
+	<!-- the encoded query (Includes_Search.xml) must not outlive the window: a stale one would show old rows -->
+	<onunload>ClearProperty(Orbit.Search.Encoded,home)</onunload>
 	<controls>
+		<!-- query encoder (script.skinvariables): its items are never shown; it exists to set Orbit.Search.Encoded -->
+		<control type="list" id="9710">
+			<left>-20</left>
+			<top>-20</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1"/>
+			<focusedlayout width="1" height="1"/>
+			<content target="programs">$VAR[Search_EncoderPath]</content>
+		</control>
 		<!-- fit-to-width probes for the wide titles (Includes_Titles.xml) -->
 		<include content="Fit_SearchVideo_Probes">
 			<param name="label" value="$VAR[Search_VideoTitle]"/>
@@ -30,7 +42,6 @@
 			<width>1</width>
 			<height>1</height>
 			<texturefocus/>
-			<texturenofocus/>
 			<onfocus>SetFocus(9001)</onfocus>
 			<onfocus condition="!$EXP[Search_HasQuery]">Action(Select)</onfocus>
 			<visible allowhiddenfocus="true">false</visible>

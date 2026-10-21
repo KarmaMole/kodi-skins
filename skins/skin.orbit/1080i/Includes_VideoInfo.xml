@@ -101,15 +101,16 @@
 		<value condition="Integer.IsGreater(ListItem.PlayCount,1)">[COLOR text_secondary]watched [/COLOR]$INFO[ListItem.PlayCount,, times]</value>
 		<value>[COLOR text_secondary]unwatched[/COLOR]</value>
 	</variable>
+	<!-- by TMDb id (the title as a query would need URL encoding; Kodi 21 has none) -->
 	<variable name="VidInfo_SimilarPath">
-		<value condition="$EXP[VidView_IsTVType] | String.IsEqual(ListItem.DBType,episode)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=tv&amp;query=$ESCINFO[ListItem.TVShowTitle]</value>
-		<value>plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=movie&amp;query=$ESCINFO[ListItem.Title]&amp;year=$INFO[ListItem.Year]</value>
+		<value condition="$EXP[VidView_IsTVType] | String.IsEqual(ListItem.DBType,episode)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=tv&amp;tmdb_id=$INFO[ListItem.UniqueID(tmdb)]</value>
+		<value>plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=movie&amp;tmdb_id=$INFO[ListItem.UniqueID(tmdb)]</value>
 	</variable>
 
 	<expression name="VidInfo_ShowResume">Control.IsEnabled(9) + !$EXP[VidView_IsFolderType]</expression>
 	<expression name="VidInfo_ShowPlay">!Control.IsEnabled(9) + !$EXP[VidView_IsFolderType]</expression>
 	<expression name="VidInfo_ShowTrailer">$EXP[ShowTrailerButton] + !String.IsEmpty(ListItem.Trailer)</expression>
-	<expression name="VidInfo_ShowSimilar">System.AddonIsEnabled(plugin.video.themoviedb.helper) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)]</expression>
+	<expression name="VidInfo_ShowSimilar">System.AddonIsEnabled(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.UniqueID(tmdb)) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)]</expression>
 
 	<!-- ================================================================ backdrop -->
 	<include name="VidInfo_Backdrop">
@@ -410,7 +411,7 @@
 				<height>24</height>
 				<font>label_20</font>
 				<textcolor>text_secondary</textcolor>
-				<label>Story</label>
+				<label>$LOCALIZE[31248]</label>
 			</control>
 			<control type="textbox">
 				<left>0</left>
@@ -737,7 +738,7 @@
 				<height>24</height>
 				<font>label_20</font>
 				<textcolor>text_secondary</textcolor>
-				<label>Story</label>
+				<label>$LOCALIZE[31248]</label>
 			</control>
 			<control type="label">
 				<left>360</left>
@@ -776,7 +777,7 @@
 				<height>24</height>
 				<font>label_20</font>
 				<textcolor>text_dim</textcolor>
-				<label>Up / Down scroll  ·  Back closes</label>
+				<label>$LOCALIZE[31249]</label>
 			</control>
 		</control>
 	</include>

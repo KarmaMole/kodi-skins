@@ -4,7 +4,7 @@
 
 Output layout (what Kodi's repository add-on expects):
   _site/addons.xml, _site/addons.xml.md5          every add-on's addon.xml, concatenated
-  _site/<id>/<id>-<version>.zip                    installable zips (top folder = <id>/)
+  _site/<id>/<id>-<version>.zip                    installable zips (top folder = <id>/), skins/skin.* and addons/*
   _site/repository.karmamole-<version>.zip         the repository add-on, for the first manual install
   _site/index.html                                 a small landing page with the install steps
 
@@ -29,7 +29,9 @@ REPO_ID = "repository.karmamole"
 
 
 def addon_dirs() -> list[Path]:
-    return sorted((ROOT / "skins").glob("skin.*")) + [ROOT / REPO_ID]
+    # skins, helper add-ons some skins use (addons/<id>/, e.g. script.karmamole.helper), the repository add-on
+    return (sorted((ROOT / "skins").glob("skin.*")) + sorted(p for p in (ROOT / "addons").glob("*") if p.is_dir())
+            + [ROOT / REPO_ID])
 
 
 def meta(d: Path) -> tuple[str, str, str, str]:
@@ -57,7 +59,7 @@ def page(rows: list[tuple[str, str, str, str]], repo_zip: str) -> str:
     items = "\n".join(
         f'<li><b>{html.escape(name)}</b> <span class="v">{html.escape(ver)}</span>'
         f'<br><span class="s">{html.escape(summary.split(" - ", 1)[-1])}</span></li>'
-        for aid, ver, name, summary in rows if aid != REPO_ID)
+        for aid, ver, name, summary in rows if aid.startswith("skin."))
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KarmaMole's Kodi Skins</title>
@@ -71,7 +73,7 @@ ul{{list-style:none;padding:0;border-top:1px solid var(--line)}} ul li{{padding:
 .v{{font:13px ui-monospace,monospace;color:var(--dim)}} .s{{color:var(--dim)}}
 </style></head><body><main>
 <h1>KarmaMole's Kodi Skins</h1>
-<p>Eleven skins for Kodi 21 Omega, designed for the TV and tested on an NVIDIA Shield. Free under the GPL-2.0.</p>
+<p>Twelve skins for Kodi 21 Omega, designed for the TV and tested on an NVIDIA Shield. Free under the GPL-2.0.</p>
 <h2>Install</h2>
 <ol>
 <li>In Kodi: <b>Settings → System → Add-ons</b>, turn on <b>Unknown sources</b>.</li>

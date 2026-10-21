@@ -80,7 +80,7 @@
 				<param name="top" value="784"/>
 				<param name="left" value="0"/>
 				<param name="width" value="1400"/>
-				<param name="color" value="ink"/>
+				<param name="color" value="$VAR[ink]"/>
 			</include>
 			<control type="label" id="412">
 				<description>path</description>

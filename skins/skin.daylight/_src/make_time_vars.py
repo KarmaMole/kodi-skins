@@ -29,7 +29,7 @@ TOKENS = {
     "DL_Line": "line", "DL_Line2": "line2", "DL_Accent": "accent", "DL_AccentText": "accenttext",
     "DL_OnAccent": "onaccent", "DL_Scrim": "ground", "DL_ScrimTrack": "scrimtrack", "DL_DimDialog": "dimdialog",
     "DL_Shadow": "shadow", "DL_Halo": "halo", "DL_GlowA": "glowa", "DL_GlowB": "glowb",
-    "DL_ArtDim": "artdim", "DL_DimArt": "dimart", "DL_DimArt2": "artdim", "DL_ArtAlpha": "artdim",
+    "DL_ArtDim": "artdim", "DL_DimArt2": "artdim",
     "DL_FloorShade": "floor", "DL_RainTint": "rain", "DL_Chip": "chip", "DL_ChipText": "chiptext", "DL_Panel": "panel",
 }
 
@@ -111,13 +111,6 @@ def main() -> None:
         w(f'\t<expression name="{name}">String.IsEqual(Skin.String(daylight.mood),{mood}) | [$EXP[DL_MoodAuto] + System.Time({a},{b})]</expression>')
     w('\t<expression name="DL_IsDark">$EXP[DL_IsNight] | $EXP[DL_IsEvening]</expression>')
     w('\t<expression name="DL_IsLight">!$EXP[DL_IsNight] + !$EXP[DL_IsEvening]</expression>')
-    w("\t<!-- Mood name, used to pick per-mood textures (glows, icons): media/daylight/<name>_*.png -->")
-    w('\t<variable name="DL_Mood">')
-    for m, word in (("n", "night"), ("e", "evening"), ("a", "afternoon")):
-        w(f'\t\t<value condition="$EXP[{MOOD_EXP[m]}]">{word}</value>')
-    w("\t\t<value>morning</value>")
-    w("\t</variable>")
-
     w('\t<variable name="DL_MoodIcon">')
     w('\t\t<value condition="$EXP[DL_IsNight]">daylight/icons/moon.png</value>')
     w('\t\t<value condition="$EXP[DL_IsEvening]">daylight/icons/sunset.png</value>')

@@ -17,6 +17,7 @@ from __future__ import annotations
 import json
 import urllib.parse
 from pathlib import Path
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "Includes_Paths.xml"
 YEAR = "@@YEAR@@"
@@ -45,7 +46,6 @@ PATHS = {
     "YA2": xsp(MOVIES, "movies", rule("lastplayed", "inthelast", "760 days"), rule("lastplayed", "notinthelast", "700 days")),
     "Watched": xsp(MOVIES, "movies", rule("playcount", "greaterthan", "0")),
     "Stopped": xsp(MOVIES, "movies", rule("inprogress", "true"), rule("lastplayed", "notinthelast", "14 days")),
-    "FilmsInProgress": xsp(MOVIES, "movies", rule("inprogress", "true")),
     "FilmsRecent": xsp(MOVIES, "movies", rule("inprogress", "true"), rule("lastplayed", "inthelast", "14 days")),
     "EpInProgress": xsp(EPISODES, "episodes", rule("inprogress", "true")),
     "FilmsThisYear": xsp(MOVIES, "movies", rule("playcount", "greaterthan", "0"), rule("lastplayed", "startswith", YEAR)),
@@ -54,7 +54,6 @@ PATHS = {
     # the brief's mechanic: never played and added five years ago or more
     "WaitingFive": xsp(MOVIES, "movies", rule("playcount", "is", "0"), rule("inprogress", "false"),
                        rule("dateadded", "notinthelast", "1825 days")),
-    "EpWatched": xsp(EPISODES, "episodes", rule("playcount", "greaterthan", "0")),
     # never-played films added on the same day as the focused print (unwatched page side note)
     "SameDay": xsp(MOVIES, "movies", rule("playcount", "is", "0"), rule("inprogress", "false"), rule("dateadded", "startswith", DAY)),
 }
@@ -77,7 +76,7 @@ def main():
         out.append(f'\t\t<value>{PATHS["Waiting2000"]}</value>')
         out.append("\t</variable>")
     out += ["</includes>", ""]
-    OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
+    OUT.write_text(finish_xml("\n".join(out)), encoding="utf-8", newline="\n")
     print("wrote", OUT)
 
 

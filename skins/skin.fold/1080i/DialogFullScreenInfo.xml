@@ -12,7 +12,6 @@
 			<height>1080</height>
 			<label></label>
 			<texturefocus />
-			<texturenofocus />
 			<onright>StepForward</onright>
 			<onleft>StepBack</onleft>
 			<onup>ChapterOrBigStepForward</onup>
@@ -121,8 +120,6 @@
 				<width>1000</width>
 				<height>66</height>
 				<font>head_50</font>
-				<textcolor>ink</textcolor>
-				<selectedcolor>ink</selectedcolor>
 				<label>$VAR[OSD_Title]</label>
 			</control>
 			<control type="label">
@@ -141,7 +138,6 @@
 				<width>1060</width>
 				<height>111</height>
 				<font>body_26</font>
-				<textcolor>body</textcolor>
 				<selectedcolor>body</selectedcolor>
 				<label>$INFO[VideoPlayer.Plot]</label>
 			</control>
@@ -152,8 +148,6 @@
 				<height>50</height>
 				<align>right</align>
 				<font>num_38</font>
-				<textcolor>ink</textcolor>
-				<selectedcolor>ink</selectedcolor>
 				<label>$INFO[Player.Time]</label>
 			</control>
 			<control type="label">
@@ -182,9 +176,6 @@
 				<width>1728</width>
 				<height>5</height>
 				<texturebg />
-				<lefttexture />
-				<midtexture colordiffuse="$VAR[FoldAccent]">common/white.png</midtexture>
-				<righttexture />
 				<info>Player.Progress</info>
 			</control>
 			<control type="slider">

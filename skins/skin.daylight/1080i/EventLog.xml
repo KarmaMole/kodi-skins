@@ -111,7 +111,6 @@
 						<width>820</width>
 						<height>36</height>
 						<font>ui_22_bold</font>
-						<textcolor>$VAR[DL_Ink]</textcolor>
 						<scroll>true</scroll>
 						<label>$INFO[ListItem.Label]</label>
 						<visible>!Control.HasFocus(50)</visible>
@@ -155,7 +154,6 @@
 						<width>1080</width>
 						<height>56</height>
 						<font>small_20</font>
-						<textcolor>$VAR[DL_Body]</textcolor>
 						<label>$INFO[ListItem.Property(Event.Description)]</label>
 						<visible>!Control.HasFocus(50)</visible>
 					</control>
@@ -193,10 +191,8 @@
 				<control type="togglebutton" id="4">
 					<description>Sort order</description>
 					<include content="Misc_RowLook"><param name="width" value="misc_menu_w"/></include>
-					<alttexturefocus border="20" colordiffuse="$VAR[DL_Accent]">daylight/card16.png</alttexturefocus>
-					<alttexturenofocus />
-					<label>Order: $LOCALIZE[584]</label>
-					<altlabel>Order: $LOCALIZE[585]</altlabel>
+					<label>$LOCALIZE[31223] $LOCALIZE[584]</label>
+					<altlabel>$LOCALIZE[31223] $LOCALIZE[585]</altlabel>
 				</control>
 				<control type="button" id="21">
 					<description>Level filter (Kodi sets the label)</description>
@@ -233,8 +229,7 @@
 			<width>1160</width>
 			<height>48</height>
 			<font>serif_32</font>
-			<textcolor>$VAR[DL_Ink]</textcolor>
-			<label>Nothing has happened yet.</label>
+			<label>$LOCALIZE[31224]</label>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 		</control>
 	</controls>

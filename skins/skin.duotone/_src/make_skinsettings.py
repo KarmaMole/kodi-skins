@@ -1,7 +1,7 @@
 """Generate skins/skin.duotone/1080i/SkinSettings.xml (docs/skin.duotone/SETTINGS.md).
 
 One page, paper field (Search / Settings section). Left column: Anton "SKIN" + the focused row's help.
-Right column: 10 rows of 80. Each row is ONE focus target: Left / Right step through the options and
+Right column: 10 rows of 72 + Reset. Each row is ONE focus target: Left / Right step through the options and
 apply at once (Left on the first option returns... nowhere: the page has no other column), OK cycles.
 The current option is a chip: ink block + paper text on a resting row, paper block + ink text on the
 focused (ink) row. Spotlight interval runs ReloadSkin() from the row itself (Home reads <autoscroll time>
@@ -11,6 +11,8 @@ at skin load) and restores focus through Window(Home).Property(duotone.refocus) 
 Usage: python skins/skin.duotone/_src/make_skinsettings.py
 """
 from pathlib import Path
+from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "SkinSettings.xml"
 S = "Skin.String"
@@ -24,43 +26,50 @@ def empty_or(name, val):
     return f"[String.IsEmpty({S}({name})) | {eq(name, val)}]"
 
 
-# Each row: id, label, help, kind, setting, options [(stored, label, condition)], reload
+# Each row: label, help, kind, setting, options [(stored, label, condition)], reload. Ids are 9501... in table order.
+LOOK_LIGHT, LOOK_DARK = eq("duotone.look", "light"), eq("duotone.look", "dark")
 ROWS = [
-    dict(id=9501, label="Monotone prints", help="Every picture in a section is printed in its colour; the focused one bursts into full colour. Light keeps more of the art. Off shows everything in colour.",
+    dict(label="Look", help="Colour: every section in its own colour. Light and Dark: the same pages in black and white, near-white or near-black. The focused picture still bursts into full colour.",
+         kind="string", name="duotone.look",
+         opts=[("", "Colour", f"!{LOOK_LIGHT} + !{LOOK_DARK}"), ("light", "Light", LOOK_LIGHT), ("dark", "Dark", LOOK_DARK)]),
+    dict(label="Monotone prints", help="Every picture in a section is printed in its colour; the focused one bursts into full colour. Light keeps more of the art. Off shows everything in colour.",
          kind="string", name="duotone.mono",
          opts=[("", "Full", f"String.IsEmpty({S}(duotone.mono))"), ("light", "Light", eq("duotone.mono", "light")), ("off", "Off", eq("duotone.mono", "off"))]),
-    dict(id=9502, label="True black and white", help="TMDb Helper turns the big artwork (Home spotlight, info page) into a black-and-white print first, so the section colour prints cleanly. Off: the colour art is tinted.",
+    dict(label="True black and white", help="TMDb Helper turns the big artwork (Home spotlight, info page) into a black-and-white print first, so the section colour prints cleanly. Off: the colour art is tinted.",
          kind="bool_inv", name="duotone.nodesaturate",
          opts=[(None, "On", "!Skin.HasSetting(duotone.nodesaturate)"), (None, "Off", "Skin.HasSetting(duotone.nodesaturate)")]),
-    dict(id=9503, label="Halftone dots", help="The fine dot screen over every field and print.",
+    dict(label="Halftone dots", help="The fine dot screen over every field and print.",
          kind="bool_inv", name="duotone.nohalftone",
          opts=[(None, "On", "!Skin.HasSetting(duotone.nohalftone)"), (None, "Off", "Skin.HasSetting(duotone.nohalftone)")]),
-    dict(id=9504, label="Reduce motion", help="No field wipe, no focus zoom, no slides: short fades only.",
+    dict(label="Reduce motion", help="No field wipe, no focus zoom, no slides: short fades only.",
          kind="bool", name="duotone.reducemotion",
          opts=[(None, "Off", "!Skin.HasSetting(duotone.reducemotion)"), (None, "On", "Skin.HasSetting(duotone.reducemotion)")]),
-    dict(id=9505, label="Watched marks", help="Watched: a black block with a tick on watched posters. Both adds a small square on unwatched ones.",
+    dict(label="Watched marks", help="Watched: an ink block with a tick on watched posters. Both adds a small square on unwatched ones.",
          kind="string", name="duotone.watchedmarkers",
          opts=[("", "Watched", f"[String.IsEmpty({S}(duotone.watchedmarkers)) | {eq('duotone.watchedmarkers','watched')}]"),
                ("both", "Both", eq("duotone.watchedmarkers", "both")), ("unwatched", "Unwatched", eq("duotone.watchedmarkers", "unwatched")),
                ("off", "Off", eq("duotone.watchedmarkers", "off"))]),
-    dict(id=9506, label="Trailer block", help="Show TRAILER on the info page when a film has a trailer (plays via YouTube).",
+    dict(label="Trailer block", help="Show TRAILER on the info page when a film has a trailer (plays via YouTube).",
          kind="bool_inv", name="duotone.hidetrailer",
          opts=[(None, "Show", "!Skin.HasSetting(duotone.hidetrailer)"), (None, "Hide", "Skin.HasSetting(duotone.hidetrailer)")]),
-    dict(id=9507, label="Spotlight rotation", help="How often the Home spotlight moves to the next pick. Changing it reloads the skin.",
+    dict(label="Spotlight rotation", help="How often the Home spotlight moves to the next pick. Changing it reloads the skin.",
          kind="string", name="duotone.spotlightrotate", reload=True,
          opts=[("8", "8 s", eq("duotone.spotlightrotate", "8")), ("", "15 s", f"[String.IsEmpty({S}(duotone.spotlightrotate)) | {eq('duotone.spotlightrotate','15')}]"),
                ("30", "30 s", eq("duotone.spotlightrotate", "30")), ("off", "Off", eq("duotone.spotlightrotate", "off"))]),
-    dict(id=9508, label="OSD auto-hide", help="Seconds of no input before the playback controls hide by themselves (not while paused).",
+    dict(label="OSD auto-hide", help="Seconds of no input before the playback controls hide by themselves (not while paused).",
          kind="string", name="duotone.osdhide",
          opts=[("3", "3 s", eq("duotone.osdhide", "3")), ("", "5 s", f"[String.IsEmpty({S}(duotone.osdhide)) | {eq('duotone.osdhide','5')}]"),
                ("10", "10 s", eq("duotone.osdhide", "10")), ("off", "Off", eq("duotone.osdhide", "off"))]),
-    dict(id=9509, label="Offset strip", help="Where the slim strip sits while you sync audio or subtitles.",
+    dict(label="Offset strip", help="Where the slim strip sits while you sync audio or subtitles.",
          kind="string", name="duotone.offsetbar",
          opts=[("", "Top", f"[String.IsEmpty({S}(duotone.offsetbar)) | {eq('duotone.offsetbar','top')}]"), ("bottom", "Bottom", eq("duotone.offsetbar", "bottom"))]),
 ]
-RESET_ID = 9510
+for _i, _r in enumerate(ROWS):
+    _r["id"] = 9501 + _i
+RESET_ID = 9501 + len(ROWS)
 FIRST, LAST = ROWS[0]["id"], RESET_ID
-ROW_TOP, ROW_H = 176, 80
+ROW_TOP, ROW_H = 176, 72
+CHIP_H = 44
 
 
 def set_action(row, opt):
@@ -94,7 +103,7 @@ def row_xml(i, row):
     a(f'\t\t\t<control type="button" id="{rid}">')
     a(f'\t\t\t\t<left>0</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>1032</width>\n\t\t\t\t<height>{ROW_H}</height>')
     a('\t\t\t\t<label></label>')
-    a('\t\t\t\t<texturefocus colordiffuse="ink">common/white.png</texturefocus>')
+    a('\t\t\t\t<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>')
     a('\t\t\t\t<texturenofocus border="0,0,0,4" colordiffuse="$VAR[SectionText]">dialogs/row_rule.png</texturenofocus>')
     a(f'\t\t\t\t<onup>{up}</onup>\n\t\t\t\t<ondown>{down}</ondown>')
     n = len(opts)
@@ -111,7 +120,7 @@ def row_xml(i, row):
                 a(f'\t\t\t\t<onleft condition="{cond}">{act}</onleft>')
     a('\t\t\t</control>')
     # label (two colours)
-    for vis, col in ((f"!Control.HasFocus({rid})", "$VAR[SectionText]"), (f"Control.HasFocus({rid})", "paper")):
+    for vis, col in ((f"!Control.HasFocus({rid})", "$VAR[SectionText]"), (f"Control.HasFocus({rid})", "$VAR[paper]")):
         a('\t\t\t<control type="label">')
         a(f'\t\t\t\t<left>24</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>480</width>\n\t\t\t\t<height>{ROW_H}</height>')
         a(f'\t\t\t\t<aligny>center</aligny>\n\t\t\t\t<font>bold_28</font>\n\t\t\t\t<textcolor>{col}</textcolor>')
@@ -119,19 +128,19 @@ def row_xml(i, row):
         a('\t\t\t</control>')
     # chips
     a('\t\t\t<control type="grouplist">')
-    a(f'\t\t\t\t<left>440</left>\n\t\t\t\t<top>18</top>\n\t\t\t\t<width>568</width>\n\t\t\t\t<height>44</height>')
+    a(f'\t\t\t\t<left>440</left>\n\t\t\t\t<top>{(ROW_H - CHIP_H) // 2}</top>\n\t\t\t\t<width>568</width>\n\t\t\t\t<height>{CHIP_H}</height>')
     a('\t\t\t\t<orientation>horizontal</orientation>\n\t\t\t\t<align>right</align>\n\t\t\t\t<itemgap>4</itemgap>')
     for opt in opts:
         cond = opt[2]
         variants = [
-            (f"!Control.HasFocus({rid}) + [{cond}]", "ink", "paper"),           # resting row, current
+            (f"!Control.HasFocus({rid}) + [{cond}]", "$VAR[ink]", "$VAR[paper]"),           # resting row, current
             (f"!Control.HasFocus({rid}) + ![{cond}]", None, "$VAR[SectionText2]"),
             (f"Control.HasFocus({rid}) + [{cond}]", "$VAR[SectionColor]", "$VAR[SectionText]"),
-            (f"Control.HasFocus({rid}) + ![{cond}]", None, "paper_70"),
+            (f"Control.HasFocus({rid}) + ![{cond}]", None, "$VAR[paper_70]"),
         ]
         for vis, fill, txt in variants:
             a('\t\t\t\t<control type="button">')
-            a('\t\t\t\t\t<width>auto</width>\n\t\t\t\t\t<height>44</height>\n\t\t\t\t\t<font>cap_20</font>')
+            a(f'\t\t\t\t\t<width>auto</width>\n\t\t\t\t\t<height>{CHIP_H}</height>\n\t\t\t\t\t<font>cap_20</font>')
             a(f'\t\t\t\t\t<textcolor>{txt}</textcolor>\n\t\t\t\t\t<focusedcolor>{txt}</focusedcolor>')
             a('\t\t\t\t\t<textoffsetx>16</textoffsetx>\n\t\t\t\t\t<aligny>center</aligny>')
             if fill:
@@ -160,12 +169,12 @@ def main():
     refocus = "\n".join(f'\t<onload condition="String.IsEqual(Window(Home).Property(duotone.refocus),{r["id"]})">SetFocus({r["id"]})</onload>' for r in ROWS if r.get("reload"))
     xml = f'''<?xml version="1.0" encoding="UTF-8"?>
 <!-- GENERATED by _src/make_skinsettings.py - edit the table there, not this file.
-	Duotone skin settings (docs/skin.duotone/SETTINGS.md). Paper field. Rows 9501-9509, reset 9510.
+	Duotone skin settings (docs/skin.duotone/SETTINGS.md). Paper field. Rows {FIRST}-{RESET_ID - 1}, reset {RESET_ID}.
 	Each row is one focus target: Left / Right step through the options and apply at once, OK cycles.
 	Spotlight rotation reloads the skin from the row itself and refocuses through duotone.refocus. -->
 <window>
 	<defaultcontrol always="true">{FIRST}</defaultcontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<onload>ClearProperty(duotone.resetarmed,home)</onload>
 {refocus}
 	<onload>ClearProperty(duotone.refocus,home)</onload>
@@ -206,20 +215,20 @@ def main():
 			<textcolor>$VAR[SectionText]</textcolor>
 			<label>$VAR[Skin_Help]</label>
 		</control>
-		<!-- the four section colours, as printed -->
+		<!-- the four section colours, as printed (chip tokens: ink blocks in the Light / Dark looks) -->
 		<control type="group">
 			<left>page_margin</left>
 			<top>848</top>
 			<width>696</width>
 			<height>168</height>
-			<control type="image"><left>0</left><top>0</top><width>168</width><height>168</height><texture colordiffuse="vermilion">common/white.png</texture></control>
-			<control type="image"><left>176</left><top>0</top><width>168</width><height>168</height><texture colordiffuse="cobalt">common/white.png</texture></control>
-			<control type="image"><left>352</left><top>0</top><width>168</width><height>168</height><texture colordiffuse="acid">common/white.png</texture></control>
-			<control type="image"><left>528</left><top>0</top><width>168</width><height>168</height><texture border="16" colordiffuse="ink">common/rect_outline_8.png</texture></control>
-			<control type="label"><left>16</left><top>124</top><width>150</width><height>24</height><font>cap_20</font><textcolor>ink</textcolor><label>Films</label></control>
-			<control type="label"><left>192</left><top>124</top><width>150</width><height>24</height><font>cap_20</font><textcolor>paper</textcolor><label>Series</label></control>
-			<control type="label"><left>368</left><top>124</top><width>150</width><height>24</height><font>cap_20</font><textcolor>ink</textcolor><label>Music</label></control>
-			<control type="label"><left>544</left><top>124</top><width>150</width><height>24</height><font>cap_20</font><textcolor>ink</textcolor><label>System</label></control>
+			<control type="image"><left>0</left><top>0</top><width>168</width><height>168</height><texture colordiffuse="$VAR[chip_films]">common/white.png</texture></control>
+			<control type="image"><left>176</left><top>0</top><width>168</width><height>168</height><texture colordiffuse="$VAR[chip_series]">common/white.png</texture></control>
+			<control type="image"><left>352</left><top>0</top><width>168</width><height>168</height><texture colordiffuse="$VAR[chip_music]">common/white.png</texture></control>
+			<control type="image"><left>528</left><top>0</top><width>168</width><height>168</height><texture border="16" colordiffuse="$VAR[ink]">common/rect_outline_8.png</texture></control>
+			<control type="label"><left>16</left><top>124</top><width>150</width><height>24</height><font>cap_20</font><textcolor>$VAR[chiptext_films]</textcolor><label>Films</label></control>
+			<control type="label"><left>192</left><top>124</top><width>150</width><height>24</height><font>cap_20</font><textcolor>$VAR[chiptext_series]</textcolor><label>Series</label></control>
+			<control type="label"><left>368</left><top>124</top><width>150</width><height>24</height><font>cap_20</font><textcolor>$VAR[chiptext_music]</textcolor><label>Music</label></control>
+			<control type="label"><left>544</left><top>124</top><width>150</width><height>24</height><font>cap_20</font><textcolor>$VAR[ink]</textcolor><label>System</label></control>
 		</control>
 		<include content="DT_RuleV"><param name="left" value="772"/><param name="top" value="176"/><param name="height" value="840"/></include>
 		<include content="DT_RuleThick"><param name="top" value="168"/><param name="left" value="824"/><param name="width" value="1032"/></include>
@@ -240,7 +249,7 @@ def main():
 				<align>center</align>
 				<aligny>center</aligny>
 				<textcolor>$VAR[SectionText]</textcolor>
-				<focusedcolor>paper</focusedcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
 				<label>$VAR[Skin_ResetLabel]</label>
 				<include>DT_Tex_Block</include>
 				<onup>{ROWS[-1]["id"]}</onup>
@@ -254,7 +263,7 @@ def main():
 	</controls>
 </window>
 '''
-    OUT.write_text(xml, encoding="utf-8", newline="\n")
+    OUT.write_text(finish_xml(strip_defaults(xml, OUT.parent / "Defaults.xml")), encoding="utf-8", newline="\n")
     # variables used above live in Includes_Settings.xml (Skin_Help, Skin_HelpTitle, Skin_ResetLabel)
     inc = OUT.parent / "Includes_Settings.xml"
     s = inc.read_text(encoding="utf-8")
@@ -280,7 +289,7 @@ def main():
 '''
     k = s.rindex("</includes>")
     s = s[:k] + block + s[k:]
-    inc.write_text(s, encoding="utf-8", newline="\n")
+    inc.write_text(finish_xml(s), encoding="utf-8", newline="\n")
     print("wrote", OUT)
 
 

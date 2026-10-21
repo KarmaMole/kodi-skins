@@ -59,7 +59,7 @@
 					<height>20</height>
 					<font>caps_20</font>
 					<textcolor>ink2</textcolor>
-					<label>About</label>
+					<label>$LOCALIZE[31211]</label>
 				</control>
 				<include content="SD_Rule">
 					<param name="top" value="28"/>
@@ -72,7 +72,6 @@
 					<width>420</width>
 					<height>390</height>
 					<font>reg_24</font>
-					<textcolor>body</textcolor>
 					<label>$VAR[Music_InfoDescription]</label>
 				</control>
 			</control>
@@ -130,7 +129,6 @@
 				<width>1248</width>
 				<height>26</height>
 				<font>caps_20</font>
-				<textcolor>ink</textcolor>
 				<label>$VAR[Music_InfoKicker]</label>
 			</control>
 			<control type="textbox">
@@ -148,7 +146,6 @@
 				<width>1248</width>
 				<height>40</height>
 				<font>semi_28</font>
-				<textcolor>ink</textcolor>
 				<label>$VAR[Music_InfoSubline]</label>
 			</control>
 
@@ -171,7 +168,6 @@
 				<width>1268</width>
 				<height>84</height>
 				<orientation>horizontal</orientation>
-				<itemgap>0</itemgap>
 				<include content="Music_StatCell">
 					<param name="label" value="Year"/>
 					<param name="value" value="$INFO[ListItem.Year]"/>
@@ -303,10 +299,9 @@
 					<height>button_h</height>
 					<visible>$EXP[Music_InfoIsAlbum] + Integer.IsGreater(ListItem.DBID,0)</visible>
 					<control type="button" id="9013">
-						<label>Board the map</label>
+						<label>$LOCALIZE[31212]</label>
 						<font>semi_24</font>
 						<textcolor>ink</textcolor>
-						<focusedcolor>white</focusedcolor>
 						<align>center</align>
 						<textoffsetx>0</textoffsetx>
 						<include>SD_Tex_ButtonSecondary_Round</include>

@@ -66,14 +66,8 @@
 			<width>544</width>
 			<height>dialog_row_h</height>
 			<font>semi_26</font>
-			<textcolor>ink2</textcolor>
 			<focusedcolor>on_ink</focusedcolor>
-			<disabledcolor>ink3</disabledcolor>
-			<textoffsetx>24</textoffsetx>
-			<aligny>center</aligny>
-			<pulseonselect>false</pulseonselect>
 			<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-			<texturenofocus />
 		</control>
 	</controls>
 </window>

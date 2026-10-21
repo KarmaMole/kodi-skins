@@ -96,7 +96,7 @@
 			<height>66</height>
 			<font>caps_20</font>
 			<textcolor>text_tertiary</textcolor>
-			<label>The queue is empty</label>
+			<label>$LOCALIZE[31346]</label>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 		</control>
 

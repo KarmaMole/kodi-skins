@@ -110,7 +110,6 @@
 			<height>26</height>
 			<align>center</align>
 			<font>label_20</font>
-			<textcolor>text_primary</textcolor>
 			<label>$VAR[MusicOSD_FocusLabel]</label>
 			<visible>!ControlGroup(202).HasFocus()</visible>
 		</control>
@@ -128,7 +127,7 @@
 			<height>24</height>
 			<font>label_20</font>
 			<textcolor>text_dim</textcolor>
-			<label>Tools</label>
+			<label>$LOCALIZE[31256]</label>
 		</control>
 		<control type="grouplist" id="202">
 			<left>988</left>
@@ -182,7 +181,6 @@
 			<width>856</width>
 			<height>26</height>
 			<font>label_20</font>
-			<textcolor>text_primary</textcolor>
 			<label>$VAR[MusicOSD_FocusLabel]</label>
 			<visible>ControlGroup(202).HasFocus()</visible>
 		</control>

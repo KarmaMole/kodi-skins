@@ -14,8 +14,7 @@
 			<width>page_width</width>
 			<height>140</height>
 			<font>disp_96</font>
-			<textcolor>ink</textcolor>
-			<label>Fold</label>
+			<label>$LOCALIZE[31024]</label>
 		</control>
 	</controls>
 </window>

@@ -48,7 +48,7 @@
 				<include>Arc_HiddenListSquare</include>
 				<onleft>9000</onleft>
 				<onright>ActivateWindow(1160)</onright>  <!-- 0.9.9: Right = Library panel -->
-				<viewtype label="Arc">list</viewtype>
+				<viewtype label="31312">list</viewtype>
 				<visible>$EXP[MusicView_ArcContent]</visible>
 			</control>
 			<!-- record dial: the lens album's record slides out of its sleeve when focus rests -->
@@ -165,7 +165,7 @@
 					<height>80</height>
 					<font>wide_66</font>
 					<textcolor>text_primary</textcolor>
-					<label>Back</label>
+					<label>$LOCALIZE[31251]</label>
 				</control>
 			</control>
 		</control>
@@ -212,7 +212,7 @@
 				<ondown>9000</ondown>
 				<scrolltime tween="cubic" easing="out">220</scrolltime>
 				<preloaditems>2</preloaditems>
-				<viewtype label="Grid">icon</viewtype>
+				<viewtype label="31313">icon</viewtype>
 				<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(genres)</visible>
 				<itemlayout width="262" height="262">
 					<control type="group">
@@ -234,7 +234,8 @@
 						<width>214</width>
 						<height>214</height>
 						<animation effect="zoom" start="100" end="106" center="auto" time="160" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">Focus</animation>
-						<animation effect="zoom" start="100" end="106" center="auto" time="0" tween="cubic" easing="out" condition="Skin.HasSetting(orbit.reducemotion)">Focus</animation>
+						<!-- reduce motion: a time-0 Conditional, not a second Focus animation (Kodi resets only the first Focus on unfocus; a twin stayed at 106 %) -->
+						<animation effect="zoom" start="100" end="106" center="auto" time="0" condition="Skin.HasSetting(orbit.reducemotion) + Control.HasFocus(505)">Conditional</animation>
 						<include content="Orbit_Artwork">
 							<param name="art" value="$VAR[MusicView_Cover]"/>
 							<param name="mask" value="masks/square_r4.png"/>

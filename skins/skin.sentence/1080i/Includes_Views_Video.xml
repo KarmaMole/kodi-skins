@@ -168,9 +168,6 @@
 		<value condition="String.StartsWith(ListItem.MPAA,Rated)">$INFO[ListItem.MPAA]</value>
 		<value condition="!String.IsEmpty(ListItem.MPAA)">Rated $INFO[ListItem.MPAA]</value>
 	</variable>
-	<variable name="VidView_EpCode">
-		<value condition="!String.IsEmpty(ListItem.Episode)">S$INFO[ListItem.Season] E$INFO[ListItem.Episode]</value>
-	</variable>
 	<variable name="Lib_EpisodeLine">
 		<value condition="ListItem.IsParentFolder">Back up a level</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(UnWatchedEpisodes), · , to watch]</value>
@@ -252,26 +249,9 @@
 				<align>center</align>
 				<font>serif_34</font>
 				<textcolor>lilac</textcolor>
-				<label>Back</label>
+				<label>$LOCALIZE[31369]</label>
 			</control>
 		</definition>
-	</include>
-	<!-- Dim layer for unfocused slots (forked music views). params: visible -->
-	<include name="VidView_SlotDim">
-		<param name="visible">true</param>
-		<definition>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<texture colordiffuse="66000000">common/white.png</texture>
-				<visible>$PARAM[visible]</visible>
-			</control>
-		</definition>
-	</include>
-	<include name="VidView_Markers">
-		<include>Sen_WatchedMarkers</include>
 	</include>
 
 	<!-- ================================================================== header -->
@@ -491,7 +471,7 @@
 				<height>40</height>
 				<font>ui_24</font>
 				<textcolor>muted</textcolor>
-				<label>Up takes you to the sentence above, where you can change it.</label>
+				<label>$LOCALIZE[31370]</label>
 			</control>
 		</control>
 	</include>
@@ -660,7 +640,7 @@
 				<ondown>noop</ondown>
 				<onleft>ActivateWindow(1155)</onleft>  <!-- 0.9.8: past the edges = the Library panel -->
 				<onright>ActivateWindow(1155)</onright>
-				<viewtype label="a grid">panel</viewtype>
+				<viewtype label="31368">panel</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)</visible>
 				<itemlayout width="lib_cell_w" height="lib_cell_h">
 					<include>Lib_GridCell</include>
@@ -693,7 +673,7 @@
 				<ondown>noop</ondown>
 				<onleft>ActivateWindow(1155)</onleft>  <!-- 0.9.8: past the edges = the Library panel -->
 				<onright>ActivateWindow(1155)</onright>
-				<viewtype label="a wall">panel</viewtype>
+				<viewtype label="31371">panel</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)</visible>
 				<itemlayout width="210" height="350">
 					<include content="Lib_GridCell"><param name="list" value="501"/><param name="pw">174</param><param name="ph">261</param></include>
@@ -818,7 +798,7 @@
 				<ondown>noop</ondown>
 				<onleft>ActivateWindow(1155)</onleft>  <!-- 0.9.8: the Library panel -->
 				<onright>ActivateWindow(1155)</onright>
-				<viewtype label="episodes">list</viewtype>
+				<viewtype label="31372">list</viewtype>
 				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
 				<itemlayout width="page_width" height="190">
 					<include>Lib_EpisodeRow</include>

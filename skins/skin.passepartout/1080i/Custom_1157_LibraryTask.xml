@@ -39,7 +39,6 @@
 				<width>560</width>
 				<height>28</height>
 				<font>cap_20</font>
-				<textcolor>ink</textcolor>
 				<label>$VAR[PP_TaskHeading]</label>
 			</control>
 			<control type="image">
@@ -55,7 +54,6 @@
 				<width>560</width>
 				<height>102</height>
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<label>$VAR[PP_TaskBody]</label>
 			</control>
 			<control type="list" id="100">
@@ -78,18 +76,18 @@
 				</include>
 				<content>
 					<item>
-						<label>No, leave it as it is</label>
+						<label>$LOCALIZE[31152]</label>
 						<onclick>Dialog.Close(1157,true)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(pp.libtask),clean)</visible>
 					</item>
 					<item>
-						<label>Clean films &amp; series</label>
+						<label>$LOCALIZE[31153]</label>
 						<onclick>Dialog.Close(1157,true)</onclick>
 						<onclick>CleanLibrary(video)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(pp.libtask),clean) + [String.IsEqual(Window(Home).Property(pp.libtarget),video) | String.IsEqual(Window(Home).Property(pp.libtarget),choose)]</visible>
 					</item>
 					<item>
-						<label>Clean music</label>
+						<label>$LOCALIZE[31154]</label>
 						<onclick>Dialog.Close(1157,true)</onclick>
 						<onclick>CleanLibrary(music)</onclick>
 						<visible>String.IsEqual(Window(Home).Property(pp.libtask),clean) + [String.IsEqual(Window(Home).Property(pp.libtarget),music) | String.IsEqual(Window(Home).Property(pp.libtarget),choose)]</visible>

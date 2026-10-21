@@ -13,7 +13,19 @@
 	<defaultcontrol always="true">9099</defaultcontrol>
 	<backgroundcolor>bg</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
+	<!-- the encoded query (Includes_Search.xml) must not outlive the window: a stale one would show old rows -->
+	<onunload>ClearProperty(Void.Search.Encoded,home)</onunload>
 	<controls>
+		<!-- query encoder (script.skinvariables): its items are never shown; it exists to set Void.Search.Encoded -->
+		<control type="list" id="9710">
+			<left>-20</left>
+			<top>-20</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1"/>
+			<focusedlayout width="1" height="1"/>
+			<content target="programs">$VAR[Search_EncoderPath]</content>
+		</control>
 		<!-- Opens the keyboard on arrival: the window starts focused on this invisible button, whose
 		     onfocus moves to the field and clicks it (onload/AlarmClock clicks were lost on the Shield).
 		     With a query already present it just hands focus to the field. -->
@@ -22,8 +34,6 @@
 			<top>-100</top>
 			<width>1</width>
 			<height>1</height>
-			<texturefocus/>
-			<texturenofocus/>
 			<onfocus>SetFocus(9001)</onfocus>
 			<onfocus condition="!$EXP[Search_HasQuery]">Action(Select)</onfocus>  <!-- SendClick does not open an edit field's keyboard; Select does -->
 			<visible allowhiddenfocus="true">false</visible>

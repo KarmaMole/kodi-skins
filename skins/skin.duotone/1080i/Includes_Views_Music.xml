@@ -74,7 +74,7 @@
 						<top>0</top>
 						<width>44</width>
 						<height>44</height>
-						<texture colordiffuse="ink">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 					</control>
 					<control type="image">
 						<left>10</left>
@@ -135,7 +135,7 @@
 				<top>0</top>
 				<width>792</width>
 				<height>392</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -146,6 +146,8 @@
 				<fadetime>200</fadetime>
 				<texture background="true" colordiffuse="$VAR[SectionTint]">$VAR[MusicWall_Fanart]</texture>
 			</control>
+			<include>DT_PrintGhost</include>
+			<include>DT_PrintVeil</include>
 			<include>DT_ArtDots</include>
 			<control type="button">
 				<right>64</right>
@@ -158,8 +160,8 @@
 				<textoffsetx>0</textoffsetx>
 				<textcolor>$VAR[SectionColor]</textcolor>
 				<focusedcolor>$VAR[SectionColor]</focusedcolor>
-				<texturenofocus colordiffuse="ink">common/white.png</texturenofocus>
-				<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+				<texturenofocus colordiffuse="$VAR[ink]">common/white.png</texturenofocus>
+				<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 				<label>$VAR[ClockLabel]</label>
 				<onup>504</onup>
 				<ondown>504</ondown>
@@ -232,7 +234,7 @@
 					<top>40</top>
 					<width>696</width>
 					<height>2</height>
-					<texture colordiffuse="ink_20">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink_20]">common/white.png</texture>
 				</control>
 			</itemlayout>
 			<focusedlayout width="696" height="42">
@@ -270,7 +272,7 @@
 					<top>40</top>
 					<width>696</width>
 					<height>2</height>
-					<texture colordiffuse="ink_20">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink_20]">common/white.png</texture>
 				</control>
 			</focusedlayout>
 			<content target="music">$VAR[MusicWall_TracksPath]</content>
@@ -295,7 +297,7 @@
 				<onright>ActivateWindow(1155)</onright>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<preloaditems>1</preloaditems>
-				<viewtype label="Wall">icon</viewtype>
+				<viewtype label="31344">icon</viewtype>
 				<visible>Container.Content(albums) | Container.Content(artists)</visible>
 				<itemlayout width="210" height="210">
 					<control type="group">

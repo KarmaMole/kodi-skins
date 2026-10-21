@@ -93,7 +93,7 @@
 				<height>64</height>
 				<font>hand_48</font>
 				<textcolor>ink</textcolor>
-				<label>everything else</label>
+				<label>$LOCALIZE[31300]</label>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -101,7 +101,6 @@
 				<width>552</width>
 				<height>64</height>
 				<align>right</align>
-				<aligny>center</aligny>
 				<font>mono_20</font>
 				<textcolor>label</textcolor>
 				<label>$INFO[System.Time]</label>
@@ -124,13 +123,13 @@
 				<content>
 					<item>
 						<label>$LOCALIZE[31021]</label>
-						<label2>Keepsake</label2>
+						<label2>$LOCALIZE[31024]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(skinsettings)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[5]</label>
-						<label2>Kodi</label2>
+						<label2>$LOCALIZE[31301]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(settings)</onclick>
 					</item>
@@ -150,61 +149,61 @@
 						<onclick>ActivateWindow(addonbrowser)</onclick>
 					</item>
 					<item>
-						<label>update library</label>
-						<label2>library</label2>
+						<label>$LOCALIZE[31302]</label>
+						<label2>$LOCALIZE[31303]</label2>
 						<onclick>SetFocus(9861)</onclick>
 					</item>
 					<item>
-						<label>clean library</label>
-						<label2>library</label2>
+						<label>$LOCALIZE[31304]</label>
+						<label2>$LOCALIZE[31303]</label2>
 						<onclick>SetFocus(9871)</onclick>
 					</item>
 					<item>
-						<label>Live TV</label>
-						<label2>Media</label2>
+						<label>$LOCALIZE[31305]</label>
+						<label2>$LOCALIZE[31306]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(TVChannels)</onclick>
 						<visible>System.HasPVRAddon</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[1]</label>
-						<label2>Media</label2>
+						<label2>$LOCALIZE[31306]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(Pictures)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[10134]</label>
-						<label2>Media</label2>
+						<label2>$LOCALIZE[31306]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(FavouritesBrowser)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[744]</label>
-						<label2>Media</label2>
+						<label2>$LOCALIZE[31306]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(Videos,sources://video/,return)</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[13012]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<onclick>Quit()</onclick>
 						<visible>System.ShowExitButton</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13013]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<onclick>Reset()</onclick>
 						<visible>System.CanReboot</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[13016]</label>
-						<label2>Power</label2>
+						<label2>$LOCALIZE[31022]</label2>
 						<onclick>Powerdown()</onclick>
 						<visible>System.CanPowerDown</visible>
 					</item>
 					<item>
 						<label>$LOCALIZE[31022]</label>
-						<label2>More</label2>
+						<label2>$LOCALIZE[31307]</label2>
 						<onclick>Dialog.Close(1151,true)</onclick>
 						<onclick>ActivateWindow(shutdownmenu)</onclick>
 					</item>
@@ -239,10 +238,9 @@
 					<top>0</top>
 					<width>880</width>
 					<height>88</height>
-					<aligny>center</aligny>
 					<font>hand_48</font>
 					<textcolor>ink</textcolor>
-					<label>update the library</label>
+					<label>$LOCALIZE[31308]</label>
 				</control>
 				<control type="image">
 					<left>40</left>
@@ -259,7 +257,7 @@
 					<font>body_24</font>
 					<textcolor>body</textcolor>
 					<wrapmultiline>true</wrapmultiline>
-					<label>which part of the album?</label>
+					<label>$LOCALIZE[31309]</label>
 				</control>
 				<control type="grouplist" id="9862">
 					<left>40</left>
@@ -320,10 +318,9 @@
 					<top>0</top>
 					<width>1040</width>
 					<height>88</height>
-					<aligny>center</aligny>
 					<font>hand_48</font>
 					<textcolor>ink</textcolor>
-					<label>clean the library?</label>
+					<label>$LOCALIZE[31310]</label>
 				</control>
 				<control type="image">
 					<left>40</left>
@@ -340,7 +337,7 @@
 					<font>body_24</font>
 					<textcolor>body</textcolor>
 					<wrapmultiline>true</wrapmultiline>
-					<label>Films and albums whose files can no longer be found are taken out of the album. Nothing is deleted from your drives.</label>
+					<label>$LOCALIZE[31311]</label>
 				</control>
 				<control type="grouplist" id="9872">
 					<left>40</left>

@@ -33,7 +33,6 @@
 				<align>right</align>
 				<aligny>top</aligny>
 				<font>num_24</font>
-				<textcolor>text</textcolor>
 				<label>[COLOR grey]Volume  [/COLOR]$INFO[Control.GetLabel(29999),, %]</label>
 				<visible>!Player.Muted</visible>
 			</control>

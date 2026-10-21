@@ -33,18 +33,18 @@
 </control>
 <control type="label">
 	<left>112</left><top>826</top><width>900</width><height>30</height>
-	<font>caps_21</font><textcolor>$VAR[OSD_SDKickerCol]</textcolor><align>left</align><aligny>top</aligny>
+	<font>caps_21</font><textcolor>$VAR[OSD_SDKickerCol]</textcolor><aligny>top</aligny>
 	<label>$VAR[OSD_SDKicker]</label>
 </control>
-<control type="grouplist"><left>1208</left><top>820</top><width>600</width><height>40</height><orientation>horizontal</orientation><align>right</align><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label>arrives </label></control><control type="label"><width>auto</width><height>40</height><font>xb_24</font><textcolor>ink</textcolor><label>$VAR[OSD_SDArrives]</label></control><visible>!String.IsEmpty(Player.FinishTime) + !Player.IsInternetStream | Player.HasDuration</visible></control>
-<control type="grouplist"><left>112</left><top>856</top><width>1696</width><height>52</height><orientation>horizontal</orientation><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords><control type="label"><width max="1100">auto</width><height>52</height><font>semi_30</font><textcolor>ink</textcolor><label>$VAR[OSD_Title]</label></control><control type="label"><left>20</left><width max="560">auto</width><height>52</height><font>reg_24</font><textcolor>ink2</textcolor><label>$VAR[OSD_Meta]</label></control></control>
+<control type="grouplist"><left>1208</left><top>820</top><width>600</width><height>40</height><orientation>horizontal</orientation><align>right</align><usecontrolcoords>true</usecontrolcoords><control type="label"><width>auto</width><height>40</height><font>semi_24</font><textcolor>ink2</textcolor><label>$LOCALIZE[31329] </label></control><control type="label"><width>auto</width><height>40</height><font>xb_24</font><label>$VAR[OSD_SDArrives]</label></control><visible>!String.IsEmpty(Player.FinishTime) + !Player.IsInternetStream | Player.HasDuration</visible></control>
+<control type="grouplist"><left>112</left><top>856</top><width>1696</width><height>52</height><orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><control type="label"><width max="1100">auto</width><height>52</height><font>semi_30</font><label>$VAR[OSD_Title]</label></control><control type="label"><left>20</left><width max="560">auto</width><height>52</height><font>reg_24</font><textcolor>ink2</textcolor><label>$VAR[OSD_Meta]</label></control></control>
 <control type="group">
 	<description>the film as a line</description>
 <control type="image">
 	<left>108</left><top>944</top><width>1704</width><height>8</height>
 	<texture border="4,0,4,0" colordiffuse="l_route">sd/line_h8.png</texture>
 </control>
-<control type="progress"><left>108</left><top>944</top><width>1704</width><height>8</height><texturebg border="4,0,4,0" colordiffuse="clear">sd/line_h8.png</texturebg><lefttexture /><midtexture border="4,0,4,0" colordiffuse="ink">sd/line_h8.png</midtexture><righttexture /><info>Player.SeekBar</info></control>
+<control type="progress"><left>108</left><top>944</top><width>1704</width><height>8</height><texturebg border="4,0,4,0" colordiffuse="clear">sd/line_h8.png</texturebg><midtexture border="4,0,4,0" colordiffuse="ink">sd/line_h8.png</midtexture><info>Player.SeekBar</info></control>
 <control type="ranges"><left>112</left><top>937</top><width>1696</width><height>22</height><texturebg colordiffuse="clear">common/white.png</texturebg><lefttexture /><midtexture /><righttexture>sd/osd_stop.png</righttexture><info>Player.Chapters</info><visible>$EXP[OSD_HasChapters]</visible></control>
 <control type="image">
 	<left>97</left><top>933</top><width>30</width><height>30</height>
@@ -61,13 +61,13 @@
 <control type="slider"><left>92</left><top>928</top><width>1736</width><height>40</height><texturesliderbar>sd/clear40.png</texturesliderbar><textureslidernib>sd/osd_now.png</textureslidernib><textureslidernibfocus>sd/osd_now.png</textureslidernibfocus><info>Player.SeekBar</info><visible>Player.HasDuration</visible></control>
 <control type="label">
 	<left>112</left><top>970</top><width>600</width><height>34</height>
-	<font>xb_24</font><textcolor>ink</textcolor><align>left</align><aligny>center</aligny>
+	<font>xb_24</font>
 	<label>$VAR[OSD_SeekTimeLabel]</label>
 	<visible>![$EXP[OSD_SeekActive] + Player.SeekEnabled]</visible>
 </control>
 <control type="label">
 	<left>1108</left><top>970</top><width>700</width><height>34</height>
-	<font>semi_22</font><textcolor>ink2</textcolor><align>right</align><aligny>center</aligny>
+	<font>semi_22</font><textcolor>ink2</textcolor><align>right</align>
 	<label>$VAR[OSD_SDRemain]</label>
 </control>
 <control type="group">
@@ -180,7 +180,7 @@
 </control>
 <control type="label">
 	<left>0</left><top>0</top><width>132</width><height>38</height>
-	<font>xb_22</font><textcolor>white</textcolor><align>center</align><aligny>center</aligny>
+	<font>xb_22</font><textcolor>white</textcolor><align>center</align>
 	<label>$VAR[OSD_SeekTimeLabel]</label>
 </control>
 </control>

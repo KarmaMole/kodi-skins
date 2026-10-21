@@ -15,11 +15,11 @@
 	     visits, so first go back to the first item: Control.Move wraps, -CurrentItem lands on the last item, +1 on the first -->
 	<onload>Control.Move(100,-$INFO[Container(100).CurrentItem])</onload>
 	<onload>Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,Big Poster)">Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,Episodes) + Container.Content(seasons)">Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,Poster wall) + !Container.Content(tvshows)">Control.Move(100,2)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,Poster wall) + Container.Content(tvshows)">Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,Big album)">Control.Move(100,1)</onload>
+	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31307])">Control.Move(100,1)</onload>
+	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31309]) + Container.Content(seasons)">Control.Move(100,1)</onload>
+	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31310]) + !Container.Content(tvshows)">Control.Move(100,2)</onload>
+	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31310]) + Container.Content(tvshows)">Control.Move(100,1)</onload>
+	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31313])">Control.Move(100,1)</onload>
 	<onload condition="$EXP[MJ_PickIsList]">Control.Move(100,-1)</onload>
 	<controls>
 		<control type="image">
@@ -71,7 +71,7 @@
 				<height>56</height>
 				<font>num_22</font>
 				<textcolor>$VAR[ColorAccent]</textcolor>
-				<label>VIEW</label>
+				<label>$LOCALIZE[31319]</label>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -109,7 +109,7 @@
 				<include>MJ_PickLayouts</include>
 				<content>
 					<item>
-						<label>Showcase</label>
+						<label>$LOCALIZE[31306]</label>
 						<icon>majan/views/showcase.png</icon>
 						<property name="key">showcase</property>
 						<property name="accent">majan/views/showcase_accent.png</property>
@@ -119,7 +119,7 @@
 						<visible>Window.IsVisible(videos) + [Container.Content(movies) | Container.Content(sets)]</visible>
 					</item>
 					<item>
-						<label>Big Poster</label>
+						<label>$LOCALIZE[31307]</label>
 						<icon>majan/views/bigposter.png</icon>
 						<property name="key">bigposter</property>
 						<property name="accent">majan/views/bigposter_accent.png</property>
@@ -129,7 +129,7 @@
 						<visible>Window.IsVisible(videos) + [Container.Content(movies) | Container.Content(sets)]</visible>
 					</item>
 					<item>
-						<label>Wall</label>
+						<label>$LOCALIZE[31308]</label>
 						<icon>majan/views/tvwall.png</icon>
 						<property name="key">tvwall</property>
 						<property name="accent">majan/views/tvwall_accent.png</property>
@@ -139,7 +139,7 @@
 						<visible>Window.IsVisible(videos) + [Container.Content(tvshows) | Container.Content(seasons)]</visible>
 					</item>
 					<item>
-						<label>Episodes</label>
+						<label>$LOCALIZE[31309]</label>
 						<icon>majan/views/episodes.png</icon>
 						<property name="key">episodes</property>
 						<property name="accent">majan/views/episodes_accent.png</property>
@@ -149,7 +149,7 @@
 						<visible>Window.IsVisible(videos) + [Container.Content(episodes) | Container.Content(seasons)]</visible>
 					</item>
 					<item>
-						<label>Poster wall</label>
+						<label>$LOCALIZE[31310]</label>
 						<icon>majan/views/posterwall.png</icon>
 						<property name="key">posterwall</property>
 						<property name="accent">majan/views/posterwall_accent.png</property>
@@ -159,7 +159,7 @@
 						<visible>Window.IsVisible(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)]</visible>
 					</item>
 					<item>
-						<label>List</label>
+						<label>$LOCALIZE[31311]</label>
 						<icon>majan/views/list.png</icon>
 						<property name="key">list</property>
 						<property name="accent">majan/views/list_accent.png</property>
@@ -169,7 +169,7 @@
 						<visible>Window.IsVisible(videos)</visible>
 					</item>
 					<item>
-						<label>Grid</label>
+						<label>$LOCALIZE[31312]</label>
 						<icon>majan/views/music_grid.png</icon>
 						<property name="key">grid</property>
 						<property name="accent">majan/views/music_grid_accent.png</property>
@@ -179,7 +179,7 @@
 						<visible>Window.IsVisible(music) + [Container.Content(albums) | Container.Content(artists)]</visible>
 					</item>
 					<item>
-						<label>Big album</label>
+						<label>$LOCALIZE[31313]</label>
 						<icon>majan/views/music_bigalbum.png</icon>
 						<property name="key">bigalbum</property>
 						<property name="accent">majan/views/music_bigalbum_accent.png</property>
@@ -189,7 +189,7 @@
 						<visible>Window.IsVisible(music) + Container.Content(albums)</visible>
 					</item>
 					<item>
-						<label>List</label>
+						<label>$LOCALIZE[31311]</label>
 						<icon>majan/views/music_list.png</icon>
 						<property name="key">list</property>
 						<property name="accent">majan/views/music_list_accent.png</property>

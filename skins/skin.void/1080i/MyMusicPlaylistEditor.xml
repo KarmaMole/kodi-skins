@@ -57,7 +57,7 @@
 			<height>24</height>
 			<font>mono_13</font>
 			<textcolor>$VAR[ColorCaption]</textcolor>
-			<label>Library</label>
+			<label>$LOCALIZE[31201]</label>
 		</control>
 		<control type="label" id="12">
 			<left>page_margin</left>
@@ -107,7 +107,7 @@
 			<height>24</height>
 			<font>mono_13</font>
 			<textcolor>grey</textcolor>
-			<label>Playlist</label>
+			<label>$LOCALIZE[31259]</label>
 		</control>
 		<control type="label" id="101">
 			<left>1000</left>
@@ -155,7 +155,7 @@
 			<height>66</height>
 			<font>body_23</font>
 			<textcolor>text_tertiary</textcolor>
-			<label>Empty. Pick songs or albums on the left and press OK to add them.</label>
+			<label>$LOCALIZE[31260]</label>
 			<visible>Integer.IsEqual(Container(100).NumItems,0)</visible>
 		</control>
 	</controls>

@@ -27,7 +27,6 @@
 				<height>689</height>  <!-- 21 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
 				<monofont>Mono26</monofont>
-				<textcolor>body</textcolor>
 				<pagecontrol>3000</pagecontrol>
 			</control>
 			<control type="scrollbar" id="3000">
@@ -37,12 +36,10 @@
 				<height>704</height>
 				<texturesliderbackground colordiffuse="paper_raised">common/white.png</texturesliderbackground>
 				<texturesliderbar colordiffuse="rule_strong">common/white.png</texturesliderbar>
-				<texturesliderbarfocus colordiffuse="ink_bold">common/white.png</texturesliderbarfocus>
 				<onup>3000</onup>
 				<ondown>3000</ondown>
 				<onleft>1000</onleft>
 				<onright>1000</onright>
-				<orientation>vertical</orientation>
 			</control>
 			<include content="KS_Rule">
 				<param name="top" value="836"/>

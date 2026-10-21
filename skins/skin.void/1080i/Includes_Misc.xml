@@ -330,7 +330,7 @@
 				<height>list_row_h</height>
 				<font>mono_15</font>
 				<textcolor>grey_soft</textcolor>
-				<label>Nothing here</label>
+				<label>$LOCALIZE[31012]</label>
 				<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 			</control>
 			<include>Misc_HiddenSortControls</include>
@@ -767,7 +767,7 @@
 					<top>80</top>
 					<width>420</width>
 					<height>dialog_row_h</height>
-					<label>PVR &amp; Live TV settings</label>
+					<label>$LOCALIZE[31247]</label>
 					<font>button_23_semibold</font>
 					<textcolor>text_primary</textcolor>
 					<focusedcolor>text</focusedcolor>
@@ -1353,5 +1353,145 @@
 				</include>
 			</control>
 		</control>
+	</include>
+	<!-- EPG grid layouts of MyPVRGuide (Kodi widens every control with an id 1-14 in a programme layout to the
+	     programme's length: 1 / 4 = title labels, 2 / 3 = block images). Kept in an include so the window file has
+	     no repeated ids (Groove pattern, 2026-10-21). -->
+	<include name="Misc_EPGLayouts">
+		<rulerlayout height="45" width="238">
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1</width>
+				<height>45</height>
+				<texture colordiffuse="hairline_strong">common/white.png</texture>
+			</control>
+			<control type="label">
+				<left>10</left>
+				<top>0</top>
+				<width>220</width>
+				<height>45</height>
+				<font>mono_13</font>
+				<textcolor>grey_soft</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+			</control>
+		</rulerlayout>
+		<channellayout height="66" width="300">
+			<control type="label">
+				<left>12</left>
+				<top>0</top>
+				<width>60</width>
+				<height>66</height>
+				<font>num_16</font>
+				<textcolor>grey_soft</textcolor>
+				<label>$INFO[ListItem.ChannelNumberLabel]</label>
+			</control>
+			<control type="label" id="1">
+				<left>76</left>
+				<top>0</top>
+				<width>212</width>
+				<height>66</height>
+				<font>card_21</font>
+				<textcolor>grey</textcolor>
+				<label>$INFO[ListItem.ChannelName]</label>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<bottom>0</bottom>
+				<width>300</width>
+				<height>rule_h</height>
+				<texture colordiffuse="00ffffff">common/white.png</texture>
+			</control>
+		</channellayout>
+		<focusedchannellayout height="66" width="300">
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>list_bar_w</width>
+				<height>66</height>
+				<texture colordiffuse="00ffffff">common/white.png</texture>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="label">
+				<left>12</left>
+				<top>0</top>
+				<width>60</width>
+				<height>66</height>
+				<font>num_16</font>
+				<textcolor>grey</textcolor>
+				<label>$INFO[ListItem.ChannelNumberLabel]</label>
+			</control>
+			<control type="label" id="1">
+				<left>76</left>
+				<top>0</top>
+				<width>212</width>
+				<height>66</height>
+				<font>serif_32</font>
+				<textcolor>text_primary</textcolor>
+				<label>$INFO[ListItem.ChannelName]</label>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<bottom>0</bottom>
+				<width>300</width>
+				<height>rule_h</height>
+				<texture colordiffuse="00ffffff">common/white.png</texture>
+			</control>
+		</focusedchannellayout>
+		<itemlayout height="66" width="40">
+			<control type="image" id="2">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture colordiffuse="00ffffff">common/white.png</texture>
+			</control>
+			<control type="label" id="1">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>small_19</font>
+				<textcolor>grey</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+			</control>
+		</itemlayout>
+		<focusedlayout height="66" width="40">
+			<control type="image" id="2">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture colordiffuse="00ffffff">common/white.png</texture>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="image" id="3">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture colordiffuse="00ffffff">common/white.png</texture>
+				<visible>!Control.HasFocus(50)</visible>
+			</control>
+			<control type="label" id="1">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>small_19_bold</font>
+				<label>$INFO[ListItem.Label]</label>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="label" id="4">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>small_19</font>
+				<textcolor>text_primary</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+				<visible>!Control.HasFocus(50)</visible>
+			</control>
+		</focusedlayout>
 	</include>
 </includes>

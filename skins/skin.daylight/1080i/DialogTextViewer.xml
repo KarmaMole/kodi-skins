@@ -27,7 +27,6 @@
 				<height>689</height>  <!-- 21 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
 				<monofont>Mono26</monofont>
-				<textcolor>$VAR[DL_Body]</textcolor>
 				<pagecontrol>3000</pagecontrol>
 			</control>
 			<control type="scrollbar" id="3000">
@@ -42,7 +41,6 @@
 				<ondown>3000</ondown>
 				<onleft>1000</onleft>
 				<onright>1000</onright>
-				<orientation>vertical</orientation>
 			</control>
 			<include content="DL_Rule">
 				<param name="top" value="836"/>

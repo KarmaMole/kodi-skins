@@ -31,9 +31,6 @@
 			<effect type="fade" start="100" end="0" time="60"/>
 		</animation>
 	</include>
-	<include name="Anim_WindowFade">
-		<include>Anim_WindowOpenClose</include>
-	</include>
 
 	<!-- Dialogs are folded notes: they open flat from their centre crease (rotatex about the screen's
 	     middle line, the crease shading on the note fades as it lands). Direct child of <window>. -->
@@ -75,25 +72,6 @@
 			</animation>
 		</definition>
 	</include>
-	<include name="Anim_SidePanelVisible">
-		<param name="offset" default="80"/>
-		<definition>
-			<animation type="Visible" condition="!Skin.HasSetting(fold.reducemotion)">
-				<effect type="rotatey" start="-75" end="0" center="1920" time="260" tween="cubic" easing="out"/>
-				<effect type="fade" start="0" end="100" time="100"/>
-			</animation>
-			<animation type="Visible" condition="Skin.HasSetting(fold.reducemotion)">
-				<effect type="fade" start="0" end="100" time="80"/>
-			</animation>
-			<animation type="Hidden" condition="!Skin.HasSetting(fold.reducemotion)">
-				<effect type="rotatey" start="0" end="-70" center="1920" time="170" tween="cubic" easing="in"/>
-				<effect type="fade" start="100" end="0" delay="100" time="70"/>
-			</animation>
-			<animation type="Hidden" condition="Skin.HasSetting(fold.reducemotion)">
-				<effect type="fade" start="100" end="0" time="60"/>
-			</animation>
-		</definition>
-	</include>
 
 	<!-- Toasts (notification, busy, progress, volume): a slip that folds down from the top edge of its note. -->
 	<include name="Anim_Toast">
@@ -131,25 +109,6 @@
 			<effect type="fade" start="100" end="0" time="60"/>
 		</animation>
 	</include>
-	<include name="Anim_OSDSlideUpVisible">
-		<animation type="Visible" condition="!Skin.HasSetting(fold.reducemotion)">
-			<effect type="rotatex" start="88" end="0" center="1080" time="300" tween="cubic" easing="out"/>
-			<effect type="fade" start="0" end="100" time="90"/>
-		</animation>
-		<animation type="Visible" condition="Skin.HasSetting(fold.reducemotion)">
-			<effect type="fade" start="0" end="100" time="80"/>
-		</animation>
-		<animation type="Hidden" condition="!Skin.HasSetting(fold.reducemotion)">
-			<effect type="rotatex" start="0" end="88" center="1080" time="200" tween="cubic" easing="in"/>
-			<effect type="fade" start="100" end="0" delay="140" time="60"/>
-		</animation>
-		<animation type="Hidden" condition="Skin.HasSetting(fold.reducemotion)">
-			<effect type="fade" start="100" end="0" time="60"/>
-		</animation>
-	</include>
-	<include name="Anim_OSD">
-		<include>Anim_OSDSlideUp</include>
-	</include>
 
 	<!-- Top strip (OSD title note, info strips): folds down from the top edge (hinge y 0). -->
 	<include name="Anim_TopStrip">
@@ -171,9 +130,6 @@
 			<effect type="rotatex" start="0" end="-80" center="0" time="180" tween="cubic" easing="in"/>
 			<effect type="fade" start="100" end="0" delay="120" time="60"/>
 		</animation>
-		<animation type="Hidden" condition="Skin.HasSetting(fold.reducemotion)">
-			<effect type="fade" start="100" end="0" time="60"/>
-		</animation>
 		<animation type="WindowClose" condition="!Skin.HasSetting(fold.reducemotion)">
 			<effect type="rotatex" start="0" end="-80" center="0" time="180" tween="cubic" easing="in"/>
 			<effect type="fade" start="100" end="0" delay="120" time="60"/>
@@ -191,15 +147,9 @@
 		<animation type="Visible" condition="Skin.HasSetting(fold.reducemotion)">
 			<effect type="fade" start="0" end="100" time="80"/>
 		</animation>
-		<animation type="Hidden" condition="!Skin.HasSetting(fold.reducemotion)">
+		<animation type="Hidden">
 			<effect type="fade" start="100" end="0" time="120" tween="cubic" easing="in"/>
 		</animation>
-		<animation type="Hidden" condition="Skin.HasSetting(fold.reducemotion)">
-			<effect type="fade" start="100" end="0" time="60"/>
-		</animation>
-	</include>
-	<include name="Anim_VisibleFade">
-		<include>Anim_FadeVisible</include>
 	</include>
 
 	<!-- A row / panel that stands up from the table (hinge at its own bottom edge, param bottom = y in the
@@ -224,78 +174,13 @@
 		</definition>
 	</include>
 
-	<include name="Anim_RowStagger">
-		<param name="delay" default="0"/>
-		<definition>
-			<animation type="WindowOpen" condition="!Skin.HasSetting(fold.reducemotion)">
-				<effect type="fade" start="0" end="100" time="200" tween="cubic" easing="out"/>
-			</animation>
-			<animation type="WindowOpen" condition="Skin.HasSetting(fold.reducemotion)">
-				<effect type="fade" start="0" end="100" time="80"/>
-			</animation>
-			<animation type="Visible" condition="!Skin.HasSetting(fold.reducemotion)">
-				<effect type="fade" start="0" end="100" time="200" tween="cubic" easing="out"/>
-			</animation>
-			<animation type="Visible" condition="Skin.HasSetting(fold.reducemotion)">
-				<effect type="fade" start="0" end="100" time="80"/>
-			</animation>
-		</definition>
-	</include>
-
-	<include name="Anim_RowDim">
-		<param name="condition"/>
-		<param name="dim" default="45"/>
-		<definition>
-			<animation type="Conditional" condition="($PARAM[condition]) + !Skin.HasSetting(fold.reducemotion)">
-				<effect type="fade" start="100" end="$PARAM[dim]" time="160" tween="cubic" easing="out"/>
-			</animation>
-			<animation type="Conditional" condition="($PARAM[condition]) + Skin.HasSetting(fold.reducemotion)">
-				<effect type="fade" start="100" end="$PARAM[dim]" time="60"/>
-			</animation>
-		</definition>
-	</include>
-
 	<!-- ================================================================= focus -->
 	<!-- Lift: a springy rise (back tween) of the focused item. -->
-	<include name="Anim_FocusZoom">
-		<animation type="Focus" reversible="true" condition="!Skin.HasSetting(fold.reducemotion)">
-			<effect type="zoom" start="100" end="104" center="auto" time="240" tween="back" easing="out"/>
-			<effect type="slide" start="0,0" end="0,-6" time="240" tween="back" easing="out"/>
-		</animation>
-	</include>
 	<include name="Anim_FocusLift">
 		<animation type="Focus" reversible="true" condition="!Skin.HasSetting(fold.reducemotion)">
 			<effect type="zoom" start="100" end="105" center="auto" time="240" tween="back" easing="out"/>
 			<effect type="slide" start="0,0" end="0,-8" time="240" tween="back" easing="out"/>
 		</animation>
 	</include>
-	<include name="Anim_FocusFrame">
-		<animation type="Focus" reversible="true" condition="!Skin.HasSetting(fold.reducemotion)">
-			<effect type="fade" start="0" end="100" time="120" tween="cubic" easing="out"/>
-		</animation>
-	</include>
 
-	<!-- ================================================================= background -->
-	<include name="Anim_BackgroundCrossfade">
-		<include condition="!Skin.HasSetting(fold.reducemotion)">Anim_BackgroundCrossfade_Normal</include>
-		<include condition="Skin.HasSetting(fold.reducemotion)">Anim_BackgroundCrossfade_Reduced</include>
-		<animation type="Visible" condition="!Skin.HasSetting(fold.reducemotion)">
-			<effect type="fade" start="0" end="100" time="350" tween="cubic" easing="out"/>
-		</animation>
-		<animation type="Visible" condition="Skin.HasSetting(fold.reducemotion)">
-			<effect type="fade" start="0" end="100" time="120"/>
-		</animation>
-		<animation type="Hidden" condition="!Skin.HasSetting(fold.reducemotion)">
-			<effect type="fade" start="100" end="0" time="250" tween="cubic" easing="in"/>
-		</animation>
-		<animation type="Hidden" condition="Skin.HasSetting(fold.reducemotion)">
-			<effect type="fade" start="100" end="0" time="80"/>
-		</animation>
-	</include>
-	<include name="Anim_BackgroundCrossfade_Normal">
-		<fadetime>350</fadetime>
-	</include>
-	<include name="Anim_BackgroundCrossfade_Reduced">
-		<fadetime>120</fadetime>
-	</include>
 </includes>

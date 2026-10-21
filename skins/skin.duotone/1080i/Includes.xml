@@ -9,6 +9,7 @@
 	<include file="Constants.xml"/>
 	<include file="Expressions.xml"/>
 	<include file="Variables.xml"/>
+	<include file="Includes_Theme.xml"/>
 	<include file="Includes_Animations.xml"/>
 	<include file="Includes_Common.xml"/>
 	<include file="Includes_Dialogs.xml"/>

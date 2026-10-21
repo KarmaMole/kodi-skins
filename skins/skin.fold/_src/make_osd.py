@@ -16,6 +16,8 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 from pathlib import Path
 from PIL import ImageFont
 import re
+from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 ROOT = Path(__file__).resolve().parents[1]
 X = ROOT / "1080i"
@@ -541,7 +543,7 @@ def fullscreen_info():
 
 def main():
     for name, body in (("VideoOSD.xml", video_osd()), ("DialogSeekBar.xml", seekbar()), ("DialogFullScreenInfo.xml", fullscreen_info())):
-        (X / name).write_text(selcol(body), encoding="utf-8", newline="\n")
+        (X / name).write_text(finish_xml(strip_defaults(selcol(body), X / "Defaults.xml")), encoding="utf-8", newline="\n")
     print("OSD written; word widths", {wd[1]: w(*wd[2]) for wd in WORDS})
 
 

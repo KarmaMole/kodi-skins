@@ -1,3 +1,15 @@
+1.0.10 (2026-10-21)
+- Sets row in the Library panel; fix for controls disappearing with Reduce motion on. Code clean-up for the Kodi repository checks.
+- Code clean-up for the Kodi repository checks: unused code and fonts removed, on-screen text moved to the strings file, LF line endings. Search now encodes the typed text with Skin Variables (script.skinvariables, now required), so titles with & + % are found.
+- Sets: while you browse films (and the library has sets), the Library panel has a "Sets" row: it opens
+  the list of sets in the same Movies window, with the same views as films; picking a set opens its
+  films, and Back walks back set -> all sets -> films. Not a Home menu item.
+- Reduce motion: four animation includes (Anim_FadeVisible, Anim_TopStrip, Anim_RowStagger, Anim_BackgroundCrossfade,
+  plus the unused side-panel / OSD-slide ones) carried two Hidden animations; Kodi only resets the first one when a
+  control shows again, so with Reduce motion on, for example, the seek bar, the slider strip, the Home hub rows / artwork and
+  the list view stayed invisible after their first hide. Now one Hidden animation each (fades: one fade for both
+  settings; slides: the normal one, Reduce motion hides at once).
+
 1.0.9 (2026-10-20)
 - Library panel: in every library view, Left past the first item or Right past the last one (and the new OPTIONS
   word at the end of the header) opens a numbered panel with Update library, Clean library, View, Sort, Order,

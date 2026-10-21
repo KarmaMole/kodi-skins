@@ -23,9 +23,9 @@
 		     breaks the sentence: keep Kodi's buttons offscreen and click them from 9021 / 9022 / 9023. -->
 		<control type="group">
 			<left>-3000</left>
-			<control type="button" id="8"><width>1</width><height>1</height><texturefocus/><texturenofocus/></control>
-			<control type="button" id="12"><width>1</width><height>1</height><texturefocus/><texturenofocus/></control>
-			<control type="button" id="6"><width>1</width><height>1</height><texturefocus/><texturenofocus/></control>
+			<control type="button" id="8"><width>1</width><height>1</height><texturefocus/></control>
+			<control type="button" id="12"><width>1</width><height>1</height><texturefocus/></control>
+			<control type="button" id="6"><width>1</width><height>1</height><texturefocus/></control>
 		</control>
 
 		<control type="group">
@@ -53,7 +53,6 @@
 			<height>520</height>
 			<orientation>vertical</orientation>
 			<usecontrolcoords>true</usecontrolcoords>
-			<itemgap>0</itemgap>
 			<onup>noop</onup>
 			<ondown condition="Integer.IsGreater(Container(50).NumItems,0)">50</ondown>
 			<control type="textbox">
@@ -68,7 +67,6 @@
 				<width>1100</width>
 				<height max="152">auto</height>
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<label>$VAR[Music_InfoDescription]</label>
 				<visible>$EXP[Music_InfoHasDescription]</visible>
 			</control>
@@ -79,12 +77,11 @@
 				<height>72</height>
 				<orientation>horizontal</orientation>
 				<usecontrolcoords>true</usecontrolcoords>
-				<itemgap>0</itemgap>
 				<onleft>noop</onleft>
 				<onright>noop</onright>
 				<control type="label" id="28001">
-					<width>auto</width><height>72</height><font>serif_40</font><textcolor>text</textcolor>
-					<label>You can</label>
+					<width>auto</width><height>72</height><font>serif_40</font>
+					<label>$LOCALIZE[31324]</label>
 				</control>
 				<include content="VidInfo_Action">
 					<param name="id" value="9021"/><param name="label" value="play it"/><param name="left" value="0"/><param name="onclick" value="SendClick(8)"/>
@@ -103,7 +100,7 @@
 					<width>auto</width>
 					<height>72</height>
 					<font>serif_40</font>
-					<label>shuffle it</label>
+					<label>$LOCALIZE[31325]</label>
 					<include>Sen_PhraseTextures</include>
 					<onclick>$VAR[Music_InfoShuffleAction]</onclick>
 					<onclick>PlayerControl(RandomOn)</onclick>
@@ -117,7 +114,7 @@
 					<param name="ondown" value="50"/>
 				</include>
 				<control type="label" id="28004">
-					<left>8</left><width>auto</width><height>72</height><font>serif_40</font><textcolor>text</textcolor>
+					<left>8</left><width>auto</width><height>72</height><font>serif_40</font>
 					<label>or</label>
 					<visible>!$EXP[Music_InfoIsSong]</visible>
 				</control>
@@ -141,7 +138,6 @@
 				<width>page_width</width>
 				<height>52</height>
 				<font>serif_34</font>
-				<textcolor>text</textcolor>
 				<label>$VAR[MusicInfo_ListHead]</label>
 			</control>
 			<control type="panel" id="50">

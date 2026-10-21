@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	M1 probe window (NOT part of the skin: lives in _src/probes/, excluded from zips).
+	Run: copy into 1080i/, add a temporary button with <onclick>ActivateWindow(1199)</onclick> (JSON-RPC can't open
+	custom windows, LESSONS), push, open it, then read System.FPS / screenshots. Remove both before committing.
+	Probes (docs/skin.groove/PROBES.md):
+	  P3 spine edge strip: a 44 px wide image of a cover with <aspectratio align="left">scale</aspectratio> must show
+	     the cover's LEFT edge at full height (not a squashed cover, not the centre).
+	  P4 rotating texture cost: one 1000 px vinyl + label rotating at 1800 ms/turn; read System.FPS while it turns,
+	     with the mini disc (92 px, 8 s/turn) on and off (toggle with Left/Right on the button).
+	  P2 low-res art: the same cover drawn 12 px and 1920 px; compare decode time / memory in kodi.log (debug on).
+-->
+<window type="window" id="1199">
+	<defaultcontrol always="true">10</defaultcontrol>
+	<controls>
+		<include>Groove_Room</include>
+		<control type="list" id="20">
+			<left>0</left>
+			<top>0</top>
+			<width>5</width>
+			<height>1</height>
+			<itemlayout width="1" height="1"><control type="image"><width>1</width><height>1</height><texture background="true">$INFO[ListItem.Art(thumb)]</texture></control></itemlayout>
+			<focusedlayout width="1" height="1"><control type="image"><width>1</width><height>1</height><texture background="true">$INFO[ListItem.Art(thumb)]</texture></control></focusedlayout>
+			<content target="music" sortby="random" limit="1" browse="never">musicdb://albums/</content>
+		</control>
+		<!-- P3 spines: edge strip next to the full cover -->
+		<control type="image">
+			<left>96</left>
+			<top>120</top>
+			<width>440</width>
+			<height>440</height>
+			<texture background="true">$INFO[Container(20).ListItem.Art(thumb)]</texture>
+		</control>
+		<control type="image">
+			<left>560</left>
+			<top>120</top>
+			<width>44</width>
+			<height>440</height>
+			<aspectratio align="left">scale</aspectratio>
+			<texture background="true">$INFO[Container(20).ListItem.Art(thumb)]</texture>
+		</control>
+		<control type="image">
+			<left>560</left>
+			<top>120</top>
+			<width>44</width>
+			<height>440</height>
+			<texture colordiffuse="$VAR[ground]">groove/spine_scrim.png</texture>
+		</control>
+		<!-- P4 the record: vinyl + cover label rotate together; the sheen stays still -->
+		<control type="group">
+			<left>760</left>
+			<top>60</top>
+			<width>1000</width>
+			<height>1000</height>
+			<animation type="Conditional" condition="!Skin.HasSetting(groove.probe.stop)" loop="true" reversible="false">
+				<effect type="rotate" start="0" end="-360" center="1260,560" time="1800"/>
+			</animation>
+			<control type="image">
+				<width>1000</width>
+				<height>1000</height>
+				<texture>groove/vinyl.png</texture>
+			</control>
+			<control type="image">
+				<left>332</left>
+				<top>332</top>
+				<width>336</width>
+				<height>336</height>
+				<texture background="true" diffuse="groove/disc_mask.png">$INFO[Container(20).ListItem.Art(thumb)]</texture>
+			</control>
+		</control>
+		<control type="image">
+			<left>760</left>
+			<top>60</top>
+			<width>1000</width>
+			<height>1000</height>
+			<texture>groove/vinyl_sheen.png</texture>
+		</control>
+		<!-- P2 the same art at 12 px (upscaled by the GPU) -->
+		<control type="image">
+			<left>96</left>
+			<top>600</top>
+			<width>12</width>
+			<height>12</height>
+			<texture background="true">$INFO[Container(20).ListItem.Art(thumb)]</texture>
+		</control>
+		<control type="label">
+			<left>96</left>
+			<top>980</top>
+			<width>600</width>
+			<height>40</height>
+			<font>font_small</font>
+			<textcolor>$VAR[ink]</textcolor>
+			<label>FPS $INFO[System.FPS]  ·  OK stops / starts the record</label>
+		</control>
+		<control type="button" id="10">
+			<left>-10</left>
+			<top>-10</top>
+			<width>1</width>
+			<height>1</height>
+			<texturefocus />
+			<texturenofocus />
+			<onclick>Skin.ToggleSetting(groove.probe.stop)</onclick>
+		</control>
+	</controls>
+</window>

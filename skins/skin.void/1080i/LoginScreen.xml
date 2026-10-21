@@ -112,11 +112,8 @@
 			<label>$LOCALIZE[31022]</label>
 			<font>button_23_semibold</font>
 			<textcolor>text_primary</textcolor>
-			<focusedcolor>text</focusedcolor>
 			<align>center</align>
 			<textoffsetx>16</textoffsetx>
-			<texturefocus />
-			<texturenofocus />
 			<onclick>ActivateWindow(ShutdownMenu)</onclick>
 			<onup>52</onup>
 			<ondown>52</ondown>

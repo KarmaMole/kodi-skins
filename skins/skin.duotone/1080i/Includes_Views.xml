@@ -95,6 +95,14 @@
 				<fadetime>120</fadetime>
 				<texture background="true" colordiffuse="$VAR[SectionTint]">$VAR[View_PanelArt]</texture>
 			</control>
+			<!-- Light / Dark: the panel is a ghost print while list 50 hasn't focus (the veils cover the whole group, but
+			     over the field they are field colour on field colour, so only the art changes) -->
+			<include content="DT_PrintGhost">
+				<param name="visible" value="!Control.HasFocus(50)"/>
+			</include>
+			<include content="DT_PrintVeil">
+				<param name="visible" value="!Control.HasFocus(50)"/>
+			</include>
 			<control type="label">
 				<left>0</left>
 				<top>540</top>
@@ -138,108 +146,4 @@
 		</control>
 	</include>
 
-	<!-- ===================================================== library header bar -->
-	<!-- Filter / sort / view buttons, right side of the header row (ends at x 1660, before the clock).
-	     params: show_watched (true in video windows) -->
-	<include name="DT_LibraryHeaderBar">
-		<param name="show_watched">false</param>
-		<definition>
-			<control type="grouplist" id="9000">
-				<left>700</left>
-				<top>68</top>
-				<width>960</width>
-				<height>subnav_h</height>
-				<orientation>horizontal</orientation>
-				<align>right</align>
-				<itemgap>8</itemgap>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
-				<onup>noop</onup>
-				<ondown>50</ondown>
-				<onback>50</onback>
-				<include content="DT_SubNavButton">
-					<param name="id" value="10"/>
-					<param name="label" value="$LOCALIZE[16100]"/>
-					<param name="visible" value="$PARAM[show_watched] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]"/>
-				</include>
-				<include content="DT_SubNavButton">
-					<param name="id" value="6053"/>
-					<param name="label" value="$LOCALIZE[31010]: $INFO[Container.SortMethod]"/>
-					<param name="onclick" value="SendClick(3)"/>
-					<param name="visible" value="Control.IsEnabled(3)"/>
-				</include>
-				<include content="DT_SubNavButton">
-					<param name="id" value="6052"/>
-					<param name="label" value="$INFO[Container.SortOrder]"/>
-					<param name="width" value="184"/>  <!-- 0.9.3: "DESCENDING" 156 + 28 -->
-					<param name="align" value="center"/>
-					<param name="onclick" value="Container.SetSortDirection"/>
-					<param name="visible" value="Control.IsEnabled(3)"/>
-				</include>
-				<include content="DT_SubNavButton">
-					<param name="id" value="6051"/>
-					<param name="label" value="$LOCALIZE[31011]: $INFO[Container.Viewmode]"/>
-					<param name="width" value="224"/>  <!-- 0.9.3: "VIEW: EPISODES" 196 + 28 -->
-					<param name="align" value="center"/>
-					<param name="onclick" value="Container.NextViewMode"/>
-					<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
-				</include>
-			</control>
-			<!-- Kodi media-window buttons the bar clicks into (sort by / sort order) -->
-			<control type="button" id="3">
-				<description>Sort by (Kodi)</description>
-				<include>DT_Hidden</include>
-			</control>
-			<control type="button" id="4">
-				<description>Sort order (Kodi)</description>
-				<include>DT_Hidden</include>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Position caption "003 / 1360" (header row, x 760) -->
-	<include name="DT_PositionCaption">
-		<param name="left">760</param>
-		<definition>
-			<control type="label">
-				<left>$PARAM[left]</left>
-				<top>76</top>
-				<width>300</width>
-				<height>24</height>
-				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
-				<label>$VAR[VidView_PosPad]$INFO[Container.CurrentItem]$INFO[Container.NumItems, / ,]</label>
-				<visible>Integer.IsGreater(Container.NumItems,0)</visible>
-			</control>
-		</definition>
-	</include>
-
-	<!-- ========================================== generic list window -->
-	<!-- Background + header + filter bar + view 50. params: title -->
-	<include name="DT_GenericListWindow">
-		<param name="index">01</param>
-		<param name="title">$VAR[LibraryTitle]</param>
-		<param name="show_watched">false</param>
-		<definition>
-			<include>DT_Background</include>
-			<include content="DT_TopBar">
-				<param name="title" value="$PARAM[title]"/>
-			</include>
-			<include content="DT_LibraryHeaderBar">
-				<param name="show_watched" value="$PARAM[show_watched]"/>
-			</include>
-			<include>View_50_List</include>
-			<!-- empty folder / still loading -->
-			<control type="label">
-				<left>list_x</left>
-				<top>list_y</top>
-				<width>list_wd</width>
-				<height>72</height>
-				<font>an_48</font>
-				<textcolor>$VAR[SectionText]</textcolor>
-				<label>$LOCALIZE[31012]</label>
-				<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
-			</control>
-		</definition>
-	</include>
 </includes>

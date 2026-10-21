@@ -49,6 +49,9 @@ def tier_conditions(n, base):
         out.append(" + ".join(c) or "true")
     return out
 
+# sites that only use the fixed-height _Title include (no flowing grouplist needs a _Measure copy)
+NO_MEASURE = {"Generic", "OSD"}
+
 
 def site(name, width, tiers, base):
     conds = tier_conditions(len(tiers), base)
@@ -72,6 +75,8 @@ def site(name, width, tiers, base):
               f"\t\t\t\t<font>{font}</font>", "\t\t\t\t<textcolor>$PARAM[color]</textcolor>",
               "\t\t\t\t<label>$PARAM[label]</label>", f"\t\t\t\t<visible>{conds[i]}</visible>", "\t\t\t</control>"]
     L += ["\t\t</definition>", "\t</include>"]
+    if name in NO_MEASURE:
+        return L
     L += [f'\t<include name="T_{name}_Measure">', "\t\t<definition>"]
     for i, (font, lines) in enumerate(tiers):
         L += ['\t\t\t<control type="textbox">', f"\t\t\t\t<width>{width}</width>",

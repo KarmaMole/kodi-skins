@@ -35,6 +35,7 @@ Usage:  python skins/skin.sentence/_src/make_sentence.py
 from pathlib import Path
 from urllib.parse import quote
 from xml.sax.saxutils import escape
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parent.parent / "1080i" / "Includes_Sentence.xml"
 REST_MS = {"quick": 250, "normal": 400, "patient": 700}
@@ -259,21 +260,17 @@ def gen() -> str:
                 continue
             opts, default = k["phrases"][p]
             key = sk(k, p)
-            # index (committed or default)
-            a(f'\t<variable name="Sen_Idx_{k["key"]}_{p}">')
-            a(f'\t\t<value condition="!String.IsEmpty(Skin.String({key}))">$INFO[Skin.String({key})]</value>')
-            a(f'\t\t<value>$INFO[System.BuildVersionCode,,]{default}</value>' if False else f'\t\t<value>[UPPERCASE]{default}[/UPPERCASE]</value>')
-            a("\t</variable>")
             # committed label / rule / encoded rule (or sortby / sortorder)
             def cond(i):
                 c = f"String.IsEqual(Skin.String({key}),{i})"
                 if i == default:
                     c = f"[{c} | String.IsEmpty(Skin.String({key}))]"
                 return c
-            a(f'\t<variable name="Sen_CL_{k["key"]}_{p}">')
-            for i, o in enumerate(opts, 1):
-                a(f'\t\t<value condition="{cond(i)}">{x(o[1])}</value>')
-            a("\t</variable>")
+            if p != "order":  # the order phrase needs only its sort columns below
+                a(f'\t<variable name="Sen_CL_{k["key"]}_{p}">')
+                for i, o in enumerate(opts, 1):
+                    a(f'\t\t<value condition="{cond(i)}">{x(o[1])}</value>')
+                a("\t</variable>")
             if p == "order":
                 for nm, col in (("CS", 2), ("CSO", 3)):
                     a(f'\t<variable name="Sen_{nm}_{k["key"]}">')
@@ -289,13 +286,11 @@ def gen() -> str:
                             continue
                         a(f'\t\t<value condition="{cond(i)}">{x(quote(f, safe="") if enc else f)}</value>')
                     a("\t</variable>")
-        # committed label of the kind itself
-    a('\t<variable name="Sen_CL_kind">')
-    for ki, k in enumerate(KINDS):
-        a(f'\t\t<value condition="{ck(ki, k)}">{x(k["label"])}</value>')
-    a("\t</variable>")
-    # committed labels by committed kind (library header / saved sentence text)
+    # committed labels by committed kind (library header / saved sentence text). The library header spells the
+    # order its own way, so there is no Sen_CL_order (kodi-review flags unused variables).
     for p in PHRASES:
+        if p == "order":
+            continue
         a(f'\t<variable name="Sen_CL_{p}">')
         for ki, k in enumerate(KINDS):
             if has(k, p):
@@ -352,10 +347,6 @@ def gen() -> str:
     a('\t<variable name="Sen_LibPathLive">')
     for ki, k in enumerate(KINDS):
         a(f'\t\t<value condition="{lk(k)}">{x(path(ki, k, True, True))}</value>')
-    a("\t</variable>")
-    a('\t<variable name="Sen_LibPathC">')
-    for ki, k in enumerate(KINDS):
-        a(f'\t\t<value condition="{ck(ki, k)}">{x(path(ki, k, False, True))}</value>')
     a("\t</variable>")
     # nouns by the kind the results show
     for nm, fld in (("Sen_NounMany", "many"), ("Sen_NounOne", "one")):
@@ -453,7 +444,8 @@ def gen() -> str:
                     out.append(f'\t\t<{tag} condition="{ec}{lk(k)}">Skin.SetString({sk(k, p)},$INFO[Container({list_id(ki, p)}).CurrentItem])</{tag}>')
         return out
 
-    for tag in ("onleft", "onright", "onclick", "onback", "onunfocus", "onup", "ondown"):
+    # only the commits the skin calls (onleft / onright / onback / onup / ondown variants went unused)
+    for tag in ("onclick", "onunfocus"):
         a(f'\t<include name="Sen_Commit_{tag}">')
         L.extend(commit_lines(tag))
         a("\t</include>")
@@ -515,9 +507,6 @@ def gen() -> str:
     for ki, k in enumerate(KINDS):
         lead = {"film": "Films", "episode": "Episodes", "show": "Shows that are", "album": "Albums of"}[k["key"]]
         a(f'\t\t<value condition="{ck(ki, k)}">{lead}</value>')
-    a("\t</variable>")
-    a('\t<variable name="Sen_LibSeenLead">')
-    a("\t\t<value>that you</value>")
     a("\t</variable>")
     for p in PHRASES:
         if p == "order":
@@ -589,7 +578,7 @@ def gen() -> str:
 
 
 def main():
-    OUT.write_text(gen(), encoding="utf-8")
+    OUT.write_text(finish_xml(gen()), encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

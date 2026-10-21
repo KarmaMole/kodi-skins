@@ -28,20 +28,36 @@
 	<!-- ================================================================ expressions -->
 	<expression name="Search_HasQuery">!String.IsEmpty(Control.GetLabel(9001).index(1))</expression>
 
+	<!-- The query, URL-encoded for the ?xsp= paths: script.skinvariables' get_encoded_string (quote_plus) runs
+	     whenever the query changes (this list's content path holds it) and writes
+	     Window(Home).Property(SixDegrees.Search.Encoded). Kodi URL-decodes the xsp option once, so & | + % in a query
+	     now reach the library as typed. A query with a double quote or backslash still breaks the JSON
+	     (the result rows stay empty). The list must stay visible: hidden containers never load. -->
+	<include name="Search_Encoder">
+		<control type="list" id="9095">
+			<left>0</left>
+			<top>0</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1"/>
+			<focusedlayout width="1" height="1"/>
+			<content>plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;window_prop=SixDegrees.Search.Encoded&amp;window_id=home&amp;&amp;$INFO[Control.GetLabel(9001).index(1)]</content>
+		</control>
+	</include>
+
 	<!-- ================================================================ paths -->
-	<!-- xsp JSON, URL-encoded except the query itself. $ESCINFO quotes the query and escapes " and \ as JSON
-	     expects (QA 2026-10-18). Kodi has no URL-encode infolabel, so & % + in a query still break the path. -->
+	<!-- xsp JSON, URL-encoded; the query is the encoder's output (Search_Encoder above) inside %22 quotes. -->
 	<variable name="Search_PathMovies">
-		<value condition="$EXP[Search_HasQuery]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(SixDegrees.Search.Encoded))">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(SixDegrees.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 	</variable>
 	<variable name="Search_PathTV">
-		<value condition="$EXP[Search_HasQuery]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(SixDegrees.Search.Encoded))">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(SixDegrees.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 	</variable>
 	<variable name="Search_PathAlbums">
-		<value condition="$EXP[Search_HasQuery]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(SixDegrees.Search.Encoded))">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(SixDegrees.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
 	</variable>
 	<variable name="Search_PathArtists">
-		<value condition="$EXP[Search_HasQuery]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(SixDegrees.Search.Encoded))">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(SixDegrees.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
 	</variable>
 
 	<!-- ================================================================ pieces -->
@@ -85,8 +101,8 @@
 						<height>24</height>
 						<font>caps_20</font>
 						<textcolor>ink2</textcolor>
-						<label>No matches</label>
-						<visible>!Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
+						<label>$LOCALIZE[31260]</label>
+						<visible>!Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating + !String.IsEmpty(Window(Home).Property(SixDegrees.Search.Encoded))</visible>
 					</control>
 					<control type="label">
 						<top>4</top>
@@ -94,7 +110,7 @@
 						<height>24</height>
 						<font>caps_20</font>
 						<textcolor>ink2</textcolor>
-						<label>Searching</label>
+						<label>$LOCALIZE[31261]</label>
 						<visible>Container($PARAM[id]).IsUpdating</visible>
 					</control>
 				</control>
@@ -254,7 +270,7 @@
 			<height>20</height>
 			<font>caps_20</font>
 			<textcolor>ink</textcolor>
-			<label>Search the library / films, shows, albums, artists</label>
+			<label>$LOCALIZE[31262]</label>
 		</control>
 		<control type="edit" id="9001">
 			<left>page_margin</left>
@@ -268,7 +284,7 @@
 			<textoffsetx>0</textoffsetx>
 			<aligny>center</aligny>
 			<label></label>
-			<hinttext>Type a title</hinttext>
+			<hinttext>$LOCALIZE[31263]</hinttext>
 			<texturefocus />
 			<texturenofocus />
 			<onup>noop</onup>
@@ -295,7 +311,7 @@
 			<height>22</height>
 			<font>caps_20</font>
 			<textcolor>ink2</textcolor>
-			<label>OK to type  ·  Down for results  ·  Back to close</label>
+			<label>$LOCALIZE[31264]</label>
 			<visible>Control.HasFocus(9001)</visible>
 		</control>
 	</include>
@@ -382,7 +398,7 @@
 			<height>30</height>
 			<font>reg_22</font>
 			<textcolor>ink2</textcolor>
-			<label>Films and shows match on title, albums on album name, artists on name. Library only.</label>
+			<label>$LOCALIZE[31265]</label>
 			<visible>!$EXP[Search_HasQuery]</visible>
 		</control>
 	</include>

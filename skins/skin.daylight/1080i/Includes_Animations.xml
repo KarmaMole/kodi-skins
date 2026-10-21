@@ -36,10 +36,6 @@
 		</animation>
 	</include>
 
-	<!-- Legacy alias (M1 windows). Same as Anim_WindowOpenClose. -->
-	<include name="Anim_WindowFade">
-		<include>Anim_WindowOpenClose</include>
-	</include>
 
 	<!-- Centred modal dialogs: fade + 2% zoom in, fade out. Direct child of <window>. -->
 	<include name="Anim_DialogOpenClose">
@@ -80,26 +76,6 @@
 		</definition>
 	</include>
 
-	<!-- Right-hand panel shown/hidden INSIDE a window by a <visible> condition (on the panel group). -->
-	<include name="Anim_SidePanelVisible">
-		<param name="offset" default="80"/>
-		<definition>
-			<animation type="Visible" condition="!Skin.HasSetting(daylight.reducemotion)">
-				<effect type="fade" start="0" end="100" time="200" tween="cubic" easing="out"/>
-				<effect type="slide" start="$PARAM[offset],0" end="0,0" time="200" tween="cubic" easing="out"/>
-			</animation>
-			<animation type="Visible" condition="Skin.HasSetting(daylight.reducemotion)">
-				<effect type="fade" start="0" end="100" time="80"/>
-			</animation>
-			<animation type="Hidden" condition="!Skin.HasSetting(daylight.reducemotion)">
-				<effect type="fade" start="100" end="0" time="140" tween="cubic" easing="in"/>
-				<effect type="slide" start="0,0" end="$PARAM[offset],0" time="140" tween="cubic" easing="in"/>
-			</animation>
-			<animation type="Hidden" condition="Skin.HasSetting(daylight.reducemotion)">
-				<effect type="fade" start="100" end="0" time="60"/>
-			</animation>
-		</definition>
-	</include>
 
 	<!-- Toasts (notification, busy, progress, volume, seek bar): fade only - shown over playback. -->
 	<include name="Anim_Toast">
@@ -140,28 +116,7 @@
 		</animation>
 	</include>
 
-	<!-- Same motion for a bottom group toggled by <visible> (pause info, music OSD panel). -->
-	<include name="Anim_OSDSlideUpVisible">
-		<animation type="Visible" condition="!Skin.HasSetting(daylight.reducemotion)">
-			<effect type="fade" start="0" end="100" time="180" tween="cubic" easing="out"/>
-			<effect type="slide" start="0,40" end="0,0" time="180" tween="cubic" easing="out"/>
-		</animation>
-		<animation type="Visible" condition="Skin.HasSetting(daylight.reducemotion)">
-			<effect type="fade" start="0" end="100" time="80"/>
-		</animation>
-		<animation type="Hidden" condition="!Skin.HasSetting(daylight.reducemotion)">
-			<effect type="fade" start="100" end="0" time="140" tween="cubic" easing="in"/>
-			<effect type="slide" start="0,0" end="0,40" time="140" tween="cubic" easing="in"/>
-		</animation>
-		<animation type="Hidden" condition="Skin.HasSetting(daylight.reducemotion)">
-			<effect type="fade" start="100" end="0" time="60"/>
-		</animation>
-	</include>
 
-	<!-- Legacy alias (M1 VideoOSD). -->
-	<include name="Anim_OSD">
-		<include>Anim_OSDSlideUp</include>
-	</include>
 
 	<!-- Top strip (offset/info strip, OSD top bar): drops 24 px from the top + fade.
 	     Put on the strip GROUP (not window level). Fires on window open AND when its <visible> flips. -->
@@ -184,9 +139,6 @@
 			<effect type="fade" start="100" end="0" time="120" tween="cubic" easing="in"/>
 			<effect type="slide" start="0,0" end="0,-24" time="120" tween="cubic" easing="in"/>
 		</animation>
-		<animation type="Hidden" condition="Skin.HasSetting(daylight.reducemotion)">
-			<effect type="fade" start="100" end="0" time="60"/>
-		</animation>
 		<animation type="WindowClose" condition="!Skin.HasSetting(daylight.reducemotion)">
 			<effect type="fade" start="100" end="0" time="120" tween="cubic" easing="in"/>
 		</animation>
@@ -207,11 +159,8 @@
 		<animation type="Visible" condition="Skin.HasSetting(daylight.reducemotion)">
 			<effect type="fade" start="0" end="100" time="80"/>
 		</animation>
-		<animation type="Hidden" condition="!Skin.HasSetting(daylight.reducemotion)">
+		<animation type="Hidden">
 			<effect type="fade" start="100" end="0" time="120" tween="cubic" easing="in"/>
-		</animation>
-		<animation type="Hidden" condition="Skin.HasSetting(daylight.reducemotion)">
-			<effect type="fade" start="100" end="0" time="60"/>
 		</animation>
 	</include>
 
@@ -240,29 +189,12 @@
 			<animation type="Visible" condition="Skin.HasSetting(daylight.reducemotion)">
 				<effect type="fade" start="0" end="100" time="80"/>
 			</animation>
-			<animation type="Hidden" condition="!Skin.HasSetting(daylight.reducemotion)">
+			<animation type="Hidden">
 				<effect type="fade" start="100" end="0" time="100" tween="cubic" easing="in"/>
-			</animation>
-			<animation type="Hidden" condition="Skin.HasSetting(daylight.reducemotion)">
-				<effect type="fade" start="100" end="0" time="60"/>
 			</animation>
 		</definition>
 	</include>
 
-	<!-- Dims an unfocused row/region while `condition` is true (e.g. !Control.HasFocus(9120)).
-	     Conditional + reversible - NOT for use inside item layouts. Param dim = target alpha (default 45). -->
-	<include name="Anim_RowDim">
-		<param name="condition"/>
-		<param name="dim" default="45"/>
-		<definition>
-			<animation type="Conditional" condition="($PARAM[condition]) + !Skin.HasSetting(daylight.reducemotion)">
-				<effect type="fade" start="100" end="$PARAM[dim]" time="160" tween="cubic" easing="out"/>
-			</animation>
-			<animation type="Conditional" condition="($PARAM[condition]) + Skin.HasSetting(daylight.reducemotion)">
-				<effect type="fade" start="100" end="$PARAM[dim]" time="60"/>
-			</animation>
-		</definition>
-	</include>
 
 	<!-- ===================================================================================== -->
 	<!-- FOCUS                                                                                 -->
@@ -278,21 +210,7 @@
 		</animation>
 	</include>
 
-	<!-- Zoom 105 + 8 px lift (SPEC T17 "focus zoom 105 / lift 8px") for poster tiles with room above. -->
-	<include name="Anim_FocusLift">
-		<animation type="Focus" reversible="true" condition="!Skin.HasSetting(daylight.reducemotion)">
-			<effect type="zoom" start="100" end="105" center="auto" time="150" tween="cubic" easing="out"/>
-			<effect type="slide" start="0,0" end="0,-8" time="150" tween="cubic" easing="out"/>
-		</animation>
-	</include>
 
-	<!-- Focus outline/frame fade-in (on the frame image inside focusedlayout or a button overlay).
-	     Reduce motion: frame appears instantly. -->
-	<include name="Anim_FocusFrame">
-		<animation type="Focus" reversible="true" condition="!Skin.HasSetting(daylight.reducemotion)">
-			<effect type="fade" start="0" end="100" time="120" tween="cubic" easing="out"/>
-		</animation>
-	</include>
 
 	<!-- ===================================================================================== -->
 	<!-- BACKGROUND                                                                            -->
@@ -311,11 +229,8 @@
 		<animation type="Visible" condition="Skin.HasSetting(daylight.reducemotion)">
 			<effect type="fade" start="0" end="100" time="120"/>
 		</animation>
-		<animation type="Hidden" condition="!Skin.HasSetting(daylight.reducemotion)">
+		<animation type="Hidden">
 			<effect type="fade" start="100" end="0" time="250" tween="cubic" easing="in"/>
-		</animation>
-		<animation type="Hidden" condition="Skin.HasSetting(daylight.reducemotion)">
-			<effect type="fade" start="100" end="0" time="80"/>
 		</animation>
 	</include>
 	<include name="Anim_BackgroundCrossfade_Normal">

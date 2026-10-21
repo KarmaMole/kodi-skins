@@ -93,7 +93,6 @@
 				<width>1000</width>
 				<height>40</height>
 				<font>label_25_bold</font>
-				<textcolor>text_primary</textcolor>
 				<label>$INFO[ListItem.AddonSummary]</label>
 			</control>
 			<control type="group">
@@ -109,12 +108,9 @@
 					<height>subnav_h</height>
 					<align>right</align>
 					<font>mono_15</font>
-					<textcolor>text_secondary</textcolor>
 					<focusedcolor>ink</focusedcolor>
 					<textoffsetx>12</textoffsetx>
-					<pulseonselect>false</pulseonselect>
 					<texturefocus colordiffuse="$VAR[ColorAccent]">common/white.png</texturefocus>
-					<texturenofocus />
 					<label>$VAR[Dlg_AddonNewsLabel]</label>
 					<onclick condition="String.IsEmpty(Window(Home).Property(majan.addonnews))">SetProperty(majan.addonnews,1,home)</onclick>
 					<onclick condition="!String.IsEmpty(Window(Home).Property(majan.addonnews))">ClearProperty(majan.addonnews,home)</onclick>
@@ -136,7 +132,6 @@
 				<width>1264</width>
 				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_23</font>
-				<textcolor>text_body</textcolor>
 				<label>$INFO[ListItem.AddonDescription]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 				<visible>String.IsEmpty(Window(Home).Property(majan.addonnews))</visible>
@@ -147,7 +142,6 @@
 				<width>1264</width>
 				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_23</font>
-				<textcolor>text_body</textcolor>
 				<label>$INFO[ListItem.AddonNews]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 				<visible>!String.IsEmpty(Window(Home).Property(majan.addonnews))</visible>
@@ -257,9 +251,7 @@
 				<radioheight>18</radioheight>
 				<include>Dlg_Tex_DialogButton</include>
 				<textureradioonfocus colordiffuse="ink">markers/check.png</textureradioonfocus>
-				<textureradioonnofocus colordiffuse="$VAR[ColorAccent]">markers/check.png</textureradioonnofocus>
 				<textureradioofffocus border="10" colordiffuse="ink">common/rect_outline_1.png</textureradioofffocus>
-				<textureradiooffnofocus border="10" colordiffuse="border_control">common/rect_outline_1.png</textureradiooffnofocus>
 				<visible>Control.IsEnabled(13)</visible>
 			</control>
 			<include content="Majan_DialogButton">

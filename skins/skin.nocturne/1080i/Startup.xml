@@ -14,8 +14,7 @@
 			<width>page_width</width>
 			<height>140</height>
 			<font>title_76</font>
-			<textcolor>text_primary</textcolor>
-			<label>Nocturne</label>
+			<label>$LOCALIZE[31024]</label>
 		</control>
 	</controls>
 </window>

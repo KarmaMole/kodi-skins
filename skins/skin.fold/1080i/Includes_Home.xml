@@ -601,7 +601,7 @@ Window(Home) properties
 							<effect type="zoom" start="100" end="115.9" center="147,442" time="180" tween="sine" easing="out"/>
 							<effect type="rotatex" start="0" end="-9" center="442" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9110)">
 							<effect type="zoom" start="115.9" end="115.9" center="147,442" time="0"/>
 							<effect type="rotatex" start="-9" end="-9" center="442" time="0"/>
 						</animation>
@@ -761,7 +761,7 @@ Window(Home) properties
 							<effect type="zoom" start="100" end="115.9" center="147,442" time="180" tween="sine" easing="out"/>
 							<effect type="rotatex" start="0" end="-9" center="442" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9130)">
 							<effect type="zoom" start="115.9" end="115.9" center="147,442" time="0"/>
 							<effect type="rotatex" start="-9" end="-9" center="442" time="0"/>
 						</animation>
@@ -916,7 +916,7 @@ Window(Home) properties
 							<effect type="zoom" start="100" end="115.9" center="147,442" time="180" tween="sine" easing="out"/>
 							<effect type="rotatex" start="0" end="-9" center="442" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9131)">
 							<effect type="zoom" start="115.9" end="115.9" center="147,442" time="0"/>
 							<effect type="rotatex" start="-9" end="-9" center="442" time="0"/>
 						</animation>
@@ -1060,7 +1060,7 @@ Window(Home) properties
 							<effect type="zoom" start="100" end="115.6" center="175,442" time="180" tween="sine" easing="out"/>
 							<effect type="rotatex" start="0" end="-9" center="442" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9150)">
 							<effect type="zoom" start="115.6" end="115.6" center="175,442" time="0"/>
 							<effect type="rotatex" start="-9" end="-9" center="442" time="0"/>
 						</animation>
@@ -1202,7 +1202,7 @@ Window(Home) properties
 							<effect type="zoom" start="100" end="115.9" center="147,442" time="180" tween="sine" easing="out"/>
 							<effect type="rotatex" start="0" end="-9" center="442" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9180)">
 							<effect type="zoom" start="115.9" end="115.9" center="147,442" time="0"/>
 							<effect type="rotatex" start="-9" end="-9" center="442" time="0"/>
 						</animation>
@@ -1262,32 +1262,32 @@ Window(Home) properties
 				</focusedlayout>
 				<content>
 					<item>
-						<label>Settings</label>
-						<label2>Kodi</label2>
+						<label>$LOCALIZE[31204]</label>
+						<label2>$LOCALIZE[31300]</label2>
 						<icon>icons/settings.png</icon>
 						<property name="Desc">Everything Kodi itself does: player, library, interface, network, system.</property>
 						<property name="Tag">The engine room</property>
 						<onclick>ActivateWindow(Settings)</onclick>
 					</item>
 					<item>
-						<label>Skin</label>
-						<label2>Fold</label2>
+						<label>$LOCALIZE[31364]</label>
+						<label2>$LOCALIZE[31024]</label2>
 						<icon>icons/settings.png</icon>
 						<property name="Desc">Fold's own options: reduce motion, OSD auto-hide, clock, watched marks, info on Home.</property>
 						<property name="Tag">Fold's options</property>
 						<onclick>ActivateWindow(SkinSettings)</onclick>
 					</item>
 					<item>
-						<label>Add-ons</label>
-						<label2>Library</label2>
+						<label>$LOCALIZE[31365]</label>
+						<label2>$LOCALIZE[31333]</label2>
 						<icon>icons/info.png</icon>
 						<property name="Desc">Installed add-ons, updates and repositories. Video and music add-ons open from here too.</property>
 						<property name="Tag">What's installed</property>
 						<onclick>ActivateWindow(AddonBrowser)</onclick>
 					</item>
 					<item>
-						<label>Update</label>
-						<label2>Videos · music</label2>
+						<label>$LOCALIZE[31366]</label>
+						<label2>$LOCALIZE[31367]</label2>
 						<icon>icons/repeat.png</icon>
 						<property name="Desc">Look for new films, episodes and albums in your sources. Choose videos or music.</property>
 						<property name="Tag">Scan the sources</property>
@@ -1296,8 +1296,8 @@ Window(Home) properties
 						<onclick>ActivateWindow(1155)</onclick>
 					</item>
 					<item>
-						<label>Clean up</label>
-						<label2>Videos · music</label2>
+						<label>$LOCALIZE[31368]</label>
+						<label2>$LOCALIZE[31367]</label2>
 						<icon>icons/chapters.png</icon>
 						<property name="Desc">Remove entries whose files are gone. Choose videos or music; it asks before it cleans.</property>
 						<property name="Tag">Tidy up</property>
@@ -1306,32 +1306,32 @@ Window(Home) properties
 						<onclick>ActivateWindow(1155)</onclick>
 					</item>
 					<item>
-						<label>Favourites</label>
-						<label2>Shortcuts</label2>
+						<label>$LOCALIZE[31369]</label>
+						<label2>$LOCALIZE[31370]</label2>
 						<icon>icons/play.png</icon>
 						<property name="Desc">The items you marked as favourites from any menu.</property>
 						<property name="Tag">Pinned things</property>
 						<onclick>ActivateWindow(FavouritesBrowser)</onclick>
 					</item>
 					<item>
-						<label>Files</label>
-						<label2>Sources</label2>
+						<label>$LOCALIZE[31371]</label>
+						<label2>$LOCALIZE[31343]</label2>
 						<icon>icons/chapters.png</icon>
 						<property name="Desc">Browse, copy and manage the sources on this Shield and the network.</property>
 						<property name="Tag">File manager</property>
 						<onclick>ActivateWindow(FileManager)</onclick>
 					</item>
 					<item>
-						<label>System</label>
-						<label2>Info</label2>
+						<label>$LOCALIZE[31020]</label>
+						<label2>$LOCALIZE[31372]</label2>
 						<icon>icons/info.png</icon>
 						<property name="Desc">Versions, storage, network, video and hardware details.</property>
 						<property name="Tag">System information</property>
 						<onclick>ActivateWindow(SystemInfo)</onclick>
 					</item>
 					<item>
-						<label>Power</label>
-						<label2>Quit · Reboot</label2>
+						<label>$LOCALIZE[31022]</label>
+						<label2>$LOCALIZE[31373]</label2>
 						<icon>icons/stop.png</icon>
 						<property name="Desc">Quit Kodi, reboot, suspend or power down.</property>
 						<property name="Tag">Shut down menu</property>
@@ -2577,7 +2577,7 @@ Window(Home) properties
 						<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
 							<effect type="slide" start="0,0" end="0,-10" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9120)">
 							<effect type="slide" start="0,-10" end="0,-10" time="0"/>
 						</animation>
 						<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
@@ -2837,7 +2837,7 @@ Window(Home) properties
 						<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
 							<effect type="slide" start="0,0" end="0,-10" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9121)">
 							<effect type="slide" start="0,-10" end="0,-10" time="0"/>
 						</animation>
 						<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
@@ -3101,7 +3101,7 @@ Window(Home) properties
 						<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
 							<effect type="slide" start="0,0" end="0,-10" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9140)">
 							<effect type="slide" start="0,-10" end="0,-10" time="0"/>
 						</animation>
 						<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
@@ -3374,7 +3374,7 @@ Window(Home) properties
 						<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
 							<effect type="slide" start="0,0" end="0,-10" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9160)">
 							<effect type="slide" start="0,-10" end="0,-10" time="0"/>
 						</animation>
 						<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
@@ -3654,7 +3654,7 @@ Window(Home) properties
 						<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
 							<effect type="slide" start="0,0" end="0,-10" time="180" tween="sine" easing="out"/>
 						</animation>
-						<animation type="Focus" condition="Skin.HasSetting(fold.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9161)">
 							<effect type="slide" start="0,-10" end="0,-10" time="0"/>
 						</animation>
 						<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
@@ -3869,7 +3869,7 @@ Window(Home) properties
 					<font>light_34</font>
 					<textcolor>on_card</textcolor>
 					<selectedcolor>on_card</selectedcolor>
-					<label>Films, series, albums, artists and people.</label>
+					<label>$LOCALIZE[31374]</label>
 				</control>
 				<!-- a cream slip like a typed query -->
 				<control type="image">
@@ -3887,7 +3887,7 @@ Window(Home) properties
 					<font>caps_22</font>
 					<textcolor>cap</textcolor>
 					<selectedcolor>cap</selectedcolor>
-					<label>Press OK and start typing</label>
+					<label>$LOCALIZE[31375]</label>
 				</control>
 				<control type="image">
 					<left>0</left>

@@ -9,7 +9,7 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
      OPTIONS word in the video and music headers, and from Home's System menu ("Update library" / "Clean library",
      which set Window(Home).Property(duotone.libpanel) to update / clean first).
      In a library: Update library (Stop the update while scanning), Clean library, View, Sort by, Order,
-     Unwatched only (video), Search, Library settings. Update / Clean hide in add-on and plugin folders.
+     Unwatched only (video), Sets (films, when the library has sets), Search, Library settings. Update / Clean hide in add-on and plugin folders.
      Clean library never runs straight away: Kodi 21's CleanLibrary() builtin has NO confirmation of its own,
      so the row opens a confirm step (list 101, focus on "No").
      Back closes the panel; focus returns to the item you came from (Kodi restores the window's focus).
@@ -18,6 +18,8 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
      one. OK = Container.SetViewMode(id) + close, Back = close, no change.
 """
 from pathlib import Path
+from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 ROOT = Path(__file__).resolve().parents[1] / "1080i"
 RM = "Skin.HasSetting(duotone.reducemotion)"
@@ -32,6 +34,10 @@ CONF = "Window(Home).Property(duotone.libconfirm)"
 VIDLIB = ("[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | "
           "Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]")
 SORTABLE = "!String.IsEmpty(Container.SortMethod)"
+# Sets row (docs/requests/SETS_AND_RM_BRIEF.md): only while the Videos window shows films (or the films root) from the
+# library, and the library has sets. Container.* inside this dialog reads the media window underneath (LESSONS).
+SETS = (f"{V} + [Container.Content(movies) | String.IsEqual(Container.FolderPath,videodb://movies/)] + "
+        "Library.HasContent(moviesets) + String.IsEmpty(Container.PluginName)")
 
 ROW_H = 68
 LIST_TOP = 80
@@ -71,7 +77,11 @@ PANEL_ITEMS = [
     item("Order", "$INFO[Container.SortOrder]", f"{INLIB} + {SORTABLE}",
          [("", "Container.SetSortDirection")]),
     item("Unwatched only", "$VAR[DT_Lib_HideWatched]", f"{V} + {VIDLIB}",
-         [("", "SendClick(videos,14)")]),
+         [CLOSE, ("", "SendClick(14)")]),
+    # Sets: the films' sets in this same Videos window (Container.Update keeps the history: Back walks
+    # set -> all sets -> films). Not a Home item (Omar).
+    item("$LOCALIZE[20434]", "Collections", SETS,
+         [CLOSE, ("", "Container.Update(videodb://movies/sets/)")]),
     item("$LOCALIZE[137]", "", INLIB, [CLOSE, ("", "ActivateWindow(1150)")]),
     item("Library settings", "Kodi", INLIB, [CLOSE, ("", "ActivateWindow(mediasettings)")]),
     # from Home (System menu): update / clean, videos and music
@@ -93,7 +103,7 @@ CONFIRM_ITEMS = [
          [CLOSE, ("", "CleanLibrary(music)")]),
 ]
 
-MAXROWS = 8
+MAXROWS = 9   # films: update, clean, view, sort, order, unwatched, sets, search, settings
 
 
 def backdrop():
@@ -106,7 +116,7 @@ def backdrop():
 			<height>screen_h</height>
 			<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
 			<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
-			<texture colordiffuse="ink_70">common/white.png</texture>
+			<texture colordiffuse="$VAR[scrim]">common/white.png</texture>
 		</control>"""
 
 
@@ -124,7 +134,7 @@ def panel():
 					<top>0</top>
 					<width>{PANEL_W}</width>
 					<height>{LIST_TOP + n * ROW_H + 16}</height>
-					<texture border="16" colordiffuse="$VAR[SectionColor]">dialogs/panel_framed.png</texture>
+					<texture border="16" colordiffuse="$VAR[DT_PanelTint]">$VAR[DT_PanelTex]</texture>
 					<visible>Integer.IsEqual(Container(100).NumItems,{n})</visible>
 				</control>""" for n in range(1, MAXROWS + 1))
     conf_h = 80 + 92 + 2 * ROW_H + 16
@@ -200,7 +210,7 @@ def panel():
 				<top>0</top>
 				<width>{PANEL_W}</width>
 				<height>{conf_h}</height>
-				<texture border="16" colordiffuse="$VAR[SectionColor]">dialogs/panel_framed.png</texture>
+				<texture border="16" colordiffuse="$VAR[DT_PanelTint]">$VAR[DT_PanelTex]</texture>
 				<visible>!String.IsEmpty({CONF})</visible>
 			</control>
 			<control type="label">
@@ -280,6 +290,7 @@ def picker():
 						<label>{name}</label>
 						<label2>{mark}</label2>
 						<icon>duotone/views/{pre}.png</icon>
+						<property name="dark">duotone/views/dark/{pre}.png</property>
 						<visible>{esc(vis)} + {cur}</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode({vid})</onclick>
@@ -300,6 +311,15 @@ def picker():
 							<width>{PRE_W}</width>
 							<height>{PRE_H}</height>
 							<texture colordiffuse="$VAR[SectionColor]">$INFO[ListItem.Icon]</texture>
+							<visible>!$EXP[DT_LookDark]</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>{PRE_W}</width>
+							<height>{PRE_H}</height>
+							<texture>$INFO[ListItem.Property(dark)]</texture>
+							<visible>$EXP[DT_LookDark]</visible>
 						</control>
 						<control type="group">
 							<visible>!String.IsEmpty(ListItem.Label2)</visible>
@@ -308,7 +328,7 @@ def picker():
 								<top>0</top>
 								<width>72</width>
 								<height>36</height>
-								<texture colordiffuse="ink">common/white.png</texture>
+								<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 							</control>
 							<control type="label">
 								<left>0</left>
@@ -318,8 +338,8 @@ def picker():
 								<align>center</align>
 								<aligny>center</aligny>
 								<font>cap_20</font>
-								<textcolor>paper</textcolor>
-								<selectedcolor>paper</selectedcolor>
+								<textcolor>$VAR[paper]</textcolor>
+								<selectedcolor>$VAR[paper]</selectedcolor>
 								<label>$INFO[ListItem.Label2]</label>
 							</control>
 						</control>{'''
@@ -348,7 +368,7 @@ def picker():
 					<top>0</top>
 					<width>{w}</width>
 					<height>{76 + CARD_H + 12}</height>
-					<texture border="16" colordiffuse="$VAR[SectionColor]">dialogs/panel_framed.png</texture>
+					<texture border="16" colordiffuse="$VAR[DT_PanelTint]">$VAR[DT_PanelTex]</texture>
 					<visible>Integer.IsEqual(Container(100).NumItems,{n})</visible>
 				</control>""")
         if n < 3:
@@ -467,8 +487,8 @@ def variables(nowvars):
 
 
 if __name__ == "__main__":
-    (ROOT / "Custom_1155_LibraryPanel.xml").write_text(panel(), encoding="utf-8")
+    (ROOT / "Custom_1155_LibraryPanel.xml").write_text(finish_xml(strip_defaults(panel(), ROOT / "Defaults.xml")), encoding="utf-8", newline="\n")
     xml, nowvars = picker()
-    (ROOT / "Custom_1156_ViewPicker.xml").write_text(xml, encoding="utf-8")
-    (ROOT / "Includes_Library.xml").write_text(variables(nowvars), encoding="utf-8")
+    (ROOT / "Custom_1156_ViewPicker.xml").write_text(finish_xml(strip_defaults(xml, ROOT / "Defaults.xml")), encoding="utf-8", newline="\n")
+    (ROOT / "Includes_Library.xml").write_text(finish_xml(variables(nowvars)), encoding="utf-8", newline="\n")
     print("wrote Custom_1155_LibraryPanel.xml, Custom_1156_ViewPicker.xml, Includes_Library.xml")

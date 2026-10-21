@@ -452,8 +452,8 @@
 				<itemlayout width="1" height="1"/>
 				<focusedlayout width="1" height="1"/>
 				<content>
-					<item><label>wait</label><onclick>noop</onclick></item>
-					<item><label>rested</label><onclick>noop</onclick></item>
+					<item><label>wait</label><onclick>noop</onclick></item> <!-- kdk-ignore: labels; rest-timer token in an offscreen 1px list, never drawn -->
+					<item><label>rested</label><onclick>noop</onclick></item> <!-- kdk-ignore: labels; rest-timer token in an offscreen 1px list, never drawn -->
 				</content>
 			</control>
 		</definition>
@@ -639,7 +639,7 @@
 				<align>center</align>
 				<font>mono_13</font>
 				<textcolor>text_secondary</textcolor>
-				<label>See all</label>
+				<label>$LOCALIZE[31229]</label>
 			</control>
 		</definition>
 	</include>
@@ -1980,7 +1980,7 @@
 					<height>24</height>
 					<font>mono_14</font>
 					<textcolor>$VAR[ColorCaption]</textcolor>
-					<label>No films in the library yet</label>
+					<label>$LOCALIZE[31230]</label>
 					<visible>!Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
 				</control>
 				<control type="list" id="$PARAM[id]">

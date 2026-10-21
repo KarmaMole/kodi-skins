@@ -113,11 +113,7 @@
 				<width>1000</width>
 				<height>80</height>
 				<font>text_26_med</font>
-				<textcolor>text_secondary</textcolor>
-				<focusedcolor>text_primary</focusedcolor>
 				<textoffsetx>28</textoffsetx>
-				<texturefocus border="8">focus/row.png</texturefocus>
-				<texturenofocus />
 				<label>$VAR[LabelReset]</label>
 				<onclick condition="String.IsEmpty(Window(Home).Property(orbit.resetarmed))">SetProperty(orbit.resetarmed,1,home)</onclick>
 				<onclick condition="!String.IsEmpty(Window(Home).Property(orbit.resetarmed))">Skin.ResetSettings</onclick>
@@ -173,7 +169,6 @@
 				<top>520</top>
 				<width>656</width>
 				<height>152</height>
-				<font>text_26</font>
 				<textcolor>text_secondary</textcolor>
 				<label>$VAR[Set_FocusHelp]</label>
 			</control>
@@ -184,7 +179,7 @@
 				<height>26</height>
 				<font>label_20</font>
 				<textcolor>text_dim</textcolor>
-				<label>Left / Right change  ·  Back closes</label>
+				<label>$LOCALIZE[31276]</label>
 			</control>
 		</control>
 	</controls>

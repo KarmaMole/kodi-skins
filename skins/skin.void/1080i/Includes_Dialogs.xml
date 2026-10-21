@@ -60,16 +60,6 @@
 		<texturefocus />
 		<texturenofocus />
 	</include>
-	<include name="Dlg_Tex_RowFocus">
-		<texturefocus />
-	</include>
-	<include name="Dlg_Tex_RowRule">
-		<param name="color">hairline</param>
-		<param name="flip">false</param>
-		<definition>
-			<texturenofocus />
-		</definition>
-	</include>
 
 	<!-- ============================================================ backdrop -->
 	<!-- 95% black over everything, with its own fades (LESSONS 4). Window coordinates. -->
@@ -177,13 +167,6 @@
 				<textcolor>text</textcolor>
 				<label>$PARAM[value]</label>
 			</control>
-		</definition>
-	</include>
-
-	<!-- Engine name (focused-row fill + frame): nothing in Void, the row text carries focus. -->
-	<include name="Dlg_RowFocus">
-		<definition>
-			<control type="group"><visible>false</visible></control>
 		</definition>
 	</include>
 
@@ -413,7 +396,7 @@
 			<height>64</height>
 			<font>sans_28</font>
 			<textcolor>grey</textcolor>
-			<label>Nothing to choose</label>
+			<label>$LOCALIZE[31246]</label>
 			<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 		</control>
 		<include content="Void_Scrollbar">
@@ -583,7 +566,7 @@
 				<height>dlg_track_row_h</height>
 				<font>sans_26</font>
 				<textcolor>grey</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31246]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<control type="scrollbar" id="61">

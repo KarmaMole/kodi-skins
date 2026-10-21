@@ -18,11 +18,11 @@
 		<include>Sen_Clock</include>
 		<control type="grouplist" id="9600">
 			<left>page_margin</left><top>150</top><width>1200</width><height>900</height>
-			<orientation>vertical</orientation><itemgap>0</itemgap>
+			<orientation>vertical</orientation>
 			<onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
 			<control type="grouplist" id="9610">
 				<width>1180</width><height>84</height>
-				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><itemgap>0</itemgap>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<onright condition="!String.IsEqual(Skin.String(sentence.resttime),patient) + !String.IsEqual(Skin.String(sentence.resttime),quick)">Skin.SetString(sentence.resttime,patient)</onright>
 				<onright condition="!String.IsEqual(Skin.String(sentence.resttime),patient) + !String.IsEqual(Skin.String(sentence.resttime),quick)">SetProperty(sentence.refocus,9510,home)</onright>
 				<onright condition="!String.IsEqual(Skin.String(sentence.resttime),patient) + !String.IsEqual(Skin.String(sentence.resttime),quick)">ReloadSkin()</onright>
@@ -41,7 +41,7 @@
 				<onleft condition="String.IsEqual(Skin.String(sentence.resttime),quick)">Skin.SetString(sentence.resttime,patient)</onleft>
 				<onleft condition="String.IsEqual(Skin.String(sentence.resttime),quick)">SetProperty(sentence.refocus,9510,home)</onleft>
 				<onleft condition="String.IsEqual(Skin.String(sentence.resttime),quick)">ReloadSkin()</onleft>
-				<control type="label" id="9701"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>Results wait</label></control>
+				<control type="label" id="9701"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31468]</label></control>
 				<control type="button" id="9510">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
@@ -57,16 +57,16 @@
 					<onclick condition="String.IsEqual(Skin.String(sentence.resttime),quick)">SetProperty(sentence.refocus,9510,home)</onclick>
 					<onclick condition="String.IsEqual(Skin.String(sentence.resttime),quick)">ReloadSkin()</onclick>
 				</control>
-				<control type="label" id="9702"><left>-2</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>after you stop spinning.</label></control>
+				<control type="label" id="9702"><left>-2</left><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31469]</label></control>
 			</control>
 			<control type="grouplist" id="9611">
 				<width>1180</width><height>84</height>
-				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><itemgap>0</itemgap>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<onright condition="!Skin.HasSetting(sentence.alwaystonight)">Skin.SetBool(sentence.alwaystonight)</onright>
 				<onleft condition="!Skin.HasSetting(sentence.alwaystonight)">Skin.SetBool(sentence.alwaystonight)</onleft>
 				<onright condition="Skin.HasSetting(sentence.alwaystonight)">Skin.Reset(sentence.alwaystonight)</onright>
 				<onleft condition="Skin.HasSetting(sentence.alwaystonight)">Skin.Reset(sentence.alwaystonight)</onleft>
-				<control type="label" id="9703"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>The Home sentence starts with</label></control>
+				<control type="label" id="9703"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31470]</label></control>
 				<control type="button" id="9511">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
@@ -75,16 +75,16 @@
 					<onclick condition="!Skin.HasSetting(sentence.alwaystonight)">Skin.SetBool(sentence.alwaystonight)</onclick>
 					<onclick condition="Skin.HasSetting(sentence.alwaystonight)">Skin.Reset(sentence.alwaystonight)</onclick>
 				</control>
-				<control type="label" id="9704"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>.</label></control>
+				<control type="label" id="9704"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 			<control type="grouplist" id="9612">
 				<width>1180</width><height>84</height>
-				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><itemgap>0</itemgap>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<onright condition="!String.IsEqual(Skin.String(sentence.captions),facts)">Skin.SetString(sentence.captions,facts)</onright>
 				<onleft condition="!String.IsEqual(Skin.String(sentence.captions),facts)">Skin.SetString(sentence.captions,facts)</onleft>
 				<onright condition="String.IsEqual(Skin.String(sentence.captions),facts)">Skin.Reset(sentence.captions)</onright>
 				<onleft condition="String.IsEqual(Skin.String(sentence.captions),facts)">Skin.Reset(sentence.captions)</onleft>
-				<control type="label" id="9705"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>Captions under posters say</label></control>
+				<control type="label" id="9705"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31471]</label></control>
 				<control type="button" id="9512">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
@@ -93,16 +93,16 @@
 					<onclick condition="!String.IsEqual(Skin.String(sentence.captions),facts)">Skin.SetString(sentence.captions,facts)</onclick>
 					<onclick condition="String.IsEqual(Skin.String(sentence.captions),facts)">Skin.Reset(sentence.captions)</onclick>
 				</control>
-				<control type="label" id="9706"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>.</label></control>
+				<control type="label" id="9706"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 			<control type="grouplist" id="9613">
 				<width>1180</width><height>84</height>
-				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><itemgap>0</itemgap>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<onright condition="!Skin.HasSetting(sentence.noweather)">Skin.SetBool(sentence.noweather)</onright>
 				<onleft condition="!Skin.HasSetting(sentence.noweather)">Skin.SetBool(sentence.noweather)</onleft>
 				<onright condition="Skin.HasSetting(sentence.noweather)">Skin.Reset(sentence.noweather)</onright>
 				<onleft condition="Skin.HasSetting(sentence.noweather)">Skin.Reset(sentence.noweather)</onleft>
-				<control type="label" id="9707"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>The time sentence</label></control>
+				<control type="label" id="9707"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31472]</label></control>
 				<control type="button" id="9513">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
@@ -111,16 +111,16 @@
 					<onclick condition="!Skin.HasSetting(sentence.noweather)">Skin.SetBool(sentence.noweather)</onclick>
 					<onclick condition="Skin.HasSetting(sentence.noweather)">Skin.Reset(sentence.noweather)</onclick>
 				</control>
-				<control type="label" id="9708"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>.</label></control>
+				<control type="label" id="9708"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 			<control type="grouplist" id="9614">
 				<width>1180</width><height>84</height>
-				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><itemgap>0</itemgap>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<onright condition="!Skin.HasSetting(sentence.nomarkers)">Skin.SetBool(sentence.nomarkers)</onright>
 				<onleft condition="!Skin.HasSetting(sentence.nomarkers)">Skin.SetBool(sentence.nomarkers)</onleft>
 				<onright condition="Skin.HasSetting(sentence.nomarkers)">Skin.Reset(sentence.nomarkers)</onright>
 				<onleft condition="Skin.HasSetting(sentence.nomarkers)">Skin.Reset(sentence.nomarkers)</onleft>
-				<control type="label" id="9709"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>Posters</label></control>
+				<control type="label" id="9709"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31473]</label></control>
 				<control type="button" id="9514">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
@@ -129,16 +129,16 @@
 					<onclick condition="!Skin.HasSetting(sentence.nomarkers)">Skin.SetBool(sentence.nomarkers)</onclick>
 					<onclick condition="Skin.HasSetting(sentence.nomarkers)">Skin.Reset(sentence.nomarkers)</onclick>
 				</control>
-				<control type="label" id="9710"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>.</label></control>
+				<control type="label" id="9710"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 			<control type="grouplist" id="9615">
 				<width>1180</width><height>84</height>
-				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><itemgap>0</itemgap>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<onright condition="!Skin.HasSetting(sentence.hidetrailer)">Skin.SetBool(sentence.hidetrailer)</onright>
 				<onleft condition="!Skin.HasSetting(sentence.hidetrailer)">Skin.SetBool(sentence.hidetrailer)</onleft>
 				<onright condition="Skin.HasSetting(sentence.hidetrailer)">Skin.Reset(sentence.hidetrailer)</onright>
 				<onleft condition="Skin.HasSetting(sentence.hidetrailer)">Skin.Reset(sentence.hidetrailer)</onleft>
-				<control type="label" id="9711"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>Info pages</label></control>
+				<control type="label" id="9711"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31474]</label></control>
 				<control type="button" id="9515">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
@@ -147,11 +147,11 @@
 					<onclick condition="!Skin.HasSetting(sentence.hidetrailer)">Skin.SetBool(sentence.hidetrailer)</onclick>
 					<onclick condition="Skin.HasSetting(sentence.hidetrailer)">Skin.Reset(sentence.hidetrailer)</onclick>
 				</control>
-				<control type="label" id="9712"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>.</label></control>
+				<control type="label" id="9712"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 			<control type="grouplist" id="9616">
 				<width>1180</width><height>84</height>
-				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><itemgap>0</itemgap>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<onright condition="!String.IsEqual(Skin.String(sentence.osdhide),10) + !String.IsEqual(Skin.String(sentence.osdhide),off) + !String.IsEqual(Skin.String(sentence.osdhide),3)">Skin.SetString(sentence.osdhide,10)</onright>
 				<onleft condition="!String.IsEqual(Skin.String(sentence.osdhide),10) + !String.IsEqual(Skin.String(sentence.osdhide),off) + !String.IsEqual(Skin.String(sentence.osdhide),3)">Skin.SetString(sentence.osdhide,3)</onleft>
 				<onright condition="String.IsEqual(Skin.String(sentence.osdhide),10)">Skin.SetString(sentence.osdhide,off)</onright>
@@ -160,7 +160,7 @@
 				<onleft condition="String.IsEqual(Skin.String(sentence.osdhide),off)">Skin.SetString(sentence.osdhide,10)</onleft>
 				<onright condition="String.IsEqual(Skin.String(sentence.osdhide),3)">Skin.Reset(sentence.osdhide)</onright>
 				<onleft condition="String.IsEqual(Skin.String(sentence.osdhide),3)">Skin.SetString(sentence.osdhide,off)</onleft>
-				<control type="label" id="9713"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>The player sentence hides after</label></control>
+				<control type="label" id="9713"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31475]</label></control>
 				<control type="button" id="9516">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
@@ -171,16 +171,16 @@
 					<onclick condition="String.IsEqual(Skin.String(sentence.osdhide),off)">Skin.SetString(sentence.osdhide,3)</onclick>
 					<onclick condition="String.IsEqual(Skin.String(sentence.osdhide),3)">Skin.Reset(sentence.osdhide)</onclick>
 				</control>
-				<control type="label" id="9714"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>.</label></control>
+				<control type="label" id="9714"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 			<control type="grouplist" id="9617">
 				<width>1180</width><height>84</height>
-				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><itemgap>0</itemgap>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<onright condition="!String.IsEqual(Skin.String(sentence.offsetbar),bottom)">Skin.SetString(sentence.offsetbar,bottom)</onright>
 				<onleft condition="!String.IsEqual(Skin.String(sentence.offsetbar),bottom)">Skin.SetString(sentence.offsetbar,bottom)</onleft>
 				<onright condition="String.IsEqual(Skin.String(sentence.offsetbar),bottom)">Skin.Reset(sentence.offsetbar)</onright>
 				<onleft condition="String.IsEqual(Skin.String(sentence.offsetbar),bottom)">Skin.Reset(sentence.offsetbar)</onleft>
-				<control type="label" id="9715"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>Sync strips sit at the</label></control>
+				<control type="label" id="9715"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31476]</label></control>
 				<control type="button" id="9517">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
@@ -189,16 +189,16 @@
 					<onclick condition="!String.IsEqual(Skin.String(sentence.offsetbar),bottom)">Skin.SetString(sentence.offsetbar,bottom)</onclick>
 					<onclick condition="String.IsEqual(Skin.String(sentence.offsetbar),bottom)">Skin.Reset(sentence.offsetbar)</onclick>
 				</control>
-				<control type="label" id="9716"><left>-2</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>of the picture.</label></control>
+				<control type="label" id="9716"><left>-2</left><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31477]</label></control>
 			</control>
 			<control type="grouplist" id="9618">
 				<width>1180</width><height>84</height>
-				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><itemgap>0</itemgap>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<onright condition="!Skin.HasSetting(sentence.reducemotion)">Skin.SetBool(sentence.reducemotion)</onright>
 				<onleft condition="!Skin.HasSetting(sentence.reducemotion)">Skin.SetBool(sentence.reducemotion)</onleft>
 				<onright condition="Skin.HasSetting(sentence.reducemotion)">Skin.Reset(sentence.reducemotion)</onright>
 				<onleft condition="Skin.HasSetting(sentence.reducemotion)">Skin.Reset(sentence.reducemotion)</onleft>
-				<control type="label" id="9717"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>Things move</label></control>
+				<control type="label" id="9717"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31478]</label></control>
 				<control type="button" id="9518">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
@@ -207,15 +207,15 @@
 					<onclick condition="!Skin.HasSetting(sentence.reducemotion)">Skin.SetBool(sentence.reducemotion)</onclick>
 					<onclick condition="Skin.HasSetting(sentence.reducemotion)">Skin.Reset(sentence.reducemotion)</onclick>
 				</control>
-				<control type="label" id="9718"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>.</label></control>
+				<control type="label" id="9718"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 			<control type="grouplist" id="9630">
 				<width>1180</width><height>84</height><orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<visible>!String.IsEmpty(Skin.String(sentence.slot1.name)) | !String.IsEmpty(Skin.String(sentence.slot2.name)) | !String.IsEmpty(Skin.String(sentence.slot3.name))</visible>
-				<control type="label" id="9719"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>Your saved sentences can be</label></control>
+				<control type="label" id="9719"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31479]</label></control>
 				<control type="button" id="9530">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
-					<include>Sen_PhraseTextures</include><label>forgotten</label>
+					<include>Sen_PhraseTextures</include><label>$LOCALIZE[31480]</label>
 					<onup>9518</onup><ondown>9531</ondown>
 					<onclick>Skin.Reset(sentence.slot1.name)</onclick>
 					<onclick>Skin.Reset(sentence.slot1.kind)</onclick>
@@ -239,11 +239,11 @@
 					<onclick>Skin.Reset(sentence.slot3.seen)</onclick>
 					<onclick>Skin.Reset(sentence.slot3.order)</onclick>
 				</control>
-				<control type="label" id="9720"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>.</label></control>
+				<control type="label" id="9720"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 			<control type="grouplist" id="9631">
 				<width>1180</width><height>84</height><orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
-				<control type="label" id="9721"><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>Or</label></control>
+				<control type="label" id="9721"><width>auto</width><height>84</height><font>serif_40</font><label>Or</label></control>
 				<control type="button" id="9531">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include><label>$VAR[SkinSet_ResetLabel]</label>
@@ -254,7 +254,7 @@
 					<onclick condition="!String.IsEmpty(Window(Home).Property(sentence.resetarmed))">ReloadSkin()</onclick>
 					<onunfocus>ClearProperty(sentence.resetarmed,home)</onunfocus>
 				</control>
-				<control type="label" id="9722"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><textcolor>text</textcolor><label>.</label></control>
+				<control type="label" id="9722"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 		</control>
 		<control type="textbox">
@@ -264,7 +264,7 @@
 		<control type="label">
 			<left>page_margin</left><top>1010</top><width>page_width</width><height>30</height>
 			<font>ui_20</font><textcolor>muted</textcolor>
-			<label>Up and down move between sentences. OK or right changes a phrase, left steps it back. Kodi's own settings are under Settings.</label>
+			<label>$LOCALIZE[31481]</label>
 		</control>
 	</controls>
 </window>

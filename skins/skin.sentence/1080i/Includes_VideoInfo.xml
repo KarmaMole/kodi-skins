@@ -406,7 +406,7 @@
 					<width>auto</width>
 					<height>72</height>
 					<font>serif_40</font>
-					<label>find more like this</label>
+					<label>$LOCALIZE[31362]</label>
 					<include>Sen_PhraseTextures</include>
 					<onclick>SetProperty(sentence.liketitle,$ESCINFO[ListItem.Title],home)</onclick>
 					<onclick>Dialog.Close(all,true)</onclick>
@@ -433,7 +433,7 @@
 					<height>44</height>
 					<font>cap_20</font>
 					<textcolor>muted</textcolor>
-					<label>Also</label>
+					<label>$LOCALIZE[31363]</label>
 				</control>
 				<include content="VidInfo_Also"><param name="id" value="9016"/><param name="label" value="read the whole plot"/><param name="onclick" value="SetFocus(61)"/><param name="visible" value="!String.IsEmpty(ListItem.Plot)"/></include>
 				<include content="VidInfo_Also">
@@ -617,7 +617,7 @@
 				<height>28</height>
 				<font>cap_20</font>
 				<textcolor>muted</textcolor>
-				<label>The whole story</label>
+				<label>$LOCALIZE[31364]</label>
 			</control>
 			<control type="label">
 				<left>360</left>
@@ -656,7 +656,7 @@
 				<height>30</height>
 				<font>ui_20</font>
 				<textcolor>muted</textcolor>
-				<label>Up and down scroll. Back closes it.</label>
+				<label>$LOCALIZE[31365]</label>
 			</control>
 		</control>
 	</include>

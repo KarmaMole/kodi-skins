@@ -70,10 +70,7 @@
 			<focusedcolor>on_tape</focusedcolor>
 			<disabledcolor>ink_ghost</disabledcolor>
 			<textoffsetx>28</textoffsetx>
-			<aligny>center</aligny>
-			<pulseonselect>false</pulseonselect>
 			<texturefocus border="24,0,24,0" colordiffuse="tape">ks/tape_row.png</texturefocus>
-			<texturenofocus />
 		</control>
 	</controls>
 </window>

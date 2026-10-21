@@ -47,8 +47,7 @@
 					<height>52</height>
 					<textoffsetx>24</textoffsetx>
 					<font>cap_20</font>
-					<textcolor>ink</textcolor>
-					<label>Options</label>
+					<label>$LOCALIZE[31158]</label>
 				</control>
 				<control type="button" id="16">
 					<description>Match</description>
@@ -68,7 +67,7 @@
 				<control type="button" id="19">
 					<description>Order direction</description>
 					<include content="Misc_RowLook"><param name="width" value="700"/></include>
-					<label>Order direction</label>
+					<label>$LOCALIZE[31252]</label>
 				</control>
 				<control type="button" id="23">
 					<description>Group by</description>
@@ -111,7 +110,7 @@
 				<height>89</height>  <!-- 3 lines exactly: no half-clipped line at the bottom -->
 				<font>body_20</font>
 				<textcolor>ink3</textcolor>
-				<label>Select a rule to edit it. Use the context menu to delete a rule.</label>
+				<label>$LOCALIZE[31253]</label>
 			</control>
 			<control type="grouplist" id="9001">
 				<left>1420</left>

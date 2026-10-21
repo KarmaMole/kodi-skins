@@ -2,7 +2,7 @@
 <!--
 	Duotone Search (Custom_1150_Search.xml, SPEC 5 / T16). Owner: Builder A.
 	Library-only: four result rows fed by library paths filtered with ?xsp= JSON (title / album / artist
-	"contains" the query). No online search, no helper add-on.
+	"contains" the query). No online search; Skin Variables URL-encodes the query (Search_Encoder).
 	The query is the text of edit control 9001: $INFO[Control.GetLabel(9001).index(1)]. Paths are empty
 	until something is typed, so opening the window costs nothing.
 	Rows never hide (a hidden container is not processed, so it could never load the next query's
@@ -27,29 +27,51 @@
 
 	<!-- ================================================================ expressions -->
 	<expression name="Search_HasQuery">!String.IsEmpty(Control.GetLabel(9001).index(1))</expression>
+	<expression name="Search_Encoded">$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Duotone.Search.Encoded))</expression>
 
 	<!-- ================================================================ paths -->
-	<!-- xsp JSON, URL-encoded except the query itself. $ESCINFO quotes the query and escapes " and \ as JSON
-	     expects (QA 2026-10-18). Kodi has no URL-encode infolabel, so & % + in a query still break the path. -->
+	<!-- xsp JSON, fully URL-encoded. The query is encoded by script.skinvariables (a required import since
+	     2026-10-21, as in Groove): the 1 px list 9190 (Search_Encoder) runs get_encoded_string whenever the
+	     typed text changes, which writes Window(Home).Property(Duotone.Search.Encoded) (quote_plus), so & % + | in a query
+	     no longer break the path (kodi-review xml.xsp-unencoded). Paths wait for that property. -->
 	<variable name="Search_PathMovies">
-		<value condition="$EXP[Search_HasQuery]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Duotone.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 	</variable>
 	<variable name="Search_PathTV">
-		<value condition="$EXP[Search_HasQuery]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Duotone.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 	</variable>
 	<variable name="Search_PathAlbums">
-		<value condition="$EXP[Search_HasQuery]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Duotone.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
 	</variable>
 	<variable name="Search_PathArtists">
-		<value condition="$EXP[Search_HasQuery]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$ESCINFO[Control.GetLabel(9001).index(1)]%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
+		<value condition="$EXP[Search_Encoded]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Duotone.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
 	</variable>
+
+	<!-- ================================================================ query encoder
+	     The plugin path changes with every letter, so the list reloads and Skin Variables writes the
+	     URL-encoded query to Window(Home).Property(Duotone.Search.Encoded) (cleared first, so a path never
+	     carries the previous query). Offscreen but visible: a hidden container never loads. -->
+	<variable name="Search_EncoderPath">
+		<value condition="$EXP[Search_HasQuery]">plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;window_prop=Duotone.Search.Encoded&amp;window_id=home&amp;&amp;$INFO[Control.GetLabel(9001).index(1)]</value>
+	</variable>
+	<include name="Search_Encoder">
+		<control type="list" id="9190">
+			<left>-3840</left>
+			<top>-3840</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1"/>
+			<focusedlayout width="1" height="1"/>
+			<content>$VAR[Search_EncoderPath]</content>
+		</control>
+	</include>
 
 	<!-- ================================================================ pieces -->
 	<!-- Row header: rule, title 24/700, mono count + focused item on the right.
 	     params: id, top, title, detail (focused item line) -->
 	<include name="Search_RowHeader">
-		<param name="chip">vermilion</param>
-		<param name="chiptext">ink</param>
+		<param name="chip">$VAR[chip_films]</param>
+		<param name="chiptext">$VAR[chiptext_films]</param>
 		<definition>
 			<control type="group">
 				<top>$PARAM[top]</top>
@@ -80,8 +102,8 @@
 						<height>24</height>
 						<font>cap_20</font>
 						<textcolor>$VAR[SectionText3]</textcolor>
-						<label>No matches</label>
-						<visible>!Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
+						<label>$LOCALIZE[31334]</label>
+						<visible>$EXP[Search_Encoded] + !Integer.IsGreater(Container($PARAM[id]).NumItems,0) + !Container($PARAM[id]).IsUpdating</visible>
 					</control>
 					<control type="label">
 						<top>6</top>
@@ -89,7 +111,7 @@
 						<height>24</height>
 						<font>cap_20</font>
 						<textcolor>$VAR[SectionText3]</textcolor>
-						<label>Searching</label>
+						<label>$LOCALIZE[31335]</label>
 						<visible>Container($PARAM[id]).IsUpdating</visible>
 					</control>
 				</control>
@@ -115,7 +137,7 @@
 		<param name="mask_round">masks/poster_round8.png</param>
 		<param name="mask_square">masks/poster_square.png</param>
 		<param name="target">videos</param>
-		<param name="tint">tint_films</param>
+		<param name="tint">$VAR[tint_films]</param>
 		<definition>
 			<control type="list" id="$PARAM[id]">
 				<left>search_list_x</left>
@@ -202,7 +224,7 @@
 							<top>0</top>
 							<width>search_artist_w</width>
 							<height>search_artist_h</height>
-							<texture colordiffuse="acid">common/white.png</texture>
+							<texture colordiffuse="$VAR[chip_music]">common/white.png</texture>
 						</control>
 						<control type="label">
 							<left>20</left>
@@ -210,7 +232,7 @@
 							<width>200</width>
 							<height>search_artist_h</height>
 							<font>bold_22</font>
-							<textcolor>ink</textcolor>
+							<textcolor>$VAR[chiptext_music]</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
 					</control>
@@ -227,7 +249,7 @@
 							<top>0</top>
 							<width>search_artist_w</width>
 							<height>search_artist_h</height>
-							<texture colordiffuse="ink">common/white.png</texture>
+							<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 							<visible>Control.HasFocus($PARAM[id])</visible>
 						</control>
 						<control type="image">
@@ -235,7 +257,7 @@
 							<top>0</top>
 							<width>search_artist_w</width>
 							<height>search_artist_h</height>
-							<texture colordiffuse="acid">common/white.png</texture>
+							<texture colordiffuse="$VAR[chip_music]">common/white.png</texture>
 							<visible>!Control.HasFocus($PARAM[id])</visible>
 						</control>
 						<control type="label">
@@ -269,7 +291,7 @@
 			<textoffsetx>0</textoffsetx>
 			<aligny>center</aligny>
 			<label></label>
-			<hinttext>Type a title</hinttext>
+			<hinttext>$LOCALIZE[31336]</hinttext>
 			<texturefocus />
 			<texturenofocus />
 			<onup>noop</onup>
@@ -285,12 +307,12 @@
 			<height>24</height>
 			<font>cap_20</font>
 			<textcolor>$VAR[SectionText]</textcolor>
-			<label>Search  ·  OK to type  ·  Down for results  ·  Back to close</label>
+			<label>$LOCALIZE[31337]</label>
 		</control>
 	</include>
 	<variable name="Search_ArtistFocusText">
-		<value condition="Control.HasFocus(9104)">paper</value>
-		<value>ink</value>
+		<value condition="Control.HasFocus(9104)">$VAR[paper]</value>
+		<value>$VAR[chiptext_music]</value>
 	</variable>
 
 	<!-- Results: Movies 100x150 · TV shows 100x150 · Albums 120x120 · Artists name tiles.
@@ -303,7 +325,7 @@
 				<param name="id" value="9101"/>
 				<param name="top" value="344"/>
 				<param name="title" value="Films"/>
-				<param name="chip" value="vermilion"/>
+				<param name="chip" value="$VAR[chip_films]"/>
 				<param name="detail" value="$INFO[Container(9101).ListItem.Label]$INFO[Container(9101).ListItem.Year,  ·  ,]"/>
 			</include>
 			<include content="Search_Row">
@@ -322,8 +344,8 @@
 				<param name="id" value="9102"/>
 				<param name="top" value="562"/>
 				<param name="title" value="Series"/>
-				<param name="chip" value="cobalt"/>
-				<param name="chiptext" value="paper"/>
+				<param name="chip" value="$VAR[chip_series]"/>
+				<param name="chiptext" value="$VAR[chiptext_series]"/>
 				<param name="detail" value="$INFO[Container(9102).ListItem.Label]$INFO[Container(9102).ListItem.Year,  ·  ,]"/>
 			</include>
 			<include content="Search_Row">
@@ -342,7 +364,8 @@
 				<param name="id" value="9103"/>
 				<param name="top" value="780"/>
 				<param name="title" value="Albums"/>
-				<param name="chip" value="acid"/>
+				<param name="chip" value="$VAR[chip_music]"/>
+				<param name="chiptext" value="$VAR[chiptext_music]"/>
 				<param name="detail" value="$INFO[Container(9103).ListItem.Label]$INFO[Container(9103).ListItem.Artist,  ·  ,]"/>
 			</include>
 			<include content="Search_Row">
@@ -365,7 +388,8 @@
 				<param name="id" value="9104"/>
 				<param name="top" value="966"/>
 				<param name="title" value="Artists"/>
-				<param name="chip" value="acid"/>
+				<param name="chip" value="$VAR[chip_music]"/>
+				<param name="chiptext" value="$VAR[chiptext_music]"/>
 				<param name="detail" value=""/>
 			</include>
 			<include content="Search_ArtistRow">
@@ -383,24 +407,24 @@
 			<height>36</height>
 			<font>body_26</font>
 			<textcolor>$VAR[SectionText]</textcolor>
-			<label>Films and shows match on title, albums on album name, artists on name. Library only.</label>
+			<label>$LOCALIZE[31338]</label>
 			<visible>!$EXP[Search_HasQuery]</visible>
 		</control>
 	</include>
 	<!-- result prints: each row in its own section's colour (monotone setting respected) -->
 	<variable name="Search_Tint_films">
 		<value condition="String.IsEqual(Skin.String(duotone.mono),off)">white</value>
-		<value condition="String.IsEqual(Skin.String(duotone.mono),light)">tintl_films</value>
-		<value>tint_films</value>
+		<value condition="String.IsEqual(Skin.String(duotone.mono),light)">$VAR[tintl_films]</value>
+		<value>$VAR[tint_films]</value>
 	</variable>
 	<variable name="Search_Tint_series">
 		<value condition="String.IsEqual(Skin.String(duotone.mono),off)">white</value>
-		<value condition="String.IsEqual(Skin.String(duotone.mono),light)">tintl_series</value>
-		<value>tint_series</value>
+		<value condition="String.IsEqual(Skin.String(duotone.mono),light)">$VAR[tintl_series]</value>
+		<value>$VAR[tint_series]</value>
 	</variable>
 	<variable name="Search_Tint_music">
 		<value condition="String.IsEqual(Skin.String(duotone.mono),off)">white</value>
-		<value condition="String.IsEqual(Skin.String(duotone.mono),light)">tintl_music</value>
-		<value>tint_music</value>
+		<value condition="String.IsEqual(Skin.String(duotone.mono),light)">$VAR[tintl_music]</value>
+		<value>$VAR[tint_music]</value>
 	</variable>
 </includes>

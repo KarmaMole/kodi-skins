@@ -287,9 +287,8 @@
 				<effect type="fade" start="100" end="0" time="240"/>
 				<effect type="zoom" start="100" end="60" center="414,160" time="320" tween="cubic" easing="inout"/>
 			</animation>
-			<animation type="Hidden" condition="Skin.HasSetting(passepartout.reducemotion)">
-				<effect type="fade" start="100" end="0" time="240"/>
-			</animation>
+			<!-- one Hidden animation only: Kodi resets just the first Hidden when the control shows again, so a reduce-motion
+			     twin would stay applied at fade 0 (LESSONS, Groove device pass 2). Reduce motion: instant hide. -->
 			<animation effect="fade" start="0" end="100" time="400">WindowOpen</animation>
 			<!-- landscape print (films, series): picture 1092 x 612 at 414,160 -->
 			<control type="group">
@@ -349,7 +348,7 @@
 					<height>28</height>
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
-					<label>The exhibition</label>
+					<label>$LOCALIZE[31177]</label>
 				</control>
 				<control type="label">
 					<left>120</left>
@@ -383,7 +382,7 @@
 				<font>ttl_72</font>
 				<textcolor>ink</textcolor>
 				<align>center</align>
-				<label>The walls are bare</label>
+				<label>$LOCALIZE[31178]</label>
 			</control>
 			<control type="label">
 				<left>120</left>
@@ -393,7 +392,7 @@
 				<font>body_24</font>
 				<textcolor>ink2</textcolor>
 				<align>center</align>
-				<label>Nothing in this exhibition yet. Press Select on the section's name to open the whole library.</label>
+				<label>$LOCALIZE[31179]</label>
 			</control>
 		</control>
 	</include>
@@ -474,9 +473,6 @@
 				<include>PP_WatchedMarkers</include>
 			</control>
 		</definition>
-	</include>
-	<include name="Home_LiftIn">
-		<animation effect="fade" start="0" end="100" time="360" delay="80">Focus</animation>
 	</include>
 	<include name="Home_GrowIn">
 		<param name="cx">0</param>
@@ -642,7 +638,7 @@
 				<height>28</height>
 				<font>cap_20</font>
 				<textcolor>ink</textcolor>
-				<label>Recently played</label>
+				<label>$LOCALIZE[31180]</label>
 				<visible>Integer.IsGreater(Container(9130).NumItems,0)</visible>
 				<include>Home_RoomFade</include>
 			</control>
@@ -708,7 +704,7 @@
 					<height>28</height>
 					<font>cap_20</font>
 					<textcolor>ink</textcolor>
-					<label>The rest of the room</label>
+					<label>$LOCALIZE[31181]</label>
 				</control>
 				<control type="fixedlist" id="9131">
 					<left>908</left>
@@ -847,7 +843,7 @@
 					<height>28</height>
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
-					<label>Now playing</label>
+					<label>$LOCALIZE[31017]</label>
 				</control>
 				<control type="label">
 					<width>auto</width>

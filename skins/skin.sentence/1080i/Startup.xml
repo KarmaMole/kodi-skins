@@ -14,8 +14,7 @@
 			<width>page_width</width>
 			<height>140</height>
 			<font>serif_66</font>
-			<textcolor>text</textcolor>
-			<label>Tonight I'd like…</label>
+			<label>$LOCALIZE[31397]</label>
 		</control>
 	</controls>
 </window>

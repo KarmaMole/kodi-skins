@@ -87,10 +87,8 @@
 				<width>114</width>
 				<height>48</height>
 				<font>sans_24_med</font>
-				<textcolor>grey_dim</textcolor>
-				<focusedcolor>text</focusedcolor>
 				<textoffsetx>14</textoffsetx>
-				<label>Queue</label>
+				<label>$LOCALIZE[31258]</label>
 				<onclick>Dialog.Close(all,true)</onclick>
 				<onclick>ActivateWindow(musicplaylist)</onclick>
 				<include content="Void_Anim_FocusText"><param name="zoom" value="112"/></include>

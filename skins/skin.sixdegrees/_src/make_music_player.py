@@ -15,6 +15,10 @@ from pathlib import Path
 
 from make_map import img, lbl, group, RM
 from make_osd import icon_btn, text_btn, bubble_slide
+from strip_defaults import strip_defaults  # drops tags that repeat Defaults.xml (kdk xml.redundant)
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
+DEFAULTS_XML = Path(__file__).resolve().parent.parent / "1080i" / "Defaults.xml"
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "1080i"
@@ -112,7 +116,7 @@ def now_playing():
 	</controls>
 </window>
 """
-    (OUT / "MusicVisualisation.xml").write_text(w, encoding="utf-8")
+    (OUT / "MusicVisualisation.xml").write_text(localize_xml(strip_defaults(w, DEFAULTS_XML), STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 def music_osd():
@@ -166,7 +170,7 @@ def music_osd():
 	</controls>
 </window>
 """
-    (OUT / "MusicOSD.xml").write_text(w, encoding="utf-8")
+    (OUT / "MusicOSD.xml").write_text(localize_xml(strip_defaults(w, DEFAULTS_XML), STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 if __name__ == "__main__":

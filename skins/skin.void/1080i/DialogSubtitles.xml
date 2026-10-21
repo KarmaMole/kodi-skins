@@ -83,7 +83,7 @@
 				<height>52</height>
 				<font>serif_52</font>
 				<textcolor>text_primary</textcolor>
-				<label>Find subtitles</label>
+				<label>$LOCALIZE[31237]</label>
 			</control>
 
 			<!-- ====== left column: service + status + manual search -->
@@ -99,7 +99,7 @@
 					<height>24</height>
 					<font>mono_13</font>
 					<textcolor>grey_soft</textcolor>
-					<label>SERVICE</label>
+					<label>$LOCALIZE[31238]</label>
 				</control>
 				<include content="Void_Rule">
 					<param name="top" value="31"/>
@@ -205,7 +205,7 @@
 					<height>24</height>
 					<font>mono_13</font>
 					<textcolor>grey_soft</textcolor>
-					<label>STATUS</label>
+					<label>$LOCALIZE[31239]</label>
 				</control>
 				<include content="Void_Rule">
 					<param name="top" value="269"/>
@@ -234,7 +234,7 @@
 					<wrapmultiline>true</wrapmultiline>
 					<font>mono_13</font>
 					<textcolor>grey</textcolor>
-					<label>THIS FILE ALREADY HAS SUBTITLE TRACKS</label>
+					<label>$LOCALIZE[31240]</label>
 				</control>
 
 				<control type="group">
@@ -278,7 +278,7 @@
 					<align>right</align>
 					<font>mono_13</font>
 					<textcolor>grey_soft</textcolor>
-					<label>SYNC = TIMED TO YOUR FILE</label>
+					<label>$LOCALIZE[31241]</label>
 				</control>
 				<include content="Void_Rule">
 					<param name="top" value="31"/>
@@ -294,7 +294,7 @@
 					<height>40</height>
 					<font>credits_21</font>
 					<textcolor>grey</textcolor>
-					<label>No subtitles listed yet. Pick a service or search manually.</label>
+					<label>$LOCALIZE[31242]</label>
 					<visible>Integer.IsEqual(Container(120).NumItems,0)</visible>
 				</control>
 

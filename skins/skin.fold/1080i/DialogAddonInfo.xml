@@ -93,7 +93,6 @@
 				<width>1000</width>
 				<height>40</height>
 				<font>sans_26_semi</font>
-				<textcolor>ink</textcolor>
 				<label>$INFO[ListItem.AddonSummary]</label>
 			</control>
 			<control type="group">
@@ -109,12 +108,7 @@
 					<height>subnav_h</height>
 					<align>right</align>
 					<font>caps_20</font>
-					<textcolor>ink2</textcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<textoffsetx>12</textoffsetx>
-					<pulseonselect>false</pulseonselect>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<label>$VAR[Dlg_AddonNewsLabel]</label>
 					<onclick condition="String.IsEmpty(Window(Home).Property(fold.addonnews))">SetProperty(fold.addonnews,1,home)</onclick>
 					<onclick condition="!String.IsEmpty(Window(Home).Property(fold.addonnews))">ClearProperty(fold.addonnews,home)</onclick>
@@ -136,7 +130,6 @@
 				<width>1264</width>
 				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<label>$INFO[ListItem.AddonDescription]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 				<visible>String.IsEmpty(Window(Home).Property(fold.addonnews))</visible>
@@ -147,7 +140,6 @@
 				<width>1264</width>
 				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<label>$INFO[ListItem.AddonNews]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 				<visible>!String.IsEmpty(Window(Home).Property(fold.addonnews))</visible>
@@ -251,15 +243,10 @@
 				<height>dialog_row_h</height>
 				<font>sans_22_semi</font>
 				<textcolor>ink</textcolor>
-				<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 				<textoffsetx>16</textoffsetx>
 				<radiowidth>18</radiowidth>
 				<radioheight>18</radioheight>
 				<include>Dlg_Tex_DialogButton</include>
-				<textureradioonfocus colordiffuse="on_card">markers/check.png</textureradioonfocus>
-				<textureradioonnofocus colordiffuse="$VAR[FoldAccent]">markers/check.png</textureradioonnofocus>
-				<textureradioofffocus border="10" colordiffuse="on_card">common/rect_outline_1.png</textureradioofffocus>
-				<textureradiooffnofocus border="10" colordiffuse="rule_strong">common/rect_outline_1.png</textureradiooffnofocus>
 				<visible>Control.IsEnabled(13)</visible>
 			</control>
 			<include content="Fold_DialogButton">

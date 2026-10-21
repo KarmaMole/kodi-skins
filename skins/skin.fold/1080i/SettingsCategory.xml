@@ -27,7 +27,6 @@
 			<top>content_top</top>
 			<width>settings_cat_w</width>
 			<height>648</height>
-			<itemgap>0</itemgap>
 			<orientation>vertical</orientation>
 			<onleft>noop</onleft>
 			<onright>5</onright>
@@ -81,7 +80,6 @@
 			<top>content_top</top>
 			<width>860</width>
 			<height>792</height>
-			<itemgap>0</itemgap>
 			<pagecontrol>60</pagecontrol>
 			<onleft>3</onleft>
 			<onright>noop</onright>
@@ -112,7 +110,7 @@
 				<height>20</height>
 				<font>caps_20</font>
 				<textcolor>cap</textcolor>
-				<label>About this setting</label>
+				<label>$LOCALIZE[31305]</label>
 			</control>
 			<include content="Fold_Rule">
 				<param name="top" value="32"/>

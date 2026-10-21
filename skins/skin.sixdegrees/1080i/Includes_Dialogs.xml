@@ -370,12 +370,6 @@
 	<!-- Numbered menu list (Settings hub, System menu, power menu): mono index from
 	     ListItem.Property(index) (accent on the focused row), label, mono hint (label2).
 	     params: width, height, list_id -->
-	<!-- Row number from the item's position among VISIBLE items (no gaps when Kodi hides items such
-	     as Reboot/Power off on Android); two digits. -->
-	<variable name="Dlg_RowIndex">
-		<value condition="Integer.IsLess(ListItem.CurrentItem,10)">$INFO[ListItem.CurrentItem,0]</value>
-		<value>$INFO[ListItem.CurrentItem]</value>
-	</variable>
 	<include name="Dlg_IndexListLayout">
 		<param name="width">860</param>
 		<param name="height">72</param>
@@ -620,7 +614,7 @@
 				<height>dialog_row_h</height>
 				<font>caps_20</font>
 				<textcolor>ink2</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31229]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<include content="SD_Scrollbar">
@@ -788,7 +782,7 @@
 				<textoffsetx>56</textoffsetx>
 				<font>caps_20</font>
 				<textcolor>ink2</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31229]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<control type="scrollbar" id="61">

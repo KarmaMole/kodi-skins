@@ -520,34 +520,6 @@
 			</control>
 		</definition>
 	</include>
-	<include name="T_Generic_Measure">
-		<definition>
-			<control type="textbox">
-				<width>500</width>
-				<height max="116">auto</height>
-				<font>display_48</font>
-				<textcolor>00ffffff</textcolor>
-				<label>$PARAM[label]</label>
-				<visible>!Integer.IsGreater(Container(7761).NumPages,1)</visible>
-			</control>
-			<control type="textbox">
-				<width>500</width>
-				<height max="99">auto</height>
-				<font>display_40</font>
-				<textcolor>00ffffff</textcolor>
-				<label>$PARAM[label]</label>
-				<visible>Integer.IsGreater(Container(7761).NumPages,1) + !Integer.IsGreater(Container(7762).NumPages,1)</visible>
-			</control>
-			<control type="textbox">
-				<width>500</width>
-				<height max="114">auto</height>
-				<font>serif_30</font>
-				<textcolor>00ffffff</textcolor>
-				<label>$PARAM[label]</label>
-				<visible>Integer.IsGreater(Container(7761).NumPages,1) + Integer.IsGreater(Container(7762).NumPages,1)</visible>
-			</control>
-		</definition>
-	</include>
 	<!-- OSD: display_48 x1, display_40 x1 at 900 px (probes 7771-7771) -->
 	<include name="T_OSD_Title">
 		<param name="color">$VAR[DL_Ink]</param>
@@ -578,26 +550,6 @@
 				<height>60</height>
 				<font>display_40</font>
 				<textcolor>$PARAM[color]</textcolor>
-				<label>$PARAM[label]</label>
-				<visible>Integer.IsGreater(Container(7771).NumPages,1)</visible>
-			</control>
-		</definition>
-	</include>
-	<include name="T_OSD_Measure">
-		<definition>
-			<control type="textbox">
-				<width>900</width>
-				<height max="58">auto</height>
-				<font>display_48</font>
-				<textcolor>00ffffff</textcolor>
-				<label>$PARAM[label]</label>
-				<visible>!Integer.IsGreater(Container(7771).NumPages,1)</visible>
-			</control>
-			<control type="textbox">
-				<width>900</width>
-				<height max="49">auto</height>
-				<font>display_40</font>
-				<textcolor>00ffffff</textcolor>
 				<label>$PARAM[label]</label>
 				<visible>Integer.IsGreater(Container(7771).NumPages,1)</visible>
 			</control>

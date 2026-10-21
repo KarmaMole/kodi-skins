@@ -1,3 +1,17 @@
+0.9.8 (2026-10-21)
+- Sets row in the Library panel; fix for controls disappearing or staying enlarged with Reduce motion on. Code clean-up for the Kodi repository checks.
+- Clean-up details (kodi-review / kdk 0 errors): unused variables, includes and fonts removed, tags that repeat Defaults.xml dropped, label text moved to strings.po, Search now needs Skin Variables (script.skinvariables 2.1.21, required) to URL-encode the typed query, so titles with & + % | are found. Library note: Unwatched only closes the note first, like every other row. Game controller pictures (controller settings) were drawn with undefined colour names, so invisible; they use the skin colours now.
+- Library note: a Sets row (films only, when the library has sets) opens all sets in the same window; pick a set for
+  its films, Back walks set -> all sets -> films. Sets use the films' views (Shelf, List). The note now fits 9 rows.
+- Reduce motion: every animation include has one Hidden animation (Kodi resets only the first one when a control
+  shows again, so the reduce-motion twin left the OSD strip, seek strip, dialogs and the music background
+  invisible after their first hide). Fades keep the normal timing; the top strips hide without their fold.
+  _src/collapse_hidden_twins.py.
+- Reduce motion: focused cards no longer stay lifted or tilted after focus leaves (Home rows, Shelf, Seasons,
+  Concertina, music sleeves, view picker, Settings hub). The still state is a time-0 Conditional on the list's
+  focus instead of a second Focus animation, which Kodi never resets.
+- Back from the sets list (opened from the Library panel's Sets row) returns to the films instead of leaving for Home.
+
 0.9.7 (2026-10-21)
 - Library note: Left past the first column of the shelf, the sleeves or the list, or Left / Right off the ends of
   the season cards and the episode strip, or the new Options word in the header, unfolds a note with Update

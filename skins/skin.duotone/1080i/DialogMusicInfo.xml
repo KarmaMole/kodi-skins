@@ -51,8 +51,7 @@
 					<width>420</width>
 					<height>20</height>
 					<font>cap_20</font>
-					<textcolor>$VAR[SectionText]</textcolor>
-					<label>About</label>
+					<label>$LOCALIZE[31308]</label>
 				</control>
 				<include content="DT_RuleThick">
 					<param name="top" value="30"/>
@@ -65,7 +64,6 @@
 					<width>420</width>
 					<height>390</height>
 					<font>body_24</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 					<label>$VAR[Music_InfoDescription]</label>
 				</control>
 			</control>
@@ -81,7 +79,6 @@
 					<width>420</width>
 					<height>24</height>
 					<font>cap_20</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 					<label>$INFO[ListItem.DateAdded,Added  ,]</label>
 					<visible>!String.IsEmpty(ListItem.DateAdded)</visible>
 				</control>
@@ -89,7 +86,6 @@
 					<width>420</width>
 					<height>24</height>
 					<font>cap_20</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 					<label>$INFO[ListItem.LastPlayed,Last played  ,]</label>
 					<visible>!String.IsEmpty(ListItem.LastPlayed)</visible>
 				</control>
@@ -97,7 +93,6 @@
 					<width>420</width>
 					<height>24</height>
 					<font>cap_20</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 					<label>$INFO[ListItem.Property(Album_Label),Label  ,]</label>
 					<visible>!String.IsEmpty(ListItem.Property(Album_Label))</visible>
 				</control>
@@ -105,7 +100,6 @@
 					<width>420</width>
 					<height>24</height>
 					<font>cap_20</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 					<label>$INFO[ListItem.Property(Album_Mood),Mood  ,]$INFO[ListItem.Property(Artist_Mood),Mood  ,]</label>
 					<visible>!String.IsEmpty(ListItem.Property(Album_Mood)) | !String.IsEmpty(ListItem.Property(Artist_Mood))</visible>
 				</control>
@@ -123,7 +117,6 @@
 				<width>1248</width>
 				<height>26</height>
 				<font>cap_20</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$VAR[Music_InfoKicker]</label>
 			</control>
 			<control type="textbox">
@@ -132,7 +125,6 @@
 				<width>1248</width>
 				<height>157</height>  <!-- 2 lines of display_72 = 69 + 72 asc + 16 desc (140 cut line 2's descenders) -->
 				<font>an_72</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$VAR[Music_InfoTitle]</label>
 			</control>
 			<control type="label">
@@ -141,7 +133,6 @@
 				<width>1248</width>
 				<height>40</height>
 				<font>bold_28</font>
-				<textcolor>$VAR[SectionText]</textcolor>
 				<label>$VAR[Music_InfoSubline]</label>
 			</control>
 
@@ -150,13 +141,13 @@
 				<param name="top" value="240"/>
 				<param name="left" value="0"/>
 				<param name="width" value="1248"/>
-				<param name="color" value="ink"/>
+				<param name="color" value="$VAR[ink]"/>
 			</include>
 			<include content="DT_RuleThick">
 				<param name="top" value="330"/>
 				<param name="left" value="0"/>
 				<param name="width" value="1248"/>
-				<param name="color" value="ink"/>
+				<param name="color" value="$VAR[ink]"/>
 			</include>
 			<control type="grouplist">
 				<left>-20</left>
@@ -164,7 +155,6 @@
 				<width>1268</width>
 				<height>84</height>
 				<orientation>horizontal</orientation>
-				<itemgap>0</itemgap>
 				<include content="Music_StatCell">
 					<param name="label" value="Year"/>
 					<param name="value" value="$INFO[ListItem.Year]"/>
@@ -299,7 +289,6 @@
 					<width>1248</width>
 					<height>22</height>
 					<font>cap_20</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 					<label>$VAR[Music_InfoListCaption]</label>
 				</control>
 				<include content="DT_Rule">
@@ -329,7 +318,7 @@
 							<top>0</top>
 							<width>612</width>
 							<height>56</height>
-							<texture colordiffuse="ink">common/white.png</texture>
+							<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 							<visible>Control.HasFocus(50)</visible>
 						</control>
 						<control type="group">

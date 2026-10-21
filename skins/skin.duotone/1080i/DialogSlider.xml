@@ -30,7 +30,7 @@
 				<top>0</top>
 				<width>720</width>
 				<height>92</height>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="label" id="10">
 				<description>heading (Kodi: "Subtitle offset" / "Audio offset" ...)</description>
@@ -39,7 +39,7 @@
 				<width>440</width>
 				<height>34</height>
 				<font>cap_20</font>
-				<textcolor>paper_80</textcolor>
+				<textcolor>$VAR[paper_80]</textcolor>
 			</control>
 			<control type="label" id="12">
 				<description>value (Kodi formats it, e.g. "0.300 s")</description>
@@ -49,7 +49,7 @@
 				<height>40</height>
 				<align>right</align>
 				<font>bold_26</font>
-				<textcolor>paper</textcolor>
+				<textcolor>$VAR[paper]</textcolor>
 			</control>
 
 			<!-- 2px track + zero tick (offsets are symmetric, so zero is the centre) -->
@@ -58,14 +58,14 @@
 				<top>67</top>
 				<width>672</width>
 				<height>8</height>
-				<texture colordiffuse="paper_22">common/white.png</texture>
+				<texture colordiffuse="$VAR[paper_22]">common/white.png</texture>
 			</control>
 			<control type="image">
 				<left>360</left>
 				<top>64</top>
 				<width>4</width>
 				<height>16</height>
-				<texture colordiffuse="paper_70">common/white.png</texture>
+				<texture colordiffuse="$VAR[paper_70]">common/white.png</texture>
 				<visible>String.Contains(Control.GetLabel(10),offset) | String.Contains(Control.GetLabel(10),delay)</visible>
 			</control>
 			<control type="slider" id="11">
@@ -75,8 +75,8 @@
 				<width>672</width>
 				<height>16</height>
 				<texturesliderbar>osd/slider_bg.png</texturesliderbar>
-				<textureslidernib colordiffuse="paper">osd/slider_nib.png</textureslidernib>
-				<textureslidernibfocus colordiffuse="paper">osd/slider_nib.png</textureslidernibfocus>
+				<textureslidernib colordiffuse="$VAR[paper]">osd/slider_nib.png</textureslidernib>
+				<textureslidernibfocus colordiffuse="$VAR[paper]">osd/slider_nib.png</textureslidernibfocus>
 				<onup>11</onup>
 				<ondown>11</ondown>
 				<onleft>11</onleft>

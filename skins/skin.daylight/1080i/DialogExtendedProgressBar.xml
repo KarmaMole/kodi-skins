@@ -44,7 +44,6 @@
 				<width>512</width>
 				<height>32</height>
 				<font>ui_22</font>
-				<textcolor>$VAR[DL_Ink]</textcolor>
 			</control>
 			<control type="progress" id="32">
 				<left>24</left>

@@ -678,7 +678,7 @@
 				<height>dialog_row_h</height>
 				<font>caps_20</font>
 				<textcolor>cap</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31322]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<include content="Fold_Scrollbar">
@@ -846,7 +846,7 @@
 				<textoffsetx>56</textoffsetx>
 				<font>caps_20</font>
 				<textcolor>cap</textcolor>
-				<label>Nothing to choose</label>
+				<label>$LOCALIZE[31322]</label>
 				<visible>[Control.IsVisible(3) + Integer.IsEqual(Container(3).NumItems,0)] | [Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,0)]</visible>
 			</control>
 			<control type="scrollbar" id="61">

@@ -9,7 +9,8 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
      library view, by the header's last phrase ("..., or [more]"), and from the System menu ("Update the library" /
      "Clean the library", which set Window(Home).Property(sentence.libpanel) to update / clean first).
      In a library: update the library (stop updating while a scan runs), clean the library, see them another way,
-     sort them another way, turn the order round, show only the unseen / show everything (video), find something,
+     sort them another way, turn the order round, show only the unseen / show everything (video), see the sets
+     (films, when the library has sets), find something,
      change the library settings. Update / clean hide in add-on and plugin folders.
      Clean never runs straight away: Kodi 21's CleanLibrary() builtin has NO confirmation of its own, so the row
      opens a confirm step (list 101, focus on "no, leave it as it is").
@@ -19,6 +20,8 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
      OK = Container.SetViewMode(id) + close, Back = close, no change.
 """
 from pathlib import Path
+from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 ROOT = Path(__file__).resolve().parents[1] / "1080i"
 SK = "sentence"
@@ -33,6 +36,10 @@ CONF = f"Window(Home).Property({SK}.libconfirm)"
 VIDLIB = ("[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | "
           "Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]")
 SORTABLE = "!String.IsEmpty(Container.SortMethod)"
+# Sets row (docs/requests/SETS_AND_RM_BRIEF.md): only while the Videos window shows films (or the films root) from the
+# library, and the library has sets. Container.* inside this dialog reads the media window underneath (LESSONS).
+SETS = (f"{V} + [Container.Content(movies) | String.IsEqual(Container.FolderPath,videodb://movies/)] + "
+        "Library.HasContent(moviesets) + String.IsEmpty(Container.PluginName)")
 
 ROW_H = 68
 LIST_TOP = 64
@@ -70,7 +77,11 @@ PANEL_ITEMS = [
          [CLOSE, (V, "SendClick(videos,3)"), (M, "SendClick(music,3)")]),
     item("turn the order round", "$VAR[Lib_Direction]", f"{INLIB} + {SORTABLE}",
          [("", "Container.SetSortDirection")]),
-    item("$VAR[Sen_Lib_WatchedLabel]", "", f"{V} + {VIDLIB}", [("", "SendClick(videos,14)")]),
+    item("$VAR[Sen_Lib_WatchedLabel]", "", f"{V} + {VIDLIB}", [CLOSE, ("", "SendClick(14)")]),
+    # Sets: the films' sets in this same Videos window (Container.Update keeps the history: Back walks
+    # set -> all sets -> films). Not a Home item (Omar).
+    item("see the sets", "collections", SETS,
+         [CLOSE, ("", "Container.Update(videodb://movies/sets/)")]),
     item("find something", "", INLIB, [CLOSE, ("", "ActivateWindow(1150)")]),
     item("change the library settings", "Kodi", INLIB, [CLOSE, ("", "ActivateWindow(mediasettings)")]),
     # from Home (the System menu)
@@ -88,7 +99,7 @@ CONFIRM_ITEMS = [
     item("yes, clean the music", "", f"String.IsEqual({CONF},music)", [CLOSE, ("", "CleanLibrary(music)")]),
 ]
 
-MAXROWS = 8
+MAXROWS = 9   # films: update, clean, view, sort, order, unseen, sets, find, settings
 
 
 def backdrop():
@@ -423,8 +434,8 @@ def variables(nowvars):
 
 
 if __name__ == "__main__":
-    (ROOT / "Custom_1155_LibraryPanel.xml").write_text(panel(), encoding="utf-8")
+    (ROOT / "Custom_1155_LibraryPanel.xml").write_text(finish_xml(strip_defaults(panel(), ROOT / "Defaults.xml")), encoding="utf-8", newline="\n")
     xml, nowvars = picker()
-    (ROOT / "Custom_1156_ViewPicker.xml").write_text(xml, encoding="utf-8")
-    (ROOT / "Includes_Library.xml").write_text(variables(nowvars), encoding="utf-8")
+    (ROOT / "Custom_1156_ViewPicker.xml").write_text(finish_xml(strip_defaults(xml, ROOT / "Defaults.xml")), encoding="utf-8", newline="\n")
+    (ROOT / "Includes_Library.xml").write_text(finish_xml(variables(nowvars)), encoding="utf-8", newline="\n")
     print("wrote Custom_1155_LibraryPanel.xml, Custom_1156_ViewPicker.xml, Includes_Library.xml")

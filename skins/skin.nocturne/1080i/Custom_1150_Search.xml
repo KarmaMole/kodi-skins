@@ -11,6 +11,7 @@
 -->
 <window type="window" id="1150">
 	<defaultcontrol always="true">9099</defaultcontrol>
+	<onunload>ClearProperty(Nocturne.Search.Encoded,home)</onunload>
 	<backgroundcolor>bg</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
@@ -23,7 +24,6 @@
 			<width>1</width>
 			<height>1</height>
 			<texturefocus/>
-			<texturenofocus/>
 			<onfocus>SetFocus(9001)</onfocus>
 			<onfocus condition="!$EXP[Search_HasQuery]">Action(Select)</onfocus>  <!-- SendClick does not open an edit field's keyboard; Select does -->
 			<visible allowhiddenfocus="true">false</visible>
@@ -33,6 +33,7 @@
 			<param name="title" value="$LOCALIZE[137]"/>
 			<param name="sub" value="·   $LOCALIZE[31306]"/>
 		</include>
+		<include>Search_Encoder</include>
 		<include>Search_Query</include>
 		<include>Search_Results</include>
 	</controls>

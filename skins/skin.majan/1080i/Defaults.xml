@@ -109,7 +109,6 @@
 		<align>right</align>
 		<reverse>yes</reverse>
 		<subtype>text</subtype>
-		<pulseonselect>false</pulseonselect>
 	</default>
 	<default type="sliderex">
 		<font>font13</font>

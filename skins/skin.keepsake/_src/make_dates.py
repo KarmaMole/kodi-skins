@@ -28,6 +28,7 @@ from __future__ import annotations
 import calendar
 import datetime as dt
 from pathlib import Path
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "Includes_Dates.xml"
 MONTHS = "January February March April May June July August September October November December".split()
@@ -303,9 +304,44 @@ def main():
     out += day_key("UF", FIELDS["UF"])
     out += resume_minutes()
     out += diary_slots()
+    out, dropped = prune(out)
     out += ["</includes>", ""]
-    OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
-    print("wrote", OUT, f"{OUT.stat().st_size // 1024} KB", len(out), "lines")
+    OUT.write_text(finish_xml("\n".join(out)), encoding="utf-8", newline="\n")
+    print("wrote", OUT, f"{OUT.stat().st_size // 1024} KB", len(out), "lines;", dropped, "unused variables left out")
+
+
+def prune(lines):
+    """Leave out the variables nothing calls (Team Kodi's kodi-review check flags unused variables). A variable
+    is kept when another 1080i file names it ($VAR / $ESCVAR), an expression here does, or a kept variable here
+    does. So after using another date variable in a window, re-run this generator."""
+    import re
+    blocks = {}
+    i = 0
+    while i < len(lines):
+        m = re.match(r'\t<variable name="([^"]+)">$', lines[i])
+        if m:
+            j = lines.index("\t</variable>", i)
+            blocks[m.group(1)] = (i, j)
+            i = j + 1
+        else:
+            i += 1
+    ref = re.compile(r"\$(?:ESC)?VAR\[([A-Za-z0-9_]+)")
+    used = set()
+    for f in OUT.parent.glob("*.xml"):
+        if f.name != OUT.name:
+            used |= set(ref.findall(f.read_text(encoding="utf-8")))
+    inside = {k for a, b in blocks.values() for k in range(a, b + 1)}
+    used |= set(ref.findall("\n".join(l for k, l in enumerate(lines) if k not in inside)))
+    keep, todo = set(), [n for n in blocks if n in used]
+    while todo:
+        n = todo.pop()
+        if n in keep:
+            continue
+        keep.add(n)
+        a, b = blocks[n]
+        todo += [x for x in ref.findall("\n".join(lines[a:b + 1])) if x in blocks and x not in keep]
+    drop = {k for n, (a, b) in blocks.items() if n not in keep for k in range(a, b + 1)}
+    return [l for k, l in enumerate(lines) if k not in drop], len(blocks) - len(keep)
 
 
 if __name__ == "__main__":

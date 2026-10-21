@@ -14,7 +14,7 @@
 <window>
 	<defaultcontrol always="true">300</defaultcontrol>
 	<menucontrol>300</menucontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<onload>SetProperty(duotone.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
 	<!-- Monotone prints: TMDb Helper's desaturate service (optional) makes the spotlight a true one-colour print -->
 	<onload condition="$EXP[DT_DesatOn] + !Skin.HasSetting(TMDbHelper.EnableDesaturate)">Skin.SetBool(TMDbHelper.EnableDesaturate)</onload>

@@ -498,7 +498,7 @@
 					<height>36</height>
 					<font>serif_28</font>
 					<textcolor>$VAR[DL_Ink]</textcolor>
-					<label>Details</label>
+					<label>$LOCALIZE[31105]</label>
 				</control>
 				<control type="grouplist">
 					<left>36</left>
@@ -532,7 +532,7 @@
 						<height>34</height>
 						<font>ui_22</font>
 						<textcolor>$VAR[DL_Ink2]</textcolor>
-						<label>Nothing else is known about this one yet.</label>
+						<label>$LOCALIZE[31233]</label>
 						<visible>String.IsEmpty(ListItem.DateAdded) + String.IsEmpty(ListItem.LastPlayed) + String.IsEmpty(ListItem.Property(Album_Label))</visible>
 					</control>
 				</control>
@@ -646,7 +646,7 @@
 					<height>30</height>
 					<font>small_20</font>
 					<textcolor>$VAR[DL_Ink2]</textcolor>
-					<label>Up and down scroll  ·  Back closes</label>
+					<label>$LOCALIZE[31234]</label>
 				</control>
 			</control>
 		</control>

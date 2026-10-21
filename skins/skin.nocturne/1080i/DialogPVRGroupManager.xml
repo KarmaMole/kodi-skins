@@ -169,12 +169,12 @@
 				<control type="button" id="26">
 					<description>Add group</description>
 					<include content="Misc_RowLook"><param name="width" value="360"/></include>
-					<label>Add group</label>
+					<label>$LOCALIZE[31323]</label>
 				</control>
 				<control type="button" id="27">
 					<description>Rename group</description>
 					<include content="Misc_RowLook"><param name="width" value="360"/></include>
-					<label>Rename group</label>
+					<label>$LOCALIZE[31324]</label>
 				</control>
 				<control type="radiobutton" id="25">
 					<description>Hide group</description>
@@ -184,7 +184,7 @@
 				<control type="button" id="28">
 					<description>Delete group</description>
 					<include content="Misc_RowLook"><param name="width" value="360"/></include>
-					<label>Delete group</label>
+					<label>$LOCALIZE[31325]</label>
 				</control>
 				<control type="button" id="35">
 					<description>Regenerate group thumbnail</description>
@@ -194,8 +194,6 @@
 				<control type="togglebutton" id="34">
 					<description>TV / radio toggle</description>
 					<include content="Misc_RowLook"><param name="width" value="360"/></include>
-					<alttexturefocus border="64,0,64,0" colordiffuse="light">noc/glow_bar.png</alttexturefocus>
-					<alttexturenofocus />
 					<label>$LOCALIZE[19174]</label>
 					<altlabel>$LOCALIZE[19173]</altlabel>
 					<usealttexture>!String.IsEmpty(Window.Property(IsRadio))</usealttexture>

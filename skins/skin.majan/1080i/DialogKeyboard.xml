@@ -51,8 +51,6 @@
 				<width>page_width</width>
 				<height>76</height>
 				<font>title_28_semibold</font>
-				<textcolor>text_primary</textcolor>
-				<textoffsetx>24</textoffsetx>
 				<texturefocus />
 				<texturenofocus />
 			</control>

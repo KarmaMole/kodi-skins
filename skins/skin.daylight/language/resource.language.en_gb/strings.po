@@ -323,3 +323,387 @@ msgstr ""
 msgctxt "#31901"
 msgid "Arial (wider script coverage)"
 msgstr ""
+
+msgctxt "#31200"
+msgid "Daylight settings"
+msgstr ""
+
+msgctxt "#31201"
+msgid "Live TV"
+msgstr ""
+
+msgctxt "#31202"
+msgid "Media"
+msgstr ""
+
+msgctxt "#31203"
+msgid "Update library"
+msgstr ""
+
+msgctxt "#31204"
+msgid "Library"
+msgstr ""
+
+msgctxt "#31205"
+msgid "Clean library"
+msgstr ""
+
+msgctxt "#31206"
+msgid "More"
+msgstr ""
+
+msgctxt "#31207"
+msgid "Add-on"
+msgstr ""
+
+msgctxt "#31208"
+msgid "About this setting"
+msgstr ""
+
+msgctxt "#31209"
+msgid "Timer"
+msgstr ""
+
+msgctxt "#31210"
+msgid "Left / right: channel group"
+msgstr ""
+
+msgctxt "#31211"
+msgid "Add group"
+msgstr ""
+
+msgctxt "#31212"
+msgid "Rename group"
+msgstr ""
+
+msgctxt "#31213"
+msgid "Delete group"
+msgstr ""
+
+msgctxt "#31214"
+msgid "Jump through the guide  ·  Back to close"
+msgstr ""
+
+msgctxt "#31215"
+msgid "Playing on this Shield"
+msgstr ""
+
+msgctxt "#31216"
+msgid "OK or Back closes"
+msgstr ""
+
+msgctxt "#31217"
+msgid "Find subtitles"
+msgstr ""
+
+msgctxt "#31218"
+msgid "Service"
+msgstr ""
+
+msgctxt "#31219"
+msgid "Status"
+msgstr ""
+
+msgctxt "#31220"
+msgid "This file already has subtitle tracks"
+msgstr ""
+
+msgctxt "#31221"
+msgid "Sync = timed to your file"
+msgstr ""
+
+msgctxt "#31222"
+msgid "No subtitles listed yet. Pick a service or search manually."
+msgstr ""
+
+msgctxt "#31223"
+msgid "Order:"
+msgstr ""
+
+msgctxt "#31224"
+msgid "Nothing has happened yet."
+msgstr ""
+
+msgctxt "#31225"
+msgid "Back to continue"
+msgstr ""
+
+msgctxt "#31226"
+msgid "Nothing to choose"
+msgstr ""
+
+msgctxt "#31227"
+msgid "Browse the whole library instead."
+msgstr ""
+
+msgctxt "#31228"
+msgid "See all"
+msgstr ""
+
+msgctxt "#31229"
+msgid "No shows in progress. Start one from Shows."
+msgstr ""
+
+msgctxt "#31230"
+msgid "Nothing here."
+msgstr ""
+
+msgctxt "#31231"
+msgid "PVR & Live TV settings"
+msgstr ""
+
+msgctxt "#31232"
+msgid "Up one level"
+msgstr ""
+
+msgctxt "#31233"
+msgid "Nothing else is known about this one yet."
+msgstr ""
+
+msgctxt "#31234"
+msgid "Up and down scroll  ·  Back closes"
+msgstr ""
+
+msgctxt "#31235"
+msgid "Up next"
+msgstr ""
+
+msgctxt "#31236"
+msgid "The last one in the queue"
+msgstr ""
+
+msgctxt "#31237"
+msgid "Sync"
+msgstr ""
+
+msgctxt "#31238"
+msgid "No matches"
+msgstr ""
+
+msgctxt "#31239"
+msgid "Searching"
+msgstr ""
+
+msgctxt "#31240"
+msgid "Films, shows, albums, artists"
+msgstr ""
+
+msgctxt "#31241"
+msgid "OK to type  ·  Down for results  ·  Back to close"
+msgstr ""
+
+msgctxt "#31242"
+msgid "Films and shows match on title, albums on album name, artists on name. Library only."
+msgstr ""
+
+msgctxt "#31243"
+msgid "Offsets apply to this film only. Choosing an offset hides this panel so you can sync against the picture."
+msgstr ""
+
+msgctxt "#31244"
+msgid "More for this title"
+msgstr ""
+
+msgctxt "#31245"
+msgid "Back"
+msgstr ""
+
+msgctxt "#31246"
+msgid "Unwatched only is on: choose the pill above to show everything."
+msgstr ""
+
+msgctxt "#31247"
+msgid "Left and right to seek  ·  Down returns"
+msgstr ""
+
+msgctxt "#31248"
+msgid "Choose Albums, Artists, Songs or Genres above."
+msgstr ""
+
+msgctxt "#31249"
+msgid "Playlist"
+msgstr ""
+
+msgctxt "#31250"
+msgid "Empty. Pick songs or albums on the left and press OK to add them."
+msgstr ""
+
+msgctxt "#31251"
+msgid "The queue is empty"
+msgstr ""
+
+msgctxt "#31252"
+msgid "No weather yet."
+msgstr ""
+
+msgctxt "#31253"
+msgid "Choose a weather service under Settings, Services, Weather."
+msgstr ""
+
+msgctxt "#31254"
+msgid "The next few days"
+msgstr ""
+
+msgctxt "#31255"
+msgid "Moods, bedtime"
+msgstr ""
+
+msgctxt "#31256"
+msgid "Playback, subtitles"
+msgstr ""
+
+msgctxt "#31257"
+msgid "Library, files"
+msgstr ""
+
+msgctxt "#31258"
+msgid "Skin, region"
+msgstr ""
+
+msgctxt "#31259"
+msgid "Installed, updates"
+msgstr ""
+
+msgctxt "#31260"
+msgid "Remote, sharing"
+msgstr ""
+
+msgctxt "#31261"
+msgid "Display, audio"
+msgstr ""
+
+msgctxt "#31262"
+msgid "Sources, files"
+msgstr ""
+
+msgctxt "#31263"
+msgid "Hardware, storage"
+msgstr ""
+
+msgctxt "#31264"
+msgid "Event log"
+msgstr ""
+
+msgctxt "#31265"
+msgid "Recent events"
+msgstr ""
+
+msgctxt "#31266"
+msgid "Users"
+msgstr ""
+
+msgctxt "#31267"
+msgid "Not used"
+msgstr ""
+
+msgctxt "#31268"
+msgid "Controllers"
+msgstr ""
+
+msgctxt "#31269"
+msgid "This box"
+msgstr ""
+
+msgctxt "#31270"
+msgid "Login screen"
+msgstr ""
+
+msgctxt "#31271"
+msgid "Auto login"
+msgstr ""
+
+msgctxt "#31272"
+msgid "Options"
+msgstr ""
+
+msgctxt "#31273"
+msgid "Order direction"
+msgstr ""
+
+msgctxt "#31274"
+msgid "Select a rule to edit it. Use the context menu to delete a rule."
+msgstr ""
+
+msgctxt "#31275"
+msgid "Value"
+msgstr ""
+
+msgctxt "#31276"
+msgid "No chapters or bookmarks yet. Create one with the first button."
+msgstr ""
+
+msgctxt "#31277"
+msgid "OK jumps there  ·  Back closes"
+msgstr ""
+
+msgctxt "#31300"
+msgid "Order"
+msgstr ""
+
+msgctxt "#31301"
+msgid "Watched"
+msgstr ""
+
+msgctxt "#31302"
+msgid "Search"
+msgstr ""
+
+msgctxt "#31303"
+msgid "Stop updating"
+msgstr ""
+
+msgctxt "#31304"
+msgid "Library settings"
+msgstr ""
+
+msgctxt "#31305"
+msgid "Music"
+msgstr ""
+
+msgctxt "#31306"
+msgid "Update"
+msgstr ""
+
+msgctxt "#31307"
+msgid "Clean"
+msgstr ""
+
+msgctxt "#31308"
+msgid "Collections"
+msgstr ""
+
+msgctxt "#31309"
+msgid "Films and shows"
+msgstr ""
+
+msgctxt "#31310"
+msgid "No, keep it as it is"
+msgstr ""
+
+msgctxt "#31311"
+msgid "Yes, clean it now"
+msgstr ""
+
+msgctxt "#31312"
+msgid "Grid"
+msgstr ""
+
+msgctxt "#31313"
+msgid "Wall"
+msgstr ""
+
+msgctxt "#31314"
+msgid "Episodes"
+msgstr ""
+
+msgctxt "#31315"
+msgid "List"
+msgstr ""
+
+msgctxt "#31316"
+msgid "OK to reset"
+msgstr ""
+
+msgctxt "#31317"
+msgid "Press OK again to reset everything"
+msgstr ""

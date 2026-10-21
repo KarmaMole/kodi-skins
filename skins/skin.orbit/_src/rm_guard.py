@@ -4,7 +4,8 @@ guard_text(text, rm) rewrites every slide/zoom/rotate animation (time > 1) whose
 already test reduce motion into a pair:
   original  condition = [C] + !RM
   twin      condition = [C] + RM, motion effects at time 0 / delay 0, fades unchanged
-(no twin for loops, nor for leaving animations without a fade). End states (layout slides, lifts)
+(no twin for loops, nor for leaving animations without a fade, nor ever for Hidden: Kodi resets only the
+first Hidden animation of a control, so a second one stays applied - LESSONS, Groove device pass 2). End states (layout slides, lifts)
 are kept, movement is not.
 """
 import re
@@ -90,7 +91,14 @@ def process(text):
         orig_head = setattr_(head, "condition", combine(cond, "!" + RM))
         orig = "<animation" + orig_head + ">" + body + "</animation>"
         twin = None
-        need_twin = not loop and (anim_type in ("Conditional", "Focus", "Unfocus") or fades_left)
+        # never a second Hidden animation (Groove device pass 2, LESSONS): Kodi resets only the FIRST Hidden
+        # animation when the control shows again, so a reduce-motion twin that ran stays at fade 0. A sliding
+        # Hidden keeps only the normal one (reduce motion: instant hide).
+        need_twin = not loop and anim_type != "Hidden" and (anim_type in ("Conditional", "Focus", "Unfocus") or fades_left)
+        if need_twin and anim_type in ("Focus", "Unfocus"):
+            # same engine rule for Focus / Unfocus: the twin must end at identity, or it stays applied
+            raise ValueError("rm_guard: a %s twin would keep its end state after the reverse; use a "
+                             "Conditional (Control.HasFocus) or include variants instead: %s" % (anim_type, whole[:160]))
         if need_twin:
             th = setattr_(head, "condition", combine(cond, RM))
             if get(head, "effect"):

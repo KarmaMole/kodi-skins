@@ -49,8 +49,6 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 					<height>40</height>
 					<align>center</align>
 					<font>num_26</font>
-					<textcolor>ink</textcolor>
-					<selectedcolor>ink</selectedcolor>
 					<label>$VAR[ClockLabel]</label>
 				</control>
 			</control>
@@ -118,8 +116,6 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<width>1100</width>
 				<height>66</height>
 				<font>head_50</font>
-				<textcolor>ink</textcolor>
-				<selectedcolor>ink</selectedcolor>
 				<label>$VAR[OSD_Title]</label>
 			</control>
 			<control type="label">
@@ -139,8 +135,6 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<height>50</height>
 				<align>right</align>
 				<font>num_38</font>
-				<textcolor>ink</textcolor>
-				<selectedcolor>ink</selectedcolor>
 				<label>$VAR[OSD_SeekTimeLabel]</label>
 			</control>
 			<control type="label">
@@ -169,9 +163,6 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<width>1728</width>
 				<height>5</height>
 				<texturebg />
-				<lefttexture />
-				<midtexture colordiffuse="$VAR[FoldAccent]">common/white.png</midtexture>
-				<righttexture />
 				<info>Player.Progress</info>
 			</control>
 			<control type="slider">
@@ -233,11 +224,8 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>PlayerControl(Play)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -245,15 +233,12 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<control type="button" id="603">
 					<width>104</width>
 					<height>56</height>
-					<label>Stop</label>
+					<label>$LOCALIZE[31124]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>PlayerControl(Stop)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -271,15 +256,12 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<control type="button" id="600">
 					<width>171</width>
 					<height>56</height>
-					<label>Previous</label>
+					<label>$LOCALIZE[31121]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>PlayerControl(Previous)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>$EXP[OSD_HasPrevNext]</visible>
@@ -287,15 +269,12 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<control type="button" id="607">
 					<width>106</width>
 					<height>56</height>
-					<label>Next</label>
+					<label>$LOCALIZE[31126]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>PlayerControl(Next)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>$EXP[OSD_HasPrevNext]</visible>
@@ -313,15 +292,12 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<control type="button" id="70044">
 					<width>178</width>
 					<height>56</height>
-					<label>Chapters</label>
+					<label>$LOCALIZE[31399]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>ActivateWindow(videobookmarks)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>Player.SeekEnabled + !VideoPlayer.Content(livetv)</visible>
@@ -329,15 +305,12 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<control type="button" id="70049">
 					<width>118</width>
 					<height>56</height>
-					<label>Audio</label>
+					<label>$LOCALIZE[31128]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>ActivateWindow(osdaudiosettings)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -345,15 +318,12 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<control type="button" id="70046">
 					<width>179</width>
 					<height>56</height>
-					<label>Subtitles</label>
+					<label>$LOCALIZE[31127]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>ActivateWindow(osdsubtitlesettings)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>Player.HasVideo</visible>
@@ -371,15 +341,12 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<control type="button" id="70048">
 					<width>116</width>
 					<height>56</height>
-					<label>Video</label>
+					<label>$LOCALIZE[31400]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>ActivateWindow(osdvideosettings)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>Player.HasVideo</visible>
@@ -387,15 +354,12 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<control type="button" id="70043">
 					<width>99</width>
 					<height>56</height>
-					<label>Info</label>
+					<label>$LOCALIZE[31372]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>Action(Info,fullscreenvideo)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -403,15 +367,12 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<control type="button" id="70051">
 					<width>138</width>
 					<height>56</height>
-					<label>Player</label>
+					<label>$LOCALIZE[31401]</label>
 					<font>word_26</font>
 					<textcolor>ink</textcolor>
 					<selectedcolor>ink</selectedcolor>
-					<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
-					<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
-					<texturenofocus />
 					<onclick>Action(PlayerProcessInfo)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
@@ -423,7 +384,6 @@ DialogSeekBar: 401 the seek slider Kodi drives. DialogFullScreenInfo: 999 the fu
 				<width>1100</width>
 				<height>32</height>
 				<orientation>horizontal</orientation>
-				<itemgap>0</itemgap>
 				<include content="Fold_KeyHint"><param name="key" value="↑"/><param name="label" value="Seek"/><param name="visible" value="Player.SeekEnabled"/></include>
 				<include content="Fold_KeyHint"><param name="key" value="← →"/><param name="label" value="The words"/></include>
 				<include content="Fold_KeyHint"><param name="key" value="BACK"/><param name="label" value="Fold it away"/></include>

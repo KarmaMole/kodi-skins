@@ -51,8 +51,8 @@ def main():
            "<includes>"]
     # label variables per offset (param-free: rotary always reads container 50)
     for k in range(-F, F + 1):
-        if k == 0:
-            continue
+        if k == 0 or row_geom(k)[1] < 180:
+            continue  # the focused row has Rotary_0; rows above y 180 are not drawn (see the column below)
         li = f"Container(50).ListItemNoWrap({k})"
         out.append(f'\t<variable name="Rotary_{"m" if k < 0 else "p"}{abs(k)}">')
         out.append(f'\t\t<value condition="{li}.IsParentFolder">Back</value>')
@@ -134,7 +134,7 @@ def main():
     out.append("\t\t</control>")
     out.append("\t</include>")
     out.append("</includes>\n")
-    OUT.write_text("\n".join(out), encoding="utf-8")
+    OUT.write_text("\n".join(out), encoding="utf-8", newline="\n")
     for k in range(0, F + 1):
         print(k, row_geom(k), row_geom(-k)[1])
     print(f"wrote {OUT}")

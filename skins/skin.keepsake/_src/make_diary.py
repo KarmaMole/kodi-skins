@@ -10,6 +10,7 @@ The sticky month above the timeline = the month of slot 0 (k = -P). The focused 
 Usage: python skins/skin.keepsake/_src/make_diary.py
 """
 from pathlib import Path
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "Includes_Diary.xml"
 KS = range(-2, 6)
@@ -67,7 +68,7 @@ def main():
               f'\t\t\t\t<include content="VidView_DiaryDetail"><param name="align" value="{align}"/><param name="x" value="{x}"/></include>',
               '\t\t\t</control>']
     o += ['\t\t</control>', '\t</include>', '</includes>', '']
-    OUT.write_text("\n".join(o), encoding="utf-8", newline="\n")
+    OUT.write_text(finish_xml("\n".join(o)), encoding="utf-8", newline="\n")
     print("wrote", OUT)
 
 

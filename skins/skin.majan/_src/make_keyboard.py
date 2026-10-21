@@ -103,6 +103,9 @@ def main():
 				<top>-2000</top>
 				<width>6000</width>
 				<height>6000</height>
+				<!-- own fades: without them Kodi draws this dim over the dialog (seen on Shield 2026-10-18) -->
+				<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
+				<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
 				<texture colordiffuse="dim_dialog">common/white.png</texture>
 			</control>
 			<control type="image">
@@ -139,8 +142,6 @@ def main():
 				<width>page_width</width>
 				<height>76</height>
 				<font>title_28_semibold</font>
-				<textcolor>text_primary</textcolor>
-				<textoffsetx>24</textoffsetx>
 				<texturefocus />
 				<texturenofocus />
 			</control>
@@ -182,7 +183,7 @@ def main():
 	</controls>
 </window>
 '''
-    OUT.write_text(xml, encoding="utf-8")
+    OUT.write_text(xml, encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

@@ -7,7 +7,7 @@
 -->
 <window>
 	<defaultcontrol always="true">52</defaultcontrol>
-	<backgroundcolor>ff111111</backgroundcolor>
+	<backgroundcolor>ground_static</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>DT_Background</include>
@@ -37,7 +37,7 @@
 						<top>0</top>
 						<width>240</width>
 						<height>240</height>
-						<texture colordiffuse="ink_12">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 					</control>
 					<control type="image">
 						<left>0</left>
@@ -69,7 +69,7 @@
 						<top>0</top>
 						<width>240</width>
 						<height>240</height>
-						<texture colordiffuse="ink_12">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 					</control>
 					<control type="image">
 						<left>0</left>
@@ -89,7 +89,6 @@
 					<width>240</width>
 					<height>40</height>
 					<font>bold_22</font>
-					<textcolor>$VAR[SectionText]</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 				</control>
 			</focusedlayout>
@@ -112,11 +111,10 @@
 			<label>$LOCALIZE[31022]</label>
 			<font>btn_24</font>
 			<textcolor>$VAR[SectionText]</textcolor>
-			<focusedcolor>paper</focusedcolor>
 			<align>center</align>
 			<textoffsetx>16</textoffsetx>
-			<texturefocus border="10" colordiffuse="ink">common/rect_square.png</texturefocus>
-			<texturenofocus border="10" colordiffuse="ink">common/rect_outline_1.png</texturenofocus>
+			<texturefocus border="10" colordiffuse="$VAR[ink]">common/rect_square.png</texturefocus>
+			<texturenofocus border="10" colordiffuse="$VAR[ink]">common/rect_outline_1.png</texturenofocus>
 			<onclick>ActivateWindow(ShutdownMenu)</onclick>
 			<onup>52</onup>
 			<ondown>52</ondown>

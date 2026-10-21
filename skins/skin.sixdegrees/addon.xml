@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.sixdegrees" version="0.9.9" name="Six Degrees" provider-name="KarmaMole">
+<addon id="skin.sixdegrees" version="0.9.10" name="Six Degrees" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
-		<!-- Optional. script.skinvariables reads a film's billed cast, first director and first genre from
-		     Kodi's own library (the map's lines); TMDb Helper is the fallback for the cast. The skin runs
-		     without either: the map then keeps its director and year lines only. -->
-		<import addon="script.skinvariables" version="2.0.0" optional="true"/>
+		<!-- Required. script.skinvariables URL-encodes the typed search query (get_encoded_string,
+		     unencoded_paths arrived in 2.1.21) and reads a film's billed cast, first director and first genre
+		     from Kodi's own library (the map's lines); TMDb Helper stays optional. -->
+		<import addon="script.skinvariables" version="2.1.21"/>
 		<import addon="plugin.video.themoviedb.helper" version="4.0.0" optional="true"/>
 	</requires>
 	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1">
@@ -18,7 +18,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#sixdegrees</website>
-		<news>v0.9.9 - Music library header: the tab row has its own line above the route, so it no longer runs over "Home - Music"; Options sits on the route line by the clock.</news>
+		<news>v0.9.10 - Sets row in the Library panel; fix for controls disappearing with Reduce motion on. Code clean-up for the Kodi repository checks.</news>
 		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>

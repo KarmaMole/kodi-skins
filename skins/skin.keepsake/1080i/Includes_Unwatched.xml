@@ -53,7 +53,7 @@
 				<control type="group">
 					<width>184</width>
 					<height>252</height>
-					<include condition="$PARAM[focused]">KS_TiltFocus</include>
+					<include content="KS_TiltFocus" condition="$PARAM[focused]"><param name="focus" value="$PARAM[lift]"/></include>
 					<include content="KS_Print_Poster">
 						<param name="art" value="$VAR[KS_PosterArt]"/>
 						<param name="dim" value="$PARAM[dim]"/>

@@ -735,7 +735,7 @@
 				<height>36</height>
 				<font>serif_28</font>
 				<textcolor>$VAR[DL_Ink]</textcolor>
-				<label>More for this title</label>
+				<label>$LOCALIZE[31244]</label>
 			</control>
 		</control>
 		<control type="grouplist" id="9100">
@@ -957,7 +957,7 @@
 					<height>30</height>
 					<font>small_20</font>
 					<textcolor>$VAR[DL_Ink2]</textcolor>
-					<label>Up and down scroll  ·  Back closes</label>
+					<label>$LOCALIZE[31234]</label>
 				</control>
 			</control>
 		</control>

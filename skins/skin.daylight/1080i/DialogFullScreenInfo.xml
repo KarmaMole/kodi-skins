@@ -20,7 +20,6 @@
 			<height>screen_h</height>
 			<label></label>
 			<texturefocus />
-			<texturenofocus />
 			<onright>StepForward</onright>
 			<onleft>StepBack</onleft>
 			<onup>ChapterOrBigStepForward</onup>
@@ -46,7 +45,6 @@
 				<width>1484</width>
 				<height>108</height>
 				<font>body_24</font>
-				<textcolor>$VAR[DL_Body]</textcolor>
 				<label>$INFO[VideoPlayer.Plot]</label>
 				<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
 			</control>
@@ -95,7 +93,6 @@
 					<width max="700">auto</width>
 					<height>40</height>
 					<font>ui_22_semibold</font>
-					<textcolor>$VAR[DL_Ink]</textcolor>
 					<label>Next  ·  $VAR[OSD_NextLabel]</label>
 				</control>
 			</control>

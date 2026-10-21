@@ -23,8 +23,7 @@
 			<height>80</height>
 			<aligny>top</aligny>
 			<font>serif_72</font>
-			<textcolor>text</textcolor>
-			<label>Void</label>
+			<label>$LOCALIZE[31336]</label>
 		</control>
 		<control type="grouplist" id="9600">
 			<left>146</left>
@@ -32,14 +31,13 @@
 			<width>1120</width>
 			<height>760</height>
 			<orientation>vertical</orientation>
-			<itemgap>0</itemgap>
 			<usecontrolcoords>true</usecontrolcoords>
 			<onleft>noop</onleft>
 			<onright>noop</onright>
 			<!-- 1 dwell pace -->
 			<control type="button" id="9601">
 				<include>SkinSet_Row</include>
-				<label>Information arrives</label>
+				<label>$LOCALIZE[31277]</label>
 				<label2>$VAR[SkinSet_DwellLabel]</label2>
 				<onclick>Skin.SetString(void.dwell,$VAR[SkinSet_DwellNext])</onclick>
 				<onright>Skin.SetString(void.dwell,$VAR[SkinSet_DwellNext])</onright>
@@ -48,7 +46,7 @@
 			<!-- 2 ambient -->
 			<control type="button" id="9602">
 				<include>SkinSet_Row</include>
-				<label>Artwork rises when you rest</label>
+				<label>$LOCALIZE[31278]</label>
 				<label2>$VAR[SkinSet_AmbientLabel]</label2>
 				<onclick>Skin.ToggleSetting(void.noambient)</onclick>
 				<onright>Skin.ToggleSetting(void.noambient)</onright>
@@ -57,7 +55,7 @@
 			<!-- 3 ambient level -->
 			<control type="button" id="9603">
 				<include>SkinSet_Row</include>
-				<label>Artwork brightness</label>
+				<label>$LOCALIZE[31279]</label>
 				<label2>$VAR[SkinSet_LevelLabel]</label2>
 				<onclick>Skin.SetString(void.ambientlevel,$VAR[SkinSet_LevelNext])</onclick>
 				<onright>Skin.SetString(void.ambientlevel,$VAR[SkinSet_LevelNext])</onright>
@@ -67,7 +65,7 @@
 			<!-- 4 Ken Burns -->
 			<control type="button" id="9604">
 				<include>SkinSet_Row</include>
-				<label>Slow zoom on the artwork</label>
+				<label>$LOCALIZE[31280]</label>
 				<label2>$VAR[SkinSet_KenBurnsLabel]</label2>
 				<onclick>Skin.ToggleSetting(void.nokenburns)</onclick>
 				<onright>Skin.ToggleSetting(void.nokenburns)</onright>
@@ -77,7 +75,7 @@
 			<!-- 5 hints -->
 			<control type="button" id="9605">
 				<include>SkinSet_Row</include>
-				<label>Quiet hints</label>
+				<label>$LOCALIZE[31281]</label>
 				<label2>$VAR[SkinSet_HintsLabel]</label2>
 				<onclick>Skin.ToggleSetting(void.nohints)</onclick>
 				<onright>Skin.ToggleSetting(void.nohints)</onright>
@@ -86,7 +84,7 @@
 			<!-- 6 clock -->
 			<control type="button" id="9606">
 				<include>SkinSet_Row</include>
-				<label>Clock</label>
+				<label>$LOCALIZE[31282]</label>
 				<label2>$VAR[SkinSet_ClockLabel]</label2>
 				<onclick>Skin.ToggleSetting(void.noclock)</onclick>
 				<onright>Skin.ToggleSetting(void.noclock)</onright>
@@ -95,7 +93,7 @@
 			<!-- 7 OSD auto-hide -->
 			<control type="button" id="9607">
 				<include>SkinSet_Row</include>
-				<label>Playback controls hide after</label>
+				<label>$LOCALIZE[31283]</label>
 				<label2>$VAR[SkinSet_OSDLabel]</label2>
 				<onclick>Skin.SetString(void.osdhide,$VAR[SkinSet_OSDNext])</onclick>
 				<onright>Skin.SetString(void.osdhide,$VAR[SkinSet_OSDNext])</onright>
@@ -104,7 +102,7 @@
 			<!-- 8 offset strip position -->
 			<control type="button" id="9608">
 				<include>SkinSet_Row</include>
-				<label>Subtitle and audio sync strip</label>
+				<label>$LOCALIZE[31284]</label>
 				<label2>$VAR[SkinSet_OffsetLabel]</label2>
 				<onclick condition="String.IsEqual(Skin.String(void.offsetbar),bottom)">Skin.SetString(void.offsetbar,top)</onclick>
 				<onclick condition="!String.IsEqual(Skin.String(void.offsetbar),bottom)">Skin.SetString(void.offsetbar,bottom)</onclick>
@@ -116,7 +114,7 @@
 			<!-- 9 reduce motion -->
 			<control type="button" id="9609">
 				<include>SkinSet_Row</include>
-				<label>Reduce motion</label>
+				<label>$LOCALIZE[31285]</label>
 				<label2>$VAR[SkinSet_MotionLabel]</label2>
 				<onclick>Skin.ToggleSetting(void.reducemotion)</onclick>
 				<onright>Skin.ToggleSetting(void.reducemotion)</onright>
@@ -125,7 +123,7 @@
 			<!-- 10 reset (second OK confirms; conditions are read once per key press) -->
 			<control type="button" id="9610">
 				<include>SkinSet_Row</include>
-				<label>Back to the defaults</label>
+				<label>$LOCALIZE[31286]</label>
 				<label2>$VAR[SkinSet_ResetLabel]</label2>
 				<onclick condition="String.IsEmpty(Window(Home).Property(void.resetarmed))">SetProperty(void.resetarmed,1,home)</onclick>
 				<onclick condition="!String.IsEmpty(Window(Home).Property(void.resetarmed))">Skin.ResetSettings</onclick>
@@ -151,7 +149,7 @@
 			<aligny>top</aligny>
 			<font>caps_20</font>
 			<textcolor>grey_soft</textcolor>
-			<label>OK or Right for the next value[COLOR sep]  ·  [/COLOR]Left for the previous[COLOR sep]  ·  [/COLOR]Kodi's own settings: Settings</label>
+			<label>$LOCALIZE[31287][COLOR sep]  ·  [/COLOR]$LOCALIZE[31288][COLOR sep]  ·  [/COLOR]$LOCALIZE[31289]</label>
 		</control>
 	</controls>
 </window>

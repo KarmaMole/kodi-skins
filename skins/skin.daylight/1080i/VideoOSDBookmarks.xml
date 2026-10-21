@@ -25,7 +25,6 @@
 			<width>1100</width>
 			<height>34</height>
 			<font>serif_30</font>
-			<textcolor>$VAR[DL_Ink]</textcolor>
 			<label>Chapters &amp; bookmarks$INFO[Container(11).NumItems,  ·  ,]</label>
 		</control>
 		<control type="label">
@@ -86,7 +85,7 @@
 			<height>40</height>
 			<font>ui_24</font>
 			<textcolor>$VAR[DL_Ink2]</textcolor>
-			<label>No chapters or bookmarks yet. Create one with the first button.</label>
+			<label>$LOCALIZE[31276]</label>
 			<visible>Integer.IsEqual(Container(11).NumItems,0)</visible>
 		</control>
 		<control type="panel" id="11">
@@ -128,7 +127,7 @@
 			<height>30</height>
 			<font>small_20</font>
 			<textcolor>$VAR[DL_Ink2]</textcolor>
-			<label>OK jumps there  ·  Back closes</label>
+			<label>$LOCALIZE[31277]</label>
 		</control>
 	</controls>
 </window>

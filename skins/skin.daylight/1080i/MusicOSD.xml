@@ -69,7 +69,7 @@
 				<align>right</align>
 				<font>small_20_bold</font>
 				<textcolor>$VAR[DL_AccentText]</textcolor>
-				<label>Left and right to seek  ·  Down returns</label>
+				<label>$LOCALIZE[31247]</label>
 			</control>
 		</control>
 
@@ -85,7 +85,6 @@
 				<height>80</height>
 				<orientation>horizontal</orientation>
 				<usecontrolcoords>true</usecontrolcoords>
-				<itemgap>0</itemgap>
 				<!-- 0.9.3 (Omar): Play/Pause, Stop, Previous, Next; no seek buttons (Up lights the track,
 				     Left/Right seek there). A hidden 602 hands Left/Right on through its own nav. -->
 				<include content="DLOSD_Circle">

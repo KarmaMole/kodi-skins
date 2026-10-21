@@ -26,8 +26,26 @@
 			<width>screen_w</width>
 			<height>screen_h</height>
 			<aspectratio>center</aspectratio>
-			<texture colordiffuse="bfffffff">overlays/dots.png</texture>
-			<visible>$EXP[DT_Halftone]</visible>
+			<texture colordiffuse="$VAR[dots]">overlays/dots.png</texture>
+			<visible>$EXP[DT_Halftone] + $EXP[DT_ScreenDots]</visible>
+		</control>
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>screen_w</width>
+			<height>screen_h</height>
+			<aspectratio>center</aspectratio>
+			<texture colordiffuse="$VAR[dots]">overlays/screen_lines.png</texture>
+			<visible>$EXP[DT_Halftone] + $EXP[DT_ScreenLines]</visible>
+		</control>
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>screen_w</width>
+			<height>screen_h</height>
+			<aspectratio>center</aspectratio>
+			<texture colordiffuse="$VAR[dots]">overlays/screen_coarse.png</texture>
+			<visible>$EXP[DT_Halftone] + $EXP[DT_ScreenCoarse]</visible>
 		</control>
 	</include>
 	<!-- Halftone over a print (art). Fill the parent group. params: visible -->
@@ -40,8 +58,56 @@
 				<right>0</right>
 				<bottom>0</bottom>
 				<aspectratio>center</aspectratio>
-				<texture>overlays/dots_art.png</texture>
-				<visible>$EXP[DT_Halftone] + $EXP[DT_MonoOn] + [$PARAM[visible]]</visible>
+				<texture colordiffuse="$VAR[dots_art]">overlays/dots_art.png</texture>
+				<visible>$EXP[DT_Halftone] + $EXP[DT_MonoOn] + [$PARAM[visible]] + $EXP[DT_ScreenDots]</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<aspectratio>center</aspectratio>
+				<texture colordiffuse="$VAR[dots_art]">overlays/screen_lines_art.png</texture>
+				<visible>$EXP[DT_Halftone] + $EXP[DT_MonoOn] + [$PARAM[visible]] + $EXP[DT_ScreenLines]</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<aspectratio>center</aspectratio>
+				<texture colordiffuse="$VAR[dots_art]">overlays/screen_coarse_art.png</texture>
+				<visible>$EXP[DT_Halftone] + $EXP[DT_MonoOn] + [$PARAM[visible]] + $EXP[DT_ScreenCoarse]</visible>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Print veils (DESIGN 9.4): field colour at an alpha over a print, Light / Dark only (clear in Colour, and
+	     with Monotone off). Ghost (layer 3) sits over the colour art, Veil (layer 5) over the black-and-white
+	     source. Fill the parent group. params: visible -->
+	<include name="DT_PrintGhost">
+		<param name="visible">true</param>
+		<definition>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<texture colordiffuse="$VAR[SectionVeilGhost]">common/white.png</texture>
+				<visible>$EXP[DT_PrintVeils] + [$PARAM[visible]]</visible>
+			</control>
+		</definition>
+	</include>
+	<include name="DT_PrintVeil">
+		<param name="visible">true</param>
+		<definition>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<texture colordiffuse="$VAR[SectionVeil]">common/white.png</texture>
+				<visible>$EXP[DT_PrintVeils] + [$PARAM[visible]]</visible>
 			</control>
 		</definition>
 	</include>
@@ -53,7 +119,7 @@
 		<param name="top">0</param>
 		<param name="left">page_margin</param>
 		<param name="width">page_width</param>
-		<param name="color">ink</param>
+		<param name="color">$VAR[ink]</param>
 		<definition>
 			<control type="image">
 				<left>$PARAM[left]</left>
@@ -69,7 +135,7 @@
 		<param name="top">0</param>
 		<param name="left">page_margin</param>
 		<param name="width">page_width</param>
-		<param name="color">ink</param>
+		<param name="color">$VAR[ink]</param>
 		<definition>
 			<control type="image">
 				<left>$PARAM[left]</left>
@@ -82,7 +148,7 @@
 	</include>
 	<!-- Vertical 8px rule. params: left, top, height, color -->
 	<include name="DT_RuleV">
-		<param name="color">ink</param>
+		<param name="color">$VAR[ink]</param>
 		<definition>
 			<control type="image">
 				<left>$PARAM[left]</left>
@@ -175,7 +241,7 @@
 				<top>focus_out</top>
 				<right>focus_out</right>
 				<bottom>focus_out</bottom>
-				<texture border="16" colordiffuse="ink">focus/frame_8.png</texture>
+				<texture border="16" colordiffuse="$VAR[ink]">focus/frame_8.png</texture>
 				<visible>$PARAM[visible]</visible>
 			</control>
 		</definition>
@@ -188,7 +254,7 @@
 				<top>focus_out</top>
 				<right>focus_out</right>
 				<bottom>focus_out</bottom>
-				<texture border="16" colordiffuse="ink">focus/frame_8.png</texture>
+				<texture border="16" colordiffuse="$VAR[ink]">focus/frame_8.png</texture>
 				<visible>$PARAM[visible]</visible>
 			</control>
 		</definition>
@@ -213,7 +279,7 @@
 				<top>0</top>
 				<right>0</right>
 				<bottom>0</bottom>
-				<texture colordiffuse="ink">common/white.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 			</control>
 			<control type="textbox">
 				<left>16</left>
@@ -233,6 +299,12 @@
 				<fadetime>120</fadetime>
 				<texture background="true" colordiffuse="$PARAM[tint]">$PARAM[art]</texture>
 			</control>
+			<include content="DT_PrintGhost">
+				<param name="visible" value="$PARAM[dots]"/>
+			</include>
+			<include content="DT_PrintVeil">
+				<param name="visible" value="$PARAM[dots]"/>
+			</include>
 			<include content="DT_ArtDots">
 				<param name="visible" value="$PARAM[dots]"/>
 			</include>
@@ -248,7 +320,7 @@
 			<top>0</top>
 			<width>marker_s</width>
 			<height>marker_s</height>
-			<texture colordiffuse="ink">markers/unwatched.png</texture>
+			<texture colordiffuse="$VAR[ink]">markers/unwatched.png</texture>
 			<visible>$EXP[ShowUnwatchedMarkers] + $EXP[ListItemIsVideoFile] + $EXP[ListItemUnwatched]</visible>
 		</control>
 		<control type="image">
@@ -256,7 +328,7 @@
 			<top>0</top>
 			<width>marker_tab</width>
 			<height>marker_tab</height>
-			<texture>markers/watched.png</texture>
+			<texture>$VAR[DT_TexWatched]</texture>
 			<visible>$EXP[ShowWatchedMarkers] + $EXP[ListItemIsVideoFile] + $EXP[ListItemWatched]</visible>
 		</control>
 		<control type="progress">
@@ -264,8 +336,8 @@
 			<right>0</right>
 			<bottom>0</bottom>
 			<height>progress_h</height>
-			<texturebg colordiffuse="ink">common/white.png</texturebg>
-			<midtexture colordiffuse="paper">common/white.png</midtexture>
+			<texturebg colordiffuse="$VAR[bar]">common/white.png</texturebg>
+			<midtexture colordiffuse="$VAR[bar_fill]">common/white.png</midtexture>
 			<info>ListItem.PercentPlayed</info>
 			<visible>ListItem.IsResumable</visible>
 		</control>
@@ -276,8 +348,8 @@
 	     text, 6% zoom. Primary carries an icon left of the label.
 	     params: id, left, top, width, label, onclick, visible, onleft, onright, onup, ondown, onback, icon -->
 	<include name="DT_Tex_Block">
-		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-		<texturenofocus border="16" colordiffuse="ink">common/rect_outline_8.png</texturenofocus>
+		<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
+		<texturenofocus border="16" colordiffuse="$VAR[ink]">common/rect_outline_8.png</texturenofocus>
 	</include>
 	<include name="DT_ButtonPrimary">
 		<param name="visible">true</param>
@@ -302,7 +374,7 @@
 					<label>$PARAM[label]</label>
 					<font>an_40</font>
 					<textcolor>$VAR[SectionText]</textcolor>
-					<focusedcolor>paper</focusedcolor>
+					<focusedcolor>$VAR[paper]</focusedcolor>
 					<align>center</align>
 					<aligny>center</aligny>
 					<textoffsetx>24</textoffsetx>
@@ -319,7 +391,7 @@
 					<top>21</top>
 					<width>30</width>
 					<height>30</height>
-					<texture colordiffuse="paper">$PARAM[icon]</texture>
+					<texture colordiffuse="$VAR[paper]">$PARAM[icon]</texture>
 					<visible>Control.HasFocus($PARAM[id])</visible>
 				</control>
 				<control type="image">
@@ -357,7 +429,7 @@
 					<label>$PARAM[label]</label>
 					<font>an_40</font>
 					<textcolor>$VAR[SectionText]</textcolor>
-					<focusedcolor>paper</focusedcolor>
+					<focusedcolor>$VAR[paper]</focusedcolor>
 					<align>center</align>
 					<aligny>center</aligny>
 					<textoffsetx>0</textoffsetx>
@@ -374,35 +446,14 @@
 		</definition>
 	</include>
 
-
 	<!-- Engine aliases (forked callers). Primary = solid ink block (paper text, focus by zoom/frame);
 	     secondary = 8px bordered block that fills ink on focus (callers use focusedcolor paper). -->
 	<include name="DT_Tex_ButtonPrimary">
-		<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-		<texturenofocus colordiffuse="ink">common/white.png</texturenofocus>
+		<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
+		<texturenofocus colordiffuse="$VAR[ink]">common/white.png</texturenofocus>
 	</include>
 	<include name="DT_Tex_ButtonPrimary_Round">
 		<include>DT_Tex_ButtonPrimary</include>
-	</include>
-	<include name="DT_Tex_ButtonSecondary">
-		<include>DT_Tex_Block</include>
-	</include>
-	<include name="DT_Tex_ButtonSecondary_Round">
-		<include>DT_Tex_Block</include>
-	</include>
-	<!-- Artwork with a colordiffuse (forked Home_Art). params: art, diffuse, title -->
-	<include name="Home_Art">
-		<param name="diffuse">white</param>
-		<param name="mask_round"></param>
-		<param name="mask_square"></param>
-		<param name="title">$INFO[ListItem.Label]</param>
-		<definition>
-			<include content="DT_Artwork">
-				<param name="art" value="$PARAM[art]"/>
-				<param name="title" value="$PARAM[title]"/>
-				<param name="tint" value="$PARAM[diffuse]"/>
-			</include>
-		</definition>
 	</include>
 
 	<!-- Caps sub-nav button (library header bar, OSD text buttons): ink fill + paper text on focus.
@@ -419,9 +470,9 @@
 				<height>subnav_h</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText]</textcolor>
-				<focusedcolor>paper</focusedcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
 				<textoffsetx>14</textoffsetx>
-				<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+				<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 				<texturenofocus />
 				<label>$PARAM[label]</label>
 				<onclick>$PARAM[onclick]</onclick>

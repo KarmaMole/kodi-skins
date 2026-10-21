@@ -87,7 +87,7 @@
 		<param name="top">0</param>
 		<param name="width">600</param>
 		<param name="label"></param>
-		<param name="color">ink</param>
+		<param name="color">$VAR[ink]</param>
 		<definition>
 			<control type="label">
 				<left>$PARAM[left]</left>
@@ -145,11 +145,11 @@
 			<textcolor>$VAR[SectionText2]</textcolor>
 			<focusedcolor>$VAR[SectionText]</focusedcolor>
 			<disabledcolor>$VAR[SectionText3]</disabledcolor>
-			<invalidcolor>ink</invalidcolor>
+			<invalidcolor>$VAR[ink]</invalidcolor>
 			<selectedcolor>$VAR[SectionText]</selectedcolor>
 			<textoffsetx>24</textoffsetx>
 			<aligny>center</aligny>
-			<texturefocus border="16" colordiffuse="ink">focus/outline_2.png</texturefocus>
+			<texturefocus border="16" colordiffuse="$VAR[ink]">focus/outline_2.png</texturefocus>
 			<texturenofocus />
 		</definition>
 	</include>
@@ -166,16 +166,16 @@
 				<height>subnav_h</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText2]</textcolor>
-				<focusedcolor>paper</focusedcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
 				<textoffsetx>12</textoffsetx>
-				<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+				<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 				<texturenofocus />
 				<radiowidth>18</radiowidth>
 				<radioheight>18</radioheight>
-				<textureradioonfocus colordiffuse="paper">markers/check.png</textureradioonfocus>
-				<textureradioonnofocus colordiffuse="ink">markers/check.png</textureradioonnofocus>
-				<textureradioofffocus border="10" colordiffuse="paper">common/rect_outline_1.png</textureradioofffocus>
-				<textureradiooffnofocus border="10" colordiffuse="ink">common/rect_outline_1.png</textureradiooffnofocus>
+				<textureradioonfocus colordiffuse="$VAR[paper]">markers/check.png</textureradioonfocus>
+				<textureradioonnofocus colordiffuse="$VAR[ink]">markers/check.png</textureradioonnofocus>
+				<textureradioofffocus border="10" colordiffuse="$VAR[paper]">common/rect_outline_1.png</textureradioofffocus>
+				<textureradiooffnofocus border="10" colordiffuse="$VAR[ink]">common/rect_outline_1.png</textureradiooffnofocus>
 				<label>$PARAM[label]</label>
 				<visible>$PARAM[visible]</visible>
 			</control>
@@ -234,7 +234,7 @@
 					<top>21</top>
 					<width>22</width>
 					<height>22</height>
-					<texture colordiffuse="ink">markers/check.png</texture>
+					<texture colordiffuse="$VAR[ink]">markers/check.png</texture>
 					<visible>ListItem.IsSelected</visible>
 				</control>
 				<control type="image">
@@ -242,7 +242,7 @@
 					<bottom>0</bottom>
 					<width>$PARAM[width]</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 				</control>
 			</itemlayout>
 			<focusedlayout width="$PARAM[width]" height="dialog_row_h">
@@ -251,7 +251,7 @@
 					<top>0</top>
 					<width>$PARAM[width]</width>
 					<height>dialog_row_h</height>
-					<texture colordiffuse="ink_12">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
 				<control type="image">
@@ -259,7 +259,7 @@
 					<top>0</top>
 					<width>list_bar_w</width>
 					<height>dialog_row_h</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 				</control>
 				<control type="label">
 					<left>list_text_x</left>
@@ -276,7 +276,7 @@
 					<top>21</top>
 					<width>22</width>
 					<height>22</height>
-					<texture colordiffuse="ink">markers/check.png</texture>
+					<texture colordiffuse="$VAR[ink]">markers/check.png</texture>
 					<visible>ListItem.IsSelected</visible>
 				</control>
 				<control type="image">
@@ -284,7 +284,7 @@
 					<bottom>0</bottom>
 					<width>$PARAM[width]</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 				</control>
 			</focusedlayout>
 		</definition>
@@ -330,7 +330,7 @@
 				<height>72</height>
 				<font>an_48</font>
 				<textcolor>$VAR[SectionText]</textcolor>
-				<label>Nothing here</label>
+				<label>$LOCALIZE[31012]</label>
 				<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 			</control>
 			<include>Misc_HiddenSortControls</include>
@@ -391,10 +391,10 @@
 				<height>subnav_h</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText2]</textcolor>
-				<focusedcolor>paper</focusedcolor>
-				<disabledcolor>ink</disabledcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
+				<disabledcolor>$VAR[ink]</disabledcolor>
 				<textoffsetx>12</textoffsetx>
-				<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+				<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 				<texturenofocus />
 				<label>$PARAM[label]</label>
 				<onclick condition="String.IsEmpty(Window.Property(IsRadio))">ActivateWindow(TV$PARAM[area])</onclick>
@@ -526,9 +526,9 @@
 			<height>subnav_h</height>
 			<font>cap_20</font>
 			<textcolor>$VAR[SectionText2]</textcolor>
-			<focusedcolor>paper</focusedcolor>
+			<focusedcolor>$VAR[paper]</focusedcolor>
 			<textoffsetx>12</textoffsetx>
-			<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+			<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 			<texturenofocus />
 		</control>
 		<include content="Misc_SubNavRadio">
@@ -613,7 +613,7 @@
 					<bottom>0</bottom>
 					<width>$PARAM[width]</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 				</control>
 			</itemlayout>
 			<focusedlayout width="$PARAM[width]" height="list_row_h">
@@ -622,7 +622,7 @@
 					<top>0</top>
 					<width>$PARAM[width]</width>
 					<height>list_row_h</height>
-					<texture colordiffuse="ink_12">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
 				<control type="image">
@@ -630,7 +630,7 @@
 					<top>0</top>
 					<width>list_bar_w</width>
 					<height>list_row_h</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 					<visible>Control.HasFocus($PARAM[list_id])</visible>
 				</control>
 				<control type="label">
@@ -685,7 +685,7 @@
 					<bottom>0</bottom>
 					<width>$PARAM[width]</width>
 					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 				</control>
 			</focusedlayout>
 		</definition>
@@ -767,14 +767,14 @@
 					<top>80</top>
 					<width>420</width>
 					<height>dialog_row_h</height>
-					<label>PVR &amp; Live TV settings</label>
+					<label>$LOCALIZE[31331]</label>
 					<font>btn_24</font>
 					<textcolor>$VAR[SectionText]</textcolor>
-					<focusedcolor>paper</focusedcolor>
+					<focusedcolor>$VAR[paper]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>16</textoffsetx>
-					<texturefocus border="10" colordiffuse="ink">common/rect_square.png</texturefocus>
-					<texturenofocus border="10" colordiffuse="ink">common/rect_outline_1.png</texturenofocus>
+					<texturefocus border="10" colordiffuse="$VAR[ink]">common/rect_square.png</texturefocus>
+					<texturenofocus border="10" colordiffuse="$VAR[ink]">common/rect_outline_1.png</texturenofocus>
 					<onclick>ActivateWindow(pvrsettings)</onclick>
 					<onup>9001</onup>
 					<ondown>noop</ondown>
@@ -985,7 +985,7 @@
 				<top>148</top>
 				<width>400</width>
 				<height>rule_h</height>
-				<texture colordiffuse="ink">common/hairline.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 			</control>
 			<!-- buttons -->
 			<control type="grouplist" id="9001">
@@ -1033,7 +1033,7 @@
 				<top>760</top>
 				<width>1760</width>
 				<height>rule_h</height>
-				<texture colordiffuse="ink">common/hairline.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 			</control>
 			<control type="textbox" id="32">
 				<description>Controller description</description>
@@ -1108,7 +1108,7 @@
 						<bottom>0</bottom>
 						<width>1380</width>
 						<height>rule_h</height>
-						<texture colordiffuse="ink">common/hairline.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 					</control>
 				</itemlayout>
 				<focusedlayout width="1380" height="96">
@@ -1117,7 +1117,7 @@
 						<top>0</top>
 						<width>1380</width>
 						<height>96</height>
-						<texture colordiffuse="ink_12">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 						<visible>Control.HasFocus(3)</visible>
 					</control>
 					<control type="image">
@@ -1125,7 +1125,7 @@
 						<top>0</top>
 						<width>list_bar_w</width>
 						<height>96</height>
-						<texture colordiffuse="ink">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 						<visible>Control.HasFocus(3)</visible>
 					</control>
 					<control type="label">
@@ -1252,10 +1252,10 @@
 					<label>$LOCALIZE[35110]</label>
 					<font>btn_24</font>
 					<textcolor>$VAR[SectionText]</textcolor>
-					<focusedcolor>paper</focusedcolor>
+					<focusedcolor>$VAR[paper]</focusedcolor>
 					<align>center</align>
-					<texturefocus border="10" colordiffuse="ink">common/rect_square.png</texturefocus>
-					<texturenofocus border="10" colordiffuse="ink">common/rect_outline_1.png</texturenofocus>
+					<texturefocus border="10" colordiffuse="$VAR[ink]">common/rect_square.png</texturefocus>
+					<texturenofocus border="10" colordiffuse="$VAR[ink]">common/rect_outline_1.png</texturenofocus>
 					<onup>noop</onup>
 					<ondown>7</ondown>
 					<onleft>noop</onleft>
@@ -1308,7 +1308,7 @@
 						<bottom>0</bottom>
 						<width>1700</width>
 						<height>rule_h</height>
-						<texture colordiffuse="ink">common/hairline.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 					</control>
 				</itemlayout>
 				<focusedlayout width="1700" height="96">
@@ -1317,7 +1317,7 @@
 						<top>0</top>
 						<width>1700</width>
 						<height>96</height>
-						<texture colordiffuse="ink_12">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink_12]">common/white.png</texture>
 						<visible>Control.HasFocus(7)</visible>
 					</control>
 					<control type="image">
@@ -1325,7 +1325,7 @@
 						<top>0</top>
 						<width>list_bar_w</width>
 						<height>96</height>
-						<texture colordiffuse="ink">common/white.png</texture>
+						<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 						<visible>Control.HasFocus(7)</visible>
 					</control>
 					<include content="Misc_GameAgentRow"><param name="text" value="$VAR[SectionText]"/></include>
@@ -1353,5 +1353,143 @@
 				</include>
 			</control>
 		</control>
+	</include>
+	<!-- EPG grid layouts of MyPVRGuide (epggrid 50). Each programme layout has Kodi's label 1 / image 2,
+	     the controls it stretches to the programme's width. -->
+	<include name="Misc_EPGLayouts">
+		<rulerlayout height="45" width="238">
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1</width>
+				<height>45</height>
+				<texture colordiffuse="$VAR[ink]">common/hairline_v.png</texture>
+			</control>
+			<control type="label">
+				<left>10</left>
+				<top>0</top>
+				<width>220</width>
+				<height>45</height>
+				<font>cap_20</font>
+				<textcolor>$VAR[SectionText3]</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+			</control>
+		</rulerlayout>
+		<channellayout height="66" width="300">
+			<control type="label">
+				<left>12</left>
+				<top>0</top>
+				<width>60</width>
+				<height>66</height>
+				<font>bold_22</font>
+				<textcolor>$VAR[SectionText3]</textcolor>
+				<label>$INFO[ListItem.ChannelNumberLabel]</label>
+			</control>
+			<control type="label" id="1">
+				<left>76</left>
+				<top>0</top>
+				<width>212</width>
+				<height>66</height>
+				<font>ui_22</font>
+				<textcolor>$VAR[SectionText2]</textcolor>
+				<label>$INFO[ListItem.ChannelName]</label>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<bottom>0</bottom>
+				<width>300</width>
+				<height>rule_h</height>
+				<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
+			</control>
+		</channellayout>
+		<focusedchannellayout height="66" width="300">
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>list_bar_w</width>
+				<height>66</height>
+				<texture colordiffuse="$VAR[ink]">common/white.png</texture>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="label">
+				<left>12</left>
+				<top>0</top>
+				<width>60</width>
+				<height>66</height>
+				<font>bold_22</font>
+				<textcolor>$VAR[SectionText2]</textcolor>
+				<label>$INFO[ListItem.ChannelNumberLabel]</label>
+			</control>
+			<control type="label" id="1">
+				<left>76</left>
+				<top>0</top>
+				<width>212</width>
+				<height>66</height>
+				<font>bold_22</font>
+				<label>$INFO[ListItem.ChannelName]</label>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<bottom>0</bottom>
+				<width>300</width>
+				<height>rule_h</height>
+				<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
+			</control>
+		</focusedchannellayout>
+		<itemlayout height="66" width="40">
+			<control type="image" id="2">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture border="10" colordiffuse="$VAR[ink]">common/rect_outline_1.png</texture>
+			</control>
+			<control type="label" id="1">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>ui_22</font>
+				<textcolor>$VAR[SectionText2]</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+			</control>
+		</itemlayout>
+		<focusedlayout height="66" width="40">
+			<control type="image" id="2">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture border="10" colordiffuse="$VAR[ink]">common/rect_square.png</texture>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="image" id="2">
+				<left>0</left>
+				<top>0</top>
+				<width>40</width>
+				<height>66</height>
+				<texture border="10" colordiffuse="$VAR[ink]">common/rect_outline_1.png</texture>
+				<visible>!Control.HasFocus(50)</visible>
+			</control>
+			<control type="label" id="1">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>bold_22</font>
+				<textcolor>$VAR[paper]</textcolor>
+				<label>$INFO[ListItem.Label]</label>
+				<visible>Control.HasFocus(50)</visible>
+			</control>
+			<control type="label" id="1">
+				<left>12</left>
+				<top>0</top>
+				<width>20</width>
+				<height>66</height>
+				<font>ui_22</font>
+				<label>$INFO[ListItem.Label]</label>
+				<visible>!Control.HasFocus(50)</visible>
+			</control>
+		</focusedlayout>
 	</include>
 </includes>

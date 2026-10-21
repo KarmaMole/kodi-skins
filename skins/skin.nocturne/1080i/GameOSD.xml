@@ -131,7 +131,6 @@
 							<width>680</width>
 							<height>130</height>
 							<font>body_24</font>
-							<textcolor>text_body</textcolor>
 						</control>
 						<control type="gamecontroller">
 							<left>dialog_pad</left>
@@ -156,7 +155,7 @@
 							<height>36</height>
 							<font>caps_20</font>
 							<textcolor>text_tertiary</textcolor>
-							<label>Back to continue</label>
+							<label>$LOCALIZE[31337]</label>
 						</control>
 					</control>
 				</control>

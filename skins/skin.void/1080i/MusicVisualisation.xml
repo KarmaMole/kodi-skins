@@ -71,7 +71,6 @@
 			<height>596</height>
 			<orientation>vertical</orientation>
 			<align>right</align>
-			<itemgap>0</itemgap>
 			<usecontrolcoords>true</usecontrolcoords>
 			<control type="group">
 				<width>1260</width>

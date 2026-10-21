@@ -216,7 +216,7 @@
 					<height>28</height>
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
-					<label>Watched</label>
+					<label>$LOCALIZE[31197]</label>
 				</control>
 			</control>
 		</control>
@@ -368,7 +368,7 @@
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
 					<align>center</align>
-					<label>Back</label>
+					<label>$LOCALIZE[31196]</label>
 				</control>
 			</control>
 		</definition>
@@ -413,7 +413,7 @@
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>ActivateWindow(1155)</onright>
 				<onfocus>SetProperty(TMDbHelper.Colors.SourceImage,Art(poster)|Art(tvshow.poster)|Art(thumb)|Art(fanart),home)</onfocus>
-				<viewtype label="The hang">list</viewtype>
+				<viewtype label="31147">list</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(tvshows) | Container.Content(videos)</visible>
 				<itemlayout width="288" height="980">
 					<control type="group">
@@ -465,7 +465,7 @@
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>ActivateWindow(1155)</onright>
 				<onfocus>SetProperty(TMDbHelper.Colors.SourceImage,Art(poster)|Art(tvshow.poster)|Art(thumb)|Art(fanart),home)</onfocus>
-				<viewtype label="Salon">panel</viewtype>
+				<viewtype label="31149">panel</viewtype>
 				<!-- the hang is the default: the first time a kind of node opens in the salon, hang it -->
 				<onfocus condition="Container.Content(movies) + !Skin.HasSetting(passepartout.vi.movies)">Container.SetViewMode(500)</onfocus>
 				<onfocus condition="Container.Content(sets) + !Skin.HasSetting(passepartout.vi.sets)">Container.SetViewMode(500)</onfocus>
@@ -496,14 +496,11 @@
 						<animation type="Focus" reversible="false" condition="!Skin.HasSetting(passepartout.reducemotion)">
 							<effect type="zoom" start="100" end="112" center="96,133" time="260" tween="cubic" easing="out"/>
 						</animation>
-						<animation type="Focus" reversible="false" condition="Skin.HasSetting(passepartout.reducemotion)">
+						<animation type="Conditional" condition="Skin.HasSetting(passepartout.reducemotion) + Control.HasFocus(501)">
 							<effect type="zoom" start="100" end="112" center="96,133" time="0" tween="cubic" easing="out"/>
 						</animation>
 						<animation type="Unfocus" condition="!Skin.HasSetting(passepartout.reducemotion)">
 							<effect type="zoom" start="112" end="100" center="96,133" time="160"/>
-						</animation>
-						<animation type="Unfocus" condition="Skin.HasSetting(passepartout.reducemotion)">
-							<effect type="zoom" start="112" end="100" center="96,133" time="0"/>
 						</animation>
 						<control type="image">
 							<left>-24</left>
@@ -622,7 +619,7 @@
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>ActivateWindow(1155)</onright>
 				<onfocus>SetProperty(TMDbHelper.Colors.SourceImage,Art(poster)|Art(tvshow.poster)|Art(thumb)|Art(fanart),home)</onfocus>
-				<viewtype label="The series hang">list</viewtype>
+				<viewtype label="31148">list</viewtype>
 				<visible>Container.Content(tvshows) + !String.StartsWith(Container.FolderPath,videodb://inprogresstvshows)</visible>
 				<itemlayout width="232" height="720">
 					<control type="group">
@@ -677,7 +674,7 @@
 				<height>28</height>
 				<font>cap_20</font>
 				<textcolor>ink2</textcolor>
-				<label>Seasons</label>
+				<label>$LOCALIZE[31198]</label>
 				<visible>Integer.IsGreater(Container(9340).NumItems,0)</visible>
 			</control>
 			<control type="list" id="9340">
@@ -743,7 +740,7 @@
 					<height>28</height>
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
-					<label>Next up</label>
+					<label>$LOCALIZE[31199]</label>
 				</control>
 				<control type="label">
 					<left>1064</left>
@@ -780,7 +777,7 @@
 					<font>body_24</font>
 					<textcolor>ink2</textcolor>
 					<align>left</align>
-					<label>Ends [COLOR ink]$INFO[Container(9350).ListItem.EndTime][/COLOR] if you start now</label>
+					<label>$LOCALIZE[31030] [COLOR ink]$INFO[Container(9350).ListItem.EndTime][/COLOR] if you start now</label>
 				</control>
 			</control>
 			<!-- the poster is the list itself, so its art loads (LESSONS 2); Select plays the episode -->
@@ -943,7 +940,7 @@
 				<font>ttl_72</font>
 				<textcolor>ink</textcolor>
 				<align>center</align>
-				<label>The walls are bare</label>
+				<label>$LOCALIZE[31178]</label>
 			</control>
 			<control type="label">
 				<left>120</left>
@@ -953,7 +950,7 @@
 				<font>body_24</font>
 				<textcolor>ink2</textcolor>
 				<align>center</align>
-				<label>Nothing hangs here. Press Back to return.</label>
+				<label>$LOCALIZE[31200]</label>
 				<visible>!System.Setting(hidewatched)</visible>
 			</control>
 			<control type="label">
@@ -964,7 +961,7 @@
 				<font>body_24</font>
 				<textcolor>ink2</textcolor>
 				<align>center</align>
-				<label>Unwatched only is on: press Up and choose the filter word to show everything.</label>
+				<label>$LOCALIZE[31201]</label>
 				<visible>System.Setting(hidewatched)</visible>
 			</control>
 		</control>

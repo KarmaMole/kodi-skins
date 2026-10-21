@@ -23,7 +23,10 @@ HOW IT WORKS (see docs/skin.sixdegrees/SPEC.md section 3)
 """
 from __future__ import annotations
 
+import re
 from pathlib import Path
+from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
+STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "1080i"
@@ -55,6 +58,31 @@ LINES = {
 ARROW = {"up": "up", "right": "right", "down": "down", "left": "left"}
 
 # ------------------------------------------------------------------ url pieces (static parts encoded)
+KDK_PLUGIN = "<!-- kdk-ignore: xml-validation; tmdb ids are digits (ListItem.UniqueID(tmdb) copied by the skin) -->"
+
+
+KDK_ENC = ("<!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result "
+           "(quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->")
+# an xsp rule whose value slot is filled by ruleq() (a *Q variable) or holds an encoder label, never raw text
+_ENC_SLOT = re.compile(r"%22value%22%3A%5B(?:\$VAR\[|%22\$INFO\[Container\(\d+\)\.ListItemAbsolute\()")
+
+
+def kdk_mute(text):
+    """Mark generated lines kdk cannot trace.
+
+    The TMDb Helper fallback paths carry the centre's tmdb id: digits the skin copies from ListItem.UniqueID(tmdb).
+    0.9.10: the encoded values come from the encoder list's item labels (race fix, see Encoder); kdk only traces
+    encoder output through window properties, so it reads Container(id).ListItemAbsolute(n).Label as raw text."""
+    out = []
+    for line in text.split("\n"):
+        if "plugin://" in line and "tmdb_id=$INFO[" in line:
+            line += " " + KDK_PLUGIN
+        elif _ENC_SLOT.search(line):
+            line += " " + KDK_ENC
+        out.append(line)
+    return "\n".join(out)
+
+
 OPEN = "%7B%22rules%22%3A%7B%22and%22%3A%5B"
 
 
@@ -78,21 +106,82 @@ def url_safe(label):
     return f"!String.IsEmpty({label}) + !String.Contains({label},&amp;) + !String.Contains({label},%)"
 
 
-def qvar(name, sources):
+class Encoder:
+    """Free text for the xsp rules of one page, URL-encoded by script.skinvariables (required import).
+
+    One 1 px list per page (id cid) runs get_encoded_string on the page's raw values; the plugin returns one
+    item per value, label = quote_plus(value): item n = 0.. the keys (kind, dbid, the details list's dbid:
+    letters and digits, unchanged by the encoding), then the values in the order they were asked for. Kodi
+    URL-decodes the xsp option once, so names with & + % (R&B, Simon & Garfunkel) reach the library as written.
+    `fresh` is true once the encoded keys equal the live ones, i.e. the values belong to this centre; until then
+    the rules read "" (a line shows nothing for the plugin's round trip). A name with a double quote or a
+    backslash still breaks the JSON after decoding (the line is empty).
+
+    0.9.10 race fix (device check 2026-10-21: about 1 hop in 10 never drew a line). The values used to come
+    from window properties the plugin set (window_prop); when the centre id changed before the details list,
+    two runs fired and the OLDER one could finish last and overwrite the newer properties: stale keys, fresh
+    false until the next move. Kodi cancels the callback of a superseded list job (CDirectoryProvider::FireJob
+    -> CJobManager::CancelJob), so a list's ITEMS always belong to its latest URL; the values are now read
+    from Container(cid).ListItemAbsolute(n).Label and the plugin writes no properties. And the URL is empty
+    until `gate` (the page's "the centre's own data has arrived" expression) holds, so one run fires per
+    centre instead of two.
+    """
+
+    def __init__(self, page, keys, gate, cid=9096):
+        self.page, self.keys, self.gate, self.cid, self.labels = page, list(keys), gate, cid, []
+
+    def prop(self, n):
+        return f"Container({self.cid}).ListItemAbsolute({n}).Label"
+
+    def value(self, label):
+        """The JSON string literal (quotes included, URL-encoded) for an infolabel."""
+        if label not in self.labels:
+            self.labels.append(label)
+        return f"%22$INFO[{self.prop(len(self.keys) + self.labels.index(label))}]%22"
+
+    @property
+    def fresh(self):
+        return " + ".join(f"String.IsEqual({self.prop(i)},{k})" for i, k in enumerate(self.keys))
+
+    def include(self, name):
+        """The encoder list as an include (+ its gated path variable); call after every value() of the page."""
+        vals = "".join(f"&amp;&amp;$INFO[{x}]" for x in self.keys + self.labels)
+        return [f'<variable name="{name}_Path">',
+                f'\t<value condition="{self.gate}">plugin://script.skinvariables/?info=get_encoded_string'
+                f"&amp;unencoded_paths=true{vals}</value>",
+                "</variable>",
+                f'<include name="{name}">',
+                f'\t<control type="list" id="{self.cid}">',
+                "\t\t<description>free text of the line paths, URL-encoded (Encoder in _src/make_map.py)</description>",
+                "\t\t<left>0</left><top>0</top><width>1</width><height>1</height>",
+                '\t\t<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>',
+                f"\t\t<content>$VAR[{name}_Path]</content>",
+                "\t</control>",
+                "</include>"]
+
+
+def qvar(name, sources, enc):
     """A variable whose value is a JSON string literal for an xsp rule.
 
-    sources: [(condition or None, infolabel)], first match wins, as in the plain variable. A matching
-    source whose value is empty or URL-unsafe gives "" (%22%22) instead of falling through.
+    sources: [(condition or None, infolabel)], first match wins, as in the plain variable. The value is the
+    encoder's copy (enc.value), used once enc.fresh; a matching source before that (or an empty value) gives ""
+    (%22%22) instead of falling through.
     """
     out = [f'<variable name="{name}">']
     for cond, label in sources:
         c = f"{cond} + " if cond else ""
-        out.append(f'\t<value condition="{c}{url_safe(label)}">{esc_info(label)}</value>')
+        out.append(f'\t<value condition="{c}{enc.fresh}">{enc.value(label)}</value>')
         if cond:
             out.append(f'\t<value condition="{cond}">%22%22</value>')
     out.append("\t<value>%22%22</value>")
     out.append("</variable>")
     return out
+
+
+def excl_value(enc, field, label, cond=None):
+    """%2C + an "isnot" rule for the centre's own title (no rule until the encoder has it)."""
+    c = f"{cond} + " if cond else ""
+    return f'<value condition="{c}{enc.fresh} + !String.IsEmpty({label})">%2C{ruleq(field, "isnot", enc.value(label))}</value>'
 
 
 def close(typ):
@@ -101,6 +190,7 @@ def close(typ):
 
 ROOT = {"movies": "videodb://movies/titles/?xsp=", "tvshows": "videodb://tvshows/titles/?xsp=", "albums": "musicdb://albums/?xsp="}
 UPFIELD = {"movies": "director", "tvshows": "studio"}
+MAP_ENC = Encoder("Map", [prop("kind"), prop("c.dbid"), "Container(9001).ListItem.DBID"], "$EXP[Map_Ready]")
 READY = f"$EXP[Map_Ready]"
 
 
@@ -137,9 +227,6 @@ def variables():
         a(f'\t<value condition="{d_ok}">$INFO[Container(9001).ListItem.Property(cast.{n}.name)]</value>')
         a(f'\t<value condition="{t_ok}">$INFO[Container(9002).ListItem.Property(cast.{n + 1}.name)]</value>')
         a("</variable>")
-    a('<variable name="Map_Genre">')
-    a(f'\t<value condition="{d_ok}">$INFO[Container(9001).ListItem.Property(genre.0)]</value>')
-    a("</variable>")
     # second star: next billed actor with >= 2 other films (probes 621-623 = cast 1-3)
     a('<variable name="Map_CoName">')
     a('\t<value condition="Integer.IsGreaterOrEqual(Container(621).NumItems,2)">$VAR[Map_Cast1]</value>')
@@ -153,17 +240,17 @@ def variables():
     # with either become "" (the rule matches nothing: an empty line, not a broken path).
     for v_ in qvar("Map_UpNameQ", [(f"{d_ok} + {is_tv}", "Container(9001).ListItem.Property(studio.0)"),
                                    (d_ok, "Container(9001).ListItem.Property(director.0)"),
-                                   (None, prop("c.dir"))]):
+                                   (None, prop("c.dir"))], MAP_ENC):
         a(v_)
     for n in range(4):
         for v_ in qvar(f"Map_Cast{n}Q", [(d_ok, f"Container(9001).ListItem.Property(cast.{n}.name)"),
-                                        (t_ok, f"Container(9002).ListItem.Property(cast.{n + 1}.name)")]):
+                                        (t_ok, f"Container(9002).ListItem.Property(cast.{n + 1}.name)")], MAP_ENC):
             a(v_)
-    for v_ in qvar("Map_GenreQ", [(d_ok, "Container(9001).ListItem.Property(genre.0)")]):
+    for v_ in qvar("Map_GenreQ", [(d_ok, "Container(9001).ListItem.Property(genre.0)")], MAP_ENC):
         a(v_)
-    for v_ in qvar("Map_DirQ", [(None, prop("c.dir"))]):
+    for v_ in qvar("Map_DirQ", [(None, prop("c.dir"))], MAP_ENC):
         a(v_)
-    for v_ in qvar("Map_CentreGenreQ", [(None, prop("c.genre"))]):
+    for v_ in qvar("Map_CentreGenreQ", [(None, prop("c.genre"))], MAP_ENC):
         a(v_)
     a('<variable name="Map_CoNameQ">')
     a('\t<value condition="Integer.IsGreaterOrEqual(Container(621).NumItems,2)">$VAR[Map_Cast1Q]</value>')
@@ -171,9 +258,9 @@ def variables():
     a('\t<value condition="Integer.IsGreaterOrEqual(Container(623).NumItems,2)">$VAR[Map_Cast3Q]</value>')
     a("\t<value>$VAR[Map_Cast1Q]</value>")
     a("</variable>")
-    # exclusion of the centre (title isnot), escaped; titles with '&' or '%' can't be expressed: no exclusion
+    # exclusion of the centre (title isnot), from the encoder
     a('<variable name="Map_Excl">')
-    a(f'\t<value condition="{url_safe(prop("c.title"))}">%2C{ruleq("title", "isnot", esc_info(prop("c.title")))}</value>')
+    a("\t" + excl_value(MAP_ENC, "title", prop("c.title")))
     a("</variable>")
     a('<variable name="Map_Unwatched">')
     a(f'\t<value condition="Skin.HasSetting({P}.map.unwatched)">%2C{rule("playcount", "is", "0")}</value>')
@@ -202,7 +289,7 @@ def variables():
             a(f'<variable name="Map_PathProbe{n}_{kind}"><value>{pth}</value></variable>')
     R = ROOT["albums"]
     excl_alb = f"$VAR[Map_ExclAlbum]{close('albums')}"
-    a(f'<variable name="Map_ExclAlbum"><value condition="{url_safe(prop("c.title"))}">%2C{ruleq("album", "isnot", esc_info(prop("c.title")))}</value></variable>')
+    a(f'<variable name="Map_ExclAlbum">{excl_value(MAP_ENC, "album", prop("c.title"))}</variable>')
     a(f'<variable name="Map_PathUp_albums"><value>{R}{OPEN}{ruleq("albumartist", "is", "$VAR[Map_DirQ]")}{excl_alb}</value></variable>')
     a(f'<variable name="Map_PathRight_albums"><value>{R}{OPEN}{ruleq("genre", "is", "$VAR[Map_CentreGenreQ]")}{excl_alb}</value></variable>')
     a(f'<variable name="Map_PathDown_albums"><value>{R}{OPEN}{rule("year", "is", info("c.year"))}{excl_alb}</value></variable>')
@@ -225,13 +312,6 @@ def variables():
     a(f'\t<value condition="{d_ok} + !String.IsEmpty(Container(9001).ListItem.Property(genre.0))">{info("c.year")} · $INFO[Container(9001).ListItem.Property(genre.0)]</value>')
     a(f"\t<value>{info('c.year')}</value>")
     a("</variable>")
-    a('<variable name="Map_LineKind_up">')
-    a(f'\t<value condition="{is_tv}">network</value>')
-    a("\t<value>director</value>")
-    a("</variable>")
-    a('<variable name="Map_LineKind_right"><value>lead</value></variable>')
-    a('<variable name="Map_LineKind_left"><value>second star</value></variable>')
-    a('<variable name="Map_LineKind_down"><value>year + genre</value></variable>')
     for ln, d in LINES.items():
         lst = d["lst"]
         a(f'<variable name="Map_Count_{ln}">')
@@ -246,7 +326,7 @@ def variables():
 
     # route colours
     a("<!-- ============================================================ route -->")
-    for s in ["c"] + [f"r{i}" for i in range(1, DEPTH + 1)]:
+    for s in ("c", "r1", "r2"):  # the route strip colours only the centre and the last two stops
         a(f'<variable name="Map_Col_{s}">')
         for kw, col in (("dir", "l_dir"), ("lead", "l_lead"), ("yg", "l_yg"), ("co", "l_co")):
             a(f'\t<value condition="String.IsEqual({prop(s + ".col")},{kw})">{col}</value>')
@@ -275,13 +355,9 @@ def variables():
     a(f'\t<value condition="String.IsEqual({prop("kind")},albums)">{info("c.year")}$INFO[{prop("c.dir")}, · ,]$INFO[{prop("c.genre")}, · ,]</value>')
     a(f"\t<value>{info('c.year')}$INFO[{prop('c.dir')}, · ,]</value>")
     a("</variable>")
-    a('<variable name="Map_CentreFile">')
-    a(f'\t<value condition="{d_ok} + !String.IsEmpty(Container(9001).ListItem.Property(file))">$INFO[Container(9001).ListItem.Property(file)]</value>')
-    a(f"\t<value>{info('c.file')}</value>")
-    a("</variable>")
     # next stop: the focused station of the focused line (or the centre)
     src = {ln: f"Container({d['lst']}).ListItem" for ln, d in LINES.items()}
-    for fld in ("Title", "Plot", "Year", "Rating", "Director", "Studio"):
+    for fld in ("Title", "Plot"):
         a(f'<variable name="Map_NS_{fld}">')
         if fld == "Title":
             for ln, d in LINES.items():
@@ -1105,12 +1181,6 @@ def more_vars():
         v.append(f'	<value condition="Control.HasFocus({d["btn"]})">$INFO[{sl}.Rating]</value>')
     v.append('	<value condition="$EXP[Map_DetailsMatch]">$INFO[Container(9001).ListItem.Rating]</value>')
     v.append("</variable>")
-    v.append('<variable name="Map_NS_RatingTxt">')
-    for ln, d in LINES.items():
-        s = f"Container({d['lst']}).ListItem"
-        v.append(f'\t<value condition="Control.HasFocus({d["btn"]}) + !String.IsEmpty({s}.Rating)"> · $INFO[{s}.Rating]/10</value>')
-    v.append('\t<value condition="$EXP[Map_DetailsMatch] + !String.IsEmpty(Container(9001).ListItem.Rating) + !Control.HasFocus(701) + !Control.HasFocus(702) + !Control.HasFocus(703) + !Control.HasFocus(704)"> · $INFO[Container(9001).ListItem.Rating]/10</value>')
-    v.append("</variable>")
     return v
 
 
@@ -1175,8 +1245,9 @@ def build_includes():
         parts.append("\t\t" + tag("onclick", a, c))
     parts.append("\t\t</definition>")
     parts.append("\t</include>")
+    parts += ["\t" + x for x in MAP_ENC.include("Map_Encoder")]
     parts.append("</includes>")
-    (OUT / "Includes_Map.xml").write_text("\n".join(parts) + "\n", encoding="utf-8")
+    (OUT / "Includes_Map.xml").write_text(localize_xml(kdk_mute("\n".join(parts)) + "\n", STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 def build_window():
@@ -1194,6 +1265,7 @@ def build_window():
 	<controls>
 		<include>SD_Background</include>
 		<include>Map_Data</include>
+		<include>Map_Encoder</include>
 		<include>Map_Lines</include>
 		<include>Map_Centre</include>
 		<include>Map_NextStop</include>
@@ -1211,7 +1283,7 @@ def build_window():
 	</controls>
 </window>
 """
-    (OUT / "Custom_1160_Map.xml").write_text(w, encoding="utf-8")
+    (OUT / "Custom_1160_Map.xml").write_text(localize_xml(w, STRINGS_PO), encoding="utf-8", newline="\n")
 
 
 def expand_exp(text, defs=None):

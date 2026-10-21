@@ -152,7 +152,7 @@
 				<height>30</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[DL_Ink3]</textcolor>
-				<label>Jump through the guide  ·  Back to close</label>
+				<label>$LOCALIZE[31214]</label>
 			</control>
 		</control>
 	</controls>

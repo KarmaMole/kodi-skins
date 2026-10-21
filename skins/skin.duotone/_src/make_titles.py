@@ -13,6 +13,7 @@ Anton metrics in Kodi (measured on device): line pitch = 0.8804 x size (linespac
 Usage: python skins/skin.duotone/_src/make_titles.py
 """
 from pathlib import Path
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parents[1] / "1080i" / "Includes_Titles.xml"
 NATURAL = 1.505
@@ -44,7 +45,7 @@ def masthead(name, desc, width, tiers, probe_base, label, color="$VAR[SectionTex
             "\t\t\t\t<top>$PARAM[top]</top>", f"\t\t\t\t<width>{width}</width>"]
     t = TAB * 4
     for i, (size, lines) in enumerate(tiers[:-1]):
-        out.append(textbox(t, -0.535 * size, width, pitch(size) * (lines + 0.5), size, label, "00ffffff", "true", tid=pid(i), align=align))
+        out.append(textbox(t, -0.535 * size, width, pitch(size) * (lines + 0.5), size, label, "clear", "true", tid=pid(i), align=align))
     for i, (size, lines) in enumerate(tiers):
         conds = [f"Integer.IsGreater(Container({pid(j)}).NumPages,1)" for j in range(i)]
         if i < len(tiers) - 1:
@@ -83,10 +84,10 @@ def main():
     for name, desc, width, tiers, base, label in SPECS:
         parts.append(masthead(name, desc, width, tiers, base, label))
     parts.append(masthead("Title_Spot", "Home spotlight title in the ink block, 968 wide, caps band 104 high. params: label, pb (probe id prefix)",
-                          968, [(104, 1), (72, 1), (48, 2)], 0, "$PARAM[label]", color="paper",
+                          968, [(104, 1), (72, 1), (48, 2)], 0, "$PARAM[label]", color="$VAR[paper]",
                           pid=lambda k: f"$PARAM[pb]{k}", extra_params=("label", "pb")))
     parts.append("</includes>" + NL)
-    OUT.write_text(NL.join(parts), encoding="utf-8", newline=NL)
+    OUT.write_text(finish_xml(NL.join(parts)), encoding="utf-8", newline=NL)
     print("wrote", OUT)
 
 

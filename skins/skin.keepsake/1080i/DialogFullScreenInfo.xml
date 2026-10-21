@@ -16,7 +16,6 @@
 			<height>1080</height>
 			<label></label>
 			<texturefocus />
-			<texturenofocus />
 			<onright>StepForward</onright>
 			<onleft>StepBack</onleft>
 			<onup>ChapterOrBigStepForward</onup>
@@ -92,7 +91,6 @@
 					<width>1150</width>
 					<height>122</height>
 					<font>body_26</font>
-					<textcolor>body</textcolor>
 					<label>$INFO[VideoPlayer.Plot]</label>
 					<autoscroll delay="7000" time="3000" repeat="10000">true</autoscroll>
 				</control>
@@ -115,7 +113,7 @@
 				<height>48</height>
 				<font>hand_34</font>
 				<textcolor>ink_faint</textcolor>
-				<label>left / right to skip  ·  ok for the words  ·  back to hide</label>
+				<label>$LOCALIZE[31315]</label>
 			</control>
 		</control>
 	</controls>

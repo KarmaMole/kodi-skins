@@ -25,7 +25,6 @@
 			<top>170</top>
 			<width>440</width>
 			<height>704</height>
-			<itemgap>0</itemgap>
 			<orientation>vertical</orientation>
 			<onleft>noop</onleft>
 			<onright>5</onright>
@@ -51,7 +50,6 @@
 			<top>170</top>
 			<width>820</width>
 			<height>864</height>
-			<itemgap>0</itemgap>
 			<pagecontrol>60</pagecontrol>
 			<onleft>3</onleft>
 			<onright>noop</onright>

@@ -21,9 +21,9 @@
 			<height>$PARAM[height]</height>
 			<font>$PARAM[font]</font>
 			<textcolor>$VAR[SectionText]</textcolor>
-			<focusedcolor>paper</focusedcolor>
+			<focusedcolor>$VAR[paper]</focusedcolor>
 			<disabledcolor>$VAR[SectionText3]</disabledcolor>
-			<invalidcolor>vermilion</invalidcolor>
+			<invalidcolor>$VAR[chip_films]</invalidcolor>
 			<selectedcolor>$VAR[SectionText]</selectedcolor>
 			<textoffsetx>20</textoffsetx>
 			<aligny>center</aligny>
@@ -70,7 +70,7 @@
 				<description>separator</description>
 				<width>$PARAM[width]</width>
 				<height>rule_h</height>
-				<texture colordiffuse="ink">common/hairline.png</texture>
+				<texture colordiffuse="$VAR[ink]">common/hairline.png</texture>
 			</control>
 			<control type="edit" id="12">
 				<description>Default Edit</description>
@@ -89,9 +89,9 @@
 				</include>
 				<sliderwidth>220</sliderwidth>
 				<sliderheight>8</sliderheight>
-				<texturesliderbar colordiffuse="8c888888">common/white.png</texturesliderbar>
+				<texturesliderbar colordiffuse="$VAR[track]">common/white.png</texturesliderbar>
 				<textureslidernib colordiffuse="$VAR[SectionText]">common/white.png</textureslidernib>
-				<textureslidernibfocus colordiffuse="paper">common/white.png</textureslidernibfocus>
+				<textureslidernibfocus colordiffuse="$VAR[paper]">common/white.png</textureslidernibfocus>
 			</control>
 			<control type="label" id="14">
 				<description>Default Label (group heading)</description>
@@ -124,7 +124,7 @@
 				<height>72</height>
 				<font>an_40</font>
 				<textcolor>$VAR[SectionText2]</textcolor>
-				<focusedcolor>paper</focusedcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
 				<selectedcolor>$VAR[SectionText]</selectedcolor>
 				<disabledcolor>$VAR[SectionText3]</disabledcolor>
 				<textoffsetx>20</textoffsetx>
@@ -150,7 +150,7 @@
 				<height>56</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText2]</textcolor>
-				<focusedcolor>paper</focusedcolor>
+				<focusedcolor>$VAR[paper]</focusedcolor>
 				<textoffsetx>20</textoffsetx>
 				<aligny>center</aligny>
 				<pulseonselect>false</pulseonselect>
@@ -239,7 +239,7 @@
 				<!-- own fades: without them Kodi draws this dim over the dialog (seen on Shield 2026-10-18) -->
 				<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
 				<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
-				<texture colordiffuse="ink_70">common/white.png</texture>
+				<texture colordiffuse="$VAR[scrim]">common/white.png</texture>
 			</control>
 			<control type="group">
 				<left>dlg_panel_x</left>
@@ -257,7 +257,7 @@
 					<top>0</top>
 					<width>rule_thick</width>
 					<height>screen_h</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 				</control>
 				<!-- tabs -->
 				<control type="group">
@@ -311,7 +311,7 @@
 					<top>200</top>
 					<width>dlg_panel_in_w</width>
 					<height>rule_thick</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 				</control>
 				<control type="grouplist" id="5">
 					<description>control area</description>
@@ -339,9 +339,9 @@
 					<top>209</top>
 					<width>2</width>
 					<height>608</height>
-					<texturesliderbackground colordiffuse="ink_12">common/white.png</texturesliderbackground>
-					<texturesliderbar colordiffuse="ink">common/white.png</texturesliderbar>
-					<texturesliderbarfocus colordiffuse="ink">common/white.png</texturesliderbarfocus>
+					<texturesliderbackground colordiffuse="$VAR[ink_12]">common/white.png</texturesliderbackground>
+					<texturesliderbar colordiffuse="$VAR[ink]">common/white.png</texturesliderbar>
+					<texturesliderbarfocus colordiffuse="$VAR[ink]">common/white.png</texturesliderbarfocus>
 					<orientation>vertical</orientation>
 				</control>
 				<control type="grouplist" id="9000">
@@ -366,7 +366,7 @@
 					<height>84</height>
 					<font>ui_22</font>
 					<textcolor>$VAR[SectionText3]</textcolor>
-					<label>Offsets apply to this film only. Choosing an offset hides this panel so you can sync against the picture.</label>
+					<label>$LOCALIZE[31339]</label>
 					<visible>Window.IsActive(osdaudiosettings) | Window.IsActive(osdsubtitlesettings)</visible>
 				</control>
 			</control>
@@ -393,11 +393,11 @@
 					<label>$PARAM[label]</label>
 					<font>cap_20</font>
 					<textcolor>$VAR[SectionText2]</textcolor>
-					<focusedcolor>paper</focusedcolor>
+					<focusedcolor>$VAR[paper]</focusedcolor>
 					<align>center</align>
 					<textoffsetx>0</textoffsetx>
 					<pulseonselect>false</pulseonselect>
-					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+					<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>
 					<texturenofocus />
 					<onleft>$PARAM[onleft]</onleft>
 					<onright>$PARAM[onright]</onright>
@@ -427,270 +427,8 @@
 					<top>36</top>
 					<width>$PARAM[uwidth]</width>
 					<height>4</height>
-					<texture colordiffuse="ink">common/white.png</texture>
+					<texture colordiffuse="$VAR[ink]">common/white.png</texture>
 					<visible>[$PARAM[current]] + !Control.HasFocus($PARAM[id])</visible>
-				</control>
-			</control>
-		</definition>
-	</include>
-	<!-- ============================================================ SkinSettings pieces -->
-	<!-- Category entry (Settings.dc.html nav): top hairline, mono index (accent when active),
-	     28px name (bold primary when active, medium tertiary otherwise), frame on focus.
-	     Focus selects the category (Window(Home).Property(duotone.skincat)).
-	     params: id, top, index, label, key, onright, onup, ondown -->
-	<include name="Dlg_SkinCategory">
-		<definition>
-			<control type="group">
-				<left>0</left>
-				<top>$PARAM[top]</top>
-				<width>settings_cat_w</width>
-				<height>72</height>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<width>settings_cat_w</width>
-					<height>rule_h</height>
-					<texture colordiffuse="ink">common/hairline.png</texture>
-				</control>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<width>settings_cat_w</width>
-					<height>72</height>
-					<texture border="16" colordiffuse="ink">$VAR[FocusFrameAlways]</texture>
-					<visible>Control.HasFocus($PARAM[id])</visible>
-				</control>
-				<control type="button" id="$PARAM[id]">
-					<left>0</left>
-					<top>0</top>
-					<width>settings_cat_w</width>
-					<height>72</height>
-					<label></label>
-					<texturefocus />
-					<texturenofocus />
-					<!-- not while returning from the rotation row's ReloadSkin(): the default control (9550) takes focus
-					     on open and would switch the page to Appearance under the refocused row 9521 -->
-					<onfocus condition="!String.IsEqual(Window(Home).Property(duotone.refocus),9521)">SetProperty(duotone.skincat,$PARAM[key],home)</onfocus>
-					<onup>$PARAM[onup]</onup>
-					<ondown>$PARAM[ondown]</ondown>
-					<onleft>noop</onleft>
-					<onright>$PARAM[onright]</onright>
-				</control>
-				<control type="label">
-					<left>20</left>
-					<top>0</top>
-					<width>36</width>
-					<height>72</height>
-					<font>cap_20</font>
-					<textcolor>$VAR[SectionText]</textcolor>
-					<label>[UPPERCASE]$PARAM[index][/UPPERCASE]</label>
-					<visible>String.IsEqual(Window(Home).Property(duotone.skincat),$PARAM[key])</visible>
-				</control>
-				<control type="label">
-					<left>20</left>
-					<top>0</top>
-					<width>36</width>
-					<height>72</height>
-					<font>cap_20</font>
-					<textcolor>$VAR[SectionText3]</textcolor>
-					<label>[UPPERCASE]$PARAM[index][/UPPERCASE]</label>
-					<visible>!String.IsEqual(Window(Home).Property(duotone.skincat),$PARAM[key])</visible>
-				</control>
-				<control type="label">
-					<left>56</left>
-					<top>0</top>
-					<width>310</width>
-					<height>72</height>
-					<font>bold_28</font>
-					<textcolor>$VAR[SectionText]</textcolor>
-					<label>$PARAM[label]</label>
-					<visible>String.IsEqual(Window(Home).Property(duotone.skincat),$PARAM[key])</visible>
-				</control>
-				<control type="label">
-					<left>56</left>
-					<top>0</top>
-					<width>310</width>
-					<height>72</height>
-					<font>ui_28</font>
-					<textcolor>$VAR[SectionText3]</textcolor>
-					<label>$PARAM[label]</label>
-					<visible>!String.IsEqual(Window(Home).Property(duotone.skincat),$PARAM[key])</visible>
-				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Row chrome (Settings.dc.html list row, 860 x 100): top hairline, focused = bg_raised fill
-	     widened 20px each side + 2px accent frame, 25px name (bold on focus) + mono hint.
-	     Place inside a group whose top is the row's y. params: id, label, hint, enable -->
-	<include name="Dlg_SkinRowChrome">
-		<param name="enable">true</param>
-		<definition>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<width>860</width>
-				<height>rule_h</height>
-				<texture colordiffuse="ink">common/hairline.png</texture>
-			</control>
-			<control type="group">
-				<visible>Control.HasFocus($PARAM[id])</visible>
-				<control type="image">
-					<left>-20</left>
-					<top>0</top>
-					<width>900</width>
-					<height>100</height>
-					<texture colordiffuse="ink_12">common/white.png</texture>
-				</control>
-				<control type="image">
-					<left>-21</left>
-					<top>-1</top>
-					<width>902</width>
-					<height>102</height>
-					<texture border="16" colordiffuse="ink">$VAR[FocusFrameAlways]</texture>
-				</control>
-			</control>
-			<control type="label">
-				<left>0</left>
-				<top>22</top>
-				<width>520</width>
-				<height>34</height>
-				<font>bold_26</font>
-				<textcolor>$VAR[SectionText]</textcolor>
-				<label>$PARAM[label]</label>
-				<visible>!Control.HasFocus($PARAM[id]) + [$PARAM[enable]]</visible>
-			</control>
-			<control type="label">
-				<left>0</left>
-				<top>22</top>
-				<width>520</width>
-				<height>34</height>
-				<font>bold_26</font>
-				<textcolor>$VAR[SectionText]</textcolor>
-				<label>$PARAM[label]</label>
-				<visible>Control.HasFocus($PARAM[id])</visible>
-			</control>
-			<control type="label">
-				<left>0</left>
-				<top>22</top>
-				<width>520</width>
-				<height>34</height>
-				<font>bold_26</font>
-				<textcolor>$VAR[SectionText3]</textcolor>
-				<label>$PARAM[label]</label>
-				<visible>![$PARAM[enable]]</visible>
-			</control>
-			<control type="label">
-				<left>0</left>
-				<top>62</top>
-				<width>520</width>
-				<height>18</height>
-				<font>cap_20</font>
-				<textcolor>$VAR[SectionText3]</textcolor>
-				<label>$PARAM[hint]</label>
-			</control>
-		</definition>
-	</include>
-
-	<!-- The invisible focus target of a SkinSettings row (actions are written per row). -->
-	<include name="Dlg_SkinRowButton">
-		<left>-20</left>
-		<top>0</top>
-		<width>900</width>
-		<height>100</height>
-		<label></label>
-		<texturefocus />
-		<texturenofocus />
-		<pulseonselect>false</pulseonselect>
-	</include>
-
-	<!-- Segmented control, DESIGN 7.7: 1px border_control frame; selected option filled bone with
-	     bold ink text (accent fill when the row has focus); others regular text_secondary.
-	     Dlg_SegOption params: left, width, label, selected (condition), row (row button id)
-	     Dlg_SegFrame params: left, width (draw AFTER the options) -->
-	<include name="Dlg_SegOption">
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>25</top>
-				<width>$PARAM[width]</width>
-				<height>50</height>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>50</height>
-					<texture border="10" colordiffuse="$VAR[SectionText]">$VAR[ButtonFill]</texture>
-					<visible>[$PARAM[selected]] + !Control.HasFocus($PARAM[row])</visible>
-				</control>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>50</height>
-					<texture border="10" colordiffuse="ink">$VAR[ButtonFill]</texture>
-					<visible>[$PARAM[selected]] + Control.HasFocus($PARAM[row])</visible>
-				</control>
-				<control type="label">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>50</height>
-					<align>center</align>
-					<font>bold_22</font>
-					<textcolor>paper</textcolor>
-					<label>$PARAM[label]</label>
-					<visible>$PARAM[selected]</visible>
-				</control>
-				<control type="label">
-					<left>0</left>
-					<top>0</top>
-					<width>$PARAM[width]</width>
-					<height>50</height>
-					<align>center</align>
-					<font>ui_22</font>
-					<textcolor>$VAR[SectionText2]</textcolor>
-					<label>$PARAM[label]</label>
-					<visible>![$PARAM[selected]]</visible>
-				</control>
-			</control>
-		</definition>
-	</include>
-	<include name="Dlg_SegFrame">
-		<definition>
-			<control type="image">
-				<left>$PARAM[left]</left>
-				<top>25</top>
-				<width>$PARAM[width]</width>
-				<height>50</height>
-				<texture border="10" colordiffuse="ink">$VAR[ButtonOutline]</texture>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Accent swatch (36px) with a 2px bone ring 4px out when it is the current accent.
-	     params: left, color (named colour), selected (condition) -->
-	<include name="Dlg_Swatch">
-		<definition>
-			<control type="group">
-				<left>$PARAM[left]</left>
-				<top>32</top>
-				<width>36</width>
-				<height>36</height>
-				<control type="image">
-					<left>0</left>
-					<top>0</top>
-					<width>36</width>
-					<height>36</height>
-					<texture border="10" colordiffuse="$PARAM[color]">$VAR[ButtonFill]</texture>
-				</control>
-				<control type="image">
-					<left>focus_out</left>
-					<top>focus_out</top>
-					<width>50</width>
-					<height>50</height>
-					<texture border="16" colordiffuse="$VAR[SectionText]">$VAR[FocusFrameAlways]</texture>
-					<visible>$PARAM[selected]</visible>
 				</control>
 			</control>
 		</definition>
@@ -710,68 +448,31 @@
 	<expression name="Dlg_Rotate15">!String.IsEqual(Skin.String(duotone.spotlightrotate),off) + !String.IsEqual(Skin.String(duotone.spotlightrotate),8) + !String.IsEqual(Skin.String(duotone.spotlightrotate),30)</expression>
 
 	<!-- ============================================================ SkinSettings labels -->
-	<variable name="Dlg_ArtDiffuse">
-		<value condition="String.IsEqual(Skin.String(duotone.artbackground),soft)">white</value>
-		<value condition="String.IsEqual(Skin.String(duotone.artbackground),visible)">white</value>
-		<value>white</value>
-	</variable>
-	<variable name="Dlg_ArtLabel">
-		<value condition="$EXP[Dlg_ArtOff]">Off</value>
-		<value condition="$EXP[Dlg_ArtSoft]">Soft (45%)</value>
-		<value condition="$EXP[Dlg_ArtVisible]">Visible (65%)</value>
-		<value>Faint (30%)</value>
-	</variable>
-	<variable name="Dlg_SkinPreviewCaption">
-		<value condition="Control.HasFocus(9510)">Preview  ·  $VAR[AccentName]</value>
-		<value condition="Control.HasFocus(9511) + false">Preview  ·  Rounded</value>
-		<value condition="Control.HasFocus(9511)">Preview  ·  Square</value>
-		<value condition="Control.HasFocus(9512)">Preview  ·  $VAR[LabelFocusOutline]</value>
-		<value condition="Control.HasFocus(9513)">Preview  ·  $VAR[Dlg_ArtLabel]</value>
-		<value condition="Control.HasFocus(9515)">Preview  ·  $VAR[LabelWatchedMarkers]</value>
-		<value>Preview  ·  $VAR[Dlg_ArtLabel]</value>
-	</variable>
-	<variable name="Dlg_SkinHelp">
-		<value condition="Control.HasFocus(9550)">Colour, corners, focus outline and the artwork behind the page. Changes apply at once; changing the corners reloads the skin.[CR][CR]Up / Down picks a category, Right enters it.</value>
-		<value condition="Control.HasFocus(9551)">What sits under the spotlight on Home, and how often the spotlight moves on.</value>
-		<value condition="Control.HasFocus(9552)">Motion, and a way back to the defaults.</value>
-		<value condition="Control.HasFocus(9510)">One colour marks where you are: the focus outline, the active menu item, unwatched markers, progress bars and the Play button.[CR][CR]Left / Right picks a colour. Text on the accent is always near-black, so every option stays readable.</value>
-		<value condition="Control.HasFocus(9511)">Square or slightly rounded (8 px) corners on posters, album covers, episode thumbnails and buttons.[CR][CR]Changing it reloads the skin, which takes a second.</value>
-		<value condition="Control.HasFocus(9512)">The stroke around the selected poster. Off keeps the zoom, so focus never disappears; lists, buttons and dialogs always keep their frame.</value>
-		<value condition="Control.HasFocus(9513) + !System.AddonIsEnabled(plugin.video.themoviedb.helper)">Needs TMDb Helper, which isn't enabled, so the artwork background stays off.</value>
-		<value condition="Control.HasFocus(9513)">A heavily blurred copy of the spotlighted or selected film's poster sits behind the page at low opacity.[CR][CR]Made once per film by TMDb Helper from a small thumbnail, then cached. It waits until you stop scrolling, so browsing never slows down. Off uses nothing at all.</value>
-		<value condition="Control.HasFocus(9514)">Shows a Trailer button next to Play and Details on Home and the info page. It only appears when the film has a trailer link; playback goes through the YouTube add-on.</value>
-		<value condition="Control.HasFocus(9515)">Unwatched: a small accent square. Watched: a check tab. TV shows add the unwatched count and a progress bar. Keep either, both or none.</value>
-		<value condition="Control.HasFocus(9516)">Where the subtitle and audio offset strip appears while you sync. Top keeps bottom-aligned subtitles in view; pick Bottom if your subtitles sit at the top of the screen.</value>
-		<value condition="Control.HasFocus(9520)">Date added: films in the order they arrived. Release date: newest premieres first. Both: two rows, date added first.</value>
-		<value condition="Control.HasFocus(9522)">How long the playback controls stay up after your last button press. They stay while paused and while a menu is open.</value>
-		<value condition="Control.HasFocus(9521)">How often the spotlight moves to the next film. It pauses while focus is on Play, Details or Trailer.</value>
-		<value condition="Control.HasFocus(9530)">Replaces zooms and slides with short fades. Focus changes stay instant.</value>
-		<value condition="Control.HasFocus(9531)">Puts every Duotone setting back to its default and reloads the skin. Press OK twice to confirm.</value>
-		<value>Duotone's own options. Kodi's settings live under Settings; switch skins in Settings > Interface > Skin.</value>
-	</variable>
 	<!-- SKINSETTINGS-GENERATED -->
 	<variable name="Skin_Help">
-		<value condition="Control.HasFocus(9501)">Every picture in a section is printed in its colour; the focused one bursts into full colour. Light keeps more of the art. Off shows everything in colour.</value>
-		<value condition="Control.HasFocus(9502)">TMDb Helper turns the big artwork (Home spotlight, info page) into a black-and-white print first, so the section colour prints cleanly. Off: the colour art is tinted.</value>
-		<value condition="Control.HasFocus(9503)">The fine dot screen over every field and print.</value>
-		<value condition="Control.HasFocus(9504)">No field wipe, no focus zoom, no slides: short fades only.</value>
-		<value condition="Control.HasFocus(9505)">Watched: a black block with a tick on watched posters. Both adds a small square on unwatched ones.</value>
-		<value condition="Control.HasFocus(9506)">Show TRAILER on the info page when a film has a trailer (plays via YouTube).</value>
-		<value condition="Control.HasFocus(9507)">How often the Home spotlight moves to the next pick. Changing it reloads the skin.</value>
-		<value condition="Control.HasFocus(9508)">Seconds of no input before the playback controls hide by themselves (not while paused).</value>
-		<value condition="Control.HasFocus(9509)">Where the slim strip sits while you sync audio or subtitles.</value>
-		<value condition="Control.HasFocus(9510)">Puts every Duotone setting back to its default and reloads the skin. Press OK twice.</value>
+		<value condition="Control.HasFocus(9501)">Colour: every section in its own colour. Light and Dark: the same pages in black and white, near-white or near-black. The focused picture still bursts into full colour.</value>
+		<value condition="Control.HasFocus(9502)">Every picture in a section is printed in its colour; the focused one bursts into full colour. Light keeps more of the art. Off shows everything in colour.</value>
+		<value condition="Control.HasFocus(9503)">TMDb Helper turns the big artwork (Home spotlight, info page) into a black-and-white print first, so the section colour prints cleanly. Off: the colour art is tinted.</value>
+		<value condition="Control.HasFocus(9504)">The fine dot screen over every field and print.</value>
+		<value condition="Control.HasFocus(9505)">No field wipe, no focus zoom, no slides: short fades only.</value>
+		<value condition="Control.HasFocus(9506)">Watched: an ink block with a tick on watched posters. Both adds a small square on unwatched ones.</value>
+		<value condition="Control.HasFocus(9507)">Show TRAILER on the info page when a film has a trailer (plays via YouTube).</value>
+		<value condition="Control.HasFocus(9508)">How often the Home spotlight moves to the next pick. Changing it reloads the skin.</value>
+		<value condition="Control.HasFocus(9509)">Seconds of no input before the playback controls hide by themselves (not while paused).</value>
+		<value condition="Control.HasFocus(9510)">Where the slim strip sits while you sync audio or subtitles.</value>
+		<value condition="Control.HasFocus(9511)">Puts every Duotone setting back to its default and reloads the skin. Press OK twice.</value>
 	</variable>
 	<variable name="Skin_HelpTitle">
-		<value condition="Control.HasFocus(9501)">Monotone prints</value>
-		<value condition="Control.HasFocus(9502)">True black and white</value>
-		<value condition="Control.HasFocus(9503)">Halftone dots</value>
-		<value condition="Control.HasFocus(9504)">Reduce motion</value>
-		<value condition="Control.HasFocus(9505)">Watched marks</value>
-		<value condition="Control.HasFocus(9506)">Trailer block</value>
-		<value condition="Control.HasFocus(9507)">Spotlight rotation</value>
-		<value condition="Control.HasFocus(9508)">OSD auto-hide</value>
-		<value condition="Control.HasFocus(9509)">Offset strip</value>
+		<value condition="Control.HasFocus(9501)">Look</value>
+		<value condition="Control.HasFocus(9502)">Monotone prints</value>
+		<value condition="Control.HasFocus(9503)">True black and white</value>
+		<value condition="Control.HasFocus(9504)">Halftone dots</value>
+		<value condition="Control.HasFocus(9505)">Reduce motion</value>
+		<value condition="Control.HasFocus(9506)">Watched marks</value>
+		<value condition="Control.HasFocus(9507)">Trailer block</value>
+		<value condition="Control.HasFocus(9508)">Spotlight rotation</value>
+		<value condition="Control.HasFocus(9509)">OSD auto-hide</value>
+		<value condition="Control.HasFocus(9510)">Offset strip</value>
 		<value>Reset</value>
 	</variable>
 	<variable name="Skin_ResetLabel">

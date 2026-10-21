@@ -12,7 +12,7 @@
 			<top>0</top>
 			<width>screen_w</width>
 			<height>screen_h</height>
-			<texture colordiffuse="vermilion">common/white.png</texture>
+			<texture colordiffuse="$VAR[sec_films]">common/white.png</texture>
 		</control>
 		<include>DT_FieldDots</include>
 		<control type="label">
@@ -20,10 +20,9 @@
 			<top>434</top>
 			<width>1800</width>
 			<height>212</height>
-			<aligny>center</aligny>
 			<font>an_236</font>
-			<textcolor>ink</textcolor>
-			<label>Duotone</label>
+			<textcolor>$VAR[ink]</textcolor>
+			<label>$LOCALIZE[31024]</label>
 		</control>
 	</controls>
 </window>

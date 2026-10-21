@@ -202,9 +202,6 @@
 	<variable name="Home_Plot_9106">
 		<value></value>
 	</variable>
-	<variable name="Home_Art_9106">
-		<value></value>
-	</variable>
 	<variable name="Home_Hint_9106">
 		<value>Select to open</value>
 	</variable>
@@ -224,9 +221,6 @@
 		<value>$INFO[Container(9107).ListItem.Label2]</value>
 	</variable>
 	<variable name="Home_Plot_9107">
-		<value></value>
-	</variable>
-	<variable name="Home_Art_9107">
 		<value></value>
 	</variable>
 	<variable name="Home_Hint_9107">
@@ -592,20 +586,20 @@
 				<focusedlayout height="4" width="4">
 				</focusedlayout>
 				<content>
-					<item><label>Now playing</label><label2>$INFO[MusicPlayer.Artist,,[COLOR sep_light]  ·  [/COLOR]]$INFO[Player.Title]</label2><property name="kicker">Playing</property><onclick>ActivateWindow(visualisation)</onclick><visible>Player.HasAudio + !Player.HasVideo</visible></item>
-					<item><label>Now playing</label><label2>$INFO[Player.Title]</label2><property name="kicker">Playing</property><onclick>ActivateWindow(fullscreenvideo)</onclick><visible>Player.HasVideo</visible></item>
-					<item><label>Movies</label><label2>$INFO[Window(Home).Property(Movies.Count),, films]$INFO[Window(Home).Property(Movies.UnWatched),[COLOR sep_light]  ·  [/COLOR], unwatched]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Videos,videodb://movies/titles/,return)</onclick><visible>Library.HasContent(movies)</visible></item>
-					<item><label>TV Shows</label><label2>$INFO[Window(Home).Property(TVShows.Count),, shows]$INFO[Window(Home).Property(Episodes.Count),[COLOR sep_light]  ·  [/COLOR], episodes]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick><visible>Library.HasContent(tvshows)</visible></item>
-					<item><label>Music</label><label2>$INFO[Window(Home).Property(Music.AlbumsCount),, albums]$INFO[Window(Home).Property(Music.ArtistsCount),[COLOR sep_light]  ·  [/COLOR], artists]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Music,musicdb://albums/,return)</onclick><visible>Library.HasContent(music)</visible></item>
-					<item><label>Music videos</label><label2>$INFO[Window(Home).Property(MusicVideos.Count),, videos]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Videos,videodb://musicvideos/titles/,return)</onclick><visible>Library.HasContent(musicvideos)</visible></item>
-					<item><label>Live TV</label><label2>Channels and the guide</label2><property name="kicker">Library</property><onclick>ActivateWindow(TVChannels)</onclick><visible>System.HasPVRAddon</visible></item>
-					<item><label>Weather</label><label2>$INFO[Weather.Temperature]$INFO[Weather.Conditions,[COLOR sep_light]  ·  [/COLOR],]$INFO[Weather.Location,[COLOR sep_light]  ·  [/COLOR],]</label2><property name="kicker">Outside</property><onclick>ActivateWindow(Weather)</onclick><visible>!String.IsEmpty(Weather.Conditions)</visible></item>
-					<item><label>Add-ons</label><label2>Video, music and program add-ons</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(AddonBrowser,addons://sources/video/,return)</onclick></item>
-					<item><label>Favourites</label><label2>Things you starred</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(FavouritesBrowser)</onclick></item>
-					<item><label>Pictures</label><label2>Photo sources</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(Pictures)</onclick></item>
-					<item><label>Files</label><label2>Browse video sources</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(Videos,sources://video/,return)</onclick></item>
-					<item><label>Settings</label><label2>Kodi, the skin, your profile</label2><property name="kicker">System</property><onclick>ActivateWindow(Settings)</onclick></item>
-					<item><label>System</label><label2>Update or clean the library, power</label2><property name="kicker">System</property><onclick>ActivateWindow(1151)</onclick></item>
+					<item><label>$LOCALIZE[31300]</label><label2>$INFO[MusicPlayer.Artist,,[COLOR sep_light]  ·  [/COLOR]]$INFO[Player.Title]</label2><property name="kicker">Playing</property><onclick>ActivateWindow(visualisation)</onclick><visible>Player.HasAudio + !Player.HasVideo</visible></item>
+					<item><label>$LOCALIZE[31300]</label><label2>$INFO[Player.Title]</label2><property name="kicker">Playing</property><onclick>ActivateWindow(fullscreenvideo)</onclick><visible>Player.HasVideo</visible></item>
+					<item><label>$LOCALIZE[31301]</label><label2>$INFO[Window(Home).Property(Movies.Count),, films]$INFO[Window(Home).Property(Movies.UnWatched),[COLOR sep_light]  ·  [/COLOR], unwatched]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Videos,videodb://movies/titles/,return)</onclick><visible>Library.HasContent(movies)</visible></item>
+					<item><label>$LOCALIZE[31302]</label><label2>$INFO[Window(Home).Property(TVShows.Count),, shows]$INFO[Window(Home).Property(Episodes.Count),[COLOR sep_light]  ·  [/COLOR], episodes]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick><visible>Library.HasContent(tvshows)</visible></item>
+					<item><label>$LOCALIZE[31211]</label><label2>$INFO[Window(Home).Property(Music.AlbumsCount),, albums]$INFO[Window(Home).Property(Music.ArtistsCount),[COLOR sep_light]  ·  [/COLOR], artists]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Music,musicdb://albums/,return)</onclick><visible>Library.HasContent(music)</visible></item>
+					<item><label>$LOCALIZE[31303]</label><label2>$INFO[Window(Home).Property(MusicVideos.Count),, videos]</label2><property name="kicker">Library</property><onclick>ActivateWindow(Videos,videodb://musicvideos/titles/,return)</onclick><visible>Library.HasContent(musicvideos)</visible></item>
+					<item><label>$LOCALIZE[31304]</label><label2>$LOCALIZE[31312]</label2><property name="kicker">Library</property><onclick>ActivateWindow(TVChannels)</onclick><visible>System.HasPVRAddon</visible></item>
+					<item><label>$LOCALIZE[31305]</label><label2>$INFO[Weather.Temperature]$INFO[Weather.Conditions,[COLOR sep_light]  ·  [/COLOR],]$INFO[Weather.Location,[COLOR sep_light]  ·  [/COLOR],]</label2><property name="kicker">Outside</property><onclick>ActivateWindow(Weather)</onclick><visible>!String.IsEmpty(Weather.Conditions)</visible></item>
+					<item><label>$LOCALIZE[31306]</label><label2>$LOCALIZE[31313]</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(AddonBrowser,addons://sources/video/,return)</onclick></item>
+					<item><label>$LOCALIZE[31307]</label><label2>$LOCALIZE[31314]</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(FavouritesBrowser)</onclick></item>
+					<item><label>$LOCALIZE[31308]</label><label2>$LOCALIZE[31315]</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(Pictures)</onclick></item>
+					<item><label>$LOCALIZE[31309]</label><label2>$LOCALIZE[31316]</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(Videos,sources://video/,return)</onclick></item>
+					<item><label>$LOCALIZE[31310]</label><label2>$LOCALIZE[31317]</label2><property name="kicker">System</property><onclick>ActivateWindow(Settings)</onclick></item>
+					<item><label>$LOCALIZE[31311]</label><label2>$LOCALIZE[31318]</label2><property name="kicker">System</property><onclick>ActivateWindow(1151)</onclick></item>
 				</content>
 			</control>
 			<control type="fixedlist" id="9107">
@@ -634,7 +628,7 @@
 				<focusedlayout height="4" width="4">
 				</focusedlayout>
 				<content>
-					<item><label>Search</label><label2>Films, shows, episodes, people and music</label2><property name="kicker">Find</property><onclick>ActivateWindow(1150)</onclick></item>
+					<item><label>$LOCALIZE[31208]</label><label2>$LOCALIZE[31319]</label2><property name="kicker">Find</property><onclick>ActivateWindow(1150)</onclick></item>
 				</content>
 			</control>
 		</control>
@@ -1016,7 +1010,7 @@
 					<aligny>top</aligny>
 					<font>serif_72</font>
 					<textcolor>neighbour</textcolor>
-					<label>Nothing here</label>
+					<label>$LOCALIZE[31012]</label>
 				</control>
 				<control type="label">
 					<left>160</left>
@@ -1026,7 +1020,7 @@
 					<aligny>top</aligny>
 					<font>sans_26</font>
 					<textcolor>grey</textcolor>
-					<label>Nothing in progress. Start a show and its next episode waits here.</label>
+					<label>$LOCALIZE[31320]</label>
 				</control>
 			</control>
 			<!-- hint (layer 2) -->
@@ -1156,7 +1150,7 @@
 					<aligny>top</aligny>
 					<font>serif_72</font>
 					<textcolor>neighbour</textcolor>
-					<label>Nothing here</label>
+					<label>$LOCALIZE[31012]</label>
 				</control>
 				<control type="label">
 					<left>160</left>
@@ -1166,7 +1160,7 @@
 					<aligny>top</aligny>
 					<font>sans_26</font>
 					<textcolor>grey</textcolor>
-					<label>Nothing here yet.</label>
+					<label>$LOCALIZE[31321]</label>
 				</control>
 			</control>
 			<!-- hint (layer 2) -->
@@ -1296,7 +1290,7 @@
 					<aligny>top</aligny>
 					<font>serif_72</font>
 					<textcolor>neighbour</textcolor>
-					<label>Nothing here</label>
+					<label>$LOCALIZE[31012]</label>
 				</control>
 				<control type="label">
 					<left>160</left>
@@ -1306,7 +1300,7 @@
 					<aligny>top</aligny>
 					<font>sans_26</font>
 					<textcolor>grey</textcolor>
-					<label>Nothing here yet.</label>
+					<label>$LOCALIZE[31321]</label>
 				</control>
 			</control>
 			<!-- hint (layer 2) -->
@@ -1436,7 +1430,7 @@
 					<aligny>top</aligny>
 					<font>serif_72</font>
 					<textcolor>neighbour</textcolor>
-					<label>Nothing here</label>
+					<label>$LOCALIZE[31012]</label>
 				</control>
 				<control type="label">
 					<left>160</left>
@@ -1446,7 +1440,7 @@
 					<aligny>top</aligny>
 					<font>sans_26</font>
 					<textcolor>grey</textcolor>
-					<label>No albums yet.</label>
+					<label>$LOCALIZE[31322]</label>
 				</control>
 			</control>
 			<!-- hint (layer 2) -->
@@ -1576,7 +1570,7 @@
 					<aligny>top</aligny>
 					<font>serif_72</font>
 					<textcolor>neighbour</textcolor>
-					<label>Nothing here</label>
+					<label>$LOCALIZE[31012]</label>
 				</control>
 				<control type="label">
 					<left>160</left>
@@ -1586,7 +1580,7 @@
 					<aligny>top</aligny>
 					<font>sans_26</font>
 					<textcolor>grey</textcolor>
-					<label>No shows yet.</label>
+					<label>$LOCALIZE[31323]</label>
 				</control>
 			</control>
 			<!-- hint (layer 2) -->
@@ -1716,7 +1710,7 @@
 					<aligny>top</aligny>
 					<font>serif_72</font>
 					<textcolor>neighbour</textcolor>
-					<label>Nothing here</label>
+					<label>$LOCALIZE[31012]</label>
 				</control>
 				<control type="label">
 					<left>160</left>
@@ -1856,7 +1850,7 @@
 					<aligny>top</aligny>
 					<font>serif_72</font>
 					<textcolor>neighbour</textcolor>
-					<label>Nothing here</label>
+					<label>$LOCALIZE[31012]</label>
 				</control>
 				<control type="label">
 					<left>160</left>

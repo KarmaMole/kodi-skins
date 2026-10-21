@@ -1,0 +1,24 @@
+1.0.0 (2026-10-21) - first release
+The whole skin: Home, the music library in five views (Cover wall, Crate dig, Shelf of spines, Orbit, List), Time machine, the Wheel, Now Playing with Up next and Liner notes, the mini player, films and TV (Cover wall, Backdrop carousel, List), info pages, the video player, Search, every dialog and settings window, in a Dark and a Light room.
+
+Changes since the device audit:
+- Shuffle is honest. With the KarmaMole Skin Helper add-on (script.karmamole.helper, the shared helper for KarmaMole's skins; it was the Groove helper), Shuffle, Play mix and Play year are true shuffles. Without it, Kodi can't shuffle a single play without switching shuffle on for good, so Groove doesn't pretend: album and artist info show Play but no Shuffle, the Wheel's button says Play, and Play year plays the year in library order. No Groove button ever changes Kodi's shuffle setting.
+- Time machine: Play year works without the helper (it failed to play before).
+- Album info: the Liner notes button only appears when there is something to read (a review, a biography, or label / style / mood), so it no longer opens an almost empty page.
+- Song info: the artist is shown once, not twice.
+- Home: the Time machine label fits its tile; the update / clean cards are drawn above the icon rail and leave with Up or Left (Back goes to the player while something plays); the mini player steps aside on the Music section, whose hero is the playing album.
+- Libraries: the mini player steps aside while the top row of a Cover wall has focus, so it no longer covers the top-right cover.
+- Reduce motion: labels and highlights no longer disappear for good after they first hide, and focused covers no longer stay enlarged after focus leaves.
+- Video: the seek bar's playhead follows the film while paused; set info no longer shows "Ends" at the current time; film and episode info pack "Ends" at the end of the facts line.
+- Round artist pictures stay round on wide photos; keyboard Caps / Shift keys are wider; the Shelf of spines runs at a steady 60 fps on the Shield.
+- Films: the Library panel (Left / Right at a view's edge, or Options) has a Sets row while you browse films and the library has sets. It opens all your sets in the same window; Back walks back from a set to the sets, then to the films. Sets get the same views as films (Cover wall, Backdrop carousel, List).
+- Skin settings: Install KarmaMole Skin Helper and Install album colours for visualisers rows while those optional add-ons are missing (Enable ... while installed but turned off). Kodi never installs optional add-ons by itself.
+- Code clean-up for the Kodi repository checks. Side effects: the game controller dialogs show their text and controller pictures (they used colour names Groove doesn't define), and the Liner notes biography and Watch the video now also work for artists and songs with "&" in the name (they look things up by library id instead of by name). Search now needs Skin Variables (script.skinvariables, installed with the skin) and finds titles with & | + % in them.
+- Known limit: Kodi draws subtitles beneath the skin, so while the video controls are open they can sit over the button row (dimmed but readable). A skin can't move them; Kodi's subtitle position settings (Settings > Player > Subtitles) can.
+
+0.1.0 (2026-10-21) - first build (M1)
+- Engine forked from Nocturne 0.9.6 (_src/fork_engine.py): OSD auto-hide, play-start curtain, library panel, view picker and clean confirmation (No focused), system menu, search, every Kodi window.
+- Two rooms from one set of XML: Dark (default) and Light (Skin settings > Room). Every colour is a room token; playback over video and the visualiser stay dark.
+- Jost type family (OFL), Groove colours, constants, strings.
+- Home: the icon rail (Music, Films, TV, Search, Settings) with the focused section's art lighting the room.
+- Skin settings: Room, Record, Glow strength, Now Playing opens in, Mini player, Reduce motion, TMDb Helper colours, Playback controls, Restore defaults.

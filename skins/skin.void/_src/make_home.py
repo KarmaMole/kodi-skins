@@ -40,29 +40,29 @@ N = len(SHELVES)
 STATIC_ITEMS = {
     9106: [
         # label, label2 (meta), kicker, onclick, visible
-        ("Now playing", "$INFO[MusicPlayer.Artist,,[COLOR sep_light]  ·  [/COLOR]]$INFO[Player.Title]", "Playing",
+        ("$LOCALIZE[31300]", "$INFO[MusicPlayer.Artist,,[COLOR sep_light]  ·  [/COLOR]]$INFO[Player.Title]", "Playing",
          "ActivateWindow(visualisation)", "Player.HasAudio + !Player.HasVideo"),
-        ("Now playing", "$INFO[Player.Title]", "Playing", "ActivateWindow(fullscreenvideo)", "Player.HasVideo"),
-        ("Movies", "$INFO[Window(Home).Property(Movies.Count),, films]$INFO[Window(Home).Property(Movies.UnWatched),[COLOR sep_light]  ·  [/COLOR], unwatched]",
+        ("$LOCALIZE[31300]", "$INFO[Player.Title]", "Playing", "ActivateWindow(fullscreenvideo)", "Player.HasVideo"),
+        ("$LOCALIZE[31301]", "$INFO[Window(Home).Property(Movies.Count),, films]$INFO[Window(Home).Property(Movies.UnWatched),[COLOR sep_light]  ·  [/COLOR], unwatched]",
          "Library", "ActivateWindow(Videos,videodb://movies/titles/,return)", "Library.HasContent(movies)"),
-        ("TV Shows", "$INFO[Window(Home).Property(TVShows.Count),, shows]$INFO[Window(Home).Property(Episodes.Count),[COLOR sep_light]  ·  [/COLOR], episodes]",
+        ("$LOCALIZE[31302]", "$INFO[Window(Home).Property(TVShows.Count),, shows]$INFO[Window(Home).Property(Episodes.Count),[COLOR sep_light]  ·  [/COLOR], episodes]",
          "Library", "ActivateWindow(Videos,videodb://tvshows/titles/,return)", "Library.HasContent(tvshows)"),
-        ("Music", "$INFO[Window(Home).Property(Music.AlbumsCount),, albums]$INFO[Window(Home).Property(Music.ArtistsCount),[COLOR sep_light]  ·  [/COLOR], artists]",
+        ("$LOCALIZE[31211]", "$INFO[Window(Home).Property(Music.AlbumsCount),, albums]$INFO[Window(Home).Property(Music.ArtistsCount),[COLOR sep_light]  ·  [/COLOR], artists]",
          "Library", "ActivateWindow(Music,musicdb://albums/,return)", "Library.HasContent(music)"),
-        ("Music videos", "$INFO[Window(Home).Property(MusicVideos.Count),, videos]",
+        ("$LOCALIZE[31303]", "$INFO[Window(Home).Property(MusicVideos.Count),, videos]",
          "Library", "ActivateWindow(Videos,videodb://musicvideos/titles/,return)", "Library.HasContent(musicvideos)"),
-        ("Live TV", "Channels and the guide", "Library", "ActivateWindow(TVChannels)", "System.HasPVRAddon"),
-        ("Weather", "$INFO[Weather.Temperature]$INFO[Weather.Conditions,[COLOR sep_light]  ·  [/COLOR],]$INFO[Weather.Location,[COLOR sep_light]  ·  [/COLOR],]",
+        ("$LOCALIZE[31304]", "$LOCALIZE[31312]", "Library", "ActivateWindow(TVChannels)", "System.HasPVRAddon"),
+        ("$LOCALIZE[31305]", "$INFO[Weather.Temperature]$INFO[Weather.Conditions,[COLOR sep_light]  ·  [/COLOR],]$INFO[Weather.Location,[COLOR sep_light]  ·  [/COLOR],]",
          "Outside", "ActivateWindow(Weather)", "!String.IsEmpty(Weather.Conditions)"),
-        ("Add-ons", "Video, music and program add-ons", "Elsewhere", "ActivateWindow(AddonBrowser,addons://sources/video/,return)", ""),
-        ("Favourites", "Things you starred", "Elsewhere", "ActivateWindow(FavouritesBrowser)", ""),
-        ("Pictures", "Photo sources", "Elsewhere", "ActivateWindow(Pictures)", ""),
-        ("Files", "Browse video sources", "Elsewhere", "ActivateWindow(Videos,sources://video/,return)", ""),
-        ("Settings", "Kodi, the skin, your profile", "System", "ActivateWindow(Settings)", ""),
-        ("System", "Update or clean the library, power", "System", "ActivateWindow(1151)", ""),
+        ("$LOCALIZE[31306]", "$LOCALIZE[31313]", "Elsewhere", "ActivateWindow(AddonBrowser,addons://sources/video/,return)", ""),
+        ("$LOCALIZE[31307]", "$LOCALIZE[31314]", "Elsewhere", "ActivateWindow(FavouritesBrowser)", ""),
+        ("$LOCALIZE[31308]", "$LOCALIZE[31315]", "Elsewhere", "ActivateWindow(Pictures)", ""),
+        ("$LOCALIZE[31309]", "$LOCALIZE[31316]", "Elsewhere", "ActivateWindow(Videos,sources://video/,return)", ""),
+        ("$LOCALIZE[31310]", "$LOCALIZE[31317]", "System", "ActivateWindow(Settings)", ""),
+        ("$LOCALIZE[31311]", "$LOCALIZE[31318]", "System", "ActivateWindow(1151)", ""),
     ],
     9107: [
-        ("Search", "Films, shows, episodes, people and music", "Find", "ActivateWindow(1150)", ""),
+        ("$LOCALIZE[31208]", "$LOCALIZE[31319]", "Find", "ActivateWindow(1150)", ""),
     ],
 }
 
@@ -180,7 +180,8 @@ def shelf_vars(n, i, kind):
     else:
         art = [(f"!String.IsEmpty({C(i,'Art(fanart)')})", f"$INFO[{C(i,'Art(fanart)')}]"),
                (None, f"$INFO[{C(i,'Art(landscape)')}]")]
-    v.append(var(f"Home_Art_{i}", art))
+    if kind != "static":  # static shelves draw no ambient art
+        v.append(var(f"Home_Art_{i}", art))
     # hint
     if kind == "static":
         hint = [(None, "Select to open")]
@@ -310,10 +311,10 @@ def shelf_display(n, i, kind):
     has = f"Integer.IsGreater(Container({i}).NumItems,0)"
     amb = f"$EXP[Dwell3] + !Container({i}).Scrolling + {art_cond(i, kind)}"
     empty_msg = {
-        "nextup": "Nothing in progress. Start a show and its next episode waits here.",
-        "movie": "Nothing here yet.",
-        "album": "No albums yet.",
-        "show": "No shows yet.",
+        "nextup": "$LOCALIZE[31320]",
+        "movie": "$LOCALIZE[31321]",
+        "album": "$LOCALIZE[31322]",
+        "show": "$LOCALIZE[31323]",
         "static": "",
     }[kind]
     return f"""		<!-- ===== shelf {n}: display ===== -->
@@ -436,7 +437,7 @@ def shelf_display(n, i, kind):
 					<aligny>top</aligny>
 					<font>serif_72</font>
 					<textcolor>neighbour</textcolor>
-					<label>Nothing here</label>
+					<label>$LOCALIZE[31012]</label>
 				</control>
 				<control type="label">
 					<left>160</left>
@@ -622,7 +623,7 @@ def main():
         parts.append(shelf_display(n, i, kind))
     parts.append("\t</include>")
     parts.append("</includes>\n")
-    OUT.write_text("\n".join(parts), encoding="utf-8")
+    OUT.write_text("\n".join(parts), encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

@@ -18,15 +18,12 @@
 			<height>80</height>
 			<aligny>top</aligny>
 			<font>serif_64</font>
-			<textcolor>text</textcolor>
 		</control>
 		<control type="textbox" id="9">
 			<left>160</left>
 			<top>440</top>
 			<width>1100</width>
 			<height>202</height>
-			<font>sans_28</font>
-			<textcolor>text_body</textcolor>
 			<autoscroll time="3000" delay="4000" repeat="5000">true</autoscroll>
 		</control>
 		<control type="progress" id="20">

@@ -38,8 +38,6 @@
 					<width>1320</width>
 					<height>3</height>
 					<info>Player.Progress</info>
-					<texturebg colordiffuse="rule_track">common/white.png</texturebg>
-					<midtexture colordiffuse="ink">common/white.png</midtexture>
 				</control>
 				<control type="label">
 					<left>300</left>
@@ -49,7 +47,7 @@
 					<align>center</align>
 					<font>cap_20</font>
 					<textcolor>ink2</textcolor>
-					<label>Left and right to seek · Down for the controls</label>
+					<label>$LOCALIZE[31202]</label>
 				</control>
 			</control>
 			<control type="grouplist" id="200">

@@ -19,36 +19,30 @@
 		<font><name>serif_28</name><filename>YoungSerif-Regular.ttf</filename><size>28</size><linespacing>1.01</linespacing></font>
 		<font><name>serif_26</name><filename>YoungSerif-Regular.ttf</filename><size>26</size><linespacing>1.03</linespacing></font>
 		<font><name>cap_20</name><filename>SentenceCaps-Bold.ttf</filename><size>20</size><style>uppercase</style></font>
-		<font><name>cap_22</name><filename>SentenceCaps-Bold.ttf</filename><size>22</size><style>uppercase</style></font>
 		<font><name>ui_20</name><filename>Manrope-Medium.ttf</filename><size>20</size><linespacing>1.03</linespacing></font>
 		<font><name>ui_20_bold</name><filename>Manrope-Bold.ttf</filename><size>20</size></font>
 		<font><name>ui_22</name><filename>Manrope-Medium.ttf</filename><size>22</size><linespacing>1.13</linespacing></font>
 		<font><name>ui_22_bold</name><filename>Manrope-Bold.ttf</filename><size>22</size></font>
 		<font><name>ui_24</name><filename>Manrope-Medium.ttf</filename><size>24</size></font>
 		<font><name>ui_24_bold</name><filename>Manrope-Bold.ttf</filename><size>24</size></font>
-		<font><name>ui_26</name><filename>Manrope-Medium.ttf</filename><size>26</size></font>
-		<font><name>ui_26_bold</name><filename>Manrope-Bold.ttf</filename><size>26</size></font>
 		<font><name>ui_28_bold</name><filename>Manrope-Bold.ttf</filename><size>28</size></font>
 		<font><name>ui_30_bold</name><filename>Manrope-Bold.ttf</filename><size>30</size></font>
-		<font><name>ui_34_bold</name><filename>Manrope-Bold.ttf</filename><size>34</size></font>
 		<font><name>body_24</name><filename>Manrope-Medium.ttf</filename><size>24</size><linespacing>1.159</linespacing></font>
 		<font><name>body_26</name><filename>Manrope-Medium.ttf</filename><size>26</size><linespacing>1.126</linespacing></font>
 		<font><name>num_20</name><filename>SentenceNum-Bold.ttf</filename><size>20</size></font>
 		<font><name>num_22</name><filename>SentenceNum-Bold.ttf</filename><size>22</size></font>
-		<font><name>num_24</name><filename>SentenceNum-Bold.ttf</filename><size>24</size></font>
-		<font><name>num_28</name><filename>SentenceNum-Bold.ttf</filename><size>28</size></font>
-		<font><name>font10</name><filename>Manrope-Medium.ttf</filename><size>22</size></font>
-		<font><name>font12</name><filename>Manrope-Medium.ttf</filename><size>24</size></font>
-		<font><name>font14</name><filename>Manrope-Medium.ttf</filename><size>28</size></font>
-		<font><name>font27</name><filename>Manrope-Medium.ttf</filename><size>26</size></font>
-		<font><name>font30</name><filename>Manrope-Bold.ttf</filename><size>30</size></font>
-		<font><name>font37</name><filename>Manrope-Bold.ttf</filename><size>34</size></font>
-		<font><name>font45</name><filename>YoungSerif-Regular.ttf</filename><size>44</size></font>
-		<font><name>font52_title</name><filename>YoungSerif-Regular.ttf</filename><size>52</size></font>
-		<font><name>font45_title</name><filename>YoungSerif-Regular.ttf</filename><size>44</size></font>
-		<font><name>font36_title</name><filename>YoungSerif-Regular.ttf</filename><size>36</size></font>
-		<font><name>font30_title</name><filename>YoungSerif-Regular.ttf</filename><size>30</size></font>
-		<font><name>font25_title</name><filename>Manrope-Bold.ttf</filename><size>24</size></font>
+		<font><name>font10</name><filename>Manrope-Medium.ttf</filename><size>22</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font12</name><filename>Manrope-Medium.ttf</filename><size>24</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font14</name><filename>Manrope-Medium.ttf</filename><size>28</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font27</name><filename>Manrope-Medium.ttf</filename><size>26</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30</name><filename>Manrope-Bold.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font37</name><filename>Manrope-Bold.ttf</filename><size>34</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45</name><filename>YoungSerif-Regular.ttf</filename><size>44</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font52_title</name><filename>YoungSerif-Regular.ttf</filename><size>52</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45_title</name><filename>YoungSerif-Regular.ttf</filename><size>44</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font36_title</name><filename>YoungSerif-Regular.ttf</filename><size>36</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30_title</name><filename>YoungSerif-Regular.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font25_title</name><filename>Manrope-Bold.ttf</filename><size>24</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
 		<font><name>Mono26</name><filename>SentenceNum-Bold.ttf</filename><size>26</size></font>
 	</fontset>
 	<fontset id="Arial" idloc="31901">
@@ -68,36 +62,30 @@
 		<font><name>serif_28</name><filename>arial.ttf</filename><size>28</size><linespacing>1.01</linespacing></font>
 		<font><name>serif_26</name><filename>arial.ttf</filename><size>26</size><linespacing>1.03</linespacing></font>
 		<font><name>cap_20</name><filename>arial.ttf</filename><size>20</size><style>uppercase</style></font>
-		<font><name>cap_22</name><filename>arial.ttf</filename><size>22</size><style>uppercase</style></font>
 		<font><name>ui_20</name><filename>arial.ttf</filename><size>20</size><linespacing>1.03</linespacing></font>
 		<font><name>ui_20_bold</name><filename>arial.ttf</filename><size>20</size></font>
 		<font><name>ui_22</name><filename>arial.ttf</filename><size>22</size><linespacing>1.13</linespacing></font>
 		<font><name>ui_22_bold</name><filename>arial.ttf</filename><size>22</size></font>
 		<font><name>ui_24</name><filename>arial.ttf</filename><size>24</size></font>
 		<font><name>ui_24_bold</name><filename>arial.ttf</filename><size>24</size></font>
-		<font><name>ui_26</name><filename>arial.ttf</filename><size>26</size></font>
-		<font><name>ui_26_bold</name><filename>arial.ttf</filename><size>26</size></font>
 		<font><name>ui_28_bold</name><filename>arial.ttf</filename><size>28</size></font>
 		<font><name>ui_30_bold</name><filename>arial.ttf</filename><size>30</size></font>
-		<font><name>ui_34_bold</name><filename>arial.ttf</filename><size>34</size></font>
 		<font><name>body_24</name><filename>arial.ttf</filename><size>24</size><linespacing>1.159</linespacing></font>
 		<font><name>body_26</name><filename>arial.ttf</filename><size>26</size><linespacing>1.126</linespacing></font>
 		<font><name>num_20</name><filename>arial.ttf</filename><size>20</size></font>
 		<font><name>num_22</name><filename>arial.ttf</filename><size>22</size></font>
-		<font><name>num_24</name><filename>arial.ttf</filename><size>24</size></font>
-		<font><name>num_28</name><filename>arial.ttf</filename><size>28</size></font>
-		<font><name>font10</name><filename>arial.ttf</filename><size>22</size></font>
-		<font><name>font12</name><filename>arial.ttf</filename><size>24</size></font>
-		<font><name>font14</name><filename>arial.ttf</filename><size>28</size></font>
-		<font><name>font27</name><filename>arial.ttf</filename><size>26</size></font>
-		<font><name>font30</name><filename>arial.ttf</filename><size>30</size></font>
-		<font><name>font37</name><filename>arial.ttf</filename><size>34</size></font>
-		<font><name>font45</name><filename>arial.ttf</filename><size>44</size></font>
-		<font><name>font52_title</name><filename>arial.ttf</filename><size>52</size></font>
-		<font><name>font45_title</name><filename>arial.ttf</filename><size>44</size></font>
-		<font><name>font36_title</name><filename>arial.ttf</filename><size>36</size></font>
-		<font><name>font30_title</name><filename>arial.ttf</filename><size>30</size></font>
-		<font><name>font25_title</name><filename>arial.ttf</filename><size>24</size></font>
+		<font><name>font10</name><filename>arial.ttf</filename><size>22</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font12</name><filename>arial.ttf</filename><size>24</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font14</name><filename>arial.ttf</filename><size>28</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font27</name><filename>arial.ttf</filename><size>26</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30</name><filename>arial.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font37</name><filename>arial.ttf</filename><size>34</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45</name><filename>arial.ttf</filename><size>44</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font52_title</name><filename>arial.ttf</filename><size>52</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font45_title</name><filename>arial.ttf</filename><size>44</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font36_title</name><filename>arial.ttf</filename><size>36</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font30_title</name><filename>arial.ttf</filename><size>30</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
+		<font><name>font25_title</name><filename>arial.ttf</filename><size>24</size></font> <!-- kdk-ignore: fonts; Estuary font name kept for add-on script windows -->
 		<font><name>Mono26</name><filename>arial.ttf</filename><size>26</size></font>
 	</fontset>
 </fonts>

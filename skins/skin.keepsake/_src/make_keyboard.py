@@ -15,6 +15,8 @@ side buttons (Done / Cancel / layout / voice / IP) in a column at x 1504.
 Usage:  python skins/skin.majan/_src/make_keyboard.py
 """
 from pathlib import Path
+from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
+from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
 OUT = Path(__file__).resolve().parent.parent / "1080i" / "DialogKeyboard.xml"
 
@@ -187,7 +189,7 @@ def main():
     _sys.path.insert(0, str(Path(__file__).resolve().parent))
     from fork_from_majan import transform
     xml = transform(xml)
-    OUT.write_text(xml, encoding="utf-8")
+    OUT.write_text(finish_xml(strip_defaults(xml, OUT.parent / "Defaults.xml")), encoding="utf-8", newline="\n")
     print(f"wrote {OUT}")
 
 

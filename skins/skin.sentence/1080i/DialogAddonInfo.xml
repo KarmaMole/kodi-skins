@@ -93,7 +93,6 @@
 				<width>1000</width>
 				<height>40</height>
 				<font>ui_24_bold</font>
-				<textcolor>text</textcolor>
 				<label>$INFO[ListItem.AddonSummary]</label>
 			</control>
 			<control type="group">
@@ -110,11 +109,7 @@
 					<align>right</align>
 					<font>cap_20</font>
 					<textcolor>muted</textcolor>
-					<focusedcolor>on_lilac</focusedcolor>
 					<textoffsetx>12</textoffsetx>
-					<pulseonselect>false</pulseonselect>
-					<texturefocus border="8" colordiffuse="lilac">sentence/round6.png</texturefocus>
-					<texturenofocus />
 					<label>$VAR[Dlg_AddonNewsLabel]</label>
 					<onclick condition="String.IsEmpty(Window(Home).Property(sentence.addonnews))">SetProperty(sentence.addonnews,1,home)</onclick>
 					<onclick condition="!String.IsEmpty(Window(Home).Property(sentence.addonnews))">ClearProperty(sentence.addonnews,home)</onclick>
@@ -136,7 +131,6 @@
 				<width>1264</width>
 				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<label>$INFO[ListItem.AddonDescription]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 				<visible>String.IsEmpty(Window(Home).Property(sentence.addonnews))</visible>
@@ -147,7 +141,6 @@
 				<width>1264</width>
 				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_24</font>
-				<textcolor>body</textcolor>
 				<label>$INFO[ListItem.AddonNews]</label>
 				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
 				<visible>!String.IsEmpty(Window(Home).Property(sentence.addonnews))</visible>
@@ -250,16 +243,10 @@
 				<width>238</width>
 				<height>dialog_row_h</height>
 				<font>ui_22_bold</font>
-				<textcolor>text</textcolor>
-				<focusedcolor>on_lilac</focusedcolor>
 				<textoffsetx>16</textoffsetx>
 				<radiowidth>18</radiowidth>
 				<radioheight>18</radioheight>
 				<include>Dlg_Tex_DialogButton</include>
-				<textureradioonfocus colordiffuse="on_lilac">markers/check.png</textureradioonfocus>
-				<textureradioonnofocus colordiffuse="lilac">markers/check.png</textureradioonnofocus>
-				<textureradioofffocus border="8" colordiffuse="on_lilac">sentence/outline6.png</textureradioofffocus>
-				<textureradiooffnofocus border="8" colordiffuse="rule_strong">sentence/outline6.png</textureradiooffnofocus>
 				<visible>Control.IsEnabled(13)</visible>
 			</control>
 			<include content="Sen_DialogButton">

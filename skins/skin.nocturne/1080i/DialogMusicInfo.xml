@@ -72,7 +72,6 @@
 					<width>440</width>
 					<height>372</height>
 					<font>body_24</font>
-					<textcolor>text_body</textcolor>
 					<label>$VAR[Music_InfoDescription]</label>
 				</control>
 			</control>
@@ -171,7 +170,6 @@
 				<width>1144</width>
 				<height>84</height>
 				<orientation>horizontal</orientation>
-				<itemgap>0</itemgap>
 				<include content="Music_StatCell">
 					<param name="label" value="Year"/>
 					<param name="value" value="$INFO[ListItem.Year]"/>

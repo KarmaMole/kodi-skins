@@ -73,7 +73,7 @@
 				<height>30</height>
 				<font>mono_14</font>
 				<textcolor>text_secondary</textcolor>
-				<label>BUFFERING</label>
+				<label>$LOCALIZE[31293]</label>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -91,7 +91,6 @@
 				<width>272</width>
 				<height>2</height>
 				<info>Player.CacheLevel</info>
-				<texturebg colordiffuse="hairline_strong">common/white.png</texturebg>
 				<midtexture colordiffuse="$VAR[ColorAccent]">common/white.png</midtexture>
 			</control>
 		</control>

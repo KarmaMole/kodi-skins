@@ -38,7 +38,7 @@
 				<height>40</height>
 				<font>ui_24</font>
 				<textcolor>muted</textcolor>
-				<label>Up takes you to the sentence above, where you can change it.</label>
+				<label>$LOCALIZE[31370]</label>
 			</control>
 		</control>
 		<include>Music_NowPlayingBar</include>

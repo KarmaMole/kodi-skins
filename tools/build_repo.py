@@ -73,7 +73,7 @@ ul{{list-style:none;padding:0;border-top:1px solid var(--line)}} ul li{{padding:
 .v{{font:13px ui-monospace,monospace;color:var(--dim)}} .s{{color:var(--dim)}}
 </style></head><body><main>
 <h1>KarmaMole's Kodi Skins</h1>
-<p>Twelve skins for Kodi 21 Omega, designed for the TV and tested on an NVIDIA Shield. Free under the GPL-2.0.</p>
+<p>Thirteen skins for Kodi 21 Omega, designed for the TV and tested on an NVIDIA Shield. Free under the GPL-2.0.</p>
 <h2>Install</h2>
 <ol>
 <li>In Kodi: <b>Settings → System → Add-ons</b>, turn on <b>Unknown sources</b>.</li>

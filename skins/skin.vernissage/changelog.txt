@@ -1,0 +1,61 @@
+1.0.0 (2026-10-22) - first release
+The whole skin: a private gallery that changes with the light (a Day room, four dusk steps, an Evening room), Home
+with Tonight's exhibition, Still on the easel and New in the collection, the back office, the library in three views
+(Salon, Gallery wall, Catalogue) with the curator's placard, the information pages, the listening room with
+Visualiser mode and Presets, the video player, Search, every dialog and settings window. Grey prints and the easel
+come from the optional KarmaMole Skin Helper (1.1.0); without it the walls fall back to Kodi's own lists.
+
+Changes since the device audit:
+- Album, artist and song placards in the library end on their last line; the rule with an empty line under it is
+  gone (Kodi's music lists carry no track count).
+- Times read without leading zeros: "1:01 of 48:12", "0:34", and h:mm:ss for an hour or more (the paused layer, the
+  seek bar, the music transport and Visualiser band, the forked player strips).
+
+Device audit fixes (M5, 2026-10-22, version stays 0.1.0)
+- Dusk step 1: secondary text is darker (#46433F), so the Home hint and rail icons stay readable in the room's
+  shaded corner.
+- Series of works and series in the library: the placard no longer prints "2 of 7 seen" / "6 episodes to go" twice.
+- Album information and the listening room: no stray " · " when an album has no record label (also artist years,
+  styles and moods).
+- Search: reopening it when the wall you left has no works for the kept query lands on the query line instead of
+  leaving nothing in focus.
+- Home without the KarmaMole Skin Helper: its lists no longer ask the missing add-on for items (no log errors); a
+  series card on the easel shows its genres instead of repeating the year and network.
+
+QA fixes (2026-10-21, version stays 0.1.0)
+- "Acquired <month> <year>" reads the date in any region's format and hides when it can't (the premise takes the
+  room).
+- Listening room: Info shows only for songs in the library; Left / Right skip it otherwise.
+- A premise cut at its last line ends in a fade and "…"; the same for the fullscreen info plot; the title's fade now
+  covers the text.
+
+M3 (2026-10-21, version stays 0.1.0 until the release build)
+- The placard (info): film, series, season, episode and set on the curator's card beside the work, as tall as the
+  mat: title in Fraunces (80 / 64 / 52), byline, genres, studio and countries, tagline, premise, cast, media flags,
+  rating and status, "3 of 3 in <set>", runtime and end time, the next episode of a series; Play / Resume /
+  Episodes / Works / Trailer / More; the More card with the plot, the facts, From the start, Series of works, Choose
+  art, Refresh and the cast row.
+- Album / artist / song placard with the disc behind the sleeve, Play, Shuffle (KarmaMole Skin Helper), Tracklist,
+  More.
+- The listening room: the sleeve hung as a work, the static disc, the curator's card with the track, progress and
+  next track; Visualiser mode with a readable band, Presets one press from Play / Pause, song information.
+- Playback: the corner placard, progress line with a knob and a time chip, the icon row (Play / Pause, Stop,
+  chapters, Subtitles, Audio, Info, Settings), the paused layer, the seek bar, fullscreen info.
+- Placards: missing fields never leave a hole (the premise grows into the room, the two gaps are exactly equal);
+  the Salon placard carries the premise; the top and bottom Salon rows stay on screen; header words on the grid.
+- The art-coloured spotlight (KarmaMole Skin Helper colours) on Home, the library views, info and the listening room;
+  Home's episode placards take the show's plot from the helper (KarmaMole.ShowPlot).
+
+M2 (2026-10-21, version stays 0.1.0 until the release build)
+- Home: Tonight re-hung daily (20 slices of the unseen films, gallery day 5 am to 5 am) and narrowed by the minutes
+  left before midnight; Still on the easel and New in the collection from the KarmaMole Skin Helper 1.1.0, or two-part
+  walls from Kodi's own nodes without it; the rail, the back office (Room, Skin / Kodi settings, Update, Clean with its
+  own "No"-first card, Add-ons, Files, Pictures, Favourites, Live TV, Power), the Now playing card, the next-room hint.
+- The collection: Salon, Gallery wall and Catalogue for every content, header words, the Library panel with Sets, the
+  view picker with schematic previews (video and music), first-visit views.
+- The curator's card (DESIGN 6 revision): fitted one-line titles, tagline, premise, media flags, rating and status,
+  collection, acquired date, runtime and end time; fields close up, the drop order is solved at build time.
+- Grey prints from the helper in every unfocused work (ghost prints without it, colour with Grey prints off).
+0.1.0 (2026-10-21)
+- First build (M1): forked from Groove 1.0.1. Five-step room engine (Day, three dusk steps, Evening) with a
+  contrast proof, Inter Tight + Fraunces, Home with the icon rail and the Tonight wall, every Kodi window present.

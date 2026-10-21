@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	skin.vernissage palette (docs/skin.vernissage/DESIGN.md section 3, SPEC section 5). AARRGGBB.
+
+	FIVE LIGHT STEPS, ONE SET OF XML (docs/skin.vernissage/CONVENTIONS.md section 4):
+	  step 0 = Day, steps 1-3 = dusk, step 4 = Evening (SPEC 5). Every room token exists as day_<token> and
+	  eve_<token>; text tokens may add dusk1_ / dusk2_ / dusk3_ overrides (a step whose wall needs another ink2).
+	  _src/make_rooms.py turns them into one variable per token (1080i/Includes_Rooms.xml) that picks by step, and
+	  writes the composite step colours of the GROUND tokens (s1_ / s2_ / s3_, below the marker) from the Evening
+	  layer's alpha per step. Windows ONLY write $VAR[<token>]: never day_ / eve_ / dusk / s1-3 names, never hex.
+	  _src/check_contrast.py proves ink and ink2 >= 4.5:1 on the wall AND on the card at every step.
+
+	Static colours (the same at every step) are the only names a window may use without $VAR:
+	  white, black, clear, white_NN (alpha multipliers for art), wall_static (window backgroundcolor: no $VAR there),
+	  track_on_video, scrim_pause, scrim_band (playback is always Evening).
+
+	Values: DESIGN.md section 3 (visual-designer). Dusk overrides and the step alphas: skin-architect M1, provisional
+	until visual-designer's step palettes land (SPEC 21 task 1); check_contrast.py holds any replacement to 4.5:1.
+-->
+<colors>
+	<!-- ===================================================== grounds (composited per step by make_rooms.py) -->
+	<color name="day_wall">fff4f2ee</color>           <!-- the room -->
+	<color name="eve_wall">ff16161a</color>
+	<color name="day_card">ffffffff</color>           <!-- placard / dialog card ground -->
+	<color name="eve_card">ff1f1f24</color>
+	<color name="day_card_edge">ffd6d2cb</color>      <!-- 1 px placard edge -->
+	<color name="eve_card_edge">ff2a2a30</color>
+	<color name="day_rule">ffd6d2cb</color>           <!-- hairlines, progress tracks. Never text -->
+	<color name="eve_rule">ff34343b</color>
+	<color name="day_placard_rule">ffd6d2cb</color>   <!-- the 56 x 2 rule inside a placard -->
+	<color name="eve_placard_rule">ff4a4a52</color>
+	<color name="day_mat">ffffffff</color>            <!-- mat around the lit work ("lit mat" in Evening) -->
+	<color name="eve_mat">ffe6e1d8</color>
+	<color name="day_frame">ff2a2826</color>          <!-- 2 px hairline frame outside the mat -->
+	<color name="eve_frame">ff0b0b0d</color>
+
+	<!-- ===================================================== text and focus (switch to Evening at step 2) -->
+	<color name="day_ink">ff1e1d1b</color>            <!-- titles, key facts ("ends ..."), focused labels -->
+	<color name="eve_ink">ffedebe6</color>
+	<color name="day_ink2">ff5f5c57</color>           <!-- secondary facts, captions, hints, unfocused icons -->
+	<color name="dusk1_ink2">ff46433f</color>         <!-- step 1 wall ~#D3D1CE, vignette corner #B4B2B1 (TV, M5): ff56534e read 3.63:1 there, this 4.66 -->
+	<color name="dusk2_ink2">ffc6c4bf</color>         <!-- step 2 (wall #3E3E40, pool skirt #504F4E): eve ink2 is 4.39 / 3.36:1, this 6.12 / 4.69 -->
+	<color name="dusk3_ink2">ffb4b2ad</color>         <!-- step 3 (pool skirt #444242): eve ink2 is 4.10:1 there, this 4.71 -->
+	<color name="eve_ink2">ffa8a6a1</color>
+	<color name="day_progress">ff1e1d1b</color>       <!-- progress fill (= ink) -->
+	<color name="eve_progress">ffedebe6</color>
+	<color name="day_focus_fill">121e1d1b</color>     <!-- 7 % charcoal: the focused icon's disc, focused row ground -->
+	<color name="eve_focus_fill">14ffffff</color>     <!-- 8 % white -->
+	<color name="day_on_ink">fff4f2ee</color>         <!-- text on an ink-coloured fill -->
+	<color name="eve_on_ink">ff16161a</color>
+	<color name="day_disabled">661e1d1b</color>       <!-- disabled text (WCAG exempt) -->
+	<color name="eve_disabled">59edebe6</color>
+	<color name="day_logo_tint">ff1e1d1b</color>      <!-- clearlogos as ink silhouettes by day -->
+	<color name="eve_logo_tint">ffffffff</color>
+	<color name="day_scrim">4d1e1d1b</color>          <!-- the room behind a dialog card: a DARK role token, never ink -->
+	<color name="eve_scrim">cc0a0a0c</color>
+	<color name="day_scrim_card">8cf4f2ee</color>     <!-- the room behind a Home / library card: by day it LIGHTENS -->
+	<color name="eve_scrim_card">b30a0a0c</color>
+	<color name="day_scrim_soft">331e1d1b</color>
+	<color name="eve_scrim_soft">8c0a0a0c</color>
+
+	<!-- ===================================================== art and light (images; inside list layouts use two
+	     controls per room, LESSONS Groove M3: a layout keeps the colordiffuse it was built with) -->
+	<color name="day_print_tint">b3ffffff</color>     <!-- grey print, Day: 70 % over the wall -->
+	<color name="eve_print_tint">ff8c8c8c</color>     <!-- grey print, Evening: multiply .55 -->
+	<color name="day_ghost_tint">4dffffff</color>     <!-- no-helper ghost: colour art at 30 % -->
+	<color name="eve_ghost_tint">38ffffff</color>     <!-- 22 % -->
+	<color name="day_spot">4dfff0da</color>           <!-- the pool (Evening; by day its layer fades to 0, SPEC 5) -->
+	<color name="eve_spot">4dfff0da</color>           <!-- spot FFF0DA at spot_alpha 30 % -->
+	<color name="day_shadow">8c1e1d1b</color>         <!-- Day shadow 9-slice (55 %) -->
+	<color name="eve_shadow">8c1e1d1b</color>         <!-- (its layer fades to 0 from step 2) -->
+
+	<!-- ===================================================== static -->
+	<color name="white">ffffffff</color>
+	<color name="black">ff000000</color>
+	<color name="clear">00ffffff</color>
+	<color name="wall_static">ff16161a</color>        <!-- window <backgroundcolor> (takes no $VAR) -->
+	<color name="track_on_video">47edebe6</color>     <!-- progress track over video (28 %) -->
+	<color name="scrim_pause">6b0a0a0c</color>        <!-- paused video dim (42 %) -->
+	<color name="scrim_band">b80a0a0c</color>         <!-- bottom band under the OSD (scrim_bottom.png 0 to 72 %) -->
+	<color name="white_10">1affffff</color>           <!-- alpha multipliers for art / white masks -->
+	<color name="white_20">33ffffff</color>
+	<color name="white_30">4dffffff</color>
+	<color name="white_40">66ffffff</color>
+	<color name="white_45">73ffffff</color>
+	<color name="white_55">8cffffff</color>
+	<color name="white_65">a6ffffff</color>
+	<color name="white_70">b3ffffff</color>
+	<color name="white_80">ccffffff</color>
+	<color name="white_90">e6ffffff</color>
+
+	<!-- ===== GENERATED by _src/make_rooms.py: composite step colours of the ground tokens. Do not edit below. ===== -->
+	<color name="s1_wall">ffd3d1ce</color>   <!-- step 1: eve over day at 15 % -->
+	<color name="s2_wall">ff3e3e40</color>   <!-- step 2: eve over day at 82 % -->
+	<color name="s3_wall">ff28282b</color>   <!-- step 3: eve over day at 92 % -->
+	<color name="s1_card">ffddddde</color>   <!-- step 1: eve over day at 15 % -->
+	<color name="s2_card">ff47474b</color>   <!-- step 2: eve over day at 82 % -->
+	<color name="s3_card">ff313136</color>   <!-- step 3: eve over day at 92 % -->
+	<color name="s1_card_edge">ffbcb9b4</color>   <!-- step 1: eve over day at 15 % -->
+	<color name="s2_card_edge">ff49484c</color>   <!-- step 2: eve over day at 82 % -->
+	<color name="s3_card_edge">ff38373c</color>   <!-- step 3: eve over day at 92 % -->
+	<color name="s1_rule">ffbebab5</color>   <!-- step 1: eve over day at 15 % -->
+	<color name="s2_rule">ff515055</color>   <!-- step 2: eve over day at 82 % -->
+	<color name="s3_rule">ff414147</color>   <!-- step 3: eve over day at 92 % -->
+	<color name="s1_placard_rule">ffc1beb9</color>   <!-- step 1: eve over day at 15 % -->
+	<color name="s2_placard_rule">ff636268</color>   <!-- step 2: eve over day at 82 % -->
+	<color name="s3_placard_rule">ff55555c</color>   <!-- step 3: eve over day at 92 % -->
+	<color name="s1_mat">fffbfaf9</color>   <!-- step 1: eve over day at 15 % -->
+	<color name="s2_mat">ffeae6df</color>   <!-- step 2: eve over day at 82 % -->
+	<color name="s3_mat">ffe8e3db</color>   <!-- step 3: eve over day at 92 % -->
+	<color name="s1_frame">ff252422</color>   <!-- step 1: eve over day at 15 % -->
+	<color name="s2_frame">ff111012</color>   <!-- step 2: eve over day at 82 % -->
+	<color name="s3_frame">ff0d0d0f</color>   <!-- step 3: eve over day at 92 % -->
+</colors>

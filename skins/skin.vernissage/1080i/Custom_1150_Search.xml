@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Engine forked from skin.groove 1.0.1 (M1); redrawn for Vernissage in M4 (skin-developer, 2026-10-21). -->
+<!--
+	Search, custom window 1150 (screens/Custom_1150_Search.md, SPEC 13). Opened with ActivateWindow(1150) from Home's
+	Search icon and the Library panel's Search row. No Kodi-owned ids. Everything else: Includes_Search.xml (GENERATED
+	by _src/make_search.py).
+	Open: the 1 px opener 9099 takes the default focus and hands it on: with no query to the query line 9001 and
+	straight into Kodi's keyboard (Select on an edit opens it; SendClick doesn't); with a query (the edit keeps its text)
+	back to the wall you left (Window(Home).Property(vn.search.wall)), else 9001.
+	Focus map: see Includes_Search.xml. Back: wall -> 9001 -> the window closes (Home, or the library that opened it).
+	No window-level animation (MOTION 3): the content group fades, the room does not (no flash in Day, CONVENTIONS 4).
+-->
+<window type="window" id="1150">
+	<defaultcontrol always="true">9099</defaultcontrol>
+	<backgroundcolor>wall_static</backgroundcolor>
+	<!-- the encoded query must not outlive the window: a stale one would hang old walls on the next open -->
+	<onunload>ClearProperty(Vernissage.Search.Encoded,home)</onunload>
+	<controls>
+		<control type="button" id="9099">
+			<left>-100</left>
+			<top>-100</top>
+			<width>1</width>
+			<height>1</height>
+			<texturefocus />
+			<!-- 9001 first, so a wall that has gone empty (SetFocus fails on a hidden control) still leaves a focus -->
+			<onfocus>SetFocus(9001)</onfocus>
+			<onfocus condition="!$EXP[Search_HasQuery]">Action(Select)</onfocus>
+			<!-- the wall you left, only while it still holds works (its data list keeps the last open's items): a failed SetFocus drops the focus 9001 just took, and the
+			     window was left with no focus at all (device audit M5: last wall empty for the kept query) -->
+			<onfocus condition="$EXP[Search_HasQuery] + String.IsEqual(Window(Home).Property(vn.search.wall),9701) + Integer.IsGreater(Container(9711).NumItems,0)">SetFocus(9701)</onfocus>
+			<onfocus condition="$EXP[Search_HasQuery] + String.IsEqual(Window(Home).Property(vn.search.wall),9702) + Integer.IsGreater(Container(9712).NumItems,0)">SetFocus(9702)</onfocus>
+			<onfocus condition="$EXP[Search_HasQuery] + String.IsEqual(Window(Home).Property(vn.search.wall),9703) + Integer.IsGreater(Container(9713).NumItems,0)">SetFocus(9703)</onfocus>
+			<onfocus condition="$EXP[Search_HasQuery] + String.IsEqual(Window(Home).Property(vn.search.wall),9704) + Integer.IsGreater(Container(9714).NumItems,0)">SetFocus(9704)</onfocus>
+			<onfocus condition="$EXP[Search_HasQuery] + String.IsEqual(Window(Home).Property(vn.search.wall),9705) + Integer.IsGreater(Container(9715).NumItems,0)">SetFocus(9705)</onfocus>
+			<onfocus condition="$EXP[Search_HasQuery] + String.IsEqual(Window(Home).Property(vn.search.wall),9706) + Integer.IsGreater(Container(9716).NumItems,0)">SetFocus(9706)</onfocus>
+			<visible allowhiddenfocus="true">false</visible>
+		</control>
+		<include>VN_Room</include>
+		<control type="group">
+			<include>Anim_WindowContent</include>
+			<include>Search_Page</include>
+			<include content="VN_NowPlaying">
+				<param name="nav" value="Search_NowPlayingNav"/>
+			</include>
+		</control>
+	</controls>
+</window>

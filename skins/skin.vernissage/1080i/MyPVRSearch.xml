@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Forked from skin.groove 1.0.1 by _src/fork_from_groove.py (M1, never re-run). Names, colours, fonts and textures are Vernissage's; prose references to screens / boards in the comments below are Groove's (docs/skin.groove/) until this file is redrawn. -->
+<!--
+	TV / Radio EPG search results (SPEC 5: Minimal). Builder F, M4. The search itself is set up in
+	DialogPVRGuideSearch (Kodi adds a "new search" item to this list).
+	Kodi id contract (Estuary Omega MyPVRSearch.xml + GUIWindowPVRBase.h): view container 50,
+	menucontrol 9000, sort 3 / 4, header labels 29 / 30.
+-->
+<window>
+	<defaultcontrol always="true">9100</defaultcontrol>
+	<menucontrol>9000</menucontrol>
+	<backgroundcolor>wall_static</backgroundcolor>
+	<views>50</views>
+	<controls>
+		<include>VN_Page</include>
+		<!-- M4: content group -->
+		<control type="group">
+			<include>Anim_WindowContent</include>
+			<include content="Misc_PVRFrame">
+				<param name="title" value="$LOCALIZE[137]"/>
+				<param name="group_label" value="$INFO[Control.GetLabel(29)]$INFO[Control.GetLabel(30), ,]"/>
+			</include>
+			<include content="Misc_PVRList">
+				<param name="label" value="$VAR[Misc_PVRSearchLabel]"/>
+				<param name="label2" value="$INFO[ListItem.Date]"/>
+				<param name="empty_label" value="$LOCALIZE[31924]"/>
+			</include>
+		</control>
+	</controls>
+</window>

@@ -1,6 +1,6 @@
 # KarmaMole's Kodi Skins
 
-Twelve skins for **Kodi 21 Omega**, designed for the TV and tested on an NVIDIA Shield. Each one is a different idea
+Thirteen skins for **Kodi 21 Omega**, designed for the TV and tested on an NVIDIA Shield. Each one is a different idea
 about how a media library should feel.
 
 | Skin | Idea |
@@ -17,6 +17,7 @@ about how a media library should feel.
 | **Fold** | Everything unfolds: cards, spreads and concertinas on real 3D hinges. |
 | **Keepsake** | The skin that remembers: a black photo album of what you've watched, date-stamped. |
 | **Groove** | For record collectors: art as light, a spinning record, crates, shelves, a time machine and a genre wheel. |
+| **Vernissage** | A private gallery that changes with the light: grey prints on the walls, only the work in front of you in colour. |
 
 ## Install
 
@@ -37,8 +38,10 @@ The skins work without these; with them, some features get richer. Each skin's s
   colours and blurred backgrounds, in every skin except Void.
 - Embuary Helper (Kodi's official repository): a real Next up row for TV.
 - **KarmaMole Skin Helper** (`script.karmamole.helper`, this repository): one optional helper for these skins; each
-  skin turns on only the features it uses. Today that is Groove: album colours while browsing, colour-matched spines,
-  Up next reordering, true shuffle, and style and mood rings on the wheel. Groove's Settings has an Install button.
+  skin turns on only the features it uses. Groove: album colours while browsing, colour-matched spines, Up next
+  reordering, true shuffle, and style and mood rings on the wheel (Groove's Settings has an Install button).
+  Vernissage: the black-and-white prints on its walls, the Still on the easel and New in the collection walls, the
+  spotlight's colour and album shuffle.
 - **Album colours for visualisers** (`service.vizpalette`, this repository): the playing album's colours for Groove's
   room and the Shadertoy visualiser. Also installs from Groove's Settings.
 - Shadertoy and YouTube (Kodi's official repository): Groove's visualiser and its Watch the video button.

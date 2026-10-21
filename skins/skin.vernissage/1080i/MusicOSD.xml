@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	The listening room's transport row (SPEC 10, screens/MusicVisualisation_ListeningRoom.md): Play/Pause 9601
+	(default), Previous, Next, Queue, Visualiser, Info, Presets 9607 at fixed slots (Includes_ListeningRoom.xml NP_Transport).
+	Kodi id contract (GUIDialogMusicOSD.cpp, Omega): only 500 (visualisation picker) / 501 (lock preset) are Kodi's;
+	Vernissage ships neither. Back closes the row (Kodi); repeated Back leaves Now Playing for the window before it.
+	Auto-hide in Visualiser mode only: Custom_1152 (5 s idle, not while a preset list / select / queue / context
+	menu is open). In the room the row stays up (board 07).
+-->
+<window>
+	<defaultcontrol always="true">9601</defaultcontrol>
+	<controls>
+		<include>NP_Transport</include>
+	</controls>
+</window>

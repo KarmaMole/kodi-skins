@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Seek bar (SPEC 11): the flat band, the progress line and its knob with the time a seek lands on above it, then
+	"ends ..." for a second; paused: the dim, the band and the paused corner placard (Includes_VideoOSD.xml VOSD_SeekBar).
+	Id contract (Estuary Omega DialogSeekBar.xml / GUIDialogSeekBar.cpp): 401 = progress slider Kodi sets to the seek
+	target (drawn as the playhead dot). Window visibility copied from Estuary Omega (video and Now Playing).
+	Dark over video by itself; over Now Playing it follows the room.
+-->
+<window>
+	<visible>Window.IsActive(fullscreenvideo)</visible>
+	<visible>![Window.IsActive(sliderdialog) | Window.IsActive(pvrosdchannels) | Window.IsActive(pvrchannelguide) | Window.IsActive(pvrguideinfo)]</visible>
+	<visible>Player.Seeking | Player.HasPerformedSeek(3) | [Player.Paused + !Player.Caching] | Player.Forwarding | Player.Rewinding | Player.ShowTime | !String.IsEmpty(Player.SeekNumeric)</visible>
+	<visible>!Window.IsVisible(videoosd) + !Window.IsVisible(musicosd) + !Window.IsVisible(fullscreeninfo)</visible>
+	<zorder>0</zorder>
+	<controls>
+		<include>VOSD_SeekBar</include>
+	</controls>
+</window>

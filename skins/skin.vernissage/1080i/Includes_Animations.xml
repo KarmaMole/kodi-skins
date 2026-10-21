@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Forked from skin.groove 1.0.1 by _src/fork_from_groove.py (M1, never re-run). Names, colours, fonts and textures are Vernissage's; prose references to screens / boards in the comments below are Groove's (docs/skin.groove/) until this file is redrawn. -->
+<!--
+	Groove motion system - owned by Builder M (Motion). Spec: docs/skin.vernissage/MOTION.md.
+
+	Budget (SPEC 9): focus <= 160 ms cubic out, window/dialog open <= 200 ms, close faster than open,
+	list scrolltime ~200 ms. Entering = cubic out, leaving = cubic in. No loop animations, no
+	Conditional animations inside item layouts, cheap effects only (fade / slide / small zoom).
+
+	Reduce motion: Skin.HasSetting(vernissage.reducemotion). Every include carries a pair of animations per
+	trigger with mutually exclusive animation-level conditions (effect-level conditions are NOT used:
+	Kodi does not honour them). Reduce motion = short fades only, no zoom/slide; focus = instant.
+
+	Timing tokens (ms):  micro 120-160 | small 180-200 | window 200 open / 140 close | bg 350
+	Reduced:             fade in 80 | fade out 60 | focus 0 (no animation)
+-->
+<includes>
+
+	<!-- ===================================================================================== -->
+	<!-- WINDOWS                                                                               -->
+	<!-- ===================================================================================== -->
+
+	<!-- Full-screen windows (Home, library, settings). Place as a direct child of <window>. -->
+
+	<!-- Right-hand panels as a WINDOW (context/side menus, info side sheets).
+	     Direct child of <window> or on the panel group. Param offset = px travelled (default 80). -->
+	<include name="Anim_SidePanel">
+		<param name="offset" default="80"/>
+		<definition>
+			<animation type="WindowOpen" condition="!Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="0" end="100" time="200" tween="cubic" easing="out"/>
+				<effect type="slide" start="$PARAM[offset],0" end="0,0" time="200" tween="cubic" easing="out"/>
+			</animation>
+			<animation type="WindowOpen" condition="Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="0" end="100" time="80"/>
+			</animation>
+			<animation type="WindowClose" condition="!Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="100" end="0" time="140" tween="cubic" easing="in"/>
+				<effect type="slide" start="0,0" end="$PARAM[offset],0" time="140" tween="cubic" easing="in"/>
+			</animation>
+			<animation type="WindowClose" condition="Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="100" end="0" time="60"/>
+			</animation>
+		</definition>
+	</include>
+
+	<!-- Toasts (notification, busy, progress, volume, seek bar): fade only - shown over playback. -->
+	<!-- Anim_Toast: replaced by the motion draft below -->
+
+	<!-- ===================================================================================== -->
+	<!-- OSD / STRIPS                                                                          -->
+	<!-- ===================================================================================== -->
+
+	<!-- Legacy alias (M1 VideoOSD). -->
+	<!-- Anim_OSD: replaced by the motion draft below -->
+
+	<!-- Top strip (offset/info strip, OSD top bar): drops 24 px from the top + fade.
+	     Put on the strip GROUP (not window level). Fires on window open AND when its <visible> flips. -->
+	<!-- Anim_TopStrip: replaced by the motion draft below -->
+
+	<!-- ===================================================================================== -->
+	<!-- CONTENT REGIONS                                                                       -->
+	<!-- ===================================================================================== -->
+
+	<!-- Generic Visible/Hidden fade for any group (hubs, spotlight, info panels, labels). -->
+	<include name="Anim_FadeVisible">
+		<animation type="Visible" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="180" tween="cubic" easing="out"/>
+		</animation>
+		<animation type="Visible" condition="Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="80"/>
+		</animation>
+		<animation type="Hidden">
+			<effect type="fade" start="100" end="0" time="120" tween="cubic" easing="in"/>
+		</animation>
+	</include>
+
+	<!-- Legacy alias (M1 Home spotlight / views). -->
+	<include name="Anim_VisibleFade">
+		<include>Anim_FadeVisible</include>
+	</include>
+
+	<!-- ============================================================ Groove -->
+	<!-- Home sections swap. The room only changes after a 400 ms rest on a cornice word: the old room holds for 400 ms,
+	     then crossfades to the new one, so walking Films -> Series -> Music never shows the Series wall in between
+	     (a room whose condition flips back within the delay never appears). Reduce motion keeps the rest, drops the fade. -->
+	<!-- Anim_SectionSwap: replaced by the motion draft below -->
+
+	<!-- ===== MOTION DRAFT (merged by _src/merge_motion.py; edit MOTION.md's draft, then re-run) ===== -->
+	<include name="Anim_WindowContent">
+		<param name="center" default="960,540"/>
+		<definition>
+			<animation type="WindowOpen" condition="!Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="0" end="100" time="280" tween="cubic" easing="out"/>
+				<effect type="zoom" start="98" end="100" center="$PARAM[center]" time="280" tween="cubic" easing="out"/>
+			</animation>
+			<animation type="WindowOpen" condition="Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="0" end="100" time="100"/>
+			</animation>
+			<animation type="WindowClose" condition="!Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="100" end="0" time="160" tween="cubic" easing="in"/>
+			</animation>
+			<animation type="WindowClose" condition="Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="100" end="0" time="80"/>
+			</animation>
+		</definition>
+	</include>
+
+	<include name="Anim_DialogScrim">
+		<animation type="WindowOpen" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="200" tween="cubic" easing="out"/>
+		</animation>
+		<animation type="WindowOpen" condition="Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="80"/>
+		</animation>
+		<animation type="WindowClose" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="100" end="0" time="140" tween="cubic" easing="in"/>
+		</animation>
+		<animation type="WindowClose" condition="Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="100" end="0" time="60"/>
+		</animation>
+	</include>
+
+	<include name="Anim_DialogCard">
+		<param name="center" default="960,540"/>
+		<definition>
+			<animation type="WindowOpen" condition="!Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="0" end="100" time="200" tween="cubic" easing="out"/>
+				<effect type="zoom" start="97" end="100" center="$PARAM[center]" time="200" tween="cubic" easing="out"/>
+			</animation>
+			<animation type="WindowOpen" condition="Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="0" end="100" time="80"/>
+			</animation>
+			<animation type="WindowClose" condition="!Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="100" end="0" time="140" tween="cubic" easing="in"/>
+				<effect type="zoom" start="100" end="98" center="$PARAM[center]" time="140" tween="cubic" easing="in"/>
+			</animation>
+			<animation type="WindowClose" condition="Skin.HasSetting(vernissage.reducemotion)">
+				<effect type="fade" start="100" end="0" time="60"/>
+			</animation>
+		</definition>
+	</include>
+
+	<include name="Anim_Toast">
+		<animation type="WindowOpen" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="220" tween="cubic" easing="out"/>
+			<effect type="slide" start="60,0" end="0,0" time="220" tween="cubic" easing="out"/>
+		</animation>
+		<animation type="WindowOpen" condition="Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="80"/>
+		</animation>
+		<animation type="WindowClose" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="100" end="0" time="160" tween="cubic" easing="in"/>
+			<effect type="slide" start="0,0" end="60,0" time="160" tween="cubic" easing="in"/>
+		</animation>
+		<animation type="WindowClose" condition="Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="100" end="0" time="60"/>
+		</animation>
+	</include>
+
+
+	<include name="Anim_TopStrip">
+		<animation type="WindowOpen" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="200" tween="cubic" easing="out"/>
+			<effect type="slide" start="0,-24" end="0,0" time="200" tween="cubic" easing="out"/>
+		</animation>
+		<animation type="WindowOpen" condition="Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="80"/>
+		</animation>
+		<animation type="Visible" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="200" tween="cubic" easing="out"/>
+			<effect type="slide" start="0,-24" end="0,0" time="200" tween="cubic" easing="out"/>
+		</animation>
+		<animation type="Visible" condition="Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="80"/>
+		</animation>
+		<animation type="Hidden" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="100" end="0" time="120" tween="cubic" easing="in"/>
+			<effect type="slide" start="0,0" end="0,-24" time="120" tween="cubic" easing="in"/>
+		</animation>
+		<animation type="WindowClose" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="100" end="0" time="120" tween="cubic" easing="in"/>
+		</animation>
+		<animation type="WindowClose" condition="Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="100" end="0" time="60"/>
+		</animation>
+	</include>
+
+
+
+
+
+
+
+
+
+
+
+
+	<include name="Anim_FocusLight">
+		<animation type="Focus" reversible="true" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="200" tween="cubic" easing="out"/>
+		</animation>
+		<animation type="Focus" reversible="true" condition="Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="80"/>
+		</animation>
+	</include>
+
+
+	<include name="Anim_LabelReveal">
+		<animation type="Visible" condition="!Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="160" tween="cubic" easing="out"/>
+			<effect type="slide" start="-8,0" end="0,0" time="160" tween="cubic" easing="out"/>
+		</animation>
+		<animation type="Visible" condition="Skin.HasSetting(vernissage.reducemotion)">
+			<effect type="fade" start="0" end="100" time="80"/>
+		</animation>
+		<animation type="Hidden">
+			<effect type="fade" start="100" end="0" time="80"/>
+		</animation>
+	</include>
+
+
+
+
+
+	<include name="Anim_ArtFadetime">
+		<include condition="!Skin.HasSetting(vernissage.reducemotion)">Anim_ArtFadetime_Normal</include>
+		<include condition="Skin.HasSetting(vernissage.reducemotion)">Anim_ArtFadetime_Reduced</include>
+	</include>
+
+	<include name="Anim_ArtFadetime_Normal">
+		<fadetime>300</fadetime>
+	</include>
+
+	<include name="Anim_ArtFadetime_Reduced">
+		<fadetime>120</fadetime>
+	</include>
+
+
+	<include name="Anim_ScrollRow">
+		<include condition="!Skin.HasSetting(vernissage.reducemotion)">Anim_ScrollRow_Normal</include>
+		<include condition="Skin.HasSetting(vernissage.reducemotion)">Anim_Scroll_Reduced</include>
+	</include>
+
+	<include name="Anim_ScrollRow_Normal">
+		<scrolltime tween="cubic" easing="out">200</scrolltime>
+	</include>
+
+
+
+
+	<include name="Anim_Scroll_Reduced">
+		<scrolltime>0</scrolltime>
+	</include>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</includes>

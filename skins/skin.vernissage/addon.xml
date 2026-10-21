@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="skin.vernissage" version="1.0.0" name="Vernissage" provider-name="KarmaMole">
+	<requires>
+		<import addon="xbmc.gui" version="5.17.0"/>
+		<!-- Required (SPEC 13 / 15): encodes the typed Search query for the library paths (get_encoded_string with
+		     unencoded_paths, which arrived in 2.1.21; the official repository carries 2.1.33, Omar's box 2.2.9). -->
+		<import addon="script.skinvariables" version="2.1.21"/>
+		<!-- Optional, guarded in the XML ($EXP[HasKMHelper]) with designed fallbacks: script.karmamole.helper (grey
+		     prints, easel / new walls, spot colour, album shuffle). Imported here only once it is in the official
+		     repository (an optional import of an add-on no repository carries is flagged by the review). TMDb Helper is
+		     not used by this skin (SPEC 15, D). -->
+	</requires>
+	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1">
+		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080i"/>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Vernissage - a private gallery that changes with the light.</summary>
+		<description lang="en_GB">A small gallery of your own. By day it is a warm white room; from the evening the lights go down in four quiet steps and only the work in front of you is lit. Everything you are not looking at hangs as a black-and-white print; the one you are looking at is in full colour, matted and framed, with a small museum placard beside it. Home is tonight's exhibition, chosen from the films you haven't seen that still fit before midnight, then the works still on the easel, then what is new in the collection. Five icons, labels only on focus, almost no words. Built for the NVIDIA Shield (Kodi 21 Omega).</description>
+		<platform>all</platform>
+		<license>GPL-2.0-or-later</license>
+		<source>https://github.com/KarmaMole/kodi-skins</source>
+		<website>https://karmamole.github.io/kodi-skins/#vernissage</website>
+		<news>v1.0.0 - First release: a private gallery in a Day room, four dusk steps and an Evening room; Tonight, the easel and New on Home; Salon, Gallery wall and Catalogue; placards; the listening room; the player.</news>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon>

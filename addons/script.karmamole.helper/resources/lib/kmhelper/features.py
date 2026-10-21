@@ -15,17 +15,20 @@ Features:
   queue     RunScript action=queue_move / queue_remove (Up next reordering)
   wheel     plugin:// genre / style / mood listings and the play_slice action
   shuffle   RunScript action=play_shuffled (random order built by the helper; Kodi shuffle state untouched)
+  greyprints  (1.1.0) two opaque grey JPEGs per library item, one per room (KarmaMole.Grey.*)
+  easel       (1.1.0) plugin:// ?info=easel / ?info=new lists, precomputed by the service (KarmaMole.Easel.Rev)
 
 With no features for the running skin the service only checks the skin and that property once a second.
 On-demand calls (RunScript / plugin) for a feature the skin hasn't asked for are logged and ignored; a plugin listing
 comes back empty. The decision is a pure function (resolve) so it is unit-tested without Kodi.
 """
-FEATURES = ('colours', 'softart', 'spines', 'queue', 'wheel', 'shuffle')
+FEATURES = ('colours', 'softart', 'spines', 'queue', 'wheel', 'shuffle', 'greyprints', 'easel')
 IMPLIES = {'softart': ('colours',)}
 OPT_IN = 'KarmaMole.Helper.Features'
 
 SKIN_FEATURES = {
     'skin.groove': ('colours', 'softart', 'spines', 'queue', 'wheel', 'shuffle'),
+    'skin.vernissage': ('colours', 'greyprints', 'easel', 'shuffle'),
 }
 
 

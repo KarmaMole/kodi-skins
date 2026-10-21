@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Forked from skin.groove 1.0.1 by _src/fork_from_groove.py (M1, never re-run). Names, colours, fonts and textures are Vernissage's; prose references to screens / boards in the comments below are Groove's (docs/skin.groove/) until this file is redrawn. -->
+<!-- Clears Window(Home).Property(vernissage.fsseen) once nothing is playing, re-arming the play-start
+     curtain (Custom_1153_PlayCurtain.xml). Opens itself, clears, and closes again at once. -->
+<window type="dialog" id="1154">
+	<visible>!Player.HasMedia + !String.IsEmpty(Window(Home).Property(vernissage.fsseen))</visible>
+	<onload>ClearProperty(vernissage.fsseen,home)</onload>
+	<controls/>
+</window>

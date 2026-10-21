@@ -1,2 +1,0 @@
-# ---- Vernissage (skin.vernissage) strings: 31450-31499 Home and rooms, 31551-31599 skin settings,
-# ---- 31650-31699 library / views, 31750-31799 listening room and playback, 31950-31979 misc.

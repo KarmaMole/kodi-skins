@@ -9,8 +9,6 @@
   action=play_slice,ring=R,value=V     shuffled mix of a wheel slice (prefer RunPlugin with ListItem.Property(Groove.PlayPath))
   action=colours,image=URL,prefix=P    colours + soft art of any image into Window(Home).Property(Groove.P.*)
   action=spines_rebuild                re-render every spine (asks the service)
-  action=greyprints_rebuild            re-check the grey prints now: renders only new or changed art (asks the service)
-  action=easel_refresh                 recompute the easel / New lists now (asks the service)
 Each action needs its feature to be on for the running skin (features.py); otherwise it is logged and ignored.
 """
 import xbmc
@@ -19,8 +17,7 @@ from .common import ADDON_ID, log, parse_args, rpc
 from .features import active, allowed
 
 NEEDS = {'queue_move': 'queue', 'queue_remove': 'queue', 'play_shuffled': 'shuffle', 'play_slice': 'wheel',
-         'colours': 'colours', 'spines_rebuild': 'spines', 'greyprints_rebuild': 'greyprints',
-         'easel_refresh': 'easel'}
+         'colours': 'colours', 'spines_rebuild': 'spines'}
 
 
 def main(argv):
@@ -46,8 +43,8 @@ def main(argv):
         url = args.get('image', '')
         renderer = Renderer(soft='softart' in active())
         Publisher('Groove.' + prefix, threaded=False).publish(url, renderer.render(url) if url else None)
-    elif action in ('spines_rebuild', 'greyprints_rebuild', 'easel_refresh'):
-        rpc('JSONRPC.NotifyAll', {'sender': ADDON_ID, 'message': action})
+    elif action == 'spines_rebuild':
+        rpc('JSONRPC.NotifyAll', {'sender': ADDON_ID, 'message': 'spines_rebuild'})
     else:
         log('unknown action %r (args %s)' % (action, argv), xbmc.LOGWARNING)
 

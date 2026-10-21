@@ -12,15 +12,12 @@ Cost model (NVIDIA Shield):
 - Fullscreen video, slideshow and screensaver: browse polling drops to once a second and does no work.
 - Playing album: checked once a second while audio plays; one render per album change.
 - Spines: a background thread, only after library changes, paused while video plays or a scan runs.
-- Grey prints (1.1.0): a background thread after start / library changes, incremental, paused while video plays or a
-  scan runs, a yield after every item.
-- Easel lists (1.1.0): a short background job after library / playback changes (debounced), never while video plays.
 """
 import time
 
 import xbmc
 
-from . import artload, easel, features as feats, greyprints
+from . import artload, features as feats
 from .common import ADDON_ID, cond, info, log, prop, set_prop, skin_is_groove
 from .glow import Publisher, Renderer
 from .spines import SpineBuilder
@@ -39,8 +36,6 @@ PLAYER_ART = ('Player.Art(thumb)', 'Player.Art(album.thumb)', 'MusicPlayer.Cover
 START_DELAY = 20.0  # first spine check after login: let Home settle first
 RUNNING = 'KarmaMole.Helper.Running'   # 'true' while the service runs (skins gate on it)
 ACTIVE = 'KarmaMole.Helper.Active'     # the features running for the current skin, comma list (empty = idle)
-# Kodi announcements that change what the easel / New lists and the grey-print scope contain
-LIBRARY_EVENTS = ('VideoLibrary.OnUpdate', 'VideoLibrary.OnRemove', 'Player.OnStop')
 
 
 class Player(xbmc.Player):
@@ -72,8 +67,6 @@ class Service(xbmc.Monitor):
         self.renderer = self.browse = self.playing = None
         self.player = Player(self)
         self.spines = SpineBuilder(self)
-        self.grey = greyprints.GreyBuilder(self)   # 1.1.0; no thread until 'greyprints' is first requested
-        self.easel = easel.EaselBuilder(self)      # 1.1.0; no thread until 'easel' is first requested
         self.features = frozenset()
         self.enabled = False   # any feature on
         self.colours = False
@@ -91,31 +84,13 @@ class Service(xbmc.Monitor):
     def onScanFinished(self, library):
         if library == 'music' and 'spines' in self.features:
             self.spines.request(delay=5.0)
-        self.library_done(library)
 
     def onCleanFinished(self, library):
         if library == 'music' and 'spines' in self.features:
             self.spines.request(delay=5.0)
-        self.library_done(library)
-
-    def library_done(self, library):
-        """A scan or clean ended (1.1.0 features only)."""
-        if 'greyprints' in self.features and library in ('video', 'music'):
-            self.grey.request(delay=greyprints.AFTER_SCAN)
-        if 'easel' in self.features and library == 'video':
-            self.easel.request(delay=easel.DEBOUNCE)
 
     def onNotification(self, sender, method, data):
-        """NotifyAll(script.karmamole.helper,<message>) from a skin or from default.py; Kodi's library and player
-        announcements for the 1.1.0 features."""
-        if sender == 'xbmc':
-            if method in LIBRARY_EVENTS:
-                if 'easel' in self.features:
-                    self.easel.request(delay=easel.DEBOUNCE)
-                if 'greyprints' in self.features:
-                    self.grey.touch(data)  # an item named here gets its art-less prints retried at once
-                    self.grey.request(delay=greyprints.AFTER_UPDATE)
-            return
+        """NotifyAll(script.karmamole.helper,<message>) from a skin or from default.py."""
         if sender != ADDON_ID:
             return
         msg = method.split('.', 1)[-1]
@@ -123,22 +98,12 @@ class Service(xbmc.Monitor):
         if msg == 'spines_rebuild':
             if 'spines' in self.features:
                 self.spines.request(force=True)
-        elif msg == 'greyprints_rebuild':
-            if 'greyprints' in self.features:
-                self.grey.request()
-        elif msg == 'easel_refresh':
-            if 'easel' in self.features:
-                self.easel.request()
         elif msg == 'refresh':  # republish everything (e.g. after the skin reloaded)
             if self.colours:
                 self.browse.source = self.playing.source = None
                 self.done = self.player_key = None
             if 'spines' in self.features:
                 self.spines.request()
-            if 'greyprints' in self.features:
-                self.grey.publish_existing()
-            if 'easel' in self.features:
-                self.easel.publish_existing()
 
     # ------------------------------------------------------------------------------------------- main loop
     def run(self):
@@ -148,10 +113,6 @@ class Service(xbmc.Monitor):
             self.loop()
         finally:
             self.shutdown()
-        if 'greyprints' in self.features:
-            greyprints.clear()
-        if 'easel' in self.features:
-            easel.clear()
         set_prop(RUNNING, None)
         set_prop(ACTIVE, None)
         log('stopped')
@@ -160,7 +121,7 @@ class Service(xbmc.Monitor):
         """Kodi kills a service that hasn't ended within 5 s of the stop request, and it waits for EVERY Python thread
         (daemon or not). Stop the spine worker and both fade workers; all joins share one short budget."""
         end = time.time() + 2.0
-        for worker in (self.spines, self.grey, self.easel, self.browse, self.playing):
+        for worker in (self.spines, self.browse, self.playing):
             if worker is None:
                 continue
             try:
@@ -212,23 +173,7 @@ class Service(xbmc.Monitor):
             self.spines.request(delay=START_DELAY if self.skin is None else 2.0)
         elif spines and skin != self.skin and skin_is_groove():
             self.spines.republish()
-        self.check_new_features(want)
         self.features, self.colours, self.enabled, self.skin = want, colours, bool(want), skin
-
-    def check_new_features(self, want):
-        """greyprints / easel (1.1.0) on and off. On: show the last complete build / list at once, then re-check
-        in the background. Off: clear what was published (files stay and are reused)."""
-        first = self.skin is None
-        if 'greyprints' in want and 'greyprints' not in self.features:
-            self.grey.publish_existing()
-            self.grey.request(delay=greyprints.START_DELAY if first else 2.0)
-        elif 'greyprints' not in want and 'greyprints' in self.features:
-            greyprints.clear()
-        if 'easel' in want and 'easel' not in self.features:
-            self.easel.publish_existing()
-            self.easel.request(delay=easel.START_DELAY if first else 1.0)
-        elif 'easel' not in want and 'easel' in self.features:
-            easel.clear()
 
     # ------------------------------------------------------------------------------------------- browsing
     def focused_art(self):

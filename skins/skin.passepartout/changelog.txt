@@ -1,3 +1,9 @@
+0.9.13 (2026-10-21)
+- Visualiser presets button in the music player.
+- Music OSD: a Visualiser word (shown when a visualisation add-on is set in Kodi) swaps the hung album for the visualisation and back (The print); off by default, so Now playing looks as before. In Visualiser mode a Presets word opens Kodi's preset list, and it has focus when the OSD opens, so OK, OK opens the presets. Now playing shows a small paper tag with the song and OK · presets.
+- Lists: the current item is readable when it has focus (it was ink on the ink placard, e.g. the active preset in the preset list).
+- The OSD auto-hide waits while the preset list is open.
+
 0.9.12 (2026-10-21)
 - Sets row in the Library panel; fix for controls disappearing or staying enlarged with Reduce motion on. Code clean-up for the Kodi repository checks.
 - Sets row in the Library card: over films (when the library has sets) Sets opens the Collections in the same

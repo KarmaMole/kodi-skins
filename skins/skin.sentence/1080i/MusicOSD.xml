@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Music OSD as phrase buttons, over Now playing (MusicVisualisation.xml shows the sentence and progress):
-	  "Pause · Stop · Previous · Next · The queue · Shuffle off · Repeat off"
+	  "Pause · Stop · Previous · Next · The queue · Shuffle off · Repeat off · Presets" (Presets = visualiser presets)
 	Kodi id contract (Estuary Omega MusicOSD.xml): defaultcontrol 602 (603 when pause isn't possible),
 	87 seek stepper (hidden; Left/Right step), 200 the row, 600 prev, 602 play/pause, 607 next, 603 stop,
-	70054 shuffle, 70053 repeat, 70051 queue. Up -> 87 (skip), Down from 87 -> the row. Back closes the OSD.
+	70054 shuffle, 70053 repeat, 70051 queue, 70056 visualiser presets (Sentence id, only with a
+	visualisation that has presets; Left from the first phrase wraps to it). Up -> 87 (skip), Down from 87 -> the row. Back closes the OSD.
 -->
 <window>
 	<onload condition="!Player.PauseEnabled">SetFocus(603)</onload>
@@ -45,8 +46,11 @@
 			<usecontrolcoords>true</usecontrolcoords>
 			<onup>87</onup>
 			<ondown>noop</ondown>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<!-- 0.9.10: with visualiser presets, Left from the first phrase wraps to them (one press), Right back -->
+			<onleft condition="Visualisation.Enabled + Visualisation.HasPresets">70056</onleft>
+			<onleft condition="!Visualisation.Enabled | !Visualisation.HasPresets">noop</onleft>
+			<onright condition="Control.HasFocus(70056)">602</onright>
+			<onright condition="!Control.HasFocus(70056)">noop</onright>
 			<!-- Pause and Stop together first; the toggles last so their changing words shift nothing after them.
 			     Pause | Resume and the shuffle word have fixed widths (widest label) - no judder. -->
 			<include content="OSDS_Phrase"><param name="id" value="602"/><param name="label" value="$VAR[OSDS_PlayLabel]"/><param name="left" value="0"/><param name="width" value="206"/><param name="align" value="center"/><param name="onclick" value="PlayerControl(Play)"/><param name="visible" value="Player.PauseEnabled"/></include>
@@ -72,6 +76,9 @@
 			<include content="OSDS_Dot"><param name="wid" value="27008"/><param name="visible" value="!MusicPartyMode.Enabled"/></include>
 			<include content="OSDS_Phrase"><param name="id" value="70053"/><param name="label" value="Repeat"/><param name="onclick" value="PlayerControl(Repeat)"/><param name="visible" value="!MusicPartyMode.Enabled"/></include>
 			<include content="OSDS_Value"><param name="wid" value="27006"/><param name="label" value="$VAR[Music_OSDRepeatWord]"/><param name="visible" value="!MusicPartyMode.Enabled"/></include>
+			<!-- 0.9.10: Kodi's preset list (DialogSelect); only for a running visualisation with presets -->
+			<include content="OSDS_Dot"><param name="wid" value="27009"/><param name="visible" value="Visualisation.Enabled + Visualisation.HasPresets"/></include>
+			<include content="OSDS_Phrase"><param name="id" value="70056"/><param name="label" value="$LOCALIZE[31499]"/><param name="onclick" value="ActivateWindow(visualisationpresetlist)"/><param name="visible" value="Visualisation.Enabled + Visualisation.HasPresets"/></include>
 		</control>
 		<control type="label">
 			<left>page_margin</left>

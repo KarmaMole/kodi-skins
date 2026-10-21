@@ -6,11 +6,12 @@
 	Kodi id contract (Estuary Omega MusicOSD.xml): defaultcontrol 602 (Stop 603 when pause is not
 	possible), 87 seek stepper (hidden; Left/Right step), group 200 = transport (600 prev,
 	602 play/pause, 603 stop, 607 next; no rewind / forward buttons), grouplist 202 = tools
-	(70054 shuffle, 70053 repeat, 70051 queue). Kodi itself only routes actions; no ids are filled.
+	(70054 shuffle, 70053 repeat, 70051 queue, 70056 visualiser presets: Orbit id, only with a
+	visualisation that has presets). Kodi itself only routes actions; no ids are filled.
 	Not shipped: 608 record / 70040-70050 PVR + RDS (radio unused), 70052 rating, 70055 lyrics.
 
 	Focus map: transport Left/Right (hidden ones skipped), Right from 607 / Down -> tools 202,
-	Up from tools -> 602, Up from the arc -> 87 seek, Down from 87 -> 602. Back closes the OSD.
+	Down from 602 -> 70056 while presets exist, Up from tools -> 602, Up from the arc -> 87 seek, Down from 87 -> 602. Back closes the OSD.
 -->
 <window>
 	<onload condition="!Player.PauseEnabled">SetFocus(603)</onload>
@@ -63,7 +64,9 @@
 				<onleft>600</onleft>
 				<onright>603</onright>
 				<onup>87</onup>
-				<ondown>202</ondown>
+				<!-- 0.9.11: Down from Play/Pause goes straight to Visualiser presets while they exist -->
+				<ondown condition="Visualisation.Enabled + Visualisation.HasPresets">70056</ondown>
+				<ondown condition="!Visualisation.Enabled | !Visualisation.HasPresets">202</ondown>
 				<visible>Player.PauseEnabled</visible>
 			</control>
 			<control type="button" id="603">
@@ -155,6 +158,13 @@
 				<param name="id" value="70051"/>
 				<param name="icon" value="list"/>
 				<param name="onclick" value="ActivateWindow(musicplaylist)"/>
+			</include>
+			<!-- 0.9.11: Kodi's preset list (DialogSelect); only for a running visualisation with presets -->
+			<include content="OSDO_Tool">
+				<param name="id" value="70056"/>
+				<param name="icon" value="presets"/>
+				<param name="onclick" value="ActivateWindow(visualisationpresetlist)"/>
+				<param name="visible" value="Visualisation.Enabled + Visualisation.HasPresets"/>
 			</include>
 		</control>
 		<!-- shuffle / repeat on: the amber variant of the tool's icon over its unfocused face (the row

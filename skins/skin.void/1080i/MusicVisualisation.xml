@@ -102,13 +102,26 @@
 		<control type="label">
 			<left>160</left>
 			<top>1004</top>
-			<width>1600</width>
+			<width>1220</width>
 			<height>26</height>
 			<aligny>top</aligny>
 			<font>caps_20</font>
 			<textcolor>grey_soft</textcolor>
 			<label>Next[COLOR sep]  ·  [/COLOR]$INFO[MusicPlayer.offset(1).Title]$INFO[MusicPlayer.offset(1).Artist,[COLOR sep]  ·  [/COLOR],]</label>
 			<visible>!String.IsEmpty(MusicPlayer.offset(1).Title) + !Window.IsVisible(musicosd)</visible>
+		</control>
+		<!-- 0.9.9: how to reach the visualiser presets (OK opens the controls, Left from Play wraps to them) -->
+		<control type="label">
+			<left>1400</left>
+			<top>1004</top>
+			<width>360</width>
+			<height>26</height>
+			<aligny>top</aligny>
+			<align>right</align>
+			<font>caps_20</font>
+			<textcolor>grey_soft</textcolor>
+			<label>$LOCALIZE[31338]</label>
+			<visible>Visualisation.Enabled + Visualisation.HasPresets + !Window.IsVisible(musicosd)</visible>
 		</control>
 	</controls>
 </window>

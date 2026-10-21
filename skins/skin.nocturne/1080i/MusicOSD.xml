@@ -5,10 +5,14 @@
 	87 seek stepper (hidden; Left/Right step), group 200: 602 play/pause, 603 stop, 600 previous, 607 next |
 	70054 shuffle, 70053 repeat, 70051 queue. Omar's rule 6 order; fixed widths (no judder).
 	Navigation: Left/Right walk both rails (wraps Queue <-> Play/Pause); Up -> 87 (seek), Down from 87 -> the rails.
+	Top rail 203 (right, y 650; only while a visualisation add-on is set in Kodi): 70060 Visualiser / The record
+	(skin bool nocturne.np.viz), 70061 Presets (Visualiser mode + Visualisation.HasPresets: Kodi's preset list in
+	DialogSelect). Up from 87 -> 70060, Down from the top rail -> 87. The OSD opens on Presets when it is shown.
 	Back closes the OSD (Kodi).
 -->
 <window>
 	<onload condition="!Player.PauseEnabled">SetFocus(603)</onload>
+	<onload condition="Skin.HasSetting(nocturne.np.viz) + Visualisation.Enabled + Visualisation.HasPresets">SetFocus(70061)</onload>
 	<onload condition="$EXP[HasTMDbHelper] + Skin.HasSetting(nocturne.halocolour) + !String.IsEmpty(Player.Art(thumb)) + !String.IsEqual(Window(Home).Property(nocturne.np.colorsrc),Player.Art(thumb))">RunScript(plugin.video.themoviedb.helper,"image_colors=$INFO[Player.Art(thumb)]",prefix=NocturnePlayer)</onload>
 	<onload>SetProperty(nocturne.np.colorsrc,$INFO[Player.Art(thumb)],home)</onload>
 	<defaultcontrol always="true">602</defaultcontrol>
@@ -23,7 +27,8 @@
 		<control type="button" id="87">
 			<description>seek stepper</description>
 			<include>Noc_Hidden</include>
-			<onup>200</onup>
+			<onup condition="Visualisation.Enabled">70060</onup>
+			<onup condition="!Visualisation.Enabled">200</onup>
 			<ondown>200</ondown>
 			<onleft>StepBack</onleft>
 			<onright>StepForward</onright>
@@ -36,6 +41,42 @@
 			<texture border="64,0,64,0" colordiffuse="light">noc/glow_bar.png</texture>
 			<visible>Control.HasFocus(87)</visible>
 			<include>Anim_FadeVisible</include>
+		</control>
+		<!-- top rail: Visualiser / The record + Presets (VIS_PRESETS_BRIEF) -->
+		<control type="grouplist" id="203">
+			<left>96</left>
+			<top>650</top>
+			<width>1728</width>
+			<height>64</height>
+			<orientation>horizontal</orientation>
+			<align>right</align>
+			<visible>Visualisation.Enabled</visible>
+			<include>Anim_FadeVisible</include>
+			<include content="Rail_CapL"><param name="id" value="9460"/></include>
+			<include content="Rail_Word">
+				<param name="id" value="70060"/>
+				<param name="width" value="232"/>
+				<param name="label" value="$VAR[Music_VizWord]"/>
+				<param name="onclick" value="Skin.ToggleSetting(nocturne.np.viz)"/>
+				<param name="onleft" value="70061"/>
+				<param name="onright" value="70061"/>
+				<param name="onup" value="noop"/>
+				<param name="ondown" value="87"/>
+				<param name="visible" value="Visualisation.Enabled"/>
+			</include>
+			<include content="Rail_Sep"><param name="id" value="9461"/><param name="visible" value="$EXP[Music_VizPresets]"/></include>
+			<include content="Rail_Word">
+				<param name="id" value="70061"/>
+				<param name="width" value="176"/>
+				<param name="label" value="$LOCALIZE[31379]"/>
+				<param name="onclick" value="ActivateWindow(visualisationpresetlist)"/>
+				<param name="onleft" value="70060"/>
+				<param name="onright" value="70060"/>
+				<param name="onup" value="noop"/>
+				<param name="ondown" value="87"/>
+				<param name="visible" value="$EXP[Music_VizPresets]"/>
+			</include>
+			<include content="Rail_CapR"><param name="id" value="9462"/></include>
 		</control>
 		<control type="group" id="200">
 			<left>0</left>

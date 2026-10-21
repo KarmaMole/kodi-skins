@@ -91,6 +91,8 @@ ICONS: dict[str, str] = {
              '<path d="M14 24 H26 M14 31 H26 M14 38 H23 M38 24 H50 M38 31 H50 M38 38 H47"/>',
     "visualiser": '<path d="M10 28 V36 M18 22 V42 M26 12 V52 M34 20 V44 M42 26 V38 M50 18 V46"/>',
     "record": f'<circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="16"/><circle cx="32" cy="32" r="6"/><circle cx="32" cy="32" r="1.6" {DOT}/>',
+    # Visualiser presets (1.0.1): the visualiser's bars between two chevrons, "flip to another look"
+    "presets": '<path d="M16 22 L8 32 L16 42 M48 22 L56 32 L48 42"/><path d="M23 28 V36 M29 21 V43 M35 15 V49 M41 24 V40"/>',
     "watchvideo": '<rect x="8" y="12" width="48" height="34" rx="4"/><path d="M27 22 L40 29 L27 36 Z M22 54 H42"/>',
     "timemachine": f'<path d="{arc(32, 40, 23, 180, 360)} M7 40 H57"/>'
                    + f'<path d="{ticks(32, 40, 17, 23, [200, 225, 250, 270, 290, 315, 340])}"/>'
@@ -155,7 +157,7 @@ ICONS: dict[str, str] = {
 GROUPS = [
     ("Rail", ["music", "films", "tv", "search", "settings"]),
     ("Transport", ["previous", "play", "pause", "next", "stop", "shuffle", "repeat", "repeat-one"]),
-    ("Groove", ["upnext", "liner", "visualiser", "record", "watchvideo", "timemachine", "wheel", "pickup"]),
+    ("Groove", ["upnext", "liner", "visualiser", "presets", "record", "watchvideo", "timemachine", "wheel", "pickup"]),
     ("Library", ["albums", "artists", "songs", "options", "view", "sort", "filter", "update", "clean", "playall"]),
     ("Info", ["runtime", "rating", "badge-4k", "badge-hdr", "resume", "trailer", "episodes", "more"]),
     ("Settings row", ["skin", "system", "addons", "files", "pictures", "favourites", "livetv", "power"]),

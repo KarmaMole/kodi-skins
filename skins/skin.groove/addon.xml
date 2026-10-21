@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.groove" version="1.0.0" name="Groove" provider-name="KarmaMole">
+<addon id="skin.groove" version="1.0.1" name="Groove" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required (Omar, 2026-10-21): encodes the Search query for the library paths (get_encoded_string with
@@ -21,7 +21,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#groove</website>
-		<news>v1.0.0 - first release: the music library in five views, Time machine, the Wheel, Now Playing with Up next and Liner notes, films and TV, every dialog, Dark and Light rooms. A Sets row in the films' Library panel; Skin settings offer to install the optional helpers. Shuffle needs the KarmaMole Skin Helper add-on; without it the buttons play in library order and say so.</news>
+		<news>v1.0.1 - Visualiser presets button in the music player.</news>
 		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>

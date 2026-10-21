@@ -187,5 +187,17 @@
 			<visible>MusicPlayer.HasNext + !Window.IsVisible(musicosd)</visible>
 			<include>Anim_FadeVisible</include>
 		</control>
+		<!-- 0.9.10: how to reach the visualiser presets (OK opens the buttons; Left from the first wraps to Presets) -->
+		<control type="label">
+			<left>page_margin</left>
+			<top>1000</top>
+			<width>page_width</width>
+			<height>30</height>
+			<font>ui_20</font>
+			<textcolor>muted</textcolor>
+			<label>$LOCALIZE[31500]</label>
+			<visible>Visualisation.Enabled + Visualisation.HasPresets + !Window.IsVisible(musicosd)</visible>
+			<include>Anim_FadeVisible</include>
+		</control>
 	</controls>
 </window>

@@ -217,6 +217,7 @@
 				<height>$PARAM[height]</height>
 				<font>$PARAM[font]</font>
 				<textcolor>$VAR[PaperColor]</textcolor>
+				<selectedcolor>$VAR[PaperColor]</selectedcolor>
 				<align>$PARAM[align]</align>
 				<scroll>$PARAM[scroll]</scroll>
 				<label>$PARAM[label]</label>
@@ -338,6 +339,7 @@
 						<align>right</align>
 						<font>cap_20</font>
 						<textcolor>$VAR[PaperColor]</textcolor>
+						<selectedcolor>$VAR[PaperColor]</selectedcolor>
 						<label>$PARAM[label2]</label>
 						<visible>Control.HasFocus($PARAM[list_id])</visible>
 					</control>

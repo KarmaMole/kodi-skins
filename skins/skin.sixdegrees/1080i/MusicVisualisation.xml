@@ -711,5 +711,19 @@
 <control type="grouplist"><left>760</left><top>776</top><width>1096</width><height>40</height><orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><control type="label"><width max="700">auto</width><height>40</height><font>xb_26</font><label>$INFO[MusicPlayer.offset(1).Title]</label></control><control type="label"><width max="390">auto</width><height>40</height><font>reg_24</font><textcolor>ink2</textcolor><label>$INFO[MusicPlayer.offset(1).Artist, · ,]</label></control></control>
 </control>
 		</control>
+		<control type="group">
+	<description>visualiser presets hint</description>
+	<visible>Player.HasAudio + Visualisation.Enabled + Visualisation.HasPresets + !Window.IsVisible(musicosd) + !Player.ShowInfo</visible>
+<include>Anim_FadeVisible</include>
+<control type="image">
+	<left>64</left><top>984</top><width>213</width><height>48</height>
+	<texture border="20" colordiffuse="card">sd/rr20.png</texture>
+</control>
+<control type="label">
+	<left>88</left><top>984</top><width>165</width><height>48</height>
+	<font>caps_20</font><textcolor>ink2</textcolor>
+	<label>[UPPERCASE]$LOCALIZE[31356][/UPPERCASE]</label>
+</control>
+</control>
 	</controls>
 </window>

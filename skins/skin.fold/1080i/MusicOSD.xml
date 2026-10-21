@@ -5,14 +5,18 @@
 
 Now playing = the gatefold left open on the table: the cover printed on the inside left, the playing track on
 the inside right with a perforated progress line (the playhead is a punched hole), the record half out of the
-pocket. No idle animation. Kodi id 2 = the visualisation control (kept, hidden: the sleeve replaces it).
+pocket. No idle animation. Kodi id 2 = the visualisation control, shown only in Visualiser mode ($EXP[NP_VizMode]:
+the OSD's "Visualiser" word + a visualisation add-on set in Kodi); then the gatefold steps aside and a cream strip at
+the foot carries the song and the keys ("OK Presets" while the visualisation has presets).
 9900 = a clear full-screen button: OK / Up / Down open the music OSD, Left / Right step (LESSONS round 3).
 MusicOSD = a short cream strip that folds up from the bottom edge with the words Pause/Play, Stop, Previous,
-Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600, 607, 70054, 70053, 70051,
-87 hidden seek stepper (Up), group 200.
+Next · Shuffle, Repeat, Queue · Visualiser / The sleeve, Presets (fixed widths, left-aligned). Ids: 602, 603, 600,
+607, 70054, 70053, 70051, 70060 (while a visualisation add-on is set), 70061 (Visualiser mode + presets: Kodi's preset
+list in DialogSelect; it has focus when the OSD opens over such a visualiser), 87 hidden seek stepper (Up), group 200.
 -->
 <window>
 	<onload condition="!Player.PauseEnabled">SetFocus(603)</onload>
+	<onload condition="Skin.HasSetting(fold.np.viz) + Visualisation.Enabled + Visualisation.HasPresets">SetFocus(70061)</onload>
 	<defaultcontrol always="true">602</defaultcontrol>
 	<include>Anim_OSDSlideUp</include>
 	<controls>
@@ -80,7 +84,9 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 			<height>56</height>
 			<orientation>horizontal</orientation>
 			<itemgap>4</itemgap>
-			<onleft>70051</onleft>
+			<onleft condition="$EXP[NP_VizPresets]">70061</onleft>
+			<onleft condition="Visualisation.Enabled + !$EXP[NP_VizPresets]">70060</onleft>
+			<onleft condition="!Visualisation.Enabled">70051</onleft>
 			<onright>602</onright>
 			<onup condition="Player.SeekEnabled">87</onup>
 				<control type="button" id="602">
@@ -198,6 +204,44 @@ Next · Shuffle, Repeat, Queue (fixed widths, left-aligned). Ids: 602, 603, 600,
 					<onclick>ActivateWindow(musicplaylist)</onclick>
 					<onup condition="Player.SeekEnabled">87</onup>
 					<visible>true</visible>
+				</control>
+				<control type="label" id="9506">
+					<width>24</width>
+					<height>56</height>
+					<align>center</align>
+					<font>word_26</font>
+					<textcolor>mari_ink</textcolor>
+					<selectedcolor>mari_ink</selectedcolor>
+					<label>·</label>
+					<visible>Visualisation.Enabled</visible>
+				</control>
+				<control type="button" id="70060">
+					<width>195</width>
+					<height>56</height>
+					<label>$VAR[NP_VizWord]</label>
+					<font>word_26</font>
+					<textcolor>ink</textcolor>
+					<selectedcolor>ink</selectedcolor>
+					<align>center</align>
+					<textoffsetx>0</textoffsetx>
+					<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
+					<onclick>Skin.ToggleSetting(fold.np.viz)</onclick>
+					<onup condition="Player.SeekEnabled">87</onup>
+					<visible>Visualisation.Enabled</visible>
+				</control>
+				<control type="button" id="70061">
+					<width>155</width>
+					<height>56</height>
+					<label>$LOCALIZE[31423]</label>
+					<font>word_26</font>
+					<textcolor>ink</textcolor>
+					<selectedcolor>ink</selectedcolor>
+					<align>center</align>
+					<textoffsetx>0</textoffsetx>
+					<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
+					<onclick>ActivateWindow(visualisationpresetlist)</onclick>
+					<onup condition="Player.SeekEnabled">87</onup>
+					<visible>$EXP[NP_VizPresets]</visible>
 				</control>
 		</control>
 		<control type="grouplist">

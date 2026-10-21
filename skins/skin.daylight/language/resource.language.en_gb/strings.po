@@ -316,6 +316,14 @@ msgctxt "#31129"
 msgid "Video settings"
 msgstr ""
 
+msgctxt "#31318"
+msgid "Visualiser presets"
+msgstr ""
+
+msgctxt "#31319"
+msgid "OK, then ← for presets"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Daylight (Fraunces + Figtree)"
 msgstr ""

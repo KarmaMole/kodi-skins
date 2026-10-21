@@ -4,7 +4,7 @@
 	Music playback (M3): Now Playing stage (MusicVisualisation.xml), the tray and its overlays (MusicOSD.xml),
 	the mini player (Groove_MiniPlayer, placed by Home / libraries / info / custom windows).
 	Ids: tray 9601-9609, progress 9620, Up next 9630 group / 9631-9636 / 9640, Liner notes 9650-9670,
-	viz caption 9681-9682, wake catcher 9690, video lookup 9695, mini player 9950.
+	viz caption 9681-9682, Visualiser presets 9621, wake catcher 9690, video lookup 9695, mini player 9950.
 	Runtime properties (Window(Home)): groove.tray.last (last tray button), groove.np.overlay (liner while the
 	Liner notes page is open), groove.upnext.pick / .to (helper pick-up), groove.np.colorsrc (TMDb colour source).
 -->
@@ -748,7 +748,7 @@
 					<label>$INFO[MusicPlayer.Title]</label>
 				</control>
 				<control type="label" id="9682">
-					<width max="600">auto</width>
+					<width max="380">auto</width>
 					<height>48</height>
 					<aligny>center</aligny>
 					<font>font_caption_light</font>
@@ -1276,7 +1276,8 @@
 					<onclick>Skin.ToggleSetting(groove.np.viz)</onclick>
 					<onleft>9605</onleft>
 					<onright>9607</onright>
-					<onup>9620</onup>
+					<onup condition="$EXP[NP_VizMode] + Visualisation.HasPresets">9621</onup>
+					<onup condition="![$EXP[NP_VizMode] + Visualisation.HasPresets]">9620</onup>
 					<onback condition="Window.IsActive(visualisation)">Action(FullScreen,visualisation)</onback>
 				</control>
 			</control>
@@ -1457,7 +1458,8 @@
 		</control>
 	</include>
 
-	<!-- Up from the tray: the progress line takes focus (track to 30 %, a playhead dot, times in ink).
+	<!-- Up from the tray: the progress line takes focus (track to 30 %, a playhead dot, times in ink). Up = the
+	     Visualiser presets icon 9621 (hidden: Kodi doesn't move focus; 9621 has no onup to fall through to).
 	     Left / Right seek 10 s, OK play / pause, Down / Back return to the tray button you came from. -->
 	<include name="NP_ProgressFocus">
 		<control type="group">
@@ -1516,6 +1518,7 @@
 			<onleft>Seek(-10)</onleft>
 			<onright>Seek(10)</onright>
 			<onclick>PlayerControl(Play)</onclick>
+			<onup>9621</onup>
 			<ondown condition="Integer.IsEqual(Window(Home).Property(groove.tray.last),9601)">9601</ondown>
 			<ondown condition="Integer.IsEqual(Window(Home).Property(groove.tray.last),9602)">9602</ondown>
 			<ondown condition="Integer.IsEqual(Window(Home).Property(groove.tray.last),9603)">9603</ondown>
@@ -1536,6 +1539,76 @@
 			<onback condition="Integer.IsEqual(Window(Home).Property(groove.tray.last),9608)">9608</onback>
 			<onback condition="Integer.IsEqual(Window(Home).Property(groove.tray.last),9609)">9609</onback>
 			<onback>9602</onback>
+		</control>
+	</include>
+
+	<!-- Visualiser presets (Visualiser mode + the visualisation has presets): Kodi's preset list opens in DialogSelect.
+	     Up from 9606 / 9620, Down / Back = 9620; fades with the caption after 4 s idle (Timers.xml). -->
+	<include name="NP_VizPresets">
+		<control type="group">
+			<left>1722</left>
+			<top>780</top>
+			<width>48</width>
+			<height>48</height>
+			<visible>$EXP[NP_VizMode] + Visualisation.HasPresets</visible>
+			<include>Anim_StageToggle</include>
+			<include content="Anim_IdleFade"><param name="condition" value="System.IdleTime(4)"/><param name="to" value="0"/></include>
+			<control type="image">
+				<left>-34</left>
+				<top>-34</top>
+				<width>116</width>
+				<height>116</height>
+				<texture colordiffuse="$VAR[focus_glow]">groove/glow_radial.png</texture>
+				<visible>Control.HasFocus(9621)</visible>
+				<include>Anim_FadeVisible</include>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>48</width>
+				<height>48</height>
+				<texture colordiffuse="$VAR[ink]">icons/presets.png</texture>
+				<animation type="Conditional" condition="!Control.HasFocus(9621)" reversible="true"><effect type="fade" start="100" end="54" time="160" tween="cubic" easing="out"/></animation>
+			</control>
+			<control type="label">
+				<left>-312</left>
+				<top>0</top>
+				<width>300</width>
+				<height>48</height>
+				<align>right</align>
+				<aligny>center</aligny>
+				<font>font_tray</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$LOCALIZE[31743]</label>
+				<visible>Control.HasFocus(9621)</visible>
+				<include>Anim_LabelReveal</include>
+			</control>
+			<control type="label">
+				<left>-312</left>
+				<top>0</top>
+				<width>300</width>
+				<height>48</height>
+				<align>right</align>
+				<aligny>center</aligny>
+				<font>font_tray</font>
+				<textcolor>$VAR[ink2]</textcolor>
+				<label>$LOCALIZE[31744]</label>
+				<visible>!Control.HasFocus(9621)</visible>
+				<include>Anim_FadeVisible</include>
+			</control>
+			<control type="button" id="9621">
+				<left>0</left>
+				<top>0</top>
+				<width>48</width>
+				<height>48</height>
+				<label></label>
+				<texturefocus />
+				<texturenofocus />
+				<onfocus>ClearProperty(groove.np.overlay,home)</onfocus>
+				<onclick>ActivateWindow(visualisationpresetlist)</onclick>
+				<ondown>9620</ondown>
+				<onback>9620</onback>
+			</control>
 		</control>
 	</include>
 

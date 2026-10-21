@@ -1,3 +1,9 @@
+0.9.10 (2026-10-21)
+- Visualiser presets button in the music player.
+- Music controls: a "Visualiser presets" pill after Queue; Left from Play/Pause reaches it in one press (the row still wraps). Opens Kodi's preset list; Back returns to the pill. Only while a visualisation with presets is running.
+- Now playing over a visualisation with presets: the small card says "OK, then ← for presets".
+- The OSD auto-hide waits while the preset list is open.
+
 0.9.9 (2026-10-21)
 - Sets row in the Library panel; fix for controls disappearing with Reduce motion on. Code clean-up for the Kodi repository checks.
 - Code clean-up for the Kodi repository checks: unused code and fonts removed, on-screen text moved to the strings file, LF line endings. Search now encodes the typed text with Skin Variables (script.skinvariables, now required), so titles with & + % are found.

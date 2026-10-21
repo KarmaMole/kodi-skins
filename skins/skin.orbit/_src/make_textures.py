@@ -412,6 +412,8 @@ def icons():
     I = Icon(); I.line([(4, 18), (4, 6)], 1.5); I.circle(12, 12, 1.4, fill=True); I.line([(20, 18), (20, 6)], 1.5); I.save("zoom")
     I = Icon(); I.line([(12, 4), (12, 15)]); I.line([(7, 10), (12, 15), (17, 10)]); I.line([(5, 19), (19, 19)]); I.save("download")
     I = Icon(); I.line([(4.5, 12), (9.5, 12), (12, 6), (15, 18), (17.5, 12), (19.5, 12)], 1.6); I.save("pulse")
+    # visualiser presets (0.9.11) = a waveform inside an Orbit dial ring
+    I = Icon(); I.circle(12, 12, 8.5); I.line([(6.5, 12), (8.5, 12), (10, 8.5), (12, 15.5), (14, 9.5), (15.5, 12), (17.5, 12)], 1.5); I.save("presets")
     I = Icon(); I.circle(12, 12, 8.5); I.line([(8.5, 8.5), (15.5, 15.5)]); I.save("blocked")
     I = Icon(); I.rect(5, 4, 14, 16, fill=False, r=2); I.line([(9, 9), (15, 9)], 1.5); I.line([(9, 13), (15, 13)], 1.5); I.save("doc")
     I = Icon(); I.circle(12, 12, 8.5); I.line([(8, 12), (16, 12)]); I.line([(12, 8), (12, 16)]); I.save("addcircle")
@@ -575,7 +577,7 @@ def round_buttons():
         (84, 0, ["play", "pause"], ("n", "f", "p")),
         (64, 0, ["prev", "next", "rewind", "forward", "stop"], ("n", "f")),
         (56, 0, ["subtitles", "audio", "sliders", "chapters", "info", "pulse", "stop", "repeat", "shuffle",
-                 "bookmark", "settings", "close", "list", "music", "disc", "zoom", "power"], ("n", "f", "s")),
+                 "bookmark", "settings", "close", "list", "music", "disc", "zoom", "power", "presets"], ("n", "f", "s")),
     ]
     n = 0
     # blank discs (icon drawn by an image control: the play/pause icon changes with the state,

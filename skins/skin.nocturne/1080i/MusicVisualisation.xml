@@ -2,8 +2,10 @@
 <!--
 	Now playing = the listening room with one record under the lamp: the playing cover on the ledge in the cone of
 	light, the album on its brass plaque, up next, and the now-playing rail (title, time, filament).
-	Kodi id contract (Estuary Omega MusicVisualisation.xml): 2 = visualisation control (only when Omar enables a
-	visualisation add-on; then it replaces the room and the text shows on Info / OSD).
+	Kodi id contract (Estuary Omega MusicVisualisation.xml): 2 = visualisation control, shown only in Visualiser mode
+	($EXP[Music_VizMode]: the music OSD's top rail word + a visualisation add-on set in Kodi); then it replaces the record
+	under the lamp, the now-playing rail stays, and "OK · presets" sits over its time when the visualisation has presets
+	(OK opens the OSD on its Presets word).
 	9900 = clear full-screen button so OK opens the music OSD from any remote / JSON-RPC (LESSONS, Passe-partout):
 	OK / Up / Down = music OSD, Left / Right = step back / forward. Back = Kodi (previous window).
 -->
@@ -33,13 +35,14 @@
 			<top>0</top>
 			<width>1920</width>
 			<height>1080</height>
-			<visible>false</visible>
+			<visible>$EXP[Music_VizMode]</visible>
 		</control>
 		<control type="group">
 			<visible>true</visible>
 			<include>Anim_FadeVisible</include>
 			<control type="group">
-				<visible>true</visible>
+				<visible>!$EXP[Music_VizMode]</visible>
+				<include>Anim_FadeVisible</include>
 				<control type="group">
 					<left>710</left>
 					<top>266</top>
@@ -97,7 +100,7 @@
 				<param name="top" value="834"/>
 				<param name="title" value="$INFO[MusicPlayer.Album]"/>
 				<param name="meta" value="$INFO[MusicPlayer.Year]$INFO[MusicPlayer.Genre,  ·  ,]"/>
-				<param name="visible" value="!String.IsEmpty(MusicPlayer.Album) + !Window.IsVisible(musicosd)"/>
+				<param name="visible" value="!String.IsEmpty(MusicPlayer.Album) + !Window.IsVisible(musicosd) + !$EXP[Music_VizMode]"/>
 			</include>
 			<!-- up next, top left (under the cornice line) -->
 			<control type="grouplist">
@@ -107,7 +110,7 @@
 				<height>120</height>
 				<orientation>vertical</orientation>
 				<itemgap>2</itemgap>
-				<visible>MusicPlayer.HasNext</visible>
+				<visible>MusicPlayer.HasNext + !$EXP[Music_VizMode]</visible>
 				<control type="label">
 					<width>620</width>
 					<height>32</height>
@@ -133,6 +136,19 @@
 			<include content="Noc_NowPlayingRail">
 				<param name="visible" value="!Window.IsVisible(musicosd)"/>
 			</include>
+			<!-- Visualiser mode with presets: the quiet hint over the rail's time -->
+			<control type="label">
+				<right>96</right>
+				<top>896</top>
+				<width>600</width>
+				<height>30</height>
+				<align>right</align>
+				<font>caps_20</font>
+				<textcolor>8cc8b8a0</textcolor>
+				<label>[UPPERCASE]$LOCALIZE[31380][/UPPERCASE]</label>
+				<visible>$EXP[Music_VizPresets] + !Window.IsVisible(musicosd)</visible>
+				<include>Anim_FadeVisible</include>
+			</control>
 		</control>
 		<include>Noc_CorniceImage</include>
 		<include content="Noc_Crumbs">

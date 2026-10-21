@@ -195,6 +195,20 @@
 			<label>$INFO[Player.TimeRemaining,-,]$INFO[Player.Duration,  /  ,]</label>
 		</control>
 
+		<!-- 1.0.11: how to reach the presets (OK opens the controls, Left from Play wraps to Presets) -->
+		<control type="label">
+			<left>page_margin</left>
+			<top>1010</top>
+			<width>page_width</width>
+			<height>24</height>
+			<align>right</align>
+			<font>mono_13</font>
+			<textcolor>text_tertiary</textcolor>
+			<label>$LOCALIZE[31321]</label>
+			<visible>$EXP[Music_HasVisPresets] + !Window.IsVisible(musicosd)</visible>
+			<include>Anim_FadeVisible</include>
+		</control>
+
 		<!-- ============================================================== up next -->
 		<control type="grouplist">
 			<left>page_margin</left>

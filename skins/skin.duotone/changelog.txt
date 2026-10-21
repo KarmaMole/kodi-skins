@@ -1,3 +1,10 @@
+0.9.12 (2026-10-21)
+- Visualiser presets button in the music player.
+- Music controls: a "Visualiser presets" button after Queue (shows the current preset); Left from Play/Pause wraps to it in one press. Opens Kodi's preset list; Back returns to the button. Only while a visualisation with presets is running.
+- Now playing with such a visualisation: a quiet "OK ◀ Presets" hint bottom right.
+- The OSD auto-hide waits while the preset list is open.
+- Lists: the current item is readable when it has focus (it was dark on the dark placard, e.g. the active preset in the preset list). The presets button is wide enough for its caption.
+
 0.9.11 (2026-10-21)
 - New Look setting (Skin settings, first row): Colour (as before, the default), Light (near-white pages, black
   type) or Dark (near-black pages, white type). Light and Dark have no section colours; the focused picture

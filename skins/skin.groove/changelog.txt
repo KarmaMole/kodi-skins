@@ -1,3 +1,8 @@
+1.0.1 (2026-10-21)
+- Visualiser presets button in the music player.
+- Now Playing, Visualiser mode: a Presets icon at the right end of the caption line (shown when the visualisation has presets) opens Kodi's preset list. Up from the Visualiser / Record button reaches it in one press (Up from the progress line too); unfocused it reads Up · presets. The tray keeps its 8 / 9 fixed slots.
+- The "Up · presets" hint shows its dot correctly.
+
 1.0.0 (2026-10-21) - first release
 The whole skin: Home, the music library in five views (Cover wall, Crate dig, Shelf of spines, Orbit, List), Time machine, the Wheel, Now Playing with Up next and Liner notes, the mini player, films and TV (Cover wall, Backdrop carousel, List), info pages, the video player, Search, every dialog and settings window, in a Dark and a Light room.
 

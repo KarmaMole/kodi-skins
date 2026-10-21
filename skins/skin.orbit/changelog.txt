@@ -1,3 +1,9 @@
+0.9.11 (2026-10-21)
+- Visualiser presets button in the music player.
+- Music controls: a Visualiser presets tool (new waveform-in-a-dial icon, make_textures.py) after Queue; Down from Play/Pause reaches it in one press, its name and the current preset show under the tools. Opens Kodi's preset list; Back returns to the tool. Only while a visualisation with presets is running.
+- Now playing over a visualisation with presets: a quiet hint bottom right, "OK · ↓ Presets".
+- The OSD auto-hide waits while the preset list is open.
+
 0.9.10 (2026-10-21)
 - Sets row in the Library panel; fix for controls disappearing with Reduce motion on. Code clean-up for the Kodi repository checks.
 - Code clean-up for the Kodi repository checks: unused code and fonts removed, on-screen text moved to the strings file, LF line endings. Search now encodes the typed text with Skin Variables (script.skinvariables, now required), so titles with & + % are found.

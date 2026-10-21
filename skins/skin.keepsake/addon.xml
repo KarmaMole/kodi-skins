@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.keepsake" version="0.9.6" name="Keepsake" provider-name="KarmaMole">
+<addon id="skin.keepsake" version="0.9.7" name="Keepsake" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required: Skin Variables URL-encodes the search query and reads the exact time you watched
@@ -18,7 +18,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#keepsake</website>
-		<news>v0.9.6 - Sets row in the Library panel; fix for controls disappearing or staying enlarged with Reduce motion on.</news>
+		<news>v0.9.7 - Visualiser presets button in the music player.</news>
 		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>

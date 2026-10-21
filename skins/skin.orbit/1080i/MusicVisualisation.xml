@@ -217,5 +217,17 @@
 				<visible>!String.IsEmpty(MusicPlayer.offset(1).Title) + !Window.IsVisible(musicosd)</visible>
 			</control>
 		</control>
+		<!-- 0.9.11: how to reach the visualiser presets (OK opens the controls, Down from Play) -->
+		<control type="label">
+			<left>1000</left>
+			<top>1000</top>
+			<width>856</width>
+			<height>26</height>
+			<align>right</align>
+			<font>label_20</font>
+			<textcolor>text_secondary</textcolor>
+			<label>$LOCALIZE[31317]</label>
+			<visible>Visualisation.Enabled + Visualisation.HasPresets + !Window.IsVisible(musicosd)</visible>
+		</control>
 	</controls>
 </window>

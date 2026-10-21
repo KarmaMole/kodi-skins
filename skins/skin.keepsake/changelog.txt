@@ -1,3 +1,8 @@
+0.9.7 (2026-10-21)
+- Visualiser presets button in the music player.
+- Music OSD: "visualiser" (shown when a visualisation add-on is set in Kodi) swaps the album page for the visualisation and back ("the photo"), off by default; in Visualiser mode "presets" opens Kodi's preset list and has focus when the OSD opens. Now playing then writes the song at the foot with "ok for the presets".
+- The OSD auto-hide waits while the preset list is open.
+
 0.9.6 (2026-10-21)
 - Sets row in the Library panel; fix for controls disappearing or staying enlarged with Reduce motion on. Code clean-up for the Kodi repository checks.
 - Clean-up details (kodi-review / kdk 0 errors): unused variables, includes and fonts removed, tags that repeat Defaults.xml dropped, label text moved to strings.po, Search now needs Skin Variables (script.skinvariables 2.1.21, required) to URL-encode the typed query, so titles with & + % | are found. Skin Variables is no longer optional, so the time-of-day notes are always on unless the setting turns them off. Game controller pictures (controller settings) were drawn with undefined colour names, so invisible; they use the skin colours now.

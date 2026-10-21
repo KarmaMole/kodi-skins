@@ -316,6 +316,10 @@ msgctxt "#31129"
 msgid "Video settings"
 msgstr ""
 
+msgctxt "#31321"
+msgid "OK  ◀  Presets"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Majan (Hanken Grotesk)"
 msgstr ""
@@ -730,4 +734,8 @@ msgstr ""
 
 msgctxt "#31319"
 msgid "VIEW"
+msgstr ""
+
+msgctxt "#31320"
+msgid "Visualiser presets"
 msgstr ""

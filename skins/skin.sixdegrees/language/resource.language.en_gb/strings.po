@@ -924,6 +924,14 @@ msgctxt "#31354"
 msgid "Stats"
 msgstr ""
 
+msgctxt "#31355"
+msgid "Presets"
+msgstr ""
+
+msgctxt "#31356"
+msgid "OK · presets"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Six Degrees (Hanken Grotesk)"
 msgstr ""

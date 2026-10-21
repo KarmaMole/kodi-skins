@@ -131,6 +131,20 @@
 			<label>$INFO[MusicPlayer.Title]$INFO[MusicPlayer.Artist,  ·  ,]</label>
 		</control>
 
+		<!-- 0.9.12: how to reach the visualiser presets (OK opens the controls, Left from Play wraps to them) -->
+		<control type="label">
+			<left>page_margin</left>
+			<top>1010</top>
+			<width>page_width</width>
+			<height>24</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>$VAR[SectionText3]</textcolor>
+			<label>$LOCALIZE[31412]</label>
+			<visible>$EXP[Music_HasVisPresets] + !Window.IsVisible(musicosd)</visible>
+			<include>Anim_FadeVisible</include>
+		</control>
+
 		<!-- up next (MusicOSD's controls take this row while it is open) -->
 		<control type="grouplist">
 			<left>page_margin</left>

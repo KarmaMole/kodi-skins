@@ -13,7 +13,9 @@
 	       9607 Watch video (YouTube + a song video link) 9608 Shuffle 9609 Repeat
 	       Left / Right walk the tray (hidden or disabled slots are skipped), Up = 9620, Down = nothing,
 	       Back = close the OSD AND leave Now Playing (Action(FullScreen,visualisation)).
-	  9620 progress line: Left / Right seek 10 s, OK play / pause, Down / Back = the tray button you came from.
+	  9620 progress line: Left / Right seek 10 s, OK play / pause, Down / Back = the tray button you came from,
+	       Up = 9621 Visualiser presets (Visualiser mode + Visualisation.HasPresets; also Up from 9606; Down / Back
+	       = 9620; OK = Kodi's preset list in DialogSelect).
 	  Up next (9604 OK): 9631-9636 cards (Up / Down walk, OK jump, Left on the top card skips; helper: Right picks
 	       up, Up / Down move, OK drops, Back cancels), 9640 empty queue. Back = 9604.
 	  Liner notes (9605 OK): 9661 review -> 9662 bio (or 9663 / 9664 / 9665 by what exists). Back = 9605.
@@ -29,6 +31,7 @@
 		<include>NP_UpNextVeil</include>
 		<include>NP_Tray</include>
 		<include>NP_ProgressFocus</include>
+		<include>NP_VizPresets</include>
 		<include>NP_UpNext</include>
 		<control type="group">
 			<include content="Anim_Reveal">

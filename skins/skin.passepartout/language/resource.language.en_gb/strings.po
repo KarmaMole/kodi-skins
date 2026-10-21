@@ -832,6 +832,22 @@ msgctxt "#31258"
 msgid "OK JUMPS TO THE CHAPTER  ·  BACK CLOSES"
 msgstr ""
 
+msgctxt "#31259"
+msgid "Visualiser"
+msgstr ""
+
+msgctxt "#31260"
+msgid "The print"
+msgstr ""
+
+msgctxt "#31261"
+msgid "Presets"
+msgstr ""
+
+msgctxt "#31262"
+msgid "OK · presets"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Majan (Hanken Grotesk)"
 msgstr ""

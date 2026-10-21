@@ -1,3 +1,8 @@
+0.9.11 (2026-10-21)
+- Visualiser presets button in the music player.
+- Music OSD: a Presets pill at the end of the sign (current preset as its value) while a visualisation with presets runs; it has focus when the OSD opens there, and Left from Play / Pause reaches it otherwise. The visualisation shows a small OK · presets sign at the foot.
+- The OSD auto-hide waits while the preset list is open.
+
 0.9.10 (2026-10-21)
 - Sets row in the Library panel; fix for controls disappearing with Reduce motion on. Code clean-up for the Kodi repository checks.
 - Library panel: a Sets row (films only, when the library has sets) opens all sets in the same window; pick a set for its films, Back walks set -> all sets -> films. Sets use the films' views (Line, Platform, Index).

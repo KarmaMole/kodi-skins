@@ -316,6 +316,14 @@ msgctxt "#31129"
 msgid "Video settings"
 msgstr ""
 
+msgctxt "#31411"
+msgid "Visualiser presets"
+msgstr ""
+
+msgctxt "#31412"
+msgid "OK  ◀  Presets"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Duotone (Anton + Inter Tight)"
 msgstr ""

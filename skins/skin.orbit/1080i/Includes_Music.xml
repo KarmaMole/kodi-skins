@@ -957,6 +957,7 @@
 		<value condition="Control.HasFocus(70054)">Shuffle  ·  $VAR[Music_OSDShuffleValue]</value>
 		<value condition="Control.HasFocus(70053)">Repeat  ·  $VAR[Music_OSDRepeatValue]</value>
 		<value condition="Control.HasFocus(70051)">Queue</value>
+		<value condition="Control.HasFocus(70056)">$LOCALIZE[31316]$INFO[Visualisation.Preset,  ·  ,]</value>
 	</variable>
 	<variable name="Music_InfoArtThumb">
 		<value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>

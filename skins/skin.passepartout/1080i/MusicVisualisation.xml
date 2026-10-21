@@ -3,8 +3,10 @@
 	Now playing (music): the album hangs as one large square print on paper coloured from its cover
 	(TMDb Helper image_colors run for the playing cover -> TMDbHelper.PPPlayer.Colors.Main), the museum
 	caption under it, a hairline progress line at the foot. MusicOSD adds the transport words.
-	Kodi id contract (Estuary Omega MusicVisualisation.xml): 2 = visualisation (only when a
-	visualisation add-on is enabled; then it replaces the paper). No focusable controls.
+	Kodi id contract (Estuary Omega MusicVisualisation.xml): 2 = visualisation. Shown only in Visualiser mode
+	($EXP[Music_VizMode]: the music OSD's "Visualiser" word + a visualisation add-on set in Kodi); then it replaces
+	the hung album and a small paper tag at the foot names the song and, when the visualisation has presets,
+	says "OK · presets" (OK opens the OSD on its Presets word). 9900 is the only focusable control.
 -->
 <window>
 	<defaultcontrol always="true">9900</defaultcontrol>
@@ -38,10 +40,12 @@
 			<top>0</top>
 			<width>screen_w</width>
 			<height>screen_h</height>
-			<!-- Passe-partout hangs the album instead of drawing a visualisation (the control stays for Kodi) -->
-			<visible>false</visible>
+			<!-- Passe-partout hangs the album; Visualiser mode (0.9.13) draws the visualisation instead -->
+			<visible>$EXP[Music_VizMode]</visible>
 		</control>
 		<control type="group">
+			<visible>!$EXP[Music_VizMode]</visible>
+			<include>Anim_FadeVisible</include>
 			<control type="label">
 				<left>120</left>
 				<top>64</top>
@@ -82,9 +86,43 @@
 				<label>$INFO[MusicPlayer.offset(1).Title,Next · ,]$INFO[MusicPlayer.offset(1).Artist, — ,]</label>
 			</control>
 		</control>
-		<!-- foot: hairline progress, times, play modes (hidden while the OSD shows its own) -->
+		<!-- Visualiser mode: a paper tag at the foot (the OSD tag's look): song · artist, then OK · presets -->
+		<control type="grouplist">
+			<left>120</left>
+			<top>960</top>
+			<width>1680</width>
+			<height>56</height>
+			<orientation>horizontal</orientation>
+			<visible>$EXP[Music_VizMode] + !Window.IsVisible(musicosd)</visible>
+			<include>Anim_FadeVisible</include>
+			<control type="button">
+				<width max="1300">auto</width>
+				<height>56</height>
+				<font>cap_20</font>
+				<disabledcolor>ink</disabledcolor>
+				<textoffsetx>26</textoffsetx>
+				<texturefocus colordiffuse="$VAR[PlayerPaper]">common/white.png</texturefocus>
+				<texturenofocus colordiffuse="$VAR[PlayerPaper]">common/white.png</texturenofocus>
+				<label>$INFO[MusicPlayer.Title]$INFO[MusicPlayer.Artist, · ,]</label>
+				<enable>false</enable>
+			</control>
+			<control type="button">
+				<width>auto</width>
+				<height>56</height>
+				<font>cap_20</font>
+				<textcolor>ink2</textcolor>
+				<disabledcolor>ink2</disabledcolor>
+				<textoffsetx>26</textoffsetx>
+				<texturefocus colordiffuse="$VAR[PlayerPaper]">common/white.png</texturefocus>
+				<texturenofocus colordiffuse="$VAR[PlayerPaper]">common/white.png</texturenofocus>
+				<label>$LOCALIZE[31262]</label>
+				<enable>false</enable>
+				<visible>Visualisation.HasPresets</visible>
+			</control>
+		</control>
+		<!-- foot: hairline progress, times, play modes (hidden while the OSD shows its own, and in Visualiser mode) -->
 		<control type="group">
-			<visible>!Window.IsVisible(musicosd)</visible>
+			<visible>!Window.IsVisible(musicosd) + !$EXP[Music_VizMode]</visible>
 			<include>Anim_FadeVisible</include>
 			<control type="progress">
 				<left>120</left>

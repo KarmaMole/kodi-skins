@@ -44,6 +44,14 @@ msgctxt "#31044"
 msgid "Delete"
 msgstr ""
 
+msgctxt "#31337"
+msgid "Visualiser presets"
+msgstr ""
+
+msgctxt "#31338"
+msgid "OK  ·  ← Presets"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Void (Instrument Serif and Sans)"
 msgstr ""

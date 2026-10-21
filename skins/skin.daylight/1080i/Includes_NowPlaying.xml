@@ -355,6 +355,29 @@
 				<font>ui_22</font>
 				<textcolor>$VAR[DL_Ink2]</textcolor>
 				<label>$INFO[MusicPlayer.Artist]$INFO[Player.TimeRemaining,  ·  −,]</label>
+				<visible>[!Visualisation.Enabled | !Visualisation.HasPresets]</visible>
+			</control>
+			<!-- 0.9.10: with visualiser presets the line makes room for how to reach them -->
+			<control type="label">
+				<left>120</left>
+				<top>62</top>
+				<width>480</width>
+				<height>34</height>
+				<font>ui_22</font>
+				<textcolor>$VAR[DL_Ink2]</textcolor>
+				<label>$INFO[MusicPlayer.Artist]$INFO[Player.TimeRemaining,  ·  −,]</label>
+				<visible>Visualisation.Enabled + Visualisation.HasPresets</visible>
+			</control>
+			<control type="label">
+				<left>610</left>
+				<top>62</top>
+				<width>260</width>
+				<height>34</height>
+				<align>right</align>
+				<font>ui_22</font>
+				<textcolor>$VAR[DL_Ink2]</textcolor>
+				<label>$LOCALIZE[31319]</label>
+				<visible>Visualisation.Enabled + Visualisation.HasPresets</visible>
 			</control>
 		</control>
 	</include>

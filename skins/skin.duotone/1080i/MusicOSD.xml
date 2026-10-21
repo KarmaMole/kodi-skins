@@ -8,7 +8,7 @@
 	Kodi id contract (Estuary Omega MusicOSD.xml): defaultcontrol 602 (Stop 603 when pause is not
 	possible), 87 seek stepper (hidden; Left/Right step), group 200 with grouplists 201 (transport,
 	0.9.3 order: 602 play/pause, 603 stop, 600 prev, 607 next; 601 rewind / 606 forward not shipped) and 202 (secondary:
-	70054 shuffle, 70053 repeat, 70051 queue). Kodi itself only routes actions; no ids are filled.
+	70054 shuffle, 70053 repeat, 70051 queue; 70056 visualiser presets, a Duotone id). Kodi itself only routes actions; no ids are filled.
 	Not shipped: 608 record / 70040-70050 PVR + RDS (radio unused), 70052 rating, 70055 lyrics,
 	70048 settings (Estuary's custom 1105 window is omitted in Duotone).
 
@@ -79,7 +79,7 @@
 						<onclick>PlayerControl(Play)</onclick>
 						<onup>87</onup>
 						<ondown>noop</ondown>
-						<onleft>70051</onleft>
+						<onleft>70056</onleft>
 						<onright>603</onright>
 					</control>
 					<control type="image">
@@ -169,6 +169,19 @@
 					<param name="onclick2" value="ActivateWindow(musicplaylist)"/>
 					<param name="visible" value="Integer.IsGreater(Playlist.Length(music),0)"/>
 					<param name="onleft" value="70053"/>
+					<param name="onright" value="70056"/>
+				</include>
+				<!-- 0.9.12: Visualiser presets (Kodi's preset list opens in DialogSelect; Back returns here).
+				     Only with a running visualisation that has presets; hidden, Kodi skips it in the chain.
+				     Left from Play/Pause wraps to it (one press). -->
+				<include content="Music_OSDTextButton">
+					<param name="id" value="70056"/>
+					<param name="width" value="300"/>
+					<param name="caption" value="$LOCALIZE[31411]"/>
+					<param name="value" value="$VAR[Music_OSDPresetValue]"/>
+					<param name="onclick" value="ActivateWindow(visualisationpresetlist)"/>
+					<param name="visible" value="$EXP[Music_HasVisPresets]"/>
+					<param name="onleft" value="70051"/>
 					<param name="onright" value="602"/>
 				</include>
 				<control type="group">  <!-- trailing 2 + itemgap 6 = 8px room for the last button's focus frame (right-aligned grouplist) -->

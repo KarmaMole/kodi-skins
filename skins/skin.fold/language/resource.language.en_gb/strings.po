@@ -827,3 +827,15 @@ msgstr ""
 msgctxt "#31420"
 msgid "Order:"
 msgstr ""
+
+msgctxt "#31421"
+msgid "Visualiser"
+msgstr ""
+
+msgctxt "#31422"
+msgid "The sleeve"
+msgstr ""
+
+msgctxt "#31423"
+msgid "Presets"
+msgstr ""

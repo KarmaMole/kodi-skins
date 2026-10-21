@@ -65,6 +65,15 @@
 
 	<!-- ========================================================== expressions -->
 	<expression name="Music_IsPlaying">Player.HasAudio</expression>
+	<!-- Visualiser (VIS_PRESETS_BRIEF, 0.9.8): Now playing is the listening room; the music OSD's top rail word
+	     "Visualiser" swaps it for Kodi's visualisation (skin bool nocturne.np.viz, off by default) and back ("The record").
+	     Kodi only creates the visualisation add-on while control 2 is visible, so HasPresets is true only in this mode. -->
+	<expression name="Music_VizMode">Skin.HasSetting(nocturne.np.viz) + Visualisation.Enabled</expression>
+	<expression name="Music_VizPresets">Skin.HasSetting(nocturne.np.viz) + Visualisation.Enabled + Visualisation.HasPresets</expression>
+	<variable name="Music_VizWord">
+		<value condition="Skin.HasSetting(nocturne.np.viz)">$LOCALIZE[31378]</value>
+		<value>$LOCALIZE[31377]</value>
+	</variable>
 	<!-- Header tab that matches the current library node (path based, so drilling into an artist keeps ARTISTS lit) -->
 	<expression name="Music_TabArtists">String.StartsWith(Container.FolderPath,musicdb://artists/)</expression>
 	<expression name="Music_TabGenres">String.StartsWith(Container.FolderPath,musicdb://genres/)</expression>

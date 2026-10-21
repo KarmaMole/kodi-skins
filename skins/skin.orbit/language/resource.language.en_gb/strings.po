@@ -316,6 +316,14 @@ msgctxt "#31129"
 msgid "Video settings"
 msgstr ""
 
+msgctxt "#31316"
+msgid "Visualiser presets"
+msgstr ""
+
+msgctxt "#31317"
+msgid "OK  ·  ↓  Presets"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Orbit (Hanken Grotesk)"
 msgstr ""

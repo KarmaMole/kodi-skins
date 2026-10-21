@@ -4,9 +4,10 @@
 	timeline and numbers; this adds the same text-button row as the video OSD at y 1000.
 	Kodi id contract (Estuary Omega MusicOSD.xml): defaultcontrol 602 (603 when pause is not possible),
 	87 seek stepper (hidden; Left/Right step), group 200 in this order: 602 play/pause, 603 stop, 600 prev, 607 next,
-	70054 shuffle, 70053 repeat, 70051 queue. Not shipped: 608 record / PVR + RDS ids,
+	70054 shuffle, 70053 repeat, 70051 queue, 70056 visualiser presets (Void id; only with a
+	visualisation that has presets). Not shipped: 608 record / PVR + RDS ids,
 	70052 rating, 70055 lyrics, 70048 settings.
-	Focus map: Left/Right walk the row, Up -> 87 (seek), Down from 87 -> row. Back closes the OSD.
+	Focus map: Left/Right walk the row (Left from the first button wraps to Visualiser presets when shown), Up -> 87 (seek), Down from 87 -> row. Back closes the OSD.
 -->
 <window>
 	<onload condition="!Player.PauseEnabled">SetFocus(603)</onload>
@@ -40,10 +41,13 @@
 			<itemgap>30</itemgap>
 			<usecontrolcoords>true</usecontrolcoords>
 			<onup condition="Player.SeekEnabled">87</onup>
-			<onleft>noop</onleft>
-			<onright>noop</onright>
+			<!-- with presets: Left from Play/Pause wraps to Visualiser presets (one press), Right from it back -->
+			<onleft condition="Visualisation.Enabled + Visualisation.HasPresets">70056</onleft>
+			<onleft condition="!Visualisation.Enabled | !Visualisation.HasPresets">noop</onleft>
+			<onright condition="Control.HasFocus(70056)">602</onright>
+			<onright condition="!Control.HasFocus(70056)">noop</onright>
 			<ondown>noop</ondown>
-			<!-- Order (Omar): Play/Pause, Stop next to it, Previous, Next, Shuffle, Repeat, Queue. Fixed widths
+			<!-- Order (Omar): Play/Pause, Stop next to it, Previous, Next, Shuffle, Repeat, Queue (+ Visualiser presets). Fixed widths
 			     (OSD_RowButton): the toggles never shift the row. -->
 			<include content="OSD_RowButton">
 				<param name="id" value="602"/>
@@ -93,6 +97,14 @@
 				<onclick>ActivateWindow(musicplaylist)</onclick>
 				<include content="Void_Anim_FocusText"><param name="zoom" value="112"/></include>
 			</control>
+			<!-- 0.9.9: Kodi's preset list (DialogSelect); only for a running visualisation with presets -->
+			<include content="OSD_RowButton">
+				<param name="id" value="70056"/>
+				<param name="label" value="$LOCALIZE[31337]"/>
+				<param name="onclick" value="ActivateWindow(visualisationpresetlist)"/>
+				<param name="width" value="244"/>
+				<param name="visible" value="Visualisation.Enabled + Visualisation.HasPresets"/>
+			</include>
 		</control>
 	</controls>
 </window>

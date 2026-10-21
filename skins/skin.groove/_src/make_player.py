@@ -416,7 +416,7 @@ def inc_np_vizcaption():
                + block([
                    '<control type="label" id="9681">\n\t<width max="1000">auto</width>\n\t<height>48</height>\n\t<aligny>center</aligny>'
                    '\n\t<font>font_caption</font>\n\t<textcolor>$VAR[ink]</textcolor>\n\t<label>$INFO[MusicPlayer.Title]</label>\n</control>',
-                   '<control type="label" id="9682">\n\t<width max="600">auto</width>\n\t<height>48</height>\n\t<aligny>center</aligny>'
+                   '<control type="label" id="9682">\n\t<width max="380">auto</width>\n\t<height>48</height>\n\t<aligny>center</aligny>'
                    '\n\t<font>font_caption_light</font>\n\t<textcolor>$VAR[ink2]</textcolor>\n\t<label>$INFO[MusicPlayer.Artist,·  ,]</label>\n</control>',
                ], 1) + "\n</control>"], 2),
         "\t</control>",
@@ -532,7 +532,11 @@ def tray_slot(tid, key, i8, i9, interactive=True):
         b.append(f"\t<onleft>{left}</onleft>")
     if right:
         b.append(f"\t<onright>{right}</onright>")
-    b.append("\t<onup>9620</onup>")
+    if key == "viz":   # Visualiser mode: Up from the Visualiser / Record slot = the presets icon (one press)
+        b.append(f'\t<onup condition="{VIZ} + Visualisation.HasPresets">9621</onup>')
+        b.append(f'\t<onup condition="![{VIZ} + Visualisation.HasPresets]">9620</onup>')
+    else:
+        b.append("\t<onup>9620</onup>")
     b.append('\t<onback condition="Window.IsActive(visualisation)">Action(FullScreen,visualisation)</onback>')
     b.append("</control>")
     o.append(block(["\n".join(b)], 1))
@@ -582,7 +586,8 @@ def inc_np_progress_focus():
                 '\t<righttexture colordiffuse="$VAR[ink]">groove/dot_12.png</righttexture>\n\t<overlaytexture />\n'
                 "\t<info>Player.Progress</info>\n</control>")
     return "\n".join([
-        "<!-- Up from the tray: the progress line takes focus (track to 30 %, a playhead dot, times in ink).",
+        "<!-- Up from the tray: the progress line takes focus (track to 30 %, a playhead dot, times in ink). Up = the",
+        "     Visualiser presets icon 9621 (hidden: Kodi doesn't move focus; 9621 has no onup to fall through to).",
         "     Left / Right seek 10 s, OK play / pause, Down / Back return to the tray button you came from. -->",
         '<include name="NP_ProgressFocus">',
         '\t<control type="group">',
@@ -597,7 +602,52 @@ def inc_np_progress_focus():
         "\t\t<onleft>Seek(-10)</onleft>",
         "\t\t<onright>Seek(10)</onright>",
         "\t\t<onclick>PlayerControl(Play)</onclick>",
+        "\t\t<onup>9621</onup>",
         block(last + ["<ondown>9602</ondown>"] + back + ["<onback>9602</onback>"], 2),
+        "\t</control>",
+        "</include>",
+    ])
+
+
+PRESETS = (1722, 780)   # x, y of the 48 px icon: the right end of the Visualiser caption row (NP_VizCaption)
+
+
+def inc_np_vizpresets():
+    """Visualiser presets (docs/requests/VIS_PRESETS_BRIEF.md, 1.0.1): one icon at the right end of the caption row,
+    Visualiser mode only and only when the running visualisation has presets. Outside the 8 / 9 fixed tray slots:
+    Up from the Visualiser / Record slot 9606 (the slot that turned the mode on, so the woken tray is usually there)
+    and from the progress line 9620 reaches it; Down / Back return to 9620. Unfocused it shows a quiet hint
+    ("Up Â· presets"), focused the one word. The caption's artist is capped at 380 px so the hint never meets it."""
+    x, y = PRESETS
+    foc = "Control.HasFocus(9621)"
+    parts = [
+        img(-34, -34, 116, 116, "groove/glow_radial.png", "$VAR[focus_glow]", extra=f"<visible>{foc}</visible>\n<include>Anim_FadeVisible</include>"),
+        img(0, 0, 48, 48, "icons/presets.png", "$VAR[ink]", extra=fade_cond(f"!{foc}", 54)),
+        label(-312, 0, 300, 48, "$LOCALIZE[31743]", "font_tray", "$VAR[ink]", align="right",
+              extra=f"<visible>{foc}</visible>\n<include>Anim_LabelReveal</include>"),
+        # the quiet hint while it isn't focused (VIS_PRESETS_BRIEF, producer 2026-10-21): "Up Â· presets"
+        label(-312, 0, 300, 48, "$LOCALIZE[31744]", "font_tray", "$VAR[ink2]", align="right",
+              extra=f"<visible>!{foc}</visible>\n<include>Anim_FadeVisible</include>"),
+        "\n".join([
+            '<control type="button" id="9621">',
+            "\t<left>0</left>\n\t<top>0</top>\n\t<width>48</width>\n\t<height>48</height>",
+            "\t<label></label>\n\t<texturefocus />\n\t<texturenofocus />",
+            "\t<onfocus>ClearProperty(groove.np.overlay,home)</onfocus>",
+            "\t<onclick>ActivateWindow(visualisationpresetlist)</onclick>",
+            "\t<ondown>9620</ondown>",
+            "\t<onback>9620</onback>",
+            "</control>"]),
+    ]
+    return "\n".join([
+        "<!-- Visualiser presets (Visualiser mode + the visualisation has presets): Kodi's preset list opens in DialogSelect.",
+        "     Up from 9606 / 9620, Down / Back = 9620; fades with the caption after 4 s idle (Timers.xml). -->",
+        '<include name="NP_VizPresets">',
+        '\t<control type="group">',
+        f"\t\t<left>{x}</left>\n\t\t<top>{y}</top>\n\t\t<width>48</width>\n\t\t<height>48</height>",
+        f"\t\t<visible>{VIZ} + Visualisation.HasPresets</visible>",
+        "\t\t<include>Anim_StageToggle</include>",
+        '\t\t<include content="Anim_IdleFade"><param name="condition" value="System.IdleTime(4)"/><param name="to" value="0"/></include>',
+        block(parts, 2),
         "\t</control>",
         "</include>",
     ])
@@ -898,7 +948,7 @@ def mini_back_navs():
 def build_player():
     parts = player_vars()
     for f in (inc_np_curtain, inc_np_glow, inc_np_record, inc_np_sleeve, inc_np_tonearm, inc_np_info, inc_np_vizcaption,
-              inc_np_progress, inc_np_tray_rest, inc_np_tray, inc_np_progress_focus, inc_np_wake, inc_np_video_lookup,
+              inc_np_progress, inc_np_tray_rest, inc_np_tray, inc_np_progress_focus, inc_np_vizpresets, inc_np_wake, inc_np_video_lookup,
               inc_np_upnext, inc_mini):
         parts.append("")
         parts.append(f())
@@ -908,7 +958,7 @@ def build_player():
             "\tMusic playback (M3): Now Playing stage (MusicVisualisation.xml), the tray and its overlays (MusicOSD.xml),",
             "\tthe mini player (Groove_MiniPlayer, placed by Home / libraries / info / custom windows).",
             "\tIds: tray 9601-9609, progress 9620, Up next 9630 group / 9631-9636 / 9640, Liner notes 9650-9670,",
-            "\tviz caption 9681-9682, wake catcher 9690, video lookup 9695, mini player 9950.",
+            "\tviz caption 9681-9682, Visualiser presets 9621, wake catcher 9690, video lookup 9695, mini player 9950.",
             "\tRuntime properties (Window(Home)): groove.tray.last (last tray button), groove.np.overlay (liner while the",
             "\tLiner notes page is open), groove.upnext.pick / .to (helper pick-up), groove.np.colorsrc (TMDb colour source).",
             "-->",

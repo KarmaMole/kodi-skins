@@ -522,6 +522,12 @@
 		<value condition="Playlist.IsRepeat">All</value>
 		<value>Off</value>
 	</variable>
+	<!-- Visualiser presets button (0.9.12): shown only for a running visualisation with presets -->
+	<expression name="Music_HasVisPresets">Visualisation.Enabled + Visualisation.HasPresets</expression>
+	<variable name="Music_OSDPresetValue">
+		<value condition="!String.IsEmpty(Visualisation.Preset)">$INFO[Visualisation.Preset]</value>
+		<value>$INFO[Visualisation.Name]</value>
+	</variable>
 	<variable name="Music_OSDHint">
 		<value condition="Control.HasFocus(87)">◀ ▶  Seek   ·   ▼  Controls   ·   Back  Hides</value>
 		<value>▲  Seek   ·   ◀ ▶  Move   ·   Back  Hides</value>

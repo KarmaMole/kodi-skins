@@ -130,6 +130,15 @@
 	<variable name="Music_PlayModesSep">
 		<value condition="Playlist.IsRandom | Playlist.IsRepeatOne | Playlist.IsRepeat"> · $VAR[Music_PlayModes]</value>
 	</variable>
+	<!-- Visualiser (VIS_PRESETS_BRIEF, 0.9.13): Now playing hangs the album; the music OSD's "Visualiser" word swaps it
+	     for Kodi's visualisation (skin bool passepartout.np.viz, off by default) and back ("The print"). Kodi only creates
+	     the visualisation add-on while control 2 is visible, so Visualisation.HasPresets is true only in this mode. -->
+	<expression name="Music_VizMode">Skin.HasSetting(passepartout.np.viz) + Visualisation.Enabled</expression>
+	<expression name="Music_VizPresets">Skin.HasSetting(passepartout.np.viz) + Visualisation.Enabled + Visualisation.HasPresets</expression>
+	<variable name="Music_VizWord">
+		<value condition="Skin.HasSetting(passepartout.np.viz)">$LOCALIZE[31260]</value>
+		<value>$LOCALIZE[31259]</value>
+	</variable>
 	<variable name="Music_ShuffleWord">
 		<value condition="Playlist.IsRandom">Shuffle on</value>
 		<value>Shuffle off</value>

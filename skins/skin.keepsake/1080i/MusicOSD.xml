@@ -5,10 +5,14 @@
 	stepper (hidden; Left/Right step), 200 group; 602 play/pause, 603 stop, 600 previous, 607 next (no 601/606),
 	70054 shuffle, 70053 repeat, 70051 queue. Not shipped: 608 record, 70040-70050 PVR / RDS, 70052 rating,
 	70055 lyrics. Order (rule 6): pause, stop, previous, next | shuffle, repeat, queue. Fixed widths (rule 5).
+	Keepsake ids: · 202, 70060 visualiser / the photo (while a visualisation add-on is set in Kodi; skin bool
+	keepsake.np.viz), 70061 presets (Visualiser mode + Visualisation.HasPresets: Kodi's preset list in DialogSelect;
+	it has focus when the OSD opens over such a visualiser). Hidden words pass Left / Right on to their neighbours.
 	Left/Right walk the row and wrap; Up = seek stepper; Back closes the OSD.
 -->
 <window>
 	<onload condition="!Player.PauseEnabled">SetFocus(603)</onload>
+	<onload condition="Skin.HasSetting(keepsake.np.viz) + Visualisation.Enabled + Visualisation.HasPresets">SetFocus(70061)</onload>
 	<defaultcontrol always="true">602</defaultcontrol>
 	<include>Anim_OSDSlideUp</include>
 	<controls>
@@ -62,7 +66,7 @@
 				<param name="label" value="$VAR[OSD_PlayWord]"/>
 				<param name="width" value="112"/>
 				<param name="onclick" value="PlayerControl(Play)"/>
-				<param name="onleft" value="70051"/>
+				<param name="onleft" value="70061"/>
 				<param name="onright" value="603"/>
 				<param name="visible" value="Player.PauseEnabled"/>
 			</include>
@@ -125,8 +129,35 @@
 				<param name="value" value="$VAR[Music_OSDQueueValue]"/>
 				<param name="onclick" value="ActivateWindow(musicplaylist)"/>
 				<param name="onleft" value="70053"/>
-				<param name="onright" value="602"/>
+				<param name="onright" value="70060"/>
 				<param name="visible" value="Integer.IsGreater(Playlist.Length(music),0)"/>
+			</include>
+			<control type="label" id="202">
+				<width>96</width>
+				<height>74</height>
+				<font>hand_46</font>
+				<textcolor>ink_dot</textcolor>
+				<align>center</align>
+				<label>·</label>
+				<visible>Visualisation.Enabled</visible>
+			</control>
+			<include content="OSD_PenWord">
+				<param name="id" value="70060"/>
+				<param name="label" value="$VAR[Music_VizWord]"/>
+				<param name="width" value="181"/>
+				<param name="onclick" value="Skin.ToggleSetting(keepsake.np.viz)"/>
+				<param name="onleft" value="70051"/>
+				<param name="onright" value="70061"/>
+				<param name="visible" value="Visualisation.Enabled"/>
+			</include>
+			<include content="OSD_PenWord">
+				<param name="id" value="70061"/>
+				<param name="label" value="$LOCALIZE[31477]"/>
+				<param name="width" value="141"/>
+				<param name="onclick" value="ActivateWindow(visualisationpresetlist)"/>
+				<param name="onleft" value="70060"/>
+				<param name="onright" value="602"/>
+				<param name="visible" value="$EXP[Music_VizPresets]"/>
 			</include>
 		</control>
 	</controls>

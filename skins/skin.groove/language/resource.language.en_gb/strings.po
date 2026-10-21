@@ -488,6 +488,14 @@ msgctxt "#31742"
 msgid "Tracklist"
 msgstr ""
 
+msgctxt "#31743"
+msgid "Presets"
+msgstr ""
+
+msgctxt "#31744"
+msgid "Up · presets"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Groove (Jost)"
 msgstr ""

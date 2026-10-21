@@ -556,6 +556,22 @@ msgctxt "#31376"
 msgid "OK JUMPS TO THE CHAPTER  ·  BACK CLOSES"
 msgstr ""
 
+msgctxt "#31377"
+msgid "Visualiser"
+msgstr ""
+
+msgctxt "#31378"
+msgid "The record"
+msgstr ""
+
+msgctxt "#31379"
+msgid "Presets"
+msgstr ""
+
+msgctxt "#31380"
+msgid "OK · presets"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Nocturne (Cormorant and Inter Tight)"
 msgstr ""

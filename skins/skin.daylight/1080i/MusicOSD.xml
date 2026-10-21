@@ -6,10 +6,12 @@
 
 	Kodi id contract (Estuary Omega MusicOSD.xml): defaultcontrol 602 (603 stop when pause is not
 	possible), 87 seek stepper, group 200 holding the transport (602 play-pause, 603 stop, 600 previous,
-	607 next; 0.9.3 dropped the 601 / 606 seek buttons) and 70054 shuffle, 70053 repeat, 70051 queue.
+	607 next; 0.9.3 dropped the 601 / 606 seek buttons) and 70054 shuffle, 70053 repeat, 70051 queue, 70056 visualiser presets (Daylight id; only with a
+	visualisation that has presets).
 	Not shipped: 608 record and 70040-70050 PVR / RDS (radio unused), 70052 rating, 70055 lyrics.
 
-	Focus map: Left/Right walk the row (wraps; hidden buttons are skipped through the _if pairs).
+	Focus map: Left/Right walk the row (wraps; hidden buttons are skipped through the _if pairs;
+	Left from Play/Pause = Visualiser presets when shown).
 	Up -> 87 (Left/Right seek, Down back to the row). Back closes the OSD (Kodi).
 -->
 <window>
@@ -93,10 +95,12 @@
 					<param name="icon_size" value="26"/>
 					<param name="onclick" value="PlayerControl(Play)"/>
 					<param name="visible" value="Player.PauseEnabled"/>
-					<param name="onleft" value="70051"/>
-					<param name="onleft_if" value="Integer.IsGreater(Playlist.Length(music),0)"/>
-					<param name="onleft2" value="70053"/>
-					<param name="onleft2_if" value="!Integer.IsGreater(Playlist.Length(music),0)"/>
+					<param name="onleft" value="70056"/>
+					<param name="onleft_if" value="Visualisation.Enabled + Visualisation.HasPresets"/>
+					<param name="onleft2" value="70051"/>
+					<param name="onleft2_if" value="[!Visualisation.Enabled | !Visualisation.HasPresets] + Integer.IsGreater(Playlist.Length(music),0)"/>
+					<param name="onleft3" value="70053"/>
+					<param name="onleft3_if" value="[!Visualisation.Enabled | !Visualisation.HasPresets] + !Integer.IsGreater(Playlist.Length(music),0)"/>
 					<param name="onright" value="603"/>
 				</include>
 				<control type="group"><width>8</width><height>10</height><visible>Player.PauseEnabled</visible></control>
@@ -156,8 +160,10 @@
 					<param name="onleft" value="70054"/>
 					<param name="onright" value="70051"/>
 					<param name="onright_if" value="Integer.IsGreater(Playlist.Length(music),0)"/>
-					<param name="onright2" value="602"/>
-					<param name="onright2_if" value="!Integer.IsGreater(Playlist.Length(music),0)"/>
+					<param name="onright2" value="70056"/>
+					<param name="onright2_if" value="!Integer.IsGreater(Playlist.Length(music),0) + Visualisation.Enabled + Visualisation.HasPresets"/>
+					<param name="onright3" value="602"/>
+					<param name="onright3_if" value="!Integer.IsGreater(Playlist.Length(music),0) + [!Visualisation.Enabled | !Visualisation.HasPresets]"/>
 				</include>
 				<control type="group"><width>2</width><height>10</height></control>
 				<include content="DLOSD_Pill">
@@ -168,6 +174,24 @@
 					<param name="onclick2" value="ActivateWindow(musicplaylist)"/>
 					<param name="visible" value="Integer.IsGreater(Playlist.Length(music),0)"/>
 					<param name="onleft" value="70053"/>
+					<param name="onright" value="70056"/>
+					<param name="onright_if" value="Visualisation.Enabled + Visualisation.HasPresets"/>
+					<param name="onright2" value="602"/>
+					<param name="onright2_if" value="[!Visualisation.Enabled | !Visualisation.HasPresets]"/>
+				</include>
+				<!-- 0.9.10: Visualiser presets (Kodi's preset list in DialogSelect), only for a running
+				     visualisation with presets; Left from Play/Pause reaches it in one press -->
+				<control type="group"><width>2</width><height>10</height><visible>Visualisation.Enabled + Visualisation.HasPresets</visible></control>
+				<include content="DLOSD_Pill">
+					<param name="id" value="70056"/>
+					<param name="width" value="220"/>
+					<param name="label" value="$LOCALIZE[31318]"/>
+					<param name="onclick" value="ActivateWindow(visualisationpresetlist)"/>
+					<param name="visible" value="Visualisation.Enabled + Visualisation.HasPresets"/>
+					<param name="onleft" value="70051"/>
+					<param name="onleft_if" value="Integer.IsGreater(Playlist.Length(music),0)"/>
+					<param name="onleft2" value="70053"/>
+					<param name="onleft2_if" value="!Integer.IsGreater(Playlist.Length(music),0)"/>
 					<param name="onright" value="602"/>
 				</include>
 			</control>

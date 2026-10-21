@@ -20,7 +20,7 @@
 	     MusicOSD is itself a modal dialog: the guard is "MusicOSD is the topmost modal dialog". -->
 	<timer>
 		<name>groove_np_vizidle</name>
-		<start>Window.IsActive(musicosd) + Window.IsModalDialogTopmost(musicosd) + Skin.HasSetting(groove.np.viz) + Visualisation.Enabled + System.IdleTime(4) + [Control.HasFocus(9601) | Control.HasFocus(9602) | Control.HasFocus(9603) | Control.HasFocus(9604) | Control.HasFocus(9605) | Control.HasFocus(9606) | Control.HasFocus(9607) | Control.HasFocus(9608) | Control.HasFocus(9609) | Control.HasFocus(9620)]</start>
+		<start>Window.IsActive(musicosd) + Window.IsModalDialogTopmost(musicosd) + Skin.HasSetting(groove.np.viz) + Visualisation.Enabled + System.IdleTime(4) + [Control.HasFocus(9601) | Control.HasFocus(9602) | Control.HasFocus(9603) | Control.HasFocus(9604) | Control.HasFocus(9605) | Control.HasFocus(9606) | Control.HasFocus(9607) | Control.HasFocus(9608) | Control.HasFocus(9609) | Control.HasFocus(9620) | Control.HasFocus(9621)]</start>
 		<stop>!System.IdleTime(4) | Control.HasFocus(9690) | !Window.IsActive(musicosd)</stop>
 		<onstart>SetFocus(9690)</onstart>
 	</timer>

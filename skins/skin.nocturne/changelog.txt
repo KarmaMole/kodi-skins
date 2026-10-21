@@ -1,3 +1,8 @@
+0.9.8 (2026-10-21)
+- Visualiser presets button in the music player.
+- Music OSD: a short top rail (shown when a visualisation add-on is set in Kodi; Up from the seek line) with Visualiser, which swaps the record under the lamp for the visualisation and back (The record), off by default; in Visualiser mode, Presets opens Kodi's preset list and has focus when the OSD opens. The now-playing rail stays over the visualisation and says OK · presets.
+- The OSD auto-hide waits while the preset list is open.
+
 0.9.7 (2026-10-21)
 - Sets row in the Library panel; fix for controls disappearing or staying enlarged with Reduce motion on. Code clean-up for the Kodi repository checks.
 - Sets row in the Library panel: over films (when the library has sets) Sets opens all your sets in the same

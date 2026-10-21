@@ -60,6 +60,18 @@ msgctxt "#31044"
 msgid "Delete"
 msgstr ""
 
+msgctxt "#31499"
+msgid "Presets"
+msgstr ""
+
+msgctxt "#31500"
+msgid "Press OK, then left, for other visualiser presets."
+msgstr ""
+
+msgctxt "#31501"
+msgid "Pick another preset for the visualiser. Back comes back here."
+msgstr ""
+
 msgctxt "#31900"
 msgid "Sentence (Young Serif and Manrope)"
 msgstr ""

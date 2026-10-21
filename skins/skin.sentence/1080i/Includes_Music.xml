@@ -142,6 +142,7 @@
 	</variable>
 	<variable name="Music_OSDHintWords">
 		<value condition="Control.HasFocus(87)">Left and right skip through the song. Down goes back to the buttons.</value>
+		<value condition="Control.HasFocus(70056)">$LOCALIZE[31501]</value>
 		<value>Up to skip through the song. Back hides this.</value>
 	</variable>
 	<!-- DialogMusicInfo as a paragraph -->

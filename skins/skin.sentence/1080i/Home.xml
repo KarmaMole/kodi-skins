@@ -22,6 +22,7 @@
 		<include>Home_Page1</include>
 		<include>Home_Page2</include>
 		<include>Home_Page3</include>
+		<include>Home_PageMarker</include>
 		<include>CustomRows_Probes</include>
 	</controls>
 </window>

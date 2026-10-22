@@ -1,3 +1,8 @@
+0.9.13 (2026-10-23)
+- Home: clearer about where you are and what the keys do.
+- Home: the hint line follows the focused word ("Up and down change the highlighted word. Left and right move along. OK shows what matches.", with its own line for the order, "See them all" and the suggestion) and now stays on for every phrase. A quiet marker in the right margin shows which page of Home you are on (your sentence, what's on the go, your rows). On the second page the hint says what the keys do on each line: "Continue [show]" and "Or finish [film]" change with Up and Down, Right moves on, Back returns to your sentence; the last line says Down leads on to your rows when you have some. Your rows say the same in their top line.
+- Library: the hint says whether Back goes home or up a level, and the ".." tile at a list opened from Home says that it opens the folder above while Back on the remote goes home.
+
 0.9.12 (2026-10-23)
 - Official repository requirements: artwork moved to resources/, screenshots added.
 

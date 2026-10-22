@@ -112,6 +112,7 @@
 
 	<!-- The focused item, explained in a paragraph (Young Serif 36). Missing facts drop their clause. -->
 	<variable name="Lib_About">
+		<value condition="ListItem.IsParentFolder + $EXP[Lib_BackGoesHome]">$LOCALIZE[31976]</value>  <!-- 0.9.13: at a root Home opened, OK here and Back on the remote go different ways -->
 		<value condition="ListItem.IsParentFolder">Back takes you up one level.</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie)">[I]$INFO[ListItem.Title][/I] is $VAR[Sen_FilmNoun]$INFO[ListItem.Director, by ,]. $VAR[Lib_Runs]$VAR[Sen_SeenSentence] $VAR[Sen_RatingSentence]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">[I]$INFO[ListItem.Title][/I] is $VAR[Lib_ShowNoun]$INFO[ListItem.Studio, on ,]. $VAR[Lib_ShowProgress] $VAR[Sen_RatingSentence]</value>
@@ -151,10 +152,17 @@
 		<value condition="!String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
 		<value>$INFO[ListItem.Tagline]</value>
 	</variable>
+	<!-- 0.9.13: the hint also says where Back leads: Home from a sentence / start folder (Lib_BackHomeNav roots and the
+	     roots Home's links open with "return"), otherwise up a level -->
+	<expression name="Lib_BackHomeStrict">[String.Contains(Container.FolderPath,~~~) + [String.StartsWith(Container.FolderPath,videodb://movies/titles/?) | String.StartsWith(Container.FolderPath,videodb://tvshows/titles/?) | String.StartsWith(Container.FolderPath,videodb://tvshows/titles/-1/-1/-1/-1/?) | String.StartsWith(Container.FolderPath,musicdb://albums/?)]] | String.IsEqual(Container.FolderPath,videodb://tvshows/titles/)</expression>
+	<expression name="Lib_BackGoesHome">[String.Contains(Container.FolderPath,~~~) + [String.StartsWith(Container.FolderPath,videodb://movies/titles/?) | String.StartsWith(Container.FolderPath,videodb://tvshows/titles/?) | String.StartsWith(Container.FolderPath,videodb://tvshows/titles/-1/-1/-1/-1/?) | String.StartsWith(Container.FolderPath,musicdb://albums/?)]] | String.IsEqual(Container.FolderPath,videodb://tvshows/titles/) | String.IsEqual(Container.FolderPath,videodb://movies/titles/) | String.IsEqual(Container.FolderPath,videodb://inprogresstvshows/)</expression>
 	<variable name="Lib_Hint">
+		<value condition="ControlGroup(9000).HasFocus() + $EXP[Lib_BackHomeStrict]">$LOCALIZE[31973]</value>
 		<value condition="ControlGroup(9000).HasFocus()">OK changes the phrase. Down goes back to the list.</value>
-		<value condition="ListItem.IsFolder">OK opens it. Up takes you back to the sentence.</value>
-		<value>OK opens it, Info explains it. Up takes you back to the sentence.</value>
+		<value condition="ListItem.IsFolder + $EXP[Lib_BackGoesHome]">$LOCALIZE[31974]</value>
+		<value condition="ListItem.IsFolder">$LOCALIZE[31975]</value>
+		<value condition="$EXP[Lib_BackGoesHome]">$LOCALIZE[31971]</value>
+		<value>$LOCALIZE[31972]</value>
 	</variable>
 	<variable name="Lib_Art">
 		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(season.poster))">$INFO[ListItem.Art(season.poster)]</value>

@@ -1013,3 +1013,63 @@ msgstr ""
 msgctxt "#31508"
 msgid "Your third row shows"
 msgstr ""
+
+msgctxt "#31962"
+msgid "Up and down change the highlighted word. Left and right move along. OK shows what matches."
+msgstr ""
+
+msgctxt "#31963"
+msgid "Up and down change the order. OK shows what matches."
+msgstr ""
+
+msgctxt "#31964"
+msgid "OK opens them all in your library. Down goes to the posters."
+msgstr ""
+
+msgctxt "#31965"
+msgid "OK tries it. Down goes to what's on the go."
+msgstr ""
+
+msgctxt "#31966"
+msgid "Up and down pick another show, right moves on. Left or Back returns to your sentence."
+msgstr ""
+
+msgctxt "#31967"
+msgid "Up and down pick another film, right moves on. OK carries on where you stopped. Back returns to your sentence."
+msgstr ""
+
+msgctxt "#31968"
+msgid "OK opens it. Up and down move between the lines. Back returns to your sentence."
+msgstr ""
+
+msgctxt "#31969"
+msgid "OK opens it. Down from this line goes on to your rows. Back returns to your sentence."
+msgstr ""
+
+msgctxt "#31970"
+msgid "Up goes back to what's on the go. Back returns to your sentence."
+msgstr ""
+
+msgctxt "#31971"
+msgid "OK opens it, Info explains it. Up goes to the sentence, Back goes home."
+msgstr ""
+
+msgctxt "#31972"
+msgid "OK opens it, Info explains it. Up goes to the sentence, Back goes up a level."
+msgstr ""
+
+msgctxt "#31973"
+msgid "OK changes the phrase. Down goes back to the list. Back goes home."
+msgstr ""
+
+msgctxt "#31974"
+msgid "OK opens it. Up goes to the sentence, Back goes home."
+msgstr ""
+
+msgctxt "#31975"
+msgid "OK opens it. Up goes to the sentence, Back goes up a level."
+msgstr ""
+
+msgctxt "#31976"
+msgid "This opens the folder above. Back on your remote takes you home."
+msgstr ""

@@ -550,13 +550,24 @@
 			<font>ui_20</font>
 			<textcolor>muted</textcolor>
 			<label>$VAR[Home_Hint]</label>
-			<visible>!Control.HasFocus(204) + !Control.HasFocus(205)</visible>
 		</control>
 	</include>
+	<!-- 0.9.13 (navigation clarity): the hint follows the focused control and stays on for every phrase (it used to
+	     go while "from [..], that I [..]" had focus: the place where people press Down to reach the posters). -->
 	<variable name="Home_Hint">
 		<value condition="Control.HasFocus(500)">OK opens it. Up takes you back to the sentence, down to what's on the go.</value>
 		<value condition="ControlGroup(100).HasFocus()">OK uses a sentence. Down goes back to yours.</value>
-		<value>Up and down change a phrase. Left and right move between them. OK to choose.</value>
+		<value condition="Control.HasFocus(206)">$LOCALIZE[31963]</value>
+		<value condition="Control.HasFocus(207)">$LOCALIZE[31964]</value>
+		<value condition="Control.HasFocus(208)">$LOCALIZE[31965]</value>
+		<value>$LOCALIZE[31962]</value>
+	</variable>
+	<!-- page 2 footer (0.9.13): what Up / Down / Left / OK do on the focused line, always ending with the way back -->
+	<variable name="Home_P2Hint">
+		<value condition="Control.HasFocus(601)">$LOCALIZE[31966]</value>
+		<value condition="Control.HasFocus(603)">$LOCALIZE[31967]</value>
+		<value condition="ControlGroup(670).HasFocus() + [$EXP[CustomRow1On] | $EXP[CustomRow2On] | $EXP[CustomRow3On]]">$LOCALIZE[31969]</value>
+		<value>$LOCALIZE[31968]</value>
 	</variable>
 
 	<!-- Results: one row of posters, each explained in words -->
@@ -1348,7 +1359,7 @@
 				<height>32</height>
 				<font>ui_20</font>
 				<textcolor>muted</textcolor>
-				<label>$LOCALIZE[31351]</label>
+				<label>$VAR[Home_P2Hint]</label>
 			</control>
 		</control>
 	</include>
@@ -1449,6 +1460,53 @@
 			<content target="videos">$VAR[Home_PathFilmsOnTheGo]</content>
 		</control>
 	</include>
+	<!-- ============================================================ page marker (0.9.13) -->
+	<!-- Where you are on Home: one short bar per page in the right margin (x 1856, clear of every page), the current
+	     page in lilac. The third bar exists only while a custom row has items. Pages stack downwards, so the rail does. -->
+	<include name="Home_PageBar">
+		<definition>
+			<control type="group">
+				<width>4</width>
+				<height>28</height>
+				<visible>$PARAM[shown]</visible>
+				<control type="image">
+					<width>4</width>
+					<height>28</height>
+					<texture border="2" colordiffuse="lilac">sentence/round6.png</texture>
+					<visible>$PARAM[current]</visible>
+				</control>
+				<control type="image">
+					<width>4</width>
+					<height>28</height>
+					<texture border="2" colordiffuse="598c918b">sentence/round6.png</texture>
+					<visible>![$PARAM[current]]</visible>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="Home_PageMarker">
+		<control type="grouplist">
+			<left>1856</left>
+			<top>0</top>
+			<width>4</width>
+			<height>1080</height>
+			<orientation>vertical</orientation>
+			<align>center</align>
+			<itemgap>12</itemgap>
+			<include content="Home_PageBar">
+				<param name="shown" value="true"/>
+				<param name="current" value="!$EXP[Home_Page2] + !$EXP[CustomRowsFocus]"/>
+			</include>
+			<include content="Home_PageBar">
+				<param name="shown" value="true"/>
+				<param name="current" value="$EXP[Home_Page2] + !$EXP[CustomRowsFocus]"/>
+			</include>
+			<include content="Home_PageBar">
+				<param name="shown" value="$EXP[CustomRow1On] | $EXP[CustomRow2On] | $EXP[CustomRow3On]"/>
+				<param name="current" value="$EXP[CustomRowsFocus]"/>
+			</include>
+		</control>
+	</include>
 	<!-- ===================================================================== page 3 (0.9.11) -->
 	<!-- Custom rows (Includes_CustomRows.xml, opt-in in Skin settings > Custom rows): a third page under page 2,
 	     reached with Down from its last line. Each row is a sentence ("From [Popular]:") over a results-row
@@ -1494,14 +1552,38 @@
 			<animation type="Conditional" condition="$EXP[CustomRowsFocus] + $EXP[ReduceMotion]" reversible="true">
 				<effect type="slide" start="0,0" end="0,-1080" time="0"/>
 			</animation>
-			<control type="label">
+			<!-- top line: "YOUR ROWS" + where Up / Back lead (0.9.13; the rows fill the page, so no footer) -->
+			<control type="grouplist">
 				<left>page_margin</left>
 				<top>sen_topline_y</top>
-				<width>1000</width>
+				<width>1180</width>
 				<height>sen_topline_h</height>
-				<font>cap_20</font>
-				<textcolor>muted</textcolor>
-				<label>$LOCALIZE[31960]</label>
+				<orientation>horizontal</orientation>
+				<itemgap>24</itemgap>
+				<control type="label">
+					<width>auto</width>
+					<height>sen_topline_h</height>
+					<font>cap_20</font>
+					<textcolor>muted</textcolor>
+					<label>$LOCALIZE[31960]</label>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>sen_topline_h</height>
+					<font>ui_20</font>
+					<textcolor>muted</textcolor>
+					<label>$LOCALIZE[31970]</label>
+					<visible>!Player.HasAudio | Player.HasVideo</visible>
+				</control>
+				<!-- while music plays the clock line on the right grows with the song title: keep the short form -->
+				<control type="label">
+					<width>auto</width>
+					<height>sen_topline_h</height>
+					<font>ui_20</font>
+					<textcolor>muted</textcolor>
+					<label>$LOCALIZE[31351]</label>
+					<visible>Player.HasAudio + !Player.HasVideo</visible>
+				</control>
 			</control>
 			<include>Sen_Clock</include>
 			<control type="group">

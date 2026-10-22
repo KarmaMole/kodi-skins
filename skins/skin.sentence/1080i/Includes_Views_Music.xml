@@ -24,6 +24,7 @@
 		<value>Music</value>
 	</variable>
 	<variable name="Music_About">
+		<value condition="ListItem.IsParentFolder + $EXP[Lib_BackHomeStrict]">$LOCALIZE[31976]</value>
 		<value condition="ListItem.IsParentFolder">Back takes you up one level.</value>
 		<value condition="String.IsEqual(ListItem.DBType,album)">[I]$INFO[ListItem.Album][/I] is $VAR[Music_AlbumNoun]$INFO[ListItem.Artist, by ,]. $VAR[Music_Played]</value>
 		<value condition="String.IsEqual(ListItem.DBType,artist)">[I]$INFO[ListItem.Artist][/I]$INFO[ListItem.Genre, makes ,]. Open it to see the albums you have.</value>

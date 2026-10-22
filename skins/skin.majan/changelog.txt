@@ -1,3 +1,7 @@
+1.0.14 (2026-10-23)
+- Home: long spotlight titles no longer run into the facts strip.
+- Spotlight: a title on two lines gets the room it needs, so its second line's descenders ("Dark Knight", "Kingdom") no longer sit on the facts strip; under such a title the plot shows two lines and scrolls as before. Titles too long for two lines at full size ("Batman: The Dark Knight Returns, Part 1", "The Taking of Pelham One Two Three") used to lose their last line; they now step down to a smaller size and show in full. One-line titles look exactly as before.
+
 1.0.13 (2026-10-23)
 - Official repository requirements: artwork moved to resources/, screenshots added.
 

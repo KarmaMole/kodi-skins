@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	Skin settings (docs/skin.fold/SETTINGS.md): one folded note, six rows. Each row is one button: OK or Right
+	Skin settings (docs/skin.fold/SETTINGS.md): one folded note, thirteen rows (the list scrolls). Each row is one button: OK or Right
 	steps to the next value, Left to the previous one, applied at once. Values are stored as explicit keywords
 	(an empty Skin.SetString value can open the keyboard: LESSONS round 3, Void).
 	  9601 fold.reducemotion   bool    folds become quick fades
@@ -9,6 +9,9 @@
 	  9604 fold.hidetrailer    bool    the Trailer word in the spread
 	  9605 fold.watchedmarkers string  both (default) | unwatched (= no punched holes)
 	  9606 reset: the library opens on the Fold views again (clears fold.vreset.*)
+	  9607-9610 HideMenu.Movies / TVShows / Music / Search  bool  the Home tabs (main menu)
+	  9611-9613 custom rows 1-3 on Home: CustomRow.<n>.Path / .Label / .Target / .Addon strings, OK opens the row's
+	            options (Includes_CustomRows.xml); favourites data list 9889
 	Back closes the window (Kodi).
 -->
 <window>
@@ -17,6 +20,7 @@
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>Fold_Background</include>
+		<include>CustomRows_FavData</include>
 		<include>Fold_Tabs</include>
 		<include>Fold_Clock</include>
 		<include content="Fold_RowHead">
@@ -133,6 +137,39 @@
 					<param name="next7" value="Skin.Reset(fold.vreset.albums)"/>
 					<param name="next8" value="Skin.Reset(fold.vreset.artists)"/>
 				</include>
+				<!-- 0.9.10 main menu (HideMenu.*): tabs on Home; Settings always stays -->
+				<include content="SkinSet_Row">
+					<param name="id" value="9607"/>
+					<param name="label" value="$LOCALIZE[31700]"/>
+					<param name="value" value="$VAR[SkinSet_HideMenu_Movies]"/>
+					<param name="next" value="Skin.ToggleSetting(HideMenu.Movies)"/>
+					<param name="prev" value="Skin.ToggleSetting(HideMenu.Movies)"/>
+				</include>
+				<include content="SkinSet_Row">
+					<param name="id" value="9608"/>
+					<param name="label" value="$LOCALIZE[31701]"/>
+					<param name="value" value="$VAR[SkinSet_HideMenu_TVShows]"/>
+					<param name="next" value="Skin.ToggleSetting(HideMenu.TVShows)"/>
+					<param name="prev" value="Skin.ToggleSetting(HideMenu.TVShows)"/>
+				</include>
+				<include content="SkinSet_Row">
+					<param name="id" value="9609"/>
+					<param name="label" value="$LOCALIZE[31702]"/>
+					<param name="value" value="$VAR[SkinSet_HideMenu_Music]"/>
+					<param name="next" value="Skin.ToggleSetting(HideMenu.Music)"/>
+					<param name="prev" value="Skin.ToggleSetting(HideMenu.Music)"/>
+				</include>
+				<include content="SkinSet_Row">
+					<param name="id" value="9610"/>
+					<param name="label" value="$LOCALIZE[31703]"/>
+					<param name="value" value="$VAR[SkinSet_HideMenu_Search]"/>
+					<param name="next" value="Skin.ToggleSetting(HideMenu.Search)"/>
+					<param name="prev" value="Skin.ToggleSetting(HideMenu.Search)"/>
+				</include>
+				<!-- 0.9.10 custom rows on Home (Includes_CustomRows.xml): OK opens the row's options -->
+				<include content="SkinSet_CustomRow"><param name="id" value="9611"/><param name="row" value="1"/><param name="label" value="$LOCALIZE[31941]"/></include>
+				<include content="SkinSet_CustomRow"><param name="id" value="9612"/><param name="row" value="2"/><param name="label" value="$LOCALIZE[31942]"/></include>
+				<include content="SkinSet_CustomRow"><param name="id" value="9613"/><param name="row" value="3"/><param name="label" value="$LOCALIZE[31943]"/></include>
 			</control>
 			<control type="textbox">
 				<left>64</left>

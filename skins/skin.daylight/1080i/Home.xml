@@ -22,10 +22,16 @@
 	<controls>
 		<include>DL_Background</include>
 		<include>Home_DataLists</include>
-		<include>Home_TopLine</include>
-		<include>Home_Greeting</include>
-		<include>Home_NowPlaying</include>
-		<include>Home_Hero</include>
-		<include>Home_Cards</include>
+		<include>CustomRows_Probes</include>
+		<!-- 0.9.11: the first page + the custom rows below it; slides one screen up while a custom row has focus -->
+		<control type="group">
+			<include>Home_CustomRowsPageAnim</include>
+			<include>Home_TopLine</include>
+			<include>Home_Greeting</include>
+			<include>Home_NowPlaying</include>
+			<include>Home_Hero</include>
+			<include>Home_Cards</include>
+			<include>Home_CustomRows</include>
+		</control>
 	</controls>
 </window>

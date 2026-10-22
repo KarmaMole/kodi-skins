@@ -21,7 +21,16 @@ T = MV.t
 FILMS_XSP = ("videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22or%22%3A%5B%7B%22field%22%3A%22inprogress%22%2C"
              "%22operator%22%3A%22true%22%2C%22value%22%3A%5B%22%22%5D%7D%2C%7B%22field%22%3A%22playcount%22%2C"
              "%22operator%22%3A%22is%22%2C%22value%22%3A%5B%220%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D")
-OPEN_IDS = (9101, 9010, 9011, 9111, 9121, 9122, 9050, 9895, 9897)
+OPEN_IDS = (9101, 9010, 9011, 9111, 9121, 9122, 9050, 9895, 9897, 9881, 9882, 9883)
+# 1.0.2 custom rows (Includes_CustomRows.xml, opt-in): 9881-9883 open in the same slot as a section row, one at a time.
+# Down from a section row (or a tile, or the Search icon, which has no row) goes to the first custom row that has
+# items; Down / Up walk the custom rows; Up from the first returns to the section row you came from; Back -> rail icon.
+CUSTOM_IDS = (9881, 9882, 9883)
+DOWN_CUSTOM = '<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>'
+# the Square art fallback test: the real infolabels behind $VAR[CustomRow_SquareArt] (LESSONS 2)
+CUSTOM_ART_EMPTY = ("ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb))"
+                    " + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape))"
+                    " + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb)")
 ROW_OPEN = "[" + " | ".join(f"Control.HasFocus({i})" for i in OPEN_IDS) + "]"
 MINI_UP = '<onup condition="Player.HasAudio + Control.IsVisible(9950)">9950</onup>'
 
@@ -32,7 +41,7 @@ def rail_nav(key):
         "music": ['<ondown condition="Integer.IsGreater(Container(9101).NumItems,0)">9101</ondown>', "<ondown>9010</ondown>"],
         "films": ["<ondown>9111</ondown>"],
         "tv": ['<ondown condition="Integer.IsGreater(Container(9121).NumItems,0)">9121</ondown>', "<ondown>9122</ondown>"],
-        "search": [],
+        "search": [DOWN_CUSTOM],
         "settings": ["<ondown>9050</ondown>"],
     }[key]
     return "".join(NL + T(4) + x for x in [MINI_UP] + n)
@@ -113,6 +122,8 @@ def art_item(w, h, art, label, list_id, focused, round_=False, extra_after=""):
     # the fallback tests the real infolabels: String.IsEmpty($VAR[...]) is invalid (LESSONS 2)
     if art.startswith("$INFO["):
         probe = art[len("$INFO["):-1]
+    elif art == "$VAR[CustomRow_SquareArt]":
+        probe = CUSTOM_ART_EMPTY
     elif art == "$VAR[Home_TVCard]":
         probe = ("ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(tvshow.landscape)) + String.IsEmpty(ListItem.Art(landscape))"
                  " + String.IsEmpty(ListItem.Art(tvshow.fanart)) + String.IsEmpty(ListItem.Art(fanart)")
@@ -386,17 +397,39 @@ def settings_tile(focused):
     return NL.join(o)
 
 
+def custom_rows():
+    """the three custom rows: square art (albums, posters, add-on folders) in the music row's size, full width"""
+    o = []
+    for k, cid in enumerate(CUSTOM_IDS):
+        n = k + 1
+        ups = [f'<onup condition="$EXP[CustomRow{j + 1}On]">{CUSTOM_IDS[j]}</onup>' for j in range(k - 1, -1, -1)]
+        downs = [f'<ondown condition="$EXP[CustomRow{j + 1}On]">{CUSTOM_IDS[j]}</ondown>' for j in range(k + 1, len(CUSTOM_IDS))]
+        nav = "\n".join("\t\t\t" + x for x in ups + ["<onup>$VAR[Home_UpFromCustom]</onup>"] + downs
+                        + ["<ondown>noop</ondown>", "<onleft>noop</onleft>", "<onright>noop</onright>",
+                           "<onback>$VAR[Home_BackFromCustom]</onback>"])
+        r = row(cid, 72, 1848, 324, 380, 300, 300, "$VAR[CustomRow_SquareArt]", "$INFO[ListItem.Label]",
+                f'<include content="CustomRow_Content"><param name="row" value="{n}"/></include>', nav, 4)
+        # the custom rows clear the TMDb Helper / KarmaMole containers (no colour service for an add-on folder)
+        r = r.replace(f"<onfocus>SetProperty(TMDbHelper.WidgetContainer,{cid},home)</onfocus>",
+                      "<onfocus>ClearProperty(TMDbHelper.WidgetContainer,home)</onfocus>")
+        o.append(f"""		<control type="group">
+			{lifted(f"Control.HasFocus({cid})")}
+{r}
+		</control>""")
+    return "\n".join(o)
+
+
 def rows():
     music_open = "[Control.HasFocus(9101) | Control.HasFocus(9010) | Control.HasFocus(9011)]"
     music_row = row(
         9101, 408, 1512, 324, 380, 300, 300, "$INFO[ListItem.Art(thumb)]", "$INFO[ListItem.Label]",
         '<content target="music" sortby="random" limit="20" browse="never">special://skin/playlists/groove_random_albums.xsp</content>',
-        "\t\t\t<onup>9001</onup>\n\t\t\t<onback>9001</onback>\n\t\t\t<ondown>noop</ondown>\n\t\t\t<onleft>9011</onleft>\n\t\t\t<onright>noop</onright>",
+        "\t\t\t<onup>9001</onup>\n\t\t\t<onback>9001</onback>\n\t\t\t" + DOWN_CUSTOM + "\n\t\t\t<ondown>noop</ondown>\n\t\t\t<onleft>9011</onleft>\n\t\t\t<onright>noop</onright>",
         3, "\n\t\t\t<onclick>Action(Info)</onclick>")
     films_row = row(
         9111, 72, 1848, 224, 400, 200, 300, "$INFO[ListItem.Art(poster)]", "$INFO[ListItem.Label]",
         f'<content target="videos" sortby="lastplayed" sortorder="descending" limit="24" browse="never">{FILMS_XSP}</content>',
-        "\t\t\t<onup>9002</onup>\n\t\t\t<onback>9002</onback>\n\t\t\t<ondown>noop</ondown>\n\t\t\t<onleft>noop</onleft>\n\t\t\t<onright>noop</onright>",
+        "\t\t\t<onup>9002</onup>\n\t\t\t<onback>9002</onback>\n\t\t\t" + DOWN_CUSTOM + "\n\t\t\t<ondown>noop</ondown>\n\t\t\t<onleft>noop</onleft>\n\t\t\t<onright>noop</onright>",
         6)
     tvline = f"""
 {T(4)}<control type="label">
@@ -409,7 +442,7 @@ def rows():
 {T(5)}<selectedcolor>$VAR[ink2]</selectedcolor>
 {T(5)}<label>$VAR[Home_TVCardLine]</label>
 {T(4)}</control>"""
-    tv_nav = lambda rail: f"\t\t\t<onup>{rail}</onup>\n\t\t\t<onback>{rail}</onback>\n\t\t\t<ondown>noop</ondown>\n\t\t\t<onleft>noop</onleft>\n\t\t\t<onright>noop</onright>"
+    tv_nav = lambda rail: f"\t\t\t<onup>{rail}</onup>\n\t\t\t<onback>{rail}</onback>\n\t\t\t{DOWN_CUSTOM}\n\t\t\t<ondown>noop</ondown>\n\t\t\t<onleft>noop</onleft>\n\t\t\t<onright>noop</onright>"
     tv_row = row(9121, 72, 1848, 504, 380, 480, 270, "$VAR[Home_TVCard]", "$INFO[ListItem.Label]",
                  '<content target="videos" sortby="$VAR[Home_TVSort]" sortorder="descending" limit="24" browse="never">$VAR[Home_TVPath]</content>',
                  tv_nav(9003), 2, after_f=tvline)
@@ -429,6 +462,7 @@ def rows():
 			<orientation>horizontal</orientation>
 			<onup>9005</onup>
 			<onback>9005</onback>
+			{DOWN_CUSTOM}
 			<ondown>noop</ondown>
 			<onleft>noop</onleft>
 			<onright>noop</onright>
@@ -482,11 +516,32 @@ def rows():
 		<value condition="Library.IsScanningVideo">$LOCALIZE[31612]</value>
 	</variable>
 
+	<!-- custom rows (1.0.2, opt-in): the way in and the way back to the section row (by the rail icon you came from) -->
+	<variable name="Home_DownToCustom">
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+	</variable>
+	<variable name="Home_UpFromCustom">
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9001) + Integer.IsGreater(Container(9101).NumItems,0)">SetFocus(9101)</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9001)">SetFocus(9010)</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9002)">SetFocus(9111)</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9003) + Integer.IsGreater(Container(9121).NumItems,0)">SetFocus(9121)</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9003)">SetFocus(9122)</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9005)">SetFocus(9050)</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(groove.railid))">SetFocus($INFO[Window(Home).Property(groove.railid)])</value>
+		<value>SetFocus(9005)</value>
+	</variable>
+	<variable name="Home_BackFromCustom">
+		<value condition="!String.IsEmpty(Window(Home).Property(groove.railid))">SetFocus($INFO[Window(Home).Property(groove.railid)])</value>
+		<value>SetFocus(9005)</value>
+	</variable>
+
 	<include name="Home_Rows">
 		<control type="group">
 			{lifted(music_open, t=340)}
-{tile(9010, 96, "timemachine", "$LOCALIZE[31407]", f"			<onup>9001</onup>{NL}			<onback>9001</onback>{NL}			<ondown>noop</ondown>{NL}			<onleft>noop</onleft>{NL}			<onright>9011</onright>", "ActivateWindow(1170)")}
-{tile(9011, 256, "wheel", "$LOCALIZE[31408]", f"			<onup>9001</onup>{NL}			<onback>9001</onback>{NL}			<ondown>noop</ondown>{NL}			<onleft>9010</onleft>{NL}			<onright condition=\"Integer.IsGreater(Container(9101).NumItems,0)\">9101</onright>{NL}			<onright>noop</onright>", "ActivateWindow(1171)")}
+{tile(9010, 96, "timemachine", "$LOCALIZE[31407]", f"			<onup>9001</onup>{NL}			<onback>9001</onback>{NL}			{DOWN_CUSTOM}{NL}			<ondown>noop</ondown>{NL}			<onleft>noop</onleft>{NL}			<onright>9011</onright>", "ActivateWindow(1170)")}
+{tile(9011, 256, "wheel", "$LOCALIZE[31408]", f"			<onup>9001</onup>{NL}			<onback>9001</onback>{NL}			{DOWN_CUSTOM}{NL}			<ondown>noop</ondown>{NL}			<onleft>9010</onleft>{NL}			<onright condition=\"Integer.IsGreater(Container(9101).NumItems,0)\">9101</onright>{NL}			<onright>noop</onright>", "ActivateWindow(1171)")}
 		</control>
 		<control type="group">
 			{lifted(music_open)}
@@ -508,6 +563,7 @@ def rows():
 			{lifted("[Control.HasFocus(9050) | Control.HasFocus(9895) | Control.HasFocus(9897)]")}
 {settings_row}
 		</control>
+{custom_rows()}
 	</include>
 
 	<!-- Clean / Update cards: drawn after Home_Rail (Home.xml) so the dim and the card cover the rail icons (DEVICE_AUDIT pass 2) -->

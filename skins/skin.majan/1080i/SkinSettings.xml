@@ -10,7 +10,8 @@
 	onunload: that crashed Kodi on the Shield (2026-10-18).
 	Artwork background also drives TMDb Helper's blur: Off resets TMDbHelper.EnableBlur (and clears
 	TMDbHelper.Service, never set: it would do per-item TMDb lookups); Faint / Soft / Visible set EnableBlur plus Blur.Size 480 / Radius 12.
-	Ids: rows 9510-9516 / 9520-9521 / 9530-9531, categories 9550-9552, preview data list 9590.
+	Ids: rows 9510-9516 / 9520-9521 / 9530-9531 / 9560-9564 (main menu) / 9570-9572 (custom rows), categories 9550-9555,
+	preview data list 9590, favourites data list 9889 (custom rows picker).
 	Generated once by a scratch script; edit by hand.
 -->
 <window>
@@ -62,7 +63,7 @@
 				<param name="label" value="Appearance"/>
 				<param name="key" value="appearance"/>
 				<param name="onright" value="9510"/>
-				<param name="onup" value="9553"/>
+				<param name="onup" value="9555"/>
 				<param name="ondown" value="9551"/>
 			</include>
 			<include content="Dlg_SkinCategory">
@@ -93,9 +94,29 @@
 				<param name="key" value="wall"/>
 				<param name="onright" value="9540"/>
 				<param name="onup" value="9552"/>
+				<param name="ondown" value="9554"/>
+			</include>
+			<include content="Dlg_SkinCategory">
+				<param name="id" value="9554"/>
+				<param name="top" value="456"/>
+				<param name="index" value="05"/>
+				<param name="label" value="$LOCALIZE[31330]"/>
+				<param name="key" value="menu"/>
+				<param name="onright" value="9560"/>
+				<param name="onup" value="9553"/>
+				<param name="ondown" value="9555"/>
+			</include>
+			<include content="Dlg_SkinCategory">
+				<param name="id" value="9555"/>
+				<param name="top" value="528"/>
+				<param name="index" value="06"/>
+				<param name="label" value="$LOCALIZE[31940]"/>
+				<param name="key" value="rows"/>
+				<param name="onright" value="9570"/>
+				<param name="onup" value="9554"/>
 				<param name="ondown" value="9550"/>
 			</include>
-			<include content="Majan_Rule"><param name="top" value="456"/><param name="left" value="0"/><param name="width" value="settings_cat_w"/></include>
+			<include content="Majan_Rule"><param name="top" value="600"/><param name="left" value="0"/><param name="width" value="settings_cat_w"/></include>
 		</control>
 
 		<!-- ============================================================ appearance -->
@@ -640,6 +661,248 @@
 			</control>
 			<include content="Majan_Rule"><param name="top" value="568"/><param name="left" value="0"/><param name="width" value="860"/></include>
 		</control>
+
+		<!-- ============================================================ main menu (1.0.12): HideMenu.* bools, Home top bar.
+		     Show / Hide like the Trailer row; the gear is not listed (never hidden, so Skin settings stay reachable). -->
+		<control type="group">
+			<left>settings_list_x</left>
+			<visible>String.IsEqual(Window(Home).Property(majan.skincat),menu)</visible>
+			<include>Anim_FadeVisible</include>
+			<!-- ====== Home -->
+			<control type="group">
+				<top>168</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9560"/>
+					<param name="label" value="$LOCALIZE[31019]"/>
+					<param name="hint" value="$LOCALIZE[31333]"/>
+				</include>
+				<control type="button" id="9560">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9564</onup>
+					<ondown>9561</ondown>
+					<onback>9554</onback>
+					<onright condition="!Skin.HasSetting(HideMenu.Home)">Skin.ToggleSetting(HideMenu.Home)</onright>
+					<onleft condition="!Skin.HasSetting(HideMenu.Home)">SetFocus(9554)</onleft>
+					<onclick>Skin.ToggleSetting(HideMenu.Home)</onclick>
+					<onleft condition="Skin.HasSetting(HideMenu.Home)">Skin.ToggleSetting(HideMenu.Home)</onleft>
+				</control>
+				<include content="Dlg_SegOption"><param name="left" value="678"/><param name="width" value="96"/><param name="label" value="$LOCALIZE[31331]"/><param name="selected" value="!Skin.HasSetting(HideMenu.Home)"/><param name="row" value="9560"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="774"/><param name="width" value="86"/><param name="label" value="$LOCALIZE[31332]"/><param name="selected" value="Skin.HasSetting(HideMenu.Home)"/><param name="row" value="9560"/></include>
+				<include content="Dlg_SegFrame"><param name="left" value="678"/><param name="width" value="182"/></include>
+			</control>
+			<!-- ====== Movies -->
+			<control type="group">
+				<top>268</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9561"/>
+					<param name="label" value="$LOCALIZE[342]"/>
+					<param name="hint" value="$LOCALIZE[31334]"/>
+				</include>
+				<control type="button" id="9561">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9560</onup>
+					<ondown>9562</ondown>
+					<onback>9554</onback>
+					<onright condition="!Skin.HasSetting(HideMenu.Movies)">Skin.ToggleSetting(HideMenu.Movies)</onright>
+					<onleft condition="!Skin.HasSetting(HideMenu.Movies)">SetFocus(9554)</onleft>
+					<onclick>Skin.ToggleSetting(HideMenu.Movies)</onclick>
+					<onleft condition="Skin.HasSetting(HideMenu.Movies)">Skin.ToggleSetting(HideMenu.Movies)</onleft>
+				</control>
+				<include content="Dlg_SegOption"><param name="left" value="678"/><param name="width" value="96"/><param name="label" value="$LOCALIZE[31331]"/><param name="selected" value="!Skin.HasSetting(HideMenu.Movies)"/><param name="row" value="9561"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="774"/><param name="width" value="86"/><param name="label" value="$LOCALIZE[31332]"/><param name="selected" value="Skin.HasSetting(HideMenu.Movies)"/><param name="row" value="9561"/></include>
+				<include content="Dlg_SegFrame"><param name="left" value="678"/><param name="width" value="182"/></include>
+			</control>
+			<!-- ====== TVShows -->
+			<control type="group">
+				<top>368</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9562"/>
+					<param name="label" value="$LOCALIZE[20343]"/>
+					<param name="hint" value="$LOCALIZE[31334]"/>
+				</include>
+				<control type="button" id="9562">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9561</onup>
+					<ondown>9563</ondown>
+					<onback>9554</onback>
+					<onright condition="!Skin.HasSetting(HideMenu.TVShows)">Skin.ToggleSetting(HideMenu.TVShows)</onright>
+					<onleft condition="!Skin.HasSetting(HideMenu.TVShows)">SetFocus(9554)</onleft>
+					<onclick>Skin.ToggleSetting(HideMenu.TVShows)</onclick>
+					<onleft condition="Skin.HasSetting(HideMenu.TVShows)">Skin.ToggleSetting(HideMenu.TVShows)</onleft>
+				</control>
+				<include content="Dlg_SegOption"><param name="left" value="678"/><param name="width" value="96"/><param name="label" value="$LOCALIZE[31331]"/><param name="selected" value="!Skin.HasSetting(HideMenu.TVShows)"/><param name="row" value="9562"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="774"/><param name="width" value="86"/><param name="label" value="$LOCALIZE[31332]"/><param name="selected" value="Skin.HasSetting(HideMenu.TVShows)"/><param name="row" value="9562"/></include>
+				<include content="Dlg_SegFrame"><param name="left" value="678"/><param name="width" value="182"/></include>
+			</control>
+			<!-- ====== Music -->
+			<control type="group">
+				<top>468</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9563"/>
+					<param name="label" value="$LOCALIZE[2]"/>
+					<param name="hint" value="$LOCALIZE[31334]"/>
+				</include>
+				<control type="button" id="9563">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9562</onup>
+					<ondown>9564</ondown>
+					<onback>9554</onback>
+					<onright condition="!Skin.HasSetting(HideMenu.Music)">Skin.ToggleSetting(HideMenu.Music)</onright>
+					<onleft condition="!Skin.HasSetting(HideMenu.Music)">SetFocus(9554)</onleft>
+					<onclick>Skin.ToggleSetting(HideMenu.Music)</onclick>
+					<onleft condition="Skin.HasSetting(HideMenu.Music)">Skin.ToggleSetting(HideMenu.Music)</onleft>
+				</control>
+				<include content="Dlg_SegOption"><param name="left" value="678"/><param name="width" value="96"/><param name="label" value="$LOCALIZE[31331]"/><param name="selected" value="!Skin.HasSetting(HideMenu.Music)"/><param name="row" value="9563"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="774"/><param name="width" value="86"/><param name="label" value="$LOCALIZE[31332]"/><param name="selected" value="Skin.HasSetting(HideMenu.Music)"/><param name="row" value="9563"/></include>
+				<include content="Dlg_SegFrame"><param name="left" value="678"/><param name="width" value="182"/></include>
+			</control>
+			<!-- ====== Search -->
+			<control type="group">
+				<top>568</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9564"/>
+					<param name="label" value="$LOCALIZE[137]"/>
+					<param name="hint" value="$LOCALIZE[31335]"/>
+				</include>
+				<control type="button" id="9564">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9563</onup>
+					<ondown>9560</ondown>
+					<onback>9554</onback>
+					<onright condition="!Skin.HasSetting(HideMenu.Search)">Skin.ToggleSetting(HideMenu.Search)</onright>
+					<onleft condition="!Skin.HasSetting(HideMenu.Search)">SetFocus(9554)</onleft>
+					<onclick>Skin.ToggleSetting(HideMenu.Search)</onclick>
+					<onleft condition="Skin.HasSetting(HideMenu.Search)">Skin.ToggleSetting(HideMenu.Search)</onleft>
+				</control>
+				<include content="Dlg_SegOption"><param name="left" value="678"/><param name="width" value="96"/><param name="label" value="$LOCALIZE[31331]"/><param name="selected" value="!Skin.HasSetting(HideMenu.Search)"/><param name="row" value="9564"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="774"/><param name="width" value="86"/><param name="label" value="$LOCALIZE[31332]"/><param name="selected" value="Skin.HasSetting(HideMenu.Search)"/><param name="row" value="9564"/></include>
+				<include content="Dlg_SegFrame"><param name="left" value="678"/><param name="width" value="182"/></include>
+			</control>
+			<include content="Majan_Rule"><param name="top" value="668"/><param name="left" value="0"/><param name="width" value="860"/></include>
+		</control>
+		<!-- ============================================================ custom rows (1.0.12): three opt-in Home rows.
+		     OK opens the row's options (Kodi's select dialog through script.skinvariables, Includes_CustomRows.xml). -->
+		<control type="group">
+			<left>settings_list_x</left>
+			<visible>String.IsEqual(Window(Home).Property(majan.skincat),rows)</visible>
+			<include>Anim_FadeVisible</include>
+			<control type="group">
+				<top>168</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9570"/>
+					<param name="label" value="$LOCALIZE[31941]"/>
+					<param name="hint" value="$LOCALIZE[31955]"/>
+				</include>
+				<control type="button" id="9570">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9572</onup>
+					<ondown>9571</ondown>
+					<onback>9555</onback>
+					<onleft>9555</onleft>
+					<onright>noop</onright>
+					<include content="CustomRows_SettingsClick"><param name="row" value="1"/><param name="heading" value="$LOCALIZE[31941]"/></include>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21_bold</font>
+					<label>$VAR[CustomRow_Value1]</label>
+					<visible>!String.IsEmpty(Skin.String(CustomRow.1.Path))</visible>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21</font>
+					<textcolor>text_tertiary</textcolor>
+					<label>$LOCALIZE[31944]</label>
+					<visible>String.IsEmpty(Skin.String(CustomRow.1.Path))</visible>
+				</control>
+			</control>
+			<control type="group">
+				<top>268</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9571"/>
+					<param name="label" value="$LOCALIZE[31942]"/>
+					<param name="hint" value="$LOCALIZE[31955]"/>
+				</include>
+				<control type="button" id="9571">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9570</onup>
+					<ondown>9572</ondown>
+					<onback>9555</onback>
+					<onleft>9555</onleft>
+					<onright>noop</onright>
+					<include content="CustomRows_SettingsClick"><param name="row" value="2"/><param name="heading" value="$LOCALIZE[31942]"/></include>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21_bold</font>
+					<label>$VAR[CustomRow_Value2]</label>
+					<visible>!String.IsEmpty(Skin.String(CustomRow.2.Path))</visible>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21</font>
+					<textcolor>text_tertiary</textcolor>
+					<label>$LOCALIZE[31944]</label>
+					<visible>String.IsEmpty(Skin.String(CustomRow.2.Path))</visible>
+				</control>
+			</control>
+			<control type="group">
+				<top>368</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9572"/>
+					<param name="label" value="$LOCALIZE[31943]"/>
+					<param name="hint" value="$LOCALIZE[31955]"/>
+				</include>
+				<control type="button" id="9572">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9571</onup>
+					<ondown>9570</ondown>
+					<onback>9555</onback>
+					<onleft>9555</onleft>
+					<onright>noop</onright>
+					<include content="CustomRows_SettingsClick"><param name="row" value="3"/><param name="heading" value="$LOCALIZE[31943]"/></include>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21_bold</font>
+					<label>$VAR[CustomRow_Value3]</label>
+					<visible>!String.IsEmpty(Skin.String(CustomRow.3.Path))</visible>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21</font>
+					<textcolor>text_tertiary</textcolor>
+					<label>$LOCALIZE[31944]</label>
+					<visible>String.IsEmpty(Skin.String(CustomRow.3.Path))</visible>
+				</control>
+			</control>
+			<include content="Majan_Rule"><param name="top" value="468"/><param name="left" value="0"/><param name="width" value="860"/></include>
+		</control>
+		<include>CustomRows_FavData</include>
 
 		<!-- ============================================================ aside: preview + help -->
 		<control type="group">

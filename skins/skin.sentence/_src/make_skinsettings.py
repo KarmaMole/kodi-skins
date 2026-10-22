@@ -52,7 +52,27 @@ ROWS = [
     (9518, "Things move", ".", "bool", "sentence.reducemotion",
      [("", "gently"), ("1", "as little as possible")],
      "Gently: text settles into place with short fades and slides. As little as possible: quick fades only.", False),
+    # 0.9.11 main menu (HideMenu.* bools): what Home offers. Settings and Switch off always stay.
+    (9519, "Films", ".", "bool", "HideMenu.Movies", [("", "are on Home"), ("1", "stay off Home")],
+     "Off Home: films leave the kinds you can spin to, “Or finish” and “all films” go. "
+     "Settings and Switch off always stay, so you can always come back here.", False),
+    (9520, "TV shows", ".", "bool", "HideMenu.TVShows", [("", "are on Home"), ("1", "stay off Home")],
+     "Off Home: episodes and shows leave the kinds you can spin to, “Continue” and “all shows” go. "
+     "Settings and Switch off always stay.", False),
+    (9521, "Music", ".", "bool", "HideMenu.Music", [("", "is on Home"), ("1", "stays off Home")],
+     "Off Home: albums leave the kinds you can spin to and “your music” goes. Settings and Switch off always stay.", False),
+    (9522, "Pictures", ".", "bool", "HideMenu.Pictures", [("", "are on Home"), ("1", "stay off Home")],
+     "“your pictures” in the browse line on the second page. Settings and Switch off always stay.", False),
+    (9523, "“Find something”", ".", "bool", "HideMenu.Search", [("", "is on Home"), ("1", "stays off Home")],
+     "The search phrase on the last line of the second page. Settings and Switch off always stay.", False),
+    (9524, "Add-ons", ".", "bool", "HideMenu.Addons", [("", "are on Home"), ("1", "stay off Home")],
+     "The add-ons phrase on the last line of the second page. Settings and Switch off always stay.", False),
+    # 0.9.11 custom rows (Includes_CustomRows.xml): the phrase opens the row's options (Kodi's select dialog)
+    (9525, "Your first row shows", ".", "custom", "1", [], "$LOCALIZE[31950]", False),
+    (9526, "Your second row shows", ".", "custom", "2", [], "$LOCALIZE[31950]", False),
+    (9527, "Your third row shows", ".", "custom", "3", [], "$LOCALIZE[31950]", False),
 ]
+HEADINGS = {"1": "$LOCALIZE[31941]", "2": "$LOCALIZE[31942]", "3": "$LOCALIZE[31943]"}
 
 
 def cond_is(kind, key, stored, opts):
@@ -89,6 +109,18 @@ def row(r):
     a(f'\t\t\t<control type="grouplist" id="{rid + 100}">')
     a("\t\t\t\t<width>1180</width><height>84</height>")
     a("\t\t\t\t<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords><itemgap>0</itemgap>")
+    if kind == "custom":
+        a(words(before))
+        a(f'\t\t\t\t<control type="button" id="{rid}">')
+        a("\t\t\t\t\t<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>")
+        a("\t\t\t\t\t<include>Sen_PhraseTextures</include>")
+        a(nav(rid))
+        a(f"\t\t\t\t\t<label>$VAR[SkinSet_C{key}]</label>")
+        a(f'\t\t\t\t\t<include content="CustomRows_SettingsClick"><param name="row" value="{key}"/><param name="heading" value="{HEADINGS[key]}"/></include>')
+        a("\t\t\t\t</control>")
+        a(words(after, -22))
+        a("\t\t\t</control>")
+        return L
     n = len(opts)
     for i, (stored, _lab) in enumerate(opts):
         c = cond_is(kind, key, stored, opts)
@@ -124,10 +156,10 @@ DOWN = {rid: ORDER[(i + 1) % len(ORDER)] for i, rid in enumerate(ORDER)}
 def nav(rid):
     up = f"<onup>{UP[rid]}</onup>"
     down = f"<ondown>{DOWN[rid]}</ondown>"
-    if rid == 9518:
+    if rid == 9527:  # last row (9518 before the 0.9.11 main menu rows, 9524 before the custom rows)
         down = '<ondown condition="Control.IsVisible(9530)">9530</ondown><ondown condition="!Control.IsVisible(9530)">9531</ondown>'
     if rid == 9531:
-        up = '<onup condition="Control.IsVisible(9530)">9530</onup><onup condition="!Control.IsVisible(9530)">9518</onup>'
+        up = '<onup condition="Control.IsVisible(9530)">9530</onup><onup condition="!Control.IsVisible(9530)">9527</onup>'
     return "					" + up + down
 
 
@@ -140,7 +172,8 @@ def main():
     a("<!--")
     a("\tSentence's own settings, one sentence each. Up/Down move between them; OK or Right changes the phrase,")
     a("\tLeft steps it back. Rows that reload the skin come back through Window(Home).Property(sentence.refocus).")
-    a("\tIds: phrases 9510-9518 (rows 9610-9618), 9530 forget saved sentences, 9531 reset everything (OK twice).")
+    a("\tIds: phrases 9510-9527 (rows 9610-9627; 9519-9524 = main menu, 9525-9527 = custom rows), 9530 forget saved sentences,")
+    a("\t9531 reset everything (OK twice), 9889 favourites data list (custom rows).")
     a("-->")
     a("<window>")
     a('\t<defaultcontrol always="true">9600</defaultcontrol>')
@@ -153,8 +186,9 @@ def main():
     a("\t\t<include>Sen_Background</include>")
     a('\t\t<include content="Sen_PageHeader"><param name="title" value="How Sentence behaves"/></include>')
     a("\t\t<include>Sen_Clock</include>")
+    a("\t\t<include>CustomRows_FavData</include>")
     a('\t\t<control type="grouplist" id="9600">')
-    a("\t\t\t<left>page_margin</left><top>150</top><width>1200</width><height>900</height>")
+    a("\t\t\t<left>page_margin</left><top>150</top><width>1200</width><height>840</height>")  # 0.9.11: 10 rows, stops above the footer hint
     a("\t\t\t<orientation>vertical</orientation><itemgap>0</itemgap>")
     a("\t\t\t<onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>")
     for r in ROWS:
@@ -208,6 +242,12 @@ def main():
     V = ['<?xml version="1.0" encoding="UTF-8"?>', "<!-- GENERATED by _src/make_skinsettings.py -->", "<includes>"]
     for r in ROWS:
         rid, _b, _a, kind, key, opts, _h, _rl = r
+        if kind == "custom":
+            V.append(f'\t<variable name="SkinSet_C{key}">')
+            V.append(f'\t\t<value condition="!String.IsEmpty(Skin.String(CustomRow.{key}.Path))">$VAR[CustomRow_Value{key}]</value>')
+            V.append("\t\t<value>nothing yet</value>")
+            V.append("\t</variable>")
+            continue
         V.append(f'\t<variable name="SkinSet_L{rid}">')
         for stored, lab in opts:
             V.append(f'\t\t<value condition="{cond_is(kind, key, stored, opts)}">{escape(lab)}</value>')

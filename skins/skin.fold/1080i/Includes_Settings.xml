@@ -481,6 +481,26 @@
 			</control>
 		</definition>
 	</include>
+	<!-- 0.9.10 custom rows: the SkinSet_Row look, OK opens the row's options. params: id, row (1-3), label -->
+	<include name="SkinSet_CustomRow">
+		<definition>
+			<control type="button" id="$PARAM[id]">
+				<width>984</width>
+				<height>72</height>
+				<label>$PARAM[label]</label>
+				<label2>$VAR[CustomRow_Value$PARAM[row]]</label2>
+				<font>sans_28_semi</font>
+				<textcolor>ink</textcolor>
+				<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
+				<disabledcolor>disabled</disabledcolor>
+				<textoffsetx>18</textoffsetx>
+				<aligny>center</aligny>
+				<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
+				<texturenofocus border="6" colordiffuse="0f1d1b18">fold/chip.png</texturenofocus>
+				<include content="CustomRows_SettingsClick"><param name="row" value="$PARAM[row]"/><param name="heading" value="$PARAM[label]"/></include>
+			</control>
+		</definition>
+	</include>
 	<variable name="SkinSet_Motion">
 		<value condition="Skin.HasSetting(fold.reducemotion)">On · quick fades</value>
 		<value>Off · full folds</value>
@@ -523,7 +543,25 @@
 		<value condition="String.IsEqual(Window(Home).Property(fold.viewsreset),1)">Done</value>
 		<value>Reset</value>
 	</variable>
+	<variable name="SkinSet_HideMenu_Movies">
+		<value condition="Skin.HasSetting(HideMenu.Movies)">$LOCALIZE[31705]</value>
+		<value>$LOCALIZE[31704]</value>
+	</variable>
+	<variable name="SkinSet_HideMenu_TVShows">
+		<value condition="Skin.HasSetting(HideMenu.TVShows)">$LOCALIZE[31705]</value>
+		<value>$LOCALIZE[31704]</value>
+	</variable>
+	<variable name="SkinSet_HideMenu_Music">
+		<value condition="Skin.HasSetting(HideMenu.Music)">$LOCALIZE[31705]</value>
+		<value>$LOCALIZE[31704]</value>
+	</variable>
+	<variable name="SkinSet_HideMenu_Search">
+		<value condition="Skin.HasSetting(HideMenu.Search)">$LOCALIZE[31705]</value>
+		<value>$LOCALIZE[31704]</value>
+	</variable>
 	<variable name="SkinSet_Help">
+		<value condition="Control.HasFocus(9607) | Control.HasFocus(9608) | Control.HasFocus(9609) | Control.HasFocus(9610)">$LOCALIZE[31706]</value>
+		<value condition="Control.HasFocus(9611) | Control.HasFocus(9612) | Control.HasFocus(9613)">$LOCALIZE[31957]</value>
 		<value condition="Control.HasFocus(9601)">Every fold, lift and unfold becomes a short fade. The cards still open into their spreads.</value>
 		<value condition="Control.HasFocus(9602)">While a video or song plays, the strip of controls folds away on its own after this long without a key press (never while paused).</value>
 		<value condition="Control.HasFocus(9603)">The time and date in the top right corner of the table.</value>

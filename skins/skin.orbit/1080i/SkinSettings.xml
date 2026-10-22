@@ -3,7 +3,8 @@
 	Skin settings (docs/skin.orbit/SETTINGS.md). One row per setting in a vertical grouplist:
 	Left / Right step the value (applied at once), OK steps forward. The right-hand instrument shows the
 	focused setting as a detent knob (rings/knob/<N>_<i>.png) with its value and what it does.
-	Ids: rows 9601-9608, reset 9609. Back closes the window.
+	Ids: rows 9601-9608, reset 9609, Main menu heading 9630 + rows 9611-9614 (HideMenu.*), Custom rows heading 9631 +
+	rows 9615-9617, favourites data list 9889. Back closes the window.
 -->
 <window>
 	<defaultcontrol always="true">9600</defaultcontrol>
@@ -17,6 +18,7 @@
 	<onunload condition="!$EXP[ArtBackgroundOn] + Skin.HasSetting(TMDbHelper.EnableBlur)">Skin.Reset(TMDbHelper.EnableBlur)</onunload>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
+		<include>CustomRows_FavData</include>
 		<include content="Orbit_Page">
 			<param name="ground" value="arc"/>
 		</include>
@@ -108,6 +110,65 @@
 				<param name="next" value="Skin.ToggleSetting(orbit.reducemotion)"/>
 				<param name="prev" value="Skin.ToggleSetting(orbit.reducemotion)"/>
 			</include>
+			<!-- main menu (0.9.12): HideMenu.* bools, Home dial items; Settings never hides -->
+			<control type="group" id="9630">
+				<width>1000</width>
+				<height>70</height>
+				<control type="label">
+					<left>28</left>
+					<top>30</top>
+					<width>900</width>
+					<height>30</height>
+					<font>label_20</font>
+					<textcolor>text_dim</textcolor>
+					<label>[UPPERCASE]$LOCALIZE[31330][/UPPERCASE]</label>
+				</control>
+			</control>
+			<include content="Set_Row">
+				<param name="id" value="9611"/>
+				<param name="label" value="$LOCALIZE[342]"/>
+				<param name="value" value="$VAR[LabelHideMenu_Movies]"/>
+				<param name="next" value="Skin.ToggleSetting(HideMenu.Movies)"/>
+				<param name="prev" value="Skin.ToggleSetting(HideMenu.Movies)"/>
+			</include>
+			<include content="Set_Row">
+				<param name="id" value="9612"/>
+				<param name="label" value="$LOCALIZE[20343]"/>
+				<param name="value" value="$VAR[LabelHideMenu_TVShows]"/>
+				<param name="next" value="Skin.ToggleSetting(HideMenu.TVShows)"/>
+				<param name="prev" value="Skin.ToggleSetting(HideMenu.TVShows)"/>
+			</include>
+			<include content="Set_Row">
+				<param name="id" value="9613"/>
+				<param name="label" value="$LOCALIZE[2]"/>
+				<param name="value" value="$VAR[LabelHideMenu_Music]"/>
+				<param name="next" value="Skin.ToggleSetting(HideMenu.Music)"/>
+				<param name="prev" value="Skin.ToggleSetting(HideMenu.Music)"/>
+			</include>
+			<include content="Set_Row">
+				<param name="id" value="9614"/>
+				<param name="label" value="$LOCALIZE[137]"/>
+				<param name="value" value="$VAR[LabelHideMenu_Search]"/>
+				<param name="next" value="Skin.ToggleSetting(HideMenu.Search)"/>
+				<param name="prev" value="Skin.ToggleSetting(HideMenu.Search)"/>
+			</include>
+			<!-- custom rows (0.9.12): three opt-in Home dial stations; OK opens the row's options (Includes_CustomRows.xml) -->
+			<control type="group" id="9631">
+				<width>1000</width>
+				<height>70</height>
+				<control type="label">
+					<left>28</left>
+					<top>30</top>
+					<width>900</width>
+					<height>30</height>
+					<font>label_20</font>
+					<textcolor>text_dim</textcolor>
+					<label>[UPPERCASE]$LOCALIZE[31940][/UPPERCASE]</label>
+				</control>
+			</control>
+			<include content="Set_CustomRow"><param name="id" value="9615"/><param name="row" value="1"/><param name="label" value="$LOCALIZE[31941]"/></include>
+			<include content="Set_CustomRow"><param name="id" value="9616"/><param name="row" value="2"/><param name="label" value="$LOCALIZE[31942]"/></include>
+			<include content="Set_CustomRow"><param name="id" value="9617"/><param name="row" value="3"/><param name="label" value="$LOCALIZE[31943]"/></include>
 			<!-- reset (OK twice) -->
 			<control type="button" id="9609">
 				<width>1000</width>

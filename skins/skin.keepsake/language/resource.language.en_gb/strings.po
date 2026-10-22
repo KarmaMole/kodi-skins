@@ -1039,3 +1039,103 @@ msgstr ""
 msgctxt "#31478"
 msgid "ok for the presets  ·  back to leave"
 msgstr ""
+
+msgctxt "#31479"
+msgid "the menu shows"
+msgstr ""
+
+msgctxt "#31480"
+msgid "music"
+msgstr ""
+
+msgctxt "#31940"
+msgid "Custom rows"
+msgstr ""
+
+msgctxt "#31941"
+msgid "Row 1"
+msgstr ""
+
+msgctxt "#31942"
+msgid "Row 2"
+msgstr ""
+
+msgctxt "#31943"
+msgid "Row 3"
+msgstr ""
+
+msgctxt "#31944"
+msgid "Not set"
+msgstr ""
+
+msgctxt "#31945"
+msgid "Add-on, playlist or library…"
+msgstr ""
+
+msgctxt "#31946"
+msgid "A favourite…"
+msgstr ""
+
+msgctxt "#31947"
+msgid "Rename…"
+msgstr ""
+
+msgctxt "#31948"
+msgid "Clear"
+msgstr ""
+
+msgctxt "#31949"
+msgid "This favourite opens no folder"
+msgstr ""
+
+msgctxt "#31950"
+msgid "Add up to three rows of your own to Home: a folder of an add-on (for example JellyCon's Continue Watching), a smart playlist, a library node or a favourite that opens a folder. A row shows only when it has something in it.[CR][CR]OK opens the row's options: choose what it shows, rename it or clear it."
+msgstr ""
+
+msgctxt "#31951"
+msgid "Custom row"
+msgstr ""
+
+msgctxt "#31952"
+msgid "Loading…"
+msgstr ""
+
+msgctxt "#31953"
+msgid "1 item"
+msgstr ""
+
+msgctxt "#31954"
+msgid "items"
+msgstr ""
+
+msgctxt "#31955"
+msgid "Add-on · playlist · library · favourite"
+msgstr ""
+
+msgctxt "#31956"
+msgid "The add-on of this favourite isn't installed"
+msgstr ""
+
+msgctxt "#31957"
+msgid "Rows of your own on Home: an add-on folder, a playlist, a library node or a favourite. OK opens the row's options."
+msgstr ""
+
+msgctxt "#31960"
+msgid "custom rows"
+msgstr ""
+
+msgctxt "#31961"
+msgid "row 1"
+msgstr ""
+
+msgctxt "#31962"
+msgid "row 2"
+msgstr ""
+
+msgctxt "#31963"
+msgid "row 3"
+msgstr ""
+
+msgctxt "#31964"
+msgid "Your own rows on Home, a page below the words. OK picks what a row shows."
+msgstr ""

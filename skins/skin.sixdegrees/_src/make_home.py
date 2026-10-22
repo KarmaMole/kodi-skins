@@ -52,6 +52,39 @@ SECTIONS = {
     "music": dict(list=9130, word=9003, kind="albums", label="Music", textx=668, tw=70),
 }
 
+# 0.9.12 main menu: sections / words hidden in Skin settings (HideMenu.*). Index and the gear stay (Index hides only when
+# every section is hidden). The section on show = the remembered one if it is shown, else the first shown one.
+HIDE = {"movies": "Skin.HasSetting(HideMenu.Movies)", "tvshows": "Skin.HasSetting(HideMenu.TVShows)",
+        "music": "Skin.HasSetting(HideMenu.Music)"}
+HIDE_SEARCH = "Skin.HasSetting(HideMenu.Search)"
+ALL_HIDDEN = " + ".join(HIDE.values())
+
+
+def _rem(sec):
+    s = "Window(Home).Property(sixdegrees.section)"
+    if sec == "movies":
+        return f"!String.IsEqual({s},tvshows) + !String.IsEqual({s},music)"
+    return f"String.IsEqual({s},{sec})"
+
+
+def eff_sec(sec):
+    """written out in full (Timers.xml does not expand $EXP)"""
+    rem_hidden = " | ".join(f"[{_rem(o)} + {HIDE[o]}]" for o in HIDE)
+    before = [HIDE[o] for o in list(HIDE)[: list(HIDE).index(sec)]]
+    fallback = " + ".join([f"[{rem_hidden}]"] + before)
+    return f"!{HIDE[sec]} + [[{_rem(sec)}] | [{fallback}]]"
+
+
+def word_wrap(sec, controls):
+    """a section word's controls in a group that hides with the section and closes up behind hidden words"""
+    secs = list(SECTIONS)
+    o = ['<control type="group">', f"<visible>!{HIDE[sec]}</visible>"]
+    for p in secs[: secs.index(sec)]:
+        nxt = secs[secs.index(p) + 1]
+        o.append(f'<animation effect="slide" start="0,0" end="-{SECTIONS[nxt]["textx"] - SECTIONS[p]["textx"]},0" time="0" condition="{HIDE[p]}">Conditional</animation>')
+    return o + controls + ["</control>"]
+
+
 # data lists per section: (id, content, sortby, sortorder, limit)
 DATA = {
     "movies": [
@@ -282,6 +315,7 @@ def start_list(sec):
          f"<visible>$EXP[Home_Is_{sec}]</visible>",
          f"<onup>{s['word']}</onup><onback>{s['word']}</onback>",
          f'<ondown condition="String.IsEmpty(Container({lid}).ListItem.Property(terminus))">9151</ondown>',
+         f'<ondown condition="!String.IsEmpty(Container({lid}).ListItem.Property(terminus))">$VAR[Home_DownToCustom]</ondown>',
          f'<onfocus>SetProperty({P}.homefocus,{lid},home)</onfocus>']
     t += layouts(sec)
     # OK = board the map at this starter (static-content onclick runs with the clicked item, lesson 143)
@@ -561,7 +595,7 @@ def section_word(sec):
     t.append(lbl(x, 62, tw + 12, 48, s["label"], "xb_26", "ink", vis=f"!Control.HasFocus({s['word']}) + $EXP[Home_Is_{sec}]"))
     t.append(lbl(x, 62, tw + 12, 48, s["label"], "semi_26", "ink2", vis=f"!Control.HasFocus({s['word']}) + !$EXP[Home_Is_{sec}]"))
     t.append(img(x, 116, tw, 6, "sd/line_h6.png", diffuse="ink", border="3,0,3,0", vis=f"$EXP[Home_Is_{sec}]"))
-    return t
+    return word_wrap(sec, t)
 
 
 def top_bar():
@@ -577,8 +611,12 @@ def top_bar():
                 '<texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus />'
                 f"<label>{text}</label><onclick>{onclick}</onclick><onleft>{left}</onleft><onright>{right}</onright>"
                 "<ondown>$VAR[Home_RowId]</ondown></control>")
-    out.append(word_btn(9005, 1418, 112, "Search", "ActivateWindow(1150)", 9003, 9006))
-    out.append(word_btn(9006, 1540, 96, "Index", "$VAR[Home_IndexAction]", 9005, 9007))
+    # 0.9.12: Search hides with HideMenu.Search; Index only when every section is hidden (then Search moves into its place)
+    out.append('<control type="group"><visible>!' + HIDE_SEARCH + '</visible>'
+               f'<animation effect="slide" start="0,0" end="122,0" time="0" condition="{ALL_HIDDEN}">Conditional</animation>'
+               + word_btn(9005, 1418, 112, "Search", "ActivateWindow(1150)", 9003, 9006) + "</control>")
+    out.append(f'<control type="group"><visible>![{ALL_HIDDEN}]</visible>'
+               + word_btn(9006, 1540, 96, "Index", "$VAR[Home_IndexAction]", 9005, 9007) + "</control>")
     out.append('<control type="button" id="9007"><left>1648</left><top>62</top><width>56</width><height>48</height>'
                '<texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus />'
                "<onclick>ActivateWindow(1151)</onclick><onleft>9006</onleft><onright>9001</onright><ondown>$VAR[Home_RowId]</ondown></control>")
@@ -604,7 +642,7 @@ def preview_block():
     def kbtn(cid, x, w, key, word, onclick, left, right, icon=None):
         b = [f'<control type="button" id="{cid}"><left>{x}</left><top>902</top><width>{w}</width><height>52</height>',
              '<texturefocus border="26" colordiffuse="ink">sd/pill_56.png</texturefocus><texturenofocus />',
-             f"<onup>$VAR[Home_RowId]</onup><onleft>{left}</onleft><onright>{right}</onright><onback>$VAR[Home_RowId]</onback>"]
+             f"<onup>$VAR[Home_RowId]</onup><ondown>$VAR[Home_DownToCustom]</ondown><onleft>{left}</onleft><onright>{right}</onright><onback>$VAR[Home_RowId]</onback>"]
         b += [tag("onclick", a[0], a[1]) if isinstance(a, tuple) else f"<onclick>{a}</onclick>" for a in onclick]
         b.append("</control>")
         foc = f"Control.HasFocus({cid})"
@@ -629,7 +667,7 @@ def preview_block():
         b = [f'<control type="button" id="{cid}"><left>{x}</left><top>902</top><width>{w}</width><height>52</height>',
              '<texturefocus border="26" colordiffuse="ink">sd/pill_56.png</texturefocus>',
              '<texturenofocus border="26" colordiffuse="hair_strong">sd/pill_56_o3.png</texturenofocus>',
-             f"<onup>$VAR[Home_RowId]</onup><onleft>{left}</onleft><onright>{right}</onright><onback>$VAR[Home_RowId]</onback>"]
+             f"<onup>$VAR[Home_RowId]</onup><ondown>$VAR[Home_DownToCustom]</ondown><onleft>{left}</onleft><onright>{right}</onright><onback>$VAR[Home_RowId]</onback>"]
         b += [tag("onclick", a[0], a[1]) if isinstance(a, tuple) else f"<onclick>{a}</onclick>" for a in onclick]
         b.append("</control>")
         foc = f"Control.HasFocus({cid})"
@@ -674,6 +712,106 @@ def preview_block():
     return group(ch, vis="!$EXP[Home_SelIsTerminus]", desc="preview")
 
 
+# ------------------------------------------------------------------ custom rows (0.9.12): "your lines"
+# Opt-in rows from Skin settings > Custom rows (Includes_CustomRows.xml). A second page under Start somewhere: Down
+# from the preview buttons (or the terminus, or the words when every section is hidden) slides the page up to
+# them, one line at a time in the start-line look (posters on the route line, the focused one big in its ink ring,
+# titles under them, the preview text below). Up / Down move between lines, Up from the first returns, Back -> the
+# start line. Nothing changes until a row has items.
+CUSTOM_IDS = (9881, 9882, 9883)
+
+
+def custom_poster(x, y, w, h, mask):
+    return [img(x - 24, y - 16, w + 48, h + 48, "sd/shadow_poster.png", diffuse="shadow", border="40"),
+            img(x, y, w, h, "common/white.png", diffuse="wash"),
+            lbl(x + 12, y + 12, w - 24, 90, "$INFO[ListItem.Label]", "semi_22", "ink2", aligny="top", wrap=True),
+            '<control type="image">'
+            f"<left>{x}</left><top>{y}</top><width>{w}</width><height>{h}</height><aspectratio>scale</aspectratio><fadetime>150</fadetime>"
+            f'<texture background="true" diffuse="sd/{mask}">$VAR[CustomRow_PosterArt]</texture></control>',
+            '<control type="progress">'
+            f"<left>{x + 12}</left><top>{y + h - 24}</top><width>{w - 24}</width><height>6</height>"
+            '<texturebg border="3,0,3,0" colordiffuse="track_on_art">sd/line_h6.png</texturebg>'
+            '<lefttexture /><midtexture border="3,0,3,0" colordiffuse="white">sd/line_h6.png</midtexture><righttexture />'
+            "<info>ListItem.PercentPlayed</info>"
+            "<visible>Integer.IsGreater(ListItem.PercentPlayed,0)</visible></control>"]
+
+
+def custom_list(n):
+    lid = CUSTOM_IDS[n - 1]
+    unf = start_line(SLOT) + custom_poster(PAD, P_TOP, PW, PH, "mask_184x276.png")
+    unf.append('<control type="textbox">'
+               f"<left>{PAD + PW // 2 - 118}</left><top>{TITLE_Y}</top><width>236</width><height>62</height>"
+               "<font>st_22</font><textcolor>ink</textcolor><align>center</align>"
+               "<label>$INFO[ListItem.Label]</label></control>")
+    fx = PAD + 14
+    o = 15
+    foc = start_line(FSLOT) + [
+        img(fx - o - 40, F_TOP - o - 20, FW + 2 * o + 80, FH + 2 * o + 80, "sd/shadow_big.png", diffuse="shadow", border="100"),
+        img(fx - o, F_TOP - o, FW + 2 * o, FH + 2 * o, "sd/ringf_fill.png", diffuse="ground", border="20"),
+        img(fx - o, F_TOP - o, FW + 2 * o, FH + 2 * o, "sd/ringf_7.png", diffuse="ink", border="20")]
+    foc += custom_poster(fx, F_TOP, FW, FH, "mask_224x336.png")
+    ups = []
+    if n == 3:
+        ups += [("$EXP[CustomRow2On]", "9882"), ("!$EXP[CustomRow2On] + $EXP[CustomRow1On]", "9881")]
+    if n == 2:
+        ups += [("$EXP[CustomRow1On]", "9881")]
+    guard = {1: "", 2: "!$EXP[CustomRow1On] + ", 3: "!$EXP[CustomRow2On] + !$EXP[CustomRow1On] + "}[n]
+    any_sec = "[" + " | ".join(f"$EXP[Home_Is_{s}]" for s in SECTIONS) + "]"
+    ups += [(f"{guard}{any_sec} + !$EXP[Home_SelIsTerminus]", "9151")]
+    ups += [(f"{guard}$EXP[Home_Is_{s}]", str(SECTIONS[s]["list"])) for s in SECTIONS]
+    t = [f'<control type="list" id="{lid}">',
+         f"<left>{LIST_X}</left><top>{LIST_Y}</top><width>{1920 - LIST_X}</width><height>520</height>",
+         "<orientation>horizontal</orientation><scrolltime tween=\"cubic\" easing=\"out\">240</scrolltime><preloaditems>2</preloaditems>"]
+    t += [tag("onup", tgt, c) for c, tgt in ups] + ["<onup>9007</onup>"]
+    downs = {1: [("$EXP[CustomRow2On]", "9882"), ("!$EXP[CustomRow2On] + $EXP[CustomRow3On]", "9883")],
+             2: [("$EXP[CustomRow3On]", "9883")], 3: []}[n]
+    t += [tag("ondown", tgt, c) for c, tgt in downs] + ["<ondown>noop</ondown>", "<onleft>noop</onleft><onright>noop</onright>"]
+    t += [tag("onback", str(SECTIONS[s]["list"]), f"$EXP[Home_Is_{s}]") for s in SECTIONS] + ["<onback>9007</onback>"]
+    # never hidden (a hidden container never loads): on the page only while it has focus
+    t.append(f'<animation effect="fade" start="0" end="100" time="240" delay="80" condition="Control.HasFocus({lid})">Conditional</animation>')
+    t.append(f'<animation effect="fade" start="100" end="0" time="0" condition="!Control.HasFocus({lid})">Conditional</animation>')
+    t += [f'<itemlayout width="{SLOT}" height="520">'] + unf + ["</itemlayout>"]
+    t += [f'<focusedlayout width="{FSLOT}" height="520">'] + foc + ["</focusedlayout>"]
+    t.append(f'<include content="CustomRow_Content"><param name="row" value="{n}"/></include>')
+    t.append("</control>")
+    return "\n".join(t)
+
+
+def custom_page():
+    focused = " | ".join(f"Control.HasFocus({i})" for i in CUSTOM_IDS)
+    title = "".join(f'<value condition="Control.HasFocus({i})">$VAR[CustomRow_Title{k}]</value>' for k, i in enumerate(CUSTOM_IDS, 1))
+    count = "".join(f'<value condition="Control.HasFocus({i})">$VAR[CustomRow_Count{k}]</value>' for k, i in enumerate(CUSTOM_IDS, 1))
+    ch = [lbl(60, 140, 1800, 96, "$VAR[Home_CustomTitle]", "disp_76", "ink"),
+          lbl(64, 238, 1200, 30, "$LOCALIZE[31960]  ·  $VAR[Home_CustomCount]", "caps_21", "ink2", aligny="top"),
+          img(64, 272, 1792, 2, "common/white.png", diffuse="hair")]
+    ch += [custom_list(n) for n in (1, 2, 3)]
+    li = "Container.ListItem"
+    ch += [lbl(64, 752, 860, 30, "$LOCALIZE[31961]", "caps_21", "ink2", aligny="top"),
+           lbl(60, 782, 1700, 64, "$VAR[Home_CustomSelTitle]", "disp_52", "ink"),
+           lbl(64, 850, 1700, 34, "$VAR[Home_CustomSelMeta]", "semi_24", "ink2")]
+    page = group(ch, top=1080, desc="custom rows page",
+                 anims=f'<animation type="Conditional" condition="[{focused}] + !{RM}" reversible="true"><effect type="slide" start="0,0" end="0,-1080" time="320" tween="cubic" easing="out"/></animation>'
+                       f'<animation type="Conditional" condition="[{focused}] + {RM}" reversible="true"><effect type="slide" start="0,0" end="0,-1080" time="0"/></animation>')
+    sel_t, sel_m = [], []
+    for i in CUSTOM_IDS:
+        c = f"Container({i}).ListItem"
+        sel_t += [f'<value condition="Control.HasFocus({i}) + String.IsEqual({c}.DBType,episode) + !String.IsEmpty({c}.TVShowTitle)">$INFO[{c}.TVShowTitle]</value>',
+                  f'<value condition="Control.HasFocus({i})">$INFO[{c}.Label]</value>']
+        sel_m += [f'<value condition="Control.HasFocus({i}) + String.IsEqual({c}.DBType,episode)">$INFO[{c}.Season,Season ,]$INFO[{c}.Episode,  ·  Episode ,]$INFO[{c}.Title,  ·  ,]</value>',
+                  f'<value condition="Control.HasFocus({i}) + !String.IsEmpty({c}.Year)">$INFO[{c}.Director,,  ·  ]$INFO[{c}.Year]$INFO[{c}.Genre,  ·  ,]</value>',
+                  f'<value condition="Control.HasFocus({i})">$INFO[{c}.Label2]</value>']
+    variables = [f'<variable name="Home_CustomTitle">{title}</variable>',
+                 f'<variable name="Home_CustomCount">{count}</variable>',
+                 '<variable name="Home_CustomSelTitle">' + "".join(sel_t) + "</variable>",
+                 '<variable name="Home_CustomSelMeta">' + "".join(sel_m) + "</variable>",
+                 '<variable name="Home_DownToCustom">'
+                 '<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>'
+                 '<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>'
+                 '<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>'
+                 "<value>noop</value></variable>"]
+    return page, variables
+
+
 def index_preview():
     return group([lbl(64, 752, 860, 30, "The terminus", "caps_21", "ink2", aligny="top"),
                   lbl(60, 782, 900, 64, "Index", "disp_52", "ink"),
@@ -685,12 +823,13 @@ def home_variables():
     v = []
     a = v.append
     for sec in SECTIONS:
-        a(f'<expression name="Home_Is_{sec}">' + (
-            f"String.IsEqual({prop('section')},{sec})" if sec != "movies"
-            else f"!String.IsEqual({prop('section')},tvshows) + !String.IsEqual({prop('section')},music)") + "</expression>")
+        a(f'<expression name="Home_Is_{sec}">' + eff_sec(sec) + "</expression>")
     a('<variable name="Home_RowId">')
     for sec, s in SECTIONS.items():
         a(f'\t<value condition="$EXP[Home_Is_{sec}]">SetFocus({s["list"]})</value>')
+    # 0.9.12: every section hidden: the custom rows (there was no value at all then)
+    for k, cid in enumerate((9881, 9882, 9883), 1):
+        a(f'\t<value condition="{ALL_HIDDEN} + $EXP[CustomRow{k}On]">SetFocus({cid})</value>')
     a("</variable>")
     for fld, expr in (("Title", "Label"),):
         a(f'<variable name="Home_Sel{fld}">')
@@ -761,8 +900,7 @@ def home_variables():
     return v
 
 
-IS_SEC = {"movies": f"!String.IsEqual({prop('section')},tvshows) + !String.IsEqual({prop('section')},music)",
-          "tvshows": f"String.IsEqual({prop('section')},tvshows)", "music": f"String.IsEqual({prop('section')},music)"}
+IS_SEC = {sec: f"[{eff_sec(sec)}]" for sec in ("movies", "tvshows", "music")}
 
 
 def timers():
@@ -820,7 +958,8 @@ def includes():
     parts = ['<?xml version="1.0" encoding="UTF-8"?>',
              "<!-- GENERATED by _src/make_home.py - edit the generator. Home = Start somewhere (see its docstring). -->",
              "<includes>"]
-    parts += ["\t" + x for x in "\n".join(home_variables() + pv_variables()).split("\n")]
+    cpage, cvars = custom_page()
+    parts += ["\t" + x for x in "\n".join(home_variables() + pv_variables() + cvars).split("\n")]
 
     def inc(name, body):
         parts.append(f'\t<include name="{name}">')
@@ -839,6 +978,7 @@ def includes():
         + ["\t" + x for x in "\n".join(start_list(sec) for sec in SECTIONS).split("\n")] + ["</control>"])
     inc("Home_Preview", [preview_block(), index_preview(), minimap()])
     inc("Home_NowPlaying", [now_playing()])
+    inc("Home_CustomPage", [cpage])
     # kept for Search (Includes_Search.xml): poster/cover art with fallback
     parts.append('''	<include name="Home_Art">
 		<param name="diffuse">white</param>
@@ -864,6 +1004,8 @@ def home_window():
 	Focus: words 9001 Movies / 9002 Series / 9003 Music, 9005 Search, 9006 Index, 9007 System;
 	start lines 9110 / 9120 / 9130 in group 9109 = defaultcontrol (OK = board the map); buttons 9151 board / 9152 play / 9153 station page.
 	Back: buttons -> start line -> section word (Home has nowhere further to go, Kodi keeps it).
+	0.9.12 custom rows ("your lines", 9881-9883, Includes_CustomRows.xml): a page below, Down from the buttons / the
+	terminus / the words when every section is hidden; Up returns, Back -> the start line.
 -->
 <window>
 	<defaultcontrol always="true">9109</defaultcontrol>
@@ -871,6 +1013,9 @@ def home_window():
 	<backgroundcolor>ground</backgroundcolor>
 	<onload condition="$EXP[Home_Is_tvshows]">SetFocus(9120)</onload>
 	<onload condition="$EXP[Home_Is_music]">SetFocus(9130)</onload>
+	<!-- 0.9.12: every section hidden in Skin settings (HideMenu.*): no start line, so Search or the gear -->
+	<onload condition="{ALL_HIDDEN} + !{HIDE_SEARCH}">SetFocus(9005)</onload>
+	<onload condition="{ALL_HIDDEN} + {HIDE_SEARCH}">SetFocus(9007)</onload>
 	<onload>SetProperty({P}.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
 	<onload>ClearProperty({P}.homeinit,home)</onload>
 	<include>Anim_WindowOpenClose</include>
@@ -878,9 +1023,16 @@ def home_window():
 		<include>SD_Background</include>
 		<include>Home_DataLists</include>
 		<include>Home_Encoder</include>
-		<include>Home_Headline</include>
-		<include>Home_StartLines</include>
-		<include>Home_Preview</include>
+		<!-- 0.9.12: Start somewhere slides one screen up while a custom row (your lines, below) has focus -->
+		<control type="group">
+			<animation type="Conditional" condition="$EXP[CustomRowsFocus] + !{RM}" reversible="true"><effect type="slide" start="0,0" end="0,-1080" time="320" tween="cubic" easing="out"/></animation>
+			<animation type="Conditional" condition="$EXP[CustomRowsFocus] + {RM}" reversible="true"><effect type="slide" start="0,0" end="0,-1080" time="0"/></animation>
+			<include>Home_Headline</include>
+			<include>Home_StartLines</include>
+			<include>Home_Preview</include>
+		</control>
+		<include>Home_CustomPage</include>
+		<include>CustomRows_Probes</include>
 		<include>Home_NowPlaying</include>
 		<include>Home_TopBar</include>
 	</controls>

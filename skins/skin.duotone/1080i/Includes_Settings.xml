@@ -460,7 +460,13 @@
 		<value condition="Control.HasFocus(9508)">How often the Home spotlight moves to the next pick. Changing it reloads the skin.</value>
 		<value condition="Control.HasFocus(9509)">Seconds of no input before the playback controls hide by themselves (not while paused).</value>
 		<value condition="Control.HasFocus(9510)">Where the slim strip sits while you sync audio or subtitles.</value>
-		<value condition="Control.HasFocus(9511)">Puts every Duotone setting back to its default and reloads the skin. Press OK twice.</value>
+		<value condition="Control.HasFocus(9511)">Takes the section off the Home stack, with its spotlight and rows; the others move up. Search stays, with the settings and power, so you can always come back here.</value>
+		<value condition="Control.HasFocus(9512)">Takes the section off the Home stack, with its spotlight and rows; the others move up. Search stays, with the settings and power, so you can always come back here.</value>
+		<value condition="Control.HasFocus(9513)">Takes the section off the Home stack, with its spotlight and rows; the others move up. Search stays, with the settings and power, so you can always come back here.</value>
+		<value condition="Control.HasFocus(9514)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9515)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9516)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9517)">Puts every Duotone setting back to its default and reloads the skin. Press OK twice.</value>
 	</variable>
 	<variable name="Skin_HelpTitle">
 		<value condition="Control.HasFocus(9501)">Look</value>
@@ -473,6 +479,12 @@
 		<value condition="Control.HasFocus(9508)">Spotlight rotation</value>
 		<value condition="Control.HasFocus(9509)">OSD auto-hide</value>
 		<value condition="Control.HasFocus(9510)">Offset strip</value>
+		<value condition="Control.HasFocus(9511)">Home: Films</value>
+		<value condition="Control.HasFocus(9512)">Home: Series</value>
+		<value condition="Control.HasFocus(9513)">Home: Music</value>
+		<value condition="Control.HasFocus(9514)">$LOCALIZE[31941]</value>
+		<value condition="Control.HasFocus(9515)">$LOCALIZE[31942]</value>
+		<value condition="Control.HasFocus(9516)">$LOCALIZE[31943]</value>
 		<value>Reset</value>
 	</variable>
 	<variable name="Skin_ResetLabel">

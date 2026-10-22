@@ -12,7 +12,8 @@
 		<name>groove_home_focus</name>
 		<start>Window.IsActive(home) + String.IsEmpty(System.CurrentControlId) + !System.HasActiveModalDialog</start>
 		<stop>!String.IsEmpty(System.CurrentControlId) | !Window.IsActive(home)</stop>
-		<onstart>SetFocus(9001)</onstart>
+		<!-- 1.0.2: the group, not 9001: Music can be hidden (HideMenu.Music); a group focuses its first shown icon -->
+		<onstart>SetFocus(9000)</onstart>
 	</timer>
 
 	<!-- Now Playing, Visualiser mode (M3 music playback, MusicOSD.xml): after 4 s without a key the tray has faded

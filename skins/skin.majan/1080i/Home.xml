@@ -9,6 +9,8 @@
 	  Home:   Play 9110 -Right-> Details 9111 -Right-> Trailer 9112; buttons -Down-> newest row 9120 (-> 9121)
 	  Hubs:   row 01 -Down-> row 02 (-> row 03); Up from row 01 -> its menu item
 	  Back from any content -> top bar (group 9000 remembers the item). Back on the bar does nothing.
+	Main menu items can be hidden in Skin settings (HideMenu.Home/Movies/TVShows/Music/Search, Includes_Home.xml):
+	  hidden items vanish, the rest close up, Left/Right fall through hidden ids. The gear always stays.
 	Default focus on open: the item of the section that was active when Home was left.
 -->
 <window>
@@ -16,9 +18,16 @@
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>bg</backgroundcolor>
 	<!-- re-focus the section that was active when Home was left -->
-	<onload condition="String.IsEqual(Window(Home).Property(majan.section),movies)">SetFocus(9002)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(majan.section),tv)">SetFocus(9003)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(majan.section),music)">SetFocus(9004)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(majan.section),movies) + !Skin.HasSetting(HideMenu.Movies)">SetFocus(9002)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(majan.section),tv) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(9003)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(majan.section),music) + !Skin.HasSetting(HideMenu.Music)">SetFocus(9004)</onload>
+	<!-- 1.0.12: Home (9001) hidden in Skin settings (HideMenu.Home, or HideMenu.Movies: the overview is all films) and
+	     no remembered section to return to: focus the first item that is shown. The gear is never hidden. -->
+	<onload condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + ![[String.IsEqual(Window(Home).Property(majan.section),movies) + !Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(majan.section),tv) + !Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(majan.section),music) + !Skin.HasSetting(HideMenu.Music)]] + !Skin.HasSetting(HideMenu.Movies)">SetFocus(9002)</onload>
+	<onload condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + ![[String.IsEqual(Window(Home).Property(majan.section),movies) + !Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(majan.section),tv) + !Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(majan.section),music) + !Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(9003)</onload>
+	<onload condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + ![[String.IsEqual(Window(Home).Property(majan.section),movies) + !Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(majan.section),tv) + !Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(majan.section),music) + !Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(9004)</onload>
+	<onload condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + ![[String.IsEqual(Window(Home).Property(majan.section),movies) + !Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(majan.section),tv) + !Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(majan.section),music) + !Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">SetFocus(9005)</onload>
+	<onload condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + ![[String.IsEqual(Window(Home).Property(majan.section),movies) + !Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(majan.section),tv) + !Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(majan.section),music) + !Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">SetFocus(9006)</onload>
 	<!-- new stamp each time Home opens: the Next up plugin path changes, so it refreshes after playback -->
 	<onload>SetProperty(majan.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
 	<!-- Artwork background (setting 4) via TMDb Helper's blur service (6.17.9 source, monitor/imgmon.py):
@@ -40,10 +49,16 @@
 		<include>Majan_Background</include>
 		<include>Home_ArtBackground</include>
 		<include>Home_DataLists</include>
-		<include>Home_SectionHome</include>
-		<include>Home_HubMovies</include>
-		<include>Home_HubTV</include>
-		<include>Home_HubMusic</include>
+		<include>CustomRows_Probes</include>
+		<!-- 1.0.12: sections + the custom rows page below them; the group slides one screen up while a custom row has focus -->
+		<control type="group">
+			<include>Home_CustomRowsPageAnim</include>
+			<include>Home_SectionHome</include>
+			<include>Home_HubMovies</include>
+			<include>Home_HubTV</include>
+			<include>Home_HubMusic</include>
+			<include>Home_CustomRows</include>
+		</control>
 		<include>Home_NowPlaying</include>
 		<include>Home_TopBar</include>
 	</controls>

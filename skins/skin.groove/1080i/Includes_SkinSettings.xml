@@ -37,6 +37,22 @@
 		<value condition="String.IsEqual(Skin.String(groove.osdhide),off)">$LOCALIZE[31524]</value>
 		<value>$LOCALIZE[31522]</value>
 	</variable>
+	<variable name="SkinSet_Value_9514">
+		<value condition="Skin.HasSetting(HideMenu.Music)">$LOCALIZE[31655]</value>
+		<value>$LOCALIZE[31654]</value>
+	</variable>
+	<variable name="SkinSet_Value_9515">
+		<value condition="Skin.HasSetting(HideMenu.Movies)">$LOCALIZE[31655]</value>
+		<value>$LOCALIZE[31654]</value>
+	</variable>
+	<variable name="SkinSet_Value_9516">
+		<value condition="Skin.HasSetting(HideMenu.TVShows)">$LOCALIZE[31655]</value>
+		<value>$LOCALIZE[31654]</value>
+	</variable>
+	<variable name="SkinSet_Value_9517">
+		<value condition="Skin.HasSetting(HideMenu.Search)">$LOCALIZE[31655]</value>
+		<value>$LOCALIZE[31654]</value>
+	</variable>
 	<variable name="SkinSet_HelpTitle">
 		<value condition="Control.HasFocus(9501)">$LOCALIZE[31501]</value>
 		<value condition="Control.HasFocus(9502)">$LOCALIZE[31504]</value>
@@ -46,10 +62,17 @@
 		<value condition="Control.HasFocus(9506)">$LOCALIZE[31518]</value>
 		<value condition="Control.HasFocus(9507)">$LOCALIZE[31519]</value>
 		<value condition="Control.HasFocus(9508)">$LOCALIZE[31520]</value>
+		<value condition="Control.HasFocus(9514)">$LOCALIZE[31650]</value>
+		<value condition="Control.HasFocus(9515)">$LOCALIZE[31651]</value>
+		<value condition="Control.HasFocus(9516)">$LOCALIZE[31652]</value>
+		<value condition="Control.HasFocus(9517)">$LOCALIZE[31653]</value>
 		<value condition="Control.HasFocus(9510)">$LOCALIZE[31527]</value>
 		<value condition="Control.HasFocus(9511)">$LOCALIZE[31528]</value>
 		<value condition="Control.HasFocus(9512)">$LOCALIZE[31529]</value>
 		<value condition="Control.HasFocus(9513)">$LOCALIZE[31530]</value>
+		<value condition="Control.HasFocus(9518)">$LOCALIZE[31960]</value>
+		<value condition="Control.HasFocus(9519)">$LOCALIZE[31961]</value>
+		<value condition="Control.HasFocus(9520)">$LOCALIZE[31962]</value>
 		<value condition="Control.HasFocus(9509)">$LOCALIZE[31525]</value>
 	</variable>
 	<variable name="SkinSet_HelpText">
@@ -61,10 +84,17 @@
 		<value condition="Control.HasFocus(9506)">$LOCALIZE[31545]</value>
 		<value condition="Control.HasFocus(9507)">$LOCALIZE[31546]</value>
 		<value condition="Control.HasFocus(9508)">$LOCALIZE[31547]</value>
+		<value condition="Control.HasFocus(9514)">$LOCALIZE[31656]</value>
+		<value condition="Control.HasFocus(9515)">$LOCALIZE[31656]</value>
+		<value condition="Control.HasFocus(9516)">$LOCALIZE[31656]</value>
+		<value condition="Control.HasFocus(9517)">$LOCALIZE[31657]</value>
 		<value condition="Control.HasFocus(9510)">$LOCALIZE[31549]</value>
 		<value condition="Control.HasFocus(9511)">$LOCALIZE[31549]</value>
 		<value condition="Control.HasFocus(9512)">$LOCALIZE[31550]</value>
 		<value condition="Control.HasFocus(9513)">$LOCALIZE[31550]</value>
+		<value condition="Control.HasFocus(9518)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9519)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9520)">$LOCALIZE[31950]</value>
 		<value condition="Control.HasFocus(9509)">$LOCALIZE[31548]</value>
 	</variable>
 	<variable name="SkinSet_ResetLabel">

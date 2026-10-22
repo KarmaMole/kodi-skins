@@ -16,6 +16,8 @@
 	Cards are one sequence (hero, A, B, C): Down = next card, Up = previous card (A: hero), from
 	any item; Left/Right scroll inside a card and spill over at its ends. Empty cards are skipped.
 	Back from anywhere -> nav.
+	0.9.11: Films / Shows hidden in Skin settings (HideMenu.*): the hero + cards A / C (films) or card B (TV)
+	disappear with them; card B then moves to the first slot (Home_HasA/B/C + Home_HeroOn gate the moves).
 	TMDb Helper reads Container(TMDbHelper.WidgetContainer).ListItem for the borrowed colour; every
 	focusable list sets it on focus.
 -->
@@ -33,12 +35,14 @@
 	<constant name="home_pad">14</constant>          <!-- room inside a list for zoom 5% + the 9 px focus ring -->
 
 	<!-- ============================================================== expressions -->
-	<expression name="Home_HasHero">Integer.IsGreater(Container(9101).NumItems,0)</expression>
+	<expression name="Home_HasHero">Integer.IsGreater(Container(9101).NumItems,0) + !Skin.HasSetting(HideMenu.Movies)</expression>
+	<!-- 0.9.11: the hero and cards A / C are films, card B is TV (hidden with HideMenu.Movies / HideMenu.TVShows) -->
+	<expression name="Home_HeroOn">!Skin.HasSetting(HideMenu.Movies)</expression>
 	<expression name="Home_HeroMany">Integer.IsGreater(Container(9101).NumItems,1)</expression>
 	<expression name="Home_TrailerOn">$EXP[Home_HasHero] + $EXP[ShowTrailerButton] + !String.IsEmpty(Container(9101).ListItem.Trailer)</expression>
-	<expression name="Home_HasA">Integer.IsGreater(Container(9120).NumItems,0)</expression>
-	<expression name="Home_HasB">Integer.IsGreater(Container(9130).NumItems,0)</expression>
-	<expression name="Home_HasC">Integer.IsGreater(Container(9140).NumItems,0)</expression>
+	<expression name="Home_HasA">Integer.IsGreater(Container(9120).NumItems,0) + !Skin.HasSetting(HideMenu.Movies)</expression>
+	<expression name="Home_HasB">Integer.IsGreater(Container(9130).NumItems,0) + !Skin.HasSetting(HideMenu.TVShows)</expression>
+	<expression name="Home_HasC">Integer.IsGreater(Container(9140).NumItems,0) + !Skin.HasSetting(HideMenu.Movies)</expression>
 	<expression name="Home_MusicBar">Player.HasAudio + !Player.HasVideo</expression>
 	<expression name="Home_IsMoreItem">ListItem.IsFolder + String.IsEmpty(ListItem.DBID)</expression>
 
@@ -167,9 +171,9 @@
 		<include content="DL_NavPills">
 			<param name="gid" value="9000"/>
 			<param name="p" value="900"/>
-			<param name="ondown" value="9110"/>
+			<param name="ondown" value="$VAR[Home_DownFromNav]"/>
 			<param name="active1" value="true"/>
-			<param name="click1" value="SetFocus(9110)"/>
+			<param name="click1" value="$VAR[Home_DownFromNav]"/>
 		</include>
 	</include>
 
@@ -312,6 +316,7 @@
 			<top>home_hero_y</top>
 			<width>page_width</width>
 			<height>home_hero_h</height>
+			<visible>$EXP[Home_HeroOn]</visible>
 			<include content="Anim_RowStagger"><param name="delay" value="40"/></include>
 			<include>DL_Card</include>
 			<!-- art, right 1140 px, right corners rounded -->
@@ -563,10 +568,22 @@
 			</control>
 		</definition>
 	</include>
+	<!-- 0.9.11: Films hidden = no hero: the nav goes straight to the first card that is shown -->
+	<variable name="Home_DownFromNav">
+		<value condition="$EXP[Home_HeroOn]">SetFocus(9110)</value>
+		<value condition="$EXP[Home_HasB]">SetFocus(9130)</value>
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+		<value>noop</value>
+	</variable>
 	<variable name="Home_DownFromHero">
 		<value condition="$EXP[Home_HasA]">SetFocus(9120)</value>
 		<value condition="$EXP[Home_HasB]">SetFocus(9130)</value>
 		<value condition="$EXP[Home_HasC]">SetFocus(9140)</value>
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
 		<value>noop</value>
 	</variable>
 	<variable name="Home_PlayLabel">
@@ -628,9 +645,11 @@
 		</definition>
 	</include>
 
-	<!-- Poster inside a card row. params: caption, focused -->
+	<!-- Poster inside a card row. params: caption, focused, art, ismore (custom rows: false, add-on folders are no "More...") -->
 	<include name="Home_CardPoster">
 		<param name="focused">false</param>
+		<param name="art">$INFO[ListItem.Art(poster)]</param>
+		<param name="ismore">$EXP[Home_IsMoreItem]</param>
 		<definition>
 			<control type="group">
 				<left>home_pad</left>
@@ -639,14 +658,15 @@
 				<height>home_poster_h</height>
 				<include condition="$PARAM[focused]">Anim_FocusZoom</include>
 				<control type="group">
-					<visible>!$EXP[Home_IsMoreItem]</visible>
+					<visible>![$PARAM[ismore]]</visible>
 					<include content="DL_Artwork">
+						<param name="art" value="$PARAM[art]"/>
 						<param name="mask_round" value="daylight/mask_poster_s.png"/>
 					</include>
 					<include>DL_WatchedMarkers</include>
 				</control>
 				<control type="group">
-					<visible>$EXP[Home_IsMoreItem]</visible>
+					<visible>$PARAM[ismore]</visible>
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
@@ -697,6 +717,7 @@
 				<top>home_cards_y</top>
 				<width>home_card_w</width>
 				<height>home_card_h</height>
+				<visible>!Skin.HasSetting(HideMenu.Movies)</visible>
 				<include content="Anim_RowStagger"><param name="delay" value="$PARAM[delay]"/></include>
 				<include>DL_Card</include>
 				<include content="Home_CardHeader">
@@ -821,8 +842,8 @@
 			<param name="caption" value="$VAR[Home_PosterCaption]"/>
 			<param name="onright" value="$VAR[Home_RightFromA]"/>
 			<param name="onup" value="SetFocus(9110)"/>
-			<param name="ondown" value="$VAR[Home_RightFromA]"/>
-			<param name="hasnext" value="[$EXP[Home_HasB] | $EXP[Home_HasC]]"/>
+			<param name="ondown" value="$VAR[Home_DownFromA]"/>
+			<param name="hasnext" value="[$EXP[Home_HasB] | $EXP[Home_HasC] | $EXP[CustomRowsAnyOn]]"/>
 			<param name="empty" value="Nothing unwatched fits this slot. Try Films for everything."/>
 			<param name="delay" value="80"/>
 		</include>
@@ -832,13 +853,16 @@
 			<top>home_cards_y</top>
 			<width>home_card_w</width>
 			<height>home_card_h</height>
+			<visible>!Skin.HasSetting(HideMenu.TVShows)</visible>
+			<!-- 0.9.11: Films hidden = no hero and no card A: card B moves to the first slot, under the greeting -->
+			<animation effect="slide" start="0,0" end="-572,-388" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 			<include content="Anim_RowStagger"><param name="delay" value="120"/></include>
 			<include>DL_Card</include>
 			<include content="Home_CardHeader">
 				<param name="icon" value="daylight/icons/nextup.png"/>
 				<param name="title" value="$VAR[DL_RowB_Title]"/>
 				<param name="id" value="9130"/>
-				<param name="hasnext" value="$EXP[Home_HasC]"/>
+				<param name="hasnext" value="[$EXP[Home_HasC] | $EXP[CustomRowsAnyOn]]"/>
 			</include>
 			<control type="label">
 				<left>28</left>
@@ -857,7 +881,7 @@
 				<height>272</height>
 				<orientation>horizontal</orientation>
 				<onup>$VAR[Home_UpFromB]</onup>
-				<ondown>$VAR[Home_DownFromB]</ondown>
+				<ondown>$VAR[Home_DownFromBRow]</ondown>
 				<onleft>$VAR[Home_LeftFromB]</onleft>
 				<onright>$VAR[Home_DownFromB]</onright>
 				<onback>9000</onback>
@@ -883,7 +907,9 @@
 			<param name="caption" value="$VAR[Home_PosterCaptionC]"/>
 			<param name="onleft" value="$VAR[Home_LeftFromC]"/>
 			<param name="onup" value="$VAR[Home_UpFromC]"/>
+			<param name="ondown" value="$VAR[Home_DownFromC]"/>
 			<param name="empty" value="Nothing here yet."/>
+			<param name="hasnext" value="$EXP[CustomRowsAnyOn]"/>
 			<param name="delay" value="160"/>
 		</include>
 	</include>
@@ -898,6 +924,7 @@
 	</variable>
 	<variable name="Home_UpFromB">
 		<value condition="$EXP[Home_HasA]">SetFocus(9120)</value>
+		<value condition="!$EXP[Home_HeroOn]">SetFocus(9000)</value>
 		<value>SetFocus(9110)</value>
 	</variable>
 	<variable name="Home_LeftFromB">
@@ -911,6 +938,7 @@
 	<variable name="Home_UpFromC">
 		<value condition="$EXP[Home_HasB]">SetFocus(9130)</value>
 		<value condition="$EXP[Home_HasA]">SetFocus(9120)</value>
+		<value condition="!$EXP[Home_HeroOn]">SetFocus(9000)</value>
 		<value>SetFocus(9110)</value>
 	</variable>
 	<variable name="Home_LeftFromC">
@@ -934,4 +962,152 @@
 			</include>
 		</definition>
 	</include>
+	<!-- ============================================================ custom rows (0.9.11) -->
+	<!-- Opt-in rows from Skin settings > Custom rows (Includes_CustomRows.xml, generated). They continue the
+	     card sequence below the first page: Down from the last card (or from the hero / the nav when the cards
+	     are hidden) scrolls the page one screen up to them; each is a full-width Daylight card (header with
+	     icon + Fraunces title, accent + chevron while focused) holding a strip of card-A posters with their
+	     titles. Up = previous row (the last card from row 1), Back = nav. Nothing changes until a row has
+	     items: the block sits below the screen and empty rows draw nothing. -->
+	<include name="Home_CustomRow">
+		<definition>
+			<control type="group">
+				<left>page_margin</left>
+				<top>0</top>
+				<width>1680</width>
+				<height>home_card_h</height>
+				<animation effect="slide" start="0,0" end="0,384" time="0" condition="$PARAM[after1] + $EXP[CustomRow1On]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,384" time="0" condition="$PARAM[after2] + $EXP[CustomRow2On]">Conditional</animation>
+				<control type="group">
+					<visible>$EXP[CustomRow$PARAM[n]On]</visible>
+					<include>DL_Card</include>
+					<include content="Home_CardHeader">
+						<param name="icon" value="daylight/icons/home.png"/>
+						<param name="title" value="$VAR[CustomRow_Title$PARAM[n]]"/>
+						<param name="id" value="$PARAM[id]"/>
+						<param name="hasnext" value="$PARAM[hasnext]"/>
+					</include>
+					<control type="label">
+						<left>1100</left>
+						<top>30</top>
+						<width>552</width>
+						<height>28</height>
+						<align>right</align>
+						<font>small_20</font>
+						<textcolor>$VAR[DL_Ink2]</textcolor>
+						<label>$VAR[CustomRow_Count$PARAM[n]]</label>
+					</control>
+				</control>
+				<control type="list" id="$PARAM[id]">
+					<left>14</left>
+					<top>64</top>
+					<width>1652</width>
+					<height>272</height>
+					<orientation>horizontal</orientation>
+					<onup>$VAR[Home_UpFromCustom$PARAM[n]]</onup>
+					<ondown>$VAR[Home_DownFromCustom$PARAM[n]]</ondown>
+					<onleft>noop</onleft>
+					<onright>noop</onright>
+					<onback>9000</onback>
+					<onfocus>SetProperty(TMDbHelper.WidgetContainer,$PARAM[id],home)</onfocus>
+					<preloaditems>2</preloaditems>
+					<scrolltime tween="cubic" easing="out">240</scrolltime>
+					<itemlayout width="170" height="272">
+						<include content="Home_CardPoster">
+							<param name="id" value="$PARAM[id]"/>
+							<param name="caption" value="$INFO[ListItem.Label]"/>
+							<param name="art" value="$VAR[CustomRow_PosterArt]"/>
+							<param name="ismore" value="false"/>
+						</include>
+					</itemlayout>
+					<focusedlayout width="170" height="272">
+						<include content="Home_CardPoster">
+							<param name="id" value="$PARAM[id]"/>
+							<param name="caption" value="$INFO[ListItem.Label]"/>
+							<param name="art" value="$VAR[CustomRow_PosterArt]"/>
+							<param name="ismore" value="false"/>
+							<param name="focused" value="true"/>
+						</include>
+					</focusedlayout>
+					<include content="CustomRow_Content"><param name="row" value="$PARAM[n]"/></include>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<!-- the block: one screen below the first page (top 1080 + 60) inside the Home.xml page wrapper -->
+	<include name="Home_CustomRows">
+		<control type="group">
+			<left>0</left>
+			<top>1140</top>
+			<include content="Home_CustomRow"><param name="n" value="1"/><param name="id" value="9881"/><param name="after1" value="false"/><param name="after2" value="false"/><param name="hasnext" value="[$EXP[CustomRow2On] | $EXP[CustomRow3On]]"/></include>
+			<include content="Home_CustomRow"><param name="n" value="2"/><param name="id" value="9882"/><param name="after1" value="true"/><param name="after2" value="false"/><param name="hasnext" value="$EXP[CustomRow3On]"/></include>
+			<include content="Home_CustomRow"><param name="n" value="3"/><param name="id" value="9883"/><param name="after1" value="true"/><param name="after2" value="true"/><param name="hasnext" value="false"/></include>
+		</control>
+	</include>
+	<!-- page wrapper animation: one screen up while a custom row has focus, 144 px more for a third row -->
+	<include name="Home_CustomRowsPageAnim">
+		<animation effect="slide" start="0,0" end="0,-1080" time="280" tween="cubic" easing="out" condition="$EXP[CustomRowsFocus] + !$EXP[ReduceMotion]">Conditional</animation>
+		<animation effect="slide" start="0,0" end="0,-1080" time="0" condition="$EXP[CustomRowsFocus] + $EXP[ReduceMotion]">Conditional</animation>
+		<animation effect="slide" start="0,0" end="0,-144" time="240" tween="cubic" easing="out" condition="Control.HasFocus(9883) + $EXP[CustomRow1On] + $EXP[CustomRow2On] + !$EXP[ReduceMotion]">Conditional</animation>
+		<animation effect="slide" start="0,0" end="0,-144" time="0" condition="Control.HasFocus(9883) + $EXP[CustomRow1On] + $EXP[CustomRow2On] + $EXP[ReduceMotion]">Conditional</animation>
+	</include>
+	<!-- Up from a custom row: the row above with items, else the last card shown, else the hero / nav -->
+	<variable name="Home_UpFromCustom1">
+		<value condition="$EXP[Home_HasC]">SetFocus(9140)</value>
+		<value condition="$EXP[Home_HasB]">SetFocus(9130)</value>
+		<value condition="$EXP[Home_HasA]">SetFocus(9120)</value>
+		<value condition="$EXP[Home_HeroOn]">SetFocus(9110)</value>
+		<value>SetFocus(9000)</value>
+	</variable>
+	<variable name="Home_UpFromCustom2">
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[Home_HasC]">SetFocus(9140)</value>
+		<value condition="$EXP[Home_HasB]">SetFocus(9130)</value>
+		<value condition="$EXP[Home_HasA]">SetFocus(9120)</value>
+		<value condition="$EXP[Home_HeroOn]">SetFocus(9110)</value>
+		<value>SetFocus(9000)</value>
+	</variable>
+	<variable name="Home_UpFromCustom3">
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[Home_HasC]">SetFocus(9140)</value>
+		<value condition="$EXP[Home_HasB]">SetFocus(9130)</value>
+		<value condition="$EXP[Home_HasA]">SetFocus(9120)</value>
+		<value condition="$EXP[Home_HeroOn]">SetFocus(9110)</value>
+		<value>SetFocus(9000)</value>
+	</variable>
+	<variable name="Home_DownFromCustom1">
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+		<value>noop</value>
+	</variable>
+	<variable name="Home_DownFromCustom2">
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+		<value>noop</value>
+	</variable>
+	<variable name="Home_DownFromCustom3">
+		<value>noop</value>
+	</variable>
+	<!-- Down (only) from cards A / B / C: the next card, else the custom rows (Right keeps the old variables) -->
+	<variable name="Home_DownFromA">
+		<value condition="$EXP[Home_HasB]">SetFocus(9130)</value>
+		<value condition="$EXP[Home_HasC]">SetFocus(9140)</value>
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+		<value>noop</value>
+	</variable>
+	<variable name="Home_DownFromBRow">
+		<value condition="$EXP[Home_HasC]">SetFocus(9140)</value>
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+		<value>noop</value>
+	</variable>
+	<variable name="Home_DownFromC">
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+		<value>noop</value>
+	</variable>
 </includes>

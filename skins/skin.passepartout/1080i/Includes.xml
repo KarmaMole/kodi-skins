@@ -27,4 +27,5 @@
 	<include file="Includes_SkinSettings.xml"/>
 	<include file="Includes_Titles.xml"/>
 	<include file="Includes_Dates.xml"/>
+	<include file="Includes_CustomRows.xml"/>
 </includes>

@@ -304,6 +304,10 @@ def dial():
         L.append('\t\t\t<control type="group">')
         L.append("\t\t\t\t<left>0</left>")
         L.append("\t\t\t\t<top>0</top>")
+        if k:  # 0.9.12: items can be hidden (HideMenu.*); a wraplist repeats a short list, so a station only shows
+            # while it holds an item no other station shows (-1: 2 items, +1: 3, -2: 4, +2: 5)
+            need = 2 * abs(k) + (1 if k > 0 else 0)
+            L.append(f"\t\t\t\t<visible>Integer.IsGreaterOrEqual(Container(9000).NumItems,{need})</visible>")
         for cond, src in (("OnNext", k + 1), ("OnPrevious", k - 1)):
             sa = DIAL_ANGLES.get(src, 96 if src > 0 else -96)
             d_ang = sa - a  # clockwise degrees to the source station
@@ -591,6 +595,9 @@ def main():
     L += art_variables("ArcArt504", 504, SQUARE_CHAIN)
     for cid, chain in ((9101, POSTER_CHAIN), (9102, POSTER_CHAIN), (9103, SQUARE_CHAIN), (9104, SQUARE_CHAIN)):
         L += art_variables(f"ArcArt{cid}", cid, chain)
+    # 0.9.12 custom rows (Includes_CustomRows.xml): Home arcs for lists 9881-9883
+    for cid in (9881, 9882, 9883):
+        L += art_variables(f"ArcArt{cid}", cid, POSTER_CHAIN, wrap=True)
     L.append("")
     g = GEOM["home"]
     L += wrapify(poster_arc("Arc_HomePosters", arc_slots(**{k: g[k] for k in ("cx", "cy", "R", "F", "H", "aspect", "extra_h", "gap")}),
@@ -605,6 +612,9 @@ def main():
     L += poster_arc("Arc_LibrarySquares", arc_slots(**{k: g[k] for k in ("cx", "cy", "R", "F", "H", "aspect", "extra_h", "gap")}),
                     "ArcArt504", "masks/square_r4.png", "Music arc (view 504): album covers / artist discs",
                     shadows=2, circle_cond="Container.Content(artists)")
+    g = GEOM["home"]
+    L += wrapify(poster_arc("Arc_HomeCustom", arc_slots(**{k: g[k] for k in ("cx", "cy", "R", "F", "H", "aspect", "extra_h", "gap")}),
+                    "ArcArt$PARAM[id]", "masks/poster_r4.png", "Home arcs of the custom rows (containers 9881-9883, 0.9.12)", shadows=2))
     g = GEOM["homesq"]
     L += wrapify(poster_arc("Arc_HomeIcons", arc_slots(**{k: g[k] for k in ("cx", "cy", "R", "F", "H", "aspect", "extra_h", "gap")}),
                     "unused", "masks/circle.png", "Home arc (container 9310): settings stations as round dials",

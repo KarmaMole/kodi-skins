@@ -390,7 +390,7 @@
 			<width>400</width>
 			<height>300</height>
 			<texture>noc/glow_warm.png</texture>
-			<visible>Control.HasFocus(9001) | [!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),films)] | [!ControlGroup(9000).HasFocus() + String.IsEmpty(Window(Home).Property(nocturne.section))]</visible>
+			<visible>[Control.HasFocus(9001) | [!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),films)] | [!ControlGroup(9000).HasFocus() + String.IsEmpty(Window(Home).Property(nocturne.section))]] + !Skin.HasSetting(HideMenu.Movies)</visible>
 			<include>Anim_GlowVisible</include>
 		</control>
 		<control type="image">
@@ -399,7 +399,8 @@
 			<width>400</width>
 			<height>300</height>
 			<texture>noc/glow_warm.png</texture>
-			<visible>Control.HasFocus(9002) | [!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),series)]</visible>
+			<visible>[Control.HasFocus(9002) | [!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),series)]] + !Skin.HasSetting(HideMenu.TVShows)</visible>
+			<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 			<include>Anim_GlowVisible</include>
 		</control>
 		<control type="image">
@@ -408,7 +409,9 @@
 			<width>400</width>
 			<height>300</height>
 			<texture>noc/glow_warm.png</texture>
-			<visible>Control.HasFocus(9003) | [!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),music)]</visible>
+			<visible>[Control.HasFocus(9003) | [!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),music)]] + !Skin.HasSetting(HideMenu.Music)</visible>
+			<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 			<include>Anim_GlowVisible</include>
 		</control>
 		<control type="image">
@@ -417,7 +420,10 @@
 			<width>400</width>
 			<height>300</height>
 			<texture>noc/glow_warm.png</texture>
-			<visible>Control.HasFocus(9004)</visible>
+			<visible>[Control.HasFocus(9004)] + !Skin.HasSetting(HideMenu.Search)</visible>
+			<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-148,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
 			<include>Anim_GlowVisible</include>
 		</control>
 		<control type="image">
@@ -427,6 +433,10 @@
 			<height>300</height>
 			<texture>noc/glow_warm.png</texture>
 			<visible>Control.HasFocus(9005)</visible>
+			<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-148,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-171,0" time="0" condition="Skin.HasSetting(HideMenu.Search)">Conditional</animation>
 			<include>Anim_GlowVisible</include>
 		</control>
 		<control type="group" id="9000">
@@ -444,6 +454,7 @@
 				<texturefocus />
 				<texturenofocus />
 				<label>$LOCALIZE[31200]</label>
+				<visible>!Skin.HasSetting(HideMenu.Movies)</visible>
 				<onleft>9005</onleft>
 				<onright>9002</onright>
 				<onfocus>SetProperty(nocturne.section,films,home)</onfocus>
@@ -461,7 +472,7 @@
 				<textcolor>text_primary</textcolor>
 				<shadowcolor>e6281806</shadowcolor>
 				<label>$LOCALIZE[31200]</label>
-				<visible>[!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),films)] | [!ControlGroup(9000).HasFocus() + String.IsEmpty(Window(Home).Property(nocturne.section))]</visible>
+				<visible>[[!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),films)] | [!ControlGroup(9000).HasFocus() + String.IsEmpty(Window(Home).Property(nocturne.section))]] + !Skin.HasSetting(HideMenu.Movies)</visible>
 			</control>
 			<control type="button" id="9002">
 				<left>236</left>
@@ -477,6 +488,8 @@
 				<texturefocus />
 				<texturenofocus />
 				<label>$LOCALIZE[31201]</label>
+				<visible>!Skin.HasSetting(HideMenu.TVShows)</visible>
+				<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 				<onleft>9001</onleft>
 				<onright>9003</onright>
 				<onfocus>SetProperty(nocturne.section,series,home)</onfocus>
@@ -494,7 +507,8 @@
 				<textcolor>text_primary</textcolor>
 				<shadowcolor>e6281806</shadowcolor>
 				<label>$LOCALIZE[31201]</label>
-				<visible>[!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),series)]</visible>
+				<visible>[[!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),series)]] + !Skin.HasSetting(HideMenu.TVShows)</visible>
+				<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 			</control>
 			<control type="button" id="9003">
 				<left>391</left>
@@ -510,6 +524,9 @@
 				<texturefocus />
 				<texturenofocus />
 				<label>$LOCALIZE[31202]</label>
+				<visible>!Skin.HasSetting(HideMenu.Music)</visible>
+				<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 				<onleft>9002</onleft>
 				<onright>9004</onright>
 				<onfocus>SetProperty(nocturne.section,music,home)</onfocus>
@@ -527,7 +544,9 @@
 				<textcolor>text_primary</textcolor>
 				<shadowcolor>e6281806</shadowcolor>
 				<label>$LOCALIZE[31202]</label>
-				<visible>[!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),music)]</visible>
+				<visible>[[!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),music)]] + !Skin.HasSetting(HideMenu.Music)</visible>
+				<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 			</control>
 			<control type="button" id="9004">
 				<left>539</left>
@@ -543,11 +562,15 @@
 				<texturefocus />
 				<texturenofocus />
 				<label>$LOCALIZE[137]</label>
+				<visible>!Skin.HasSetting(HideMenu.Search)</visible>
+				<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-148,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
 				<onleft>9003</onleft>
 				<onright>9005</onright>
-				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),music)">9260</ondown>
-				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),series)">9246</ondown>
-				<ondown>9226</ondown>
+				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),music) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomRowsFocus]">9260</ondown>
+				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows) + !$EXP[CustomRowsFocus]">9246</ondown>
+				<ondown condition="[String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))] + !Skin.HasSetting(HideMenu.Movies) + !$EXP[CustomRowsFocus]">9226</ondown>
 				<onclick>ActivateWindow(1150)</onclick>
 			</control>
 			<control type="button" id="9005">
@@ -564,18 +587,22 @@
 				<texturefocus />
 				<texturenofocus />
 				<label>$LOCALIZE[5]</label>
+				<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-148,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-171,0" time="0" condition="Skin.HasSetting(HideMenu.Search)">Conditional</animation>
 				<onleft>9004</onleft>
 				<onright>9001</onright>
-				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),music)">9260</ondown>
-				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),series)">9246</ondown>
-				<ondown>9226</ondown>
+				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),music) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomRowsFocus]">9260</ondown>
+				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows) + !$EXP[CustomRowsFocus]">9246</ondown>
+				<ondown condition="[String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))] + !Skin.HasSetting(HideMenu.Movies) + !$EXP[CustomRowsFocus]">9226</ondown>
 				<onclick>ActivateWindow(1151)</onclick>
 			</control>
 		</control>
 	</include>
 	<include name="Home_Wall_films">
 	<control type="group">
-		<visible>String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))</visible>
+		<visible>[String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))] + !Skin.HasSetting(HideMenu.Movies) + !$EXP[CustomRowsFocus]</visible>
 		<include>Anim_SectionSwap</include>
 		<control type="group">
 			<left>64</left>
@@ -709,6 +736,9 @@
 			<onclick>SetFocus(9222)</onclick>
 			<onright>9223</onright>
 			<onup>9221</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9001</onback>
 		</control>
 		<!-- films a3 : Container(9201).ListItemAbsolute(2) -->
@@ -756,6 +786,9 @@
 			<onleft>9222</onleft>
 			<onright>9225</onright>
 			<onup>9221</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9001</onback>
 		</control>
 		<!-- films b1 : Container(9202).ListItemAbsolute(1) -->
@@ -831,6 +864,9 @@
 			<onleft>9223</onleft>
 			<onright>9226</onright>
 			<onup>9224</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9001</onback>
 		</control>
 		<!-- films b3 : Container(9202).ListItemAbsolute(0) -->
@@ -944,6 +980,9 @@
 			<onleft>9226</onleft>
 			<onright>9230</onright>
 			<onup>9227</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9001</onback>
 		</control>
 		<!-- films c1 : Container(9203).ListItemAbsolute(0) -->
@@ -1018,6 +1057,9 @@
 			<onleft>9228</onleft>
 			<onright>9231</onright>
 			<onup>9229</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9001</onback>
 		</control>
 		<!-- films c3 : Container(9203).ListItemAbsolute(2) -->
@@ -1054,6 +1096,9 @@
 			<onclick>SetFocus(9231)</onclick>
 			<onleft>9230</onleft>
 			<onup>9229</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9001</onback>
 		</control>
 		</control>
@@ -1247,7 +1292,7 @@
 	</include>
 	<include name="Home_Wall_series">
 	<control type="group">
-		<visible>String.IsEqual(Window(Home).Property(nocturne.section),series)</visible>
+		<visible>String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows) + !$EXP[CustomRowsFocus]</visible>
 		<include>Anim_SectionSwap</include>
 		<control type="group">
 			<left>64</left>
@@ -1381,6 +1426,9 @@
 			<onclick>SetFocus(9242)</onclick>
 			<onright>9243</onright>
 			<onup>9241</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9002</onback>
 		</control>
 		<!-- series a3 : Container(9211).ListItemAbsolute(2) -->
@@ -1428,6 +1476,9 @@
 			<onleft>9242</onleft>
 			<onright>9245</onright>
 			<onup>9241</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9002</onback>
 		</control>
 		<!-- series b1 : Container(9212).ListItemAbsolute(1) -->
@@ -1503,6 +1554,9 @@
 			<onleft>9243</onleft>
 			<onright>9246</onright>
 			<onup>9244</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9002</onback>
 		</control>
 		<!-- series b3 : Container(9212).ListItemAbsolute(0) -->
@@ -1616,6 +1670,9 @@
 			<onleft>9246</onleft>
 			<onright>9250</onright>
 			<onup>9247</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9002</onback>
 		</control>
 		<!-- series c1 : Container(9213).ListItemAbsolute(0) -->
@@ -1690,6 +1747,9 @@
 			<onleft>9248</onleft>
 			<onright>9251</onright>
 			<onup>9249</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9002</onback>
 		</control>
 		<!-- series c3 : Container(9213).ListItemAbsolute(2) -->
@@ -1726,6 +1786,9 @@
 			<onclick>SetFocus(9251)</onclick>
 			<onleft>9250</onleft>
 			<onup>9249</onup>
+			<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 			<onback>9002</onback>
 		</control>
 		</control>
@@ -1919,7 +1982,7 @@
 	</include>
 	<include name="Home_WallLabels_films">
 	<control type="group">
-		<visible>String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))</visible>
+		<visible>[String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))] + !Skin.HasSetting(HideMenu.Movies) + !$EXP[CustomRowsFocus]</visible>
 		<include>Anim_SectionSwap</include>
 		<control type="grouplist">
 			<left>64</left>
@@ -2105,7 +2168,7 @@
 	</include>
 	<include name="Home_WallLabels_series">
 	<control type="group">
-		<visible>String.IsEqual(Window(Home).Property(nocturne.section),series)</visible>
+		<visible>String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows) + !$EXP[CustomRowsFocus]</visible>
 		<include>Anim_SectionSwap</include>
 		<control type="grouplist">
 			<left>64</left>
@@ -2291,7 +2354,7 @@
 	</include>
 	<include name="Home_TorchNormal">
 	<control type="group">
-		<visible>!String.IsEqual(Window(Home).Property(nocturne.section),music)</visible>
+		<visible>[[String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))] + !Skin.HasSetting(HideMenu.Movies) + !$EXP[CustomRowsFocus]] | [String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows) + !$EXP[CustomRowsFocus]]</visible>
 		<include>Anim_SectionSwap</include>
 		<animation effect="slide" start="0,0" end="-682,-134" time="180" tween="sine" easing="inout" condition="String.IsEqual(Window(Home).Property(nocturne.slot),a1) + !$EXP[Home_Wandering]">Conditional</animation>
 		<animation effect="slide" start="0,0" end="-780,224" time="180" tween="sine" easing="inout" condition="String.IsEqual(Window(Home).Property(nocturne.slot),a2) + !$EXP[Home_Wandering]">Conditional</animation>
@@ -2332,7 +2395,7 @@
 	</include>
 	<include name="Home_TorchReduced">
 	<control type="group">
-		<visible>!String.IsEqual(Window(Home).Property(nocturne.section),music)</visible>
+		<visible>[[String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))] + !Skin.HasSetting(HideMenu.Movies) + !$EXP[CustomRowsFocus]] | [String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows) + !$EXP[CustomRowsFocus]]</visible>
 		<include>Anim_SectionSwap</include>
 		<animation effect="slide" start="0,0" end="-682,-134" time="1" tween="sine" easing="inout" condition="String.IsEqual(Window(Home).Property(nocturne.slot),a1) + !$EXP[Home_Wandering]">Conditional</animation>
 		<animation effect="slide" start="0,0" end="-780,224" time="1" tween="sine" easing="inout" condition="String.IsEqual(Window(Home).Property(nocturne.slot),a2) + !$EXP[Home_Wandering]">Conditional</animation>

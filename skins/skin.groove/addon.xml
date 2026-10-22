@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.groove" version="1.0.1" name="Groove" provider-name="KarmaMole">
+<addon id="skin.groove" version="1.0.2" name="Groove" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required (Omar, 2026-10-21): encodes the Search query for the library paths (get_encoded_string with
@@ -21,7 +21,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#groove</website>
-		<news>v1.0.1 - Visualiser presets button in the music player.</news>
+		<news>v1.0.2 - Settings: choose which main menu items to show. Home: up to three custom rows from any add-on, playlist or favourite.</news>
 		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>

@@ -6,7 +6,7 @@ and tilt toward you, the info block of the focused card, and a second row of cre
 
 Design contract: docs/concepts/round4/mockups/FoldHome.html (pixel values below come from it).
 Ids
-  9000 tab group: 9001 Films, 9002 Series, 9003 Music, 9004 Search, 9005 Settings
+  9000 tab group: 9001 Films, 9002 Series, 9003 Music, 9004 Search, 9005 Settings (9001-9004 hide with HideMenu.*)
   row A (closed cards, fixedlist focusposition 2): 9110 films, 9130 series, 9150 music, 9180 settings
   row B (cream cards): 9120 films in progress | 9121 recently added films (when 9120 is empty),
                        9140 new episodes, 9160 recently played albums | 9161 random albums (fallback)
@@ -20,10 +20,10 @@ Window(Home) properties
 -->
 <includes>
 	<!-- ============================================================== expressions -->
-	<expression name="Home_Films">String.IsEmpty(Window(Home).Property(fold.section)) | String.IsEqual(Window(Home).Property(fold.section),films)</expression>
-	<expression name="Home_Series">String.IsEqual(Window(Home).Property(fold.section),series)</expression>
-	<expression name="Home_Music">String.IsEqual(Window(Home).Property(fold.section),music)</expression>
-	<expression name="Home_Search">String.IsEqual(Window(Home).Property(fold.section),search)</expression>
+	<expression name="Home_Films">[String.IsEmpty(Window(Home).Property(fold.section)) | String.IsEqual(Window(Home).Property(fold.section),films)] + !Skin.HasSetting(HideMenu.Movies)</expression>
+	<expression name="Home_Series">String.IsEqual(Window(Home).Property(fold.section),series) + !Skin.HasSetting(HideMenu.TVShows)</expression>
+	<expression name="Home_Music">String.IsEqual(Window(Home).Property(fold.section),music) + !Skin.HasSetting(HideMenu.Music)</expression>
+	<expression name="Home_Search">String.IsEqual(Window(Home).Property(fold.section),search) + !Skin.HasSetting(HideMenu.Search)</expression>
 	<expression name="Home_Settings">String.IsEqual(Window(Home).Property(fold.section),settings)</expression>
 	<expression name="Home_RowB">Control.HasFocus(9120) | Control.HasFocus(9121) | Control.HasFocus(9140) | Control.HasFocus(9160) | Control.HasFocus(9161)</expression>
 
@@ -53,6 +53,11 @@ Window(Home) properties
 	<variable name="Home_CreamTitle">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.TVShowTitle]</value>
 		<value>$INFO[ListItem.Title]</value>
+	</variable>
+	<!-- custom rows: add-on folders often have no title, only a label -->
+	<variable name="Home_CustomTitle">
+		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.TVShowTitle)">$INFO[ListItem.TVShowTitle]</value>
+		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<variable name="Home_RowHeadA">
 		<value condition="$EXP[Home_Series] + Integer.IsGreater(Container(9130).NumItems,0)">In progress[COLOR cap2]   $INFO[Container(9130).NumItems] shows[/COLOR]</value>
@@ -284,6 +289,7 @@ Window(Home) properties
 	<include name="Home_Tabs">
 		<control type="group" id="9000">
 			<control type="group">
+				<visible>!Skin.HasSetting(HideMenu.Movies)</visible>
 				<include content="Fold_TabLook">
 					<param name="x" value="96"/>
 					<param name="color" value="verm"/>
@@ -310,6 +316,8 @@ Window(Home) properties
 				</control>
 			</control>
 			<control type="group">
+				<visible>!Skin.HasSetting(HideMenu.TVShows)</visible>
+				<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 				<include content="Fold_TabLook">
 					<param name="x" value="302"/>
 					<param name="color" value="cobalt"/>
@@ -337,6 +345,9 @@ Window(Home) properties
 				</control>
 			</control>
 			<control type="group">
+				<visible>!Skin.HasSetting(HideMenu.Music)</visible>
+				<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 				<include content="Fold_TabLook">
 					<param name="x" value="508"/>
 					<param name="color" value="mari"/>
@@ -363,6 +374,10 @@ Window(Home) properties
 				</control>
 			</control>
 			<control type="group">
+				<visible>!Skin.HasSetting(HideMenu.Search)</visible>
+				<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
 				<include content="Fold_TabLook">
 					<param name="x" value="714"/>
 					<param name="color" value="jade"/>
@@ -389,6 +404,10 @@ Window(Home) properties
 				</control>
 			</control>
 			<control type="group">
+				<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Search)">Conditional</animation>
 				<include content="Fold_TabLook">
 					<param name="x" value="920"/>
 					<param name="color" value="graph"/>
@@ -476,6 +495,25 @@ Window(Home) properties
 			<animation type="Conditional" condition="$EXP[Home_RowB] + Skin.HasSetting(fold.reducemotion)" reversible="true">
 				<effect type="slide" start="0,0" end="0,-330" time="0"/>
 			</animation>
+			<!-- 0.9.10 custom rows: 330 + 300 px to the first one, 300 more per row with items above the focused one -->
+			<animation type="Conditional" condition="$EXP[CustomRowsFocus] + !Skin.HasSetting(fold.reducemotion)" reversible="true">
+				<effect type="slide" start="0,0" end="0,-630" time="320" tween="cubic" easing="out"/>
+			</animation>
+			<animation type="Conditional" condition="$EXP[CustomRowsFocus] + Skin.HasSetting(fold.reducemotion)" reversible="true">
+				<effect type="slide" start="0,0" end="0,-630" time="0"/>
+			</animation>
+			<animation type="Conditional" condition="[Control.HasFocus(9882) | Control.HasFocus(9883)] + $EXP[CustomRow1On] + !Skin.HasSetting(fold.reducemotion)" reversible="true">
+				<effect type="slide" start="0,0" end="0,-300" time="280" tween="cubic" easing="out"/>
+			</animation>
+			<animation type="Conditional" condition="[Control.HasFocus(9882) | Control.HasFocus(9883)] + $EXP[CustomRow1On] + Skin.HasSetting(fold.reducemotion)" reversible="true">
+				<effect type="slide" start="0,0" end="0,-300" time="0"/>
+			</animation>
+			<animation type="Conditional" condition="Control.HasFocus(9883) + $EXP[CustomRow2On] + !Skin.HasSetting(fold.reducemotion)" reversible="true">
+				<effect type="slide" start="0,0" end="0,-300" time="280" tween="cubic" easing="out"/>
+			</animation>
+			<animation type="Conditional" condition="Control.HasFocus(9883) + $EXP[CustomRow2On] + Skin.HasSetting(fold.reducemotion)" reversible="true">
+				<effect type="slide" start="0,0" end="0,-300" time="0"/>
+			</animation>
 			<!-- row A head -->
 			<control type="label">
 				<left>96</left>
@@ -486,15 +524,15 @@ Window(Home) properties
 				<textcolor>$VAR[FoldAccentInk]</textcolor>
 				<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
 				<label>$VAR[Home_RowHeadA]</label>
-				<animation effect="fade" start="100" end="0" time="200" condition="$EXP[Home_RowB]">Conditional</animation>
+				<animation effect="fade" start="100" end="0" time="200" condition="$EXP[Home_RowB] | $EXP[CustomRowsFocus]">Conditional</animation>
 			</control>
-			<!-- row A: folds down onto the table while row B has focus; stands up when a section opens -->
+			<!-- row A: folds down onto the table while row B (or a custom row) has focus; stands up when a section opens -->
 			<control type="group">
-				<animation type="Conditional" condition="$EXP[Home_RowB] + !Skin.HasSetting(fold.reducemotion)" reversible="true">
+				<animation type="Conditional" condition="[$EXP[Home_RowB] | $EXP[CustomRowsFocus]] + !Skin.HasSetting(fold.reducemotion)" reversible="true">
 					<effect type="rotatex" start="0" end="70" center="542" time="300" tween="cubic" easing="in"/>
 					<effect type="fade" start="100" end="0" time="300" tween="cubic" easing="in"/>
 				</animation>
-				<animation type="Conditional" condition="$EXP[Home_RowB] + Skin.HasSetting(fold.reducemotion)" reversible="true">
+				<animation type="Conditional" condition="[$EXP[Home_RowB] | $EXP[CustomRowsFocus]] + Skin.HasSetting(fold.reducemotion)" reversible="true">
 					<effect type="fade" start="100" end="0" time="0"/>
 				</animation>
 				<!-- films -->
@@ -1114,6 +1152,9 @@ Window(Home) properties
 				<scrolltime tween="sine" easing="out">200</scrolltime>
 				<visible>true</visible>
 				<onup>9005</onup>
+				<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 				<ondown>9005</ondown>
 				<onback>9005</onback>
 
@@ -1355,7 +1396,7 @@ Window(Home) properties
 			<control type="group">
 				<left>96</left>
 				<top>586</top>
-				<visible>$EXP[Home_Films] + ![Control.HasFocus(9120) | Control.HasFocus(9121)]</visible>
+				<visible>$EXP[Home_Films] + ![Control.HasFocus(9120) | Control.HasFocus(9121)] + !$EXP[CustomRowsFocus]</visible>
 				<visible>!String.IsEmpty(Container(9110).ListItem.Label)</visible>
 				<control type="textbox" id="9310">
 					<left>-3000</left>
@@ -1673,7 +1714,7 @@ Window(Home) properties
 			<control type="group">
 				<left>96</left>
 				<top>586</top>
-				<visible>$EXP[Home_Series] + ![Control.HasFocus(9140)]</visible>
+				<visible>$EXP[Home_Series] + ![Control.HasFocus(9140)] + !$EXP[CustomRowsFocus]</visible>
 				<visible>!String.IsEmpty(Container(9130).ListItem.Label)</visible>
 				<control type="textbox" id="9313">
 					<left>-3000</left>
@@ -1779,7 +1820,7 @@ Window(Home) properties
 			<control type="group">
 				<left>96</left>
 				<top>586</top>
-				<visible>$EXP[Home_Series] + !Integer.IsGreater(Container(9130).NumItems,0) + ![Control.HasFocus(9140)]</visible>
+				<visible>$EXP[Home_Series] + !Integer.IsGreater(Container(9130).NumItems,0) + ![Control.HasFocus(9140)] + !$EXP[CustomRowsFocus]</visible>
 				<visible>!String.IsEmpty(Container(9131).ListItem.Label)</visible>
 				<control type="textbox" id="9314">
 					<left>-3000</left>
@@ -1991,7 +2032,7 @@ Window(Home) properties
 			<control type="group">
 				<left>96</left>
 				<top>586</top>
-				<visible>$EXP[Home_Music] + ![Control.HasFocus(9160) | Control.HasFocus(9161)]</visible>
+				<visible>$EXP[Home_Music] + ![Control.HasFocus(9160) | Control.HasFocus(9161)] + !$EXP[CustomRowsFocus]</visible>
 				<visible>!String.IsEmpty(Container(9150).ListItem.Label)</visible>
 				<control type="textbox" id="9316">
 					<left>-3000</left>
@@ -2309,7 +2350,7 @@ Window(Home) properties
 			<control type="group">
 				<left>96</left>
 				<top>586</top>
-				<visible>$EXP[Home_Settings] + ![false]</visible>
+				<visible>$EXP[Home_Settings] + ![false] + !$EXP[CustomRowsFocus]</visible>
 				<visible>!String.IsEmpty(Container(9180).ListItem.Label)</visible>
 				<control type="textbox" id="9319">
 					<left>-3000</left>
@@ -2415,6 +2456,8 @@ Window(Home) properties
 			<!-- row B -->
 			<control type="group">
 				<visible>$EXP[Home_Films] | $EXP[Home_Series] | $EXP[Home_Music]</visible>
+				<!-- 0.9.10: fades once the page has slid past it (a second custom row has focus), so it never runs under the tabs -->
+				<animation effect="fade" start="100" end="0" time="200" condition="[[Control.HasFocus(9882) | Control.HasFocus(9883)] + $EXP[CustomRow1On]] | [Control.HasFocus(9883) + $EXP[CustomRow2On]]">Conditional</animation>
 				<control type="label">
 					<left>96</left>
 					<top>872</top>
@@ -2437,6 +2480,9 @@ Window(Home) properties
 				<scrolltime tween="cubic" easing="out">240</scrolltime>
 				<visible>true</visible>
 				<onup>9110</onup>
+				<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 				<onback>9001</onback>
 				<onclick>SetProperty(fold.from,b$INFO[Container(9120).Position],home)</onclick>
 				<onclick>SetProperty(fold.n.films,$INFO[Container(9191).NumItems],home)</onclick>
@@ -2697,6 +2743,9 @@ Window(Home) properties
 				<scrolltime tween="cubic" easing="out">240</scrolltime>
 				<visible>!Integer.IsGreater(Container(9120).NumItems,0)</visible>
 				<onup>9110</onup>
+				<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 				<onback>9001</onback>
 				<onclick>SetProperty(fold.from,b$INFO[Container(9121).Position],home)</onclick>
 				<onclick>SetProperty(fold.n.films,$INFO[Container(9191).NumItems],home)</onclick>
@@ -2961,6 +3010,9 @@ Window(Home) properties
 				<visible>true</visible>
 				<onup condition="Integer.IsGreater(Container(9130).NumItems,0)">9130</onup>
 				<onup condition="!Integer.IsGreater(Container(9130).NumItems,0)">9131</onup>
+				<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 				<onback>9002</onback>
 				<onclick>SetProperty(fold.from,b$INFO[Container(9140).Position],home)</onclick>
 				<onclick>SetProperty(fold.n.films,$INFO[Container(9191).NumItems],home)</onclick>
@@ -3224,6 +3276,9 @@ Window(Home) properties
 				<scrolltime tween="cubic" easing="out">240</scrolltime>
 				<visible>true</visible>
 				<onup>9150</onup>
+				<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 				<onback>9003</onback>
 				<onclick>SetProperty(fold.from,c$INFO[Container(9160).Position],home)</onclick>
 				<onclick>SetProperty(fold.n.films,$INFO[Container(9191).NumItems],home)</onclick>
@@ -3504,6 +3559,9 @@ Window(Home) properties
 				<scrolltime tween="cubic" easing="out">240</scrolltime>
 				<visible>!Integer.IsGreater(Container(9160).NumItems,0)</visible>
 				<onup>9150</onup>
+				<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 				<onback>9003</onback>
 				<onclick>SetProperty(fold.from,c$INFO[Container(9161).Position],home)</onclick>
 				<onclick>SetProperty(fold.n.films,$INFO[Container(9191).NumItems],home)</onclick>
@@ -3776,6 +3834,851 @@ Window(Home) properties
 			</control>
 				</control>
 			</control>
+			<!-- custom rows (0.9.10): below row B in every section; the lists always load (no <visible>), empty ones draw nothing -->
+			<control type="group">
+				<top>1172</top>
+				<control type="group">
+					<animation effect="fade" start="100" end="0" time="200" condition="Control.HasFocus(9883) + $EXP[CustomRow1On] + $EXP[CustomRow2On]">Conditional</animation>
+					<control type="label">
+						<left>96</left>
+						<top>0</top>
+						<width>1300</width>
+						<height>32</height>
+						<font>caps_20_b</font>
+						<textcolor>ink</textcolor>
+						<selectedcolor>ink</selectedcolor>
+						<label>$VAR[CustomRow_Title1][COLOR cap2]   $VAR[CustomRow_Count1][/COLOR]</label>
+						<visible>$EXP[CustomRow1On]</visible>
+					</control>
+					<control type="list" id="9881">
+						<left>56</left>
+						<top>0</top>
+						<width>1764</width>
+						<height>340</height>
+						<orientation>horizontal</orientation>
+						<preloaditems>2</preloaditems>
+						<scrolltime tween="cubic" easing="out">240</scrolltime>
+						<onup condition="$EXP[Home_Films] + Integer.IsGreater(Container(9120).NumItems,0)">9120</onup>
+						<onup condition="$EXP[Home_Films]">9121</onup>
+						<onup condition="$EXP[Home_Series]">9140</onup>
+						<onup condition="$EXP[Home_Music] + Integer.IsGreater(Container(9160).NumItems,0)">9160</onup>
+						<onup condition="$EXP[Home_Music]">9161</onup>
+						<onup condition="$EXP[Home_Search]">9170</onup>
+						<onup condition="$EXP[Home_Settings]">9180</onup>
+						<onup>9000</onup>
+						<ondown condition="$EXP[CustomRow2On]">9882</ondown>
+						<ondown condition="!$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
+						<ondown>noop</ondown>
+						<onleft>noop</onleft>
+						<onright>noop</onright>
+						<onback>9000</onback>
+						<itemlayout width="294" height="340">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>350</width>
+						<height>300</height>
+						<texture border="48">fold/shadow_cream.png</texture>
+					</control>
+					<control type="group">
+						<left>40</left>
+						<top>40</top>
+						<width>270</width>
+						<height>220</height>
+						<camera x="175" y="-332"/>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture diffuse="fold/rr4.png">fold/tooth_cream.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>2</height>
+							<texture colordiffuse="white">common/white.png</texture>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>170</width>
+							<height>36</height>
+							<font>sans_22_semi</font>
+							<textcolor>ink</textcolor>
+							<selectedcolor>ink</selectedcolor>
+							<label>$VAR[Home_CustomTitle]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>238</width>
+							<height>36</height>
+							<align>right</align>
+							<font>numr_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label>$INFO[ListItem.Duration(mins),,′]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>30</top>
+							<width>238</width>
+							<height>30</height>
+							<font>body_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label></label>
+							<visible>false</visible>
+						</control>
+						<!-- perforated progress (FoldHome .perf): dashes 6 on / 5 off, the played part in the accent -->
+						<control type="image">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<aspectratio align="left">center</aspectratio>
+							<texture colordiffuse="rule_strong">fold/perf.png</texture>
+							<visible>true</visible>
+						</control>
+						<control type="progress">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<texturebg />
+							<lefttexture />
+							<midtexture colordiffuse="$VAR[FoldAccent]">common/white.png</midtexture>
+							<righttexture />
+							<info>ListItem.PercentPlayed</info>
+							<visible>true</visible>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<texture colordiffuse="cream_deep">common/white.png</texture>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>160</fadetime>
+							<texture background="true">$VAR[CustomRow_WideArt]</texture>
+						</control>
+
+					</control>
+						</itemlayout>
+						<focusedlayout width="294" height="340">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>350</width>
+						<height>300</height>
+						<texture border="48">fold/shadow_cream.png</texture>
+					</control>
+					<control type="image">
+						<left>-16</left>
+						<top>-16</top>
+						<width>382</width>
+						<height>332</height>
+						<texture border="60" colordiffuse="99ffffff">fold/shadow_lift_s.png</texture>
+						<visible>Control.HasFocus(9881)</visible>
+						<animation effect="fade" start="0" end="100" time="220">Visible</animation>
+					</control>
+					<control type="group">
+						<left>40</left>
+						<top>40</top>
+						<width>270</width>
+						<height>220</height>
+						<camera x="175" y="-332"/>
+						<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
+							<effect type="slide" start="0,0" end="0,-10" time="180" tween="sine" easing="out"/>
+						</animation>
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9881)">
+							<effect type="slide" start="0,-10" end="0,-10" time="0"/>
+						</animation>
+						<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
+							<effect type="slide" start="0,-10" end="0,0" time="140" tween="sine" easing="out"/>
+						</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture diffuse="fold/rr4.png">fold/tooth_cream.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>2</height>
+							<texture colordiffuse="white">common/white.png</texture>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>170</width>
+							<height>36</height>
+							<font>sans_22_semi</font>
+							<textcolor>ink</textcolor>
+							<selectedcolor>ink</selectedcolor>
+							<label>$VAR[Home_CustomTitle]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>238</width>
+							<height>36</height>
+							<align>right</align>
+							<font>numr_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label>$INFO[ListItem.Duration(mins),,′]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>30</top>
+							<width>238</width>
+							<height>30</height>
+							<font>body_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label></label>
+							<visible>false</visible>
+						</control>
+						<!-- perforated progress (FoldHome .perf): dashes 6 on / 5 off, the played part in the accent -->
+						<control type="image">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<aspectratio align="left">center</aspectratio>
+							<texture colordiffuse="rule_strong">fold/perf.png</texture>
+							<visible>true</visible>
+						</control>
+						<control type="progress">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<texturebg />
+							<lefttexture />
+							<midtexture colordiffuse="$VAR[FoldAccent]">common/white.png</midtexture>
+							<righttexture />
+							<info>ListItem.PercentPlayed</info>
+							<visible>true</visible>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<texture colordiffuse="cream_deep">common/white.png</texture>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>160</fadetime>
+							<texture background="true">$VAR[CustomRow_WideArt]</texture>
+						</control>
+
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture border="6" colordiffuse="$VAR[FoldAccent]">fold/edge_all.png</texture>
+							<visible>Control.HasFocus(9881)</visible>
+						</control>
+					</control>
+						</focusedlayout>
+						<include content="CustomRow_Content"><param name="row" value="1"/></include>
+					</control>
+				</control>
+				<control type="group">
+					<animation effect="slide" start="0,0" end="0,300" time="0" condition="$EXP[CustomRow1On]">Conditional</animation>
+					<control type="label">
+						<left>96</left>
+						<top>0</top>
+						<width>1300</width>
+						<height>32</height>
+						<font>caps_20_b</font>
+						<textcolor>ink</textcolor>
+						<selectedcolor>ink</selectedcolor>
+						<label>$VAR[CustomRow_Title2][COLOR cap2]   $VAR[CustomRow_Count2][/COLOR]</label>
+						<visible>$EXP[CustomRow2On]</visible>
+					</control>
+					<control type="list" id="9882">
+						<left>56</left>
+						<top>0</top>
+						<width>1764</width>
+						<height>340</height>
+						<orientation>horizontal</orientation>
+						<preloaditems>2</preloaditems>
+						<scrolltime tween="cubic" easing="out">240</scrolltime>
+						<onup condition="$EXP[CustomRow1On]">9881</onup>
+						<onup condition="$EXP[Home_Films] + Integer.IsGreater(Container(9120).NumItems,0)">9120</onup>
+						<onup condition="$EXP[Home_Films]">9121</onup>
+						<onup condition="$EXP[Home_Series]">9140</onup>
+						<onup condition="$EXP[Home_Music] + Integer.IsGreater(Container(9160).NumItems,0)">9160</onup>
+						<onup condition="$EXP[Home_Music]">9161</onup>
+						<onup condition="$EXP[Home_Search]">9170</onup>
+						<onup condition="$EXP[Home_Settings]">9180</onup>
+						<onup>9000</onup>
+						<ondown condition="$EXP[CustomRow3On]">9883</ondown>
+						<ondown>noop</ondown>
+						<onleft>noop</onleft>
+						<onright>noop</onright>
+						<onback>9000</onback>
+						<itemlayout width="294" height="340">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>350</width>
+						<height>300</height>
+						<texture border="48">fold/shadow_cream.png</texture>
+					</control>
+					<control type="group">
+						<left>40</left>
+						<top>40</top>
+						<width>270</width>
+						<height>220</height>
+						<camera x="175" y="-332"/>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture diffuse="fold/rr4.png">fold/tooth_cream.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>2</height>
+							<texture colordiffuse="white">common/white.png</texture>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>170</width>
+							<height>36</height>
+							<font>sans_22_semi</font>
+							<textcolor>ink</textcolor>
+							<selectedcolor>ink</selectedcolor>
+							<label>$VAR[Home_CustomTitle]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>238</width>
+							<height>36</height>
+							<align>right</align>
+							<font>numr_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label>$INFO[ListItem.Duration(mins),,′]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>30</top>
+							<width>238</width>
+							<height>30</height>
+							<font>body_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label></label>
+							<visible>false</visible>
+						</control>
+						<!-- perforated progress (FoldHome .perf): dashes 6 on / 5 off, the played part in the accent -->
+						<control type="image">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<aspectratio align="left">center</aspectratio>
+							<texture colordiffuse="rule_strong">fold/perf.png</texture>
+							<visible>true</visible>
+						</control>
+						<control type="progress">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<texturebg />
+							<lefttexture />
+							<midtexture colordiffuse="$VAR[FoldAccent]">common/white.png</midtexture>
+							<righttexture />
+							<info>ListItem.PercentPlayed</info>
+							<visible>true</visible>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<texture colordiffuse="cream_deep">common/white.png</texture>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>160</fadetime>
+							<texture background="true">$VAR[CustomRow_WideArt]</texture>
+						</control>
+
+					</control>
+						</itemlayout>
+						<focusedlayout width="294" height="340">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>350</width>
+						<height>300</height>
+						<texture border="48">fold/shadow_cream.png</texture>
+					</control>
+					<control type="image">
+						<left>-16</left>
+						<top>-16</top>
+						<width>382</width>
+						<height>332</height>
+						<texture border="60" colordiffuse="99ffffff">fold/shadow_lift_s.png</texture>
+						<visible>Control.HasFocus(9882)</visible>
+						<animation effect="fade" start="0" end="100" time="220">Visible</animation>
+					</control>
+					<control type="group">
+						<left>40</left>
+						<top>40</top>
+						<width>270</width>
+						<height>220</height>
+						<camera x="175" y="-332"/>
+						<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
+							<effect type="slide" start="0,0" end="0,-10" time="180" tween="sine" easing="out"/>
+						</animation>
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9882)">
+							<effect type="slide" start="0,-10" end="0,-10" time="0"/>
+						</animation>
+						<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
+							<effect type="slide" start="0,-10" end="0,0" time="140" tween="sine" easing="out"/>
+						</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture diffuse="fold/rr4.png">fold/tooth_cream.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>2</height>
+							<texture colordiffuse="white">common/white.png</texture>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>170</width>
+							<height>36</height>
+							<font>sans_22_semi</font>
+							<textcolor>ink</textcolor>
+							<selectedcolor>ink</selectedcolor>
+							<label>$VAR[Home_CustomTitle]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>238</width>
+							<height>36</height>
+							<align>right</align>
+							<font>numr_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label>$INFO[ListItem.Duration(mins),,′]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>30</top>
+							<width>238</width>
+							<height>30</height>
+							<font>body_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label></label>
+							<visible>false</visible>
+						</control>
+						<!-- perforated progress (FoldHome .perf): dashes 6 on / 5 off, the played part in the accent -->
+						<control type="image">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<aspectratio align="left">center</aspectratio>
+							<texture colordiffuse="rule_strong">fold/perf.png</texture>
+							<visible>true</visible>
+						</control>
+						<control type="progress">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<texturebg />
+							<lefttexture />
+							<midtexture colordiffuse="$VAR[FoldAccent]">common/white.png</midtexture>
+							<righttexture />
+							<info>ListItem.PercentPlayed</info>
+							<visible>true</visible>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<texture colordiffuse="cream_deep">common/white.png</texture>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>160</fadetime>
+							<texture background="true">$VAR[CustomRow_WideArt]</texture>
+						</control>
+
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture border="6" colordiffuse="$VAR[FoldAccent]">fold/edge_all.png</texture>
+							<visible>Control.HasFocus(9882)</visible>
+						</control>
+					</control>
+						</focusedlayout>
+						<include content="CustomRow_Content"><param name="row" value="2"/></include>
+					</control>
+				</control>
+				<control type="group">
+					<animation effect="slide" start="0,0" end="0,300" time="0" condition="$EXP[CustomRow1On]">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,300" time="0" condition="$EXP[CustomRow2On]">Conditional</animation>
+					<control type="label">
+						<left>96</left>
+						<top>0</top>
+						<width>1300</width>
+						<height>32</height>
+						<font>caps_20_b</font>
+						<textcolor>ink</textcolor>
+						<selectedcolor>ink</selectedcolor>
+						<label>$VAR[CustomRow_Title3][COLOR cap2]   $VAR[CustomRow_Count3][/COLOR]</label>
+						<visible>$EXP[CustomRow3On]</visible>
+					</control>
+					<control type="list" id="9883">
+						<left>56</left>
+						<top>0</top>
+						<width>1764</width>
+						<height>340</height>
+						<orientation>horizontal</orientation>
+						<preloaditems>2</preloaditems>
+						<scrolltime tween="cubic" easing="out">240</scrolltime>
+						<onup condition="$EXP[CustomRow2On]">9882</onup>
+						<onup condition="!$EXP[CustomRow2On] + $EXP[CustomRow1On]">9881</onup>
+						<onup condition="$EXP[Home_Films] + Integer.IsGreater(Container(9120).NumItems,0)">9120</onup>
+						<onup condition="$EXP[Home_Films]">9121</onup>
+						<onup condition="$EXP[Home_Series]">9140</onup>
+						<onup condition="$EXP[Home_Music] + Integer.IsGreater(Container(9160).NumItems,0)">9160</onup>
+						<onup condition="$EXP[Home_Music]">9161</onup>
+						<onup condition="$EXP[Home_Search]">9170</onup>
+						<onup condition="$EXP[Home_Settings]">9180</onup>
+						<onup>9000</onup>
+						<ondown>noop</ondown>
+						<onleft>noop</onleft>
+						<onright>noop</onright>
+						<onback>9000</onback>
+						<itemlayout width="294" height="340">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>350</width>
+						<height>300</height>
+						<texture border="48">fold/shadow_cream.png</texture>
+					</control>
+					<control type="group">
+						<left>40</left>
+						<top>40</top>
+						<width>270</width>
+						<height>220</height>
+						<camera x="175" y="-332"/>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture diffuse="fold/rr4.png">fold/tooth_cream.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>2</height>
+							<texture colordiffuse="white">common/white.png</texture>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>170</width>
+							<height>36</height>
+							<font>sans_22_semi</font>
+							<textcolor>ink</textcolor>
+							<selectedcolor>ink</selectedcolor>
+							<label>$VAR[Home_CustomTitle]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>238</width>
+							<height>36</height>
+							<align>right</align>
+							<font>numr_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label>$INFO[ListItem.Duration(mins),,′]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>30</top>
+							<width>238</width>
+							<height>30</height>
+							<font>body_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label></label>
+							<visible>false</visible>
+						</control>
+						<!-- perforated progress (FoldHome .perf): dashes 6 on / 5 off, the played part in the accent -->
+						<control type="image">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<aspectratio align="left">center</aspectratio>
+							<texture colordiffuse="rule_strong">fold/perf.png</texture>
+							<visible>true</visible>
+						</control>
+						<control type="progress">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<texturebg />
+							<lefttexture />
+							<midtexture colordiffuse="$VAR[FoldAccent]">common/white.png</midtexture>
+							<righttexture />
+							<info>ListItem.PercentPlayed</info>
+							<visible>true</visible>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<texture colordiffuse="cream_deep">common/white.png</texture>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>160</fadetime>
+							<texture background="true">$VAR[CustomRow_WideArt]</texture>
+						</control>
+
+					</control>
+						</itemlayout>
+						<focusedlayout width="294" height="340">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>350</width>
+						<height>300</height>
+						<texture border="48">fold/shadow_cream.png</texture>
+					</control>
+					<control type="image">
+						<left>-16</left>
+						<top>-16</top>
+						<width>382</width>
+						<height>332</height>
+						<texture border="60" colordiffuse="99ffffff">fold/shadow_lift_s.png</texture>
+						<visible>Control.HasFocus(9883)</visible>
+						<animation effect="fade" start="0" end="100" time="220">Visible</animation>
+					</control>
+					<control type="group">
+						<left>40</left>
+						<top>40</top>
+						<width>270</width>
+						<height>220</height>
+						<camera x="175" y="-332"/>
+						<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
+							<effect type="slide" start="0,0" end="0,-10" time="180" tween="sine" easing="out"/>
+						</animation>
+						<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(9883)">
+							<effect type="slide" start="0,-10" end="0,-10" time="0"/>
+						</animation>
+						<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
+							<effect type="slide" start="0,-10" end="0,0" time="140" tween="sine" easing="out"/>
+						</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture diffuse="fold/rr4.png">fold/tooth_cream.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>2</height>
+							<texture colordiffuse="white">common/white.png</texture>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>170</width>
+							<height>36</height>
+							<font>sans_22_semi</font>
+							<textcolor>ink</textcolor>
+							<selectedcolor>ink</selectedcolor>
+							<label>$VAR[Home_CustomTitle]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>8</top>
+							<width>238</width>
+							<height>36</height>
+							<align>right</align>
+							<font>numr_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label>$INFO[ListItem.Duration(mins),,′]</label>
+						</control>
+						<control type="label">
+							<left>16</left>
+							<top>30</top>
+							<width>238</width>
+							<height>30</height>
+							<font>body_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label></label>
+							<visible>false</visible>
+						</control>
+						<!-- perforated progress (FoldHome .perf): dashes 6 on / 5 off, the played part in the accent -->
+						<control type="image">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<aspectratio align="left">center</aspectratio>
+							<texture colordiffuse="rule_strong">fold/perf.png</texture>
+							<visible>true</visible>
+						</control>
+						<control type="progress">
+							<left>16</left>
+							<top>50</top>
+							<width>238</width>
+							<height>3</height>
+							<texturebg />
+							<lefttexture />
+							<midtexture colordiffuse="$VAR[FoldAccent]">common/white.png</midtexture>
+							<righttexture />
+							<info>ListItem.PercentPlayed</info>
+							<visible>true</visible>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<texture colordiffuse="cream_deep">common/white.png</texture>
+						</control>
+						<control type="image">
+							<left>16</left>
+							<top>64</top>
+							<width>238</width>
+							<height>150</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>160</fadetime>
+							<texture background="true">$VAR[CustomRow_WideArt]</texture>
+						</control>
+
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>270</width>
+							<height>220</height>
+							<texture border="6" colordiffuse="$VAR[FoldAccent]">fold/edge_all.png</texture>
+							<visible>Control.HasFocus(9883)</visible>
+						</control>
+					</control>
+						</focusedlayout>
+						<include content="CustomRow_Content"><param name="row" value="3"/></include>
+					</control>
+				</control>
+			</control>
 		</control>
 	</include>
 
@@ -3908,6 +4811,9 @@ Window(Home) properties
 				<label></label>
 				<onclick>ActivateWindow(1150)</onclick>
 				<onup>9004</onup>
+				<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 				<onback>9004</onback>
 			</control>
 		</control>

@@ -4,7 +4,7 @@ Geometry from docs/concepts/round4/mockups/NocturneHome.html (the salon hang), a
 has room for its brass plaque below it (docs/skin.nocturne/SPEC.md, Home).
 
 Ids
-  9000 cornice group, 9001-9005 words (Films, Series, Music, Search, Settings)
+  9000 cornice group, 9001-9005 words (Films, Series, Music, Search, Settings); 9001-9004 hide with HideMenu.*
   9190 wander list (ambient torch timer)
   Films:  data lists 9201 easel / 9202 unwatched 7.5+ / 9203 new acquisitions / 9204 30-day count;
           slots 9221-9231 (group 9220)
@@ -56,6 +56,40 @@ NAV = {  # Left/Right/Up/Down per slot (slot names; "nav" = the cornice)
     "c2": ("b5", "c3", "c1", None),
     "c3": ("c2", None, "c1", None),
 }
+# 0.9.9 main menu: words hidden in Skin settings (HideMenu.*); Settings (9005) never hides. A hidden word's room
+# hides with it; the words after it slide left by the hidden word's pitch (next x - x).
+HIDE = {9001: "Skin.HasSetting(HideMenu.Movies)", 9002: "Skin.HasSetting(HideMenu.TVShows)",
+        9003: "Skin.HasSetting(HideMenu.Music)", 9004: "Skin.HasSetting(HideMenu.Search)"}
+SEC_HIDE = {"films": HIDE[9001], "series": HIDE[9002], "music": HIDE[9003]}
+
+
+def sec_on(sec):
+    """the room of sec is on show (films is also the default while no section is set)"""
+    c = f"String.IsEqual(Window(Home).Property(nocturne.section),{sec})"
+    if sec == "films":
+        c = f"[{c} | String.IsEmpty(Window(Home).Property(nocturne.section))]"
+    # 0.9.9 custom rows: the room steps aside while one of the back rooms (Includes_Gallery.xml) has focus
+    return f"{c} + !{SEC_HIDE[sec]} + !$EXP[CustomRowsFocus]"
+
+
+# 0.9.9 custom rows (Includes_CustomRows.xml): Down from a frame with nothing below it walks into the back rooms
+DOWN_TO_CUSTOM = ['<ondown condition="$EXP[CustomRow1On]">9881</ondown>',
+                  '<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>',
+                  '<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>']
+
+
+def word_hide_xml(cid, indent):
+    """visible + close-up slides for one word's controls"""
+    o = []
+    if cid in HIDE:
+        o.append(f"{indent}<visible>!{HIDE[cid]}</visible>")
+    xs = [w[2] for w in WORDS]
+    ids = [w[0] for w in WORDS]
+    for j, pid in enumerate(ids[: ids.index(cid)]):
+        o.append(f'{indent}<animation effect="slide" start="0,0" end="-{xs[j + 1] - xs[j]},0" time="0" condition="{HIDE[pid]}">Conditional</animation>')
+    return o
+
+
 WORDS = [  # id, label, x, width (NocturneNav 24 measured + slack), section
     (9001, "$LOCALIZE[31200]", 96, 104, "films"),
     (9002, "$LOCALIZE[31201]", 236, 118, "series"),
@@ -153,6 +187,8 @@ def slot_xml(sec, slot):
         tt = target(t)
         if tt is not None:
             o.append(f"\t\t\t<{tag}>{tt}</{tag}>")
+        elif tag == "ondown":
+            o += [f"\t\t\t{d}" for d in DOWN_TO_CUSTOM]
     o.append(f"\t\t\t<onback>{ {'films': 9001, 'series': 9002}[sec] }</onback>")
     o.append("\t\t</control>")
     return "\n".join(o)
@@ -262,8 +298,7 @@ def wall_xml(sec):
     S = SECTIONS[sec]
     o = [f"\t<include name=\"Home_Wall_{sec}\">",
          "\t<control type=\"group\">",
-         f"\t\t<visible>String.IsEqual(Window(Home).Property(nocturne.section),{sec})" +
-         (" | String.IsEmpty(Window(Home).Property(nocturne.section))" if sec == "films" else "") + "</visible>",
+         f"\t\t<visible>{sec_on(sec)}</visible>",
          "\t\t<include>Anim_SectionSwap</include>"]
     for p in PEEKS:
         o.append(peek_xml(sec, p))
@@ -285,8 +320,7 @@ def labels_xml(sec):
     xs = {"A": 64, "B": 500, "C": 1452}
     o = [f"\t<include name=\"Home_WallLabels_{sec}\">",
          "\t<control type=\"group\">",
-         f"\t\t<visible>String.IsEqual(Window(Home).Property(nocturne.section),{sec})" +
-         (" | String.IsEmpty(Window(Home).Property(nocturne.section))" if sec == "films" else "") + "</visible>",
+         f"\t\t<visible>{sec_on(sec)}</visible>",
          "\t\t<include>Anim_SectionSwap</include>"]
     for g in "ABC":
         slots = [s for s in ORDER if SLOTS[s][0] == g]
@@ -319,7 +353,7 @@ def torch_xml(time, wander_time):
     bx, by = BASE
     o = ["\t<include name=\"Home_Torch\">",
          "\t<control type=\"group\">",
-         "\t\t<visible>!String.IsEqual(Window(Home).Property(nocturne.section),music)</visible>",
+         f"\t\t<visible>[{sec_on('films')}] | [{sec_on('series')}]</visible>",
          "\t\t<include>Anim_SectionSwap</include>"]
     for slot in ORDER:
         grp, idx, x, y, w, h, kind, plq = SLOTS[slot]
@@ -425,10 +459,13 @@ def words_xml():
             on += f" | [!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),{sec})]"
             if sec == "films":
                 on += " | [!ControlGroup(9000).HasFocus() + String.IsEmpty(Window(Home).Property(nocturne.section))]"
+        if cid in HIDE:
+            on = f"[{on}] + !{HIDE[cid]}"
         o += ["\t\t<control type=\"image\">",
               f"\t\t\t<left>{cx - 200}</left>\n\t\t\t<top>-78</top>\n\t\t\t<width>400</width>\n\t\t\t<height>300</height>",
               "\t\t\t<texture>noc/glow_warm.png</texture>",
               f"\t\t\t<visible>{on}</visible>",
+              *[l for l in word_hide_xml(cid, "\t\t\t") if "<animation" in l],
               "\t\t\t<include>Anim_GlowVisible</include>",
               "\t\t</control>"]
     o += ["\t\t<control type=\"group\" id=\"9000\">"]
@@ -444,6 +481,7 @@ def words_xml():
               "\t\t\t\t<shadowcolor>b3000000</shadowcolor>",
               "\t\t\t\t<texturefocus />\n\t\t\t\t<texturenofocus />",
               f"\t\t\t\t<label>{label}</label>",
+              *word_hide_xml(cid, "\t\t\t\t"),
               f"\t\t\t\t<onleft>{ids[i - 1]}</onleft>\n\t\t\t\t<onright>{ids[(i + 1) % len(ids)]}</onright>"]
         if sec in ("films", "series"):
             o += [f"\t\t\t\t<onfocus>SetProperty(nocturne.section,{sec},home)</onfocus>",
@@ -454,9 +492,9 @@ def words_xml():
                   "\t\t\t\t<onfocus>SetProperty(TMDbHelper.WidgetContainer,9260,home)</onfocus>",
                   "\t\t\t\t<ondown>9260</ondown>"]
         else:
-            o += ["\t\t\t\t<ondown condition=\"String.IsEqual(Window(Home).Property(nocturne.section),music)\">9260</ondown>",
-                  "\t\t\t\t<ondown condition=\"String.IsEqual(Window(Home).Property(nocturne.section),series)\">9246</ondown>",
-                  "\t\t\t\t<ondown>9226</ondown>"]
+            o += [f"\t\t\t\t<ondown condition=\"{sec_on('music')}\">9260</ondown>",
+                  f"\t\t\t\t<ondown condition=\"{sec_on('series')}\">9246</ondown>",
+                  f"\t\t\t\t<ondown condition=\"{sec_on('films')}\">9226</ondown>"]
         click = {
             "films": "ActivateWindow(Videos,videodb://movies/titles/,return)",
             "series": "ActivateWindow(Videos,videodb://tvshows/titles/,return)",
@@ -476,7 +514,8 @@ def words_xml():
                   "\t\t\t\t<font>nav_24</font>\n\t\t\t\t<aligny>center</aligny>",
                   "\t\t\t\t<textcolor>text_primary</textcolor>\n\t\t\t\t<shadowcolor>e6281806</shadowcolor>",
                   f"\t\t\t\t<label>{label}</label>",
-                  f"\t\t\t\t<visible>{on}</visible>",
+                  f"\t\t\t\t<visible>[{on}] + !{HIDE[cid]}</visible>",
+                  *[l for l in word_hide_xml(cid, "\t\t\t\t") if "<animation" in l],
                   "\t\t\t</control>"]
     o += ["\t\t</control>", "\t</include>"]
     return "\n".join(o)

@@ -33,6 +33,10 @@ RAIL = [
     (9005, "settings", "settings", 31404, "SetFocus(9050)", None),
 ]
 X0, PITCH, Y = 96, 232, 920
+# 1.0.2 main menu: rail icons hidden in Skin settings (HideMenu.*); the icons after a hidden one slide left by PITCH.
+# Settings never hides. A hidden icon keeps its numeric onleft / onright, so Left / Right fall through it.
+HIDE = {"music": "Skin.HasSetting(HideMenu.Music)", "films": "Skin.HasSetting(HideMenu.Movies)",
+        "tv": "Skin.HasSetting(HideMenu.TVShows)", "search": "Skin.HasSetting(HideMenu.Search)"}
 
 DATA = [  # id, content (target, attrs, path), art key drawn
     (9102, 'target="music" limit="1" browse="never"', "musicdb://recentlyplayedalbums/", "thumb"),
@@ -41,9 +45,12 @@ DATA = [  # id, content (target, attrs, path), art key drawn
 
 def sect(key):
     if key == "music":
-        return ("[String.IsEmpty(Window(Home).Property(groove.home)) | "
-                "String.IsEqual(Window(Home).Property(groove.home),music)]")
-    return f"String.IsEqual(Window(Home).Property(groove.home),{key})"
+        c = ("[String.IsEmpty(Window(Home).Property(groove.home)) | "
+             "String.IsEqual(Window(Home).Property(groove.home),music)]")
+    else:
+        c = f"String.IsEqual(Window(Home).Property(groove.home),{key})"
+    c += " + !$EXP[CustomRowsFocus]"  # 1.0.2: a custom row has its own stage (custom_stage)
+    return f"{c} + !{HIDE[key]}" if key in HIDE else c
 
 
 def data_lists():
@@ -87,7 +94,11 @@ def rail():
         # an info dialog opened from a row follows its own ListItem; Home.xml clears it on unload.
         wc += [w.replace("TMDbHelper.WidgetContainer", "Groove.Helper.Container") for w in wc]
         wcs = "".join("\n\t\t\t\t" + w for w in wc)
+        hide = (f"\n\t\t\t<visible>!{HIDE[key]}</visible>" if key in HIDE else "") + "".join(
+            f'\n\t\t\t<animation effect="slide" start="0,0" end="-{PITCH},0" time="0" condition="{HIDE[p[1]]}">Conditional</animation>'
+            for p in RAIL[:i] if p[1] in HIDE)
         o.append(f"""			<!-- {key} -->
+			<control type="group">{hide}
 			<control type="image">
 				<left>{x - 45}</left>
 				<top>{Y - 45}</top>
@@ -136,6 +147,7 @@ def rail():
 				<label>$LOCALIZE[{sid}]</label>
 				<visible>Control.HasFocus({cid})</visible>
 				<include>Anim_LabelReveal</include>
+			</control>
 			</control>""")
     return "\n".join(o)
 
@@ -253,6 +265,75 @@ def video_stage(key, a, b):
 		</control>"""
 
 
+def custom_stage():
+    """1.0.2 custom rows: the focused item is the hero, cinema glow like films / TV; the row's name and size above"""
+    ids = (9881, 9882, 9883)
+    no_logo = " | ".join(f"[Control.HasFocus({c}) + String.IsEmpty(Container({c}).ListItem.Art(clearlogo))]" for c in ids)
+    return f"""		<control type="group">
+			<visible>$EXP[CustomRowsFocus]</visible>
+			<include>Anim_SectionSwap</include>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1920</width>
+				<height>1080</height>
+				<aspectratio>scale</aspectratio>
+				<fadetime>300</fadetime>
+				<texture background="true">$VAR[Home_custom_Fanart]</texture>
+				<animation effect="fade" start="100" end="66" time="0" condition="true">Conditional</animation>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1920</width>
+				<height>1080</height>
+				<texture colordiffuse="$VAR[ground]">groove/white.png</texture>
+				<animation effect="fade" start="100" end="28" time="0" condition="true">Conditional</animation>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1240</width>
+				<height>1080</height>
+				<texture colordiffuse="$VAR[ground]">groove/ramp_h.png</texture>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>560</top>
+				<width>1920</width>
+				<height>520</height>
+				<texture colordiffuse="$VAR[ground]" flipy="true">groove/ramp_v.png</texture>
+			</control>
+			<control type="label">
+				<left>g_safe_x</left>
+				<top>84</top>
+				<width>1200</width>
+				<height>40</height>
+				<font>font_small</font>
+				<textcolor>$VAR[ink2]</textcolor>
+				<label>$VAR[Home_custom_Kicker]</label>
+			</control>
+			<control type="image">
+				<left>g_safe_x</left>
+				<top>140</top>
+				<width>600</width>
+				<height>200</height>
+				<aspectratio aligny="bottom" align="left">keep</aspectratio>
+				<texture background="true" colordiffuse="$VAR[logo_tint]">$VAR[Home_custom_Logo]</texture>
+			</control>
+			<control type="textbox">
+				<left>g_safe_x</left>
+				<top>184</top>
+				<width>900</width>
+				<height>140</height>
+				<font>font_title_xl</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$VAR[Home_custom_Title]</label>
+				<visible>{no_logo}</visible>
+			</control>
+		</control>"""
+
+
 def icon_stage(key, icon, sid):
     return f"""		<control type="group">
 			<visible>{sect(key)}</visible>
@@ -335,6 +416,15 @@ def variables():
             var(f"Home_{key}_Runtime", [(None, "")])
             var(f"Home_{key}_Rating", [(f"Integer.IsGreater({src}.NumItems,0)", f"$INFO[{src}.ListItem.Rating]"), (None, "")])
     HR.tv_variables(var)
+    # 1.0.2 custom rows: the focused custom row's item
+    cids = HR.CUSTOM_IDS
+    var("Home_custom_Fanart", [x for c in cids for x in (
+        (f"Control.HasFocus({c}) + !String.IsEmpty(Container({c}).ListItem.Art(fanart))", f"$INFO[Container({c}).ListItem.Art(fanart)]"),
+        (f"Control.HasFocus({c})", f"$INFO[Container({c}).ListItem.Art(tvshow.fanart)]"))])
+    var("Home_custom_Logo", [(f"Control.HasFocus({c})", f"$INFO[Container({c}).ListItem.Art(clearlogo)]") for c in cids])
+    var("Home_custom_Title", [(f"Control.HasFocus({c})", f"$INFO[Container({c}).ListItem.Label]") for c in cids])
+    var("Home_custom_Kicker", [(f"Control.HasFocus({c})", f"$VAR[CustomRow_Title{n}]  ·  $VAR[CustomRow_Count{n}]")
+                               for n, c in enumerate(cids, 1)])
     return "\n".join(v)
 
 
@@ -442,6 +532,7 @@ def main():
 {tv}
 {icon_stage('search', 'search', 31413)}
 {icon_stage('settings', 'settings', 31414)}
+{custom_stage()}
 	</include>
 
 	<!-- the rail: five icons, the focused one lit with its one-word label (DESIGN 4: y 920, pitch 232) -->

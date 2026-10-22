@@ -717,6 +717,15 @@
 		<value condition="Control.HasFocus(9531)">Where the subtitle and audio offset strip appears while you sync. Top keeps bottom subtitles in view.</value>
 		<value condition="Control.HasFocus(9540)">Replaces zooms, slides and the rain with short fades. Focus changes stay instant.</value>
 		<value condition="Control.HasFocus(9541)">Puts every Daylight setting back to its default and reloads the skin. Press OK twice to confirm.</value>
+		<value condition="Control.HasFocus(9554)">$LOCALIZE[31338]</value>
+		<value condition="Control.HasFocus(9560)">$LOCALIZE[31339]</value>
+		<value condition="Control.HasFocus(9561)">$LOCALIZE[31339]</value>
+		<value condition="Control.HasFocus(9562)">$LOCALIZE[31339]</value>
+		<value condition="Control.HasFocus(9563)">$LOCALIZE[31339]</value>
+		<value condition="Control.HasFocus(9555)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9570)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9571)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9572)">$LOCALIZE[31950]</value>
 		<value>Daylight's own options. Kodi's settings live under Settings; switch skins in Settings &gt; Interface &gt; Skin.</value>
 	</variable>
 </includes>

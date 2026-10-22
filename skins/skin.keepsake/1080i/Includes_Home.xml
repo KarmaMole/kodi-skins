@@ -10,19 +10,30 @@
 	  9120 you stopped (1 item)         9130 episode in progress  9132 show in progress (fallback)
 	  9140 films in progress (2)        9151 / 9152 this year / waiting since (stat words)
 	  9000 nav grouplist: 9001 films, 9002 series, 9003 music, 9004 search, 9005 settings, 9006 playing
+	       (0.9.8: 9001-9004 and their dots hide with HideMenu.*; the centred grouplist closes up)
 	  data: 9101-9104 memory windows, 9161/9162 counts this year, 9163 never played, 9164 oldest never played,
 	        9171-9173 Skin Variables details (time of day), 9181/9182 title probes
 	Focus: the memory print on open (or the nav word you left from). Back from anything -> the nav words.
 	Down jumps page sections from any print; Up from a nav word goes to the section above it.
+	0.9.8 custom rows (opt-in, Includes_CustomRows.xml): lists 9881-9883 on the next page (Home_CustomPage),
+	Down from a nav word while a row has items; Up from the first row / Back -> the nav words.
 -->
 <includes>
 	<!-- ================================================================== expressions / variables -->
 	<expression name="Home_HasMemory">Integer.IsGreater(Container(9110).NumItems,0)</expression>
 	<expression name="Home_HasStopped">Integer.IsGreater(Container(9120).NumItems,0)</expression>
-	<expression name="Home_HasEpisode">Integer.IsGreater(Container(9130).NumItems,0)</expression>
-	<expression name="Home_HasShow">!Integer.IsGreater(Container(9130).NumItems,0) + Integer.IsGreater(Container(9132).NumItems,0)</expression>
-	<expression name="Home_HasBig">Integer.IsGreater(Container(9130).NumItems,0) | Integer.IsGreater(Container(9132).NumItems,0)</expression>
-	<expression name="Home_HasFilms">Integer.IsGreater(Container(9140).NumItems,0)</expression>
+	<expression name="Home_HasEpisode">Integer.IsGreater(Container(9130).NumItems,0) + !Skin.HasSetting(HideMenu.TVShows)</expression>
+	<expression name="Home_HasShow">!Integer.IsGreater(Container(9130).NumItems,0) + Integer.IsGreater(Container(9132).NumItems,0) + !Skin.HasSetting(HideMenu.TVShows)</expression>
+	<expression name="Home_HasBig">[Integer.IsGreater(Container(9130).NumItems,0) | Integer.IsGreater(Container(9132).NumItems,0)] + !Skin.HasSetting(HideMenu.TVShows)</expression>
+	<expression name="Home_HasFilms">Integer.IsGreater(Container(9140).NumItems,0) + !Skin.HasSetting(HideMenu.Movies)</expression>
+	<!-- 0.9.8: main menu words hidden in Skin settings (HideMenu.*): the first word shown (Settings never hides) -->
+	<variable name="Home_FirstNavWord">
+		<value condition="!Skin.HasSetting(HideMenu.Movies)">SetFocus(9001)</value>
+		<value condition="!Skin.HasSetting(HideMenu.TVShows)">SetFocus(9002)</value>
+		<value condition="!Skin.HasSetting(HideMenu.Music)">SetFocus(9003)</value>
+		<value condition="!Skin.HasSetting(HideMenu.Search)">SetFocus(9004)</value>
+		<value>SetFocus(9005)</value>
+	</variable>
 	<expression name="Home_SV">!Skin.HasSetting(keepsake.notime)</expression>
 	<expression name="Home_MemSV">!Skin.HasSetting(keepsake.notime) + String.IsEqual(Container(9171).ListItem.DBID,Container(9110).ListItem.DBID) + !String.IsEmpty(Container(9171).ListItem.Property(lastplayed))</expression>
 	<expression name="Home_LongMemTitle">Integer.IsGreater(Container(9181).NumPages,1)</expression>
@@ -241,7 +252,11 @@
 			<onright condition="$EXP[Home_HasShow]">9132</onright>
 			<onright condition="$EXP[Home_HasFilms]">9140</onright>
 			<onright>9152</onright>
-			<onback>9001</onback>
+			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<itemlayout width="600" height="400">
 				<include content="Home_PrintSlot">
 					<param name="kind" value="Memory"/><param name="w" value="460"/><param name="h" value="271"/>
@@ -396,7 +411,11 @@
 			<onright condition="$EXP[Home_HasEpisode]">9130</onright>
 			<onright condition="$EXP[Home_HasShow]">9132</onright>
 			<onleft>noop</onleft>
-			<onback>9001</onback>
+			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<itemlayout width="880" height="330">
 				<include>Home_StoppedItem</include>
 			</itemlayout>
@@ -438,11 +457,15 @@
 			<onup condition="$EXP[Home_HasStopped]">9120</onup>
 			<onup condition="$EXP[Home_HasMemory]">9110</onup>
 			<onright>9152</onright>
-			<ondown>9001</ondown>
+			<ondown>$VAR[Home_FirstNavWord]</ondown>
 			<onleft>noop</onleft>
-			<onback>9001</onback>
-			<onclick>SetProperty(keepsake.navfrom,9151,home)</onclick>
-			<onclick>ActivateWindow(1161)</onclick>
+			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
+			<onclick condition="!Skin.HasSetting(HideMenu.Movies)">SetProperty(keepsake.navfrom,9151,home)</onclick>
+			<onclick condition="!Skin.HasSetting(HideMenu.Movies)">ActivateWindow(1161)</onclick>
 		</control>
 		<control type="button" id="9152">
 			<left>488</left>
@@ -457,8 +480,13 @@
 			<onright condition="$EXP[Home_HasFilms]">9140</onright>
 			<onright condition="$EXP[Home_HasEpisode]">9130</onright>
 			<onright condition="$EXP[Home_HasShow]">9132</onright>
-			<ondown>9003</ondown>
-			<onback>9001</onback>
+			<ondown condition="!Skin.HasSetting(HideMenu.Music)">9003</ondown>
+			<ondown condition="Skin.HasSetting(HideMenu.Music)">$VAR[Home_FirstNavWord]</ondown>
+			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<onclick>SetProperty(keepsake.navfrom,9152,home)</onclick>
 			<onclick>ActivateWindow(1160)</onclick>
 		</control>
@@ -642,6 +670,7 @@
 			<font>hand_66</font>
 			<textcolor>ink</textcolor>
 			<label>$LOCALIZE[31347]</label>
+			<visible>![Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows)]</visible>
 		</control>
 		<control type="label">
 			<left>1068</left>
@@ -651,7 +680,7 @@
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
 			<label>$LOCALIZE[31348]</label>
-			<visible>!Player.HasMedia</visible>
+			<visible>!Player.HasMedia + ![Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows)]</visible>
 		</control>
 		<control type="label">
 			<left>1068</left>
@@ -667,6 +696,7 @@
 
 		<!-- the episode you're on -->
 		<control type="list" id="9130">
+			<visible>!Skin.HasSetting(HideMenu.TVShows)</visible>
 			<left>1006</left>
 			<top>162</top>
 			<width>900</width>
@@ -676,10 +706,15 @@
 			<onleft condition="$EXP[Home_HasMemory]">9110</onleft>
 			<onleft>9152</onleft>
 			<ondown condition="$EXP[Home_HasFilms]">9140</ondown>
-			<ondown>9004</ondown>
+			<ondown condition="!Skin.HasSetting(HideMenu.Search)">9004</ondown>
+			<ondown condition="Skin.HasSetting(HideMenu.Search)">$VAR[Home_FirstNavWord]</ondown>
 			<onup>noop</onup>
 			<onright>noop</onright>
-			<onback>9001</onback>
+			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<itemlayout width="900" height="420">
 				<include>Home_EpisodeItem</include>
 			</itemlayout>
@@ -699,11 +734,16 @@
 			<onleft condition="$EXP[Home_HasMemory]">9110</onleft>
 			<onleft>9152</onleft>
 			<ondown condition="$EXP[Home_HasFilms]">9140</ondown>
-			<ondown>9004</ondown>
+			<ondown condition="!Skin.HasSetting(HideMenu.Search)">9004</ondown>
+			<ondown condition="Skin.HasSetting(HideMenu.Search)">$VAR[Home_FirstNavWord]</ondown>
 			<onup>noop</onup>
 			<onright>noop</onright>
-			<onback>9001</onback>
-			<visible>!$EXP[Home_HasEpisode]</visible>
+			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
+			<visible>!$EXP[Home_HasEpisode] + !Skin.HasSetting(HideMenu.TVShows)</visible>
 			<itemlayout width="900" height="420">
 				<include>Home_ShowItem</include>
 			</itemlayout>
@@ -713,8 +753,10 @@
 			<content target="videos" limit="1" sortby="lastplayed" sortorder="descending" browse="never">videodb://inprogresstvshows/</content>
 		</control>
 
-		<!-- films in progress -->
+		<!-- films in progress (0.9.8: hidden with Films; moves up into the episode's place when Series is hidden) -->
 		<control type="list" id="9140">
+			<visible>!Skin.HasSetting(HideMenu.Movies)</visible>
+			<animation effect="slide" start="0,0" end="0,-358" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 			<left>1010</left>
 			<top>520</top>
 			<width>890</width>
@@ -727,8 +769,13 @@
 			<onleft condition="$EXP[Home_HasStopped]">9120</onleft>
 			<onleft>9152</onleft>
 			<onright>noop</onright>
-			<ondown>9004</ondown>
-			<onback>9001</onback>
+			<ondown condition="!Skin.HasSetting(HideMenu.Search)">9004</ondown>
+			<ondown condition="Skin.HasSetting(HideMenu.Search)">$VAR[Home_FirstNavWord]</ondown>
+			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<itemlayout width="404" height="440">
 				<include>Home_FilmItem</include>
 			</itemlayout>
@@ -745,7 +792,7 @@
 			<font>hand_44</font>
 			<textcolor>ink_faint</textcolor>
 			<label>$LOCALIZE[31349]</label>
-			<visible>!$EXP[Home_HasBig] + !$EXP[Home_HasFilms] + !Container(9130).IsUpdating + !Container(9132).IsUpdating</visible>
+			<visible>!$EXP[Home_HasBig] + !$EXP[Home_HasFilms] + !Container(9130).IsUpdating + !Container(9132).IsUpdating + ![Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows)]</visible>
 		</control>
 	</include>
 	<variable name="Home_PlayingTitle">
@@ -993,6 +1040,7 @@
 				<include>KS_PenWordLook</include>
 				<label>$PARAM[label]</label>
 				<onup>$PARAM[onup]</onup>
+				<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
 				<onclick>SetProperty(keepsake.navfrom,$PARAM[id],home)</onclick>
 				<onclick>$PARAM[onclick]</onclick>
 				<visible>$PARAM[visible]</visible>
@@ -1031,30 +1079,34 @@
 			<include content="Home_NavDot"><param name="id" value="9016"/><param name="visible" value="Player.HasMedia"/></include>
 			<include content="Home_NavWord">
 				<param name="id" value="9001"/>
+				<param name="visible" value="!Skin.HasSetting(HideMenu.Movies)"/>
 				<param name="label" value="films"/>
 				<param name="onclick" value="ActivateWindow(1161)"/>
 			</include>
-			<include content="Home_NavDot"><param name="id" value="9011"/></include>
+			<include content="Home_NavDot"><param name="id" value="9011"/><param name="visible" value="!Skin.HasSetting(HideMenu.Movies)"/></include>
 			<include content="Home_NavWord">
 				<param name="id" value="9002"/>
+				<param name="visible" value="!Skin.HasSetting(HideMenu.TVShows)"/>
 				<param name="label" value="series"/>
 				<param name="onclick" value="ActivateWindow(Videos,videodb://tvshows/titles/,return)"/>
 			</include>
-			<include content="Home_NavDot"><param name="id" value="9012"/></include>
+			<include content="Home_NavDot"><param name="id" value="9012"/><param name="visible" value="!Skin.HasSetting(HideMenu.TVShows)"/></include>
 			<include content="Home_NavWord">
 				<param name="id" value="9003"/>
+				<param name="visible" value="!Skin.HasSetting(HideMenu.Music)"/>
 				<param name="label" value="music"/>
 				<param name="onup" value="9152"/>
 				<param name="onclick" value="ActivateWindow(Music,musicdb://albums/,return)"/>
 			</include>
-			<include content="Home_NavDot"><param name="id" value="9013"/></include>
+			<include content="Home_NavDot"><param name="id" value="9013"/><param name="visible" value="!Skin.HasSetting(HideMenu.Music)"/></include>
 			<include content="Home_NavWord">
 				<param name="id" value="9004"/>
+				<param name="visible" value="!Skin.HasSetting(HideMenu.Search)"/>
 				<param name="label" value="search"/>
 				<param name="onup" value="$VAR[Home_NavUpRight]"/>
 				<param name="onclick" value="ActivateWindow(1150)"/>
 			</include>
-			<include content="Home_NavDot"><param name="id" value="9014"/></include>
+			<include content="Home_NavDot"><param name="id" value="9014"/><param name="visible" value="!Skin.HasSetting(HideMenu.Search)"/></include>
 			<include content="Home_NavWord">
 				<param name="id" value="9005"/>
 				<param name="label" value="settings"/>
@@ -1074,4 +1126,267 @@
 		<value condition="Player.HasVideo">ActivateWindow(fullscreenvideo)</value>
 		<value>ActivateWindow(visualisation)</value>
 	</variable>
+
+	<!-- ================================================================== custom rows (0.9.8, opt-in) -->
+	<!-- The next page of the album: up to three rows set up in Skin settings > Custom rows
+	     (Includes_CustomRows.xml), prints laid across the spread. Down from a nav word turns to it (only while a
+	     row has items); today's page slides up with it (Home_CustomTurn in Home.xml). Up from the first row and
+	     Back -> the nav words. The lists are always visible (a hidden container never loads); they sit off screen
+	     until a row has focus, and a row that is not set up (or empty) closes up. -->
+	<variable name="Home_DownToCustom">
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+	</variable>
+	<variable name="Home_CustomTitleColor1">
+		<value condition="Control.HasFocus(9881)">ink_bold</value>
+		<value>ink2</value>
+	</variable>
+	<variable name="Home_CustomTitleColor2">
+		<value condition="Control.HasFocus(9882)">ink_bold</value>
+		<value>ink2</value>
+	</variable>
+	<variable name="Home_CustomTitleColor3">
+		<value condition="Control.HasFocus(9883)">ink_bold</value>
+		<value>ink2</value>
+	</variable>
+	<include name="Home_CustomPrint">
+		<include content="KS_Print_Small">
+			<param name="art" value="$VAR[CustomRow_WideArt]"/>
+			<param name="stamp" value="$VAR[KS_LP_Stamp]"/>
+			<param name="stamped" value="!String.IsEmpty(ListItem.LastPlayed)"/>
+			<param name="lift" value="$PARAM[lift]"/>
+			<param name="title" value="$INFO[ListItem.Label]"/>
+		</include>
+	</include>
+	<include name="Home_CustomItem">
+		<control type="group">
+			<left>40</left>
+			<top>36</top>
+			<width>358</width>
+			<height>214</height>
+			<include>KS_TiltItem</include>
+			<include content="Home_CustomPrint"><param name="lift" value="false"/></include>
+		</control>
+		<control type="label">
+			<left>44</left>
+			<top>262</top>
+			<width>350</width>
+			<height>27</height>
+			<font>lbln_20</font>
+			<textcolor>label</textcolor>
+			<label>$INFO[ListItem.Label]</label>
+		</control>
+	</include>
+	<include name="Home_CustomItemFocused">
+		<control type="group">
+			<left>40</left>
+			<top>36</top>
+			<width>358</width>
+			<height>214</height>
+			<include>KS_TiltItem</include>
+			<control type="group">
+				<width>358</width>
+				<height>214</height>
+				<include content="KS_TiltFocus"><param name="focus" value="Control.HasFocus($PARAM[id])"/></include>
+				<include content="Home_CustomPrint"><param name="lift" value="Control.HasFocus($PARAM[id])"/></include>
+			</control>
+		</control>
+		<control type="label">
+			<left>44</left>
+			<top>262</top>
+			<width>350</width>
+			<height>27</height>
+			<font>lbln_20</font>
+			<textcolor>label</textcolor>
+			<label>$INFO[ListItem.Label]</label>
+			<visible>!Control.HasFocus($PARAM[id])</visible>
+		</control>
+		<control type="label">
+			<left>44</left>
+			<top>262</top>
+			<width>350</width>
+			<height>27</height>
+			<font>lbln_20</font>
+			<textcolor>ink_bold</textcolor>
+			<scroll>true</scroll>
+			<label>$INFO[ListItem.Label]</label>
+			<visible>Control.HasFocus($PARAM[id])</visible>
+		</control>
+		<!-- the pen underlines the print in focus (the lift alone is quiet on the dark page) -->
+		<control type="image">
+			<left>36</left>
+			<top>282</top>
+			<width>330</width>
+			<height>22</height>
+			<texture colordiffuse="ink">ks/pen_line.png</texture>
+			<visible>Control.HasFocus($PARAM[id])</visible>
+		</control>
+	</include>
+	<include name="Home_CustomPage">
+		<control type="group">
+			<top>1080</top>
+			<!-- row 1 -->
+			<control type="group">
+				<top>50</top>
+				<control type="grouplist">
+					<left>112</left>
+					<width>1700</width>
+					<height>60</height>
+					<orientation>horizontal</orientation>
+					<itemgap>24</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+					<visible>$EXP[CustomRow1On]</visible>
+					<control type="label">
+						<width>auto</width>
+						<height>60</height>
+						<font>hand_44</font>
+						<textcolor>$VAR[Home_CustomTitleColor1]</textcolor>
+						<label>$VAR[CustomRow_Title1]</label>
+					</control>
+					<control type="label">
+						<top>22</top>
+						<width>auto</width>
+						<height>27</height>
+						<font>lbl_20</font>
+						<textcolor>label</textcolor>
+						<label>$VAR[CustomRow_Count1]</label>
+					</control>
+				</control>
+				<control type="list" id="9881">
+					<left>52</left>
+					<top>40</top>
+					<width>1830</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="cubic" easing="out">260</scrolltime>
+					<preloaditems>1</preloaditems>
+					<onup>9000</onup>
+					<ondown condition="$EXP[CustomRow2On]">9882</ondown>
+					<ondown condition="$EXP[CustomRow3On]">9883</ondown>
+					<ondown>noop</ondown>
+					<onleft>noop</onleft>
+					<onright>noop</onright>
+					<onback>9000</onback>
+					<itemlayout width="404" height="300">
+						<include>Home_CustomItem</include>
+					</itemlayout>
+					<focusedlayout width="404" height="300">
+						<include content="Home_CustomItemFocused"><param name="id" value="9881"/></include>
+					</focusedlayout>
+					<include content="CustomRow_Content"><param name="row" value="1"/></include>
+				</control>
+			</control>
+			<!-- row 2 -->
+			<control type="group">
+				<top>380</top>
+				<animation effect="slide" end="0,-330" time="0" condition="!$EXP[CustomRow1On]">Conditional</animation>
+				<control type="grouplist">
+					<left>112</left>
+					<width>1700</width>
+					<height>60</height>
+					<orientation>horizontal</orientation>
+					<itemgap>24</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+					<visible>$EXP[CustomRow2On]</visible>
+					<control type="label">
+						<width>auto</width>
+						<height>60</height>
+						<font>hand_44</font>
+						<textcolor>$VAR[Home_CustomTitleColor2]</textcolor>
+						<label>$VAR[CustomRow_Title2]</label>
+					</control>
+					<control type="label">
+						<top>22</top>
+						<width>auto</width>
+						<height>27</height>
+						<font>lbl_20</font>
+						<textcolor>label</textcolor>
+						<label>$VAR[CustomRow_Count2]</label>
+					</control>
+				</control>
+				<control type="list" id="9882">
+					<left>52</left>
+					<top>40</top>
+					<width>1830</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="cubic" easing="out">260</scrolltime>
+					<preloaditems>1</preloaditems>
+					<onup condition="$EXP[CustomRow1On]">9881</onup>
+					<onup>9000</onup>
+					<ondown condition="$EXP[CustomRow3On]">9883</ondown>
+					<ondown>noop</ondown>
+					<onleft>noop</onleft>
+					<onright>noop</onright>
+					<onback>9000</onback>
+					<itemlayout width="404" height="300">
+						<include>Home_CustomItem</include>
+					</itemlayout>
+					<focusedlayout width="404" height="300">
+						<include content="Home_CustomItemFocused"><param name="id" value="9882"/></include>
+					</focusedlayout>
+					<include content="CustomRow_Content"><param name="row" value="2"/></include>
+				</control>
+			</control>
+			<!-- row 3 -->
+			<control type="group">
+				<top>710</top>
+				<animation effect="slide" end="0,-330" time="0" condition="!$EXP[CustomRow1On]">Conditional</animation>
+				<animation effect="slide" end="0,-330" time="0" condition="!$EXP[CustomRow2On]">Conditional</animation>
+				<control type="grouplist">
+					<left>112</left>
+					<width>1700</width>
+					<height>60</height>
+					<orientation>horizontal</orientation>
+					<itemgap>24</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+					<visible>$EXP[CustomRow3On]</visible>
+					<control type="label">
+						<width>auto</width>
+						<height>60</height>
+						<font>hand_44</font>
+						<textcolor>$VAR[Home_CustomTitleColor3]</textcolor>
+						<label>$VAR[CustomRow_Title3]</label>
+					</control>
+					<control type="label">
+						<top>22</top>
+						<width>auto</width>
+						<height>27</height>
+						<font>lbl_20</font>
+						<textcolor>label</textcolor>
+						<label>$VAR[CustomRow_Count3]</label>
+					</control>
+				</control>
+				<control type="list" id="9883">
+					<left>52</left>
+					<top>40</top>
+					<width>1830</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="cubic" easing="out">260</scrolltime>
+					<preloaditems>1</preloaditems>
+					<onup condition="$EXP[CustomRow2On]">9882</onup>
+					<onup condition="$EXP[CustomRow1On]">9881</onup>
+					<onup>9000</onup>
+					<ondown>noop</ondown>
+					<onleft>noop</onleft>
+					<onright>noop</onright>
+					<onback>9000</onback>
+					<itemlayout width="404" height="300">
+						<include>Home_CustomItem</include>
+					</itemlayout>
+					<focusedlayout width="404" height="300">
+						<include content="Home_CustomItemFocused"><param name="id" value="9883"/></include>
+					</focusedlayout>
+					<include content="CustomRow_Content"><param name="row" value="3"/></include>
+				</control>
+			</control>
+		</control>
+	</include>
+	<!-- today's page and the custom page move together: one page up while a custom row has focus -->
+	<include name="Home_CustomTurn">
+		<animation type="Conditional" condition="$EXP[CustomRowsFocus] + !Skin.HasSetting(keepsake.reducemotion)" reversible="true"><effect type="slide" start="0,0" end="0,-1080" time="360" tween="cubic" easing="out"/></animation>
+		<animation type="Conditional" condition="$EXP[CustomRowsFocus] + Skin.HasSetting(keepsake.reducemotion)" reversible="true"><effect type="slide" start="0,0" end="0,-1080" time="0"/></animation>
+	</include>
 </includes>

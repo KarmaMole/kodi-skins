@@ -475,7 +475,63 @@
 	<variable name="SkinSet_ResetLabel">
 		<value condition="!String.IsEmpty(Window(Home).Property(void.resetarmed))">OK again to reset</value>
 	</variable>
+	<variable name="SkinSet_MenuLabel_Movies">
+		<value condition="Skin.HasSetting(HideMenu.Movies)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
+	<variable name="SkinSet_MenuLabel_TVShows">
+		<value condition="Skin.HasSetting(HideMenu.TVShows)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
+	<variable name="SkinSet_MenuLabel_Music">
+		<value condition="Skin.HasSetting(HideMenu.Music)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
+	<variable name="SkinSet_MenuLabel_MusicVideos">
+		<value condition="Skin.HasSetting(HideMenu.MusicVideos)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
+	<variable name="SkinSet_MenuLabel_LiveTV">
+		<value condition="Skin.HasSetting(HideMenu.LiveTV)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
+	<variable name="SkinSet_MenuLabel_Weather">
+		<value condition="Skin.HasSetting(HideMenu.Weather)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
+	<variable name="SkinSet_MenuLabel_Addons">
+		<value condition="Skin.HasSetting(HideMenu.Addons)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
+	<variable name="SkinSet_MenuLabel_Favourites">
+		<value condition="Skin.HasSetting(HideMenu.Favourites)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
+	<variable name="SkinSet_MenuLabel_Pictures">
+		<value condition="Skin.HasSetting(HideMenu.Pictures)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
+	<variable name="SkinSet_MenuLabel_Files">
+		<value condition="Skin.HasSetting(HideMenu.Files)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
+	<variable name="SkinSet_MenuLabel_Search">
+		<value condition="Skin.HasSetting(HideMenu.Search)">$LOCALIZE[31348]</value>
+		<value>$LOCALIZE[31347]</value>
+	</variable>
 	<variable name="SkinSet_Help">
+		<value condition="Control.HasFocus(9622) | Control.HasFocus(9623) | Control.HasFocus(9624)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9611)">$LOCALIZE[31341][CR][CR]$LOCALIZE[31346]</value>
+		<value condition="Control.HasFocus(9612)">$LOCALIZE[31342][CR][CR]$LOCALIZE[31346]</value>
+		<value condition="Control.HasFocus(9613)">$LOCALIZE[31343][CR][CR]$LOCALIZE[31346]</value>
+		<value condition="Control.HasFocus(9614)">$LOCALIZE[31345][CR][CR]$LOCALIZE[31346]</value>
+		<value condition="Control.HasFocus(9615)">$LOCALIZE[31345][CR][CR]$LOCALIZE[31346]</value>
+		<value condition="Control.HasFocus(9616)">$LOCALIZE[31345][CR][CR]$LOCALIZE[31346]</value>
+		<value condition="Control.HasFocus(9617)">$LOCALIZE[31345][CR][CR]$LOCALIZE[31346]</value>
+		<value condition="Control.HasFocus(9618)">$LOCALIZE[31345][CR][CR]$LOCALIZE[31346]</value>
+		<value condition="Control.HasFocus(9619)">$LOCALIZE[31345][CR][CR]$LOCALIZE[31346]</value>
+		<value condition="Control.HasFocus(9620)">$LOCALIZE[31345][CR][CR]$LOCALIZE[31346]</value>
+		<value condition="Control.HasFocus(9621)">$LOCALIZE[31344][CR][CR]$LOCALIZE[31346]</value>
 		<value condition="Control.HasFocus(9601)">How long you rest before Home and the info page tell you more: the meta line, then the plot, then the artwork. Any button press takes it all back to the title.</value>
 		<value condition="Control.HasFocus(9602)">After a longer rest the item's fanart rises behind the text like a lamp being turned up. Off keeps every screen text on black.</value>
 		<value condition="Control.HasFocus(9603)">How bright the risen artwork gets. The text keeps a dark ramp behind it at every level.</value>

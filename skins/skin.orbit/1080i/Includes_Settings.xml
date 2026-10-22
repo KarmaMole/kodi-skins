@@ -452,6 +452,25 @@
 	<!-- ============================================================ Orbit skin settings row -->
 	<!-- One setting: label left, value (amber) right via label2; Left = previous, Right / OK = next.
 	     params: id, label, value, next, prev, also/also2/also3 (extra actions), enable -->
+	<!-- 0.9.12 custom rows: the Set_Row look; OK opens the row's options. params: id, row (1-3), label -->
+	<include name="Set_CustomRow">
+		<definition>
+			<control type="button" id="$PARAM[id]">
+				<width>1000</width>
+				<height>80</height>
+				<font>text_26_med</font>
+				<textcolor>text_secondary</textcolor>
+				<focusedcolor>text_primary</focusedcolor>
+				<disabledcolor>disabled</disabledcolor>
+				<textoffsetx>28</textoffsetx>
+				<texturefocus border="8">focus/row.png</texturefocus>
+				<texturenofocus border="0,0,0,2" colordiffuse="line_soft">dialogs/row_rule.png</texturenofocus>
+				<label>$PARAM[label]</label>
+				<label2>[COLOR accent]$VAR[CustomRow_Value$PARAM[row]][/COLOR]</label2>
+				<include content="CustomRows_SettingsClick"><param name="row" value="$PARAM[row]"/><param name="heading" value="$PARAM[label]"/></include>
+			</control>
+		</definition>
+	</include>
 	<include name="Set_Row">
 		<param name="also">noop</param>
 		<param name="also2">noop</param>

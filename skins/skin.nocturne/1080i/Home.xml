@@ -10,14 +10,23 @@
 	  Search/Settings -> the current room.
 	  On the wall: Left/Right/Up/Down walk the frames (make_home.py NAV); Up from a top frame -> the word.
 	  Back from anywhere on the wall/shelf -> the section word. Back on the cornice: nothing (Home).
+	  0.9.9 custom rows: Down from a frame with nothing below it / from the shelf -> the back rooms 9881-9883
+	  (Includes_Gallery.xml, one at a time); Up returns, Back -> the cornice.
 	Draw order = Kodi's: wall -> frames + plaques -> torch (dust, shroud, halo) -> lit labels -> cornice words.
 -->
 <window>
 	<defaultcontrol always="true">9001</defaultcontrol>
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>bg</backgroundcolor>
-	<onload condition="String.IsEqual(Window(Home).Property(nocturne.section),series)">SetFocus(9002)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(nocturne.section),music)">SetFocus(9003)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(9002)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(nocturne.section),music) + !Skin.HasSetting(HideMenu.Music)">SetFocus(9003)</onload>
+	<!-- 0.9.9: the remembered room (or Films, the default) is hidden in Skin settings (HideMenu.*): focus the first word
+	     shown; its onfocus sets the room. Settings (9005) never hides. -->
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(nocturne.section)) | String.IsEqual(Window(Home).Property(nocturne.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(nocturne.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(nocturne.section),music) + Skin.HasSetting(HideMenu.Music)]] + !Skin.HasSetting(HideMenu.Movies)">SetFocus(9001)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(nocturne.section)) | String.IsEqual(Window(Home).Property(nocturne.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(nocturne.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(nocturne.section),music) + Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(9002)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(nocturne.section)) | String.IsEqual(Window(Home).Property(nocturne.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(nocturne.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(nocturne.section),music) + Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(9003)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(nocturne.section)) | String.IsEqual(Window(Home).Property(nocturne.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(nocturne.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(nocturne.section),music) + Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">SetFocus(9004)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(nocturne.section)) | String.IsEqual(Window(Home).Property(nocturne.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(nocturne.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(nocturne.section),music) + Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">SetFocus(9005)</onload>
 	<!-- TMDb Helper colour service: the halo takes the lit picture's colour (optional add-on) -->
 	<onload condition="$EXP[HasTMDbHelper] + !Skin.HasSetting(TMDbHelper.EnableColors) + Skin.HasSetting(nocturne.halocolour)">Skin.SetBool(TMDbHelper.EnableColors)</onload>
 	<onload condition="Skin.HasSetting(TMDbHelper.EnableColors) + !Skin.HasSetting(nocturne.halocolour)">Skin.Reset(TMDbHelper.EnableColors)</onload>
@@ -42,8 +51,11 @@
 		<include>Home_WallLabels_films</include>
 		<include>Home_WallLabels_series</include>
 		<include>Home_MusicRoom</include>
+		<!-- 0.9.9: the back rooms (custom rows) -->
+		<include>Home_CustomRooms</include>
+		<include>CustomRows_Probes</include>
 		<control type="group">
-			<visible>String.IsEqual(Window(Home).Property(nocturne.section),music)</visible>
+			<visible>String.IsEqual(Window(Home).Property(nocturne.section),music) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomRowsFocus]</visible>
 			<include>Anim_SectionSwap</include>
 			<include content="Noc_NowPlayingRail">
 				<param name="visible" value="Player.HasMedia"/>

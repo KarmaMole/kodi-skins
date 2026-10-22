@@ -13,7 +13,7 @@
 	  field wipe (Home_Fields, Container(300).OnNext/OnPrevious picks the direction).
 
 	Ids
-	  300 section list (films, series, music, search)
+	  300 section list (films, series, music, search); films / series / music hide with HideMenu.* (0.9.13)
 	  Films   9101 spotlight (random unwatched 7.5+, rotates) · 311 continue (in progress, else top rated)
 	          312 newest (recently added) · 313 All
 	  Series  9103 spotlight (random show 7.5+) · 321 next up / in progress (else top rated) · 322 new episodes · 323 All
@@ -28,12 +28,14 @@
 -->
 <includes>
 	<!-- ============================================================== expressions -->
+	<!-- 0.9.13: Films / Series / Music can be hidden in Skin settings (HideMenu.Movies / TVShows / Music): the
+	     positions below count only the sections that are shown. Search (with the settings and power) never hides. -->
 	<!-- Section of list 300 by position (Container(300).ListItem.* resolves to the drawn item inside other
 	     lists' item layouts, so the colour of prints there needs a container-level infolabel) -->
-	<expression name="Home_SecFilms">!Integer.IsGreater(Container(300).CurrentItem,1)</expression>
-	<expression name="Home_SecSeries">Integer.IsEqual(Container(300).CurrentItem,2)</expression>
-	<expression name="Home_SecMusic">Integer.IsEqual(Container(300).CurrentItem,3)</expression>
-	<expression name="Home_SecSearch">Integer.IsEqual(Container(300).CurrentItem,4)</expression>
+	<expression name="Home_SecFilms">!Skin.HasSetting(HideMenu.Movies) + [!Integer.IsGreater(Container(300).CurrentItem,1)]</expression>
+	<expression name="Home_SecSeries">!Skin.HasSetting(HideMenu.TVShows) + [[!Skin.HasSetting(HideMenu.Movies) + Integer.IsEqual(Container(300).CurrentItem,2)] | [Skin.HasSetting(HideMenu.Movies) + !Integer.IsGreater(Container(300).CurrentItem,1)]]</expression>
+	<expression name="Home_SecMusic">!Skin.HasSetting(HideMenu.Music) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Integer.IsEqual(Container(300).CurrentItem,3)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Integer.IsEqual(Container(300).CurrentItem,2)] | [Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Integer.IsEqual(Container(300).CurrentItem,2)] | [Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Integer.IsGreater(Container(300).CurrentItem,1)]]</expression>
+	<expression name="Home_SecSearch">[[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Integer.IsEqual(Container(300).CurrentItem,4)] | [!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Integer.IsEqual(Container(300).CurrentItem,3)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Integer.IsEqual(Container(300).CurrentItem,3)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Integer.IsEqual(Container(300).CurrentItem,2)] | [Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Integer.IsEqual(Container(300).CurrentItem,3)] | [Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Integer.IsEqual(Container(300).CurrentItem,2)] | [Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Integer.IsEqual(Container(300).CurrentItem,2)] | [Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Integer.IsGreater(Container(300).CurrentItem,1)]]</expression>
 	<expression name="Home_HasNextUpHelper">System.AddonIsEnabled(script.embuary.helper)</expression>
 	<expression name="Home_MusicBar">Player.HasAudio + !Player.HasVideo</expression>
 	<expression name="Home_SpotFocus">Control.HasFocus(9111) | Control.HasFocus(9113) | Control.HasFocus(9114)</expression>
@@ -308,18 +310,21 @@
 					<label>$LOCALIZE[31326]</label>
 					<label2>$INFO[Window(Home).Property(Movies.Count)]</label2>
 					<property name="section">films</property>
+					<visible>!Skin.HasSetting(HideMenu.Movies)</visible>
 					<onclick>ActivateWindow(Videos,videodb://movies/titles/,return)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[31327]</label>
 					<label2>$INFO[Window(Home).Property(TVShows.Count)]</label2>
 					<property name="section">series</property>
+					<visible>!Skin.HasSetting(HideMenu.TVShows)</visible>
 					<onclick>ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[31328]</label>
 					<label2>$INFO[Window(Home).Property(Music.AlbumsCount)]</label2>
 					<property name="section">music</property>
+					<visible>!Skin.HasSetting(HideMenu.Music)</visible>
 					<onclick>ActivateWindow(Music,musicdb://albums/,return)</onclick>
 				</item>
 				<item>
@@ -714,9 +719,11 @@
 	<!-- Tile art: tinted print (unfocused) / full colour + frame (focused). params: listid, focused (bool), art -->
 	<include name="Home_TileArt">
 		<param name="art">$VAR[Home_PosterArt]</param>
+		<param name="title">$INFO[ListItem.Label]</param>
 		<definition>
 			<include content="DT_Artwork">
 				<param name="art" value="$PARAM[art]"/>
+				<param name="title" value="$PARAM[title]"/>
 				<param name="tint" value="$VAR[SectionTint]"/>
 				<param name="dots" value="true"/>
 			</include>
@@ -725,11 +732,13 @@
 	<include name="Home_TileArtFocused">
 		<param name="listid"/>
 		<param name="art">$VAR[Home_PosterArt]</param>
+		<param name="title">$INFO[ListItem.Label]</param>
 		<definition>
 			<control type="group">
 				<visible>!Control.HasFocus($PARAM[listid])</visible>
 				<include content="DT_Artwork">
 					<param name="art" value="$PARAM[art]"/>
+					<param name="title" value="$PARAM[title]"/>
 					<param name="tint" value="$VAR[SectionTint]"/>
 					<param name="dots" value="true"/>
 				</include>
@@ -738,6 +747,7 @@
 				<visible>Control.HasFocus($PARAM[listid])</visible>
 				<include content="DT_Artwork">
 					<param name="art" value="$PARAM[art]"/>
+					<param name="title" value="$PARAM[title]"/>
 				</include>
 			</control>
 		</definition>
@@ -914,6 +924,7 @@
 					<onclick>$PARAM[onclick]</onclick>
 					<onleft>$PARAM[onleft]</onleft>
 					<onup>$PARAM[onup]</onup>
+					<include>Home_CustomDown</include>
 					<ondown>$PARAM[ondown]</ondown>
 					<onback>300</onback>
 				</control>
@@ -1002,6 +1013,7 @@
 		<control type="group">
 			<visible>$EXP[Home_SecFilms]</visible>
 			<include>Home_AnimSection</include>
+			<include>Home_AnimCustom</include>
 			<include content="Home_Spotlight">
 				<param name="id" value="9101"/>
 				<param name="btn" value="9111"/>
@@ -1049,6 +1061,7 @@
 		<control type="group">
 			<visible>$EXP[Home_SecSeries]</visible>
 			<include>Home_AnimSection</include>
+			<include>Home_AnimCustom</include>
 			<include content="Home_Spotlight">
 				<param name="id" value="9103"/>
 				<param name="btn" value="9113"/>
@@ -1096,6 +1109,7 @@
 		<control type="group">
 			<visible>$EXP[Home_SecMusic]</visible>
 			<include>Home_AnimSection</include>
+			<include>Home_AnimCustom</include>
 			<include content="Home_Spotlight">
 				<param name="id" value="9104"/>
 				<param name="btn" value="9114"/>
@@ -1151,6 +1165,7 @@
 		<param name="font">an_60</param>
 		<param name="label_top">288</param>
 		<param name="label_h">80</param>
+		<param name="custom">false</param>
 		<definition>
 			<control type="group">
 				<left>$PARAM[left]</left>
@@ -1169,6 +1184,7 @@
 					<onleft>$PARAM[onleft]</onleft>
 					<onright>$PARAM[onright]</onright>
 					<onup>$PARAM[onup]</onup>
+					<include condition="$PARAM[custom]">Home_CustomDown</include>
 					<ondown>$PARAM[ondown]</ondown>
 					<onback>300</onback>
 				</control>
@@ -1218,6 +1234,7 @@
 		<control type="group">
 			<visible>$EXP[Home_SecSearch]</visible>
 			<include>Home_AnimSection</include>
+			<include>Home_AnimCustom</include>
 			<include content="Home_Block">
 				<param name="id" value="341"/>
 				<param name="left" value="824"/>
@@ -1262,6 +1279,7 @@
 			</include>
 			<include content="Home_Block">
 				<param name="id" value="342"/>
+				<param name="custom" value="true"/>
 				<param name="left" value="824"/>
 				<param name="top" value="616"/>
 				<param name="width" value="272"/>
@@ -1275,6 +1293,7 @@
 			</include>
 			<include content="Home_Block">
 				<param name="id" value="343"/>
+				<param name="custom" value="true"/>
 				<param name="left" value="1128"/>
 				<param name="top" value="616"/>
 				<param name="width" value="272"/>
@@ -1288,6 +1307,7 @@
 			</include>
 			<include content="Home_Block">
 				<param name="id" value="344"/>
+				<param name="custom" value="true"/>
 				<param name="left" value="1432"/>
 				<param name="top" value="616"/>
 				<param name="width" value="272"/>
@@ -1301,6 +1321,7 @@
 			</include>
 			<include content="Home_AllTile">
 				<param name="id" value="345"/>
+				<param name="custom" value="true"/>
 				<param name="label" value="Power"/>
 				<param name="onclick" value="ActivateWindow(1151)"/>
 				<param name="onleft" value="344"/>
@@ -1380,6 +1401,165 @@
 				<midtexture colordiffuse="$VAR[SectionColor]">common/white.png</midtexture>
 				<info>Player.Progress</info>
 			</control>
+		</control>
+	</include>
+	<!-- ================================================================ custom rows (0.9.13) -->
+	<!-- Opt-in rows from Skin settings > Custom rows (Includes_CustomRows.xml, generated). The stack stays as it is:
+	     the rows are the page under the bento. Down from the All tile (or a bottom Search block) swaps the bento for
+	     up to three print strips (132x198 tiles, the section's one-colour print, the focused tile in full colour + ink
+	     frame), each under an 8px rule with its name and count, in the section's colours. Up / Down between rows, Up
+	     from the first row -> the All tile (Search: the first bottom block); Left from the first tile / Back -> stack.
+	     The strips are never <visible>-hidden (hidden lists don't load): they fade in only while one has focus, and
+	     the section bento fades out meanwhile (Home_AnimCustom; a faded control can still take focus back). -->
+	<variable name="Home_DownToCustom">
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+	</variable>
+	<variable name="Home_UpFromCustom">
+		<value condition="$EXP[Home_SecSeries]">SetFocus(323)</value>
+		<value condition="$EXP[Home_SecMusic]">SetFocus(333)</value>
+		<value condition="$EXP[Home_SecSearch]">SetFocus(342)</value>
+		<value>SetFocus(313)</value>
+	</variable>
+	<include name="Home_CustomDown">
+		<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
+	</include>
+	<include name="Home_AnimCustom">
+		<animation effect="fade" start="100" end="0" time="160" condition="$EXP[CustomRowsFocus]">Conditional</animation>
+	</include>
+	<include name="Home_CustomTile">
+		<param name="focused">false</param>
+		<definition>
+			<control type="group">
+				<left>24</left>
+				<top>24</top>
+				<width>132</width>
+				<height>198</height>
+				<include condition="$PARAM[focused]">Anim_FocusZoom</include>
+				<include content="Home_TileArt" condition="!$PARAM[focused]"><param name="art" value="$VAR[CustomRow_PosterArt]"/><param name="title" value="$VAR[Home_CustomTileTitle]"/></include>
+				<include content="Home_TileArtFocused" condition="$PARAM[focused]"><param name="listid" value="$PARAM[id]"/><param name="art" value="$VAR[CustomRow_PosterArt]"/><param name="title" value="$VAR[Home_CustomTileTitle]"/></include>
+				<!-- an add-on's menu folder (no art): its name in the UI face (Anton 40 breaks words on a 132 px tile) -->
+				<control type="textbox">
+					<left>10</left>
+					<top>12</top>
+					<width>116</width>
+					<height>174</height>
+					<font>ui_22</font>
+					<textcolor>$VAR[SectionColor]</textcolor>
+					<label>$INFO[ListItem.Label]</label>
+					<visible>$EXP[CustomRow_ItemIsMenu]</visible>
+				</control>
+				<include>DT_WatchedMarkers</include>
+				<include content="DT_FocusFrame" condition="$PARAM[focused]">
+					<param name="visible" value="Control.HasFocus($PARAM[id])"/>
+				</include>
+			</control>
+		</definition>
+	</include>
+	<variable name="Home_CustomTileTitle">
+		<value condition="!$EXP[CustomRow_ItemIsMenu]">$INFO[ListItem.Label]</value>
+	</variable>
+	<!-- one row: params n, id, after1 / after2 (row 1 / 2 above it), up / down (navigation ids, numeric) -->
+	<include name="Home_CustomRow">
+		<definition>
+			<control type="group">
+				<left>0</left>
+				<top>192</top>
+				<animation effect="slide" start="0,0" end="0,280" time="0" condition="$PARAM[after1] + $EXP[CustomRow1On]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,280" time="0" condition="$PARAM[after2] + $EXP[CustomRow2On]">Conditional</animation>
+				<control type="group">
+					<visible>$EXP[CustomRow$PARAM[n]On]</visible>
+					<include content="DT_RuleThick">
+						<param name="top" value="0"/>
+						<param name="left" value="824"/>
+						<param name="width" value="1032"/>
+					</include>
+					<control type="label">
+						<left>824</left>
+						<top>22</top>
+						<width>620</width>
+						<height>24</height>
+						<font>cap_20</font>
+						<textcolor>$VAR[SectionText]</textcolor>
+						<label>$VAR[CustomRow_Title$PARAM[n]]</label>
+					</control>
+					<control type="label">
+						<left>1456</left>
+						<top>22</top>
+						<width>400</width>
+						<height>24</height>
+						<align>right</align>
+						<font>capt_20</font>
+						<textcolor>$VAR[SectionText]</textcolor>
+						<label>$INFO[Container($PARAM[id]).ListItem.Label]</label>
+						<visible>Control.HasFocus($PARAM[id])</visible>
+					</control>
+					<control type="label">
+						<left>1456</left>
+						<top>22</top>
+						<width>400</width>
+						<height>24</height>
+						<align>right</align>
+						<font>cap_20</font>
+						<textcolor>$VAR[SectionText2]</textcolor>
+						<label>$VAR[CustomRow_Count$PARAM[n]]</label>
+						<visible>!Control.HasFocus($PARAM[id])</visible>
+					</control>
+				</control>
+				<control type="list" id="$PARAM[id]">
+					<left>800</left>
+					<top>44</top>
+					<width>1080</width>
+					<height>246</height>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="cubic" easing="out">200</scrolltime>
+					<preloaditems>1</preloaditems>
+					<onleft>300</onleft>
+					<onright>noop</onright>
+					<include>Home_CustomRowNav$PARAM[n]</include>
+					<onback>300</onback>
+					<itemlayout width="164" height="246">
+						<include content="Home_CustomTile"><param name="id" value="$PARAM[id]"/></include>
+					</itemlayout>
+					<focusedlayout width="164" height="246">
+						<include content="Home_CustomTile"><param name="id" value="$PARAM[id]"/><param name="focused" value="true"/></include>
+					</focusedlayout>
+					<include content="CustomRow_Content"><param name="row" value="$PARAM[n]"/></include>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="Home_CustomRowNav1">
+		<definition>
+			<onup>$VAR[Home_UpFromCustom]</onup>
+			<ondown condition="$EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="!$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
+			<ondown>noop</ondown>
+		</definition>
+	</include>
+	<include name="Home_CustomRowNav2">
+		<definition>
+			<onup condition="$EXP[CustomRow1On]">9881</onup>
+			<onup>$VAR[Home_UpFromCustom]</onup>
+			<ondown condition="$EXP[CustomRow3On]">9883</ondown>
+			<ondown>noop</ondown>
+		</definition>
+	</include>
+	<include name="Home_CustomRowNav3">
+		<definition>
+			<onup condition="$EXP[CustomRow2On]">9882</onup>
+			<onup condition="!$EXP[CustomRow2On] + $EXP[CustomRow1On]">9881</onup>
+			<onup>$VAR[Home_UpFromCustom]</onup>
+			<ondown>noop</ondown>
+		</definition>
+	</include>
+	<include name="Home_SectionCustom">
+		<control type="group">
+			<animation effect="fade" start="100" end="0" time="160" condition="!$EXP[CustomRowsFocus]">Conditional</animation>
+			<include content="Home_CustomRow"><param name="n" value="1"/><param name="id" value="9881"/><param name="after1" value="false"/><param name="after2" value="false"/></include>
+			<include content="Home_CustomRow"><param name="n" value="2"/><param name="id" value="9882"/><param name="after1" value="true"/><param name="after2" value="false"/></include>
+			<include content="Home_CustomRow"><param name="n" value="3"/><param name="id" value="9883"/><param name="after1" value="true"/><param name="after2" value="true"/></include>
 		</control>
 	</include>
 </includes>

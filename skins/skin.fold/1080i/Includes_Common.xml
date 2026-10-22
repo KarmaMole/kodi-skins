@@ -222,50 +222,75 @@
 
 	<!-- Decorative tab strip for every full-screen window except Home. The active tab follows the
 	     section expressions (Expressions.xml). param dim: fade the inactive tabs (spread open). -->
+	<!-- 0.9.10: tabs hidden in Skin settings (HideMenu.*) are left out here too; the rest close up -->
 	<include name="Fold_Tabs">
 		<param name="dim">false</param>
 		<definition>
 			<control type="group">
-				<include content="Fold_TabLook">
-					<param name="x" value="96"/>
-					<param name="color" value="verm"/>
-					<param name="label" value="$LOCALIZE[31200]"/>
-					<param name="count" value="$INFO[Window(Home).Property(fold.n.films)]"/>
-					<param name="active" value="![$EXP[SectionSeries] | $EXP[SectionMusic] | $EXP[SectionSearch] | $EXP[SectionSettings]]"/>
-					<param name="dim" value="$PARAM[dim] + [$EXP[SectionSeries] | $EXP[SectionMusic] | $EXP[SectionSearch] | $EXP[SectionSettings]]"/>
-				</include>
-				<include content="Fold_TabLook">
-					<param name="x" value="302"/>
-					<param name="color" value="cobalt"/>
-					<param name="label" value="$LOCALIZE[31201]"/>
-					<param name="count" value="$INFO[Window(Home).Property(fold.n.series)]"/>
-					<param name="active" value="$EXP[SectionSeries]"/>
-					<param name="dim" value="$PARAM[dim] + !$EXP[SectionSeries]"/>
-				</include>
-				<include content="Fold_TabLook">
-					<param name="x" value="508"/>
-					<param name="color" value="mari"/>
-					<param name="text" value="ink"/>
-					<param name="text2" value="cap"/>
-					<param name="label" value="$LOCALIZE[31202]"/>
-					<param name="count" value="$INFO[Window(Home).Property(fold.n.music)]"/>
-					<param name="active" value="$EXP[SectionMusic]"/>
-					<param name="dim" value="$PARAM[dim] + !$EXP[SectionMusic]"/>
-				</include>
-				<include content="Fold_TabLook">
-					<param name="x" value="714"/>
-					<param name="color" value="jade"/>
-					<param name="label" value="$LOCALIZE[31203]"/>
-					<param name="active" value="$EXP[SectionSearch]"/>
-					<param name="dim" value="$PARAM[dim] + !$EXP[SectionSearch]"/>
-				</include>
-				<include content="Fold_TabLook">
-					<param name="x" value="920"/>
-					<param name="color" value="graph"/>
-					<param name="label" value="$LOCALIZE[31204]"/>
-					<param name="active" value="$EXP[SectionSettings]"/>
-					<param name="dim" value="$PARAM[dim] + !$EXP[SectionSettings]"/>
-				</include>
+				<control type="group">
+					<visible>!Skin.HasSetting(HideMenu.Movies)</visible>
+					<include content="Fold_TabLook">
+						<param name="x" value="96"/>
+						<param name="color" value="verm"/>
+						<param name="label" value="$LOCALIZE[31200]"/>
+						<param name="count" value="$INFO[Window(Home).Property(fold.n.films)]"/>
+						<param name="active" value="![$EXP[SectionSeries] | $EXP[SectionMusic] | $EXP[SectionSearch] | $EXP[SectionSettings]]"/>
+						<param name="dim" value="$PARAM[dim] + [$EXP[SectionSeries] | $EXP[SectionMusic] | $EXP[SectionSearch] | $EXP[SectionSettings]]"/>
+					</include>
+				</control>
+				<control type="group">
+					<visible>!Skin.HasSetting(HideMenu.TVShows)</visible>
+					<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+					<include content="Fold_TabLook">
+						<param name="x" value="302"/>
+						<param name="color" value="cobalt"/>
+						<param name="label" value="$LOCALIZE[31201]"/>
+						<param name="count" value="$INFO[Window(Home).Property(fold.n.series)]"/>
+						<param name="active" value="$EXP[SectionSeries]"/>
+						<param name="dim" value="$PARAM[dim] + !$EXP[SectionSeries]"/>
+					</include>
+				</control>
+				<control type="group">
+					<visible>!Skin.HasSetting(HideMenu.Music)</visible>
+					<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+					<include content="Fold_TabLook">
+						<param name="x" value="508"/>
+						<param name="color" value="mari"/>
+						<param name="text" value="ink"/>
+						<param name="text2" value="cap"/>
+						<param name="label" value="$LOCALIZE[31202]"/>
+						<param name="count" value="$INFO[Window(Home).Property(fold.n.music)]"/>
+						<param name="active" value="$EXP[SectionMusic]"/>
+						<param name="dim" value="$PARAM[dim] + !$EXP[SectionMusic]"/>
+					</include>
+				</control>
+				<control type="group">
+					<visible>!Skin.HasSetting(HideMenu.Search)</visible>
+					<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+					<include content="Fold_TabLook">
+						<param name="x" value="714"/>
+						<param name="color" value="jade"/>
+						<param name="label" value="$LOCALIZE[31203]"/>
+						<param name="active" value="$EXP[SectionSearch]"/>
+						<param name="dim" value="$PARAM[dim] + !$EXP[SectionSearch]"/>
+					</include>
+				</control>
+				<control type="group">
+					<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="-206,0" time="0" condition="Skin.HasSetting(HideMenu.Search)">Conditional</animation>
+					<include content="Fold_TabLook">
+						<param name="x" value="920"/>
+						<param name="color" value="graph"/>
+						<param name="label" value="$LOCALIZE[31204]"/>
+						<param name="active" value="$EXP[SectionSettings]"/>
+						<param name="dim" value="$PARAM[dim] + !$EXP[SectionSettings]"/>
+					</include>
+				</control>
 			</control>
 		</definition>
 	</include>

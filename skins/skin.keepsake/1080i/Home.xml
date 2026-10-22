@@ -11,15 +11,23 @@
 	<!-- yesterday's date in the region format, for "yesterday" notes (KS_LP_Rel) -->
 	<onload>SetProperty(keepsake.yesterday,$VAR[KS_Yesterday],home)</onload>
 	<!-- come back to the word you left from -->
-	<onload condition="!String.IsEmpty(Window(Home).Property(keepsake.navfrom))">SetFocus($INFO[Window(Home).Property(keepsake.navfrom)])</onload>
+	<onload condition="!String.IsEmpty(Window(Home).Property(keepsake.navfrom)) + ![[String.IsEqual(Window(Home).Property(keepsake.navfrom),9001) + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(keepsake.navfrom),9002) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(keepsake.navfrom),9003) + Skin.HasSetting(HideMenu.Music)] | [String.IsEqual(Window(Home).Property(keepsake.navfrom),9004) + Skin.HasSetting(HideMenu.Search)]]">SetFocus($INFO[Window(Home).Property(keepsake.navfrom)])</onload>
+	<onload condition="[[String.IsEqual(Window(Home).Property(keepsake.navfrom),9001) + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(keepsake.navfrom),9002) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(keepsake.navfrom),9003) + Skin.HasSetting(HideMenu.Music)] | [String.IsEqual(Window(Home).Property(keepsake.navfrom),9004) + Skin.HasSetting(HideMenu.Search)]] + Integer.IsGreater(Container(9110).NumItems,0)">SetFocus(9110)</onload>
 	<onload>ClearProperty(keepsake.navfrom,home)</onload>
-	<onload condition="!Integer.IsGreater(Container(9110).NumItems,0)">SetFocus(9001)</onload>
+	<!-- 0.9.8: the first word shown (HideMenu.*), not always films -->
+	<onload condition="!Integer.IsGreater(Container(9110).NumItems,0)">$VAR[Home_FirstNavWord]</onload>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>KS_Page</include>
 		<include>Home_DataLists</include>
-		<include>Home_LeftPage</include>
-		<include>Home_RightPage</include>
-		<include>Home_Nav</include>
+		<include>CustomRows_Probes</include>
+		<!-- 0.9.8: today's page turns up to the custom rows (Home_CustomPage) while one has focus -->
+		<control type="group">
+			<include>Home_CustomTurn</include>
+			<include>Home_LeftPage</include>
+			<include>Home_RightPage</include>
+			<include>Home_Nav</include>
+			<include>Home_CustomPage</include>
+		</control>
 	</controls>
 </window>

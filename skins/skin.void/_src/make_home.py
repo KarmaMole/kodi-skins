@@ -34,8 +34,30 @@ SHELVES = [
      ("videodb://tvshows/titles/", 'target="videos" sortby="lastplayed" sortorder="descending" limit="30" browse="never"')),
     (6, 9106, "Library", "static", None),
     (7, 9107, "Search", "static", None),
+    # 0.9.10 custom rows (Includes_CustomRows.xml, tools/customrows/make_customrows.py): three opt-in shelves after
+    # Search, shown only while their row has items. Their drivers are the shared row lists 9881-9883.
+    (8, 9881, "$VAR[CustomRow_Title1]", "custom", "1"),
+    (9, 9882, "$VAR[CustomRow_Title2]", "custom", "2"),
+    (10, 9883, "$VAR[CustomRow_Title3]", "custom", "3"),
 ]
 N = len(SHELVES)
+CUSTOM_N = (8, 9, 10)
+
+# Main menu items hidden in Skin settings (HideMenu.<Item>, 0.9.10). A shelf goes with its section; the Library
+# shelf (6) never hides (Settings / System live there, so Skin settings stay reachable).
+def hidden(key):
+    return f"Skin.HasSetting(HideMenu.{key})"
+
+
+SHELF_HIDE = {1: hidden("TVShows"), 2: hidden("Movies"), 3: hidden("Movies"), 4: hidden("Music"),
+              5: hidden("TVShows"), 7: hidden("Search"),
+              # custom shelves: "hidden" while their row is empty (not tied to the menu toggles)
+              8: "Integer.IsEqual(Container(9881).NumItems,0)", 9: "Integer.IsEqual(Container(9882).NumItems,0)",
+              10: "Integer.IsEqual(Container(9883).NumItems,0)"}
+
+
+def shelf_shown(n):
+    return f"!{SHELF_HIDE[n]}" if n in SHELF_HIDE else ""
 
 STATIC_ITEMS = {
     9106: [
@@ -44,20 +66,20 @@ STATIC_ITEMS = {
          "ActivateWindow(visualisation)", "Player.HasAudio + !Player.HasVideo"),
         ("$LOCALIZE[31300]", "$INFO[Player.Title]", "Playing", "ActivateWindow(fullscreenvideo)", "Player.HasVideo"),
         ("$LOCALIZE[31301]", "$INFO[Window(Home).Property(Movies.Count),, films]$INFO[Window(Home).Property(Movies.UnWatched),[COLOR sep_light]  ·  [/COLOR], unwatched]",
-         "Library", "ActivateWindow(Videos,videodb://movies/titles/,return)", "Library.HasContent(movies)"),
+         "Library", "ActivateWindow(Videos,videodb://movies/titles/,return)", "Library.HasContent(movies) + !Skin.HasSetting(HideMenu.Movies)"),
         ("$LOCALIZE[31302]", "$INFO[Window(Home).Property(TVShows.Count),, shows]$INFO[Window(Home).Property(Episodes.Count),[COLOR sep_light]  ·  [/COLOR], episodes]",
-         "Library", "ActivateWindow(Videos,videodb://tvshows/titles/,return)", "Library.HasContent(tvshows)"),
+         "Library", "ActivateWindow(Videos,videodb://tvshows/titles/,return)", "Library.HasContent(tvshows) + !Skin.HasSetting(HideMenu.TVShows)"),
         ("$LOCALIZE[31211]", "$INFO[Window(Home).Property(Music.AlbumsCount),, albums]$INFO[Window(Home).Property(Music.ArtistsCount),[COLOR sep_light]  ·  [/COLOR], artists]",
-         "Library", "ActivateWindow(Music,musicdb://albums/,return)", "Library.HasContent(music)"),
+         "Library", "ActivateWindow(Music,musicdb://albums/,return)", "Library.HasContent(music) + !Skin.HasSetting(HideMenu.Music)"),
         ("$LOCALIZE[31303]", "$INFO[Window(Home).Property(MusicVideos.Count),, videos]",
-         "Library", "ActivateWindow(Videos,videodb://musicvideos/titles/,return)", "Library.HasContent(musicvideos)"),
-        ("$LOCALIZE[31304]", "$LOCALIZE[31312]", "Library", "ActivateWindow(TVChannels)", "System.HasPVRAddon"),
+         "Library", "ActivateWindow(Videos,videodb://musicvideos/titles/,return)", "Library.HasContent(musicvideos) + !Skin.HasSetting(HideMenu.MusicVideos)"),
+        ("$LOCALIZE[31304]", "$LOCALIZE[31312]", "Library", "ActivateWindow(TVChannels)", "System.HasPVRAddon + !Skin.HasSetting(HideMenu.LiveTV)"),
         ("$LOCALIZE[31305]", "$INFO[Weather.Temperature]$INFO[Weather.Conditions,[COLOR sep_light]  ·  [/COLOR],]$INFO[Weather.Location,[COLOR sep_light]  ·  [/COLOR],]",
-         "Outside", "ActivateWindow(Weather)", "!String.IsEmpty(Weather.Conditions)"),
-        ("$LOCALIZE[31306]", "$LOCALIZE[31313]", "Elsewhere", "ActivateWindow(AddonBrowser,addons://sources/video/,return)", ""),
-        ("$LOCALIZE[31307]", "$LOCALIZE[31314]", "Elsewhere", "ActivateWindow(FavouritesBrowser)", ""),
-        ("$LOCALIZE[31308]", "$LOCALIZE[31315]", "Elsewhere", "ActivateWindow(Pictures)", ""),
-        ("$LOCALIZE[31309]", "$LOCALIZE[31316]", "Elsewhere", "ActivateWindow(Videos,sources://video/,return)", ""),
+         "Outside", "ActivateWindow(Weather)", "!String.IsEmpty(Weather.Conditions) + !Skin.HasSetting(HideMenu.Weather)"),
+        ("$LOCALIZE[31306]", "$LOCALIZE[31313]", "Elsewhere", "ActivateWindow(AddonBrowser,addons://sources/video/,return)", "!Skin.HasSetting(HideMenu.Addons)"),
+        ("$LOCALIZE[31307]", "$LOCALIZE[31314]", "Elsewhere", "ActivateWindow(FavouritesBrowser)", "!Skin.HasSetting(HideMenu.Favourites)"),
+        ("$LOCALIZE[31308]", "$LOCALIZE[31315]", "Elsewhere", "ActivateWindow(Pictures)", "!Skin.HasSetting(HideMenu.Pictures)"),
+        ("$LOCALIZE[31309]", "$LOCALIZE[31316]", "Elsewhere", "ActivateWindow(Videos,sources://video/,return)", "!Skin.HasSetting(HideMenu.Files)"),
         ("$LOCALIZE[31310]", "$LOCALIZE[31317]", "System", "ActivateWindow(Settings)", ""),
         ("$LOCALIZE[31311]", "$LOCALIZE[31318]", "System", "ActivateWindow(1151)", ""),
     ],
@@ -119,9 +141,16 @@ def shelf_vars(n, i, kind):
         kick = [(None, f"$INFO[{C(i,'Property(kicker)')}]")]
     else:
         kick = [(None, f"$INFO[{C(i,'Year')}]")]
+    if kind == "custom":
+        kick = [(f"String.IsEqual({C(i,'DBType')},episode)",
+                 f"Season $INFO[{C(i,'Season')}][COLOR sep]  ·  [/COLOR]Episode $INFO[{C(i,'Episode')}]"),
+                (None, f"$INFO[{C(i,'Year')}]")]
     v.append(var(f"Home_Kicker_{i}", kick))
     # title
-    if kind == "nextup":
+    if kind == "custom":
+        title = [(f"String.IsEqual({C(i,'DBType')},episode) + !String.IsEmpty({C(i,'TVShowTitle')})", f"$INFO[{C(i,'TVShowTitle')}]"),
+                 (f"!String.IsEmpty({C(i,'Title')})", f"$INFO[{C(i,'Title')}]"), (None, f"$INFO[{C(i,'Label')}]")]
+    elif kind == "nextup":
         title = [(f"!String.IsEmpty({C(i,'TVShowTitle')})", f"$INFO[{C(i,'TVShowTitle')}]"), (None, f"$INFO[{C(i,'Label')}]")]
     elif kind in ("movie",):
         title = [(f"!String.IsEmpty({C(i,'Title')})", f"$INFO[{C(i,'Title')}]"), (None, f"$INFO[{C(i,'Label')}]")]
@@ -132,7 +161,16 @@ def shelf_vars(n, i, kind):
     rt = f"$VAR[Home_Runtime_{i}]"
     rating = f"[COLOR value]$INFO[{C(i,'Rating')}][/COLOR]"
     has_rating = f"!String.IsEmpty({C(i,'Rating')}) + !String.IsEqual({C(i,'Rating')},0.0)"
-    if kind == "movie":
+    if kind == "custom":
+        # episodes: their title; everything else: runtime, rating, director when the add-on gives them
+        v.append(var(f"Home_Runtime_{i}", runtime(i)))
+        meta = [
+            (f"String.IsEqual({C(i,'DBType')},episode)", f"[COLOR value]$INFO[{C(i,'Title')}][/COLOR]"),
+            (f"{has_rating} + Integer.IsGreater({C(i,'Duration(m)')},0)", f"{rt}{SEP}{rating}$INFO[{C(i,'Director')},{SEP},]"),
+            (f"Integer.IsGreater({C(i,'Duration(m)')},0) | Integer.IsGreater({C(i,'Duration(h)')},0)", f"{rt}$INFO[{C(i,'Director')},{SEP},]"),
+            (None, f"$INFO[{C(i,'Artist')}]$INFO[{C(i,'Genre')},{SEP},]"),
+        ]
+    elif kind == "movie":
         v.append(var(f"Home_Runtime_{i}", runtime(i)))
         meta = [
             (f"{has_rating} + !String.IsEmpty({C(i,'Director')})", f"{rt}{SEP}{rating}{SEP}$INFO[{C(i,'Director')}]"),
@@ -177,6 +215,11 @@ def shelf_vars(n, i, kind):
                (None, f"$INFO[{C(i,'Art(artist.fanart)')}]")]
     elif kind == "static":
         art = [(None, "")]
+    elif kind == "custom":
+        art = [(f"!String.IsEmpty({C(i,'Art(fanart)')})", f"$INFO[{C(i,'Art(fanart)')}]"),
+               (f"!String.IsEmpty({C(i,'Art(tvshow.fanart)')})", f"$INFO[{C(i,'Art(tvshow.fanart)')}]"),
+               (f"!String.IsEmpty({C(i,'Art(landscape)')})", f"$INFO[{C(i,'Art(landscape)')}]"),
+               (None, f"$INFO[{C(i,'Art(thumb)')}]")]
     else:
         art = [(f"!String.IsEmpty({C(i,'Art(fanart)')})", f"$INFO[{C(i,'Art(fanart)')}]"),
                (None, f"$INFO[{C(i,'Art(landscape)')}]")]
@@ -204,17 +247,45 @@ def art_cond(i, kind):
         return f"[!String.IsEmpty({C(i,'Art(fanart)')}) | !String.IsEmpty({C(i,'Art(artist.fanart)')})]"
     if kind == "static":
         return "false"
+    if kind == "custom":
+        # menu folders of add-ons carry the add-on's own fanart: only media items rise behind the text
+        return (f"[!String.IsEmpty({C(i,'DBType')}) + [!String.IsEmpty({C(i,'Art(fanart)')}) | "
+                f"!String.IsEmpty({C(i,'Art(tvshow.fanart)')}) | !String.IsEmpty({C(i,'Art(landscape)')}) | "
+                f"!String.IsEmpty({C(i,'Art(thumb)')})]]")
     return f"[!String.IsEmpty({C(i,'Art(fanart)')}) | !String.IsEmpty({C(i,'Art(landscape)')})]"
 
 
 # ---------------------------------------------------------------- controls
 
 def nav(n, i, verb, target_n, direction):
-    t = SHELVES[target_n - 1][1]
-    return (f"\t\t\t\t<{verb}>SetProperty(void.dir,{direction},home)</{verb}>\n"
-            f"\t\t\t\t<{verb}>SetProperty(void.shelf,{target_n},home)</{verb}>\n"
-            f"\t\t\t\t<{verb} condition=\"Integer.IsGreater(Container({t}).NumItems,0)\">SetFocus({t})</{verb}>\n"
-            f"\t\t\t\t<{verb} condition=\"Integer.IsEqual(Container({t}).NumItems,0)\">SetFocus({9110 + target_n})</{verb}>\n")
+    """Move to target_n, or past it while it is hidden (HideMenu.*): one condition per candidate, mutually
+    exclusive, so exactly one set of actions runs."""
+    step = next_n if direction == "next" else prev_n
+    out = ""
+    skipped = []
+    tn = target_n
+    while True:
+        t = SHELVES[tn - 1][1]
+        if tn in SHELF_HIDE and tn != n and SHELF_HIDE[tn] in skipped:  # same setting as one skipped: hidden too
+            tn = step(tn)
+            continue
+        cond = list(skipped) + ([shelf_shown(tn)] if tn in SHELF_HIDE else [])
+        c = " + ".join(cond)
+        ca = f' condition="{c}"' if c else ""
+        cp = (c + " + ") if c else ""
+        out += (f"\t\t\t\t<{verb}{ca}>SetProperty(void.dir,{direction},home)</{verb}>\n"
+                f"\t\t\t\t<{verb}{ca}>SetProperty(void.shelf,{tn},home)</{verb}>\n"
+                f"\t\t\t\t<{verb} condition=\"{cp}Integer.IsGreater(Container({t}).NumItems,0)\">SetFocus({t})</{verb}>\n"
+                f"\t\t\t\t<{verb} condition=\"{cp}Integer.IsEqual(Container({t}).NumItems,0)\">SetFocus({9110 + tn})</{verb}>\n")
+        if tn not in SHELF_HIDE or tn == n:
+            return out
+        skipped.append(SHELF_HIDE[tn])
+        tn = step(tn)
+
+
+def vis_line(n):
+    # custom shelves' drivers must stay visible: a hidden list never loads, so its row could never appear
+    return f"\t\t\t\t<visible>{shelf_shown(n)}</visible>\n" if n in SHELF_HIDE and n not in CUSTOM_N else ""
 
 
 def prev_n(n):
@@ -236,7 +307,10 @@ def driver_list(n, i, kind, content):
         clicks = "\t\t\t\t<onclick>ActivateWindow(Videos,$ESCINFO[ListItem.FolderPath],return)</onclick>\n"
     elif kind == "album":
         clicks = "\t\t\t\t<onclick>ActivateWindow(Music,$ESCINFO[ListItem.FolderPath],return)</onclick>\n"
-    if content:
+    if kind == "custom":
+        # no onclick: Kodi's list provider plays files (select action) and opens folders in the row's target window
+        body = f'\t\t\t\t<include content="CustomRow_Content"><param name="row" value="{content}"/></include>\n'
+    elif content:
         path, attrs = content
         body = f"\t\t\t\t<content {attrs}>{path}</content>\n"
     else:
@@ -266,7 +340,7 @@ def driver_list(n, i, kind, content):
 				<movement>0</movement>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<onfocus>SetProperty(void.shelf,{n},home)</onfocus>
-				<onup>noop</onup>
+{vis_line(n)}				<onup>noop</onup>
 				<ondown>noop</ondown>
 {nav(n, i, 'onleft', prev_n(n), 'prev')}{nav(n, i, 'onright', next_n(n), 'next')}				<onback>SetFocus({i},0,absolute)</onback>
 {clicks}				<itemlayout height="4" width="4"/>
@@ -294,7 +368,7 @@ def stand_ins():
 				<texturenofocus />
 				<label></label>
 				<onfocus>SetProperty(void.shelf,{n},home)</onfocus>
-				<onup condition="{has}">SetFocus({i})</onup>
+{vis_line(n)}				<onup condition="{has}">SetFocus({i})</onup>
 				<ondown condition="{has}">Control.Move({i},1)</ondown>
 				<ondown condition="{has}">SetFocus({i})</ondown>
 				<onclick condition="{has}">SetFocus({i})</onclick>
@@ -316,6 +390,7 @@ def shelf_display(n, i, kind):
         "album": "$LOCALIZE[31322]",
         "show": "$LOCALIZE[31323]",
         "static": "",
+        "custom": "",
     }[kind]
     return f"""		<!-- ===== shelf {n}: display ===== -->
 		<control type="group">
@@ -507,9 +582,10 @@ def dots():
 				<itemgap>14</itemgap>"""]
     for n, i, _l, _k, _c in SHELVES:
         is_n = f"String.IsEqual(Window(Home).Property(void.shelf),{n})"
+        dvis = f"\n\t\t\t\t\t<visible>{shelf_shown(n)}</visible>" if n in SHELF_HIDE else ""
         out.append(f"""				<control type="group">
 					<width>8</width>
-					<height>8</height>
+					<height>8</height>{dvis}
 					<control type="image">
 						<left>0</left><top>0</top><width>8</width><height>8</height>
 						<texture colordiffuse="text">common/dot.png</texture>
@@ -531,7 +607,8 @@ def main():
              "<!--",
              "\tVoid Home: one item at a time. See the generator's docstring and docs/skin.void/SPEC.md.",
              "\tIds: 9101-9107 shelf drivers (Next up, Unwatched rated, Newest, Albums, Shows, Library, Search),",
-             "\t9111-9117 their stand-ins. Window(Home) properties: void.shelf (1-7), void.dir (prev/next),",
+             "\t9111-9117 their stand-ins; custom rows 8-10: drivers 9881-9883 (Includes_CustomRows.xml), stand-ins 9118-9120.",
+             "\tWindow(Home) properties: void.shelf (1-10), void.dir (prev/next),",
              "\tvoid.reload (Next up refresh stamp).",
              "-->",
              "<includes>"]

@@ -746,6 +746,11 @@
 		<value condition="Control.HasFocus(9550)">Colour, corners, focus outline and the artwork behind the page. Changes apply at once; changing the corners reloads the skin.[CR][CR]Up / Down picks a category, Right enters it.</value>
 		<value condition="Control.HasFocus(9551)">What sits under the spotlight on Home, and how often the spotlight moves on.</value>
 		<value condition="Control.HasFocus(9552)">Motion, and a way back to the defaults.</value>
+		<value condition="Control.HasFocus(9554)">$LOCALIZE[31336]</value>
+		<value condition="Control.HasFocus(9555) | Control.HasFocus(9570) | Control.HasFocus(9571) | Control.HasFocus(9572)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9560)">$LOCALIZE[31337]</value>
+		<value condition="Control.HasFocus(9561) | Control.HasFocus(9562) | Control.HasFocus(9563)">$LOCALIZE[31338]</value>
+		<value condition="Control.HasFocus(9564)">$LOCALIZE[31339]</value>
 		<value condition="Control.HasFocus(9510)">One colour marks where you are: the focus outline, the active menu item, unwatched markers, progress bars and the Play button.[CR][CR]Left / Right picks a colour. Text on the accent is always near-black, so every option stays readable.</value>
 		<value condition="Control.HasFocus(9511)">Square or slightly rounded (8 px) corners on posters, album covers, episode thumbnails and buttons.[CR][CR]Changing it reloads the skin, which takes a second.</value>
 		<value condition="Control.HasFocus(9512)">The stroke around the selected poster. Off keeps the zoom, so focus never disappears; lists, buttons and dialogs always keep their frame.</value>

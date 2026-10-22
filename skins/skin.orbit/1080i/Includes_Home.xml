@@ -3,9 +3,13 @@
 	Home: the dial (OrbitHome.dc.html). Prefix Home_.
 	Ids
 	  9000 section dial: hidden 5-item wraplist (Movies, TV, Music, Search, Settings), labels drawn by
+	       (0.9.12: Movies / TV / Music / Search can be hidden in Skin settings, HideMenu.*; Settings never)
 	       Arc_HomeDial (Includes_Arc.xml) from Container(9000).ListItem(-2..2).
 	  9300 poster arc list (Movies band / TV next up), 9301 album arc list (Music), 9310 settings arc,
 	  9302 probe: in-progress shows (decides the TV band when the Next-up helper is missing).
+	  0.9.12 custom rows (Includes_CustomRows.xml): arcs 9881-9883 (Arc_HomeCustom) with an info panel each, past the
+	  station arcs: Right off 9300 / 9301 / 9310 -> the first row with items, Right / Left between them, Left from the
+	  first -> the station arc, Back -> the dial. The dial itself never changes.
 	Window properties: orbit.reload (stamp per Home open, appended to the Next-up plugin path).
 	Library totals come from the Home window properties Kodi core sets (RecentlyAddedJob.cpp):
 	Movies.Count / Movies.UnWatched / TVShows.Count / Episodes.UnWatched / Music.AlbumsCount /
@@ -18,9 +22,12 @@
 	<expression name="Home_KindMusic">String.IsEqual(Container(9000).ListItem.Property(kind),music)</expression>
 	<expression name="Home_KindSearch">String.IsEqual(Container(9000).ListItem.Property(kind),search)</expression>
 	<expression name="Home_KindSettings">String.IsEqual(Container(9000).ListItem.Property(kind),settings)</expression>
+	<expression name="Home_CustomArcReady1">Control.HasFocus(9881) + Integer.IsGreater(Container(9881).NumItems,0)</expression>
+	<expression name="Home_CustomArcReady2">Control.HasFocus(9882) + Integer.IsGreater(Container(9882).NumItems,0)</expression>
+	<expression name="Home_CustomArcReady3">Control.HasFocus(9883) + Integer.IsGreater(Container(9883).NumItems,0)</expression>
 	<expression name="Home_HasNextUpHelper">System.AddonIsEnabled(script.embuary.helper)</expression>
-	<expression name="Home_PosterArcReady">[String.IsEqual(Container(9000).ListItem.Property(kind),movies) | String.IsEqual(Container(9000).ListItem.Property(kind),tv)] + Integer.IsGreater(Container(9300).NumItems,0) + !Container(9300).IsUpdating</expression>
-	<expression name="Home_AlbumArcReady">String.IsEqual(Container(9000).ListItem.Property(kind),music) + Integer.IsGreater(Container(9301).NumItems,0) + !Container(9301).IsUpdating</expression>
+	<expression name="Home_PosterArcReady">[String.IsEqual(Container(9000).ListItem.Property(kind),movies) | String.IsEqual(Container(9000).ListItem.Property(kind),tv)] + Integer.IsGreater(Container(9300).NumItems,0) + !Container(9300).IsUpdating + !$EXP[CustomRowsFocus]</expression>
+	<expression name="Home_AlbumArcReady">String.IsEqual(Container(9000).ListItem.Property(kind),music) + Integer.IsGreater(Container(9301).NumItems,0) + !Container(9301).IsUpdating + !$EXP[CustomRowsFocus]</expression>
 	<!-- the info panel follows the arc that has focus, else the dial's section -->
 	<expression name="Home_ItemIsEpisode">String.IsEqual(Container(9300).ListItem.DBType,episode)</expression>
 	<expression name="Home_ItemIsShow">String.IsEqual(Container(9300).ListItem.DBType,tvshow)</expression>
@@ -54,13 +61,75 @@
 		<value condition="$EXP[Home_KindTV]">New episodes</value>
 		<value condition="$EXP[Home_KindMusic]">Recently added albums</value>
 	</variable>
+	<!-- custom row 1: lens item title and meta (episodes: show + code; else year / genre or the add-on's label2) -->
+	<variable name="Home_CustomTitle1">
+		<value condition="String.IsEqual(Container(9881).ListItem.DBType,episode) + !String.IsEmpty(Container(9881).ListItem.TVShowTitle)">$INFO[Container(9881).ListItem.TVShowTitle]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem.Title)">$INFO[Container(9881).ListItem.Title]</value>
+		<value>$INFO[Container(9881).ListItem.Label]</value>
+	</variable>
+	<variable name="Home_CustomMeta1">
+		<value condition="String.IsEqual(Container(9881).ListItem.DBType,episode)">$INFO[Container(9881).ListItem.Season,S,]$INFO[Container(9881).ListItem.Episode,E,]$INFO[Container(9881).ListItem.Title, · ,]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem.Year)">$INFO[Container(9881).ListItem.Year]$INFO[Container(9881).ListItem.Genre,  ·  ,]</value>
+		<value>$INFO[Container(9881).ListItem.Label2]</value>
+	</variable>
+	<!-- custom row 2: lens item title and meta (episodes: show + code; else year / genre or the add-on's label2) -->
+	<variable name="Home_CustomTitle2">
+		<value condition="String.IsEqual(Container(9882).ListItem.DBType,episode) + !String.IsEmpty(Container(9882).ListItem.TVShowTitle)">$INFO[Container(9882).ListItem.TVShowTitle]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem.Title)">$INFO[Container(9882).ListItem.Title]</value>
+		<value>$INFO[Container(9882).ListItem.Label]</value>
+	</variable>
+	<variable name="Home_CustomMeta2">
+		<value condition="String.IsEqual(Container(9882).ListItem.DBType,episode)">$INFO[Container(9882).ListItem.Season,S,]$INFO[Container(9882).ListItem.Episode,E,]$INFO[Container(9882).ListItem.Title, · ,]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem.Year)">$INFO[Container(9882).ListItem.Year]$INFO[Container(9882).ListItem.Genre,  ·  ,]</value>
+		<value>$INFO[Container(9882).ListItem.Label2]</value>
+	</variable>
+	<!-- custom row 3: lens item title and meta (episodes: show + code; else year / genre or the add-on's label2) -->
+	<variable name="Home_CustomTitle3">
+		<value condition="String.IsEqual(Container(9883).ListItem.DBType,episode) + !String.IsEmpty(Container(9883).ListItem.TVShowTitle)">$INFO[Container(9883).ListItem.TVShowTitle]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem.Title)">$INFO[Container(9883).ListItem.Title]</value>
+		<value>$INFO[Container(9883).ListItem.Label]</value>
+	</variable>
+	<variable name="Home_CustomMeta3">
+		<value condition="String.IsEqual(Container(9883).ListItem.DBType,episode)">$INFO[Container(9883).ListItem.Season,S,]$INFO[Container(9883).ListItem.Episode,E,]$INFO[Container(9883).ListItem.Title, · ,]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem.Year)">$INFO[Container(9883).ListItem.Year]$INFO[Container(9883).ListItem.Genre,  ·  ,]</value>
+		<value>$INFO[Container(9883).ListItem.Label2]</value>
+	</variable>
 	<!-- Ring centre readout per section -->
+	<!-- custom rows (0.9.12): Right off the last arc you were on goes on to them, Left comes back -->
+	<variable name="Home_RightToCustom">
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+	</variable>
+	<variable name="Home_LeftFromCustom">
+		<value condition="[$EXP[Home_KindMovies] | $EXP[Home_KindTV]] + Integer.IsGreater(Container(9300).NumItems,0)">SetFocus(9300)</value>
+		<value condition="$EXP[Home_KindMusic] + Integer.IsGreater(Container(9301).NumItems,0)">SetFocus(9301)</value>
+		<value condition="$EXP[Home_KindSettings]">SetFocus(9310)</value>
+		<value>SetFocus(9000)</value>
+	</variable>
+	<!-- under the count while a custom row has focus: the row's name -->
+	<variable name="Home_CustomSub">
+		<value condition="Control.HasFocus(9881)">$VAR[CustomRow_Title1]</value>
+		<value condition="Control.HasFocus(9882)">$VAR[CustomRow_Title2]</value>
+		<value condition="Control.HasFocus(9883)">$VAR[CustomRow_Title3]</value>
+	</variable>
+	<!-- the next custom row, named at the foot of the arc ("Popular TV  ›") -->
+	<variable name="Home_CustomNext">
+		<value condition="[Control.HasFocus(9300) | Control.HasFocus(9301) | Control.HasFocus(9310)] + $EXP[CustomRow1On]">$VAR[CustomRow_Title1]  ›</value>
+		<value condition="[Control.HasFocus(9300) | Control.HasFocus(9301) | Control.HasFocus(9310)] + $EXP[CustomRow2On]">$VAR[CustomRow_Title2]  ›</value>
+		<value condition="Control.HasFocus(9881) + $EXP[CustomRow2On]">$VAR[CustomRow_Title2]  ›</value>
+		<value condition="[Control.HasFocus(9300) | Control.HasFocus(9301) | Control.HasFocus(9310) | Control.HasFocus(9881) | Control.HasFocus(9882)] + $EXP[CustomRow3On]">$VAR[CustomRow_Title3]  ›</value>
+	</variable>
 	<variable name="Home_DialCount">
+		<value condition="Control.HasFocus(9881)">$INFO[Container(9881).NumItems]</value>
+		<value condition="Control.HasFocus(9882)">$INFO[Container(9882).NumItems]</value>
+		<value condition="Control.HasFocus(9883)">$INFO[Container(9883).NumItems]</value>
 		<value condition="$EXP[Home_KindMovies]">$INFO[Window(Home).Property(Movies.Count)]</value>
 		<value condition="$EXP[Home_KindTV]">$INFO[Window(Home).Property(TVShows.Count)]</value>
 		<value condition="$EXP[Home_KindMusic]">$INFO[Window(Home).Property(Music.AlbumsCount)]</value>
 	</variable>
 	<variable name="Home_DialUnit">
+		<value condition="$EXP[CustomRowsFocus]">$LOCALIZE[31954]</value>
 		<value condition="$EXP[Home_KindMovies]">Films</value>
 		<value condition="$EXP[Home_KindTV]">Shows</value>
 		<value condition="$EXP[Home_KindMusic]">Albums</value>
@@ -68,6 +137,7 @@
 		<value condition="$EXP[Home_KindSettings]">System</value>
 	</variable>
 	<variable name="Home_DialSub">
+		<value condition="$EXP[CustomRowsFocus]">$VAR[Home_CustomSub]</value>
 		<value condition="$EXP[Home_KindMovies]">$INFO[Window(Home).Property(Movies.UnWatched),, unwatched]</value>
 		<value condition="$EXP[Home_KindTV]">$INFO[Window(Home).Property(Episodes.UnWatched),, episodes to go]</value>
 		<value condition="$EXP[Home_KindMusic]">$INFO[Window(Home).Property(Music.ArtistsCount),, artists]</value>
@@ -173,6 +243,7 @@
 				<item>
 					<label>$LOCALIZE[137]</label>
 					<property name="kind">search</property>
+					<visible>!Skin.HasSetting(HideMenu.Search)</visible>
 					<onclick>ActivateWindow(1150)</onclick>
 				</item>
 				<item>
@@ -184,21 +255,60 @@
 					<label>$LOCALIZE[342]</label>
 					<label2>$INFO[Window(Home).Property(Movies.Count)]</label2>
 					<property name="kind">movies</property>
+					<visible>!Skin.HasSetting(HideMenu.Movies)</visible>
 					<onclick>ActivateWindow(Videos,videodb://movies/titles/,return)</onclick>
 				</item>
 				<item>
 					<label>TV</label>
 					<label2>$INFO[Window(Home).Property(TVShows.Count)]</label2>
 					<property name="kind">tv</property>
+					<visible>!Skin.HasSetting(HideMenu.TVShows)</visible>
 					<onclick>ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[2]</label>
 					<label2>$INFO[Window(Home).Property(Music.AlbumsCount)]</label2>
 					<property name="kind">music</property>
+					<visible>!Skin.HasSetting(HideMenu.Music)</visible>
 					<onclick>ActivateWindow(Music,musicdb://albums/,return)</onclick>
 				</item>
 			</content>
+		</control>
+		<!-- custom row 1: the arc's focus-owning list (always processed: a hidden list never loads) -->
+		<control type="wraplist" id="9881">
+			<left>1000</left>
+			<top>535</top>
+			<include>Arc_HiddenList</include>
+			<onleft>$VAR[Home_LeftFromCustom]</onleft>
+			<onright condition="$EXP[CustomRow2On]">9882</onright>
+			<onright condition="$EXP[CustomRow3On]">9883</onright>
+			<onright>noop</onright>
+			<onback>9000</onback>
+			<include content="CustomRow_Content"><param name="row" value="1"/></include>
+		</control>
+		<!-- custom row 2: the arc's focus-owning list (always processed: a hidden list never loads) -->
+		<control type="wraplist" id="9882">
+			<left>1000</left>
+			<top>535</top>
+			<include>Arc_HiddenList</include>
+			<onleft condition="$EXP[CustomRow1On]">9881</onleft>
+			<onleft>$VAR[Home_LeftFromCustom]</onleft>
+			<onright condition="$EXP[CustomRow3On]">9883</onright>
+			<onright>noop</onright>
+			<onback>9000</onback>
+			<include content="CustomRow_Content"><param name="row" value="2"/></include>
+		</control>
+		<!-- custom row 3: the arc's focus-owning list (always processed: a hidden list never loads) -->
+		<control type="wraplist" id="9883">
+			<left>1000</left>
+			<top>535</top>
+			<include>Arc_HiddenList</include>
+			<onleft condition="$EXP[CustomRow2On]">9882</onleft>
+			<onleft condition="$EXP[CustomRow1On]">9881</onleft>
+			<onleft>$VAR[Home_LeftFromCustom]</onleft>
+			<onright>noop</onright>
+			<onback>9000</onback>
+			<include content="CustomRow_Content"><param name="row" value="3"/></include>
 		</control>
 
 		<!-- poster arc (Movies band, TV next up) -->
@@ -207,6 +317,7 @@
 			<top>535</top>
 			<include>Arc_HiddenList</include>
 			<onleft>9000</onleft>
+			<onright condition="$EXP[CustomRowsAnyOn]">$VAR[Home_RightToCustom]</onright>
 			<onright>noop</onright>
 			<onback>9000</onback>
 			<content target="videos">$VAR[Home_PathPosters]</content>
@@ -217,6 +328,7 @@
 			<top>535</top>
 			<include>Arc_HiddenListSquare</include>
 			<onleft>9000</onleft>
+			<onright condition="$EXP[CustomRowsAnyOn]">$VAR[Home_RightToCustom]</onright>
 			<onright>noop</onright>
 			<onback>9000</onback>
 			<content target="music">$VAR[Home_PathAlbums]</content>
@@ -227,6 +339,7 @@
 			<top>535</top>
 			<include>Arc_HiddenListIcon</include>
 			<onleft>9000</onleft>
+			<onright condition="$EXP[CustomRowsAnyOn]">$VAR[Home_RightToCustom]</onright>
 			<onright>noop</onright>
 			<onback>9000</onback>
 			<content>
@@ -420,10 +533,31 @@
 			</include>
 		</control>
 		<control type="group">
-			<visible>$EXP[Home_KindSettings]</visible>
+			<visible>$EXP[Home_KindSettings] + !$EXP[CustomRowsFocus]</visible>
 			<include>Home_ArcReveal</include>
 			<include content="Arc_HomeIcons">
 				<param name="id" value="9310"/>
+			</include>
+		</control>
+		<control type="group">
+			<visible>$EXP[Home_CustomArcReady1]</visible>
+			<include>Home_ArcReveal</include>
+			<include content="Arc_HomeCustom">
+				<param name="id" value="9881"/>
+			</include>
+		</control>
+		<control type="group">
+			<visible>$EXP[Home_CustomArcReady2]</visible>
+			<include>Home_ArcReveal</include>
+			<include content="Arc_HomeCustom">
+				<param name="id" value="9882"/>
+			</include>
+		</control>
+		<control type="group">
+			<visible>$EXP[Home_CustomArcReady3]</visible>
+			<include>Home_ArcReveal</include>
+			<include content="Arc_HomeCustom">
+				<param name="id" value="9883"/>
 			</include>
 		</control>
 		<!-- loading / empty band -->
@@ -448,6 +582,17 @@
 			<textcolor>text_dim</textcolor>
 			<label>$LOCALIZE[31012]</label>
 			<visible>[[$EXP[Home_KindMovies] | $EXP[Home_KindTV]] + !Container(9300).IsUpdating + Integer.IsEqual(Container(9300).NumItems,0)] | [$EXP[Home_KindMusic] + !Container(9301).IsUpdating + Integer.IsEqual(Container(9301).NumItems,0)]</visible>
+		</control>
+		<!-- 0.9.12: the next custom row (Right) -->
+		<control type="label">
+			<left>1290</left>
+			<top>1000</top>
+			<width>566</width>
+			<height>26</height>
+			<align>right</align>
+			<font>label_20</font>
+			<textcolor>text_dim</textcolor>
+			<label>$VAR[Home_CustomNext]</label>
 		</control>
 	</include>
 
@@ -703,7 +848,7 @@
 			<height>400</height>
 			<orientation>vertical</orientation>
 			<usecontrolcoords>true</usecontrolcoords>
-			<visible>$EXP[Home_KindSettings]</visible>
+			<visible>$EXP[Home_KindSettings] + !$EXP[CustomRowsFocus]</visible>
 			<include>Home_ArcReveal</include>
 			<include content="Home_Kicker">
 				<param name="list" value="9310"/>
@@ -720,6 +865,126 @@
 				<font>text_26</font>
 				<textcolor>text_secondary</textcolor>
 				<label>$INFO[Container(9310).ListItem.Label2]</label>
+			</control>
+		</control>
+		<!-- custom row 1 -->
+		<control type="grouplist">
+			<left>1290</left>
+			<top>300</top>
+			<width>566</width>
+			<height>700</height>
+			<orientation>vertical</orientation>
+			<itemgap>0</itemgap>
+			<usecontrolcoords>true</usecontrolcoords>
+			<visible>$EXP[Home_CustomArcReady1]</visible>
+			<include>Home_ArcReveal</include>
+			<include content="Home_Kicker">
+				<param name="list" value="9881"/>
+				<param name="label" value="$VAR[CustomRow_Title1]"/>
+			</include>
+			<control type="label">
+				<top>22</top>
+				<width>566</width>
+				<height>66</height>
+				<font>wide_56</font>
+				<textcolor>text_primary</textcolor>
+				<label>$VAR[Home_CustomTitle1]</label>
+			</control>
+			<control type="label">
+				<top>12</top>
+				<width>566</width>
+				<height>26</height>
+				<font>label_20</font>
+				<textcolor>text_meta</textcolor>
+				<label>$VAR[Home_CustomMeta1]</label>
+			</control>
+			<control type="textbox">
+				<top>26</top>
+				<width>566</width>
+				<height max="114">auto</height>
+				<font>text_26</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$INFO[Container(9881).ListItem.Plot]</label>
+			</control>
+		</control>
+		<!-- custom row 2 -->
+		<control type="grouplist">
+			<left>1290</left>
+			<top>300</top>
+			<width>566</width>
+			<height>700</height>
+			<orientation>vertical</orientation>
+			<itemgap>0</itemgap>
+			<usecontrolcoords>true</usecontrolcoords>
+			<visible>$EXP[Home_CustomArcReady2]</visible>
+			<include>Home_ArcReveal</include>
+			<include content="Home_Kicker">
+				<param name="list" value="9882"/>
+				<param name="label" value="$VAR[CustomRow_Title2]"/>
+			</include>
+			<control type="label">
+				<top>22</top>
+				<width>566</width>
+				<height>66</height>
+				<font>wide_56</font>
+				<textcolor>text_primary</textcolor>
+				<label>$VAR[Home_CustomTitle2]</label>
+			</control>
+			<control type="label">
+				<top>12</top>
+				<width>566</width>
+				<height>26</height>
+				<font>label_20</font>
+				<textcolor>text_meta</textcolor>
+				<label>$VAR[Home_CustomMeta2]</label>
+			</control>
+			<control type="textbox">
+				<top>26</top>
+				<width>566</width>
+				<height max="114">auto</height>
+				<font>text_26</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$INFO[Container(9882).ListItem.Plot]</label>
+			</control>
+		</control>
+		<!-- custom row 3 -->
+		<control type="grouplist">
+			<left>1290</left>
+			<top>300</top>
+			<width>566</width>
+			<height>700</height>
+			<orientation>vertical</orientation>
+			<itemgap>0</itemgap>
+			<usecontrolcoords>true</usecontrolcoords>
+			<visible>$EXP[Home_CustomArcReady3]</visible>
+			<include>Home_ArcReveal</include>
+			<include content="Home_Kicker">
+				<param name="list" value="9883"/>
+				<param name="label" value="$VAR[CustomRow_Title3]"/>
+			</include>
+			<control type="label">
+				<top>22</top>
+				<width>566</width>
+				<height>66</height>
+				<font>wide_56</font>
+				<textcolor>text_primary</textcolor>
+				<label>$VAR[Home_CustomTitle3]</label>
+			</control>
+			<control type="label">
+				<top>12</top>
+				<width>566</width>
+				<height>26</height>
+				<font>label_20</font>
+				<textcolor>text_meta</textcolor>
+				<label>$VAR[Home_CustomMeta3]</label>
+			</control>
+			<control type="textbox">
+				<top>26</top>
+				<width>566</width>
+				<height max="114">auto</height>
+				<font>text_26</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$INFO[Container(9883).ListItem.Plot]</label>
 			</control>
 		</control>
 	</include>

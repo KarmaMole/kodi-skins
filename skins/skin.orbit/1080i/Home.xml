@@ -15,6 +15,11 @@
 	<backgroundcolor>bg</backgroundcolor>
 	<!-- new stamp each time Home opens: the Next up plugin path changes, so it refreshes after playback -->
 	<onload>SetProperty(orbit.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
+	<!-- 0.9.12: with Movies hidden (HideMenu.Movies) the dial's start slot can hold Search / Settings: on the first
+	     open of the session, start on the first shown section instead (0-based index among the shown items) -->
+	<onload condition="String.IsEmpty(Window(Home).Property(orbit.dialinit)) + Skin.HasSetting(HideMenu.Movies) + [!Skin.HasSetting(HideMenu.TVShows) | !Skin.HasSetting(HideMenu.Music)] + [String.IsEqual(Container(9000).ListItem.Property(kind),settings) | String.IsEqual(Container(9000).ListItem.Property(kind),search)] + !Skin.HasSetting(HideMenu.Search)">SetFocus(9000,2,absolute)</onload>
+	<onload condition="String.IsEmpty(Window(Home).Property(orbit.dialinit)) + Skin.HasSetting(HideMenu.Movies) + [!Skin.HasSetting(HideMenu.TVShows) | !Skin.HasSetting(HideMenu.Music)] + [String.IsEqual(Container(9000).ListItem.Property(kind),settings) | String.IsEqual(Container(9000).ListItem.Property(kind),search)] + Skin.HasSetting(HideMenu.Search)">SetFocus(9000,1,absolute)</onload>
+	<onload>SetProperty(orbit.dialinit,1,home)</onload>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<!-- fit-to-width probes for the wide titles (Includes_Titles.xml) -->
@@ -42,6 +47,7 @@
 		</include>
 		<include>Home_Furniture</include>
 		<include>Home_DataLists</include>
+		<include>CustomRows_Probes</include>
 		<include>Home_DialReadout</include>
 		<include>Home_Arcs</include>
 		<include>Home_InfoPanels</include>

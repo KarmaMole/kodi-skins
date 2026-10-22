@@ -1,7 +1,7 @@
 """Generate skins/skin.duotone/1080i/SkinSettings.xml (docs/skin.duotone/SETTINGS.md).
 
 One page, paper field (Search / Settings section). Left column: Anton "SKIN" + the focused row's help.
-Right column: 10 rows of 72 + Reset. Each row is ONE focus target: Left / Right step through the options and
+Right column: 13 rows of 58 + Reset (0.9.13: 3 main menu rows). Each row is ONE focus target: Left / Right step through the options and
 apply at once (Left on the first option returns... nowhere: the page has no other column), OK cycles.
 The current option is a chip: ink block + paper text on a resting row, paper block + ink text on the
 focused (ink) row. Spotlight interval runs ReloadSkin() from the row itself (Home reads <autoscroll time>
@@ -64,12 +64,21 @@ ROWS = [
          kind="string", name="duotone.offsetbar",
          opts=[("", "Top", f"[String.IsEmpty({S}(duotone.offsetbar)) | {eq('duotone.offsetbar','top')}]"), ("bottom", "Bottom", eq("duotone.offsetbar", "bottom"))]),
 ]
+# 0.9.13 main menu: which sections the Home stack shows (HideMenu.* bools; Search, with the settings, never hides)
+_MENU_HELP = ("Takes the section off the Home stack, with its spotlight and rows; the others move up. "
+              "Search stays, with the settings and power, so you can always come back here.")
+for _label, _key in (("Home: Films", "Movies"), ("Home: Series", "TVShows"), ("Home: Music", "Music")):
+    ROWS.append(dict(label=_label, help=_MENU_HELP, kind="bool", name=f"HideMenu.{_key}",
+                     opts=[(None, "Show", f"!Skin.HasSetting(HideMenu.{_key})"), (None, "Hide", f"Skin.HasSetting(HideMenu.{_key})")]))
+# 0.9.13 custom rows on Home: OK opens the row's options (Includes_CustomRows.xml, tools/customrows/make_customrows.py)
+for _n in (1, 2, 3):
+    ROWS.append(dict(label=f"$LOCALIZE[{31940 + _n}]", help="$LOCALIZE[31950]", kind="custom", row=_n, opts=[]))
 for _i, _r in enumerate(ROWS):
     _r["id"] = 9501 + _i
 RESET_ID = 9501 + len(ROWS)
 FIRST, LAST = ROWS[0]["id"], RESET_ID
-ROW_TOP, ROW_H = 176, 72
-CHIP_H = 44
+ROW_TOP, ROW_H = 176, 50  # 0.9.13: 50 (was 72, then 58) so the main menu and custom rows fit; Reset keeps 72
+CHIP_H = 40
 
 
 def set_action(row, opt):
@@ -106,6 +115,9 @@ def row_xml(i, row):
     a('\t\t\t\t<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>')
     a('\t\t\t\t<texturenofocus border="0,0,0,4" colordiffuse="$VAR[SectionText]">dialogs/row_rule.png</texturenofocus>')
     a(f'\t\t\t\t<onup>{up}</onup>\n\t\t\t\t<ondown>{down}</ondown>')
+    if row["kind"] == "custom":
+        a(f'\t\t\t\t<include content="CustomRows_SettingsClick"><param name="row" value="{row["row"]}"/><param name="heading" value="{row["label"]}"/></include>')
+        a('\t\t\t\t<onleft>noop</onleft>\n\t\t\t\t<onright>noop</onright>')
     n = len(opts)
     for j, opt in enumerate(opts):
         cond = opt[2]
@@ -126,6 +138,17 @@ def row_xml(i, row):
         a(f'\t\t\t\t<aligny>center</aligny>\n\t\t\t\t<font>bold_28</font>\n\t\t\t\t<textcolor>{col}</textcolor>')
         a(f'\t\t\t\t<label>{row["label"]}</label>\n\t\t\t\t<visible>{vis}</visible>')
         a('\t\t\t</control>')
+    if row["kind"] == "custom":
+        # value: the row's name (or "Not set"), right-aligned where the chips end
+        k = row["row"]
+        for vis, col in ((f"!Control.HasFocus({rid})", "$VAR[SectionText2]"), (f"Control.HasFocus({rid})", "$VAR[paper_70]")):
+            a('\t\t\t<control type="label">')
+            a(f'\t\t\t\t<left>440</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>568</width>\n\t\t\t\t<height>{ROW_H}</height>')
+            a(f'\t\t\t\t<align>right</align>\n\t\t\t\t<aligny>center</aligny>\n\t\t\t\t<font>cap_20</font>\n\t\t\t\t<textcolor>{col}</textcolor>')
+            a(f'\t\t\t\t<label>$VAR[CustomRow_Value{k}]</label>\n\t\t\t\t<visible>{vis}</visible>')
+            a('\t\t\t</control>')
+        a('\t\t</control>')
+        return "\n".join(lines)
     # chips
     a('\t\t\t<control type="grouplist">')
     a(f'\t\t\t\t<left>440</left>\n\t\t\t\t<top>{(ROW_H - CHIP_H) // 2}</top>\n\t\t\t\t<width>568</width>\n\t\t\t\t<height>{CHIP_H}</height>')
@@ -164,7 +187,7 @@ def help_var():
 
 def main():
     rows = "\n".join(row_xml(i, r) for i, r in enumerate(ROWS))
-    reset_top = ROW_TOP + len(ROWS) * ROW_H + 24
+    reset_top = ROW_TOP + len(ROWS) * ROW_H + 12
     helps = "\n".join(f'\t\t<value condition="Control.HasFocus({r["id"]})">{r["help"]}</value>' for r in ROWS)
     refocus = "\n".join(f'\t<onload condition="String.IsEqual(Window(Home).Property(duotone.refocus),{r["id"]})">SetFocus({r["id"]})</onload>' for r in ROWS if r.get("reload"))
     xml = f'''<?xml version="1.0" encoding="UTF-8"?>
@@ -232,6 +255,7 @@ def main():
 		</control>
 		<include content="DT_RuleV"><param name="left" value="772"/><param name="top" value="176"/><param name="height" value="840"/></include>
 		<include content="DT_RuleThick"><param name="top" value="168"/><param name="left" value="824"/><param name="width" value="1032"/></include>
+		<include>CustomRows_FavData</include>
 {rows}
 		<!-- reset: first OK arms, second OK resets everything and reloads -->
 		<control type="group">

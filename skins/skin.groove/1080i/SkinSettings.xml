@@ -6,6 +6,7 @@
 	<onload>ClearProperty(groove.resetarmed,home)</onload>
 	<controls>
 		<include>Groove_Room</include>
+		<include>CustomRows_FavData</include>
 		<control type="group">
 			<include>Anim_WindowContent</include>
 			<!-- header: the settings icon + its word -->
@@ -317,6 +318,224 @@
 					<visible>!Control.HasFocus(9508)</visible>
 				</control>
 			</control>
+			<control type="button" id="9514">
+				<width>1000</width>
+				<height>72</height>
+				<font>font_label</font>
+				<textoffsetx>88</textoffsetx>
+				<label>$LOCALIZE[31650]</label>
+				<label2>$VAR[SkinSet_Value_9514]</label2>
+				<onright>Skin.ToggleSetting(HideMenu.Music)</onright>
+				<onclick>Skin.ToggleSetting(HideMenu.Music)</onclick>
+				<onleft>Skin.ToggleSetting(HideMenu.Music)</onleft>
+			</control>
+			<control type="group" id="9564">
+				<top>-72</top>
+				<width>1000</width>
+				<height>80</height>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[ink]">icons/music.png</texture>
+					<visible>Control.HasFocus(9514)</visible>
+				</control>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[icon_rest]">icons/music.png</texture>
+					<visible>!Control.HasFocus(9514)</visible>
+				</control>
+			</control>
+			<control type="button" id="9515">
+				<width>1000</width>
+				<height>72</height>
+				<font>font_label</font>
+				<textoffsetx>88</textoffsetx>
+				<label>$LOCALIZE[31651]</label>
+				<label2>$VAR[SkinSet_Value_9515]</label2>
+				<onright>Skin.ToggleSetting(HideMenu.Movies)</onright>
+				<onclick>Skin.ToggleSetting(HideMenu.Movies)</onclick>
+				<onleft>Skin.ToggleSetting(HideMenu.Movies)</onleft>
+			</control>
+			<control type="group" id="9565">
+				<top>-72</top>
+				<width>1000</width>
+				<height>80</height>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[ink]">icons/films.png</texture>
+					<visible>Control.HasFocus(9515)</visible>
+				</control>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[icon_rest]">icons/films.png</texture>
+					<visible>!Control.HasFocus(9515)</visible>
+				</control>
+			</control>
+			<control type="button" id="9516">
+				<width>1000</width>
+				<height>72</height>
+				<font>font_label</font>
+				<textoffsetx>88</textoffsetx>
+				<label>$LOCALIZE[31652]</label>
+				<label2>$VAR[SkinSet_Value_9516]</label2>
+				<onright>Skin.ToggleSetting(HideMenu.TVShows)</onright>
+				<onclick>Skin.ToggleSetting(HideMenu.TVShows)</onclick>
+				<onleft>Skin.ToggleSetting(HideMenu.TVShows)</onleft>
+			</control>
+			<control type="group" id="9566">
+				<top>-72</top>
+				<width>1000</width>
+				<height>80</height>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[ink]">icons/tv.png</texture>
+					<visible>Control.HasFocus(9516)</visible>
+				</control>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[icon_rest]">icons/tv.png</texture>
+					<visible>!Control.HasFocus(9516)</visible>
+				</control>
+			</control>
+			<control type="button" id="9517">
+				<width>1000</width>
+				<height>72</height>
+				<font>font_label</font>
+				<textoffsetx>88</textoffsetx>
+				<label>$LOCALIZE[31653]</label>
+				<label2>$VAR[SkinSet_Value_9517]</label2>
+				<onright>Skin.ToggleSetting(HideMenu.Search)</onright>
+				<onclick>Skin.ToggleSetting(HideMenu.Search)</onclick>
+				<onleft>Skin.ToggleSetting(HideMenu.Search)</onleft>
+			</control>
+			<control type="group" id="9567">
+				<top>-72</top>
+				<width>1000</width>
+				<height>80</height>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[ink]">icons/search.png</texture>
+					<visible>Control.HasFocus(9517)</visible>
+				</control>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[icon_rest]">icons/search.png</texture>
+					<visible>!Control.HasFocus(9517)</visible>
+				</control>
+			</control>
+			<control type="button" id="9518">
+				<width>1000</width>
+				<height>72</height>
+				<font>font_label</font>
+				<textoffsetx>88</textoffsetx>
+				<label>$LOCALIZE[31960]</label>
+				<label2>$VAR[CustomRow_Value1]</label2>
+				<include content="CustomRows_SettingsClick"><param name="row" value="1"/><param name="heading" value="$LOCALIZE[31960]"/></include>
+			</control>
+			<control type="group" id="9568">
+				<top>-72</top>
+				<width>1000</width>
+				<height>80</height>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[ink]">icons/favourites.png</texture>
+					<visible>Control.HasFocus(9518)</visible>
+				</control>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[icon_rest]">icons/favourites.png</texture>
+					<visible>!Control.HasFocus(9518)</visible>
+				</control>
+			</control>
+			<control type="button" id="9519">
+				<width>1000</width>
+				<height>72</height>
+				<font>font_label</font>
+				<textoffsetx>88</textoffsetx>
+				<label>$LOCALIZE[31961]</label>
+				<label2>$VAR[CustomRow_Value2]</label2>
+				<include content="CustomRows_SettingsClick"><param name="row" value="2"/><param name="heading" value="$LOCALIZE[31961]"/></include>
+			</control>
+			<control type="group" id="9569">
+				<top>-72</top>
+				<width>1000</width>
+				<height>80</height>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[ink]">icons/favourites.png</texture>
+					<visible>Control.HasFocus(9519)</visible>
+				</control>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[icon_rest]">icons/favourites.png</texture>
+					<visible>!Control.HasFocus(9519)</visible>
+				</control>
+			</control>
+			<control type="button" id="9520">
+				<width>1000</width>
+				<height>72</height>
+				<font>font_label</font>
+				<textoffsetx>88</textoffsetx>
+				<label>$LOCALIZE[31962]</label>
+				<label2>$VAR[CustomRow_Value3]</label2>
+				<include content="CustomRows_SettingsClick"><param name="row" value="3"/><param name="heading" value="$LOCALIZE[31962]"/></include>
+			</control>
+			<control type="group" id="9570">
+				<top>-72</top>
+				<width>1000</width>
+				<height>80</height>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[ink]">icons/favourites.png</texture>
+					<visible>Control.HasFocus(9520)</visible>
+				</control>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[icon_rest]">icons/favourites.png</texture>
+					<visible>!Control.HasFocus(9520)</visible>
+				</control>
+			</control>
 			<control type="button" id="9510">
 				<width>1000</width>
 				<height>72</height>
@@ -460,6 +679,10 @@
 				<onclick condition="!String.IsEmpty(Window(Home).Property(groove.resetarmed))">Skin.Reset(groove.reducemotion)</onclick>
 				<onclick condition="!String.IsEmpty(Window(Home).Property(groove.resetarmed))">Skin.Reset(groove.notmdbcolours)</onclick>
 				<onclick condition="!String.IsEmpty(Window(Home).Property(groove.resetarmed))">Skin.Reset(groove.osdhide)</onclick>
+				<onclick condition="!String.IsEmpty(Window(Home).Property(groove.resetarmed))">Skin.Reset(HideMenu.Music)</onclick>
+				<onclick condition="!String.IsEmpty(Window(Home).Property(groove.resetarmed))">Skin.Reset(HideMenu.Movies)</onclick>
+				<onclick condition="!String.IsEmpty(Window(Home).Property(groove.resetarmed))">Skin.Reset(HideMenu.TVShows)</onclick>
+				<onclick condition="!String.IsEmpty(Window(Home).Property(groove.resetarmed))">Skin.Reset(HideMenu.Search)</onclick>
 				<onclick condition="!String.IsEmpty(Window(Home).Property(groove.resetarmed))">Skin.Reset(groove.np.viz)</onclick>
 				<onclick condition="!String.IsEmpty(Window(Home).Property(groove.resetarmed))">ClearProperty(groove.resetarmed,home)</onclick>
 				<onclick condition="String.IsEmpty(Window(Home).Property(groove.resetarmed))">SetProperty(groove.resetarmed,1,home)</onclick>

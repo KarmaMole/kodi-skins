@@ -9,15 +9,24 @@
 	    slides up and row A folds flat). Up retraces. Back from any row -> its tab. Back on a tab: nothing
 	    (Kodi switches to the playing video if something plays).
 	  OK on a film / episode / album card opens the info spread / gatefold from the card's slot.
+	  0.9.10: Down from the last row of any section -> the custom rows (cream rows 9881-9883, opt-in in Skin
+	    settings > Custom rows); the page slides on and row A folds flat. Up retraces, Back -> the tabs.
 	Default focus on open: the tab of the section that was active when Home was left.
 -->
 <window>
 	<defaultcontrol always="true">9001</defaultcontrol>
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>table</backgroundcolor>
-	<onload condition="String.IsEqual(Window(Home).Property(fold.section),series)">SetFocus(9002)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(fold.section),music)">SetFocus(9003)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(fold.section),search)">SetFocus(9004)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(fold.section),series) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(9002)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(fold.section),music) + !Skin.HasSetting(HideMenu.Music)">SetFocus(9003)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(fold.section),search) + !Skin.HasSetting(HideMenu.Search)">SetFocus(9004)</onload>
+	<!-- 0.9.10: the remembered tab (or Films, the default) is hidden in Skin settings (HideMenu.*): focus the first tab
+	     shown; its onfocus sets the section. Settings (9005) never hides. -->
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(fold.section)) | String.IsEqual(Window(Home).Property(fold.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(fold.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(fold.section),music) + Skin.HasSetting(HideMenu.Music)] | [String.IsEqual(Window(Home).Property(fold.section),search) + Skin.HasSetting(HideMenu.Search)]] + !Skin.HasSetting(HideMenu.Movies)">SetFocus(9001)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(fold.section)) | String.IsEqual(Window(Home).Property(fold.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(fold.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(fold.section),music) + Skin.HasSetting(HideMenu.Music)] | [String.IsEqual(Window(Home).Property(fold.section),search) + Skin.HasSetting(HideMenu.Search)]] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(9002)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(fold.section)) | String.IsEqual(Window(Home).Property(fold.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(fold.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(fold.section),music) + Skin.HasSetting(HideMenu.Music)] | [String.IsEqual(Window(Home).Property(fold.section),search) + Skin.HasSetting(HideMenu.Search)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(9003)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(fold.section)) | String.IsEqual(Window(Home).Property(fold.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(fold.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(fold.section),music) + Skin.HasSetting(HideMenu.Music)] | [String.IsEqual(Window(Home).Property(fold.section),search) + Skin.HasSetting(HideMenu.Search)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">SetFocus(9004)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(fold.section)) | String.IsEqual(Window(Home).Property(fold.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(fold.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(fold.section),music) + Skin.HasSetting(HideMenu.Music)] | [String.IsEqual(Window(Home).Property(fold.section),search) + Skin.HasSetting(HideMenu.Search)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">SetFocus(9005)</onload>
 	<onload condition="String.IsEqual(Window(Home).Property(fold.section),settings)">SetFocus(9005)</onload>
 	<onload>ClearProperty(fold.from,home)</onload>
 	<onunload>SetProperty(fold.n.films,$INFO[Container(9191).NumItems],home)</onunload>
@@ -27,6 +36,7 @@
 	<controls>
 		<include>Fold_Background</include>
 		<include>Home_Counters</include>
+		<include>CustomRows_Probes</include>
 		<include>Home_Content</include>
 		<include>Home_Tabs</include>
 		<include>Fold_Clock</include>

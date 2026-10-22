@@ -195,6 +195,38 @@ KINDS = [
 PHRASES = ["len", "genre", "decade", "seen", "order"]
 PHRASE_NO = {"len": 2, "genre": 3, "decade": 4, "seen": 5, "order": 6}   # list id = 3<kind><no>
 KIND_LIST = 311
+# 0.9.11 main menu: kinds hidden in Skin settings (HideMenu.*). The kind list keeps all four items (saved
+# sentences and the committed path store the kind's INDEX), so spinning steps over hidden kinds and a restore
+# that lands on a hidden kind moves to the first shown one.
+KIND_HIDE = {"film": "Skin.HasSetting(HideMenu.Movies)", "episode": "Skin.HasSetting(HideMenu.TVShows)",
+             "show": "Skin.HasSetting(HideMenu.TVShows)", "album": "Skin.HasSetting(HideMenu.Music)"}
+
+
+def kind_targets(i, step, n):
+    """from 1-based kind index i, spinning by step: [(conditions, offset, target index)] for each candidate
+    (the next kind, or past it while hidden). Mutually exclusive; none when every other kind is hidden."""
+    out, skipped, j, off = [], [], i, 0
+    for _ in range(n - 1):
+        j = (j - 1 + step) % n + 1
+        off += step
+        h = KIND_HIDE[KINDS[j - 1]["key"]]
+        if h in skipped:
+            continue
+        out.append((list(skipped) + [f"!{h}"], off, j))
+        skipped.append(h)
+    return out
+
+
+def first_shown(n):
+    """[(conditions, index)] of the first shown kind in list order"""
+    out, skipped = [], []
+    for j in range(1, n + 1):
+        h = KIND_HIDE[KINDS[j - 1]["key"]]
+        if h in skipped:
+            continue
+        out.append((list(skipped) + [f"!{h}"], j))
+        skipped.append(h)
+    return out
 TIMER = 399
 RESTED = f"Integer.IsEqual(Container({TIMER}).CurrentItem,2)"
 
@@ -458,12 +490,14 @@ def gen() -> str:
             a(f'\t<include name="Sen_Spin_{p}_{tag}">')
             L.extend(commit_lines(tag, RESTED))
             if p == "kind":
-                a(f"\t\t<{tag}>Control.Move({KIND_LIST},{step})</{tag}>")
-                # exact live value for restore (sentence.live.*): the post-move index, written literally
+                # move to the next shown kind (step over hidden ones) and keep the exact live value for restore
+                # (sentence.live.*): the post-move index, written literally
                 n = len(KINDS)
                 for i in range(1, n + 1):
-                    nxt = (i - 1 + step) % n + 1
-                    a(f'\t\t<{tag} condition="Integer.IsEqual(Container({KIND_LIST}).CurrentItem,{i})">Skin.SetString(sentence.live.kind,{nxt})</{tag}>')
+                    for conds, off, nxt in kind_targets(i, step, n):
+                        c = " + ".join([f"Integer.IsEqual(Container({KIND_LIST}).CurrentItem,{i})"] + conds)
+                        a(f'\t\t<{tag} condition="{c}">Control.Move({KIND_LIST},{off})</{tag}>')
+                        a(f'\t\t<{tag} condition="{c}">Skin.SetString(sentence.live.kind,{nxt})</{tag}>')
             else:
                 for ki, k in enumerate(KINDS):
                     if has(k, p):
@@ -482,9 +516,18 @@ def gen() -> str:
     # value, else the default. A digit-only $VAR value used in an action is read as a string id
     # (device 2026-10-18), so defaults go in literally and stored indexes through $INFO.
     lv, cm = "Skin.String(sentence.live.kind)", "Skin.String(sentence.kind)"
-    a(f'\t\t<onload condition="!String.IsEmpty({lv})">Control.Move({KIND_LIST},$INFO[{lv}])</onload>')
-    a(f'\t\t<onload condition="String.IsEmpty({lv}) + !String.IsEmpty({cm})">Control.Move({KIND_LIST},$INFO[{cm}])</onload>')
-    a(f'\t\t<onload condition="String.IsEmpty({lv}) + String.IsEmpty({cm})">Control.Move({KIND_LIST},1)</onload>')
+    n = len(KINDS)
+    # the kind to restore, by source; a hidden kind is replaced by the first shown one (written literally)
+    for v in range(1, n + 1):
+        src = (f"[[!String.IsEmpty({lv}) + String.IsEqual({lv},{v})] | [String.IsEmpty({lv}) + !String.IsEmpty({cm}) + String.IsEqual({cm},{v})]"
+               + (f" | [String.IsEmpty({lv}) + String.IsEmpty({cm})]]" if v == 1 else "]"))
+        h = KIND_HIDE[KINDS[v - 1]["key"]]
+        a(f'\t\t<onload condition="{src} + !{h}">Control.Move({KIND_LIST},{v})</onload>')
+        for conds, j in first_shown(n):
+            if j == v:
+                continue
+            a(f'\t\t<onload condition="{src} + {h} + {" + ".join(conds)}">Control.Move({KIND_LIST},{j})</onload>')
+            a(f'\t\t<onload condition="{src} + {h} + {" + ".join(conds)}">Skin.SetString(sentence.live.kind,{j})</onload>')
     for ki, k in enumerate(KINDS):
         for p in PHRASES:
             if has(k, p):

@@ -8,9 +8,16 @@
 	<defaultcontrol always="true">9001</defaultcontrol>
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>paper</backgroundcolor>
-	<onload condition="String.IsEqual(Window(Home).Property(passepartout.section),series)">SetFocus(9002)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(passepartout.section),music)">SetFocus(9003)</onload>
-	<onload condition="String.IsEmpty(Window(Home).Property(passepartout.section))">SetProperty(passepartout.section,films,home)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(passepartout.section),series) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(9002)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(passepartout.section),music) + !Skin.HasSetting(HideMenu.Music)">SetFocus(9003)</onload>
+	<!-- 0.9.14: the remembered section (or Films, the default) is hidden in Skin settings (HideMenu.*): focus the first
+	     word shown; its onfocus sets the section. Settings (9005) never hides. -->
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(passepartout.section)) | String.IsEqual(Window(Home).Property(passepartout.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(passepartout.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(passepartout.section),music) + Skin.HasSetting(HideMenu.Music)]] + !Skin.HasSetting(HideMenu.Movies)">SetFocus(9001)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(passepartout.section)) | String.IsEqual(Window(Home).Property(passepartout.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(passepartout.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(passepartout.section),music) + Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(9002)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(passepartout.section)) | String.IsEqual(Window(Home).Property(passepartout.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(passepartout.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(passepartout.section),music) + Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(9003)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(passepartout.section)) | String.IsEqual(Window(Home).Property(passepartout.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(passepartout.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(passepartout.section),music) + Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">SetFocus(9004)</onload>
+	<onload condition="[[[String.IsEmpty(Window(Home).Property(passepartout.section)) | String.IsEqual(Window(Home).Property(passepartout.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(passepartout.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(passepartout.section),music) + Skin.HasSetting(HideMenu.Music)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">SetFocus(9005)</onload>
+	<onload condition="String.IsEmpty(Window(Home).Property(passepartout.section)) + !Skin.HasSetting(HideMenu.Movies)">SetProperty(passepartout.section,films,home)</onload>
 	<!-- new stamp each time Home opens: the Next up plugin path changes, so it refreshes after playback -->
 	<onload>SetProperty(passepartout.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
 	<include>PP_PaperInit</include>
@@ -26,6 +33,8 @@
 		<include>Home_Exhibition</include>
 		<include>Home_ExhibitionSmall</include>
 		<include>Home_RoomRows</include>
+		<include>Home_CustomRows</include>
+		<include>CustomRows_Probes</include>
 		<include>PP_NowPlayingLine</include>
 		<include>Home_Nav</include>
 		<!-- section switching: the nav word in focus decides the exhibition and the paper source -->

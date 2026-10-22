@@ -4,7 +4,7 @@ and tilt toward you, the info block of the focused card, and a second row of cre
 
 Design contract: docs/concepts/round4/mockups/FoldHome.html (pixel values below come from it).
 Ids
-  9000 tab group: 9001 Films, 9002 Series, 9003 Music, 9004 Search, 9005 Settings
+  9000 tab group: 9001 Films, 9002 Series, 9003 Music, 9004 Search, 9005 Settings (9001-9004 hide with HideMenu.*)
   row A (closed cards, fixedlist focusposition 2): 9110 films, 9130 series, 9150 music, 9180 settings
   row B (cream cards): 9120 films in progress | 9121 recently added films (when 9120 is empty),
                        9140 new episodes, 9160 recently played albums | 9161 random albums (fallback)
@@ -44,6 +44,83 @@ ROWB_FOCUS = {
 }
 
 RM = "Skin.HasSetting(fold.reducemotion)"
+
+# ---- 0.9.10 custom rows (Includes_CustomRows.xml, tools/customrows/make_customrows.py): opt-in cream rows below
+# row B in every section. Down from the section's last row continues into them; the page slides on so the focused
+# one sits where a focused row B sits (head y 542), and row A folds flat as it does for row B.
+CUSTOM_IDS = (9881, 9882, 9883)
+C_ROW_Y = B_Y + 300          # first custom row head
+C_ROW_PITCH = 300
+DOWN_TO_CUSTOM = """
+				<ondown condition="$EXP[CustomRow1On]">9881</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+				<ondown condition="!$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>"""
+
+
+def custom_rows():
+    out = []
+    for i, rid in enumerate(CUSTOM_IDS):
+        n = i + 1
+        slides = ""
+        if n == 1:  # under the tabs once the third row has focus below two others: fade
+            slides += '\n\t\t\t\t\t<animation effect="fade" start="100" end="0" time="200" condition="Control.HasFocus(9883) + $EXP[CustomRow1On] + $EXP[CustomRow2On]">Conditional</animation>'
+        if n >= 2:
+            slides += '\n\t\t\t\t\t<animation effect="slide" start="0,0" end="0,300" time="0" condition="$EXP[CustomRow1On]">Conditional</animation>'
+        if n == 3:
+            slides += '\n\t\t\t\t\t<animation effect="slide" start="0,0" end="0,300" time="0" condition="$EXP[CustomRow2On]">Conditional</animation>'
+        ups = []
+        if n == 3:
+            ups.append(('$EXP[CustomRow2On]', 9882))
+            ups.append(('!$EXP[CustomRow2On] + $EXP[CustomRow1On]', 9881))
+        if n == 2:
+            ups.append(('$EXP[CustomRow1On]', 9881))
+        ups += [('$EXP[Home_Films] + Integer.IsGreater(Container(9120).NumItems,0)', 9120), ('$EXP[Home_Films]', 9121),
+                ('$EXP[Home_Series]', 9140),
+                ('$EXP[Home_Music] + Integer.IsGreater(Container(9160).NumItems,0)', 9160), ('$EXP[Home_Music]', 9161),
+                ('$EXP[Home_Search]', 9170), ('$EXP[Home_Settings]', 9180)]
+        up_xml = "".join(f'\n\t\t\t\t\t\t<onup condition="{c}">{t}</onup>' for c, t in ups) + "\n\t\t\t\t\t\t<onup>9000</onup>"
+        downs = []
+        if n == 1:
+            downs = [('$EXP[CustomRow2On]', 9882), ('!$EXP[CustomRow2On] + $EXP[CustomRow3On]', 9883)]
+        if n == 2:
+            downs = [('$EXP[CustomRow3On]', 9883)]
+        down_xml = "".join(f'\n\t\t\t\t\t\t<ondown condition="{c}">{t}</ondown>' for c, t in downs) + "\n\t\t\t\t\t\t<ondown>noop</ondown>"
+        card = lambda f: cream_card(f, rid, "video", art="$VAR[CustomRow_WideArt]", vtitle="$VAR[Home_CustomTitle]")
+        out.append(f"""
+				<control type="group">{slides}
+					<control type="label">
+						<left>96</left>
+						<top>0</top>
+						<width>1300</width>
+						<height>32</height>
+						<font>caps_20_b</font>
+						<textcolor>ink</textcolor>
+						<label>$VAR[CustomRow_Title{n}][COLOR cap2]   $VAR[CustomRow_Count{n}][/COLOR]</label>
+						<visible>$EXP[CustomRow{n}On]</visible>
+					</control>
+					<control type="list" id="{rid}">
+						<left>{LIST_X}</left>
+						<top>0</top>
+						<width>{C_PITCH * 6}</width>
+						<height>{C_H + 120}</height>
+						<orientation>horizontal</orientation>
+						<preloaditems>2</preloaditems>
+						<scrolltime tween="cubic" easing="out">240</scrolltime>{up_xml}{down_xml}
+						<onleft>noop</onleft>
+						<onright>noop</onright>
+						<onback>9000</onback>
+						<itemlayout width="{C_PITCH}" height="{C_H + 120}">{card(False)}
+						</itemlayout>
+						<focusedlayout width="{C_PITCH}" height="{C_H + 120}">{card(True)}
+						</focusedlayout>
+						<include content="CustomRow_Content"><param name="row" value="{n}"/></include>
+					</control>
+				</control>""")
+    return f"""
+			<!-- custom rows (0.9.10): below row B in every section; the lists always load (no <visible>), empty ones draw nothing -->
+			<control type="group">
+				<top>{C_ROW_Y}</top>{''.join(out)}
+			</control>"""
 
 
 def anim_focus_lift(cx, bottom, scale, list_id):
@@ -234,8 +311,9 @@ def row_a(list_id, kind, content, onup, ondown, onclick, extra_visible="true", s
 			</control>"""
 
 
-def cream_card(focused, list_id, kind):
-    """Row-B cream card (FoldHome .ccard): title + mono runtime, perforated progress, art."""
+def cream_card(focused, list_id, kind, art="$VAR[Home_CreamArt]", vtitle="$VAR[Home_CreamTitle]"):
+    """Row-B cream card (FoldHome .ccard): title + mono runtime, perforated progress, art.
+    art / vtitle: the video card's picture and title (0.9.10 custom rows pass their own)."""
     lift = ""
     if focused:
         lift = f"""
@@ -312,9 +390,9 @@ def cream_card(focused, list_id, kind):
 							<height>150</height>
 							<aspectratio>scale</aspectratio>
 							<fadetime>160</fadetime>
-							<texture background="true">$VAR[Home_CreamArt]</texture>
+							<texture background="true">{art}</texture>
 						</control>"""
-        title, right = "$VAR[Home_CreamTitle]", "$INFO[ListItem.Duration(mins),,′]"
+        title, right = vtitle, "$INFO[ListItem.Duration(mins),,′]"
         line2 = ""
     edge = ""
     if focused:
@@ -424,7 +502,7 @@ def row_b(list_id, kind, content_xml, onup, onclick, visible="true"):
 				<preloaditems>2</preloaditems>
 				<scrolltime tween="cubic" easing="out">240</scrolltime>
 				<visible>{visible}</visible>
-				<onup>{onup}</onup>
+				<onup>{onup}</onup>{DOWN_TO_CUSTOM}
 				<onback>{onback}</onback>
 {clicks}
 				<itemlayout width="{C_PITCH}" height="{C_H + 120}">{cream_card(False, list_id, kind)}
@@ -440,9 +518,9 @@ def info_block(c, probe, section, rowb, kind):
     if rowb:
         vis = f"$EXP[Home_{section.title()}] + [{ROWB_FOCUS[section]}] + Control.HasFocus({c})"
     elif c == 9131:
-        vis = f"$EXP[Home_Series] + !Integer.IsGreater(Container(9130).NumItems,0) + ![{ROWB_FOCUS['series']}]"
+        vis = f"$EXP[Home_Series] + !Integer.IsGreater(Container(9130).NumItems,0) + ![{ROWB_FOCUS['series']}] + !$EXP[CustomRowsFocus]"
     else:
-        vis = f"$EXP[Home_{section.title()}] + ![{ROWB_FOCUS.get(section, 'false')}]"
+        vis = f"$EXP[Home_{section.title()}] + ![{ROWB_FOCUS.get(section, 'false')}] + !$EXP[CustomRowsFocus]"
     C = f"Container({c})"
     return f"""
 			<!-- info: {c} -->
@@ -657,10 +735,25 @@ def system_content():
     return "<content>\n" + "\n".join(items) + "\n\t\t\t\t</content>"
 
 
+# 0.9.10 main menu: tabs hidden in Skin settings (HideMenu.*); the tabs after a hidden one slide left by its pitch
+# (206). A hidden tab keeps its numeric onleft / onright, so Left / Right fall through it. Settings never hides.
+TAB_HIDE = {9001: "Skin.HasSetting(HideMenu.Movies)", 9002: "Skin.HasSetting(HideMenu.TVShows)",
+            9003: "Skin.HasSetting(HideMenu.Music)", 9004: "Skin.HasSetting(HideMenu.Search)"}
+
+
+def tab_hide(tid):
+    o = []
+    if tid in TAB_HIDE:
+        o.append(f"\n\t\t\t\t<visible>!{TAB_HIDE[tid]}</visible>")
+    for p in range(9001, tid):
+        o.append(f'\n\t\t\t\t<animation effect="slide" start="0,0" end="-206,0" time="0" condition="{TAB_HIDE[p]}">Conditional</animation>')
+    return "".join(o)
+
+
 def tab(tid, x, color, label, section, count, onclick, ondown, left, right):
     focus_cond = f"Control.HasFocus({tid})"
     return f"""
-			<control type="group">
+			<control type="group">{tab_hide(tid)}
 				<include content="Fold_TabLook">
 					<param name="x" value="{x}"/>
 					<param name="color" value="{color}"/>
@@ -709,10 +802,10 @@ def build():
 <!--{__doc__}-->
 <includes>
 	<!-- ============================================================== expressions -->
-	<expression name="Home_Films">String.IsEmpty(Window(Home).Property(fold.section)) | String.IsEqual(Window(Home).Property(fold.section),films)</expression>
-	<expression name="Home_Series">String.IsEqual(Window(Home).Property(fold.section),series)</expression>
-	<expression name="Home_Music">String.IsEqual(Window(Home).Property(fold.section),music)</expression>
-	<expression name="Home_Search">String.IsEqual(Window(Home).Property(fold.section),search)</expression>
+	<expression name="Home_Films">[String.IsEmpty(Window(Home).Property(fold.section)) | String.IsEqual(Window(Home).Property(fold.section),films)] + !Skin.HasSetting(HideMenu.Movies)</expression>
+	<expression name="Home_Series">String.IsEqual(Window(Home).Property(fold.section),series) + !Skin.HasSetting(HideMenu.TVShows)</expression>
+	<expression name="Home_Music">String.IsEqual(Window(Home).Property(fold.section),music) + !Skin.HasSetting(HideMenu.Music)</expression>
+	<expression name="Home_Search">String.IsEqual(Window(Home).Property(fold.section),search) + !Skin.HasSetting(HideMenu.Search)</expression>
 	<expression name="Home_Settings">String.IsEqual(Window(Home).Property(fold.section),settings)</expression>
 	<expression name="Home_RowB">{ROWB_FOCUS['films']} | {ROWB_FOCUS['series']} | {ROWB_FOCUS['music']}</expression>
 
@@ -742,6 +835,11 @@ def build():
 	<variable name="Home_CreamTitle">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.TVShowTitle]</value>
 		<value>$INFO[ListItem.Title]</value>
+	</variable>
+	<!-- custom rows: add-on folders often have no title, only a label -->
+	<variable name="Home_CustomTitle">
+		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.TVShowTitle)">$INFO[ListItem.TVShowTitle]</value>
+		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<variable name="Home_RowHeadA">
 		<value condition="$EXP[Home_Series] + Integer.IsGreater(Container(9130).NumItems,0)">In progress[COLOR cap2]   $INFO[Container(9130).NumItems] shows[/COLOR]</value>
@@ -797,6 +895,25 @@ def build():
 			<animation type="Conditional" condition="$EXP[Home_RowB] + {RM}" reversible="true">
 				<effect type="slide" start="0,0" end="0,-{SLIDE_B}" time="0"/>
 			</animation>
+			<!-- 0.9.10 custom rows: {SLIDE_B} + {C_ROW_PITCH} px to the first one, {C_ROW_PITCH} more per row with items above the focused one -->
+			<animation type="Conditional" condition="$EXP[CustomRowsFocus] + !{RM}" reversible="true">
+				<effect type="slide" start="0,0" end="0,-{SLIDE_B + C_ROW_PITCH}" time="320" tween="cubic" easing="out"/>
+			</animation>
+			<animation type="Conditional" condition="$EXP[CustomRowsFocus] + {RM}" reversible="true">
+				<effect type="slide" start="0,0" end="0,-{SLIDE_B + C_ROW_PITCH}" time="0"/>
+			</animation>
+			<animation type="Conditional" condition="[Control.HasFocus(9882) | Control.HasFocus(9883)] + $EXP[CustomRow1On] + !{RM}" reversible="true">
+				<effect type="slide" start="0,0" end="0,-{C_ROW_PITCH}" time="280" tween="cubic" easing="out"/>
+			</animation>
+			<animation type="Conditional" condition="[Control.HasFocus(9882) | Control.HasFocus(9883)] + $EXP[CustomRow1On] + {RM}" reversible="true">
+				<effect type="slide" start="0,0" end="0,-{C_ROW_PITCH}" time="0"/>
+			</animation>
+			<animation type="Conditional" condition="Control.HasFocus(9883) + $EXP[CustomRow2On] + !{RM}" reversible="true">
+				<effect type="slide" start="0,0" end="0,-{C_ROW_PITCH}" time="280" tween="cubic" easing="out"/>
+			</animation>
+			<animation type="Conditional" condition="Control.HasFocus(9883) + $EXP[CustomRow2On] + {RM}" reversible="true">
+				<effect type="slide" start="0,0" end="0,-{C_ROW_PITCH}" time="0"/>
+			</animation>
 			<!-- row A head -->
 			<control type="label">
 				<left>96</left>
@@ -806,15 +923,15 @@ def build():
 				<font>caps_20_b</font>
 				<textcolor>$VAR[FoldAccentInk]</textcolor>
 				<label>$VAR[Home_RowHeadA]</label>
-				<animation effect="fade" start="100" end="0" time="200" condition="$EXP[Home_RowB]">Conditional</animation>
+				<animation effect="fade" start="100" end="0" time="200" condition="$EXP[Home_RowB] | $EXP[CustomRowsFocus]">Conditional</animation>
 			</control>
-			<!-- row A: folds down onto the table while row B has focus; stands up when a section opens -->
+			<!-- row A: folds down onto the table while row B (or a custom row) has focus; stands up when a section opens -->
 			<control type="group">
-				<animation type="Conditional" condition="$EXP[Home_RowB] + !{RM}" reversible="true">
+				<animation type="Conditional" condition="[$EXP[Home_RowB] | $EXP[CustomRowsFocus]] + !{RM}" reversible="true">
 					<effect type="rotatex" start="0" end="70" center="{LIST_Y + F_TOP + F_H}" time="300" tween="cubic" easing="in"/>
 					<effect type="fade" start="100" end="0" time="300" tween="cubic" easing="in"/>
 				</animation>
-				<animation type="Conditional" condition="$EXP[Home_RowB] + {RM}" reversible="true">
+				<animation type="Conditional" condition="[$EXP[Home_RowB] | $EXP[CustomRowsFocus]] + {RM}" reversible="true">
 					<effect type="fade" start="100" end="0" time="0"/>
 				</animation>
 				<!-- films -->
@@ -835,7 +952,7 @@ def build():
 				<!-- settings -->
 				<control type="group">
 					<visible>$EXP[Home_Settings]</visible>
-					<include>Home_SectionUnfold</include>{row_a(9180, 'system', system_content(), 9005, 9005, [], focuspos=2)}
+					<include>Home_SectionUnfold</include>{row_a(9180, 'system', system_content(), 9005, 9005, [], focuspos=2).replace('<ondown>9005</ondown>', DOWN_TO_CUSTOM.strip() + chr(10) + chr(9) * 4 + '<ondown>9005</ondown>', 1)}
 				</control>
 				<!-- search: one jade card -->
 				<control type="group">
@@ -856,6 +973,8 @@ def build():
 			<!-- row B -->
 			<control type="group">
 				<visible>$EXP[Home_Films] | $EXP[Home_Series] | $EXP[Home_Music]</visible>
+				<!-- 0.9.10: fades once the page has slid past it (a second custom row has focus), so it never runs under the tabs -->
+				<animation effect="fade" start="100" end="0" time="200" condition="[[Control.HasFocus(9882) | Control.HasFocus(9883)] + $EXP[CustomRow1On]] | [Control.HasFocus(9883) + $EXP[CustomRow2On]]">Conditional</animation>
 				<control type="label">
 					<left>96</left>
 					<top>{B_Y}</top>
@@ -874,7 +993,7 @@ def build():
 				<control type="group">
 					<visible>$EXP[Home_Music]</visible>{row_b(9160, 'album', '<content target="music" browse="never">musicdb://recentlyplayedalbums/</content>', 9150, ['SetProperty(fold.from,c$INFO[Container(9160).Position],home)'] + counts + ['Action(Info)'])}{row_b(9161, 'album', '<content target="music" sortby="random" limit="20" browse="never">musicdb://albums/</content>', 9150, ['SetProperty(fold.from,c$INFO[Container(9161).Position],home)'] + counts + ['Action(Info)'], visible='!Integer.IsGreater(Container(9160).NumItems,0)')}
 				</control>
-			</control>
+			</control>{custom_rows()}
 		</control>
 	</include>
 
@@ -1003,7 +1122,7 @@ def build():
 				<texturenofocus />
 				<label></label>
 				<onclick>ActivateWindow(1150)</onclick>
-				<onup>9004</onup>
+				<onup>9004</onup>{DOWN_TO_CUSTOM}
 				<onback>9004</onback>
 			</control>
 		</control>

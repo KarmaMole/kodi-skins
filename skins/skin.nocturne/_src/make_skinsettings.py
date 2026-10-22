@@ -48,6 +48,196 @@ ROWS = [
      True),
 ]
 RESET_ID = 9509
+# 0.9.9 main menu (HideMenu.*): a compact panel under the curator's note, after Restore in the Up / Down chain
+MENU = [(9511, "$LOCALIZE[31200]", "HideMenu.Movies"), (9512, "$LOCALIZE[31201]", "HideMenu.TVShows"),
+        (9513, "$LOCALIZE[31202]", "HideMenu.Music"), (9514, "$LOCALIZE[137]", "HideMenu.Search")]
+MENU_TOP = 812  # 0.9.9: was 712; the custom rows panel sits above it
+# 0.9.9 custom rows (Includes_CustomRows.xml): a compact panel between the curator's note and the main menu,
+# after Restore in the Up / Down chain; OK opens the row's options
+CUSTOM = [(9515, "$LOCALIZE[31941]", 1), (9516, "$LOCALIZE[31942]", 2), (9517, "$LOCALIZE[31943]", 3)]
+CUSTOM_TOP = 564
+
+
+def menu_xml():
+    o = [f"""		<!-- main menu panel -->
+		<control type="group">
+			<left>1240</left>
+			<top>{MENU_TOP - 44}</top>
+			<control type="label">
+				<left>0</left>
+				<top>0</top>
+				<width>590</width>
+				<height>32</height>
+				<aligny>center</aligny>
+				<font>caps_20</font>
+				<textcolor>8cc8b8a0</textcolor>
+				<label>$LOCALIZE[31740]</label>
+			</control>
+		</control>"""]
+    for k, (rid, label, key) in enumerate(MENU):
+        up = MENU[k - 1][0] if k else CUSTOM[-1][0]
+        down = MENU[k + 1][0] if k + 1 < len(MENU) else ROWS[0][0]
+        o.append(f"""		<control type="group">
+			<left>1240</left>
+			<top>{MENU_TOP + k * 64}</top>
+			<control type="image">
+				<left>-40</left>
+				<top>0</top>
+				<width>670</width>
+				<height>56</height>
+				<texture border="64,0,64,0" colordiffuse="light">noc/glow_bar.png</texture>
+				<visible>Control.HasFocus({rid})</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>12</top>
+				<width>3</width>
+				<height>32</height>
+				<texture>noc/tick.png</texture>
+				<visible>Control.HasFocus({rid})</visible>
+			</control>
+			<control type="button" id="{rid}">
+				<left>0</left>
+				<top>0</top>
+				<width>590</width>
+				<height>56</height>
+				<font>sans_26</font>
+				<textoffsetx>28</textoffsetx>
+				<aligny>center</aligny>
+				<textcolor>b8e2d0b4</textcolor>
+				<focusedcolor>text_lit</focusedcolor>
+				<texturefocus />
+				<texturenofocus />
+				<label>{label}</label>
+				<onup>{up}</onup>
+				<ondown>{down}</ondown>
+				<onright>Skin.ToggleSetting({key})</onright>
+				<onclick>Skin.ToggleSetting({key})</onclick>
+				<onleft>Skin.ToggleSetting({key})</onleft>
+			</control>
+			<control type="label">
+				<left>250</left>
+				<top>0</top>
+				<width>320</width>
+				<height>56</height>
+				<align>right</align>
+				<aligny>center</aligny>
+				<font>caps_22</font>
+				<textcolor>8cc8b8a0</textcolor>
+				<label>$VAR[SkinSet_Value_{rid}]</label>
+				<visible>!Control.HasFocus({rid})</visible>
+			</control>
+			<control type="label">
+				<left>250</left>
+				<top>0</top>
+				<width>320</width>
+				<height>56</height>
+				<align>right</align>
+				<aligny>center</aligny>
+				<font>caps_22</font>
+				<textcolor>fff4e6cf</textcolor>
+				<label>◀   $VAR[SkinSet_Value_{rid}]   ▶</label>
+				<visible>Control.HasFocus({rid})</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>59</top>
+				<width>590</width>
+				<height>1</height>
+				<texture colordiffuse="1adcbe8c">common/white.png</texture>
+			</control>
+		</control>""")
+    return "\n".join(o)
+
+
+def custom_xml():
+    o = [f"""		<!-- custom rows panel -->
+		<control type="group">
+			<left>1240</left>
+			<top>{CUSTOM_TOP - 44}</top>
+			<control type="label">
+				<left>0</left>
+				<top>0</top>
+				<width>590</width>
+				<height>32</height>
+				<aligny>center</aligny>
+				<font>caps_20</font>
+				<textcolor>8cc8b8a0</textcolor>
+				<label>$LOCALIZE[31940]</label>
+			</control>
+		</control>"""]
+    for k, (rid, label, n) in enumerate(CUSTOM):
+        up = CUSTOM[k - 1][0] if k else RESET_ID
+        down = CUSTOM[k + 1][0] if k + 1 < len(CUSTOM) else MENU[0][0]
+        o.append(f"""		<control type="group">
+			<left>1240</left>
+			<top>{CUSTOM_TOP + k * 64}</top>
+			<control type="image">
+				<left>-40</left>
+				<top>0</top>
+				<width>670</width>
+				<height>56</height>
+				<texture border="64,0,64,0" colordiffuse="light">noc/glow_bar.png</texture>
+				<visible>Control.HasFocus({rid})</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>12</top>
+				<width>3</width>
+				<height>32</height>
+				<texture>noc/tick.png</texture>
+				<visible>Control.HasFocus({rid})</visible>
+			</control>
+			<control type="button" id="{rid}">
+				<left>0</left>
+				<top>0</top>
+				<width>590</width>
+				<height>56</height>
+				<font>sans_26</font>
+				<textoffsetx>28</textoffsetx>
+				<textcolor>b8e2d0b4</textcolor>
+				<focusedcolor>text_lit</focusedcolor>
+				<texturefocus />
+				<label>{label}</label>
+				<onup>{up}</onup>
+				<ondown>{down}</ondown>
+				<onleft>noop</onleft>
+				<onright>noop</onright>
+				<include content="CustomRows_SettingsClick"><param name="row" value="{n}"/><param name="heading" value="{label}"/></include>
+			</control>
+			<control type="label">
+				<left>200</left>
+				<top>0</top>
+				<width>370</width>
+				<height>56</height>
+				<align>right</align>
+				<aligny>center</aligny>
+				<font>caps_22</font>
+				<textcolor>8cc8b8a0</textcolor>
+				<label>$VAR[CustomRow_Value{n}]</label>
+				<visible>!Control.HasFocus({rid})</visible>
+			</control>
+			<control type="label">
+				<left>200</left>
+				<top>0</top>
+				<width>370</width>
+				<height>56</height>
+				<align>right</align>
+				<aligny>center</aligny>
+				<font>caps_22</font>
+				<textcolor>fff4e6cf</textcolor>
+				<label>$VAR[CustomRow_Value{n}]</label>
+				<visible>Control.HasFocus({rid})</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>59</top>
+				<width>590</width>
+				<height>1</height>
+				<texture colordiffuse="1adcbe8c">common/white.png</texture>
+			</control>
+		</control>""")
+    return "\n".join(o)
 
 
 def esc(s):
@@ -100,7 +290,7 @@ def actions(row):
 def row_xml(i, row):
     rid, label, kind, key, values, *_ = row
     top = 196 + i * 84
-    up = ROWS[i - 1][0] if i else RESET_ID
+    up = ROWS[i - 1][0] if i else MENU[-1][0]
     down = ROWS[i + 1][0] if i + 1 < len(ROWS) else RESET_ID
     return f"""		<!-- {label} -->
 		<control type="group">
@@ -174,7 +364,8 @@ def row_xml(i, row):
 
 
 def main():
-    resets = "\n".join(f"\t\t\t\t<onclick condition=\"!String.IsEmpty(Window(Home).Property(nocturne.resetarmed))\">Skin.Reset({r[3]})</onclick>" for r in ROWS)
+    resets = "\n".join(f"\t\t\t\t<onclick condition=\"!String.IsEmpty(Window(Home).Property(nocturne.resetarmed))\">Skin.Reset({k})</onclick>"
+                       for k in [r[3] for r in ROWS] + [m[2] for m in MENU])
     help_title = "\n".join(f'\t\t<value condition="Control.HasFocus({r[0]})">{esc(r[5])}</value>' for r in ROWS)
     help_text = "\n".join(f'\t\t<value condition="Control.HasFocus({r[0]})">{esc(r[6])}</value>' for r in ROWS)
     top_reset = 196 + len(ROWS) * 84 + 24
@@ -212,13 +403,16 @@ def main():
 				<texturefocus border="26,0,26,0">noc/plaque.png</texturefocus>
 				<label>$VAR[SkinSet_ResetLabel]</label>
 				<onup>{ROWS[-1][0]}</onup>
-				<ondown>{ROWS[0][0]}</ondown>
+				<ondown>{CUSTOM[0][0]}</ondown>
 				<onunfocus>ClearProperty(nocturne.resetarmed,home)</onunfocus>
 {resets}
 				<onclick condition="!String.IsEmpty(Window(Home).Property(nocturne.resetarmed))">ClearProperty(nocturne.resetarmed,home)</onclick>
 				<onclick condition="String.IsEmpty(Window(Home).Property(nocturne.resetarmed))">SetProperty(nocturne.resetarmed,1,home)</onclick>
 			</control>
 		</control>
+{custom_xml()}
+{menu_xml()}
+		<include>CustomRows_FavData</include>
 		<!-- the curator's note for the focused setting -->
 		<control type="group">
 			<left>1240</left>
@@ -260,7 +454,7 @@ def main():
 				<left>0</left>
 				<top>146</top>
 				<width>590</width>
-				<height>328</height>
+				<height>164</height>  <!-- 0.9.9: four lines (the longest note), the custom rows panel starts below -->
 				<font>body_26</font>
 				<textcolor>dbeadcc6</textcolor>
 				<label>$VAR[SkinSet_HelpText]</label>
@@ -270,6 +464,11 @@ def main():
 </window>
 """
     vars_xml = "\n".join(value_label(r) for r in ROWS)
+    vars_xml += "\n" + "\n".join(f'\t<variable name="SkinSet_Value_{rid}">\n\t\t<value condition="Skin.HasSetting({key})">$LOCALIZE[31742]</value>\n\t\t<value>$LOCALIZE[31741]</value>\n\t</variable>' for rid, _l, key in MENU)
+    help_title += "\n" + "\n".join(f'\t\t<value condition="Control.HasFocus({rid})">{label}</value>' for rid, label, _k in MENU)
+    help_text += "\n" + "\n".join(f'\t\t<value condition="Control.HasFocus({rid})">$LOCALIZE[31743]</value>' for rid, _l, _k in MENU)
+    help_title += "\n" + "\n".join(f'\t\t<value condition="Control.HasFocus({rid})">{label}</value>' for rid, label, _n in CUSTOM)
+    help_text += "\n" + "\n".join(f'\t\t<value condition="Control.HasFocus({rid})">$LOCALIZE[31957]</value>' for rid, _l, _n in CUSTOM)
     vars_xml += f"""
 	<variable name="SkinSet_HelpTitle">
 {help_title}

@@ -10,11 +10,33 @@
 	  spotlight Left/Right = previous/next pick (Right wraps; Left on pick 1 -> stack); "n / 5" pager tab top-right.
 	  Left from the first tile of row 1 / the spotlight -> stack. Back from anything on the right -> stack.
 	  Home is KEEP_IN_MEMORY: list 300 keeps its section; defaultcontrol always returns focus to it.
+	  0.9.13 custom rows (opt-in, Includes_CustomRows.xml): Down from the All tile / a bottom Search block -> strips
+	  9881-9883 in place of the bento (Home_SectionCustom); Up from the first -> back; Left / Back -> stack.
 -->
 <window>
 	<defaultcontrol always="true">300</defaultcontrol>
 	<menucontrol>300</menucontrol>
 	<backgroundcolor>ground_static</backgroundcolor>
+	<!-- 0.9.13: sections can be hidden (HideMenu.*), which shifts the positions in list 300: while any is hidden,
+	     select the remembered section at its new position (0-based), or the first one when it is hidden -->
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),films) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + !Skin.HasSetting(HideMenu.Movies)">SetFocus(300,0,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),films) + Skin.HasSetting(HideMenu.Movies)">SetFocus(300,0,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),series) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(300,1,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),series) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(300,0,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),series) + Skin.HasSetting(HideMenu.TVShows)">SetFocus(300,0,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),music) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(300,2,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),music) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(300,1,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),music) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(300,1,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),music) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(300,0,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),music) + Skin.HasSetting(HideMenu.Music)">SetFocus(300,0,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),search) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(300,3,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),search) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">SetFocus(300,2,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),search) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(300,2,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),search) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">SetFocus(300,1,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),search) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(300,2,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),search) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">SetFocus(300,1,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),search) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetFocus(300,1,absolute)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(duotone.section),search) + [Skin.HasSetting(HideMenu.Movies) | Skin.HasSetting(HideMenu.TVShows) | Skin.HasSetting(HideMenu.Music)] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">SetFocus(300,0,absolute)</onload>
 	<onload>SetProperty(duotone.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
 	<!-- Monotone prints: TMDb Helper's desaturate service (optional) makes the spotlight a true one-colour print -->
 	<onload condition="$EXP[DT_DesatOn] + !Skin.HasSetting(TMDbHelper.EnableDesaturate)">Skin.SetBool(TMDbHelper.EnableDesaturate)</onload>
@@ -34,6 +56,8 @@
 		<include>Home_SectionSeries</include>
 		<include>Home_SectionMusic</include>
 		<include>Home_SectionSearch</include>
+		<include>Home_SectionCustom</include>
+		<include>CustomRows_Probes</include>
 		<include>Home_NowPlaying</include>
 	</controls>
 </window>

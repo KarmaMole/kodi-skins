@@ -49,6 +49,14 @@
 		<value condition="Control.HasFocus(9515)">ink_bold</value>
 		<value>label_hi</value>
 	</variable>
+	<variable name="SkinSet_Ink_9516">
+		<value condition="Control.HasFocus(9516)">ink_bold</value>
+		<value>ink_soft</value>
+	</variable>
+	<variable name="SkinSet_Opt_9516">
+		<value condition="Control.HasFocus(9516)">ink_bold</value>
+		<value>label_hi</value>
+	</variable>
 	<variable name="SkinSet_Help">
 		<value condition="Control.HasFocus(9510)">How the orange camera date is printed in the corner of a print you watched.</value>
 		<value condition="Control.HasFocus(9511)">Hand-placed prints sit a little crooked, like a real album; straight lines them up.</value>
@@ -56,6 +64,19 @@
 		<value condition="Control.HasFocus(9513)">The &quot;trailer&quot; word on a film's page, when the film has a trailer.</value>
 		<value condition="Control.HasFocus(9514)">Prints lift and straighten, pages fade. Reduced keeps everything still.</value>
 		<value condition="Control.HasFocus(9515)">During playback the words at the bottom close by themselves after this long.</value>
+		<value condition="Control.HasFocus(9516)">Circle the words Home shows; the others leave, with their prints. Settings always stays.</value>
+		<value condition="Control.HasFocus(9517)">$LOCALIZE[31964]</value>
+		<value condition="Control.HasFocus(9518)">$LOCALIZE[31964]</value>
+		<value condition="Control.HasFocus(9519)">$LOCALIZE[31964]</value>
+	</variable>
+	<variable name="SkinSet_Ink_Custom">
+		<value condition="Control.HasFocus(9517) | Control.HasFocus(9518) | Control.HasFocus(9519)">ink_bold</value>
+		<value>ink_soft</value>
+	</variable>
+	<variable name="SkinSet_CustomValue">
+		<value condition="Control.HasFocus(9517)">$LOCALIZE[31941]  ·  $VAR[CustomRow_Value1]</value>
+		<value condition="Control.HasFocus(9518)">$LOCALIZE[31942]  ·  $VAR[CustomRow_Value2]</value>
+		<value condition="Control.HasFocus(9519)">$LOCALIZE[31943]  ·  $VAR[CustomRow_Value3]</value>
 	</variable>
 	<variable name="SkinSet_PreviewWhen">
 		<value condition="!String.IsEmpty(Container(9590).ListItem.LastPlayed)">  ·  watched $INFO[Container(9590).ListItem.LastPlayed]</value>

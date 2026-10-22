@@ -28,4 +28,5 @@
 	<include file="Includes_Views_Music.xml"/>
 	<include file="Includes_Misc.xml"/>
 	<include file="Includes_LibraryPanel.xml"/>
+	<include file="Includes_CustomRows.xml"/>
 </includes>

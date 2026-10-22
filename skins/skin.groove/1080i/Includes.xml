@@ -31,4 +31,5 @@
 	<include file="Includes_Library.xml"/>
 	<include file="Includes_TimeMachine.xml"/>
 	<include file="Includes_Wheel.xml"/>
+	<include file="Includes_CustomRows.xml"/>
 </includes>

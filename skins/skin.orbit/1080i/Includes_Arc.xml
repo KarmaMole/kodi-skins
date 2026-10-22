@@ -492,6 +492,204 @@
 		<value condition="!String.IsEmpty(Container(9104).ListItemNoWrap(5).Art(poster))">$INFO[Container(9104).ListItemNoWrap(5).Art(poster)]</value>
 		<value>$INFO[Container(9104).ListItemNoWrap(5).Icon]</value>
 	</variable>
+	<variable name="ArcArt9881_m5">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-5).Art(poster))">$INFO[Container(9881).ListItem(-5).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-5).Art(tvshow.poster))">$INFO[Container(9881).ListItem(-5).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-5).Art(thumb))">$INFO[Container(9881).ListItem(-5).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(-5).Icon]</value>
+	</variable>
+	<variable name="ArcArt9881_m4">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-4).Art(poster))">$INFO[Container(9881).ListItem(-4).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-4).Art(tvshow.poster))">$INFO[Container(9881).ListItem(-4).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-4).Art(thumb))">$INFO[Container(9881).ListItem(-4).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(-4).Icon]</value>
+	</variable>
+	<variable name="ArcArt9881_m3">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-3).Art(poster))">$INFO[Container(9881).ListItem(-3).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-3).Art(tvshow.poster))">$INFO[Container(9881).ListItem(-3).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-3).Art(thumb))">$INFO[Container(9881).ListItem(-3).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(-3).Icon]</value>
+	</variable>
+	<variable name="ArcArt9881_m2">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-2).Art(poster))">$INFO[Container(9881).ListItem(-2).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-2).Art(tvshow.poster))">$INFO[Container(9881).ListItem(-2).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-2).Art(thumb))">$INFO[Container(9881).ListItem(-2).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(-2).Icon]</value>
+	</variable>
+	<variable name="ArcArt9881_m1">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-1).Art(poster))">$INFO[Container(9881).ListItem(-1).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-1).Art(tvshow.poster))">$INFO[Container(9881).ListItem(-1).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(-1).Art(thumb))">$INFO[Container(9881).ListItem(-1).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(-1).Icon]</value>
+	</variable>
+	<variable name="ArcArt9881_p0">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(0).Art(poster))">$INFO[Container(9881).ListItem(0).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(0).Art(tvshow.poster))">$INFO[Container(9881).ListItem(0).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(0).Art(thumb))">$INFO[Container(9881).ListItem(0).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(0).Icon]</value>
+	</variable>
+	<variable name="ArcArt9881_p1">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(1).Art(poster))">$INFO[Container(9881).ListItem(1).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(1).Art(tvshow.poster))">$INFO[Container(9881).ListItem(1).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(1).Art(thumb))">$INFO[Container(9881).ListItem(1).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(1).Icon]</value>
+	</variable>
+	<variable name="ArcArt9881_p2">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(2).Art(poster))">$INFO[Container(9881).ListItem(2).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(2).Art(tvshow.poster))">$INFO[Container(9881).ListItem(2).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(2).Art(thumb))">$INFO[Container(9881).ListItem(2).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(2).Icon]</value>
+	</variable>
+	<variable name="ArcArt9881_p3">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(3).Art(poster))">$INFO[Container(9881).ListItem(3).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(3).Art(tvshow.poster))">$INFO[Container(9881).ListItem(3).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(3).Art(thumb))">$INFO[Container(9881).ListItem(3).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(3).Icon]</value>
+	</variable>
+	<variable name="ArcArt9881_p4">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(4).Art(poster))">$INFO[Container(9881).ListItem(4).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(4).Art(tvshow.poster))">$INFO[Container(9881).ListItem(4).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(4).Art(thumb))">$INFO[Container(9881).ListItem(4).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(4).Icon]</value>
+	</variable>
+	<variable name="ArcArt9881_p5">
+		<value condition="!String.IsEmpty(Container(9881).ListItem(5).Art(poster))">$INFO[Container(9881).ListItem(5).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(5).Art(tvshow.poster))">$INFO[Container(9881).ListItem(5).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9881).ListItem(5).Art(thumb))">$INFO[Container(9881).ListItem(5).Art(thumb)]</value>
+		<value>$INFO[Container(9881).ListItem(5).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_m5">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-5).Art(poster))">$INFO[Container(9882).ListItem(-5).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-5).Art(tvshow.poster))">$INFO[Container(9882).ListItem(-5).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-5).Art(thumb))">$INFO[Container(9882).ListItem(-5).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(-5).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_m4">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-4).Art(poster))">$INFO[Container(9882).ListItem(-4).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-4).Art(tvshow.poster))">$INFO[Container(9882).ListItem(-4).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-4).Art(thumb))">$INFO[Container(9882).ListItem(-4).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(-4).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_m3">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-3).Art(poster))">$INFO[Container(9882).ListItem(-3).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-3).Art(tvshow.poster))">$INFO[Container(9882).ListItem(-3).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-3).Art(thumb))">$INFO[Container(9882).ListItem(-3).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(-3).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_m2">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-2).Art(poster))">$INFO[Container(9882).ListItem(-2).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-2).Art(tvshow.poster))">$INFO[Container(9882).ListItem(-2).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-2).Art(thumb))">$INFO[Container(9882).ListItem(-2).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(-2).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_m1">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-1).Art(poster))">$INFO[Container(9882).ListItem(-1).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-1).Art(tvshow.poster))">$INFO[Container(9882).ListItem(-1).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(-1).Art(thumb))">$INFO[Container(9882).ListItem(-1).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(-1).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_p0">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(0).Art(poster))">$INFO[Container(9882).ListItem(0).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(0).Art(tvshow.poster))">$INFO[Container(9882).ListItem(0).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(0).Art(thumb))">$INFO[Container(9882).ListItem(0).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(0).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_p1">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(1).Art(poster))">$INFO[Container(9882).ListItem(1).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(1).Art(tvshow.poster))">$INFO[Container(9882).ListItem(1).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(1).Art(thumb))">$INFO[Container(9882).ListItem(1).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(1).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_p2">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(2).Art(poster))">$INFO[Container(9882).ListItem(2).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(2).Art(tvshow.poster))">$INFO[Container(9882).ListItem(2).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(2).Art(thumb))">$INFO[Container(9882).ListItem(2).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(2).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_p3">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(3).Art(poster))">$INFO[Container(9882).ListItem(3).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(3).Art(tvshow.poster))">$INFO[Container(9882).ListItem(3).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(3).Art(thumb))">$INFO[Container(9882).ListItem(3).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(3).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_p4">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(4).Art(poster))">$INFO[Container(9882).ListItem(4).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(4).Art(tvshow.poster))">$INFO[Container(9882).ListItem(4).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(4).Art(thumb))">$INFO[Container(9882).ListItem(4).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(4).Icon]</value>
+	</variable>
+	<variable name="ArcArt9882_p5">
+		<value condition="!String.IsEmpty(Container(9882).ListItem(5).Art(poster))">$INFO[Container(9882).ListItem(5).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(5).Art(tvshow.poster))">$INFO[Container(9882).ListItem(5).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9882).ListItem(5).Art(thumb))">$INFO[Container(9882).ListItem(5).Art(thumb)]</value>
+		<value>$INFO[Container(9882).ListItem(5).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_m5">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-5).Art(poster))">$INFO[Container(9883).ListItem(-5).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-5).Art(tvshow.poster))">$INFO[Container(9883).ListItem(-5).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-5).Art(thumb))">$INFO[Container(9883).ListItem(-5).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(-5).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_m4">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-4).Art(poster))">$INFO[Container(9883).ListItem(-4).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-4).Art(tvshow.poster))">$INFO[Container(9883).ListItem(-4).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-4).Art(thumb))">$INFO[Container(9883).ListItem(-4).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(-4).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_m3">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-3).Art(poster))">$INFO[Container(9883).ListItem(-3).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-3).Art(tvshow.poster))">$INFO[Container(9883).ListItem(-3).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-3).Art(thumb))">$INFO[Container(9883).ListItem(-3).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(-3).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_m2">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-2).Art(poster))">$INFO[Container(9883).ListItem(-2).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-2).Art(tvshow.poster))">$INFO[Container(9883).ListItem(-2).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-2).Art(thumb))">$INFO[Container(9883).ListItem(-2).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(-2).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_m1">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-1).Art(poster))">$INFO[Container(9883).ListItem(-1).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-1).Art(tvshow.poster))">$INFO[Container(9883).ListItem(-1).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(-1).Art(thumb))">$INFO[Container(9883).ListItem(-1).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(-1).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_p0">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(0).Art(poster))">$INFO[Container(9883).ListItem(0).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(0).Art(tvshow.poster))">$INFO[Container(9883).ListItem(0).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(0).Art(thumb))">$INFO[Container(9883).ListItem(0).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(0).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_p1">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(1).Art(poster))">$INFO[Container(9883).ListItem(1).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(1).Art(tvshow.poster))">$INFO[Container(9883).ListItem(1).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(1).Art(thumb))">$INFO[Container(9883).ListItem(1).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(1).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_p2">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(2).Art(poster))">$INFO[Container(9883).ListItem(2).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(2).Art(tvshow.poster))">$INFO[Container(9883).ListItem(2).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(2).Art(thumb))">$INFO[Container(9883).ListItem(2).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(2).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_p3">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(3).Art(poster))">$INFO[Container(9883).ListItem(3).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(3).Art(tvshow.poster))">$INFO[Container(9883).ListItem(3).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(3).Art(thumb))">$INFO[Container(9883).ListItem(3).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(3).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_p4">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(4).Art(poster))">$INFO[Container(9883).ListItem(4).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(4).Art(tvshow.poster))">$INFO[Container(9883).ListItem(4).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(4).Art(thumb))">$INFO[Container(9883).ListItem(4).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(4).Icon]</value>
+	</variable>
+	<variable name="ArcArt9883_p5">
+		<value condition="!String.IsEmpty(Container(9883).ListItem(5).Art(poster))">$INFO[Container(9883).ListItem(5).Art(poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(5).Art(tvshow.poster))">$INFO[Container(9883).ListItem(5).Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Container(9883).ListItem(5).Art(thumb))">$INFO[Container(9883).ListItem(5).Art(thumb)]</value>
+		<value>$INFO[Container(9883).ListItem(5).Icon]</value>
+	</variable>
 
 	<!-- Home arc (container 9300): posters, lens at 1000,540 -->
 	<include name="Arc_HomePosters">
@@ -3961,6 +4159,814 @@
 							<top>-14</top>
 							<width>408</width>
 							<height>408</height>
+							<texture border="32" colordiffuse="text_primary">focus/brackets.png</texture>
+							<visible>Control.HasFocus($PARAM[id])</visible>
+							<animation effect="zoom" start="94" end="100" center="auto" time="200" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">Visible</animation>
+							<animation effect="fade" start="0" end="100" time="160">Visible</animation>
+						</control>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Home arcs of the custom rows (containers 9881-9883, 0.9.12) -->
+	<include name="Arc_HomeCustom">
+		<param name="t">180</param>
+		<definition>
+			<control type="group">
+				<left>0</left>
+				<top>0</top>
+				<!-- slot +5: centre 1379,1263 size 44x66 rot 30.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(5).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,10)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,34.5" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="1378.7,1263.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,34.5" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="1378.7,1263.3" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-74.3,-57.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="130.3" end="100" center="1378.7,1263.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-74.3,-57.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="130.3" end="100" center="1378.7,1263.3" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1357</left>
+						<top>1230</top>
+						<width>44</width>
+						<height>66</height>
+						<animation effect="rotate" end="30" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>44</width>
+							<height>66</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>24</width>
+							<height>24</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(5).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>44</width>
+							<height>66</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_p5]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff262626" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff383838" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -5: centre 1379,-183 size 44x66 rot -30.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(-5).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,10)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-74.3,57.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="130.3" end="100" center="1378.7,-183.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-74.3,57.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="130.3" end="100" center="1378.7,-183.3" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,-34.5" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="1378.7,-183.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,-34.5" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="1378.7,-183.3" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1357</left>
+						<top>-216</top>
+						<width>44</width>
+						<height>66</height>
+						<animation effect="rotate" end="-30" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>44</width>
+							<height>66</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>24</width>
+							<height>24</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(-5).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>44</width>
+							<height>66</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_m5]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff383838" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff262626" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +4: centre 1304,1206 size 57x86 rot 30.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(4).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,8)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="74.3,57.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="76.7" end="100" center="1304.5,1205.7" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="74.3,57.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="76.7" end="100" center="1304.5,1205.7" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-83.2,-82.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="130.2" end="100" center="1304.5,1205.7" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-83.2,-82.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="130.2" end="100" center="1304.5,1205.7" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1276</left>
+						<top>1163</top>
+						<width>57</width>
+						<height>86</height>
+						<animation effect="rotate" end="30" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>57</width>
+							<height>86</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>24</width>
+							<height>24</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(4).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>57</width>
+							<height>86</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_p4]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffaeaeae" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff525252" end="ff383838" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -4: centre 1304,-126 size 57x86 rot -30.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(-4).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,8)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-83.2,82.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="130.2" end="100" center="1304.5,-125.7" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-83.2,82.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="130.2" end="100" center="1304.5,-125.7" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="74.3,-57.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="76.7" end="100" center="1304.5,-125.7" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="74.3,-57.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="76.7" end="100" center="1304.5,-125.7" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1276</left>
+						<top>-169</top>
+						<width>57</width>
+						<height>86</height>
+						<animation effect="rotate" end="-30" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>57</width>
+							<height>86</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>24</width>
+							<height>24</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(-4).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>57</width>
+							<height>86</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_m4]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff525252" end="ff383838" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffaeaeae" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +3: centre 1221,1124 size 75x112 rot 30.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(3).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,6)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="83.2,82.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="76.8" end="100" center="1221.3,1123.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="83.2,82.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="76.8" end="100" center="1221.3,1123.6" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-88.4,-118.5" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="132.1" end="100" center="1221.3,1123.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-88.4,-118.5" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="132.1" end="100" center="1221.3,1123.6" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1184</left>
+						<top>1068</top>
+						<width>75</width>
+						<height>112</height>
+						<animation effect="rotate" end="30" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>75</width>
+							<height>112</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>24</width>
+							<height>24</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(3).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>75</width>
+							<height>112</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_p3]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffafafaf" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff707070" end="ff525252" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -3: centre 1221,-44 size 75x112 rot -30.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(-3).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,6)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-88.4,118.5" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="132.1" end="100" center="1221.3,-43.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-88.4,118.5" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="132.1" end="100" center="1221.3,-43.6" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="83.2,-82.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="76.8" end="100" center="1221.3,-43.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="83.2,-82.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="76.8" end="100" center="1221.3,-43.6" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1184</left>
+						<top>-100</top>
+						<width>75</width>
+						<height>112</height>
+						<animation effect="rotate" end="-30" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>75</width>
+							<height>112</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>24</width>
+							<height>24</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(-3).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>75</width>
+							<height>112</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_m3]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff707070" end="ff525252" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffafafaf" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +2: centre 1133,1005 size 99x148 rot 30.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(2).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,4)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="88.4,118.5" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="75.7" end="100" center="1132.9,1005.1" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="88.4,118.5" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="75.7" end="100" center="1132.9,1005.1" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-83,-172.7" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="135.1" end="100" center="1132.9,1005.1" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-10.6" end="0" center="1132.9,1005.1" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-83,-172.7" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="135.1" end="100" center="1132.9,1005.1" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-10.6" end="0" center="1132.9,1005.1" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1083</left>
+						<top>931</top>
+						<width>99</width>
+						<height>148</height>
+						<animation effect="rotate" end="30" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>99</width>
+							<height>148</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>24</width>
+							<height>24</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(2).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>99</width>
+							<height>148</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_p2]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb9b9b9" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ff707070" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -2: centre 1133,75 size 99x148 rot -30.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(-2).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,4)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-83,172.7" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="135.1" end="100" center="1132.9,74.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="10.6" end="0" center="1132.9,74.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-83,172.7" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="135.1" end="100" center="1132.9,74.9" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="10.6" end="0" center="1132.9,74.9" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="88.4,-118.5" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="75.7" end="100" center="1132.9,74.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="88.4,-118.5" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="75.7" end="100" center="1132.9,74.9" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1083</left>
+						<top>1</top>
+						<width>99</width>
+						<height>148</height>
+						<animation effect="rotate" end="-30" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>99</width>
+							<height>148</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>24</width>
+							<height>24</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(-2).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>99</width>
+							<height>148</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_m2]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ff707070" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb9b9b9" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +1: centre 1050,832 size 133x200 rot 19.4 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(1).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,2)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="83,172.7" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="74" end="100" center="1050,832.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="10.6" end="0" center="1050,832.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="83,172.7" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="74" end="100" center="1050,832.3" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="10.6" end="0" center="1050,832.3" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-50,-292.3" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="180" end="100" center="1050,832.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-19.4" end="0" center="1050,832.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-50,-292.3" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="180" end="100" center="1050,832.3" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-19.4" end="0" center="1050,832.3" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>983</left>
+						<top>732</top>
+						<width>133</width>
+						<height>200</height>
+						<animation effect="rotate" end="19.4" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>133</width>
+							<height>200</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>109</width>
+							<height>176</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItem(1).Label]</label>
+							<visible>!Container($PARAM[id]).ListItem(1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>33</width>
+							<height>33</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>133</width>
+							<height>200</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_p1]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItem(1).PlayCount,0) + !Container($PARAM[id]).ListItem(1).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -1: centre 1050,248 size 133x200 rot -19.4 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(-1).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,2)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-50,292.3" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="180" end="100" center="1050,247.7" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="19.4" end="0" center="1050,247.7" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-50,292.3" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="180" end="100" center="1050,247.7" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="19.4" end="0" center="1050,247.7" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="83,-172.7" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="74" end="100" center="1050,247.7" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-10.6" end="0" center="1050,247.7" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="83,-172.7" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="74" end="100" center="1050,247.7" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-10.6" end="0" center="1050,247.7" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>983</left>
+						<top>148</top>
+						<width>133</width>
+						<height>200</height>
+						<animation effect="rotate" end="-19.4" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>133</width>
+							<height>200</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>109</width>
+							<height>176</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItem(-1).Label]</label>
+							<visible>!Container($PARAM[id]).ListItem(-1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>33</width>
+							<height>33</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(-1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>133</width>
+							<height>200</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_m1]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItem(-1).PlayCount,0) + !Container($PARAM[id]).ListItem(-1).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +0: centre 1000,540 size 240x360 rot 0.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItem(0).Label) + Integer.IsGreater(Container($PARAM[id]).NumItems,0)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="50,292.3" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="55.6" end="100" center="1000,540" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="19.4" end="0" center="1000,540" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="50,292.3" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="55.6" end="100" center="1000,540" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="19.4" end="0" center="1000,540" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="50,-292.3" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="55.6" end="100" center="1000,540" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-19.4" end="0" center="1000,540" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="50,-292.3" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="55.6" end="100" center="1000,540" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-19.4" end="0" center="1000,540" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>880</left>
+						<top>360</top>
+						<width>240</width>
+						<height>360</height>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>240</width>
+							<height>360</height>
+							<texture colordiffuse="plate" diffuse="masks/poster_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>216</width>
+							<height>336</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItem(0).Label]</label>
+							<visible>!Container($PARAM[id]).ListItem(0).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>60</width>
+							<height>60</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItem(0).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>240</width>
+							<height>360</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/poster_r4.png">$VAR[ArcArt$PARAM[id]_p0]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItem(0).PlayCount,0) + !Container($PARAM[id]).ListItem(0).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="progress">
+							<left>0</left>
+							<top>355</top>
+							<width>240</width>
+							<height>5</height>
+							<texturebg colordiffuse="scrim_track">common/white.png</texturebg>
+							<midtexture colordiffuse="accent">common/white.png</midtexture>
+							<info>Container($PARAM[id]).ListItem.PercentPlayed</info>
+							<visible>Container($PARAM[id]).ListItem.IsResumable</visible>
+						</control>
+						<control type="image">
+							<left>-14</left>
+							<top>-14</top>
+							<width>268</width>
+							<height>388</height>
 							<texture border="32" colordiffuse="text_primary">focus/brackets.png</texture>
 							<visible>Control.HasFocus($PARAM[id])</visible>
 							<animation effect="zoom" start="94" end="100" center="auto" time="200" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">Visible</animation>
@@ -8101,6 +9107,7 @@
 			<control type="group">
 				<left>0</left>
 				<top>0</top>
+				<visible>Integer.IsGreaterOrEqual(Container(9000).NumItems,4)</visible>
 				<animation type="Conditional" condition="[!Container(9000).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
 					<effect type="rotate" start="-32" end="0" center="200,540" time="$PARAM[t]" tween="cubic" easing="out"/>
 					<effect type="zoom" start="100" end="100" center="328,277.6" time="$PARAM[t]" tween="cubic" easing="out"/>
@@ -8148,6 +9155,7 @@
 			<control type="group">
 				<left>0</left>
 				<top>0</top>
+				<visible>Integer.IsGreaterOrEqual(Container(9000).NumItems,2)</visible>
 				<animation type="Conditional" condition="[!Container(9000).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
 					<effect type="rotate" start="-32" end="0" center="200,540" time="$PARAM[t]" tween="cubic" easing="out"/>
 					<effect type="zoom" start="169.2" end="100" center="447.6,385.3" time="$PARAM[t]" tween="cubic" easing="out"/>
@@ -8193,6 +9201,7 @@
 			<control type="group">
 				<left>0</left>
 				<top>0</top>
+				<visible>Integer.IsGreaterOrEqual(Container(9000).NumItems,3)</visible>
 				<animation type="Conditional" condition="[!Container(9000).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
 					<effect type="rotate" start="-32" end="0" center="200,540" time="$PARAM[t]" tween="cubic" easing="out"/>
 					<effect type="zoom" start="100" end="100" center="447.6,694.7" time="$PARAM[t]" tween="cubic" easing="out"/>
@@ -8238,6 +9247,7 @@
 			<control type="group">
 				<left>0</left>
 				<top>0</top>
+				<visible>Integer.IsGreaterOrEqual(Container(9000).NumItems,5)</visible>
 				<animation type="Conditional" condition="[!Container(9000).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
 					<effect type="rotate" start="-32" end="0" center="200,540" time="$PARAM[t]" tween="cubic" easing="out"/>
 					<effect type="zoom" start="100" end="100" center="328,802.4" time="$PARAM[t]" tween="cubic" easing="out"/>

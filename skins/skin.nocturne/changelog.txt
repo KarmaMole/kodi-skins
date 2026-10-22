@@ -1,3 +1,9 @@
+0.9.9 (2026-10-22)
+- Settings: choose which main menu items to show.
+- Home: up to three custom rows from any add-on, playlist or favourite.
+- Skin settings > Main menu (right of the list): Films, Series, Music and Search on the cornice. A hidden word takes its room with it; the rest close up. Settings always stays. Everything is shown by default.
+- Custom rows: Skin settings > Custom rows: Row 1, 2 and 3. OK offers Add-on, playlist or library... (Kodi's own browser: an add-on folder, a smart playlist, a library node), A favourite... (one that opens a folder), Rename... and Clear. A row shows only while it has items; folders open in their window, files play, Back comes home. Nothing changes on Home until a row is set up. The rows are back rooms, one at a time: Down from a frame with nothing below it or from the shelf; Up returns, Back goes to the cornice.
+
 0.9.8 (2026-10-21)
 - Visualiser presets button in the music player.
 - Music OSD: a short top rail (shown when a visualisation add-on is set in Kodi; Up from the seek line) with Visualiser, which swaps the record under the lamp for the visualisation and back (The record), off by default; in Visualiser mode, Presets opens Kodi's preset list and has focus when the OSD opens. The now-playing rail stays over the visualisation and says OK · presets.

@@ -84,6 +84,29 @@
 		<value condition="![Control.HasFocus(9122) | !Integer.IsGreater(Container(9121).NumItems,0)]">$INFO[Container(9121).ListItem.Rating]</value>
 		<value></value>
 	</variable>
+	<variable name="Home_custom_Fanart">
+		<value condition="Control.HasFocus(9881) + !String.IsEmpty(Container(9881).ListItem.Art(fanart))">$INFO[Container(9881).ListItem.Art(fanart)]</value>
+		<value condition="Control.HasFocus(9881)">$INFO[Container(9881).ListItem.Art(tvshow.fanart)]</value>
+		<value condition="Control.HasFocus(9882) + !String.IsEmpty(Container(9882).ListItem.Art(fanart))">$INFO[Container(9882).ListItem.Art(fanart)]</value>
+		<value condition="Control.HasFocus(9882)">$INFO[Container(9882).ListItem.Art(tvshow.fanart)]</value>
+		<value condition="Control.HasFocus(9883) + !String.IsEmpty(Container(9883).ListItem.Art(fanart))">$INFO[Container(9883).ListItem.Art(fanart)]</value>
+		<value condition="Control.HasFocus(9883)">$INFO[Container(9883).ListItem.Art(tvshow.fanart)]</value>
+	</variable>
+	<variable name="Home_custom_Logo">
+		<value condition="Control.HasFocus(9881)">$INFO[Container(9881).ListItem.Art(clearlogo)]</value>
+		<value condition="Control.HasFocus(9882)">$INFO[Container(9882).ListItem.Art(clearlogo)]</value>
+		<value condition="Control.HasFocus(9883)">$INFO[Container(9883).ListItem.Art(clearlogo)]</value>
+	</variable>
+	<variable name="Home_custom_Title">
+		<value condition="Control.HasFocus(9881)">$INFO[Container(9881).ListItem.Label]</value>
+		<value condition="Control.HasFocus(9882)">$INFO[Container(9882).ListItem.Label]</value>
+		<value condition="Control.HasFocus(9883)">$INFO[Container(9883).ListItem.Label]</value>
+	</variable>
+	<variable name="Home_custom_Kicker">
+		<value condition="Control.HasFocus(9881)">$VAR[CustomRow_Title1]  ·  $VAR[CustomRow_Count1]</value>
+		<value condition="Control.HasFocus(9882)">$VAR[CustomRow_Title2]  ·  $VAR[CustomRow_Count2]</value>
+		<value condition="Control.HasFocus(9883)">$VAR[CustomRow_Title3]  ·  $VAR[CustomRow_Count3]</value>
+	</variable>
 
 	<!-- hidden data lists: drawn first, under the opaque room, so their art loads (LESSONS: hidden lists never load) -->
 	<include name="Home_DataLists">
@@ -103,7 +126,7 @@
 	<!-- the stage: the focused section's hero, lit (board 01 / 02) -->
 	<include name="Home_Stage">
 		<control type="group">
-			<visible>[String.IsEmpty(Window(Home).Property(groove.home)) | String.IsEqual(Window(Home).Property(groove.home),music)]</visible>
+			<visible>[String.IsEmpty(Window(Home).Property(groove.home)) | String.IsEqual(Window(Home).Property(groove.home),music)] + !$EXP[CustomRowsFocus] + !Skin.HasSetting(HideMenu.Music)</visible>
 			<include>Anim_SectionSwap</include>
 			<include content="Groove_Glow">
 				<param name="art" value="$VAR[Home_Music_Cover]"/>
@@ -214,7 +237,7 @@
 			</control>
 		</control>
 		<control type="group">
-			<visible>String.IsEqual(Window(Home).Property(groove.home),films)</visible>
+			<visible>String.IsEqual(Window(Home).Property(groove.home),films) + !$EXP[CustomRowsFocus] + !Skin.HasSetting(HideMenu.Movies)</visible>
 			<include>Anim_SectionSwap</include>
 			<control type="image">
 				<left>0</left>
@@ -315,7 +338,7 @@
 			</control>
 		</control>
 		<control type="group">
-			<visible>String.IsEqual(Window(Home).Property(groove.home),tv)</visible>
+			<visible>String.IsEqual(Window(Home).Property(groove.home),tv) + !$EXP[CustomRowsFocus] + !Skin.HasSetting(HideMenu.TVShows)</visible>
 			<include>Anim_SectionSwap</include>
 			<control type="image">
 				<left>0</left>
@@ -416,7 +439,7 @@
 			</control>
 		</control>
 		<control type="group">
-			<visible>String.IsEqual(Window(Home).Property(groove.home),search)</visible>
+			<visible>String.IsEqual(Window(Home).Property(groove.home),search) + !$EXP[CustomRowsFocus] + !Skin.HasSetting(HideMenu.Search)</visible>
 			<include>Anim_SectionSwap</include>
 			<control type="image">
 				<left>660</left>
@@ -445,7 +468,7 @@
 			</control>
 		</control>
 		<control type="group">
-			<visible>String.IsEqual(Window(Home).Property(groove.home),settings)</visible>
+			<visible>String.IsEqual(Window(Home).Property(groove.home),settings) + !$EXP[CustomRowsFocus]</visible>
 			<include>Anim_SectionSwap</include>
 			<control type="image">
 				<left>660</left>
@@ -473,6 +496,69 @@
 				<include content="Anim_Dim"><param name="condition" value="$EXP[Home_RowOpen]"/><param name="to" value="0"/></include>
 			</control>
 		</control>
+		<control type="group">
+			<visible>$EXP[CustomRowsFocus]</visible>
+			<include>Anim_SectionSwap</include>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1920</width>
+				<height>1080</height>
+				<aspectratio>scale</aspectratio>
+				<fadetime>300</fadetime>
+				<texture background="true">$VAR[Home_custom_Fanart]</texture>
+				<animation effect="fade" start="100" end="66" time="0" condition="true">Conditional</animation>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1920</width>
+				<height>1080</height>
+				<texture colordiffuse="$VAR[ground]">groove/white.png</texture>
+				<animation effect="fade" start="100" end="28" time="0" condition="true">Conditional</animation>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1240</width>
+				<height>1080</height>
+				<texture colordiffuse="$VAR[ground]">groove/ramp_h.png</texture>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>560</top>
+				<width>1920</width>
+				<height>520</height>
+				<texture colordiffuse="$VAR[ground]" flipy="true">groove/ramp_v.png</texture>
+			</control>
+			<control type="label">
+				<left>g_safe_x</left>
+				<top>84</top>
+				<width>1200</width>
+				<height>40</height>
+				<font>font_small</font>
+				<textcolor>$VAR[ink2]</textcolor>
+				<label>$VAR[Home_custom_Kicker]</label>
+			</control>
+			<control type="image">
+				<left>g_safe_x</left>
+				<top>140</top>
+				<width>600</width>
+				<height>200</height>
+				<aspectratio aligny="bottom" align="left">keep</aspectratio>
+				<texture background="true" colordiffuse="$VAR[logo_tint]">$VAR[Home_custom_Logo]</texture>
+			</control>
+			<control type="textbox">
+				<left>g_safe_x</left>
+				<top>184</top>
+				<width>900</width>
+				<height>140</height>
+				<font>font_title_xl</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$VAR[Home_custom_Title]</label>
+				<visible>[Control.HasFocus(9881) + String.IsEmpty(Container(9881).ListItem.Art(clearlogo))] | [Control.HasFocus(9882) + String.IsEmpty(Container(9882).ListItem.Art(clearlogo))] | [Control.HasFocus(9883) + String.IsEmpty(Container(9883).ListItem.Art(clearlogo))]</visible>
+			</control>
+		</control>
 	</include>
 
 	<!-- the rail: five icons, the focused one lit with its one-word label (DESIGN 4: y 920, pitch 232) -->
@@ -481,6 +567,8 @@
 		<include content="Anim_HomeLift"><param name="open" value="$EXP[Home_RowOpen]"/></include>
 		<control type="group" id="9000">
 			<!-- music -->
+			<control type="group">
+			<visible>!Skin.HasSetting(HideMenu.Music)</visible>
 			<control type="image">
 				<left>51</left>
 				<top>875</top>
@@ -538,7 +626,11 @@
 				<visible>Control.HasFocus(9001)</visible>
 				<include>Anim_LabelReveal</include>
 			</control>
+			</control>
 			<!-- films -->
+			<control type="group">
+			<visible>!Skin.HasSetting(HideMenu.Movies)</visible>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
 			<control type="image">
 				<left>283</left>
 				<top>875</top>
@@ -594,7 +686,12 @@
 				<visible>Control.HasFocus(9002)</visible>
 				<include>Anim_LabelReveal</include>
 			</control>
+			</control>
 			<!-- tv -->
+			<control type="group">
+			<visible>!Skin.HasSetting(HideMenu.TVShows)</visible>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 			<control type="image">
 				<left>515</left>
 				<top>875</top>
@@ -653,7 +750,13 @@
 				<visible>Control.HasFocus(9003)</visible>
 				<include>Anim_LabelReveal</include>
 			</control>
+			</control>
 			<!-- search -->
+			<control type="group">
+			<visible>!Skin.HasSetting(HideMenu.Search)</visible>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 			<control type="image">
 				<left>747</left>
 				<top>875</top>
@@ -679,6 +782,7 @@
 				<onleft>9003</onleft>
 				<onright>9005</onright>
 				<onup condition="Player.HasAudio + Control.IsVisible(9950)">9950</onup>
+				<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
 			</control>
 			<control type="image">
 				<left>792</left>
@@ -708,7 +812,13 @@
 				<visible>Control.HasFocus(9004)</visible>
 				<include>Anim_LabelReveal</include>
 			</control>
+			</control>
 			<!-- settings -->
+			<control type="group">
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Search)">Conditional</animation>
 			<control type="image">
 				<left>979</left>
 				<top>875</top>
@@ -763,6 +873,7 @@
 				<visible>Control.HasFocus(9005)</visible>
 				<include>Anim_LabelReveal</include>
 			</control>
+			</control>
 		</control>
 		<control type="label">
 			<right>g_safe_x</right>
@@ -779,7 +890,7 @@
 	</include>
 
 	<!-- ============================================================ Home rows (M2, _src/home_rows.py) -->
-	<expression name="Home_RowOpen">[Control.HasFocus(9101) | Control.HasFocus(9010) | Control.HasFocus(9011) | Control.HasFocus(9111) | Control.HasFocus(9121) | Control.HasFocus(9122) | Control.HasFocus(9050) | Control.HasFocus(9895) | Control.HasFocus(9897)]</expression>
+	<expression name="Home_RowOpen">[Control.HasFocus(9101) | Control.HasFocus(9010) | Control.HasFocus(9011) | Control.HasFocus(9111) | Control.HasFocus(9121) | Control.HasFocus(9122) | Control.HasFocus(9050) | Control.HasFocus(9895) | Control.HasFocus(9897) | Control.HasFocus(9881) | Control.HasFocus(9882) | Control.HasFocus(9883)]</expression>
 	<variable name="Home_TVPath">
 		<value condition="System.AddonIsEnabled(script.embuary.helper)">plugin://script.embuary.helper/?info=getnextup</value>
 		<value>special://skin/playlists/groove_inprogress_tvshows.xsp</value>
@@ -804,6 +915,27 @@
 	</variable>
 	<variable name="Home_ScanVideo">
 		<value condition="Library.IsScanningVideo">$LOCALIZE[31612]</value>
+	</variable>
+
+	<!-- custom rows (1.0.2, opt-in): the way in and the way back to the section row (by the rail icon you came from) -->
+	<variable name="Home_DownToCustom">
+		<value condition="$EXP[CustomRow1On]">SetFocus(9881)</value>
+		<value condition="$EXP[CustomRow2On]">SetFocus(9882)</value>
+		<value condition="$EXP[CustomRow3On]">SetFocus(9883)</value>
+	</variable>
+	<variable name="Home_UpFromCustom">
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9001) + Integer.IsGreater(Container(9101).NumItems,0)">SetFocus(9101)</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9001)">SetFocus(9010)</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9002)">SetFocus(9111)</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9003) + Integer.IsGreater(Container(9121).NumItems,0)">SetFocus(9121)</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9003)">SetFocus(9122)</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.railid),9005)">SetFocus(9050)</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(groove.railid))">SetFocus($INFO[Window(Home).Property(groove.railid)])</value>
+		<value>SetFocus(9005)</value>
+	</variable>
+	<variable name="Home_BackFromCustom">
+		<value condition="!String.IsEmpty(Window(Home).Property(groove.railid))">SetFocus($INFO[Window(Home).Property(groove.railid)])</value>
+		<value>SetFocus(9005)</value>
 	</variable>
 
 	<include name="Home_Rows">
@@ -838,6 +970,7 @@
 			<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
 			<onup>9001</onup>
 			<onback>9001</onback>
+			<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
 			<ondown>noop</ondown>
 			<onleft>noop</onleft>
 			<onright>9011</onright>
@@ -901,6 +1034,7 @@
 			<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
 			<onup>9001</onup>
 			<onback>9001</onback>
+			<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
 			<ondown>noop</ondown>
 			<onleft>9010</onleft>
 			<onright condition="Integer.IsGreater(Container(9101).NumItems,0)">9101</onright>
@@ -953,6 +1087,7 @@
 			<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
 			<onup>9001</onup>
 			<onback>9001</onback>
+			<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
 			<ondown>noop</ondown>
 			<onleft>9011</onleft>
 			<onright>noop</onright>
@@ -1134,6 +1269,7 @@
 			<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
 			<onup>9002</onup>
 			<onback>9002</onback>
+			<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
 			<ondown>noop</ondown>
 			<onleft>noop</onleft>
 			<onright>noop</onright>
@@ -1314,6 +1450,7 @@
 			<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
 			<onup>9003</onup>
 			<onback>9003</onback>
+			<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
 			<ondown>noop</ondown>
 			<onleft>noop</onleft>
 			<onright>noop</onright>
@@ -1504,6 +1641,7 @@
 			<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
 			<onup>9003</onup>
 			<onback>9003</onback>
+			<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
 			<ondown>noop</ondown>
 			<onleft>noop</onleft>
 			<onright>noop</onright>
@@ -1688,6 +1826,7 @@
 			<orientation>horizontal</orientation>
 			<onup>9005</onup>
 			<onback>9005</onback>
+			<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
 			<ondown>noop</ondown>
 			<onleft>noop</onleft>
 			<onright>noop</onright>
@@ -1862,6 +2001,552 @@
 					<onclick>ActivateWindow(ShutdownMenu)</onclick>
 				</item>
 			</content>
+		</control>
+		</control>
+		<control type="group">
+			<include content="Anim_Reveal"><param name="closed" value="!Control.HasFocus(9881)"/><param name="dy" value="120"/><param name="t" value="320"/></include>
+		<control type="fixedlist" id="9881">
+			<left>72</left>
+			<top>600</top>
+			<width>1848</width>
+			<height>380</height>
+			<orientation>horizontal</orientation>
+			<focusposition>0</focusposition>
+			<movement>4</movement>
+			<preloaditems>2</preloaditems>
+			<include>Anim_ScrollRow</include>
+			<onfocus>ClearProperty(TMDbHelper.WidgetContainer,home)</onfocus>
+			<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
+			<onup>$VAR[Home_UpFromCustom]</onup>
+			<ondown condition="$EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="$EXP[CustomRow3On]">9883</ondown>
+			<ondown>noop</ondown>
+			<onleft>noop</onleft>
+			<onright>noop</onright>
+			<onback>$VAR[Home_BackFromCustom]</onback>
+			<itemlayout width="324" height="380">
+				<control type="group">
+					<left>24</left>
+					<top>40</top>
+					<width>300</width>
+					<height>300</height>
+					<control type="image">
+						<left>-24</left>
+						<top>-16</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[shadow]" border="24,16,24,32">groove/shadow_contact.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<texture colordiffuse="$VAR[surface_raised]">groove/white.png</texture>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="textbox">
+						<left>21</left>
+						<top>21</top>
+						<width>258</width>
+						<height>258</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>font_small</font>
+						<textcolor>$VAR[ink2]</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true" colordiffuse="$VAR[dim_cover]">$VAR[CustomRow_SquareArt]</texture>
+					</control>
+				</control>
+			</itemlayout>
+			<focusedlayout width="324" height="380">
+				<control type="group">
+					<left>24</left>
+					<top>40</top>
+					<width>300</width>
+					<height>300</height>
+					<include content="Anim_FocusCover"><param name="center" value="174,190"/></include>
+					<control type="image">
+						<left>-24</left>
+						<top>-24</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[art_pool]">groove/glow_radial.png</texture>
+						<visible>$EXP[GrooveLight] + Control.HasFocus(9881)</visible>
+						<include>Anim_FocusLight</include>
+					</control>
+					<control type="image">
+						<left>-24</left>
+						<top>-24</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[glow]">groove/glow_radial.png</texture>
+						<visible>Control.HasFocus(9881)</visible>
+						<include>Anim_FocusLight</include>
+						<include>Groove_GlowStrength</include>
+					</control>
+					<control type="image">
+						<left>-24</left>
+						<top>-5</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[glow]">groove/shadow_cast.png</texture>
+						<visible>$EXP[GrooveLight] + Control.HasFocus(9881)</visible>
+						<include>Anim_FocusLight</include>
+					</control>
+					<control type="image">
+						<left>-40</left>
+						<top>-40</top>
+						<width>380</width>
+						<height>380</height>
+						<texture colordiffuse="$VAR[glow]" border="48">groove/glow_frame.png</texture>
+						<visible>!$EXP[GrooveLight] + Control.HasFocus(9881)</visible>
+						<include>Anim_FocusLight</include>
+						<include>Groove_GlowStrength</include>
+					</control>
+					<control type="image">
+						<left>-24</left>
+						<top>-16</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[shadow]" border="24,16,24,32">groove/shadow_contact.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<texture colordiffuse="$VAR[surface_raised]">groove/white.png</texture>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="textbox">
+						<left>21</left>
+						<top>21</top>
+						<width>258</width>
+						<height>258</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>font_small</font>
+						<textcolor>$VAR[ink2]</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true">$VAR[CustomRow_SquareArt]</texture>
+						<include>Anim_FocusBrighten</include>
+					</control>
+					<control type="group">
+						<visible>Control.HasFocus(9881)</visible>
+						<include>Anim_FocusRim</include>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>300</width>
+							<height>2</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>298</top>
+							<width>300</width>
+							<height>2</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>2</top>
+							<width>2</width>
+							<height>296</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+						<control type="image">
+							<left>298</left>
+							<top>2</top>
+							<width>2</width>
+							<height>296</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+					</control>
+				</control>
+			</focusedlayout>
+			<include content="CustomRow_Content"><param name="row" value="1"/></include>
+		</control>
+		</control>
+		<control type="group">
+			<include content="Anim_Reveal"><param name="closed" value="!Control.HasFocus(9882)"/><param name="dy" value="120"/><param name="t" value="320"/></include>
+		<control type="fixedlist" id="9882">
+			<left>72</left>
+			<top>600</top>
+			<width>1848</width>
+			<height>380</height>
+			<orientation>horizontal</orientation>
+			<focusposition>0</focusposition>
+			<movement>4</movement>
+			<preloaditems>2</preloaditems>
+			<include>Anim_ScrollRow</include>
+			<onfocus>ClearProperty(TMDbHelper.WidgetContainer,home)</onfocus>
+			<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
+			<onup condition="$EXP[CustomRow1On]">9881</onup>
+			<onup>$VAR[Home_UpFromCustom]</onup>
+			<ondown condition="$EXP[CustomRow3On]">9883</ondown>
+			<ondown>noop</ondown>
+			<onleft>noop</onleft>
+			<onright>noop</onright>
+			<onback>$VAR[Home_BackFromCustom]</onback>
+			<itemlayout width="324" height="380">
+				<control type="group">
+					<left>24</left>
+					<top>40</top>
+					<width>300</width>
+					<height>300</height>
+					<control type="image">
+						<left>-24</left>
+						<top>-16</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[shadow]" border="24,16,24,32">groove/shadow_contact.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<texture colordiffuse="$VAR[surface_raised]">groove/white.png</texture>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="textbox">
+						<left>21</left>
+						<top>21</top>
+						<width>258</width>
+						<height>258</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>font_small</font>
+						<textcolor>$VAR[ink2]</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true" colordiffuse="$VAR[dim_cover]">$VAR[CustomRow_SquareArt]</texture>
+					</control>
+				</control>
+			</itemlayout>
+			<focusedlayout width="324" height="380">
+				<control type="group">
+					<left>24</left>
+					<top>40</top>
+					<width>300</width>
+					<height>300</height>
+					<include content="Anim_FocusCover"><param name="center" value="174,190"/></include>
+					<control type="image">
+						<left>-24</left>
+						<top>-24</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[art_pool]">groove/glow_radial.png</texture>
+						<visible>$EXP[GrooveLight] + Control.HasFocus(9882)</visible>
+						<include>Anim_FocusLight</include>
+					</control>
+					<control type="image">
+						<left>-24</left>
+						<top>-24</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[glow]">groove/glow_radial.png</texture>
+						<visible>Control.HasFocus(9882)</visible>
+						<include>Anim_FocusLight</include>
+						<include>Groove_GlowStrength</include>
+					</control>
+					<control type="image">
+						<left>-24</left>
+						<top>-5</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[glow]">groove/shadow_cast.png</texture>
+						<visible>$EXP[GrooveLight] + Control.HasFocus(9882)</visible>
+						<include>Anim_FocusLight</include>
+					</control>
+					<control type="image">
+						<left>-40</left>
+						<top>-40</top>
+						<width>380</width>
+						<height>380</height>
+						<texture colordiffuse="$VAR[glow]" border="48">groove/glow_frame.png</texture>
+						<visible>!$EXP[GrooveLight] + Control.HasFocus(9882)</visible>
+						<include>Anim_FocusLight</include>
+						<include>Groove_GlowStrength</include>
+					</control>
+					<control type="image">
+						<left>-24</left>
+						<top>-16</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[shadow]" border="24,16,24,32">groove/shadow_contact.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<texture colordiffuse="$VAR[surface_raised]">groove/white.png</texture>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="textbox">
+						<left>21</left>
+						<top>21</top>
+						<width>258</width>
+						<height>258</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>font_small</font>
+						<textcolor>$VAR[ink2]</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true">$VAR[CustomRow_SquareArt]</texture>
+						<include>Anim_FocusBrighten</include>
+					</control>
+					<control type="group">
+						<visible>Control.HasFocus(9882)</visible>
+						<include>Anim_FocusRim</include>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>300</width>
+							<height>2</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>298</top>
+							<width>300</width>
+							<height>2</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>2</top>
+							<width>2</width>
+							<height>296</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+						<control type="image">
+							<left>298</left>
+							<top>2</top>
+							<width>2</width>
+							<height>296</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+					</control>
+				</control>
+			</focusedlayout>
+			<include content="CustomRow_Content"><param name="row" value="2"/></include>
+		</control>
+		</control>
+		<control type="group">
+			<include content="Anim_Reveal"><param name="closed" value="!Control.HasFocus(9883)"/><param name="dy" value="120"/><param name="t" value="320"/></include>
+		<control type="fixedlist" id="9883">
+			<left>72</left>
+			<top>600</top>
+			<width>1848</width>
+			<height>380</height>
+			<orientation>horizontal</orientation>
+			<focusposition>0</focusposition>
+			<movement>4</movement>
+			<preloaditems>2</preloaditems>
+			<include>Anim_ScrollRow</include>
+			<onfocus>ClearProperty(TMDbHelper.WidgetContainer,home)</onfocus>
+			<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
+			<onup condition="$EXP[CustomRow2On]">9882</onup>
+			<onup condition="$EXP[CustomRow1On]">9881</onup>
+			<onup>$VAR[Home_UpFromCustom]</onup>
+			<ondown>noop</ondown>
+			<onleft>noop</onleft>
+			<onright>noop</onright>
+			<onback>$VAR[Home_BackFromCustom]</onback>
+			<itemlayout width="324" height="380">
+				<control type="group">
+					<left>24</left>
+					<top>40</top>
+					<width>300</width>
+					<height>300</height>
+					<control type="image">
+						<left>-24</left>
+						<top>-16</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[shadow]" border="24,16,24,32">groove/shadow_contact.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<texture colordiffuse="$VAR[surface_raised]">groove/white.png</texture>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="textbox">
+						<left>21</left>
+						<top>21</top>
+						<width>258</width>
+						<height>258</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>font_small</font>
+						<textcolor>$VAR[ink2]</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true" colordiffuse="$VAR[dim_cover]">$VAR[CustomRow_SquareArt]</texture>
+					</control>
+				</control>
+			</itemlayout>
+			<focusedlayout width="324" height="380">
+				<control type="group">
+					<left>24</left>
+					<top>40</top>
+					<width>300</width>
+					<height>300</height>
+					<include content="Anim_FocusCover"><param name="center" value="174,190"/></include>
+					<control type="image">
+						<left>-24</left>
+						<top>-24</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[art_pool]">groove/glow_radial.png</texture>
+						<visible>$EXP[GrooveLight] + Control.HasFocus(9883)</visible>
+						<include>Anim_FocusLight</include>
+					</control>
+					<control type="image">
+						<left>-24</left>
+						<top>-24</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[glow]">groove/glow_radial.png</texture>
+						<visible>Control.HasFocus(9883)</visible>
+						<include>Anim_FocusLight</include>
+						<include>Groove_GlowStrength</include>
+					</control>
+					<control type="image">
+						<left>-24</left>
+						<top>-5</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[glow]">groove/shadow_cast.png</texture>
+						<visible>$EXP[GrooveLight] + Control.HasFocus(9883)</visible>
+						<include>Anim_FocusLight</include>
+					</control>
+					<control type="image">
+						<left>-40</left>
+						<top>-40</top>
+						<width>380</width>
+						<height>380</height>
+						<texture colordiffuse="$VAR[glow]" border="48">groove/glow_frame.png</texture>
+						<visible>!$EXP[GrooveLight] + Control.HasFocus(9883)</visible>
+						<include>Anim_FocusLight</include>
+						<include>Groove_GlowStrength</include>
+					</control>
+					<control type="image">
+						<left>-24</left>
+						<top>-16</top>
+						<width>348</width>
+						<height>348</height>
+						<texture colordiffuse="$VAR[shadow]" border="24,16,24,32">groove/shadow_contact.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<texture colordiffuse="$VAR[surface_raised]">groove/white.png</texture>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="textbox">
+						<left>21</left>
+						<top>21</top>
+						<width>258</width>
+						<height>258</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>font_small</font>
+						<textcolor>$VAR[ink2]</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+						<visible>String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(album.thumb)) + [String.IsEmpty(ListItem.DBType) | [String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(fanart))]] + String.IsEmpty(ListItem.Art(thumb))</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>300</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true">$VAR[CustomRow_SquareArt]</texture>
+						<include>Anim_FocusBrighten</include>
+					</control>
+					<control type="group">
+						<visible>Control.HasFocus(9883)</visible>
+						<include>Anim_FocusRim</include>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>300</width>
+							<height>2</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>298</top>
+							<width>300</width>
+							<height>2</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>2</top>
+							<width>2</width>
+							<height>296</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+						<control type="image">
+							<left>298</left>
+							<top>2</top>
+							<width>2</width>
+							<height>296</height>
+							<texture colordiffuse="$VAR[rim]">groove/white.png</texture>
+						</control>
+					</control>
+				</control>
+			</focusedlayout>
+			<include content="CustomRow_Content"><param name="row" value="3"/></include>
 		</control>
 		</control>
 	</include>

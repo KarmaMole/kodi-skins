@@ -52,10 +52,15 @@
 	<constant name="home_newest_list_y">38</constant>     <!-- row top + 60 - pad 22 -->
 
 	<!-- ============================================================== expressions -->
-	<expression name="Home_SecHome">String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)</expression>
-	<expression name="Home_HubMovies">String.IsEqual(Window(Home).Property(majan.section),movies) + Integer.IsEqual(Container(9218).CurrentItem,2)</expression>
-	<expression name="Home_HubTV">String.IsEqual(Window(Home).Property(majan.section),tv) + Integer.IsEqual(Container(9228).CurrentItem,2)</expression>
-	<expression name="Home_HubMusic">String.IsEqual(Window(Home).Property(majan.section),music) + Integer.IsEqual(Container(9238).CurrentItem,2)</expression>
+	<expression name="Home_SecHome">[String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies)</expression>
+	<expression name="Home_HubMovies">String.IsEqual(Window(Home).Property(majan.section),movies) + Integer.IsEqual(Container(9218).CurrentItem,2) + !Skin.HasSetting(HideMenu.Movies)</expression>
+	<expression name="Home_HubTV">String.IsEqual(Window(Home).Property(majan.section),tv) + Integer.IsEqual(Container(9228).CurrentItem,2) + !Skin.HasSetting(HideMenu.TVShows)</expression>
+	<expression name="Home_HubMusic">String.IsEqual(Window(Home).Property(majan.section),music) + Integer.IsEqual(Container(9238).CurrentItem,2) + !Skin.HasSetting(HideMenu.Music)</expression>
+	<!-- Main menu items hidden in Skin settings (HideMenu.*, 1.0.12). The Home overview is all films (spotlight +
+	     newest films), so it goes with Films too. The gear (system menu) can never be hidden. -->
+	<expression name="Menu_HideHome">Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)</expression>
+	<!-- Home.xml onload: the remembered section can be focused again -->
+	<expression name="Home_RefocusValid">[String.IsEqual(Window(Home).Property(majan.section),movies) + !Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(majan.section),tv) + !Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(majan.section),music) + !Skin.HasSetting(HideMenu.Music)]</expression>
 	<!-- Kodi's own "More..." item (added when a limited row is cut short): a folder with no library id.
 	     Styled as the "See all" tile; selecting it opens the full source path. -->
 	<expression name="Home_IsMoreItem">ListItem.IsFolder + String.IsEmpty(ListItem.DBID)</expression>
@@ -119,6 +124,28 @@
 	<variable name="Home_SubNextUp">
 		<value condition="$EXP[Home_HasNextUpHelper]">Next unwatched episode</value>
 		<value>Shows in progress</value>
+	</variable>
+
+	<!-- Top-bar index numbers, renumbered when items before them are hidden (HideMenu.*) -->
+	<variable name="Home_MenuIdx_movies">
+		<value condition="![Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]">[UPPERCASE]01[/UPPERCASE]</value>
+	</variable>
+	<variable name="Home_MenuIdx_tv">
+		<value condition="![Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + !Skin.HasSetting(HideMenu.Movies)">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="![Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + Skin.HasSetting(HideMenu.Movies)">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + !Skin.HasSetting(HideMenu.Movies)">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + Skin.HasSetting(HideMenu.Movies)">[UPPERCASE]01[/UPPERCASE]</value>
+	</variable>
+	<variable name="Home_MenuIdx_music">
+		<value condition="![Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="![Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="![Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="![Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]01[/UPPERCASE]</value>
 	</variable>
 
 	<!-- Spotlight caption (pool size from the counter list, never hard-coded; Omar decision 6) -->
@@ -200,6 +227,9 @@
 		<ondown condition="$EXP[Home_HubMovies]">9211</ondown>
 		<ondown condition="$EXP[Home_HubTV]">9221</ondown>
 		<ondown condition="$EXP[Home_HubMusic]">9231</ondown>
+		<ondown condition="$EXP[Menu_HideHome] + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomRow1On]">9881</ondown>
+		<ondown condition="$EXP[Menu_HideHome] + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+		<ondown condition="$EXP[Menu_HideHome] + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 	</include>
 
 	<!-- One text menu item: mono index + label; active = bold, primary, accent index, 3px underline.
@@ -208,6 +238,20 @@
 	             blur (container id TMDb Helper reads while this section is shown) -->
 	<include name="Home_MenuItem">
 		<param name="onclick">noop</param>
+		<!-- shown: false when the item is hidden in Skin settings; s1..s5 / d1..d5: close up the gap left by hidden
+		     items before this one (condition, px). Hidden items keep their numeric onleft / onright, so navigation
+		     falls through them to the next visible item. -->
+		<param name="shown">true</param>
+		<param name="s1">false</param>
+		<param name="d1">0</param>
+		<param name="s2">false</param>
+		<param name="d2">0</param>
+		<param name="s3">false</param>
+		<param name="d3">0</param>
+		<param name="s4">false</param>
+		<param name="d4">0</param>
+		<param name="s5">false</param>
+		<param name="d5">0</param>
 		<!-- unused slots point at an id that doesn't exist (Container(0) can mean "the current container") -->
 		<param name="reset_a">9299</param>
 		<param name="reset_b">9299</param>
@@ -218,11 +262,18 @@
 				<top>topbar_item_top</top>
 				<width>$PARAM[w]</width>
 				<height>topbar_item_h</height>
+				<visible>$PARAM[shown]</visible>
+				<animation effect="slide" start="0,0" end="-$PARAM[d1],0" time="0" condition="$PARAM[s1]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-$PARAM[d2],0" time="0" condition="$PARAM[s2]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-$PARAM[d3],0" time="0" condition="$PARAM[s3]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-$PARAM[d4],0" time="0" condition="$PARAM[s4]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-$PARAM[d5],0" time="0" condition="$PARAM[s5]">Conditional</animation>
 				<control type="button" id="$PARAM[id]">
 					<left>0</left>
 					<top>0</top>
 					<width>$PARAM[w]</width>
 					<height>topbar_item_h</height>
+					<visible>$PARAM[shown]</visible>
 					<label></label>
 					<texturefocus />
 					<texturenofocus />
@@ -246,7 +297,7 @@
 					<height>topbar_item_h</height>
 					<font>mono_14</font>
 					<textcolor>$VAR[ColorAccent]</textcolor>
-					<label>[UPPERCASE]$PARAM[index][/UPPERCASE]</label>
+					<label>$PARAM[index]</label>
 					<visible>$PARAM[active]</visible>
 				</control>
 				<control type="label">
@@ -256,7 +307,7 @@
 					<height>topbar_item_h</height>
 					<font>mono_14</font>
 					<textcolor>text_secondary</textcolor>
-					<label>[UPPERCASE]$PARAM[index][/UPPERCASE]</label>
+					<label>$PARAM[index]</label>
 					<visible>!$PARAM[active]</visible>
 				</control>
 				<!-- label: bold/primary when active, medium/secondary otherwise -->
@@ -295,17 +346,35 @@
 
 	<!-- Icon item (search, gear): 26px icon, accent frame on focus. params: id, x, icon, onclick, onleft, onright -->
 	<include name="Home_MenuIcon">
+		<param name="shown">true</param>
+		<param name="s1">false</param>
+		<param name="d1">0</param>
+		<param name="s2">false</param>
+		<param name="d2">0</param>
+		<param name="s3">false</param>
+		<param name="d3">0</param>
+		<param name="s4">false</param>
+		<param name="d4">0</param>
+		<param name="s5">false</param>
+		<param name="d5">0</param>
 		<definition>
 			<control type="group">
 				<left>$PARAM[x]</left>
 				<top>topbar_icon_top</top>
 				<width>topbar_icon</width>
 				<height>topbar_icon</height>
+				<visible>$PARAM[shown]</visible>
+				<animation effect="slide" start="0,0" end="-$PARAM[d1],0" time="0" condition="$PARAM[s1]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-$PARAM[d2],0" time="0" condition="$PARAM[s2]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-$PARAM[d3],0" time="0" condition="$PARAM[s3]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-$PARAM[d4],0" time="0" condition="$PARAM[s4]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-$PARAM[d5],0" time="0" condition="$PARAM[s5]">Conditional</animation>
 				<control type="button" id="$PARAM[id]">
 					<left>0</left>
 					<top>0</top>
 					<width>topbar_icon</width>
 					<height>topbar_icon</height>
+					<visible>$PARAM[shown]</visible>
 					<label></label>
 					<texturefocus />
 					<texturenofocus />
@@ -346,7 +415,7 @@
 			<width>screen_w</width>
 			<height>topbar_h</height>
 			<texture colordiffuse="bg">common/white.png</texture>
-			<visible>$EXP[HomeNewestBoth] + $EXP[Home_SecHome]</visible>
+			<visible>[$EXP[HomeNewestBoth] + $EXP[Home_SecHome]] | $EXP[CustomRowsFocus]</visible>
 		</control>
 		<control type="group" id="9000">
 			<defaultcontrol>9001</defaultcontrol>
@@ -355,9 +424,10 @@
 				<param name="x" value="menu_x_home"/>
 				<param name="w" value="menu_w_home"/>
 				<param name="label_w" value="menu_label_w_home"/>
-				<param name="index" value="01"/>
+				<param name="index" value="[UPPERCASE]01[/UPPERCASE]"/>
 				<param name="label" value="$LOCALIZE[31019]"/>
 				<param name="section" value="home"/>
+				<param name="shown" value="![Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]"/>
 				<param name="active" value="$EXP[Home_SecHome]"/>
 				<param name="reset_a" value="9218"/>
 				<param name="reset_b" value="9228"/>
@@ -371,9 +441,12 @@
 				<param name="x" value="menu_x_movies"/>
 				<param name="w" value="menu_w_movies"/>
 				<param name="label_w" value="menu_label_w_movies"/>
-				<param name="index" value="02"/>
+				<param name="index" value="$VAR[Home_MenuIdx_movies]"/>
 				<param name="label" value="$LOCALIZE[342]"/>
 				<param name="section" value="movies"/>
+				<param name="shown" value="!Skin.HasSetting(HideMenu.Movies)"/>
+				<param name="s1" value="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]"/>
+				<param name="d1" value="155"/>
 				<param name="active" value="String.IsEqual(Window(Home).Property(majan.section),movies)"/>
 				<param name="reset_a" value="9228"/>
 				<param name="reset_b" value="9238"/>
@@ -387,9 +460,14 @@
 				<param name="x" value="menu_x_tv"/>
 				<param name="w" value="menu_w_tv"/>
 				<param name="label_w" value="menu_label_w_tv"/>
-				<param name="index" value="03"/>
+				<param name="index" value="$VAR[Home_MenuIdx_tv]"/>
 				<param name="label" value="$LOCALIZE[20343]"/>
 				<param name="section" value="tv"/>
+				<param name="shown" value="!Skin.HasSetting(HideMenu.TVShows)"/>
+				<param name="s1" value="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]"/>
+				<param name="d1" value="155"/>
+				<param name="s2" value="Skin.HasSetting(HideMenu.Movies)"/>
+				<param name="d2" value="171"/>
 				<param name="active" value="String.IsEqual(Window(Home).Property(majan.section),tv)"/>
 				<param name="reset_a" value="9218"/>
 				<param name="reset_b" value="9238"/>
@@ -403,9 +481,16 @@
 				<param name="x" value="menu_x_music"/>
 				<param name="w" value="menu_w_music"/>
 				<param name="label_w" value="menu_label_w_music"/>
-				<param name="index" value="04"/>
+				<param name="index" value="$VAR[Home_MenuIdx_music]"/>
 				<param name="label" value="$LOCALIZE[2]"/>
 				<param name="section" value="music"/>
+				<param name="shown" value="!Skin.HasSetting(HideMenu.Music)"/>
+				<param name="s1" value="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]"/>
+				<param name="d1" value="155"/>
+				<param name="s2" value="Skin.HasSetting(HideMenu.Movies)"/>
+				<param name="d2" value="171"/>
+				<param name="s3" value="Skin.HasSetting(HideMenu.TVShows)"/>
+				<param name="d3" value="204"/>
 				<param name="active" value="String.IsEqual(Window(Home).Property(majan.section),music)"/>
 				<param name="reset_a" value="9218"/>
 				<param name="reset_b" value="9228"/>
@@ -419,6 +504,15 @@
 				<param name="id" value="9005"/>
 				<param name="x" value="menu_x_search"/>
 				<param name="icon" value="icons/search.png"/>
+				<param name="shown" value="!Skin.HasSetting(HideMenu.Search)"/>
+				<param name="s1" value="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]"/>
+				<param name="d1" value="155"/>
+				<param name="s2" value="Skin.HasSetting(HideMenu.Movies)"/>
+				<param name="d2" value="171"/>
+				<param name="s3" value="Skin.HasSetting(HideMenu.TVShows)"/>
+				<param name="d3" value="204"/>
+				<param name="s4" value="Skin.HasSetting(HideMenu.Music)"/>
+				<param name="d4" value="157"/>
 				<param name="onclick" value="ActivateWindow(1150)"/>
 				<param name="onleft" value="9004"/>
 				<param name="onright" value="9006"/>
@@ -428,6 +522,16 @@
 				<param name="id" value="9006"/>
 				<param name="x" value="menu_x_gear"/>
 				<param name="icon" value="icons/settings.png"/>
+				<param name="s1" value="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]"/>
+				<param name="d1" value="155"/>
+				<param name="s2" value="Skin.HasSetting(HideMenu.Movies)"/>
+				<param name="d2" value="171"/>
+				<param name="s3" value="Skin.HasSetting(HideMenu.TVShows)"/>
+				<param name="d3" value="204"/>
+				<param name="s4" value="Skin.HasSetting(HideMenu.Music)"/>
+				<param name="d4" value="157"/>
+				<param name="s5" value="Skin.HasSetting(HideMenu.Search)"/>
+				<param name="d5" value="82"/>
 				<param name="onclick" value="ActivateWindow(1151)"/>
 				<param name="onleft" value="9005"/>
 				<param name="onright" value="9001"/>
@@ -463,9 +567,9 @@
 	     spotlight never rotated), so the condition is Home_SpotlightCanRotate written out: keep them in sync.
 	     <autoscroll time> is a static attribute, so the interval is picked
 	     at skin load (Home is KEEP_IN_MEMORY: changing 8/15/30 s needs ReloadSkin; Off is live). -->
-	<include name="Home_Rotate8"><autoscroll time="8000">!String.IsEqual(Skin.String(majan.spotlightrotate),off) + [String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Control.HasFocus(9110) + !Control.HasFocus(9111) + !Control.HasFocus(9112) + !Control.HasFocus(9101) + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</autoscroll></include>
-	<include name="Home_Rotate15"><autoscroll time="15000">!String.IsEqual(Skin.String(majan.spotlightrotate),off) + [String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Control.HasFocus(9110) + !Control.HasFocus(9111) + !Control.HasFocus(9112) + !Control.HasFocus(9101) + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</autoscroll></include>
-	<include name="Home_Rotate30"><autoscroll time="30000">!String.IsEqual(Skin.String(majan.spotlightrotate),off) + [String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Control.HasFocus(9110) + !Control.HasFocus(9111) + !Control.HasFocus(9112) + !Control.HasFocus(9101) + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</autoscroll></include>
+	<include name="Home_Rotate8"><autoscroll time="8000">!String.IsEqual(Skin.String(majan.spotlightrotate),off) + [String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Control.HasFocus(9110) + !Control.HasFocus(9111) + !Control.HasFocus(9112) + !Control.HasFocus(9101) + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</autoscroll></include>
+	<include name="Home_Rotate15"><autoscroll time="15000">!String.IsEqual(Skin.String(majan.spotlightrotate),off) + [String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Control.HasFocus(9110) + !Control.HasFocus(9111) + !Control.HasFocus(9112) + !Control.HasFocus(9101) + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</autoscroll></include>
+	<include name="Home_Rotate30"><autoscroll time="30000">!String.IsEqual(Skin.String(majan.spotlightrotate),off) + [String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Control.HasFocus(9110) + !Control.HasFocus(9111) + !Control.HasFocus(9112) + !Control.HasFocus(9101) + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</autoscroll></include>
 
 	<!-- Always-processed data lists: spotlight (5 random, focusable for Details -> Action(Info)) and the
 	     unlimited pool used only for its item count (no layouts, no art loaded). -->
@@ -873,6 +977,7 @@
 		<param name="sortby">none</param>
 		<param name="sortorder">descending</param>
 		<param name="limit">20</param>
+		<param name="customdown">false</param>
 		<param name="target">videos</param>
 		<param name="w">home_poster_s_w</param>
 		<param name="h">home_poster_s_h</param>
@@ -904,6 +1009,11 @@
 					<height>254</height>
 					<orientation>horizontal</orientation>
 					<onup>$PARAM[onup]</onup>
+					<!-- custom rows (1.0.12): the last row of a page continues down into them (listed before the
+					     param so they win when they apply); customdown false = never -->
+					<ondown condition="$PARAM[customdown] + $EXP[CustomRow1On]">9881</ondown>
+					<ondown condition="$PARAM[customdown] + !$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+					<ondown condition="$PARAM[customdown] + !$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 					<ondown>$PARAM[ondown]</ondown>
 					<onleft>noop</onleft>
 					<onright>noop</onright>
@@ -944,6 +1054,7 @@
 	<include name="Home_HubCardRow">
 		<param name="sortby">none</param>
 		<param name="limit">20</param>
+		<param name="customdown">false</param>
 		<param name="empty">Nothing here yet</param>
 		<param name="delay">0</param>
 		<definition>
@@ -968,6 +1079,11 @@
 					<height>282</height>
 					<orientation>horizontal</orientation>
 					<onup>$PARAM[onup]</onup>
+					<!-- custom rows (1.0.12): the last row of a page continues down into them (listed before the
+					     param so they win when they apply); customdown false = never -->
+					<ondown condition="$PARAM[customdown] + $EXP[CustomRow1On]">9881</ondown>
+					<ondown condition="$PARAM[customdown] + !$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+					<ondown condition="$PARAM[customdown] + !$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 					<ondown>$PARAM[ondown]</ondown>
 					<onleft>noop</onleft>
 					<onright>noop</onright>
@@ -1431,6 +1547,7 @@
 					<param name="seeall" value="ActivateWindow(Videos,special://skin/playlists/majan_toprated_unwatched_all.xsp,return)"/>
 					<param name="onup" value="9212"/>
 					<param name="ondown" value="noop"/>
+					<param name="customdown" value="true"/>
 					<param name="empty" value="No unwatched films rated 7.5+"/>
 					<param name="delay" value="100"/>
 				</include>
@@ -1476,6 +1593,7 @@
 				<param name="seeall" value="ActivateWindow(Videos,videodb://recentlyaddedepisodes/,return)"/>
 				<param name="onup" value="9221"/>
 				<param name="ondown" value="noop"/>
+				<param name="customdown" value="true"/>
 				<param name="empty" value="No new episodes"/>
 				<param name="delay" value="50"/>
 			</include>
@@ -1574,6 +1692,7 @@
 					<param name="seeall" value="ActivateWindow(Music,musicdb://albums/,return)"/>
 					<param name="onup" value="9232"/>
 					<param name="ondown" value="noop"/>
+					<param name="customdown" value="true"/>
 					<param name="delay" value="100"/>
 				</include>
 			</control>
@@ -1941,6 +2060,7 @@
 	     up_row (true = Up goes to row 9120), ondown, seeall -->
 	<include name="Home_PosterRow">
 		<param name="ondown">noop</param>
+		<param name="customdown">false</param>
 		<param name="sortby">none</param>
 		<definition>
 			<control type="group">
@@ -1992,6 +2112,11 @@
 					<onup condition="$PARAM[up_row]">9120</onup>
 					<onup condition="!$PARAM[up_row] + Integer.IsGreater(Container(9101).NumItems,0)">9110</onup>
 					<onup condition="!$PARAM[up_row] + !Integer.IsGreater(Container(9101).NumItems,0)">9000</onup>
+					<!-- custom rows (1.0.12): the last row of a page continues down into them (listed before the
+					     param so they win when they apply); customdown false = never -->
+					<ondown condition="$PARAM[customdown] + $EXP[CustomRow1On]">9881</ondown>
+					<ondown condition="$PARAM[customdown] + !$EXP[CustomRow1On] + $EXP[CustomRow2On]">9882</ondown>
+					<ondown condition="$PARAM[customdown] + !$EXP[CustomRow1On] + !$EXP[CustomRow2On] + $EXP[CustomRow3On]">9883</ondown>
 					<ondown>$PARAM[ondown]</ondown>
 					<onleft>noop</onleft>
 					<onright>noop</onright>
@@ -2036,6 +2161,7 @@
 				<param name="slide" value="false"/>
 				<param name="up_row" value="false"/>
 				<param name="ondown" value="9121"/>
+				<param name="customdown" value="!$EXP[HomeNewestRelease]"/>
 				<param name="seeall" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
 			</include>
 			<!-- 9121: by release date (setting release / both). The xsp pre-filters the newest 100 by year;
@@ -2049,6 +2175,7 @@
 				<param name="visible" value="$EXP[HomeNewestRelease]"/>
 				<param name="slide" value="$EXP[HomeNewestBoth]"/>
 				<param name="up_row" value="$EXP[HomeNewestBoth]"/>
+				<param name="customdown" value="true"/>
 				<param name="seeall" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
 			</include>
 		</control>
@@ -2145,5 +2272,137 @@
 				<label>$INFO[Player.Time]$INFO[Player.Duration, / ,]</label>
 			</control>
 		</control>
+	</include>
+	<!-- ============================================================ custom rows (1.0.12) -->
+	<!-- Opt-in rows from Skin settings > Custom rows (Includes_CustomRows.xml, generated): a page below whichever
+	     section is shown (Home overview or a hub), so hiding menu items never hides them. Down from the last row
+	     of the page scrolls one screen up to them; Up from the first one / Back return. Drawn like the Newest row
+	     (rule, section_24 title, mono count, 168x252 posters, Anim_FocusLift + accent frame). Nothing changes
+	     on Home until a row has items: the block sits below the screen and its rows draw nothing while empty. -->
+	<include name="Home_CustomPosterItem">
+		<param name="focused">false</param>
+		<definition>
+			<control type="group">
+				<left>home_item_x</left>
+				<top>home_list_pad</top>
+				<width>poster_m_w</width>
+				<height>poster_m_h</height>
+				<include condition="$PARAM[focused]">Anim_FocusLift</include>
+				<include content="Home_Art">
+					<param name="art" value="$VAR[CustomRow_PosterArt]"/>
+				</include>
+				<include>Majan_WatchedMarkers</include>
+				<include content="Majan_FocusFrame" condition="$PARAM[focused]">
+					<param name="visible" value="Control.HasFocus($PARAM[id])"/>
+				</include>
+			</control>
+		</definition>
+	</include>
+
+	<!-- one custom row. params: n (1-3), id, after1 / after2 (row 1 / 2 is above it), before2 / before3 (row 2 / 3 below) -->
+	<include name="Home_CustomRow">
+		<definition>
+			<control type="group">
+				<left>0</left>
+				<top>0</top>
+				<width>screen_w</width>
+				<height>330</height>
+				<animation effect="slide" start="0,0" end="0,340" time="0" condition="$PARAM[after1] + $EXP[CustomRow1On]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,340" time="0" condition="$PARAM[after2] + $EXP[CustomRow2On]">Conditional</animation>
+				<control type="group">
+					<visible>$EXP[CustomRow$PARAM[n]On]</visible>
+					<include content="Majan_Rule">
+						<param name="top" value="0"/>
+						<param name="color" value="$VAR[ColorRuleStrong]"/>
+					</include>
+					<control type="label">
+						<left>page_margin</left>
+						<top>14</top>
+						<width>1300</width>
+						<height>30</height>
+						<font>section_24</font>
+						<textcolor>text_primary</textcolor>
+						<label>$VAR[CustomRow_Title$PARAM[n]]</label>
+					</control>
+					<control type="label">
+						<left>page_margin</left>
+						<top>16</top>
+						<width>page_width</width>
+						<height>26</height>
+						<align>right</align>
+						<font>mono_14</font>
+						<textcolor>$VAR[ColorCaption]</textcolor>
+						<label>[UPPERCASE]$VAR[CustomRow_Count$PARAM[n]][/UPPERCASE]</label>
+					</control>
+				</control>
+				<control type="list" id="$PARAM[id]">
+					<left>home_newest_list_x</left>
+					<top>home_newest_list_y</top>
+					<width>1836</width>
+					<height>296</height>
+					<orientation>horizontal</orientation>
+					<include content="Home_CustomRowUp"><param name="after1" value="$PARAM[after1]"/><param name="after2" value="$PARAM[after2]"/></include>
+					<include content="Home_CustomRowDown"><param name="before2" value="$PARAM[before2]"/><param name="before3" value="$PARAM[before3]"/></include>
+					<ondown>noop</ondown>
+					<onleft>noop</onleft>
+					<onright>noop</onright>
+					<onback>9000</onback>
+					<onfocus condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.WidgetContainer,$PARAM[id],home)</onfocus>
+					<preloaditems>2</preloaditems>
+					<scrolltime tween="cubic" easing="out">200</scrolltime>
+					<itemlayout width="poster_m_pitch" height="296">
+						<include content="Home_CustomPosterItem">
+							<param name="id" value="$PARAM[id]"/>
+						</include>
+					</itemlayout>
+					<focusedlayout width="poster_m_pitch" height="296">
+						<include content="Home_CustomPosterItem">
+							<param name="id" value="$PARAM[id]"/>
+							<param name="focused" value="true"/>
+						</include>
+					</focusedlayout>
+					<include content="CustomRow_Content"><param name="row" value="$PARAM[n]"/></include>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Up from row n: the custom row above it with items, else the last row of the section on show, else the bar -->
+	<include name="Home_CustomRowUp">
+		<definition>
+			<onup condition="$PARAM[after2] + $EXP[CustomRow2On]">9882</onup>
+			<onup condition="$PARAM[after1] + $EXP[CustomRow1On] + ![$PARAM[after2] + $EXP[CustomRow2On]]">9881</onup>
+			<onup condition="$EXP[Home_SecHome] + $EXP[HomeNewestRelease]">9121</onup>
+			<onup condition="$EXP[Home_SecHome] + !$EXP[HomeNewestRelease]">9120</onup>
+			<onup condition="$EXP[Home_HubMovies]">9213</onup>
+			<onup condition="$EXP[Home_HubTV]">9222</onup>
+			<onup condition="$EXP[Home_HubMusic]">9233</onup>
+			<onup>9000</onup>
+		</definition>
+	</include>
+	<include name="Home_CustomRowDown">
+		<definition>
+			<ondown condition="$PARAM[before2] + $EXP[CustomRow2On]">9882</ondown>
+			<ondown condition="$PARAM[before3] + $EXP[CustomRow3On] + ![$PARAM[before2] + $EXP[CustomRow2On]]">9883</ondown>
+		</definition>
+	</include>
+
+	<!-- The page: sits below everything the sections draw (the Home overview's release-date row ends at 1430) inside
+	     the Home.xml wrapper, which slides 1420 px up while a custom row has focus, so row 1 lands at content_top
+	     (and 128 px more for a third row, so it fits). -->
+	<include name="Home_CustomRows">
+		<control type="group">
+			<left>0</left>
+			<top>1588</top>
+			<include content="Home_CustomRow"><param name="n" value="1"/><param name="id" value="9881"/><param name="after1" value="false"/><param name="after2" value="false"/><param name="before2" value="true"/><param name="before3" value="true"/></include>
+			<include content="Home_CustomRow"><param name="n" value="2"/><param name="id" value="9882"/><param name="after1" value="true"/><param name="after2" value="false"/><param name="before2" value="false"/><param name="before3" value="true"/></include>
+			<include content="Home_CustomRow"><param name="n" value="3"/><param name="id" value="9883"/><param name="after1" value="true"/><param name="after2" value="true"/><param name="before2" value="false"/><param name="before3" value="false"/></include>
+		</control>
+	</include>
+	<include name="Home_CustomRowsPageAnim">
+		<animation effect="slide" start="0,0" end="0,-1420" time="240" tween="cubic" easing="out" condition="$EXP[CustomRowsFocus] + !$EXP[ReduceMotion]">Conditional</animation>
+		<animation effect="slide" start="0,0" end="0,-1420" time="0" condition="$EXP[CustomRowsFocus] + $EXP[ReduceMotion]">Conditional</animation>
+		<animation effect="slide" start="0,0" end="0,-128" time="200" tween="cubic" easing="out" condition="Control.HasFocus(9883) + $EXP[CustomRow1On] + $EXP[CustomRow2On] + !$EXP[ReduceMotion]">Conditional</animation>
+		<animation effect="slide" start="0,0" end="0,-128" time="0" condition="Control.HasFocus(9883) + $EXP[CustomRow1On] + $EXP[CustomRow2On] + $EXP[ReduceMotion]">Conditional</animation>
 	</include>
 </includes>

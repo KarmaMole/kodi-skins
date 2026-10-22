@@ -1,3 +1,9 @@
+0.9.10 (2026-10-22)
+- Settings: choose which main menu items to show.
+- Home: up to three custom rows from any add-on, playlist or favourite.
+- Skin settings > Main menu: Movies, TV Shows, Music, Music videos, Live TV, Weather, Add-ons, Favourites, Pictures, Files and Search. A hidden item leaves the Library shelf; Movies, TV Shows and Music take their shelves with them, Search its shelf; Left / Right skip hidden shelves. Settings and System always stay. Everything is shown by default.
+- Custom rows: Skin settings > Custom rows: Row 1, 2 and 3. OK offers Add-on, playlist or library... (Kodi's own browser: an add-on folder, a smart playlist, a library node), A favourite... (one that opens a folder), Rename... and Clear. A row shows only while it has items; folders open in their window, files play, Back comes home. Nothing changes on Home until a row is set up. The rows are shelves 8-10 after the Library shelf; Left / Right reach them like the other shelves.
+
 0.9.9 (2026-10-21)
 - Visualiser presets button in the music player.
 - Music controls: "Visualiser presets" after Queue opens Kodi's preset list (Back returns to the row); Left from Play/Pause wraps to it in one press. Only while a visualisation with presets is running.

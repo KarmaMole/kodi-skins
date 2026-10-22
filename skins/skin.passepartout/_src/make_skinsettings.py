@@ -68,7 +68,21 @@ ROWS = {
     "motion": [
         ("9151", "Reduce motion", "cap", None),
     ],
+    # 0.9.14: words in the Home nav (HideMenu.*); Settings always stays
+    "menu": [
+        ("9171", "Films", "cap", None),
+        ("9172", "Series", "cap", None),
+        ("9173", "Music", "cap", None),
+        ("9174", "Search", "cap", None),
+    ],
+    # 0.9.14: custom rows on Home (Includes_CustomRows.xml); OK opens the row's options
+    "rows": [
+        ("9181", "$LOCALIZE[31941]", "cap", None),
+        ("9182", "$LOCALIZE[31942]", "cap", None),
+        ("9183", "$LOCALIZE[31943]", "cap", None),
+    ],
 }
+CUSTOM = {"9181": 1, "9182": 2, "9183": 3}
 
 BOOLS = {
     "9111": ("neutralpaper", "Neutral", "From the artwork", True),
@@ -78,11 +92,17 @@ BOOLS = {
     "9134": ("wall.butted", "Hidden", "Shown", False),
     "9135": ("wall.nomat", "Off", "On", False),
     "9151": ("reducemotion", "On", "Off", False),
+    "9171": ("HideMenu.Movies", "Hidden", "Shown", False),
+    "9172": ("HideMenu.TVShows", "Hidden", "Shown", False),
+    "9173": ("HideMenu.Music", "Hidden", "Shown", False),
+    "9174": ("HideMenu.Search", "Hidden", "Shown", False),
 }
 
 CATS = [
     ("paper", "Paper", "The page takes its colour from the artwork in focus, made pale and quiet so ink always reads."),
     ("home", "Home", "What hangs in the exhibition on Home. Left and right turn the prints; down shows the rest of the room."),
+    ("menu", "Main menu", "The words at the top of Home. A hidden word takes its exhibition and room with it; Settings always stays, so you can always come back here."),
+    ("rows", "$LOCALIZE[31940]", "$LOCALIZE[31957]"),
     ("libraries", "Libraries", "How the hang, the salon and the wall mark what you have seen, and what the wall label offers."),
     ("playback", "Playback", "The caption bar while a film plays."),
     ("motion", "Motion", "Prints grow and slide into place. Reduce motion makes every change instant."),
@@ -195,39 +215,13 @@ def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def row(rid, label, font, spec, first, last):
-    clicks, values = [], []
-    if rid in BOOLS:
-        name, on_lab, off_lab, paper = BOOLS[rid]
-        clicks.append(("true", f"Skin.ToggleSetting(passepartout.{name})"))
-        if paper:
-            clicks.append((f"Skin.HasSetting(passepartout.{name})", "Skin.SetBool(TMDbHelper.EnableColors)"))
-            clicks.append((f"!Skin.HasSetting(passepartout.{name})", "Skin.Reset(TMDbHelper.EnableColors)"))
-            values.append(("!System.AddonIsEnabled(plugin.video.themoviedb.helper)", "Neutral (TMDb Helper is off)"))
-        values.append((f"Skin.HasSetting(passepartout.{name})", on_lab))
-        values.append(("true", off_lab))
-    else:
-        name, vals, default, extra = spec
-        c, v = cycle(name, vals, default, extra)
-        clicks += c
-        values += v
-    vfont = "mono_24" if font == "mono" else "cap_20"
-    onclick = "\n".join(f'\t\t\t\t\t<onclick condition="{c}">{a}</onclick>' if c != "true" else f"\t\t\t\t\t<onclick>{a}</onclick>" for c, a in clicks)
-    var = "\n".join(f'\t\t<value condition="{c}">{esc(l)}</value>' if c != "true" else f"\t\t<value>{esc(l)}</value>" for c, l in values)
-    btn = f'''				<control type="button" id="{rid}">
-					<width>1120</width>
-					<height>76</height>
-					<font>body_28</font>
-					<textcolor>ink</textcolor>
-					<focusedcolor>$VAR[PaperColor]</focusedcolor>
-					<textoffsetx>28</textoffsetx>
-					<aligny>center</aligny>
-					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
-					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
-					<label>{esc(label)}</label>
-{onclick}
-				</control>'''
-    value_labels = f'''		<control type="label">
+def bool_name(name):
+    # 0.9.14: the main menu bools are skin-wide names (HideMenu.*), the rest carry the skin prefix
+    return name if name.startswith("HideMenu.") else f"passepartout.{name}"
+
+
+def value_labels_for(rid, vfont):
+    return f'''		<control type="label">
 			<left>680</left>
 			<top>$PARAM[top]</top>
 			<width>1092</width>
@@ -249,6 +243,58 @@ def row(rid, label, font, spec, first, last):
 			<label>$VAR[SS_Value_{rid}]</label>
 			<visible>Control.HasFocus({rid})</visible>
 		</control>'''
+
+
+def row(rid, label, font, spec, first, last):
+    clicks, values = [], []
+    custom = ""
+    if rid in CUSTOM:
+        n = CUSTOM[rid]
+        custom = f'\n\t\t\t\t\t<include content="CustomRows_SettingsClick"><param name="row" value="{n}"/><param name="heading" value="$LOCALIZE[{31940 + n}]"/></include>'
+        values.append(("true", f"$VAR[CustomRow_Value{n}]"))
+    elif rid in BOOLS:
+        name, on_lab, off_lab, paper = BOOLS[rid]
+        clicks.append(("true", f"Skin.ToggleSetting({bool_name(name)})"))
+        if paper:
+            clicks.append((f"Skin.HasSetting(passepartout.{name})", "Skin.SetBool(TMDbHelper.EnableColors)"))
+            clicks.append((f"!Skin.HasSetting(passepartout.{name})", "Skin.Reset(TMDbHelper.EnableColors)"))
+            values.append(("!System.AddonIsEnabled(plugin.video.themoviedb.helper)", "Neutral (TMDb Helper is off)"))
+        values.append((f"Skin.HasSetting({bool_name(name)})", on_lab))
+        values.append(("true", off_lab))
+    else:
+        name, vals, default, extra = spec
+        c, v = cycle(name, vals, default, extra)
+        clicks += c
+        values += v
+    vfont = "mono_24" if font == "mono" else "cap_20"
+    onclick = "\n".join(f'\t\t\t\t\t<onclick condition="{c}">{a}</onclick>' if c != "true" else f"\t\t\t\t\t<onclick>{a}</onclick>" for c, a in clicks)
+    var = "\n".join(f'\t\t<value condition="{c}">{esc(l)}</value>' if c != "true" else f"\t\t<value>{esc(l)}</value>" for c, l in values)
+    if custom:
+        # strip_defaults leaves controls with an <include> child alone, so the tags Defaults.xml already sets
+        # (textcolor, focusedcolor, aligny, texturefocus) are left out here by hand: the include only adds onclicks
+        btn = f'''				<control type="button" id="{rid}">
+					<width>1120</width>
+					<height>76</height>
+					<font>body_28</font>
+					<textoffsetx>28</textoffsetx>
+					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
+					<label>{esc(label)}</label>{custom}
+				</control>'''
+        return btn, f'\t<variable name="SS_Value_{rid}">\n{var}\n\t</variable>', value_labels_for(rid, vfont)
+    btn = f'''				<control type="button" id="{rid}">
+					<width>1120</width>
+					<height>76</height>
+					<font>body_28</font>
+					<textcolor>ink</textcolor>
+					<focusedcolor>$VAR[PaperColor]</focusedcolor>
+					<textoffsetx>28</textoffsetx>
+					<aligny>center</aligny>
+					<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
+					<label>{esc(label)}</label>{custom}
+{onclick}
+				</control>'''
+    value_labels = value_labels_for(rid, vfont)
     return btn, f'\t<variable name="SS_Value_{rid}">\n{var}\n\t</variable>', value_labels
 
 
@@ -337,13 +383,14 @@ def main():
     xml = f'''<?xml version="1.0" encoding="UTF-8"?>
 <!-- GENERATED by _src/make_skinsettings.py - edit the generator, not this file.
 	Skin settings (mockup PassepartoutSettings): categories 9000 on the left, the page on the right
-	(rows 9101-9106 per category). Settings: docs/skin.passepartout/SETTINGS.md -->
+	(rows 9101-9107 per category). Settings: docs/skin.passepartout/SETTINGS.md -->
 <window>
 	<defaultcontrol always="true">9000</defaultcontrol>
 	<backgroundcolor>paper</backgroundcolor>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>PP_Background</include>
+		<include>CustomRows_FavData</include>
 		<include content="PP_Crumbs2">
 			<param name="a" value="$LOCALIZE[5]"/>
 			<param name="b" value="Skin"/>

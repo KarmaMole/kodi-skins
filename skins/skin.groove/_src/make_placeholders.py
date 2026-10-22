@@ -80,14 +80,14 @@ def main():
     def icon(p):
         im = Image.new("RGB", (256, 256), (34, 31, 28))
         im.save(p)
-    if not (ROOT / "icon.png").exists():
-        icon(ROOT / "icon.png")
-        made.append("../icon.png")
-    if not (ROOT / "fanart.jpg").exists():
+    if not (ROOT / "resources" / "icon.png").exists():
+        icon(ROOT / "resources" / "icon.png")
+        made.append("../resources/icon.png")
+    if not (ROOT / "resources" / "fanart.jpg").exists():
         room = M / "groove" / "dark" / "room.png"
         im = Image.open(room).convert("RGB").resize((1920, 1080)) if room.exists() else Image.new("RGB", (1920, 1080), (34, 31, 28))
-        im.save(ROOT / "fanart.jpg", quality=90)
-        made.append("../fanart.jpg")
+        im.save(ROOT / "resources" / "fanart.jpg", quality=90)
+        made.append("../resources/fanart.jpg")
     print(f"{len(made)} placeholder(s) written")
     for r in made:
         print("  ", r)

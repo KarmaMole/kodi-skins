@@ -23,37 +23,46 @@
 		<value>$VAR[St_Cast1]</value>
 	</variable>
 	<variable name="St_UpQ">
-		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow) + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(3).Label]%22</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.0)]%22</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.0)]%22</value>
 		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow)">%22%22</value>
-		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(4).Label]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.1)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.1)]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(5).Label]%22</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.2)]%22</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.2)]%22</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">%22%22</value>
-		<value condition="String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(6).Label]%22</value>
+		<value condition="$EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.3)]%22</value>
+		<value condition="$EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.3)]%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast0Q">
-		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(7).Label]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.4)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.4)]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast1Q">
-		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(8).Label]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.5)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.5)]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast2Q">
-		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(9).Label]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.6)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.6)]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast3Q">
-		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(10).Label]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.7)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.7)]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_GenreQ">
-		<value condition="$EXP[St_Match] + String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID)">%22$INFO[Container(9096).ListItemAbsolute(11).Label]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.8)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.8)]%22</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
@@ -64,24 +73,25 @@
 		<value>$VAR[St_Cast1Q]</value>
 	</variable>
 	<variable name="St_Excl">
-		<value condition="String.IsEqual(Container(9096).ListItemAbsolute(0).Label,ListItem.DBType) + String.IsEqual(Container(9096).ListItemAbsolute(1).Label,ListItem.DBID) + String.IsEqual(Container(9096).ListItemAbsolute(2).Label,Container(9601).ListItem.DBID) + !String.IsEmpty(ListItem.Title)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Container(9096).ListItemAbsolute(12).Label]%22%5D%7D</value> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+		<value condition="$EXP[St_EncFreshA] + !String.IsEmpty(ListItem.Title)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.st.enca.9)]%22%5D%7D</value>
+		<value condition="$EXP[St_EncFreshB] + !String.IsEmpty(ListItem.Title)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.st.encb.9)]%22%5D%7D</value>
 	</variable>
-	<variable name="St_Path_up_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_right_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_left_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_CoQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_down_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_GenreQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_up_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_right_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_left_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_CoQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_down_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_GenreQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
 	<variable name="St_Path_downy_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
-	<variable name="St_Path_p1_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast1Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_p2_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast2Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_p3_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast3Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_up_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_right_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_left_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_CoQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_down_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_GenreQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_p1_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast1Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_p2_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast2Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_p3_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast3Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
+	<variable name="St_Path_up_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_right_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_left_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_CoQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_down_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_GenreQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
 	<variable name="St_Path_downy_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
-	<variable name="St_Path_p1_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast1Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_p2_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast2Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
-	<variable name="St_Path_p3_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast3Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable> <!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result (quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->
+	<variable name="St_Path_p1_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast1Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_p2_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast2Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
+	<variable name="St_Path_p3_tvshows"><value>videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast3Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value></variable>
 	<variable name="St_Path_up">
 		<value condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)]">videodb://movies/sets/</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$VAR[St_Path_up_tvshows]</value>
@@ -3104,12 +3114,21 @@
 		<control type="button" id="9203"><left>320</left><top>140</top><width>1280</width><height>800</height><texturefocus /><texturenofocus /><label></label><onup>noop</onup><ondown>noop</ondown><onleft>9201</onleft><onright>noop</onright><onback>9201</onback></control>
 		</control>
 	</include>
+	<!-- free text of the line paths, URL-encoded into two slots (Encoder in _src/make_map.py) -->
+	<expression name="St_EncSlotB">String.IsEqual(Window(Home).Property(sixdegrees.st.slot),b)</expression>
+	<expression name="St_EncFreshA">!$EXP[St_EncSlotB] + String.IsEqual(Window(Home).Property(sixdegrees.st.enca.10),ListItem.DBType) + String.IsEqual(Window(Home).Property(sixdegrees.st.enca.11),ListItem.DBID) + String.IsEqual(Window(Home).Property(sixdegrees.st.enca.12),Container(9601).ListItem.DBID)</expression>
+	<expression name="St_EncFreshB">$EXP[St_EncSlotB] + String.IsEqual(Window(Home).Property(sixdegrees.st.encb.10),ListItem.DBType) + String.IsEqual(Window(Home).Property(sixdegrees.st.encb.11),ListItem.DBID) + String.IsEqual(Window(Home).Property(sixdegrees.st.encb.12),Container(9601).ListItem.DBID)</expression>
+	<variable name="St_EncNext">
+		<value condition="$EXP[St_EncSlotB]">a</value>
+		<value>b</value>
+	</variable>
 	<variable name="St_Encoder_Path">
-		<value condition="[$EXP[St_Match] | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]]">plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;&amp;$INFO[ListItem.DBType]&amp;&amp;$INFO[ListItem.DBID]&amp;&amp;$INFO[Container(9601).ListItem.DBID]&amp;&amp;$INFO[Container(9601).ListItem.Property(studio.0)]&amp;&amp;$INFO[Container(9601).ListItem.Property(director.0)]&amp;&amp;$INFO[ListItem.Studio]&amp;&amp;$INFO[ListItem.Director]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.0.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.1.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.2.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.3.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(genre.0)]&amp;&amp;$INFO[ListItem.Title]</value>
+		<value condition="[$EXP[St_Match] | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]] + !$EXP[St_EncFreshA] + !$EXP[St_EncFreshB] + $EXP[St_EncSlotB]">plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=sixdegrees.st.encb&amp;window_id=home&amp;unencoded_paths=true&amp;&amp;$INFO[Container(9601).ListItem.Property(studio.0)]&amp;&amp;$INFO[Container(9601).ListItem.Property(director.0)]&amp;&amp;$INFO[ListItem.Studio]&amp;&amp;$INFO[ListItem.Director]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.0.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.1.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.2.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.3.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(genre.0)]&amp;&amp;$INFO[ListItem.Title]&amp;&amp;$INFO[ListItem.DBType]&amp;&amp;$INFO[ListItem.DBID]&amp;&amp;$INFO[Container(9601).ListItem.DBID]</value>
+		<value condition="[$EXP[St_Match] | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]] + !$EXP[St_EncFreshA] + !$EXP[St_EncFreshB]">plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=sixdegrees.st.enca&amp;window_id=home&amp;unencoded_paths=true&amp;&amp;$INFO[Container(9601).ListItem.Property(studio.0)]&amp;&amp;$INFO[Container(9601).ListItem.Property(director.0)]&amp;&amp;$INFO[ListItem.Studio]&amp;&amp;$INFO[ListItem.Director]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.0.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.1.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.2.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.3.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(genre.0)]&amp;&amp;$INFO[ListItem.Title]&amp;&amp;$INFO[ListItem.DBType]&amp;&amp;$INFO[ListItem.DBID]&amp;&amp;$INFO[Container(9601).ListItem.DBID]</value>
 	</variable>
 	<include name="St_Encoder">
 		<control type="list" id="9096">
-			<description>free text of the line paths, URL-encoded (Encoder in _src/make_map.py)</description>
+			<description>runs the URL encoder (Encoder in _src/make_map.py); its items are not read</description>
 			<left>0</left><top>0</top><width>1</width><height>1</height>
 			<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>
 			<content>$VAR[St_Encoder_Path]</content>

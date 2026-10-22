@@ -1,4 +1,4 @@
-"""Six Degrees add-on art -> ../icon.png (256x256) and ../fanart.jpg (1920x1080).
+"""Six Degrees add-on art -> ../resources/icon.png (256x256) and ../resources/fanart.jpg (1920x1080).
 
 Icon: the interchange (ink ring, white centre) with the four coloured lines leaving it, on the map paper.
 Fanart: a quiet transit map: a centre station and four lines with stops and 45-degree bends.
@@ -57,7 +57,7 @@ def icon():
     stroke(d, [(128, 164), (128, 238)], w, GRN)
     stroke(d, [(18, 128), (92, 128)], w, VIO)
     stop(d, 128, 128, 92, 20, INK)
-    im.resize((n, n), Image.LANCZOS).save(SKIN / "icon.png", optimize=True)
+    im.resize((n, n), Image.LANCZOS).save(SKIN / "resources" / "icon.png", optimize=True)
 
 
 def fanart():
@@ -82,7 +82,7 @@ def fanart():
     inset = 16 * SS
     d.rounded_rectangle([box[0] + inset, box[1] + inset, box[2] - inset, box[3] - inset], radius=r - inset, fill=(255, 255, 255))
     stop(d, cx, cy, 120, 26, INK)
-    im.resize((W, H), Image.LANCZOS).save(SKIN / "fanart.jpg", quality=90)
+    im.resize((W, H), Image.LANCZOS).save(SKIN / "resources" / "fanart.jpg", quality=90)
 
 
 if __name__ == "__main__":

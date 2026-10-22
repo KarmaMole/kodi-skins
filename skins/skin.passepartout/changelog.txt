@@ -1,3 +1,6 @@
+0.9.15 (2026-10-23)
+- Official repository requirements: artwork moved to resources/, screenshots added.
+
 0.9.14 (2026-10-22)
 - Settings: choose which main menu items to show.
 - Home: up to three custom rows from any add-on, playlist or favourite.

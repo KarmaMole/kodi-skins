@@ -71,7 +71,7 @@ def icon():
     d.text((56, 88), "I'D LIKE", font=sans(34), fill=MUTED)
     sentence_line(d, 76, 176, [("a film", "phrase")], 104, 26, focused=0)
     sentence_line(d, 56, 330, [("tonight", "phrase")], 80, 20)
-    img.convert("RGB").save(ROOT / "icon.png", optimize=True)
+    img.convert("RGB").save(ROOT / "resources" / "icon.png", optimize=True)
 
 
 def fanart():
@@ -83,7 +83,7 @@ def fanart():
     sentence_line(d, 120, y, [("Tonight I'd like", "words"), ("a film", "phrase")], 74, 22)
     sentence_line(d, 120, y + 150, [("that's", "words"), ("under 2 hours", "phrase"), (",", "punct"), ("funny", "phrase"), (",", "punct")], 74, 22, focused=1)
     sentence_line(d, 120, y + 300, [("from", "words"), ("the 90s", "phrase"), (",", "punct"), ("that I", "words"), ("haven't seen", "phrase"), (".", "punct")], 74, 22)
-    img.convert("RGB").save(ROOT / "fanart.jpg", quality=90)
+    img.convert("RGB").save(ROOT / "resources" / "fanart.jpg", quality=90)
 
 
 if __name__ == "__main__":

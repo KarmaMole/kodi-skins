@@ -65,8 +65,9 @@ def tag(name, value, cond=None):
 
 
 # gate: the details list has this item (movie / show), or there is no details list for this kind
-ST_ENC = Encoder("Station", ["ListItem.DBType", "ListItem.DBID", "Container(9601).ListItem.DBID"],
-                 f"[$EXP[St_Match] | [!{IS_MOVIE} + !{IS_TV}]]")
+# slot toggle sixdegrees.st.slot: flipped in the window's onload (one centre per opening)
+ST_ENC = Encoder("St", ["ListItem.DBType", "ListItem.DBID", "Container(9601).ListItem.DBID"],
+                 f"[$EXP[St_Match] | [!{IS_MOVIE} + !{IS_TV}]]", "st.slot")
 
 
 # ------------------------------------------------------------------ variables
@@ -106,7 +107,8 @@ def variables():
     a("\t<value>$VAR[St_Cast1Q]</value>")
     a("</variable>")
     a('<variable name="St_Excl">')
-    a("\t" + excl_value(ST_ENC, "title", "ListItem.Title"))
+    for v_ in excl_value(ST_ENC, "title", "ListItem.Title"):
+        a("\t" + v_)
     a("</variable>")
     roots = {"movies": "videodb://movies/titles/?xsp=", "tvshows": "videodb://tvshows/titles/?xsp="}
     upf = {"movies": "director", "tvshows": "studio"}
@@ -629,6 +631,7 @@ def window():
 -->
 <window>
 	<defaultcontrol always="true">9000</defaultcontrol>
+	<onload>@ENC_FLIP@</onload>  <!-- a new centre: the URL encoder's other slot (Encoder in _src/make_map.py) -->
 	<onload>SetFocus(9001)</onload>  <!-- 0.9.2: the grouplist re-focused the last pill (e.g. Board); always open on Play -->
 	<include>Anim_DialogOpenClose</include>
 	<controls>
@@ -645,6 +648,7 @@ def window():
 	</controls>
 </window>
 """
+    w = w.replace("@ENC_FLIP@", ST_ENC.flip_action())
     (OUT / "DialogVideoInfo.xml").write_text(localize_xml(w, STRINGS_PO), encoding="utf-8", newline="\n")
 
 

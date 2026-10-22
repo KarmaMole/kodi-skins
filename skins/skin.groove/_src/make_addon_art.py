@@ -256,13 +256,13 @@ def main():
         (sx + sz + int(sz * 0.96 * 0.40) + 64 + 380 + gap, sy + 120, 380, "olive", 1),
     ]
     fan = hero_scene(1920, 1080, sx, sy, sz, neighbours=nb, caption=(96, 1080 - 54 - 40))
-    fan.convert("RGB").save(SKIN / "fanart.jpg", quality=92)
+    fan.convert("RGB").save(SKIN / "resources" / "fanart.jpg", quality=92)
 
     # icon: drawn at 1024 and reduced; the sleeve with the disc half out, nothing else
     big = hero_scene(1024, 1024, 144, 242, 540, font_scale=2.0)
     icon = big.convert("RGB").resize((512, 512), Image.LANCZOS)
-    icon.save(SKIN / "icon.png", optimize=True)
-    print("wrote", SKIN / "icon.png", icon.size, icon.mode, "|", SKIN / "fanart.jpg", fan.size)
+    icon.save(SKIN / "resources" / "icon.png", optimize=True)
+    print("wrote", SKIN / "resources" / "icon.png", icon.size, icon.mode, "|", SKIN / "resources" / "fanart.jpg", fan.size)
 
 
 if __name__ == "__main__":

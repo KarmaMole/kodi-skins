@@ -384,7 +384,9 @@ def pvprop(n):
     return prop("pv." + n)
 
 
-HOME_ENC = Encoder("Home", [pvprop("kind"), pvprop("dbid"), "Container(9201).ListItem.DBID"], "$EXP[Home_PvReady]")
+# slot toggle sixdegrees.pv.slot: flipped by the preview timers whenever they load a new starter
+HOME_ENC = Encoder("Home", [pvprop("kind"), pvprop("dbid"), "Container(9201).ListItem.DBID"], "$EXP[Home_PvReady]",
+                   "pv.slot")
 
 
 def pv_variables():
@@ -430,8 +432,8 @@ def pv_variables():
     a("\t<value>$VAR[Home_PvCast1Q]</value>")
     a("</variable>")
     a('<variable name="Home_PvExcl">')
-    a("\t" + excl_value(HOME_ENC, "album", pvprop("title"), is_mu))
-    a("\t" + excl_value(HOME_ENC, "title", pvprop("title"), f"!{is_mu}"))
+    for v_ in excl_value(HOME_ENC, "album", pvprop("title"), is_mu) + excl_value(HOME_ENC, "title", pvprop("title"), f"!{is_mu}"):
+        a("\t" + v_)
     a("</variable>")
     upf = {"movies": "director", "tvshows": "studio", "albums": "albumartist"}
     for kind in ("movies", "tvshows", "albums"):
@@ -922,6 +924,7 @@ def timers():
               # Kodi checks timers every 500 ms (CApplication::ProcessSlow): a key press before the tick that saw
               # the match left the timer running for good, and a running timer never restarts (pass 2, 2026-10-21)
               f"\t\t<stop>{same} | !System.IdleTime(1) | !Window.IsActive(home)</stop>",
+              f"\t\t<onstart>{HOME_ENC.flip_action()}</onstart>",   # new centre: the encoder's other slot
               f"\t\t<onstart>SetProperty({P}.pv.title,$ESCINFO[{li}.Label],home)</onstart>",
               f"\t\t<onstart>SetProperty({P}.pv.year,$INFO[{li}.Property(year)],home)</onstart>",
               f"\t\t<onstart>SetProperty({P}.pv.dir,$ESCINFO[{li}.Property(dir)],home)</onstart>",

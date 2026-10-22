@@ -83,9 +83,9 @@ def scene(W, H, scale, tabs=True, title=True, dx=0):
 
 def main():
     fan = scene(1920, 1080, 1.45, dx=300)
-    fan.save(ROOT / "fanart.jpg", quality=90)
+    fan.save(ROOT / "resources" / "fanart.jpg", quality=90)
     icon = scene(512, 512, 0.52, tabs=True, title=False, dx=-40)
-    icon.save(ROOT / "icon.png")
+    icon.save(ROOT / "resources" / "icon.png")
     print("icon.png, fanart.jpg")
 
 

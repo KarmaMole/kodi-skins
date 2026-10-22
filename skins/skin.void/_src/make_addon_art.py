@@ -37,7 +37,7 @@ def icon():
     t = "ONE THING AT A TIME"
     w2 = d.textlength(t, font=c)
     d.text(((s - w2) / 2, s * 0.80), t, font=c, fill=GREY, anchor="ls")
-    img.resize((256, 256), Image.LANCZOS).save(SKIN / "icon.png", optimize=True)
+    img.resize((256, 256), Image.LANCZOS).save(SKIN / "resources" / "icon.png", optimize=True)
 
 
 def fanart():
@@ -61,7 +61,7 @@ def fanart():
     d.text((160 * k, 663 * k), "One thing at a time  ·  information arrives the longer you rest",
            font=sans, fill=GREY, anchor="ls")
     d.text((160 * k, 809 * k), "Dark", font=serif48, fill=FAINT, anchor="ls")
-    img.resize((W, H), Image.LANCZOS).save(SKIN / "fanart.jpg", quality=90, optimize=True)
+    img.resize((W, H), Image.LANCZOS).save(SKIN / "resources" / "fanart.jpg", quality=90, optimize=True)
 
 
 if __name__ == "__main__":

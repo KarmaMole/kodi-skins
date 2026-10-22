@@ -68,12 +68,12 @@ def main():
     c2 = corners(print_card(360, 230, 14, (74, 52, 40), "", "'25~10~06", 40, 22), 46)
     place(fan, c2, 560, 640, 4)
     place(fan, c1, 1180, 470, -2)
-    fan.convert("RGB").save(SKIN / "fanart.jpg", quality=90)
+    fan.convert("RGB").save(SKIN / "resources" / "fanart.jpg", quality=90)
     # icon
     icon = page.crop((660, 300, 1260, 900)).resize((256, 256), Image.LANCZOS)
     card = corners(print_card(176, 132, 10, (40, 52, 78), "keepsake", "'26~10~19", 44, 15), 26)
     place(icon, card, 128, 128, -4)
-    icon.convert("RGB").save(SKIN / "icon.png")
+    icon.convert("RGB").save(SKIN / "resources" / "icon.png")
     print("ok")
 
 

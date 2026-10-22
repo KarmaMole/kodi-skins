@@ -47,7 +47,7 @@ def icon():
     m = mono(13 * SS)
     d.text((x, s * 0.80), "01 / INDEX", font=m, fill=TERTIARY, anchor="ls")
     img = img.resize((256, 256), Image.LANCZOS)
-    img.save(SKIN / "icon.png", optimize=True)
+    img.save(SKIN / "resources" / "icon.png", optimize=True)
 
 
 def fanart():
@@ -66,7 +66,7 @@ def fanart():
     d.rectangle([96 * k, 960 * k, (W - 96) * k, 961 * k - 1], fill=HAIRLINE)
     d.text((96 * k, 1000 * k), "FIG. 01: MOVIES / TV SHOWS / MUSIC", font=mono(15 * k), fill=TERTIARY, anchor="ls")
     img = img.resize((W, H), Image.LANCZOS)
-    img.save(SKIN / "fanart.jpg", quality=90, optimize=True)
+    img.save(SKIN / "resources" / "fanart.jpg", quality=90, optimize=True)
 
 
 if __name__ == "__main__":

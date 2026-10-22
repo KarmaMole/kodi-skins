@@ -36,7 +36,7 @@ def icon():
     d.rectangle([341, 352, 349, 512], fill=K)
     for i in range(16):
         d.rectangle([i, i, s - 1 - i, s - 1 - i], outline=K)
-    im.save(ROOT / "icon.png", optimize=True)
+    im.save(ROOT / "resources" / "icon.png", optimize=True)
 
 
 def fanart():
@@ -58,7 +58,7 @@ def fanart():
     cap = ImageFont.truetype(CAPS, 24)
     d.text((64, 80), "FILMS  ·  SERIES  ·  MUSIC  ·  SEARCH", font=cap, fill=K)
     d.text((64, 1000), "EVERY PICTURE IN ITS SECTION'S COLOUR", font=cap, fill=K)
-    im.save(ROOT / "fanart.jpg", quality=90)
+    im.save(ROOT / "resources" / "fanart.jpg", quality=90)
 
 
 if __name__ == "__main__":

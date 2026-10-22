@@ -57,7 +57,7 @@ def icon():
     f = ImageFont.truetype(str(FONTS / "PPCaps-Medium.ttf"), 22)
     t = "PASSE-PARTOUT"
     d.text(((512 - d.textlength(t, font=f)) / 2, 420), t, font=f, fill=INK)
-    img.save(ROOT / "icon.png", optimize=True)
+    img.save(ROOT / "resources" / "icon.png", optimize=True)
 
 
 def fanart():
@@ -77,7 +77,7 @@ def fanart():
     f2 = ImageFont.truetype(str(FONTS / "PPCaps-Medium.ttf"), 20)
     d.text((520, 806), "Passe-partout", font=f1, fill=INK)
     d.text((520, 908), "EVERY FILM, FRAMED · KODI 21 · NVIDIA SHIELD", font=f2, fill=INK2)
-    img.save(ROOT / "fanart.jpg", quality=90)
+    img.save(ROOT / "resources" / "fanart.jpg", quality=90)
 
 
 if __name__ == "__main__":

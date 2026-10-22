@@ -23,7 +23,6 @@ HOW IT WORKS (see docs/skin.sixdegrees/SPEC.md section 3)
 """
 from __future__ import annotations
 
-import re
 from pathlib import Path
 from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
 STRINGS_PO = Path(__file__).resolve().parent.parent / "language" / "resource.language.en_gb" / "strings.po"
@@ -61,24 +60,13 @@ ARROW = {"up": "up", "right": "right", "down": "down", "left": "left"}
 KDK_PLUGIN = "<!-- kdk-ignore: xml-validation; tmdb ids are digits (ListItem.UniqueID(tmdb) copied by the skin) -->"
 
 
-KDK_ENC = ("<!-- kdk-ignore: xml-validation; the value is a script.skinvariables get_encoded_string result "
-           "(quote_plus), read from the encoder list's item labels (Encoder in _src/make_map.py) -->")
-# an xsp rule whose value slot is filled by ruleq() (a *Q variable) or holds an encoder label, never raw text
-_ENC_SLOT = re.compile(r"%22value%22%3A%5B(?:\$VAR\[|%22\$INFO\[Container\(\d+\)\.ListItemAbsolute\()")
-
-
 def kdk_mute(text):
-    """Mark generated lines kdk cannot trace.
-
-    The TMDb Helper fallback paths carry the centre's tmdb id: digits the skin copies from ListItem.UniqueID(tmdb).
-    0.9.10: the encoded values come from the encoder list's item labels (race fix, see Encoder); kdk only traces
-    encoder output through window properties, so it reads Container(id).ListItemAbsolute(n).Label as raw text."""
+    """Mark generated lines kdk cannot trace: the TMDb Helper fallback paths carry the centre's tmdb id, digits the
+    skin copies from ListItem.UniqueID(tmdb). (The encoder values need no mute since 0.9.12: see Encoder.)"""
     out = []
     for line in text.split("\n"):
         if "plugin://" in line and "tmdb_id=$INFO[" in line:
             line += " " + KDK_PLUGIN
-        elif _ENC_SLOT.search(line):
-            line += " " + KDK_ENC
         out.append(line)
     return "\n".join(out)
 
@@ -109,68 +97,102 @@ def url_safe(label):
 class Encoder:
     """Free text for the xsp rules of one page, URL-encoded by script.skinvariables (required import).
 
-    One 1 px list per page (id cid) runs get_encoded_string on the page's raw values; the plugin returns one
-    item per value, label = quote_plus(value): item n = 0.. the keys (kind, dbid, the details list's dbid:
-    letters and digits, unchanged by the encoding), then the values in the order they were asked for. Kodi
-    URL-decodes the xsp option once, so names with & + % (R&B, Simon & Garfunkel) reach the library as written.
-    `fresh` is true once the encoded keys equal the live ones, i.e. the values belong to this centre; until then
-    the rules read "" (a line shows nothing for the plugin's round trip). A name with a double quote or a
+    A 1 px list per page (id cid) runs get_encoded_string on the page's raw values with window_prop / window_id=home:
+    the plugin clears the slot, then sets <slot>.0, <slot>.1 ... to quote_plus(value) in the order asked. The VALUES
+    come first, the KEYS (kind, dbid, the details list's dbid: letters and digits, unchanged by the encoding) last,
+    so keys that equal the live ones mean every value of that run has landed. Kodi URL-decodes the xsp option once,
+    so names with & + % (R&B, Simon & Garfunkel) reach the library as written; a name with a double quote or a
     backslash still breaks the JSON after decoding (the line is empty).
 
-    0.9.10 race fix (device check 2026-10-21: about 1 hop in 10 never drew a line). The values used to come
-    from window properties the plugin set (window_prop); when the centre id changed before the details list,
-    two runs fired and the OLDER one could finish last and overwrite the newer properties: stale keys, fresh
-    false until the next move. Kodi cancels the callback of a superseded list job (CDirectoryProvider::FireJob
-    -> CJobManager::CancelJob), so a list's ITEMS always belong to its latest URL; the values are now read
-    from Container(cid).ListItemAbsolute(n).Label and the plugin writes no properties. And the URL is empty
-    until `gate` (the page's "the centre's own data has arrived" expression) holds, so one run fires per
-    centre instead of two.
+    Two slots, sixdegrees.<page>.enca / .encb, picked by a toggle property (a | b) that flips on every centre change
+    (`toggle`; the map reuses its `flip`, Home and the station page run flip_action()). A page reads only the slot
+    the toggle names, and only while that slot's keys equal the live ones (fresh_a / fresh_b); until then the rules
+    read "" (a line shows nothing for the plugin's round trip).
+    Why (race, device check 2026-10-21): a plugin run Kodi has superseded keeps running and its SetProperty calls
+    still land, so with ONE property set an older, slower run could overwrite the newer values: stale keys, an empty
+    map until the next move (about 1 hop in 10). With two slots the previous centre's run writes the other slot,
+    which the page doesn't read. The URL is set only while the gate holds (the centre's own data has arrived: one run
+    per centre) AND the slot in use is not fresh: a revisit or a window re-entry finds its slot still fresh and runs
+    nothing, and should a run from two centres back still overwrite the slot in use, the slot stops being fresh, the
+    URL returns and a new run repairs it. kdk 3.2.0 traces Window(Home).Property(<window_prop>.n) as URL-encoded
+    (0.9.10-0.9.11 read the list's item labels, which kdk can't trace: 53 xml.xsp-unencoded errors).
     """
 
-    def __init__(self, page, keys, gate, cid=9096):
+    def __init__(self, page, keys, gate, toggle, cid=9096):
         self.page, self.keys, self.gate, self.cid, self.labels = page, list(keys), gate, cid, []
+        self.toggle = toggle
+        self.slots = {s: f"{P}.{page.lower()}.enc{s}" for s in "ab"}
 
-    def prop(self, n):
-        return f"Container({self.cid}).ListItemAbsolute({n}).Label"
-
-    def value(self, label):
-        """The JSON string literal (quotes included, URL-encoded) for an infolabel."""
-        if label not in self.labels:
-            self.labels.append(label)
-        return f"%22$INFO[{self.prop(len(self.keys) + self.labels.index(label))}]%22"
+    def slot_prop(self, s, n):
+        return f"Window(Home).Property({self.slots[s]}.{n})"
 
     @property
-    def fresh(self):
-        return " + ".join(f"String.IsEqual({self.prop(i)},{k})" for i, k in enumerate(self.keys))
+    def fresh_a(self):
+        return f"$EXP[{self.page}_EncFreshA]"
 
-    def include(self, name):
-        """The encoder list as an include (+ its gated path variable); call after every value() of the page."""
-        vals = "".join(f"&amp;&amp;$INFO[{x}]" for x in self.keys + self.labels)
-        return [f'<variable name="{name}_Path">',
-                f'\t<value condition="{self.gate}">plugin://script.skinvariables/?info=get_encoded_string'
-                f"&amp;unencoded_paths=true{vals}</value>",
-                "</variable>",
+    @property
+    def fresh_b(self):
+        return f"$EXP[{self.page}_EncFreshB]"
+
+    def flip_action(self):
+        """The builtin that moves the page to the other slot; run it whenever the page's centre changes."""
+        return f"SetProperty({P}.{self.toggle},$VAR[{self.page}_EncNext],home)"
+
+    def values(self, label):
+        """[(condition, JSON string literal)] per slot: the encoded copy of an infolabel, quotes included."""
+        if label not in self.labels:
+            self.labels.append(label)
+        n = self.labels.index(label)
+        return [(self.fresh_a, f"%22$INFO[{self.slot_prop('a', n)}]%22"),
+                (self.fresh_b, f"%22$INFO[{self.slot_prop('b', n)}]%22")]
+
+    def include(self, name, own_toggle=True):
+        """Expressions, the gated path and the encoder list (include `name`); call after every values() of the page.
+        own_toggle: also define <page>_EncNext for flip_action() (the map flips its existing `flip` itself)."""
+        pg, first = self.page, len(self.labels)
+
+        def keys_in(s):
+            return " + ".join(f"String.IsEqual({self.slot_prop(s, first + i)},{k})" for i, k in enumerate(self.keys))
+
+        out = ["<!-- free text of the line paths, URL-encoded into two slots (Encoder in _src/make_map.py) -->",
+               f'<expression name="{pg}_EncSlotB">String.IsEqual({prop(self.toggle)},b)</expression>',
+               f'<expression name="{pg}_EncFreshA">!$EXP[{pg}_EncSlotB] + {keys_in("a")}</expression>',
+               f'<expression name="{pg}_EncFreshB">$EXP[{pg}_EncSlotB] + {keys_in("b")}</expression>']
+        if own_toggle:
+            out += [f'<variable name="{pg}_EncNext">',
+                    f'\t<value condition="$EXP[{pg}_EncSlotB]">a</value>',
+                    "\t<value>b</value>",
+                    "</variable>"]
+        vals = "".join(f"&amp;&amp;$INFO[{x}]" for x in self.labels + self.keys)
+        run = f"{self.gate} + !$EXP[{pg}_EncFreshA] + !$EXP[{pg}_EncFreshB]"
+        out.append(f'<variable name="{name}_Path">')
+        for s, c in (("b", f" + $EXP[{pg}_EncSlotB]"), ("a", "")):
+            out.append(f'\t<value condition="{run}{c}">plugin://script.skinvariables/?info=get_encoded_string'
+                       f"&amp;window_prop={self.slots[s]}&amp;window_id=home&amp;unencoded_paths=true{vals}</value>")
+        out += ["</variable>",
                 f'<include name="{name}">',
                 f'\t<control type="list" id="{self.cid}">',
-                "\t\t<description>free text of the line paths, URL-encoded (Encoder in _src/make_map.py)</description>",
+                "\t\t<description>runs the URL encoder (Encoder in _src/make_map.py); its items are not read</description>",
                 "\t\t<left>0</left><top>0</top><width>1</width><height>1</height>",
                 '\t\t<itemlayout width="1" height="1"/><focusedlayout width="1" height="1"/>',
                 f"\t\t<content>$VAR[{name}_Path]</content>",
                 "\t</control>",
                 "</include>"]
+        return out
 
 
 def qvar(name, sources, enc):
     """A variable whose value is a JSON string literal for an xsp rule.
 
     sources: [(condition or None, infolabel)], first match wins, as in the plain variable. The value is the
-    encoder's copy (enc.value), used once enc.fresh; a matching source before that (or an empty value) gives ""
-    (%22%22) instead of falling through.
+    encoder's copy from the slot in use (enc.values), used once that slot is fresh; a matching source before that
+    (or an empty value) gives "" (%22%22) instead of falling through.
     """
     out = [f'<variable name="{name}">']
     for cond, label in sources:
         c = f"{cond} + " if cond else ""
-        out.append(f'\t<value condition="{c}{enc.fresh}">{enc.value(label)}</value>')
+        for fresh, val in enc.values(label):
+            out.append(f'\t<value condition="{c}{fresh}">{val}</value>')
         if cond:
             out.append(f'\t<value condition="{cond}">%22%22</value>')
     out.append("\t<value>%22%22</value>")
@@ -179,9 +201,10 @@ def qvar(name, sources, enc):
 
 
 def excl_value(enc, field, label, cond=None):
-    """%2C + an "isnot" rule for the centre's own title (no rule until the encoder has it)."""
+    """<value> lines: %2C + an "isnot" rule for the centre's own title (no rule until the encoder has it)."""
     c = f"{cond} + " if cond else ""
-    return f'<value condition="{c}{enc.fresh} + !String.IsEmpty({label})">%2C{ruleq(field, "isnot", enc.value(label))}</value>'
+    return [f'<value condition="{c}{fresh} + !String.IsEmpty({label})">%2C{ruleq(field, "isnot", val)}</value>'
+            for fresh, val in enc.values(label)]
 
 
 def close(typ):
@@ -190,7 +213,8 @@ def close(typ):
 
 ROOT = {"movies": "videodb://movies/titles/?xsp=", "tvshows": "videodb://tvshows/titles/?xsp=", "albums": "musicdb://albums/?xsp="}
 UPFIELD = {"movies": "director", "tvshows": "studio"}
-MAP_ENC = Encoder("Map", [prop("kind"), prop("c.dbid"), "Container(9001).ListItem.DBID"], "$EXP[Map_Ready]")
+# slot toggle: the map's own A/B `flip`, which every centre change already flips (Map_FlipNext)
+MAP_ENC = Encoder("Map", [prop("kind"), prop("c.dbid"), "Container(9001).ListItem.DBID"], "$EXP[Map_Ready]", "flip")
 READY = f"$EXP[Map_Ready]"
 
 
@@ -260,7 +284,8 @@ def variables():
     a("</variable>")
     # exclusion of the centre (title isnot), from the encoder
     a('<variable name="Map_Excl">')
-    a("\t" + excl_value(MAP_ENC, "title", prop("c.title")))
+    for v_ in excl_value(MAP_ENC, "title", prop("c.title")):
+        a("\t" + v_)
     a("</variable>")
     a('<variable name="Map_Unwatched">')
     a(f'\t<value condition="Skin.HasSetting({P}.map.unwatched)">%2C{rule("playcount", "is", "0")}</value>')
@@ -289,7 +314,10 @@ def variables():
             a(f'<variable name="Map_PathProbe{n}_{kind}"><value>{pth}</value></variable>')
     R = ROOT["albums"]
     excl_alb = f"$VAR[Map_ExclAlbum]{close('albums')}"
-    a(f'<variable name="Map_ExclAlbum">{excl_value(MAP_ENC, "album", prop("c.title"))}</variable>')
+    a('<variable name="Map_ExclAlbum">')
+    for v_ in excl_value(MAP_ENC, "album", prop("c.title")):
+        a("\t" + v_)
+    a("</variable>")
     a(f'<variable name="Map_PathUp_albums"><value>{R}{OPEN}{ruleq("albumartist", "is", "$VAR[Map_DirQ]")}{excl_alb}</value></variable>')
     a(f'<variable name="Map_PathRight_albums"><value>{R}{OPEN}{ruleq("genre", "is", "$VAR[Map_CentreGenreQ]")}{excl_alb}</value></variable>')
     a(f'<variable name="Map_PathDown_albums"><value>{R}{OPEN}{rule("year", "is", info("c.year"))}{excl_alb}</value></variable>')
@@ -1245,7 +1273,7 @@ def build_includes():
         parts.append("\t\t" + tag("onclick", a, c))
     parts.append("\t\t</definition>")
     parts.append("\t</include>")
-    parts += ["\t" + x for x in MAP_ENC.include("Map_Encoder")]
+    parts += ["\t" + x for x in MAP_ENC.include("Map_Encoder", own_toggle=False)]
     parts.append("</includes>")
     (OUT / "Includes_Map.xml").write_text(localize_xml(kdk_mute("\n".join(parts)) + "\n", STRINGS_PO), encoding="utf-8", newline="\n")
 

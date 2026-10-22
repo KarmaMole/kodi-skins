@@ -62,7 +62,7 @@ def icon():
     f = ImageFont.truetype(str(FONTS / "OrbitWide-SemiBold.ttf"), int(64 * SS))
     d.text((c, c - 6 * SS), "O", font=f, fill=TEXT, anchor="mm")
     img = img.resize((S, S), Image.LANCZOS)
-    img.save(SKIN / "icon.png", optimize=True)
+    img.save(SKIN / "resources" / "icon.png", optimize=True)
 
 
 def fanart():
@@ -89,7 +89,7 @@ def fanart():
     d.text((64 * 2, 210 * 2), "ORBIT", font=fw, fill=TEXT)
     d.text((70 * 2, 420 * 2), "BROWSE ON A DIAL", font=fl, fill=SECOND)
     img = img.resize((W, H), Image.LANCZOS)
-    img.save(SKIN / "fanart.jpg", quality=90)
+    img.save(SKIN / "resources" / "fanart.jpg", quality=90)
 
 
 if __name__ == "__main__":

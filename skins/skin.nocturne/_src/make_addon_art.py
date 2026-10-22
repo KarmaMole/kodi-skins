@@ -60,13 +60,13 @@ def scene(w, h, frame_box, pool_c, plaque_y, scale=1.0):
 
 def main():
     fan = scene(1920, 1080, (782, 230, 356, 528), (960, 520), 826)
-    fan.convert("RGB").save(ROOT / "fanart.jpg", quality=90)
+    fan.convert("RGB").save(ROOT / "resources" / "fanart.jpg", quality=90)
     icon = scene(1024, 1024, (362, 190, 300, 444), (512, 470), 690, scale=0.85)
     icon = icon.resize((512, 512), Image.LANCZOS)
     # the official Kodi repository requires a solid icon (no transparency): flatten onto the ground colour
     _flat = Image.new("RGB", icon.size, (13, 15, 21))
     _flat.paste(icon, mask=icon.convert("RGBA").split()[3])
-    _flat.save(ROOT / "icon.png", optimize=True)
+    _flat.save(ROOT / "resources" / "icon.png", optimize=True)
     print("icon.png fanart.jpg")
 
 

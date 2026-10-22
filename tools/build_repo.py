@@ -17,6 +17,7 @@ import hashlib
 import html
 import re
 import shutil
+import xml.etree.ElementTree as ET
 import zipfile
 from fnmatch import fnmatch
 from pathlib import Path
@@ -103,9 +104,14 @@ def main() -> None:
         aid, ver, name, summary = meta(d)
         assert aid == d.name, f"{d}: folder name must equal addon id {aid}"
         zip_addon(d, out / aid / f"{aid}-{ver}.zip")
-        for art in ("icon.png", "fanart.jpg"):  # Kodi shows these from the datadir before install
-            if (d / art).exists():
-                shutil.copy2(d / art, out / aid / art)
+        # Kodi shows the declared assets from <datadir>/<id>/<path as in <assets>> before install
+        # (icon, fanart, screenshots; skins keep them in resources/), so copy each at its declared path
+        assets = ET.fromstring((d / "addon.xml").read_bytes()).find("extension[@point='xbmc.addon.metadata']/assets")
+        rels = [(n.text or "").strip() for n in assets] if assets is not None else []
+        for rel in rels or ["icon.png", "fanart.jpg"]:
+            if rel and (d / rel).is_file():
+                (out / aid / rel).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(d / rel, out / aid / rel)
         xmls.append(re.sub(r"<\?xml[^>]*\?>\s*", "", (d / "addon.xml").read_text(encoding="utf-8")).strip())
         rows.append((aid, ver, name, summary))
         print(f"{aid} {ver}")

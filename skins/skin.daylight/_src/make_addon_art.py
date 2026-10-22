@@ -55,7 +55,7 @@ def fanart():
     for i, col in enumerate([(0x3E, 0x7C, 0xB1), (0xD9, 0x82, 0x2B), (0xF2, 0xA6, 0x5A), (0x7A, 0x9C, 0xFF)]):
         x = 162 + i * 46
         d.ellipse((x, 740, x + 22, 762), fill=col)
-    img.save(ROOT / "fanart.jpg", quality=92)
+    img.save(ROOT / "resources" / "fanart.jpg", quality=92)
 
 
 def icon():
@@ -96,7 +96,7 @@ def icon():
     # the official Kodi repository requires a solid icon (no transparency): flatten onto the ground colour
     _flat = Image.new("RGB", base.size, (28, 27, 34))  # the night tone at the corners: reads as a full square
     _flat.paste(base, mask=base.convert("RGBA").split()[3])
-    _flat.save(ROOT / "icon.png", optimize=True)
+    _flat.save(ROOT / "resources" / "icon.png", optimize=True)
 
 
 if __name__ == "__main__":

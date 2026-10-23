@@ -88,24 +88,32 @@ def menu_row():
           '\t\t\t\t<height>22</height>', '\t\t\t\t<texture colordiffuse="ink">ks/pen_line.png</texture>',
           f'\t\t\t\t<visible>Control.HasFocus({rid})</visible>', '\t\t\t</control>']
     for k, (word, key) in enumerate(MENU_WORDS, 1):
-        x = OPT_X - 112 + (k - 1) * OPT_W
+        w = opt_w(len(MENU_WORDS))
+        x = OPT_X - 112 + (k - 1) * w
         o += ['\t\t\t<control type="image">', f'\t\t\t\t<left>{x - 4}</left>', '\t\t\t\t<top>2</top>',
-              f'\t\t\t\t<width>{OPT_W - 8}</width>', '\t\t\t\t<height>64</height>',
+              f'\t\t\t\t<width>{w - 8}</width>', '\t\t\t\t<height>64</height>',
               '\t\t\t\t<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>',
               f'\t\t\t\t<visible>!Skin.HasSetting(HideMenu.{key})</visible>', '\t\t\t</control>',
               # the pen: a short stroke under the word it is on, while the line has focus
               '\t\t\t<control type="image">', f'\t\t\t\t<left>{x + 8}</left>', '\t\t\t\t<top>66</top>',
-              f'\t\t\t\t<width>{OPT_W - 32}</width>', '\t\t\t\t<height>16</height>',
+              f'\t\t\t\t<width>{w - 32}</width>', '\t\t\t\t<height>16</height>',
               '\t\t\t\t<texture colordiffuse="ink">ks/pen_line.png</texture>',
               f'\t\t\t\t<visible>Control.HasFocus({rid}) + {cur_is(k)}</visible>', '\t\t\t</control>',
               '\t\t\t<control type="label">', f'\t\t\t\t<left>{x}</left>', '\t\t\t\t<top>20</top>',
-              f'\t\t\t\t<width>{OPT_W - 16}</width>', '\t\t\t\t<height>30</height>', '\t\t\t\t<align>center</align>',
+              f'\t\t\t\t<width>{w - 16}</width>', '\t\t\t\t<height>30</height>', '\t\t\t\t<align>center</align>',
               '\t\t\t\t<font>lbln_20</font>', f'\t\t\t\t<textcolor>$VAR[SkinSet_Opt_{rid}]</textcolor>',
               f'\t\t\t\t<label>{word}</label>', '\t\t\t</control>']
     o.append('\t\t</control>')
     return o
 OPT_X = 470
 OPT_W = 172
+
+
+def opt_w(n):
+    """0.9.10: pitch of a line's choices by how many it has. Four choices at 172 put the last word past the
+    gutter (x 986: "never" sat on the print's caption, "search" on the right page); two at 172 left
+    "hand-placed" (154 px) touching its pen box. Every line still ends before the gutter (x ~960)."""
+    return {4: 126, 2: 190}.get(n, OPT_W)
 
 # 0.9.8 custom rows on Home (Includes_CustomRows.xml): a line on the right page, under the preview,
 # "custom rows  row 1  row 2  row 3": one button per word (Left / Right between them), OK opens that row's options.
@@ -181,13 +189,14 @@ def row(i, rid, label, help_, opts):
           '\t\t\t\t<height>22</height>', '\t\t\t\t<texture colordiffuse="ink">ks/pen_line.png</texture>',
           f'\t\t\t\t<visible>Control.HasFocus({rid})</visible>', '\t\t\t</control>']
     for k, (word, cond, act) in enumerate(opts):
-        x = OPT_X - 112 + k * OPT_W
+        w = opt_w(len(opts))
+        x = OPT_X - 112 + k * w
         o += ['\t\t\t<control type="image">', f'\t\t\t\t<left>{x - 4}</left>', '\t\t\t\t<top>2</top>',
-              f'\t\t\t\t<width>{OPT_W - 8}</width>', '\t\t\t\t<height>64</height>',
+              f'\t\t\t\t<width>{w - 8}</width>', '\t\t\t\t<height>64</height>',
               '\t\t\t\t<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>',
               f'\t\t\t\t<visible>{cond}</visible>', '\t\t\t</control>',
               '\t\t\t<control type="label">', f'\t\t\t\t<left>{x}</left>', '\t\t\t\t<top>20</top>',
-              f'\t\t\t\t<width>{OPT_W - 16}</width>', '\t\t\t\t<height>30</height>', '\t\t\t\t<align>center</align>',
+              f'\t\t\t\t<width>{w - 16}</width>', '\t\t\t\t<height>30</height>', '\t\t\t\t<align>center</align>',
               '\t\t\t\t<font>lbln_20</font>', f'\t\t\t\t<textcolor>$VAR[SkinSet_Opt_{rid}]</textcolor>',
               f'\t\t\t\t<label>{esc(word)}</label>', '\t\t\t</control>']
     o.append('\t\t</control>')

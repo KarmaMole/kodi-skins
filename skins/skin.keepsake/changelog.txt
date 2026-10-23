@@ -1,3 +1,6 @@
+0.9.10 (2026-10-23)
+- Settings: fixed text overlapping controls. "The words hide after" and "the menu shows" keep all their choices on the left page ("never" sat on the print's caption, "search" crossed the fold), and "hand-placed" no longer touches its pen circle.
+
 0.9.9 (2026-10-23)
 - Official repository requirements: artwork moved to resources/, screenshots added.
 

@@ -30,7 +30,7 @@
 			<left>146</left>
 			<top>260</top>
 			<width>1120</width>
-			<height>760</height>
+			<height>740</height>
 			<orientation>vertical</orientation>
 			<usecontrolcoords>true</usecontrolcoords>
 			<onleft>noop</onleft>

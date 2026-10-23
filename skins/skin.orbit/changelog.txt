@@ -1,3 +1,6 @@
+0.9.14 (2026-10-23)
+- Home: fixed text overlapping controls. Custom rows fit long titles like the other panels (two lines, then a smaller size) instead of cutting them after a few letters.
+
 0.9.13 (2026-10-23)
 - Official repository requirements: artwork moved to resources/, screenshots added.
 

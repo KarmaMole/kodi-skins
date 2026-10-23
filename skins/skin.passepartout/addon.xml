@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.passepartout" version="0.9.15" name="Passe-partout" provider-name="KarmaMole">
+<addon id="skin.passepartout" version="0.9.16" name="Passe-partout" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required: script.skinvariables URL-encodes the search query (get_encoded_string; unencoded_paths since 2.1.21). -->
@@ -18,7 +18,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#passepartout</website>
-		<news>v0.9.15 - Official repository requirements: artwork moved to resources/, screenshots added.</news>
+		<news>v0.9.16 - Settings: fixed text overlapping controls. A long custom row name or path ends in an ellipsis instead of running over "Row 1".</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

@@ -1808,6 +1808,8 @@
 		</control>
 		</control>
 		<control type="group">
+			<top>40</top>
+		<control type="group">
 			<description>mini map</description>
 			<visible>$EXP[Home_PvReady] + $EXP[Home_PvIsSelected]</visible>
 		<animation type="Visible" condition="!Skin.HasSetting(sixdegrees.reducemotion)"><effect type="fade" start="0" end="100" time="260"/><effect type="zoom" start="94" end="100" center="1380,865" time="260" tween="cubic" easing="out"/></animation><animation type="Hidden" condition="!Skin.HasSetting(sixdegrees.reducemotion)"><effect type="fade" start="100" end="0" time="120"/></animation>
@@ -2177,6 +2179,7 @@
 		</control>
 		<control type="image"><left>1330</left><top>790</top><width>100</width><height>150</height><aspectratio>scale</aspectratio><fadetime>150</fadetime><texture background="true" diffuse="sd/mask_100x150.png">$INFO[Window(Home).Property(sixdegrees.pv.poster)]</texture><visible>!String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),albums)</visible></control>
 		<control type="image"><left>1330</left><top>815</top><width>100</width><height>100</height><aspectratio>scale</aspectratio><fadetime>150</fadetime><texture background="true" diffuse="sd/mask_180x180.png">$INFO[Window(Home).Property(sixdegrees.pv.poster)]</texture><visible>String.IsEqual(Window(Home).Property(sixdegrees.pv.kind),albums)</visible></control>
+		</control>
 		</control>
 	</include>
 	<include name="Home_NowPlaying">

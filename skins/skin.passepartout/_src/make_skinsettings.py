@@ -220,11 +220,14 @@ def bool_name(name):
     return name if name.startswith("HideMenu.") else f"passepartout.{name}"
 
 
-def value_labels_for(rid, vfont):
+def value_labels_for(rid, vfont, left=680):
+    # custom rows (0.9.16): the value is a free-text row name or path, so its box starts after "Row n"
+    # (680 + 28 offset + ~90 label + gap) and long values end in an ellipsis instead of covering the name
+    width = 1772 - left
     return f'''		<control type="label">
-			<left>680</left>
+			<left>{left}</left>
 			<top>$PARAM[top]</top>
-			<width>1092</width>
+			<width>{width}</width>
 			<height>76</height>
 			<align>right</align>
 			<font>{vfont}</font>
@@ -233,9 +236,9 @@ def value_labels_for(rid, vfont):
 			<visible>!Control.HasFocus({rid})</visible>
 		</control>
 		<control type="label">
-			<left>680</left>
+			<left>{left}</left>
 			<top>$PARAM[top]</top>
-			<width>1092</width>
+			<width>{width}</width>
 			<height>76</height>
 			<align>right</align>
 			<font>{vfont}</font>
@@ -280,7 +283,7 @@ def row(rid, label, font, spec, first, last):
 					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
 					<label>{esc(label)}</label>{custom}
 				</control>'''
-        return btn, f'\t<variable name="SS_Value_{rid}">\n{var}\n\t</variable>', value_labels_for(rid, vfont)
+        return btn, f'\t<variable name="SS_Value_{rid}">\n{var}\n\t</variable>', value_labels_for(rid, vfont, left=840)
     btn = f'''				<control type="button" id="{rid}">
 					<width>1120</width>
 					<height>76</height>

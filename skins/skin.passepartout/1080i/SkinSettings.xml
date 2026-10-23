@@ -531,9 +531,9 @@
 				</control>
 			</control>
 		<control type="label">
-			<left>680</left>
+			<left>840</left>
 			<top>340</top>
-			<width>1092</width>
+			<width>932</width>
 			<height>76</height>
 			<align>right</align>
 			<font>cap_20</font>
@@ -542,9 +542,9 @@
 			<visible>!Control.HasFocus(9181)</visible>
 		</control>
 		<control type="label">
-			<left>680</left>
+			<left>840</left>
 			<top>340</top>
-			<width>1092</width>
+			<width>932</width>
 			<height>76</height>
 			<align>right</align>
 			<font>cap_20</font>
@@ -553,9 +553,9 @@
 			<visible>Control.HasFocus(9181)</visible>
 		</control>
 		<control type="label">
-			<left>680</left>
+			<left>840</left>
 			<top>416</top>
-			<width>1092</width>
+			<width>932</width>
 			<height>76</height>
 			<align>right</align>
 			<font>cap_20</font>
@@ -564,9 +564,9 @@
 			<visible>!Control.HasFocus(9182)</visible>
 		</control>
 		<control type="label">
-			<left>680</left>
+			<left>840</left>
 			<top>416</top>
-			<width>1092</width>
+			<width>932</width>
 			<height>76</height>
 			<align>right</align>
 			<font>cap_20</font>
@@ -575,9 +575,9 @@
 			<visible>Control.HasFocus(9182)</visible>
 		</control>
 		<control type="label">
-			<left>680</left>
+			<left>840</left>
 			<top>492</top>
-			<width>1092</width>
+			<width>932</width>
 			<height>76</height>
 			<align>right</align>
 			<font>cap_20</font>
@@ -586,9 +586,9 @@
 			<visible>!Control.HasFocus(9183)</visible>
 		</control>
 		<control type="label">
-			<left>680</left>
+			<left>840</left>
 			<top>492</top>
-			<width>1092</width>
+			<width>932</width>
 			<height>76</height>
 			<align>right</align>
 			<font>cap_20</font>

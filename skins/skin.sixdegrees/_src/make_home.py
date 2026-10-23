@@ -570,7 +570,9 @@ def minimap():
     anim = (f'<animation type="Visible" condition="!{RM}"><effect type="fade" start="0" end="100" time="260"/>'
             f'<effect type="zoom" start="94" end="100" center="{cx},{top + h // 2}" time="260" tween="cubic" easing="out"/></animation>'
             f'<animation type="Hidden" condition="!{RM}"><effect type="fade" start="100" end="0" time="120"/></animation>')
-    return group(ch, vis=f"{on} + $EXP[Home_PvIsSelected]", anims=anim, desc="mini map")
+    # 0.9.14: the whole map sits 40 px lower (wrapper group, so the zoom centre moves with it): its top line name
+    # ran into the third caption line of a starter with a two-line title ("How To with John Wilson" / "* 8.1")
+    return group([group(ch, vis=f"{on} + $EXP[Home_PvIsSelected]", anims=anim, desc="mini map")], top=40)
 
 
 # ------------------------------------------------------------------ top bar

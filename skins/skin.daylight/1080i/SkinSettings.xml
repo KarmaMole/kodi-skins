@@ -59,7 +59,7 @@
 			<control type="group">
 				<top>208</top>
 				<include content="Dlg_SkinRowChrome">
-					<param name="id" value="9510"/><param name="label" value="Mood"/><param name="hint" value="Palette by the clock"/>
+					<param name="id" value="9510"/><param name="label" value="Mood"/><param name="hint" value="$VAR[DL_MoodHint]"/>
 				</include>
 				<control type="button" id="9510">
 					<include>Dlg_SkinRowButton</include>
@@ -109,7 +109,7 @@
 			<control type="group">
 				<top>440</top>
 				<include content="Dlg_SkinRowChrome">
-					<param name="id" value="9512"/><param name="label" value="Weather row and rain"/><param name="hint" value="Uses weather.gismeteo"/>
+					<param name="id" value="9512"/><param name="label" value="Weather row and rain"/><param name="hint" value="$VAR[DL_WeatherHint]"/>
 				</include>
 				<control type="button" id="9512">
 					<include>Dlg_SkinRowButton</include>

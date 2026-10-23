@@ -298,15 +298,30 @@
 			<include content="Noc_ListeningRoomLight">
 				<param name="list" value="9881"/>
 			</include>
-			<control type="label">
+			<!-- the row name stops before the lamp (x 750): a long name ends in "..." and the count stays beside it -->
+			<control type="grouplist">
 				<left>96</left>
 				<top>190</top>
-				<width>1400</width>
+				<width>650</width>
 				<height>32</height>
-				<aligny>center</aligny>
-				<font>caps_20</font>
-				<textcolor>6bc8b8a0</textcolor>
-				<label>$VAR[CustomRow_Title1]  $VAR[CustomRow_Count1]</label>
+				<orientation>horizontal</orientation>
+				<itemgap>0</itemgap>
+				<control type="label">
+					<width max="470">auto</width>
+					<height>32</height>
+					<aligny>center</aligny>
+					<font>caps_20</font>
+					<textcolor>6bc8b8a0</textcolor>
+					<label>$VAR[CustomRow_Title1]</label>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<aligny>center</aligny>
+					<font>caps_20</font>
+					<textcolor>6bc8b8a0</textcolor>
+					<label>  $VAR[CustomRow_Count1]</label>
+				</control>
 			</control>
 		</control>
 		<!-- back room 2: a shelf of framed pictures, the focused one in the lamp's cone -->
@@ -365,15 +380,30 @@
 			<include content="Noc_ListeningRoomLight">
 				<param name="list" value="9882"/>
 			</include>
-			<control type="label">
+			<!-- the row name stops before the lamp (x 750): a long name ends in "..." and the count stays beside it -->
+			<control type="grouplist">
 				<left>96</left>
 				<top>190</top>
-				<width>1400</width>
+				<width>650</width>
 				<height>32</height>
-				<aligny>center</aligny>
-				<font>caps_20</font>
-				<textcolor>6bc8b8a0</textcolor>
-				<label>$VAR[CustomRow_Title2]  $VAR[CustomRow_Count2]</label>
+				<orientation>horizontal</orientation>
+				<itemgap>0</itemgap>
+				<control type="label">
+					<width max="470">auto</width>
+					<height>32</height>
+					<aligny>center</aligny>
+					<font>caps_20</font>
+					<textcolor>6bc8b8a0</textcolor>
+					<label>$VAR[CustomRow_Title2]</label>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<aligny>center</aligny>
+					<font>caps_20</font>
+					<textcolor>6bc8b8a0</textcolor>
+					<label>  $VAR[CustomRow_Count2]</label>
+				</control>
 			</control>
 		</control>
 		<!-- back room 3: a shelf of framed pictures, the focused one in the lamp's cone -->
@@ -432,15 +462,30 @@
 			<include content="Noc_ListeningRoomLight">
 				<param name="list" value="9883"/>
 			</include>
-			<control type="label">
+			<!-- the row name stops before the lamp (x 750): a long name ends in "..." and the count stays beside it -->
+			<control type="grouplist">
 				<left>96</left>
 				<top>190</top>
-				<width>1400</width>
+				<width>650</width>
 				<height>32</height>
-				<aligny>center</aligny>
-				<font>caps_20</font>
-				<textcolor>6bc8b8a0</textcolor>
-				<label>$VAR[CustomRow_Title3]  $VAR[CustomRow_Count3]</label>
+				<orientation>horizontal</orientation>
+				<itemgap>0</itemgap>
+				<control type="label">
+					<width max="470">auto</width>
+					<height>32</height>
+					<aligny>center</aligny>
+					<font>caps_20</font>
+					<textcolor>6bc8b8a0</textcolor>
+					<label>$VAR[CustomRow_Title3]</label>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<aligny>center</aligny>
+					<font>caps_20</font>
+					<textcolor>6bc8b8a0</textcolor>
+					<label>  $VAR[CustomRow_Count3]</label>
+				</control>
 			</control>
 		</control>
 	</include>

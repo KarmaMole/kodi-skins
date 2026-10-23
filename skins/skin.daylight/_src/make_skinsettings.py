@@ -61,11 +61,11 @@ def opts_hide(key):
 
 ROWS = {
     "time": [
-        (9510, "Mood", "Palette by the clock", "seg",
+        (9510, "Mood", "$VAR[DL_MoodHint]", "seg",
          opts_string("daylight.mood", [("auto", "Auto"), ("morning", "Morning"), ("afternoon", "Afternoon"),
                                        ("evening", "Evening"), ("night", "Night")], "auto")),
         (9511, "Bedtime", "Countdown and fits-before rows", "bedtime", None),
-        (9512, "Weather row and rain", "Uses weather.gismeteo", "seg",
+        (9512, "Weather row and rain", "$VAR[DL_WeatherHint]", "seg",
          opts_bool("daylight.noweather", "Off", "On", inverted=True)),
     ],
     "look": [
@@ -107,9 +107,9 @@ HELP = {
     9551: "How much of each film's own colour reaches the page, and the small markers on posters.",
     9552: "How the playback controls behave.",
     9553: "Motion, and a way back to the defaults.",
-    9510: "Auto follows the clock: pale morning (6-11), bright afternoon (11-17), amber evening (17-22) and a dim deep-blue night (22-6). Pick one to keep it all day.[CR][CR]Greetings and suggestions always follow the real time.",
+    9510: "Auto follows the clock: pale morning (6-11), bright afternoon (11-17), amber evening (17-22) and a dim deep-blue night (22-6). Pick one to keep it all day.[CR][CR]Greetings and suggestions always follow the real time.[CR][CR]Daylight reads Kodi's own clock, the one at the top right. If that is wrong, set the time zone on your device, or in Kodi under Settings > Interface > Regional where it is offered.",
     9511: "Home counts down to it, the first card shows films that end before it, and the playback controls tell you when a film runs past it. Midnight says \"midnight\".",
-    9512: "When it rains or snows, the third card on Home suggests something long and a few slow streaks drift over the page. Off keeps the weather in the top line only.",
+    9512: "When it rains or snows, the third card on Home suggests something long and a few slow streaks drift over the page. Off keeps the weather in the top line only.[CR][CR]The weather comes from a weather add-on chosen in Kodi under Settings > Services > Weather. Without one, Daylight simply leaves the weather out.",
     9520: "TMDb Helper reads the colour of the focused poster and Daylight lets it glow softly behind the page, gentler at night.[CR][CR]Needs TMDb Helper; Off uses nothing.",
     9521: "Unwatched: a small dot. Watched: a check disc. Shows add the number of unwatched episodes.",
     9522: "Shows a Trailer button next to Play when a film has a trailer link (played through the YouTube add-on).",
@@ -260,7 +260,7 @@ def main():
     end = s.index("</variable>", start) + len("</variable>")
     v = ["\t<variable name=\"Dlg_SkinHelp\">"]
     for cid, text in HELP.items():
-        v.append(f'\t\t<value condition="Control.HasFocus({cid})">{text.replace("&", "&amp;").replace("&amp;amp;", "&amp;")}</value>')
+        v.append(f'\t\t<value condition="Control.HasFocus({cid})">{text.replace("&", "&amp;").replace("&amp;amp;", "&amp;").replace(">", "&gt;")}</value>')
     v.append("\t\t<value>Daylight's own options. Kodi's settings live under Settings; switch skins in Settings &gt; Interface &gt; Skin.</value>")
     v.append("\t</variable>")
     s = s[:start] + "\n".join(v) + s[end:]

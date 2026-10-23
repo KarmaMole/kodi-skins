@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.majan" version="1.0.14" name="Majan" provider-name="KarmaMole">
+<addon id="skin.majan" version="1.0.15" name="Majan" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#majan</website>
-		<news>v1.0.14 - Home: long spotlight titles no longer run into the facts strip, and titles longer than two lines show in full.</news>
+		<news>v1.0.15 - Home: fixed text overlapping controls. The titles of the Newest and custom rows no longer touch the focused poster's frame.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

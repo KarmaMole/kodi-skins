@@ -13,6 +13,16 @@
 	<expression name="DL_IsEvening">String.IsEqual(Skin.String(daylight.mood),evening) | [$EXP[DL_MoodAuto] + System.Time(17:00,22:00)]</expression>
 	<expression name="DL_IsAfternoon">String.IsEqual(Skin.String(daylight.mood),afternoon) | [$EXP[DL_MoodAuto] + System.Time(11:00,17:00)]</expression>
 	<expression name="DL_IsMorning">String.IsEqual(Skin.String(daylight.mood),morning) | [$EXP[DL_MoodAuto] + System.Time(06:00,11:00)]</expression>
+	<variable name="DL_MoodName">
+		<value condition="$EXP[DL_IsNight]">Night</value>
+		<value condition="$EXP[DL_IsEvening]">Evening</value>
+		<value condition="$EXP[DL_IsAfternoon]">Afternoon</value>
+		<value>Morning</value>
+	</variable>
+	<variable name="DL_MoodHint">
+		<value condition="$EXP[DL_MoodAuto]">$VAR[DL_MoodName] now ($INFO[System.Time])</value>
+		<value>Kept all day</value>
+	</variable>
 	<expression name="DL_IsDark">$EXP[DL_IsNight] | $EXP[DL_IsEvening]</expression>
 	<expression name="DL_IsLight">!$EXP[DL_IsNight] + !$EXP[DL_IsEvening]</expression>
 	<variable name="DL_MoodIcon">
@@ -225,7 +235,7 @@
 	<expression name="DL_PastMidnight">System.Time(00:00,05:00)</expression>
 	<expression name="DL_Sunday">String.IsEqual(System.Date(DDDD),Sunday)</expression>
 	<expression name="DL_LongDay">String.IsEqual(System.Date(DDDD),Friday) | String.IsEqual(System.Date(DDDD),Saturday) | String.IsEqual(System.Date(DDDD),Sunday)</expression>
-	<expression name="DL_Is12h">String.EndsWith(System.Time,M)</expression>
+	<expression name="DL_Is12h">!String.IsEmpty(System.Time(xx))</expression>
 	<variable name="DL_DayPart">
 		<value condition="$EXP[DL_PastMidnight]">Past midnight</value>
 		<value condition="$EXP[DL_TimeNight]">$INFO[System.Date(DDDD)] night</value>
@@ -1239,8 +1249,13 @@
 		<value condition="$EXP[DL_Sunday]">Sunday morning: take it slow</value>
 		<value>A slow start: something light</value>
 	</variable>
-	<!-- ============================================================ weather (weather.gismeteo) -->
-	<expression name="DL_HasWeather">Weather.IsFetched + !String.IsEmpty(Weather.Conditions) + !String.IsEqual(Weather.Conditions,Busy)</expression>
+	<!-- ============================================================ weather (any weather add-on set in Kodi) -->
+	<expression name="DL_HasWeatherAddon">!String.IsEmpty(Weather.Plugin)</expression>
+	<expression name="DL_HasWeather">!String.IsEmpty(Weather.Plugin) + Weather.IsFetched + !String.IsEmpty(Weather.Conditions) + !String.IsEqual(Weather.Conditions,$LOCALIZE[503]) + !String.StartsWith(Weather.Temperature,$LOCALIZE[503])</expression>
+	<variable name="DL_WeatherHint">
+		<value condition="!$EXP[DL_HasWeatherAddon]">Needs a weather add-on in Kodi's settings</value>
+		<value>From the weather add-on set in Kodi</value>
+	</variable>
 	<expression name="DL_Rain">$EXP[DL_HasWeather] + [Integer.IsEqual(Weather.FanartCode,1) | Integer.IsEqual(Weather.FanartCode,2) | Integer.IsEqual(Weather.FanartCode,3) | Integer.IsEqual(Weather.FanartCode,4) | Integer.IsEqual(Weather.FanartCode,6) | Integer.IsEqual(Weather.FanartCode,8) | Integer.IsEqual(Weather.FanartCode,9) | Integer.IsEqual(Weather.FanartCode,10) | Integer.IsEqual(Weather.FanartCode,11) | Integer.IsEqual(Weather.FanartCode,12) | Integer.IsEqual(Weather.FanartCode,17) | Integer.IsEqual(Weather.FanartCode,18) | Integer.IsEqual(Weather.FanartCode,35) | Integer.IsEqual(Weather.FanartCode,37) | Integer.IsEqual(Weather.FanartCode,38) | Integer.IsEqual(Weather.FanartCode,39) | Integer.IsEqual(Weather.FanartCode,40) | Integer.IsEqual(Weather.FanartCode,45) | Integer.IsEqual(Weather.FanartCode,47) | String.Contains(Weather.Conditions,ain) | String.Contains(Weather.Conditions,hower) | String.Contains(Weather.Conditions,rizzle) | String.Contains(Weather.Conditions,hunder)]</expression>
 	<expression name="DL_Snow">$EXP[DL_HasWeather] + [Integer.IsEqual(Weather.FanartCode,5) | Integer.IsEqual(Weather.FanartCode,7) | Integer.IsEqual(Weather.FanartCode,13) | Integer.IsEqual(Weather.FanartCode,14) | Integer.IsEqual(Weather.FanartCode,15) | Integer.IsEqual(Weather.FanartCode,16) | Integer.IsEqual(Weather.FanartCode,41) | Integer.IsEqual(Weather.FanartCode,42) | Integer.IsEqual(Weather.FanartCode,43) | Integer.IsEqual(Weather.FanartCode,46) | String.Contains(Weather.Conditions,now) | String.Contains(Weather.Conditions,leet)]</expression>
 	<expression name="DL_WeatherRow">!Skin.HasSetting(daylight.noweather) + [$EXP[DL_Rain] | $EXP[DL_Snow]]</expression>

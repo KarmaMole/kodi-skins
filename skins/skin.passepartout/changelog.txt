@@ -1,3 +1,6 @@
+0.9.16 (2026-10-23)
+- Settings: fixed text overlapping controls. A long custom row name or path ends in an ellipsis instead of running over "Row 1".
+
 0.9.15 (2026-10-23)
 - Official repository requirements: artwork moved to resources/, screenshots added.
 

@@ -144,6 +144,13 @@
 		<value condition="$EXP[Home_KindSettings]">$INFO[System.BuildVersionShort,Kodi ,]</value>
 	</variable>
 	<!-- Title / meta for the poster arc lens item -->
+	<!-- what the Fit_Home probes (9711 / 9712, Home.xml) measure: the focused custom row's title, else the poster panel's -->
+	<variable name="Home_FitTitle">
+		<value condition="Control.HasFocus(9881)">$VAR[Home_CustomTitle1]</value>
+		<value condition="Control.HasFocus(9882)">$VAR[Home_CustomTitle2]</value>
+		<value condition="Control.HasFocus(9883)">$VAR[Home_CustomTitle3]</value>
+		<value>$VAR[Home_PosterTitle]</value>
+	</variable>
 	<variable name="Home_PosterTitle">
 		<value condition="$EXP[Home_ItemIsEpisode]">$INFO[Container(9300).ListItem.TVShowTitle]</value>
 		<value>$INFO[Container(9300).ListItem.Title]</value>
@@ -882,14 +889,11 @@
 				<param name="list" value="9881"/>
 				<param name="label" value="$VAR[CustomRow_Title1]"/>
 			</include>
-			<control type="label">
-				<top>22</top>
-				<width>566</width>
-				<height>66</height>
-				<font>wide_56</font>
-				<textcolor>text_primary</textcolor>
-				<label>$VAR[Home_CustomTitle1]</label>
-			</control>
+			<!-- fitted like the poster panel's title (probes 9711 / 9712 read Home_FitTitle, which follows the focused custom row) -->
+			<include content="Fit_Home">
+				<param name="top" value="22"/>
+				<param name="label" value="$VAR[Home_CustomTitle1]"/>
+			</include>
 			<control type="label">
 				<top>12</top>
 				<width>566</width>
@@ -922,14 +926,11 @@
 				<param name="list" value="9882"/>
 				<param name="label" value="$VAR[CustomRow_Title2]"/>
 			</include>
-			<control type="label">
-				<top>22</top>
-				<width>566</width>
-				<height>66</height>
-				<font>wide_56</font>
-				<textcolor>text_primary</textcolor>
-				<label>$VAR[Home_CustomTitle2]</label>
-			</control>
+			<!-- fitted like the poster panel's title (probes 9711 / 9712 read Home_FitTitle, which follows the focused custom row) -->
+			<include content="Fit_Home">
+				<param name="top" value="22"/>
+				<param name="label" value="$VAR[Home_CustomTitle2]"/>
+			</include>
 			<control type="label">
 				<top>12</top>
 				<width>566</width>
@@ -962,14 +963,11 @@
 				<param name="list" value="9883"/>
 				<param name="label" value="$VAR[CustomRow_Title3]"/>
 			</include>
-			<control type="label">
-				<top>22</top>
-				<width>566</width>
-				<height>66</height>
-				<font>wide_56</font>
-				<textcolor>text_primary</textcolor>
-				<label>$VAR[Home_CustomTitle3]</label>
-			</control>
+			<!-- fitted like the poster panel's title (probes 9711 / 9712 read Home_FitTitle, which follows the focused custom row) -->
+			<include content="Fit_Home">
+				<param name="top" value="22"/>
+				<param name="label" value="$VAR[Home_CustomTitle3]"/>
+			</include>
 			<control type="label">
 				<top>12</top>
 				<width>566</width>

@@ -49,7 +49,7 @@
 	<constant name="home_card_pitch">344</constant>       <!-- gap 24 -->
 	<constant name="home_card_item_h">238</constant>      <!-- thumb 180 + 10 + show 26 + 2 + code 20 -->
 	<constant name="home_newest_list_x">84</constant>
-	<constant name="home_newest_list_y">38</constant>     <!-- row top + 60 - pad 22 -->
+	<constant name="home_newest_list_y">44</constant>     <!-- row top + 66 - pad 22: the lifted focus frame stays clear of the row title -->
 
 	<!-- ============================================================== expressions -->
 	<expression name="Home_SecHome">[String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies)</expression>
@@ -2177,7 +2177,7 @@
 				</include>
 				<control type="label">
 					<left>page_margin</left>
-					<top>14</top>
+					<top>10</top>
 					<width>900</width>
 					<height>30</height>
 					<font>section_24</font>
@@ -2186,7 +2186,7 @@
 				</control>
 				<control type="label">
 					<left>page_margin</left>
-					<top>16</top>
+					<top>12</top>
 					<width>page_width</width>
 					<height>26</height>
 					<align>right</align>
@@ -2418,7 +2418,7 @@
 					</include>
 					<control type="label">
 						<left>page_margin</left>
-						<top>14</top>
+						<top>10</top>
 						<width>1300</width>
 						<height>30</height>
 						<font>section_24</font>
@@ -2427,7 +2427,7 @@
 					</control>
 					<control type="label">
 						<left>page_margin</left>
-						<top>16</top>
+						<top>12</top>
 						<width>page_width</width>
 						<height>26</height>
 						<align>right</align>

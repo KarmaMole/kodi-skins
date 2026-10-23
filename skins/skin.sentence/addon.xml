@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.sentence" version="0.9.13" name="Sentence" provider-name="KarmaMole">
+<addon id="skin.sentence" version="0.9.14" name="Sentence" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required: Skin Variables URL-encodes the search query (Includes_Search.xml, Search_Encoder). -->
@@ -18,7 +18,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#sentence</website>
-		<news>v0.9.13 - Home: clearer about where you are and what the keys do (hints that follow focus, a page marker, Back explained).</news>
+		<news>v0.9.14 - Settings: fixed text overlapping controls. Long custom row names end in an ellipsis and keep their full stop, and the help text on the right no longer loses its last line. Home: with three custom rows, the first row no longer runs over the top line and the clock while the third has focus.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

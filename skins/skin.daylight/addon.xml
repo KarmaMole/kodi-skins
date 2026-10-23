@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.daylight" version="0.9.12" name="Daylight" provider-name="KarmaMole">
+<addon id="skin.daylight" version="0.9.13" name="Daylight" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -12,12 +12,12 @@
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en_GB">Daylight - a skin that knows what time it is.</summary>
-		<description lang="en_GB">Soft, rounded and calm. Its colours follow the day (pale morning, bright afternoon, amber evening, deep blue night) and Home suggests what fits right now: films that end before your bedtime, the next episode, something long when it rains. Built for the NVIDIA Shield (Kodi 21 Omega).</description>
+		<description lang="en_GB">Soft, rounded and calm. Its colours follow the day (pale morning, bright afternoon, amber evening, deep blue night) and Home suggests what fits right now: films that end before your bedtime, the next episode, something long when it rains (weather needs a weather add-on set in Kodi's Settings &gt; Services &gt; Weather). Built for the NVIDIA Shield (Kodi 21 Omega).</description>
 		<platform>all</platform>
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#daylight</website>
-		<news>v0.9.12 - Official repository requirements: artwork moved to resources/, screenshots added.</news>
+		<news>v0.9.13 - Weather hides cleanly without a weather add-on and Skin settings say where to set one; the Mood row shows Kodi's clock.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

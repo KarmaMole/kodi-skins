@@ -1597,6 +1597,8 @@
 			<!-- row 1 -->
 			<control type="group">
 				<top>150</top>
+				<!-- scrolled up for row 3 it would run over the top line and the clock: let it go -->
+				<animation effect="fade" start="100" end="0" time="200" condition="Control.HasFocus(9883) + $EXP[CustomRow1On] + $EXP[CustomRow2On]" reversible="true">Conditional</animation>
 				<control type="label">
 					<left>page_margin</left>
 					<top>0</top>

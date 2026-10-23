@@ -11,6 +11,20 @@ Verified engine facts (Kodi 21 Omega source, 2026-10-18):
     directory provider reloads when the evaluated path changes.
   * xsp time rules take "hh:mm:ss" (StringUtils::TimeStringToSeconds).
 
+Re-checked 2026-10-23 (0.9.13, Reddit report "stuck at Past midnight"): the two-parameter boolean
+never reads the region, the 12/24 h setting or a time format. GUIInfoManager.cpp passes both params
+through StringUtils::TimeStringToSeconds ("05:00" and "5:00" -> 300, "00:00" -> 0) and
+SystemGUIInfo.cpp compares them with CDateTime::GetMinuteOfDay() of the same local SystemTime the
+clock label prints. So Daylight is exactly as right as Kodi's own clock: a box whose Kodi clock runs
+in UTC shows "Past midnight" and the night palette all evening in America. The skin settings now
+print the mood Auto picked next to Kodi's clock so that case is visible. Proven on the Shield with
+XBMC.GetInfoBooleans (minute-exact windows) and by an emulation over all 1440 minutes.
+  * 12 h test: System.Time(xx) is "" on a 24 h clock and the meridiem otherwise
+    (XBDateTime.cpp TIME_FORMAT_XX); EndsWith(...,M) missed regions whose marker isn't "AM"/"PM".
+  * Weather: Weather.Plugin = the weather.addon setting (empty = no provider). While a fetch runs,
+    every Weather.* label returns the LOCALIZED string 503 ("Busy", "Busy°C"), so compare with
+    $LOCALIZE[503], not the English word.
+
 Usage: python skins/skin.daylight/_src/make_time_vars.py
 """
 import re
@@ -109,6 +123,18 @@ def main() -> None:
     for mood, (a, b) in ranges.items():
         name = "DL_Is" + mood.capitalize()
         w(f'\t<expression name="{name}">String.IsEqual(Skin.String(daylight.mood),{mood}) | [$EXP[DL_MoodAuto] + System.Time({a},{b})]</expression>')
+    # 0.9.13: the mood Auto picked, printed with Kodi's clock in the skin settings (Mood row hint, "Evening
+    # now (9:47 PM)", max ~310 px before the segmented pill), so a wrong Kodi clock / time zone is visible
+    # instead of looking like "Auto does nothing".
+    w('\t<variable name="DL_MoodName">')
+    for mood in ("night", "evening", "afternoon"):
+        w(f'\t\t<value condition="$EXP[DL_Is{mood.capitalize()}]">{mood.capitalize()}</value>')
+    w("\t\t<value>Morning</value>")
+    w("\t</variable>")
+    w('\t<variable name="DL_MoodHint">')
+    w("\t\t<value condition=\"$EXP[DL_MoodAuto]\">$VAR[DL_MoodName] now ($INFO[System.Time])</value>")
+    w("\t\t<value>Kept all day</value>")
+    w("\t</variable>")
     w('\t<expression name="DL_IsDark">$EXP[DL_IsNight] | $EXP[DL_IsEvening]</expression>')
     w('\t<expression name="DL_IsLight">!$EXP[DL_IsNight] + !$EXP[DL_IsEvening]</expression>')
     w('\t<variable name="DL_MoodIcon">')
@@ -156,7 +182,7 @@ def main() -> None:
     w('\t<expression name="DL_PastMidnight">System.Time(00:00,05:00)</expression>')
     w('\t<expression name="DL_Sunday">String.IsEqual(System.Date(DDDD),Sunday)</expression>')
     w('\t<expression name="DL_LongDay">String.IsEqual(System.Date(DDDD),Friday) | String.IsEqual(System.Date(DDDD),Saturday) | String.IsEqual(System.Date(DDDD),Sunday)</expression>')
-    w('\t<expression name="DL_Is12h">String.EndsWith(System.Time,M)</expression>')
+    w('\t<expression name="DL_Is12h">!String.IsEmpty(System.Time(xx))</expression>')
     w('\t<variable name="DL_DayPart">')
     w('\t\t<value condition="$EXP[DL_PastMidnight]">Past midnight</value>')
     w('\t\t<value condition="$EXP[DL_TimeNight]">$INFO[System.Date(DDDD)] night</value>')
@@ -273,8 +299,16 @@ def main() -> None:
     w("\t</variable>")
 
     # ------------------------------------------------------------------ weather
-    w("\t<!-- ============================================================ weather (weather.gismeteo) -->")
-    w('\t<expression name="DL_HasWeather">Weather.IsFetched + !String.IsEmpty(Weather.Conditions) + !String.IsEqual(Weather.Conditions,Busy)</expression>')
+    w("\t<!-- ============================================================ weather (any weather add-on set in Kodi) -->")
+    # 0.9.13: no provider set (Weather.Plugin empty) = no weather at all: every weather piece hides and the
+    # skin settings say where to pick one. While Kodi refreshes, Weather.* labels read the localized "Busy"
+    # (string 503, "Busy°C" for the temperature): hide then too, in every language.
+    w('\t<expression name="DL_HasWeatherAddon">!String.IsEmpty(Weather.Plugin)</expression>')
+    w('\t<expression name="DL_HasWeather">!String.IsEmpty(Weather.Plugin) + Weather.IsFetched + !String.IsEmpty(Weather.Conditions) + !String.IsEqual(Weather.Conditions,$LOCALIZE[503]) + !String.StartsWith(Weather.Temperature,$LOCALIZE[503])</expression>')
+    w('\t<variable name="DL_WeatherHint">')
+    w("\t\t<value condition=\"!$EXP[DL_HasWeatherAddon]\">Needs a weather add-on in Kodi's settings</value>")
+    w("\t\t<value>From the weather add-on set in Kodi</value>")
+    w("\t</variable>")
     rain = " | ".join(f"Integer.IsEqual(Weather.FanartCode,{c})" for c in RAIN_CODES)
     snow = " | ".join(f"Integer.IsEqual(Weather.FanartCode,{c})" for c in SNOW_CODES)
     w(f'\t<expression name="DL_Rain">$EXP[DL_HasWeather] + [{rain} | String.Contains(Weather.Conditions,ain) | String.Contains(Weather.Conditions,hower) | String.Contains(Weather.Conditions,rizzle) | String.Contains(Weather.Conditions,hunder)]</expression>')

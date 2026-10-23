@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.sixdegrees" version="0.9.13" name="Six Degrees" provider-name="KarmaMole">
+<addon id="skin.sixdegrees" version="0.9.14" name="Six Degrees" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required. script.skinvariables URL-encodes the typed search query (get_encoded_string,
@@ -18,7 +18,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#sixdegrees</website>
-		<news>v0.9.13 - Official repository requirements: artwork moved to resources/, screenshots added. Lines on the map load more reliably when hopping quickly.</news>
+		<news>v0.9.14 - Home: fixed text overlapping controls. The preview map sits a little lower, so its top line name no longer runs into a starter's caption when the title takes two lines.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

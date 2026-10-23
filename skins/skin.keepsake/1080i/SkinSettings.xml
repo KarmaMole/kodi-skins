@@ -151,7 +151,7 @@
 			<control type="image">
 				<left>354</left>
 				<top>2</top>
-				<width>164</width>
+				<width>182</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>!Skin.HasSetting(keepsake.straight)</visible>
@@ -159,7 +159,7 @@
 			<control type="label">
 				<left>358</left>
 				<top>20</top>
-				<width>156</width>
+				<width>174</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -167,17 +167,17 @@
 				<label>$LOCALIZE[31424]</label>
 			</control>
 			<control type="image">
-				<left>526</left>
+				<left>544</left>
 				<top>2</top>
-				<width>164</width>
+				<width>182</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>Skin.HasSetting(keepsake.straight)</visible>
 			</control>
 			<control type="label">
-				<left>530</left>
+				<left>548</left>
 				<top>20</top>
-				<width>156</width>
+				<width>174</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -226,7 +226,7 @@
 			<control type="image">
 				<left>354</left>
 				<top>2</top>
-				<width>164</width>
+				<width>182</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>!Skin.HasSetting(keepsake.notime)</visible>
@@ -234,7 +234,7 @@
 			<control type="label">
 				<left>358</left>
 				<top>20</top>
-				<width>156</width>
+				<width>174</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -242,17 +242,17 @@
 				<label>$LOCALIZE[31427]</label>
 			</control>
 			<control type="image">
-				<left>526</left>
+				<left>544</left>
 				<top>2</top>
-				<width>164</width>
+				<width>182</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>Skin.HasSetting(keepsake.notime)</visible>
 			</control>
 			<control type="label">
-				<left>530</left>
+				<left>548</left>
 				<top>20</top>
-				<width>156</width>
+				<width>174</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -301,7 +301,7 @@
 			<control type="image">
 				<left>354</left>
 				<top>2</top>
-				<width>164</width>
+				<width>182</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>!Skin.HasSetting(keepsake.hidetrailer)</visible>
@@ -309,7 +309,7 @@
 			<control type="label">
 				<left>358</left>
 				<top>20</top>
-				<width>156</width>
+				<width>174</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -317,17 +317,17 @@
 				<label>$LOCALIZE[31430]</label>
 			</control>
 			<control type="image">
-				<left>526</left>
+				<left>544</left>
 				<top>2</top>
-				<width>164</width>
+				<width>182</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>Skin.HasSetting(keepsake.hidetrailer)</visible>
 			</control>
 			<control type="label">
-				<left>530</left>
+				<left>548</left>
 				<top>20</top>
-				<width>156</width>
+				<width>174</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -376,7 +376,7 @@
 			<control type="image">
 				<left>354</left>
 				<top>2</top>
-				<width>164</width>
+				<width>182</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>!Skin.HasSetting(keepsake.reducemotion)</visible>
@@ -384,7 +384,7 @@
 			<control type="label">
 				<left>358</left>
 				<top>20</top>
-				<width>156</width>
+				<width>174</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -392,17 +392,17 @@
 				<label>$LOCALIZE[31433]</label>
 			</control>
 			<control type="image">
-				<left>526</left>
+				<left>544</left>
 				<top>2</top>
-				<width>164</width>
+				<width>182</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>Skin.HasSetting(keepsake.reducemotion)</visible>
 			</control>
 			<control type="label">
-				<left>530</left>
+				<left>548</left>
 				<top>20</top>
-				<width>156</width>
+				<width>174</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -457,7 +457,7 @@
 			<control type="image">
 				<left>354</left>
 				<top>2</top>
-				<width>164</width>
+				<width>118</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>String.IsEqual(Skin.String(keepsake.osdhide),3)</visible>
@@ -465,7 +465,7 @@
 			<control type="label">
 				<left>358</left>
 				<top>20</top>
-				<width>156</width>
+				<width>110</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -473,17 +473,17 @@
 				<label>3 s</label>
 			</control>
 			<control type="image">
-				<left>526</left>
+				<left>480</left>
 				<top>2</top>
-				<width>164</width>
+				<width>118</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>String.IsEmpty(Skin.String(keepsake.osdhide))</visible>
 			</control>
 			<control type="label">
-				<left>530</left>
+				<left>484</left>
 				<top>20</top>
-				<width>156</width>
+				<width>110</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -491,17 +491,17 @@
 				<label>5 s</label>
 			</control>
 			<control type="image">
-				<left>698</left>
+				<left>606</left>
 				<top>2</top>
-				<width>164</width>
+				<width>118</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>String.IsEqual(Skin.String(keepsake.osdhide),10)</visible>
 			</control>
 			<control type="label">
-				<left>702</left>
+				<left>610</left>
 				<top>20</top>
-				<width>156</width>
+				<width>110</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -509,17 +509,17 @@
 				<label>10 s</label>
 			</control>
 			<control type="image">
-				<left>870</left>
+				<left>732</left>
 				<top>2</top>
-				<width>164</width>
+				<width>118</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>String.IsEqual(Skin.String(keepsake.osdhide),off)</visible>
 			</control>
 			<control type="label">
-				<left>874</left>
+				<left>736</left>
 				<top>20</top>
-				<width>156</width>
+				<width>110</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -574,7 +574,7 @@
 			<control type="image">
 				<left>354</left>
 				<top>2</top>
-				<width>164</width>
+				<width>118</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>!Skin.HasSetting(HideMenu.Movies)</visible>
@@ -582,7 +582,7 @@
 			<control type="image">
 				<left>366</left>
 				<top>66</top>
-				<width>140</width>
+				<width>94</width>
 				<height>16</height>
 				<texture colordiffuse="ink">ks/pen_line.png</texture>
 				<visible>Control.HasFocus(9516) + [String.IsEmpty(Window(Home).Property(keepsake.menucur)) | String.IsEqual(Window(Home).Property(keepsake.menucur),1)]</visible>
@@ -590,7 +590,7 @@
 			<control type="label">
 				<left>358</left>
 				<top>20</top>
-				<width>156</width>
+				<width>110</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -598,25 +598,25 @@
 				<label>$LOCALIZE[31114]</label>
 			</control>
 			<control type="image">
-				<left>526</left>
+				<left>480</left>
 				<top>2</top>
-				<width>164</width>
+				<width>118</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>!Skin.HasSetting(HideMenu.TVShows)</visible>
 			</control>
 			<control type="image">
-				<left>538</left>
+				<left>492</left>
 				<top>66</top>
-				<width>140</width>
+				<width>94</width>
 				<height>16</height>
 				<texture colordiffuse="ink">ks/pen_line.png</texture>
 				<visible>Control.HasFocus(9516) + String.IsEqual(Window(Home).Property(keepsake.menucur),2)</visible>
 			</control>
 			<control type="label">
-				<left>530</left>
+				<left>484</left>
 				<top>20</top>
-				<width>156</width>
+				<width>110</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -624,25 +624,25 @@
 				<label>$LOCALIZE[31344]</label>
 			</control>
 			<control type="image">
-				<left>698</left>
+				<left>606</left>
 				<top>2</top>
-				<width>164</width>
+				<width>118</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>!Skin.HasSetting(HideMenu.Music)</visible>
 			</control>
 			<control type="image">
-				<left>710</left>
+				<left>618</left>
 				<top>66</top>
-				<width>140</width>
+				<width>94</width>
 				<height>16</height>
 				<texture colordiffuse="ink">ks/pen_line.png</texture>
 				<visible>Control.HasFocus(9516) + String.IsEqual(Window(Home).Property(keepsake.menucur),3)</visible>
 			</control>
 			<control type="label">
-				<left>702</left>
+				<left>610</left>
 				<top>20</top>
-				<width>156</width>
+				<width>110</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>
@@ -650,25 +650,25 @@
 				<label>$LOCALIZE[31480]</label>
 			</control>
 			<control type="image">
-				<left>870</left>
+				<left>732</left>
 				<top>2</top>
-				<width>164</width>
+				<width>118</width>
 				<height>64</height>
 				<texture border="30" colordiffuse="ink">ks/pen_box.png</texture>
 				<visible>!Skin.HasSetting(HideMenu.Search)</visible>
 			</control>
 			<control type="image">
-				<left>882</left>
+				<left>744</left>
 				<top>66</top>
-				<width>140</width>
+				<width>94</width>
 				<height>16</height>
 				<texture colordiffuse="ink">ks/pen_line.png</texture>
 				<visible>Control.HasFocus(9516) + String.IsEqual(Window(Home).Property(keepsake.menucur),4)</visible>
 			</control>
 			<control type="label">
-				<left>874</left>
+				<left>736</left>
 				<top>20</top>
-				<width>156</width>
+				<width>110</width>
 				<height>30</height>
 				<align>center</align>
 				<font>lbln_20</font>

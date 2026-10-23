@@ -1,3 +1,8 @@
+0.9.13 (2026-10-23)
+- Weather: with no weather add-on set in Kodi, every weather piece stays hidden, and Skin settings > Time & mood says where to choose one (Settings > Services > Weather). The weather also hides while Kodi is refreshing it, in every language (no more "Busy").
+- Time: the Mood row shows the mood Auto has picked next to Kodi's clock, so a wrong clock or time zone on the device is easy to spot. Daylight follows Kodi's clock in every region and in 12 h and 24 h formats.
+- Bedtime shows as 12 h or 24 h by the region's clock in every language.
+
 0.9.12 (2026-10-23)
 - Official repository requirements: artwork moved to resources/, screenshots added.
 

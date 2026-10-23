@@ -1,3 +1,6 @@
+0.9.14 (2026-10-23)
+- Home: fixed text overlapping controls. The preview map sits a little lower, so its top line name no longer runs into a starter's caption when the title takes two lines.
+
 0.9.13 (2026-10-23)
 - Official repository requirements: artwork moved to resources/, screenshots added.
 - Lines on the map load more reliably when hopping quickly.

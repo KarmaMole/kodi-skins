@@ -24,7 +24,7 @@
 	<controls>
 		<!-- fit-to-width probes for the wide titles (Includes_Titles.xml) -->
 		<include content="Fit_Home_Probes">
-			<param name="label" value="$VAR[Home_PosterTitle]"/>
+			<param name="label" value="$VAR[Home_FitTitle]"/>
 		</include>
 		<include content="Fit_HomeMusic_Probes">
 			<param name="label" value="$INFO[Container(9301).ListItem.Label]"/>

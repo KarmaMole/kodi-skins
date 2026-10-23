@@ -324,7 +324,7 @@
 				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<control type="label" id="9731"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31506]</label></control>
 				<control type="button" id="9525">
-					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
+					<left>-2</left><top>6</top><width max="650">auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
 					<onup>9524</onup><ondown>9526</ondown>
 					<label>$VAR[SkinSet_C1]</label>
@@ -337,7 +337,7 @@
 				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<control type="label" id="9733"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31507]</label></control>
 				<control type="button" id="9526">
-					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
+					<left>-2</left><top>6</top><width max="650">auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
 					<onup>9525</onup><ondown>9527</ondown>
 					<label>$VAR[SkinSet_C2]</label>
@@ -350,7 +350,7 @@
 				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<control type="label" id="9735"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31508]</label></control>
 				<control type="button" id="9527">
-					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
+					<left>-2</left><top>6</top><width max="650">auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
 					<onup>9526</onup><ondown condition="Control.IsVisible(9530)">9530</ondown><ondown condition="!Control.IsVisible(9530)">9531</ondown>
 					<label>$VAR[SkinSet_C3]</label>
@@ -407,7 +407,7 @@
 			</control>
 		</control>
 		<control type="textbox">
-			<left>1380</left><top>166</top><width>420</width><height>520</height>
+			<left>1380</left><top>166</top><width>420</width><height>600</height>
 			<font>serif_28</font><textcolor>muted</textcolor><label>$VAR[SkinSet_Help]</label>
 		</control>
 		<control type="label">

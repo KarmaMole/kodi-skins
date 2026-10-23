@@ -39,7 +39,7 @@
     <p class="lede">Twelve different answers to one question: what should a library of films, shows and music feel like on a television? Each skin is built around a single idea, whether that is a dial, a sentence, a transit map or a torch in a dark gallery, and carries it through every screen from Home to the player.</p>
     <p class="hero-note">Every image on this page is a real screenshot from the TV, not a mockup. (Kodi can't capture video on the Shield, so on the playback screens a frame of the film was added behind the controls.) All twelve install from one Kodi repository and are free to use.</p>
   </div>
-  <p class="hero-actions"><a class="btn btn-solid" href="#install">How to install</a><a class="btn" href="#skins">See the skins</a></p>
+  <p class="hero-actions"><a class="btn btn-solid" href="#install">Install and set up</a><a class="btn" href="#skins">See the skins</a></p>
 </section>
 
 <section class="index" id="skins" aria-label="All twelve skins">
@@ -89,7 +89,7 @@
       <h2 id="majan-title">Majan</h2>
       <p class="skin-tag">An editorial index for your library</p>
     </div>
-    <p class="skin-meta">Version 1.0.13<span class="sep" aria-hidden="true">·</span>skin.majan</p>
+    <p class="skin-meta">Version 1.0.14<span class="sep" aria-hidden="true">·</span>skin.majan</p>
   </header>
   <div class="show" role="region" aria-roledescription="carousel" aria-label="Majan screenshots" tabindex="0">
     <div class="show-frame">
@@ -219,7 +219,7 @@
       <h2 id="sentence-title">Sentence</h2>
       <p class="skin-tag">Ask for what you want, in a sentence</p>
     </div>
-    <p class="skin-meta">Version 0.9.12<span class="sep" aria-hidden="true">·</span>skin.sentence</p>
+    <p class="skin-meta">Version 0.9.13<span class="sep" aria-hidden="true">·</span>skin.sentence</p>
   </header>
   <div class="show" role="region" aria-roledescription="carousel" aria-label="Sentence screenshots" tabindex="0">
     <div class="show-frame">
@@ -397,16 +397,40 @@
 
 <section class="install" id="install" aria-labelledby="install-title">
   <header class="install-head">
-    <p class="kicker">Install</p>
+    <p class="kicker">Install and set up</p>
     <h2 id="install-title">Add them to Kodi</h2>
-    <p class="install-lede">All twelve skins live in one Kodi repository. Add it once and Kodi installs any of the skins, with updates, from its own add-on browser.</p>
+    <p class="install-lede">All twelve skins live in one Kodi repository. Add it once and Kodi installs any of the skins, with updates, from its own add-on browser. Then a few minutes of setup gets the most out of them.</p>
   </header>
   <ol class="steps">
     <li><span class="step-n">1</span><div><h3>Allow unknown sources</h3><p><span class="path">Settings <i>›</i> System <i>›</i> Add-ons</span> and turn on <b>Unknown sources</b>. Kodi asks you to confirm.</p></div></li>
     <li><span class="step-n">2</span><div><h3>Add the source</h3><p><span class="path">Settings <i>›</i> File manager <i>›</i> Add source</span>, choose <b>&lt;None&gt;</b>, type the address below and name the source <code>karmamole</code>.</p><p class="copy-row"><code class="url" id="repo-url">https://karmamole.github.io/<wbr><span class="nw">kodi-skins/</span></code><button class="copy" type="button" data-copy="https://karmamole.github.io/kodi-skins/">Copy</button></p></div></li>
     <li><span class="step-n">3</span><div><h3>Install the repository</h3><p><span class="path">Add-ons <i>›</i> Install from zip file <i>›</i> karmamole</span> and pick <code>repository.karmamole.zip</code>.</p></div></li>
     <li><span class="step-n">4</span><div><h3>Install a skin</h3><p><span class="path">Add-ons <i>›</i> Install from repository <i>›</i> KarmaMole's Kodi Skins <i>›</i> Look and feel <i>›</i> Skin</span>, choose one and let Kodi switch to it. Install as many as you like and swap between them under <span class="path">Settings <i>›</i> Interface <i>›</i> Skin</span>.</p></div></li>
+    <li><span class="step-n">5</span><div><h3>Give it a library</h3><p>The skins are built around Kodi's library: posters, fanart, plots, what you're partway through. In <span class="path">Videos <i>›</i> Files <i>›</i> Add videos</span>, add each folder and set its content to <b>Movies</b> or <b>TV shows</b> so Kodi scrapes it. For music, add folders under <span class="path">Music <i>›</i> Files</span> and let Kodi scan them. Folders without a content type still play, but Home stays mostly empty.</p></div></li>
+    <li><span class="step-n">6</span><div><h3>Make Home yours</h3><p><span class="path">Settings <i>›</i> Interface <i>›</i> Skin <i>›</i> Configure skin</span> opens the skin's own settings. Under <b>Main menu</b> you can hide sections you don't use (Music, TV, Pictures and so on). Under <b>Custom rows</b> you can add up to three extra Home rows from any add-on, playlist, library node or favourite, drawn in the skin's own style. Out of the box nothing is hidden and no rows are added.</p></div></li>
   </ol>
+  <div class="guide">
+    <div>
+      <h3 class="label">Weather</h3>
+      <p>Skins can't fetch weather themselves. Pick a provider in <span class="path">Settings <i>›</i> Services <i>›</i> Weather</span> (Kodi offers several in its official repository), set your location, and the skins that show weather pick it up. Until then they leave it out.</p>
+    </div>
+    <div>
+      <h3 class="label">Helper add-ons</h3>
+      <p><b>Skin Variables</b> installs automatically with every skin. The others are optional and each skin lists the ones it uses above. <b>TMDb Helper</b> adds details, similar titles and colours from TMDb; <b>Embuary Helper</b> adds a true Next up row; the <b>KarmaMole Skin Helper</b> (album colours and more, in Groove) installs from the skin's own settings. Install them from <span class="path">Add-ons <i>›</i> Install from repository <i>›</i> Kodi Add-on repository</span>.</p>
+    </div>
+    <div>
+      <h3 class="label">Updates</h3>
+      <p>Kodi checks the repository on its own, about once a day, and updates the skins in place; your skin settings are kept. To check sooner: <span class="path">Add-ons <i>›</i> My add-ons <i>›</i> Add-on repository <i>›</i> KarmaMole's Kodi Skins</span>, open its context menu (long-press OK, or <b>C</b> on a keyboard) and choose <b>Check for updates</b>.</p>
+    </div>
+  </div>
+  <div class="trouble">
+    <h3 class="label">If something goes wrong</h3>
+    <details><summary>The source shows no files, or Kodi can't find the zip</summary><p>Check the address is exactly <code>https://karmamole.github.io/kodi-skins/</code>, with <code>https</code> and the slash at the end. Or download the zip below and install it from a USB stick or network share.</p></details>
+    <details><summary>“Could not connect to repository”</summary><p>Usually a stale copy right after an update. Open <span class="path">Add-ons <i>›</i> My add-ons <i>›</i> Add-on repository <i>›</i> KarmaMole's Kodi Skins</span>, open its context menu and choose <b>Check for updates</b>, or install <code>repository.karmamole.zip</code> again (version 1.0.3 or later fixes the most common cause). If it persists, open an issue on GitHub with your <code>kodi.log</code>.</p></details>
+    <details><summary>“Failed to download” when installing or updating a skin</summary><p>Kodi is working from an older list of versions. Update the repository as above, then try again.</p></details>
+    <details><summary>Home looks empty</summary><p>Home rows come from the library. Make sure your folders have a content type (step 5) and the library has finished scanning. Rows you haven't used yet, like Continue watching, appear once there's something in them.</p></details>
+    <details><summary>Getting back to the default skin</summary><p><span class="path">Settings <i>›</i> Interface <i>›</i> Skin</span> and choose <b>Estuary</b>. Your library and other add-ons are untouched.</p></details>
+  </div>
   <div class="install-aside">
     <div class="dl">
       <h3 class="label">Prefer a file?</h3>

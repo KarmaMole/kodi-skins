@@ -5,10 +5,17 @@
 Output layout (what Kodi's repository add-on expects):
   _site/addons.xml, _site/addons.xml.md5          every add-on's addon.xml, concatenated
   _site/<id>/<id>-<version>.zip                    installable zips (top folder = <id>/), skins/skin.* and addons/*
+                                                   plus up to KEEP_OLD earlier versions rebuilt from git history
   _site/repository.karmamole-<version>.zip         the repository add-on, for the first manual install
   _site/index.html                                 a small landing page with the install steps
 
 Zips leave out generator sources (_src/) and editor junk, like the release packager in the studio.
+
+Why old zips: every Pages deploy is a fresh artifact, but Kodi caches addons.xml for up to 24 h (and Pages
+caches it for 10 min), so a client holding the previous list asks for the previous zip. addons.xml still lists
+only the latest version; the old zips just keep those requests from 404ing. They are rebuilt from git history
+(the add-on's tree at the last commit of each version, never the working copy), which needs a full clone
+(actions/checkout fetch-depth: 0). Anything that goes wrong there is logged and skipped, never fatal.
 """
 from __future__ import annotations
 
@@ -17,6 +24,9 @@ import hashlib
 import html
 import re
 import shutil
+import subprocess
+import tarfile
+import io
 import xml.etree.ElementTree as ET
 import zipfile
 from fnmatch import fnmatch
@@ -27,6 +37,9 @@ EXCLUDE_DIRS = {"_src", ".git", "__pycache__", "docs", ".vscode", ".idea", "prev
 EXCLUDE_FILES = ["*.psd", "*.afdesign", "*.xcf", "*.kra", "*.ai", "*.sketch", "*.fig", "Thumbs.db",
                  ".DS_Store", "*.pyc", ".gitignore", ".gitattributes"]
 REPO_ID = "repository.karmamole"
+KEEP_OLD = 5  # earlier distinct versions served per add-on, besides the current one
+# commits whose trees must never be published (4f8e09b: Vernissage + helper 1.1.0, reverted by de511de)
+BLOCKED_COMMITS = {"4f8e09b3f7bbebad9e1afa567a20469df2bbab70"}
 
 
 def addon_dirs() -> list[Path]:
@@ -54,6 +67,81 @@ def zip_addon(d: Path, dest: Path) -> None:
             if any(fnmatch(p.name, pat) for pat in EXCLUDE_FILES):
                 continue
             z.write(p, f"{addon_id}/{rel.as_posix()}")
+
+
+def _excluded(rel: str) -> bool:
+    parts = rel.split("/")
+    return any(part in EXCLUDE_DIRS for part in parts) or any(fnmatch(parts[-1], pat) for pat in EXCLUDE_FILES)
+
+
+def _git(*args: str, binary: bool = False):
+    r = subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, check=True)
+    return r.stdout if binary else r.stdout.decode("utf-8", "replace")
+
+
+def _vkey(v: str) -> tuple:
+    return tuple(int(n) if n.isdigit() else -1 for n in re.split(r"[.\-+~]", v))
+
+
+def old_versions(d: Path, current: str) -> list[tuple[str, str]]:
+    """[(version, commit)] for up to KEEP_OLD earlier versions of this add-on, newest first.
+    Each version maps to the newest commit in HEAD's history whose addon.xml has it,
+    i.e. the last state that was published under that version. Only versions below the current one."""
+    path = d.relative_to(ROOT).as_posix()
+    commits = _git("log", "--format=%H", "HEAD", "--", path).split()
+    found: dict[str, str] = {}
+    for c in commits:
+        if c in BLOCKED_COMMITS:
+            continue
+        try:
+            x = _git("show", f"{c}:{path}/addon.xml")
+            head = re.search(r"<addon\s[^>]*>", x, re.S).group(0)
+            ver = re.search(r'\sversion="([^"]*)"', head).group(1)
+            aid = re.search(r'\sid="([^"]*)"', head).group(1)
+        except Exception:
+            continue  # add-on absent or addon.xml unreadable at that commit
+        if aid != d.name or ver in found or _vkey(ver) >= _vkey(current):
+            continue
+        found[ver] = c
+    return sorted(found.items(), key=lambda kv: _vkey(kv[0]), reverse=True)[:KEEP_OLD]
+
+
+def zip_addon_at(d: Path, commit: str, dest: Path) -> None:
+    """Same layout and exclusions as zip_addon, from the add-on's tree at a commit (git archive)."""
+    path = d.relative_to(ROOT).as_posix()
+    data = _git("archive", "--format=tar", commit, "--", path, binary=True)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(".part")
+    n = 0
+    with tarfile.open(fileobj=io.BytesIO(data)) as t,             zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+        for m in sorted(t.getmembers(), key=lambda m: m.name):
+            if not m.isfile() or not m.name.startswith(path + "/"):
+                continue
+            rel = m.name[len(path) + 1:]
+            if _excluded(rel):
+                continue
+            z.writestr(f"{d.name}/{rel}", t.extractfile(m).read())
+            n += 1
+    if not n or f"{d.name}/addon.xml" not in zipfile.ZipFile(tmp).namelist():
+        tmp.unlink()
+        raise RuntimeError("no addon.xml in archive")
+    tmp.replace(dest)
+
+
+def build_old_zips(d: Path, current: str, out: Path) -> list[str]:
+    try:
+        olds = old_versions(d, current)
+    except Exception as e:
+        print(f"  ! {d.name}: history unavailable ({e}); serving the current zip only")
+        return []
+    built = []
+    for ver, c in olds:
+        try:
+            zip_addon_at(d, c, out / d.name / f"{d.name}-{ver}.zip")
+            built.append(ver)
+        except Exception as e:
+            print(f"  ! {d.name} {ver} @ {c[:7]}: not rebuilt ({e})")
+    return built
 
 
 def page(rows: list[tuple[str, str, str, str]], repo_zip: str) -> str:
@@ -100,6 +188,11 @@ def main() -> None:
         shutil.rmtree(out)
     out.mkdir()
     rows, xmls = [], []
+    try:
+        if _git("rev-parse", "--is-shallow-repository").strip() == "true":
+            print("  ! shallow clone: older versions may be missing (use fetch-depth: 0)")
+    except Exception as e:
+        print(f"  ! git unavailable ({e}); older versions will not be served")
     for d in addon_dirs():
         aid, ver, name, summary = meta(d)
         assert aid == d.name, f"{d}: folder name must equal addon id {aid}"
@@ -114,7 +207,8 @@ def main() -> None:
                 shutil.copy2(d / rel, out / aid / rel)
         xmls.append(re.sub(r"<\?xml[^>]*\?>\s*", "", (d / "addon.xml").read_text(encoding="utf-8")).strip())
         rows.append((aid, ver, name, summary))
-        print(f"{aid} {ver}")
+        olds = build_old_zips(d, ver, out)
+        print(f"{aid} {ver}" + (f" (also {', '.join(olds)})" if olds else ""))
     addons = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<addons>\n' + "\n".join(xmls) + "\n</addons>\n"
     (out / "addons.xml").write_text(addons, encoding="utf-8")
     (out / "addons.xml.md5").write_text(hashlib.md5(addons.encode("utf-8")).hexdigest(), encoding="utf-8")

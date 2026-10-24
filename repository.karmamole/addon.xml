@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.karmamole" name="KarmaMole's Kodi Skins" version="1.0.5" provider-name="KarmaMole">
+<addon id="repository.karmamole" name="KarmaMole's Kodi Skins" version="1.0.6" provider-name="KarmaMole">
 	<extension point="xbmc.addon.repository" name="KarmaMole's Kodi Skins">
 		<dir>
 			<info compressed="false">https://raw.githubusercontent.com/KarmaMole/kodi-skins/kodi-index/addons.xml</info>
@@ -12,12 +12,15 @@
 		<description lang="en_GB">Majan, Void, Orbit, Daylight, Duotone, Sentence, Passe-partout, Nocturne, Six Degrees, Fold, Keepsake and Groove: skins designed for the TV and tested on an NVIDIA Shield, plus two optional helper add-ons. Install a skin from this repository and its updates arrive automatically.</description>
 		<platform>all</platform>
 		<license>GPL-2.0-or-later</license>
-		<news>Fixes the repository hanging or showing 'Could not connect' right after it is installed on Kodi 21: the add-on list now comes from raw.githubusercontent.com, so it no longer queues behind the site's other downloads.</news>
+		<news>Adds screenshots of Daylight, Sentence and Six Degrees to the add-on info page. 1.0.5: fixes the repository hanging or showing 'Could not connect' right after it is installed on Kodi 21.</news>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/</website>
 		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
+			<screenshot>screenshot-01.jpg</screenshot>
+			<screenshot>screenshot-02.jpg</screenshot>
+			<screenshot>screenshot-03.jpg</screenshot>
 		</assets>
 	</extension>
 </addon>

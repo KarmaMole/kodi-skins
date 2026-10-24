@@ -176,6 +176,8 @@ ul{{list-style:none;padding:0;border-top:1px solid var(--line)}} ul li{{padding:
 {items}
 </ul>
 <p>Source: <a href="https://github.com/KarmaMole/kodi-skins">github.com/KarmaMole/kodi-skins</a></p>
+<!-- Kodi reads this page as the source folder listing and refuses repo files missing from it: keep these -->
+<span hidden><a href="addons.xml">addons.xml</a> <a href="addons.xml.md5">addons.xml.md5</a></span>
 </main></body></html>
 """
 

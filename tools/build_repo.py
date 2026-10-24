@@ -210,7 +210,7 @@ def main() -> None:
         olds = build_old_zips(d, ver, out)
         print(f"{aid} {ver}" + (f" (also {', '.join(olds)})" if olds else ""))
     addons = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<addons>\n' + "\n".join(xmls) + "\n</addons>\n"
-    (out / "addons.xml").write_text(addons, encoding="utf-8")
+    (out / "addons.xml").write_bytes(addons.encode("utf-8"))  # exact bytes: the .md5 below must match on any OS
     (out / "addons.xml.md5").write_text(hashlib.md5(addons.encode("utf-8")).hexdigest(), encoding="utf-8")
     repo_ver = next(v for a, v, _, _ in rows if a == REPO_ID)
     repo_zip = f"{REPO_ID}.zip"  # stable name for links and docs; Kodi reads the version from addon.xml

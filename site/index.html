@@ -9,14 +9,14 @@
 <meta property="og:description" content="Twelve custom Kodi skins by KarmaMole, each built around one idea.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://karmamole.github.io/kodi-skins/">
-<meta property="og:image" content="https://karmamole.github.io/kodi-skins/og.jpg?v=c0e91e93">
+<meta property="og:image" content="https://karmamole.github.io/kodi-skins/og.jpg?v=5abe53f9">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Six of the twelve Kodi skins on a TV, under the title Twelve skins for Kodi">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Twelve skins for Kodi">
-<meta name="twitter:image" content="https://karmamole.github.io/kodi-skins/og.jpg?v=c0e91e93">
+<meta name="twitter:image" content="https://karmamole.github.io/kodi-skins/og.jpg?v=5abe53f9">
 <meta name="theme-color" content="#0f0f0e">
 <link rel="preload" href="assets/fonts/InstrumentSerif-1.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/InterTight-3.woff2" as="font" type="font/woff2" crossorigin>
@@ -426,7 +426,8 @@
   <div class="trouble">
     <h3 class="label">If something goes wrong</h3>
     <details><summary>The source shows no files, or Kodi can't find the zip</summary><p>Check the address is exactly <code>https://karmamole.github.io/kodi-skins/</code>, with <code>https</code> and the slash at the end. Or download the zip below and install it from a USB stick or network share.</p></details>
-    <details><summary>“Could not connect to repository”</summary><p>Fully quit Kodi (on a Shield: Power <i>›</i> Exit) and start it again, then install <code>repository.karmamole.zip</code> once more from the karmamole source (it should say 1.0.4 or later) and open <span class="path">Add-ons <i>›</i> Install from repository</span>. If it persists, open an issue on GitHub with your <code>kodi.log</code>.</p></details>
+    <details><summary>“Could not connect to repository”</summary><p>Check the repository version in <span class="path">Add-ons <i>›</i> My add-ons <i>›</i> Add-on repository</span>. Below 1.0.5? Install <code>repository.karmamole.zip</code> again from the karmamole source; on 1.0.3, uninstall it there first (<span class="path">KarmaMole's Kodi Skins <i>›</i> Uninstall</span>). With 1.0.5 you can open <span class="path">Install from repository</span> straight away. Still failing? Fully quit Kodi (on a Shield: Power <i>›</i> Exit), start it again and open the repository. If it persists, open an issue on GitHub with your Kodi version, device and <code>kodi.log</code>.</p></details>
+    <details><summary>Kodi 21 stops on a busy spinner</summary><p>Kodi 21 can stall when it asks the same website twice in quick succession, for example opening the karmamole source right after adding it, or right after installing the zip. Give it half a minute between those steps. If it is already stuck, Back and Exit won't respond: force-stop Kodi (on a Shield: <span class="path">Settings <i>›</i> Apps <i>›</i> Kodi <i>›</i> Force stop</span>; elsewhere, close the app from the system), start it again and carry on where you were. Nothing needs reinstalling. Kodi 22 doesn't have this problem.</p></details>
     <details><summary>“Failed to download” when installing or updating a skin</summary><p>Kodi is working from an older list of versions. Update the repository as above, then try again.</p></details>
     <details><summary>Home looks empty</summary><p>Home rows come from the library. Make sure your folders have a content type (step 5) and the library has finished scanning. Rows you haven't used yet, like Continue watching, appear once there's something in them.</p></details>
     <details><summary>Getting back to the default skin</summary><p><span class="path">Settings <i>›</i> Interface <i>›</i> Skin</span> and choose <b>Estuary</b>. Your library and other add-ons are untouched.</p></details>

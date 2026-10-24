@@ -28,6 +28,16 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+      # repository.karmamole >= 1.0.5 reads the index from the kodi-index branch (raw.githubusercontent.com),
+      # a different host from the zips, so Kodi 21 never queues it behind a reused karmamole.github.io connection
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kodi-index
+          path: |
+            _site/addons.xml
+            _site/addons.xml.md5
+          if-no-files-found: error
+          retention-days: 7
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -37,3 +47,31 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+  index:
+    # after the Pages deploy, so Kodi never sees a version before its zip is online.
+    # Pushes made with GITHUB_TOKEN never start workflows, and this workflow only runs for main anyway.
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: kodi-index
+          path: index
+      - name: Force-push addons.xml and addons.xml.md5 to the kodi-index branch
+        working-directory: index
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$(md5sum addons.xml | cut -d' ' -f1)" = "$(cat addons.xml.md5)"   # exact bytes, or stop
+          echo '* -text' > .gitattributes                                            # never touch line endings
+          git init -q -b kodi-index
+          git config core.autocrlf false
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .gitattributes addons.xml addons.xml.md5
+          git commit -q -m "Kodi repository index for ${GITHUB_SHA}"
+          git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" kodi-index:kodi-index
+          echo "kodi-index -> $(cat addons.xml.md5)"

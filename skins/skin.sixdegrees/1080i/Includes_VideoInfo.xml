@@ -23,46 +23,46 @@
 		<value>$VAR[St_Cast1]</value>
 	</variable>
 	<variable name="St_UpQ">
-		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.0)]%22</value>
-		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.0)]%22</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshA] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.enca.0))">$INFO[Window(Home).Property(sixdegrees.st.enca.0)]</value>
+		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshB] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.encb.0))">$INFO[Window(Home).Property(sixdegrees.st.encb.0)]</value>
 		<value condition="$EXP[St_Match] + String.IsEqual(ListItem.DBType,tvshow)">%22%22</value>
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.1)]%22</value>
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.1)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.enca.1))">$INFO[Window(Home).Property(sixdegrees.st.enca.1)]</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.encb.1))">$INFO[Window(Home).Property(sixdegrees.st.encb.1)]</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.2)]%22</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.2)]%22</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshA] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.enca.2))">$INFO[Window(Home).Property(sixdegrees.st.enca.2)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + $EXP[St_EncFreshB] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.encb.2))">$INFO[Window(Home).Property(sixdegrees.st.encb.2)]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">%22%22</value>
-		<value condition="$EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.3)]%22</value>
-		<value condition="$EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.3)]%22</value>
+		<value condition="$EXP[St_EncFreshA] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.enca.3))">$INFO[Window(Home).Property(sixdegrees.st.enca.3)]</value>
+		<value condition="$EXP[St_EncFreshB] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.encb.3))">$INFO[Window(Home).Property(sixdegrees.st.encb.3)]</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast0Q">
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.4)]%22</value>
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.4)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.enca.4))">$INFO[Window(Home).Property(sixdegrees.st.enca.4)]</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.encb.4))">$INFO[Window(Home).Property(sixdegrees.st.encb.4)]</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast1Q">
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.5)]%22</value>
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.5)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.enca.5))">$INFO[Window(Home).Property(sixdegrees.st.enca.5)]</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.encb.5))">$INFO[Window(Home).Property(sixdegrees.st.encb.5)]</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast2Q">
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.6)]%22</value>
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.6)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.enca.6))">$INFO[Window(Home).Property(sixdegrees.st.enca.6)]</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.encb.6))">$INFO[Window(Home).Property(sixdegrees.st.encb.6)]</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_Cast3Q">
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.7)]%22</value>
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.7)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.enca.7))">$INFO[Window(Home).Property(sixdegrees.st.enca.7)]</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.encb.7))">$INFO[Window(Home).Property(sixdegrees.st.encb.7)]</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
 	<variable name="St_GenreQ">
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA]">%22$INFO[Window(Home).Property(sixdegrees.st.enca.8)]%22</value>
-		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB]">%22$INFO[Window(Home).Property(sixdegrees.st.encb.8)]%22</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshA] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.enca.8))">$INFO[Window(Home).Property(sixdegrees.st.enca.8)]</value>
+		<value condition="$EXP[St_Match] + $EXP[St_EncFreshB] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.encb.8))">$INFO[Window(Home).Property(sixdegrees.st.encb.8)]</value>
 		<value condition="$EXP[St_Match]">%22%22</value>
 		<value>%22%22</value>
 	</variable>
@@ -73,8 +73,8 @@
 		<value>$VAR[St_Cast1Q]</value>
 	</variable>
 	<variable name="St_Excl">
-		<value condition="$EXP[St_EncFreshA] + !String.IsEmpty(ListItem.Title)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.st.enca.9)]%22%5D%7D</value>
-		<value condition="$EXP[St_EncFreshB] + !String.IsEmpty(ListItem.Title)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(sixdegrees.st.encb.9)]%22%5D%7D</value>
+		<value condition="$EXP[St_EncFreshA] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.enca.9)) + !String.IsEmpty(ListItem.Title)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(sixdegrees.st.enca.9)]%5D%7D</value>
+		<value condition="$EXP[St_EncFreshB] + !String.IsEmpty(Window(Home).Property(sixdegrees.st.encb.9)) + !String.IsEmpty(ListItem.Title)">%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(sixdegrees.st.encb.9)]%5D%7D</value>
 	</variable>
 	<variable name="St_Path_up_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_UpQ]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
 	<variable name="St_Path_right_movies"><value>videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B$VAR[St_Cast0Q]%5D%7D$VAR[St_Excl]%5D%7D%2C%22type%22%3A%22movies%22%7D</value></variable>
@@ -3123,8 +3123,8 @@
 		<value>b</value>
 	</variable>
 	<variable name="St_Encoder_Path">
-		<value condition="[$EXP[St_Match] | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]] + !$EXP[St_EncFreshA] + !$EXP[St_EncFreshB] + $EXP[St_EncSlotB]">plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=sixdegrees.st.encb&amp;window_id=home&amp;unencoded_paths=true&amp;&amp;$INFO[Container(9601).ListItem.Property(studio.0)]&amp;&amp;$INFO[Container(9601).ListItem.Property(director.0)]&amp;&amp;$INFO[ListItem.Studio]&amp;&amp;$INFO[ListItem.Director]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.0.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.1.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.2.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.3.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(genre.0)]&amp;&amp;$INFO[ListItem.Title]&amp;&amp;$INFO[ListItem.DBType]&amp;&amp;$INFO[ListItem.DBID]&amp;&amp;$INFO[Container(9601).ListItem.DBID]</value>
-		<value condition="[$EXP[St_Match] | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]] + !$EXP[St_EncFreshA] + !$EXP[St_EncFreshB]">plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=sixdegrees.st.enca&amp;window_id=home&amp;unencoded_paths=true&amp;&amp;$INFO[Container(9601).ListItem.Property(studio.0)]&amp;&amp;$INFO[Container(9601).ListItem.Property(director.0)]&amp;&amp;$INFO[ListItem.Studio]&amp;&amp;$INFO[ListItem.Director]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.0.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.1.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.2.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(cast.3.name)]&amp;&amp;$INFO[Container(9601).ListItem.Property(genre.0)]&amp;&amp;$INFO[ListItem.Title]&amp;&amp;$INFO[ListItem.DBType]&amp;&amp;$INFO[ListItem.DBID]&amp;&amp;$INFO[Container(9601).ListItem.DBID]</value>
+		<value condition="[$EXP[St_Match] | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]] + !$EXP[St_EncFreshA] + !$EXP[St_EncFreshB] + $EXP[St_EncSlotB]">plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=sixdegrees.st.encb&amp;window_id=home&amp;unencoded_paths=true&amp;esc=%25&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(studio.0)]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(director.0)]&amp;&amp;$ESCINFO[ListItem.Studio]&amp;&amp;$ESCINFO[ListItem.Director]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(cast.0.name)]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(cast.1.name)]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(cast.2.name)]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(cast.3.name)]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(genre.0)]&amp;&amp;$ESCINFO[ListItem.Title]&amp;&amp;$INFO[ListItem.DBType]&amp;&amp;$INFO[ListItem.DBID]&amp;&amp;$INFO[Container(9601).ListItem.DBID]</value>
+		<value condition="[$EXP[St_Match] | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]] + !$EXP[St_EncFreshA] + !$EXP[St_EncFreshB]">plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=sixdegrees.st.enca&amp;window_id=home&amp;unencoded_paths=true&amp;esc=%25&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(studio.0)]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(director.0)]&amp;&amp;$ESCINFO[ListItem.Studio]&amp;&amp;$ESCINFO[ListItem.Director]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(cast.0.name)]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(cast.1.name)]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(cast.2.name)]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(cast.3.name)]&amp;&amp;$ESCINFO[Container(9601).ListItem.Property(genre.0)]&amp;&amp;$ESCINFO[ListItem.Title]&amp;&amp;$INFO[ListItem.DBType]&amp;&amp;$INFO[ListItem.DBID]&amp;&amp;$INFO[Container(9601).ListItem.DBID]</value>
 	</variable>
 	<include name="St_Encoder">
 		<control type="list" id="9096">

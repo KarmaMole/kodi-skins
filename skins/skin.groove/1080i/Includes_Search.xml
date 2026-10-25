@@ -17,29 +17,32 @@
 	<!-- xsp JSON, fully URL-encoded. The query is encoded by script.skinvariables (a required import since 2026-10-21,
 	     Omar's decision for the official review's xml.xsp-unencoded): the 1 px list 9710 runs its get_encoded_string
 	     whenever the typed text changes, which writes Window(Home).Property(Groove.Search.Encoded) (quote_plus;
-	     Kodi decodes + back to a space). & | + % now search fine. Known limit: a query holding " or \ reaches the
-	     JSON raw and that row stays empty. The window clears the property on unload. -->
+	     Kodi decodes + back to a space). & | + % now search fine. The window clears the property on unload. -->
 	<expression name="Search_HasEncoded">$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Groove.Search.Encoded))</expression>
+	<!-- Quote marks (2026-10-25, Greptile on repo-skins): the query goes to the encoder as $ESCINFO, a JSON string
+	     literal (Kodi escapes \ and " and adds the quotes), and the xsp holds the encoded value without %22 wrappers,
+	     so "Superman" or Waiting for "Superman" search fine. esc=%25 in the encoder URL keeps Kodi from turning those
+	     backslashes into slashes (CUtil::ValidatePath leaves a URL that holds a % alone). Majan pattern. -->
 	<variable name="Search_EncoderPath">
-		<value condition="$EXP[Search_HasQuery]">plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;window_prop=Groove.Search.Encoded&amp;window_id=home&amp;&amp;$INFO[Control.GetLabel(9001).index(1)]</value>
+		<value condition="$EXP[Search_HasQuery]">plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;esc=%25&amp;window_prop=Groove.Search.Encoded&amp;window_id=home&amp;&amp;$ESCINFO[Control.GetLabel(9001).index(1)]</value>
 	</variable>
 	<variable name="Search_PathAlbums">
-		<value condition="$EXP[Search_HasEncoded]">musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Groove.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">musicdb://albums/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Groove.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
 	</variable>
 	<variable name="Search_PathArtists">
-		<value condition="$EXP[Search_HasEncoded]">musicdb://artists/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Groove.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">musicdb://artists/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Groove.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
 	</variable>
 	<variable name="Search_PathSongs">
-		<value condition="$EXP[Search_HasEncoded]">musicdb://songs/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Groove.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22songs%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">musicdb://songs/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Groove.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22songs%22%7D</value>
 	</variable>
 	<variable name="Search_PathFilms">
-		<value condition="$EXP[Search_HasEncoded]">videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Groove.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Groove.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 	</variable>
 	<variable name="Search_PathShows">
-		<value condition="$EXP[Search_HasEncoded]">videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Groove.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">videodb://tvshows/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Groove.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 	</variable>
 	<variable name="Search_PathEpisodes">
-		<value condition="$EXP[Search_HasEncoded]">videodb://tvshows/titles/-1/-1/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Groove.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22episodes%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">videodb://tvshows/titles/-1/-1/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Groove.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22episodes%22%7D</value>
 	</variable>
 
 	<!-- ================================================================ captions -->

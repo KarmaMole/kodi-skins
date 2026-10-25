@@ -167,9 +167,10 @@
 	</include>
 
 	<!-- Text button on a card: a soft fill at rest, ink fill + paper / room text on focus (always visible).
-	     params: id, label, height, onclick, onclick2, visible, enable. The button sizes to its label (width auto).
+	     params: id, label, height, onclick, onclick2, visible. The button sizes to its label (width auto).
 	     `width` is still accepted from the callers but not applied: it fed a <minwidth> tag Kodi never reads (removed
 	     2026-10-21, official review xml.invalid-tag); <width min="...">auto</width> would be the real thing (a look change). -->
+	<!-- No <enable>: Kodi enables/disables its own dialog buttons; a skin <enable> would override it. -->
 	<include name="Groove_DialogButton">
 		<param name="width">300</param>
 		<param name="height">dialog_row_h</param>
@@ -177,7 +178,6 @@
 		<param name="onclick">noop</param>
 		<param name="onclick2">noop</param>
 		<param name="visible">true</param>
-		<param name="enable">true</param>
 		<definition>
 			<control type="button" id="$PARAM[id]">
 				<width>auto</width>
@@ -194,7 +194,6 @@
 				<onclick>$PARAM[onclick]</onclick>
 				<onclick>$PARAM[onclick2]</onclick>
 				<visible>$PARAM[visible]</visible>
-				<enable>$PARAM[enable]</enable>
 			</control>
 		</definition>
 	</include>

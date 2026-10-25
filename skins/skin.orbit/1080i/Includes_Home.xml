@@ -408,6 +408,27 @@
 					<onclick>SetProperty(orbit.libmode,clean,home)</onclick>
 					<onclick>ActivateWindow(1160)</onclick>
 				</item>
+				<!-- 0.9.15: the media browsers (Live TV, Pictures, Files) lived only in the System menu (1151), which nothing
+				     opens; they are stations here now, appended so the station's default item stays the same -->
+				<item>
+					<label>$LOCALIZE[31200]</label>
+					<label2>$LOCALIZE[31958]</label2>
+					<icon>icons/pvr.png</icon>
+					<onclick>ActivateWindow(TVChannels)</onclick>
+					<visible>System.HasPVRAddon</visible>
+				</item>
+				<item>
+					<label>$LOCALIZE[1]</label>
+					<label2>$LOCALIZE[31959]</label2>
+					<icon>icons/pictures.png</icon>
+					<onclick>ActivateWindow(Pictures)</onclick>
+				</item>
+				<item>
+					<label>$LOCALIZE[744]</label>
+					<label2>$LOCALIZE[31960]</label2>
+					<icon>icons/folder.png</icon>
+					<onclick>ActivateWindow(Videos,sources://video/,return)</onclick>
+				</item>
 			</content>
 		</control>
 		<!-- probe: in-progress shows (no art needed: only NumItems is read) -->

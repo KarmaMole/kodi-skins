@@ -180,8 +180,13 @@ def main() -> None:
     w('\t<expression name="DL_TimeEvening">System.Time(17:00,22:00)</expression>')
     w('\t<expression name="DL_TimeNight">System.Time(22:00,05:00)</expression>')
     w('\t<expression name="DL_PastMidnight">System.Time(00:00,05:00)</expression>')
-    w('\t<expression name="DL_Sunday">String.IsEqual(System.Date(DDDD),Sunday)</expression>')
-    w('\t<expression name="DL_LongDay">String.IsEqual(System.Date(DDDD),Friday) | String.IsEqual(System.Date(DDDD),Saturday) | String.IsEqual(System.Date(DDDD),Sunday)</expression>')
+    # Weekday tests (0.9.14, Greptile on repo-skins #506). Kodi lowercases the parameters of a condition, so
+    # System.Date(DDDD) inside a condition is System.Date(dddd) = the SHORT day name ("Sun"): the old
+    # String.IsEqual(System.Date(DDDD),Sunday) was never true, in any language. Compare the short name with Kodi's
+    # own short day strings instead (45 Fri, 46 Sat, 47 Sun; $LOCALIZE is resolved in conditions), which follow
+    # Kodi's language. Checked on the Kodi 21.2 bench with XBMC.GetInfoBooleans on a Sunday.
+    w('\t<expression name="DL_Sunday">String.IsEqual(System.Date(ddd),$LOCALIZE[47])</expression>')
+    w('\t<expression name="DL_LongDay">String.IsEqual(System.Date(ddd),$LOCALIZE[45]) | String.IsEqual(System.Date(ddd),$LOCALIZE[46]) | String.IsEqual(System.Date(ddd),$LOCALIZE[47])</expression>')
     w('\t<expression name="DL_Is12h">!String.IsEmpty(System.Time(xx))</expression>')
     w('\t<variable name="DL_DayPart">')
     w('\t\t<value condition="$EXP[DL_PastMidnight]">Past midnight</value>')

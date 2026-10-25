@@ -12,11 +12,22 @@
 	<expression name="Search_HasQuery">!String.IsEmpty(Control.GetLabel(9001).index(1))</expression>
 	<!-- The typed query reaches the xsp paths URL-encoded: the 1 px list 9710 (Custom_1150) runs script.skinvariables'
 	     get_encoded_string whenever the text changes, which writes Window(Home).Property(Orbit.Search.Encoded)
-	     (quote_plus; Kodi decodes + back to a space), so & | + % search fine. Known limit: a query holding " or \
-	     reaches the JSON raw and finds nothing. Custom_1150 clears the property on unload. (Groove pattern, 2026-10-21) -->
+	     (quote_plus; Kodi decodes + back to a space), so & | + % search fine.
+	     Custom_1150 clears the property on unload. (Groove pattern, 2026-10-21) -->
 	<expression name="Search_HasEncoded">$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Orbit.Search.Encoded))</expression>
+	<!-- Quote marks (2026-10-25, Greptile on repo-skins): the query goes to the encoder as $ESCINFO, a JSON string
+	     literal (Kodi escapes \ and " and adds the quotes), and the xsp holds the encoded value without %22 wrappers,
+	     so "Superman" or Waiting for "Superman" search fine. esc=%25 in the encoder URL keeps Kodi from turning those
+	     backslashes into slashes (CUtil::ValidatePath leaves a URL that holds a % alone). Majan pattern. -->
+	<!-- Result counts. A list capped at limit="40" ends with Kodi's own "More..." item (CDirectoryProvider, browse=auto),
+	     which opens every match in the library window, so NumItems reads one more than the shown matches:
+	     past the cap the count says "40+" (Greptile, repo-skins #505). -->
+	<variable name="Search_N9101"><value condition="Integer.IsGreater(Container(9101).NumItems,40)">40+</value><value>$INFO[Container(9101).NumItems]</value></variable>
+	<variable name="Search_N9102"><value condition="Integer.IsGreater(Container(9102).NumItems,40)">40+</value><value>$INFO[Container(9102).NumItems]</value></variable>
+	<variable name="Search_N9103"><value condition="Integer.IsGreater(Container(9103).NumItems,40)">40+</value><value>$INFO[Container(9103).NumItems]</value></variable>
+	<variable name="Search_N9104"><value condition="Integer.IsGreater(Container(9104).NumItems,40)">40+</value><value>$INFO[Container(9104).NumItems]</value></variable>
 	<variable name="Search_EncoderPath">
-		<value condition="$EXP[Search_HasQuery]">plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;window_prop=Orbit.Search.Encoded&amp;window_id=home&amp;&amp;$INFO[Control.GetLabel(9001).index(1)]</value>
+		<value condition="$EXP[Search_HasQuery]">plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;esc=%25&amp;window_prop=Orbit.Search.Encoded&amp;window_id=home&amp;&amp;$ESCINFO[Control.GetLabel(9001).index(1)]</value>
 	</variable>
 	<expression name="Search_KSearch">String.IsEqual(Container(9000).ListItem.Property(kind),search)</expression>
 	<expression name="Search_KFilms">String.IsEqual(Container(9000).ListItem.Property(kind),films)</expression>
@@ -28,23 +39,23 @@
 	<!-- xsp JSON, URL-encoded except the query itself ($ESCINFO quotes it and escapes " and \).
 	     Kodi has no URL-encode infolabel, so & % + in a query still break the path (known gap). -->
 	<variable name="Search_PathMovies">
-		<value condition="$EXP[Search_HasEncoded]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Orbit.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Orbit.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 	</variable>
 	<variable name="Search_PathTV">
-		<value condition="$EXP[Search_HasEncoded]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Orbit.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Orbit.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 	</variable>
 	<variable name="Search_PathAlbums">
-		<value condition="$EXP[Search_HasEncoded]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Orbit.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Orbit.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
 	</variable>
 	<variable name="Search_PathArtists">
-		<value condition="$EXP[Search_HasEncoded]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Orbit.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
+		<value condition="$EXP[Search_HasEncoded]">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Orbit.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
 	</variable>
 
 	<variable name="Search_Count">
-		<value condition="$EXP[Search_KFilms]">$INFO[Container(9101).NumItems]</value>
-		<value condition="$EXP[Search_KShows]">$INFO[Container(9102).NumItems]</value>
-		<value condition="$EXP[Search_KAlbums]">$INFO[Container(9103).NumItems]</value>
-		<value condition="$EXP[Search_KArtists]">$INFO[Container(9104).NumItems]</value>
+		<value condition="$EXP[Search_KFilms]">$VAR[Search_N9101]</value>
+		<value condition="$EXP[Search_KShows]">$VAR[Search_N9102]</value>
+		<value condition="$EXP[Search_KAlbums]">$VAR[Search_N9103]</value>
+		<value condition="$EXP[Search_KArtists]">$VAR[Search_N9104]</value>
 	</variable>
 	<variable name="Search_Unit">
 		<value condition="$EXP[Search_KFilms]">Films</value>
@@ -115,13 +126,13 @@
 			<content>
 				<item>
 					<label>$LOCALIZE[132]</label>
-					<label2>$INFO[Container(9103).NumItems]</label2>
+					<label2>$VAR[Search_N9103]</label2>
 					<property name="kind">albums</property>
 					<onclick condition="Integer.IsGreater(Container(9103).NumItems,0)">SetFocus(9103)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[133]</label>
-					<label2>$INFO[Container(9104).NumItems]</label2>
+					<label2>$VAR[Search_N9104]</label2>
 					<property name="kind">artists</property>
 					<onclick condition="Integer.IsGreater(Container(9104).NumItems,0)">SetFocus(9104)</onclick>
 				</item>
@@ -132,13 +143,13 @@
 				</item>
 				<item>
 					<label>$LOCALIZE[31242]</label>
-					<label2>$INFO[Container(9101).NumItems]</label2>
+					<label2>$VAR[Search_N9101]</label2>
 					<property name="kind">films</property>
 					<onclick condition="Integer.IsGreater(Container(9101).NumItems,0)">SetFocus(9101)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[31243]</label>
-					<label2>$INFO[Container(9102).NumItems]</label2>
+					<label2>$VAR[Search_N9102]</label2>
 					<property name="kind">shows</property>
 					<onclick condition="Integer.IsGreater(Container(9102).NumItems,0)">SetFocus(9102)</onclick>
 				</item>
@@ -455,7 +466,7 @@
 				<height>30</height>
 				<font>mono_22</font>
 				<textcolor>text_meta</textcolor>
-				<label>$INFO[Container(9101).NumItems,, films]$INFO[Container(9102).NumItems,  ·  , shows]$INFO[Container(9103).NumItems,  ·  , albums]$INFO[Container(9104).NumItems,  ·  , artists]</label>
+				<label>$VAR[Search_N9101,, films]$VAR[Search_N9102,  ·  , shows]$VAR[Search_N9103,  ·  , albums]$VAR[Search_N9104,  ·  , artists]</label>
 				<visible>$EXP[Search_HasQuery]</visible>
 			</control>
 			<control type="textbox">

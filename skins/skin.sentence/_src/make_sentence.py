@@ -589,9 +589,9 @@ def gen() -> str:
         # save live sentence into slot n
         a(f'\t<include name="Sen_SlotSave{n}">')
         prev = "".join(f" + !String.IsEmpty(Skin.String(sentence.slot{m}.name))" for m in range(1, n))
+        # every slot only fills while it is empty (0.9.15): with all three kept, Home's Keep button says so
+        # (Home_SlotsFull notification) and nothing is overwritten
         c = f"String.IsEmpty(Skin.String(sentence.slot{n}.name)){prev}"
-        if n == 3:  # all three kept: the newest replaces the third
-            c = prev[3:]
         a(f'\t\t<onclick condition="{c}">Skin.SetString(sentence.slot{n}.name)</onclick>')
         a(f'\t\t<onclick condition="{c}">Skin.SetString(sentence.slot{n}.kind,$INFO[Container({KIND_LIST}).CurrentItem])</onclick>')
         for ki, k in enumerate(KINDS):

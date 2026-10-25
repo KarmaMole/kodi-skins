@@ -170,7 +170,7 @@
 	</include>
 
 	<!-- Dialog button: 1px outline at rest, accent fill + ink text on focus (always visible focus).
-	     params: id, label, width, height, onclick, onclick2 (second action), visible, enable -->
+	     params: id, label, width, height, onclick, onclick2 (second action), visible -->
 	<!-- No <enable>: Kodi enables/disables its own dialog buttons (5/7/8, 28-30); a skin <enable> would override it. -->
 	<include name="SD_DialogButton">
 		<param name="width">300</param>
@@ -194,7 +194,6 @@
 				<onclick>$PARAM[onclick]</onclick>
 				<onclick>$PARAM[onclick2]</onclick>
 				<visible>$PARAM[visible]</visible>
-				<enable>$PARAM[enable]</enable>
 			</control>
 		</definition>
 	</include>

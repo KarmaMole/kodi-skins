@@ -365,7 +365,6 @@
 							<param name="onclick" value="CleanLibrary(video)"/>
 							<param name="onclick2" value="SetFocus(9801)"/>
 							<param name="visible" value="$PARAM[video_cond]"/>
-							<param name="enable" value="true"/>
 						</include>
 						<include content="SD_DialogButton">
 							<param name="id" value="9894"/>
@@ -374,14 +373,12 @@
 							<param name="onclick" value="CleanLibrary(music)"/>
 							<param name="onclick2" value="SetFocus(9801)"/>
 							<param name="visible" value="$PARAM[music_cond]"/>
-							<param name="enable" value="true"/>
 						</include>
 						<include content="SD_DialogButton">
 							<param name="id" value="9891"/>
 							<param name="width" value="240"/>
 							<param name="label" value="$LOCALIZE[106]"/>
 							<param name="onclick" value="SetFocus(9801)"/>
-							<param name="enable" value="true"/>
 						</include>
 					</control>
 				</control>

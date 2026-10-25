@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.void" version="0.9.12" name="Void" provider-name="KarmaMole">
+<addon id="skin.void" version="0.9.13" name="Void" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -16,7 +16,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#void</website>
-		<news>v0.9.12 - Settings: fixed text overlapping controls. Once the list scrolls, the focused row no longer sits on the key hint at the bottom.</news>
+		<news>v0.9.13 - Search: a query with a double quote (e.g. &quot;Superman&quot;) now finds its matches; before, the quote broke the search and nothing came up.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

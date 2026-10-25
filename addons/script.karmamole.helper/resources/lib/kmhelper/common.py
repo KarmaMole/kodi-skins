@@ -38,6 +38,7 @@ def log(msg, level=xbmc.LOGDEBUG):
 # xbmc/addons/AddonInstaller.cpp). Keep this table in step with strings.po.
 STRINGS_EN = {
     32001: 'Play a shuffled mix',
+    32002: 'Only part of this folder is in the mix: it is too large to walk in full',
 }
 
 

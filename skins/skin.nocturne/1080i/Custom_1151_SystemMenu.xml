@@ -270,7 +270,6 @@
 						<param name="label" value="$VAR[Lib_UpdateVideo]"/>
 						<param name="onclick" value="Dialog.Close(1151)"/>
 						<param name="onclick2" value="UpdateLibrary(video)"/>
-						<param name="enable" value="true"/>
 					</include>
 					<include content="Noc_DialogButton">
 						<param name="id" value="9863"/>
@@ -278,7 +277,6 @@
 						<param name="label" value="$VAR[Lib_UpdateMusic]"/>
 						<param name="onclick" value="Dialog.Close(1151)"/>
 						<param name="onclick2" value="UpdateLibrary(music)"/>
-						<param name="enable" value="true"/>
 					</include>
 				</control>
 			</control>
@@ -345,7 +343,6 @@
 						<param name="label" value="$LOCALIZE[31312]"/>
 						<param name="onclick" value="Dialog.Close(1151)"/>
 						<param name="onclick2" value="CleanLibrary(video)"/>
-						<param name="enable" value="true"/>
 					</include>
 					<include content="Noc_DialogButton">
 						<param name="id" value="9874"/>
@@ -353,14 +350,12 @@
 						<param name="label" value="$LOCALIZE[2]"/>
 						<param name="onclick" value="Dialog.Close(1151)"/>
 						<param name="onclick2" value="CleanLibrary(music)"/>
-						<param name="enable" value="true"/>
 					</include>
 					<include content="Noc_DialogButton">
 						<param name="id" value="9871"/>
 						<param name="width" value="200"/>
 						<param name="label" value="$LOCALIZE[106]"/>
 						<param name="onclick" value="SetFocus(100)"/>
-						<param name="enable" value="true"/>
 					</include>
 				</control>
 			</control>

@@ -85,7 +85,8 @@ def paper(x, shape):
 
 
 def word(bid, label, width, visible, onclick=None, right=None, left=None):
-    oc = f"\n\t\t\t\t\t\t<onclick>{onclick}</onclick>" if onclick else ""
+    # several actions: "A|B" (0.9.12: Shuffle = PlayMedia, then PlayerControl(RandomOn))
+    oc = "".join(f"\n\t\t\t\t\t\t<onclick>{c}</onclick>" for c in onclick.split("|")) if onclick else ""
     return f"""
 					<control type="button" id="{bid}">
 						<width>{width}</width>
@@ -271,7 +272,7 @@ def build():
 					<onup condition="Integer.IsGreater(Container(50).NumItems,0)">50</onup>
 					<ondown condition="Integer.IsGreater(Container(50).NumItems,0)">50</ondown>
 					<onleft>noop</onleft>
-					<onright>noop</onright>{word(8, 'Play', ww['Play'], '!$EXP[Music_InfoIsArtist]')}{word(9012, 'Play all', ww['Play all'], '$EXP[Music_InfoIsArtist] + Integer.IsGreater(ListItem.DBID,0)', 'PlayMedia(musicdb://artists/$INFO[ListItem.DBID]/,isdir)')}{word(9011, 'Shuffle', ww['Shuffle'], '[$EXP[Music_InfoIsAlbum] | $EXP[Music_InfoIsArtist]] + Integer.IsGreater(ListItem.DBID,0)', '$VAR[Music_InfoShuffleAction]')}{word(9013, '$VAR[Gate_InfoWord]', ww['Artist'], '!$EXP[Music_InfoIsArtist]', 'SendClick(12)')}{word(9014, 'Refresh', ww['Refresh'], '!$EXP[Music_InfoIsSong]', 'SendClick(6)')}
+					<onright>noop</onright>{word(8, 'Play', ww['Play'], '!$EXP[Music_InfoIsArtist]')}{word(9012, 'Play all', ww['Play all'], '$EXP[Music_InfoIsArtist] + Integer.IsGreater(ListItem.DBID,0)', 'PlayMedia(musicdb://artists/$INFO[ListItem.DBID]/,isdir)')}{word(9011, 'Shuffle', ww['Shuffle'], '[$EXP[Music_InfoIsAlbum] | $EXP[Music_InfoIsArtist]] + Integer.IsGreater(ListItem.DBID,0)', '$VAR[Music_InfoShuffleAction]|PlayerControl(RandomOn)')}{word(9013, '$VAR[Gate_InfoWord]', ww['Artist'], '!$EXP[Music_InfoIsArtist]', 'SendClick(12)')}{word(9014, 'Refresh', ww['Refresh'], '!$EXP[Music_InfoIsSong]', 'SendClick(6)')}
 				</control>
 				<control type="button" id="12">
 					<include>Fold_Hidden</include>

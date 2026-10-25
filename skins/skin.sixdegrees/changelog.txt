@@ -1,3 +1,8 @@
+0.9.15 (2026-10-25)
+- Map, station page and Home preview: films, shows and names with double quotes (Waiting for "Superman", Ed "Special Ed" Archer) keep their connections; before, every line of such a centre came up empty.
+- Search: a query with a double quote (e.g. "Superman") now finds its matches; before, the quote broke the search and nothing came up.
+- Code clean-up: dialog buttons no longer carry an unused enable parameter.
+
 0.9.14 (2026-10-23)
 - Home: fixed text overlapping controls. The preview map sits a little lower, so its top line name no longer runs into a starter's caption when the title takes two lines.
 

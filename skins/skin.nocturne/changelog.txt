@@ -1,3 +1,7 @@
+0.9.12 (2026-10-25)
+- Search: a query with a double quote (e.g. "Superman") now finds its matches; before, the quote broke the search and nothing came up.
+- Code clean-up: dialog buttons no longer carry an unused enable parameter.
+
 0.9.11 (2026-10-23)
 - Home: fixed text overlapping controls. A long custom row name no longer runs under the lamp; it ends in an ellipsis with its item count beside it.
 

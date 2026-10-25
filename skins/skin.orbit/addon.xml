@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.orbit" version="0.9.14" name="Orbit" provider-name="KarmaMole">
+<addon id="skin.orbit" version="0.9.15" name="Orbit" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#orbit</website>
-		<news>v0.9.14 - Home: fixed text overlapping controls. Custom rows fit long titles like the other panels (two lines, then a smaller size) instead of cutting them after a few letters.</news>
+		<news>v0.9.15 - Home Settings gets Live TV, Pictures and Folders; quoted searches and capped counts fixed; buffering box at 0 %.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

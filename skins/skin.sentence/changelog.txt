@@ -1,3 +1,9 @@
+0.9.15 (2026-10-25)
+- Keep this sentence: with all three places taken it only says so; the third saved sentence is no longer overwritten.
+- Search: a query with a double quote (e.g. "Superman" or Waiting for "Superman") now finds its matches; before, the quote broke the search and nothing came up. Past the result limit a count reads "30+" instead of one more than the matches (the last item, More..., opens them all).
+- Video: the buffering box also shows at 0 %, so a stall at the very start of a stream is visible.
+- Code clean-up: dialog buttons no longer carry an undeclared enable parameter.
+
 0.9.14 (2026-10-23)
 - Settings: fixed text overlapping controls. Long custom row names end in an ellipsis and keep their full stop, and the help text on the right no longer loses its last line. Home: with three custom rows, the first row no longer runs over the top line and the clock while the third has focus.
 

@@ -456,7 +456,6 @@
 							<param name="width" value="200"/>
 							<param name="label" value="$LOCALIZE[31630]"/>
 							<param name="onclick" value="SetFocus(9801)"/>
-							<param name="enable" value="true"/>
 						</include>
 						<include content="Groove_DialogButton">
 							<param name="id" value="9892"/>
@@ -464,7 +463,6 @@
 							<param name="label" value="$LOCALIZE[31623]"/>
 							<param name="onclick" value="CleanLibrary($PARAM[kind])"/>
 							<param name="onclick2" value="SetFocus(9801)"/>
-							<param name="enable" value="true"/>
 						</include>
 					</control>
 				</control>

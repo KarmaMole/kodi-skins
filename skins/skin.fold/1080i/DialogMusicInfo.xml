@@ -333,6 +333,7 @@ Fold ids: 9000 words, 9011 shuffle, 9012 play all (artist), 9013 artist/album wo
 						<texturefocus border="6" colordiffuse="mari">fold/chip.png</texturefocus>
 						<visible>[$EXP[Music_InfoIsAlbum] | $EXP[Music_InfoIsArtist]] + Integer.IsGreater(ListItem.DBID,0)</visible>
 						<onclick>$VAR[Music_InfoShuffleAction]</onclick>
+						<onclick>PlayerControl(RandomOn)</onclick>
 					</control>
 					<control type="button" id="9013">
 						<width>125</width>

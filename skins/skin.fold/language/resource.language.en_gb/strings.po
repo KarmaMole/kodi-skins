@@ -939,3 +939,8 @@ msgstr ""
 msgctxt "#31957"
 msgid "Rows of your own on Home: an add-on folder, a playlist, a library node or a favourite. OK opens the row's options."
 msgstr ""
+
+msgctxt "#31958"
+msgid "Folders"
+msgstr ""
+

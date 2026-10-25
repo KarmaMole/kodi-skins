@@ -1,3 +1,11 @@
+0.9.12 (2026-10-25)
+- Home: the Settings cards include Live TV (with a TV add-on), Pictures and Folders (your video sources), so photos and live TV can be reached again.
+- Album and artist info: Shuffle now shuffles.
+- Dates read correctly in month-first regions such as the USA (03/04/2026 is 4 Mar in the UK and Mar 4 in the USA).
+- Search: a query with a double quote (e.g. "Superman" or Waiting for "Superman") now finds its matches; before, the quote broke the search and nothing came up. Past the result limit a count reads "30+" instead of one more than the matches (the last item, More..., opens them all).
+- Video: the buffering box also shows at 0 %, so a stall at the very start of a stream is visible.
+- Code clean-up: dialog buttons no longer carry an undeclared enable parameter.
+
 0.9.11 (2026-10-23)
 - Official repository requirements: artwork moved to resources/, screenshots added.
 

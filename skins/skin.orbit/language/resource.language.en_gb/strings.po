@@ -823,3 +823,16 @@ msgstr ""
 msgctxt "#31957"
 msgid "Rows of your own on Home: an add-on folder, a playlist, a library node or a favourite. OK opens the row's options."
 msgstr ""
+
+msgctxt "#31958"
+msgid "Channels, guide and recordings from your TV add-on."
+msgstr ""
+
+msgctxt "#31959"
+msgid "Photos on your picture sources."
+msgstr ""
+
+msgctxt "#31960"
+msgid "Browse your video sources as folders."
+msgstr ""
+

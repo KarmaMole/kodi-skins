@@ -142,6 +142,16 @@
 				<texture border="16" colordiffuse="$VAR[ColorAccent]">$VAR[FocusFrame]</texture>
 				<visible>$PARAM[visible]</visible>
 			</control>
+			<!-- Outline Off + Reduce motion: no zoom marks the item either, so keep the thin frame
+			     (as VidView_PosterFocus does): music grid, Big album view, Home poster rows, Search. -->
+			<control type="image">
+				<left>focus_out</left>
+				<top>focus_out</top>
+				<right>focus_out</right>
+				<bottom>focus_out</bottom>
+				<texture border="16" colordiffuse="$VAR[ColorAccent]">$VAR[FocusFrameAlways]</texture>
+				<visible>[$PARAM[visible]] + $EXP[FocusOutlineOff] + $EXP[ReduceMotion]</visible>
+			</control>
 		</definition>
 	</include>
 	<!-- Same, but never hidden by the "Off" setting (buttons, menus, dialogs) -->

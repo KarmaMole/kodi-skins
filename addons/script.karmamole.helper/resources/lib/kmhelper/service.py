@@ -100,6 +100,7 @@ class Service(xbmc.Monitor):
                 self.spines.request(force=True)
         elif msg == 'refresh':  # republish everything (e.g. after the skin reloaded)
             if self.colours:
+                self.renderer.forget()  # else a URL memory hit keeps a replaced cover's old colours
                 self.browse.source = self.playing.source = None
                 self.done = self.player_key = None
             if 'spines' in self.features:
@@ -155,7 +156,7 @@ class Service(xbmc.Monitor):
         colours = 'colours' in want
         if colours and not self.colours:
             if self.renderer is None:
-                self.renderer = Renderer(soft='softart' in want)
+                self.renderer = Renderer(soft='softart' in want, keep=self.published_files)
                 self.browse = Publisher('Groove')
                 self.playing = Publisher('Groove.Player')
             self.player_dirty = True
@@ -174,6 +175,14 @@ class Service(xbmc.Monitor):
         elif spines and skin != self.skin and skin_is_groove():
             self.spines.republish()
         self.features, self.colours, self.enabled, self.skin = want, colours, bool(want), skin
+
+    def published_files(self):
+        """Soft-art files on Window(Home) right now: the renderer's prune keeps them."""
+        out = set()
+        for pub in (self.browse, self.playing):
+            if pub is not None:
+                out |= pub.files()
+        return out
 
     # ------------------------------------------------------------------------------------------- browsing
     def focused_art(self):

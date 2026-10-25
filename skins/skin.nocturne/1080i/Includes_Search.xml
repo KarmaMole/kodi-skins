@@ -31,8 +31,10 @@
 	<!-- The query, URL-encoded for the ?xsp= paths: script.skinvariables' get_encoded_string (quote_plus) runs
 	     whenever the query changes (this list's content path holds it) and writes
 	     Window(Home).Property(Nocturne.Search.Encoded). Kodi URL-decodes the xsp option once, so & | + % in a query
-	     now reach the library as typed. A query with a double quote or backslash still breaks the JSON
-	     (the result rows stay empty). The list must stay visible: hidden containers never load. -->
+	     now reach the library as typed. The query goes in as $ESCINFO (a JSON string literal: Kodi escapes backslashes and quotes and adds the
+	     quotes), so a query holding a double quote searches fine too; esc=%25 keeps Kodi from turning those
+	     backslashes into slashes (CUtil::ValidatePath leaves URLs with a % alone). 2026-10-25.
+	     The list must stay visible: hidden containers never load. -->
 	<include name="Search_Encoder">
 		<control type="list" id="9095">
 			<left>0</left>
@@ -41,23 +43,23 @@
 			<height>1</height>
 			<itemlayout width="1" height="1"/>
 			<focusedlayout width="1" height="1"/>
-			<content>plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;window_prop=Nocturne.Search.Encoded&amp;window_id=home&amp;&amp;$INFO[Control.GetLabel(9001).index(1)]</content>
+			<content>plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;esc=%25&amp;window_prop=Nocturne.Search.Encoded&amp;window_id=home&amp;&amp;$ESCINFO[Control.GetLabel(9001).index(1)]</content>
 		</control>
 	</include>
 
 	<!-- ================================================================ paths -->
-	<!-- xsp JSON, URL-encoded; the query is the encoder's output (Search_Encoder above) inside %22 quotes. -->
+	<!-- xsp JSON, URL-encoded; the query is the encoder's output (Search_Encoder above), quotes included. -->
 	<variable name="Search_PathMovies">
-		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Nocturne.Search.Encoded))">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Nocturne.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Nocturne.Search.Encoded))">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Nocturne.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
 	</variable>
 	<variable name="Search_PathTV">
-		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Nocturne.Search.Encoded))">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Nocturne.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Nocturne.Search.Encoded))">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Nocturne.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
 	</variable>
 	<variable name="Search_PathAlbums">
-		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Nocturne.Search.Encoded))">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Nocturne.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Nocturne.Search.Encoded))">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22album%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Nocturne.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</value>
 	</variable>
 	<variable name="Search_PathArtists">
-		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Nocturne.Search.Encoded))">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Window(Home).Property(Nocturne.Search.Encoded)]%22%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
+		<value condition="$EXP[Search_HasQuery] + !String.IsEmpty(Window(Home).Property(Nocturne.Search.Encoded))">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22artist%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B$INFO[Window(Home).Property(Nocturne.Search.Encoded)]%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</value>
 	</variable>
 
 	<!-- ================================================================ pieces -->

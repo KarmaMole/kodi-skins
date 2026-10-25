@@ -233,8 +233,8 @@
 	<expression name="DL_TimeEvening">System.Time(17:00,22:00)</expression>
 	<expression name="DL_TimeNight">System.Time(22:00,05:00)</expression>
 	<expression name="DL_PastMidnight">System.Time(00:00,05:00)</expression>
-	<expression name="DL_Sunday">String.IsEqual(System.Date(DDDD),Sunday)</expression>
-	<expression name="DL_LongDay">String.IsEqual(System.Date(DDDD),Friday) | String.IsEqual(System.Date(DDDD),Saturday) | String.IsEqual(System.Date(DDDD),Sunday)</expression>
+	<expression name="DL_Sunday">String.IsEqual(System.Date(ddd),$LOCALIZE[47])</expression>
+	<expression name="DL_LongDay">String.IsEqual(System.Date(ddd),$LOCALIZE[45]) | String.IsEqual(System.Date(ddd),$LOCALIZE[46]) | String.IsEqual(System.Date(ddd),$LOCALIZE[47])</expression>
 	<expression name="DL_Is12h">!String.IsEmpty(System.Time(xx))</expression>
 	<variable name="DL_DayPart">
 		<value condition="$EXP[DL_PastMidnight]">Past midnight</value>

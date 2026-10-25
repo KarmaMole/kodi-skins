@@ -51,7 +51,8 @@
 		</control>
 
 		<control type="group" id="1">
-			<visible>Player.Caching + Integer.IsGreater(Player.CacheLevel,0)</visible>
+			<!-- shown at 0% too (Estuary hides it at 0, and no other dialog covers caching here) -->
+			<visible>Player.Caching</visible>
 			<visible>!Window.IsVisible(videoosd) + !Window.IsVisible(fullscreeninfo)</visible>
 			<animation effect="fade" delay="300" time="160">Visible</animation>
 			<animation effect="fade" time="120">Hidden</animation>

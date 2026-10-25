@@ -1,3 +1,6 @@
+0.9.13 (2026-10-25)
+- Search: a query with a double quote (e.g. "Superman") now finds its matches; before, the quote broke the search and nothing came up.
+
 0.9.12 (2026-10-23)
 - Settings: fixed text overlapping controls. Once the list scrolls, the focused row no longer sits on the key hint at the bottom.
 

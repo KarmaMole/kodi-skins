@@ -1,3 +1,10 @@
+0.9.14 (2026-10-25)
+- Sleep after this: seeking, skipping, fast-forward or buffering re-time the stop, so the end of the film is no longer cut off.
+- Sunday and weekend choices on Home now work in every language (they never matched before).
+- Search: a query with a double quote (e.g. "Superman" or Waiting for "Superman") now finds its matches; before, the quote broke the search and nothing came up. Past the result limit a count reads "30+" instead of one more than the matches (the last item, More..., opens them all).
+- Video: the buffering box also shows at 0 %, so a stall at the very start of a stream is visible.
+- Code clean-up: dialog buttons no longer carry an undeclared enable parameter.
+
 0.9.13 (2026-10-23)
 - Weather: with no weather add-on set in Kodi, every weather piece stays hidden, and Skin settings > Time & mood says where to choose one (Settings > Services > Weather). The weather also hides while Kodi is refreshing it, in every language (no more "Busy").
 - Time: the Mood row shows the mood Auto has picked next to Kodi's clock, so a wrong clock or time zone on the device is easy to spot. Daylight follows Kodi's clock in every region and in 12 h and 24 h formats.

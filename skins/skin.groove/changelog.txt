@@ -1,3 +1,7 @@
+1.0.4 (2026-10-25)
+- Search: a query with a double quote (e.g. "Superman" or Waiting for "Superman") now finds its matches; before, the quote broke the search and nothing came up.
+- Code clean-up: dialog buttons no longer carry an undeclared enable parameter.
+
 1.0.3 (2026-10-23)
 - Official repository requirements: artwork moved to resources/, screenshots added.
 

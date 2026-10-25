@@ -1363,6 +1363,31 @@ Window(Home) properties
 						<onclick>ActivateWindow(FileManager)</onclick>
 					</item>
 					<item>
+						<label>$LOCALIZE[31301]</label>
+						<label2>$LOCALIZE[31302]</label2>
+						<icon>icons/play.png</icon>
+						<property name="Desc">Channels, the guide and recordings from your TV add-on.</property>
+						<property name="Tag">Television</property>
+						<onclick>ActivateWindow(TVChannels)</onclick>
+						<visible>System.HasPVRAddon</visible>
+					</item>
+					<item>
+						<label>$LOCALIZE[1]</label>
+						<label2>$LOCALIZE[31302]</label2>
+						<icon>icons/search.png</icon>
+						<property name="Desc">Photos on your picture sources, as folders and slideshows.</property>
+						<property name="Tag">Photos</property>
+						<onclick>ActivateWindow(Pictures)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[31958]</label>
+						<label2>$LOCALIZE[31343]</label2>
+						<icon>icons/chapters.png</icon>
+						<property name="Desc">Your video sources as plain folders, for files that are not in the library.</property>
+						<property name="Tag">Video folders</property>
+						<onclick>ActivateWindow(Videos,sources://video/,return)</onclick>
+					</item>
+					<item>
 						<label>$LOCALIZE[31020]</label>
 						<label2>$LOCALIZE[31372]</label2>
 						<icon>icons/info.png</icon>

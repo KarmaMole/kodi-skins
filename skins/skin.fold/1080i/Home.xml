@@ -29,6 +29,8 @@
 	<onload condition="[[[String.IsEmpty(Window(Home).Property(fold.section)) | String.IsEqual(Window(Home).Property(fold.section),films)] + Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(fold.section),series) + Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(fold.section),music) + Skin.HasSetting(HideMenu.Music)] | [String.IsEqual(Window(Home).Property(fold.section),search) + Skin.HasSetting(HideMenu.Search)]] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">SetFocus(9005)</onload>
 	<onload condition="String.IsEqual(Window(Home).Property(fold.section),settings)">SetFocus(9005)</onload>
 	<onload>ClearProperty(fold.from,home)</onload>
+	<!-- region date order for the board dates (Includes_Dates.xml, Date_RegionMonthFirst) -->
+	<onload>SetProperty(fold.monthday,$INFO[System.Date(MMMM D)],home)</onload>
 	<onunload>SetProperty(fold.n.films,$INFO[Container(9191).NumItems],home)</onunload>
 	<onunload>SetProperty(fold.n.series,$INFO[Container(9193).NumItems],home)</onunload>
 	<onunload>SetProperty(fold.n.music,$INFO[Container(9194).NumItems],home)</onunload>

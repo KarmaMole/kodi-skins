@@ -101,8 +101,12 @@ class Encoder:
     the plugin clears the slot, then sets <slot>.0, <slot>.1 ... to quote_plus(value) in the order asked. The VALUES
     come first, the KEYS (kind, dbid, the details list's dbid: letters and digits, unchanged by the encoding) last,
     so keys that equal the live ones mean every value of that run has landed. Kodi URL-decodes the xsp option once,
-    so names with & + % (R&B, Simon & Garfunkel) reach the library as written; a name with a double quote or a
-    backslash still breaks the JSON after decoding (the line is empty).
+    so names with & + % (R&B, Simon & Garfunkel) reach the library as written. The values go in as $ESCINFO (Kodi
+    escapes backslashes and " and adds the quotes: CInfoPortion::Get), so each slot holds a whole JSON string literal and titles
+    or names with double quotes (Waiting for "Superman", Ed "Special Ed" Archer) no longer break the JSON (0.9.15;
+    before, the whole path was invalid and every line came up empty). The keys stay $INFO (compared as written).
+    The URL carries a dummy esc=%25: Kodi's CUtil::ValidatePath turns every backslash of a URL into '/' unless the URL
+    contains a '%', which would turn the \" escapes into /" (bench-checked on Kodi 21.2, 2026-10-25).
 
     Two slots, sixdegrees.<page>.enca / .encb, picked by a toggle property (a | b) that flips on every centre change
     (`toggle`; the map reuses its `flip`, Home and the station page run flip_action()). A page reads only the slot
@@ -139,12 +143,13 @@ class Encoder:
         return f"SetProperty({P}.{self.toggle},$VAR[{self.page}_EncNext],home)"
 
     def values(self, label):
-        """[(condition, JSON string literal)] per slot: the encoded copy of an infolabel, quotes included."""
+        """[(condition, JSON string literal)] per slot: the encoded copy of an infolabel, quotes included
+        ($ESCINFO wrote them; an empty value gives an empty slot, which the caller turns into %22%22)."""
         if label not in self.labels:
             self.labels.append(label)
         n = self.labels.index(label)
-        return [(self.fresh_a, f"%22$INFO[{self.slot_prop('a', n)}]%22"),
-                (self.fresh_b, f"%22$INFO[{self.slot_prop('b', n)}]%22")]
+        return [(f"{self.fresh_a} + !String.IsEmpty({self.slot_prop('a', n)})", f"$INFO[{self.slot_prop('a', n)}]"),
+                (f"{self.fresh_b} + !String.IsEmpty({self.slot_prop('b', n)})", f"$INFO[{self.slot_prop('b', n)}]")]
 
     def include(self, name, own_toggle=True):
         """Expressions, the gated path and the encoder list (include `name`); call after every values() of the page.
@@ -163,12 +168,12 @@ class Encoder:
                     f'\t<value condition="$EXP[{pg}_EncSlotB]">a</value>',
                     "\t<value>b</value>",
                     "</variable>"]
-        vals = "".join(f"&amp;&amp;$INFO[{x}]" for x in self.labels + self.keys)
+        vals = "".join(f"&amp;&amp;$ESCINFO[{x}]" for x in self.labels) + "".join(f"&amp;&amp;$INFO[{x}]" for x in self.keys)
         run = f"{self.gate} + !$EXP[{pg}_EncFreshA] + !$EXP[{pg}_EncFreshB]"
         out.append(f'<variable name="{name}_Path">')
         for s, c in (("b", f" + $EXP[{pg}_EncSlotB]"), ("a", "")):
             out.append(f'\t<value condition="{run}{c}">plugin://script.skinvariables/?info=get_encoded_string'
-                       f"&amp;window_prop={self.slots[s]}&amp;window_id=home&amp;unencoded_paths=true{vals}</value>")
+                       f"&amp;window_prop={self.slots[s]}&amp;window_id=home&amp;unencoded_paths=true&amp;esc=%25{vals}</value>")
         out += ["</variable>",
                 f'<include name="{name}">',
                 f'\t<control type="list" id="{self.cid}">',

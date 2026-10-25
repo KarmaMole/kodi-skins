@@ -714,6 +714,10 @@ SYSTEM_ITEMS = [
     ("Clean up|Clean library", "Videos · music", "SetProperty(fold.libpanel,clean,home)|ActivateWindow(1155)", "Remove entries whose files are gone. Choose videos or music; it asks before it cleans.", "Tidy up", "icons/chapters.png"),
     ("Favourites", "Shortcuts", "ActivateWindow(FavouritesBrowser)", "The items you marked as favourites from any menu.", "Pinned things", "icons/play.png"),
     ("Files", "Sources", "ActivateWindow(FileManager)", "Browse, copy and manage the sources on this Shield and the network.", "File manager", "icons/chapters.png"),
+    # 0.9.12: the media browsers lived only in the System menu (1151), which nothing opens (Greptile, repo-skins #509)
+    ("Live TV", "Media", "ActivateWindow(TVChannels)", "Channels, the guide and recordings from your TV add-on.", "Television", "icons/play.png", "System.HasPVRAddon"),
+    ("$LOCALIZE[1]", "Media", "ActivateWindow(Pictures)", "Photos on your picture sources, as folders and slideshows.", "Photos", "icons/search.png"),
+    ("Folders", "Sources", "ActivateWindow(Videos,sources://video/,return)", "Your video sources as plain folders, for files that are not in the library.", "Video folders", "icons/chapters.png"),
     ("System", "Info", "ActivateWindow(SystemInfo)", "Versions, storage, network, video and hardware details.", "System information", "icons/info.png"),
     ("Power", "Quit · Reboot", "ActivateWindow(ShutdownMenu)", "Quit Kodi, reboot, suspend or power down.", "Shut down menu", "icons/stop.png"),
 ]
@@ -721,16 +725,17 @@ SYSTEM_ITEMS = [
 
 def system_content():
     items = []
-    for label, label2, click, desc, tag, icon in SYSTEM_ITEMS:
+    for label, label2, click, desc, tag, icon, *vis in SYSTEM_ITEMS:
         label, _, title = label.partition("|")
         title_prop = f'\n\t\t\t\t\t\t<property name="Title">{title}</property>' if title else ""
+        vis_tag = f"\n\t\t\t\t\t\t<visible>{vis[0]}</visible>" if vis else ""
         items.append(f"""					<item>
 						<label>{label}</label>
 						<label2>{label2}</label2>
 						<icon>{icon}</icon>
 						<property name="Desc">{desc}</property>
 						<property name="Tag">{tag}</property>{title_prop}
-{chr(10).join(f"						<onclick>{c}</onclick>" for c in click.split("|"))}
+{chr(10).join(f"						<onclick>{c}</onclick>" for c in click.split("|"))}{vis_tag}
 					</item>""")
     return "<content>\n" + "\n".join(items) + "\n\t\t\t\t</content>"
 

@@ -1,3 +1,8 @@
+1.0.16 (2026-10-25)
+- Focus: with Focus outline Off and Reduce motion On, the music grid, Big album view, Home poster rows and Search keep a thin frame on the focused item (as the video views already did).
+- Search: a query with a double quote (e.g. "Superman") now finds its matches; before, the quote broke the search and nothing came up.
+- Code clean-up: dialog buttons no longer carry an undeclared enable parameter.
+
 1.0.15 (2026-10-23)
 - Home: fixed text overlapping controls. The titles of the Newest and custom rows no longer touch the focused poster's frame.
 

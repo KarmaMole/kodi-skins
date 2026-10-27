@@ -559,6 +559,37 @@ def board_shrouds():
     shroud_from(I, 0.07, "shroud_cast.png")
 
 
+def view_shrouds():
+    """Lights for the views added 2026-10-27 (Vitrine 502, Panorama 506, Catalogue 507, Portraits 508)."""
+    label = dict(cx=1262, cy=450, r0=300, sig=150, spill=0.22, rs=220, sx=1.7, sy=1.0, gain=0.62)
+    band = dict(cx=960, cy=902, r0=250, sig=90, spill=0.18, rs=160, sx=3.4, sy=0.42, gain=0.52)
+    # Vitrine: the info page's spot on the picture + the wall label, plus a low band along the drawer of frames
+    I = light_field(540, 960, [dict(cx=395, cy=470, r0=292, sig=46, spill=0.16, rs=110, sx=0.76, sy=1.0), label, band], scale=2)
+    shroud_from(I, 0.075, "shroud_vitrine.png")
+    I = light_field(540, 960, [dict(cx=430, cy=420, r0=300, sig=50, spill=0.16, rs=110, sx=1.3, sy=0.8), label, band], scale=2)
+    shroud_from(I, 0.075, "shroud_vitrine_wide.png")
+    # Panorama: a wide travelling pool for 16:9 frames (1024^2 drawn at 3840^2, hole at the centre)
+    S = 3840 / 1024
+    n = 1024
+    c = n * S / 2
+    I = light_field(n, n, [dict(cx=c, cy=c, r0=196, sig=74, spill=0.34, rs=170, sx=1.5, sy=0.86)], scale=S)
+    shroud_from(I, 0.06, "shroud_land.png")
+    # Catalogue: a reading light on the register (left) + a spot on the picture and its text (right)
+    I = light_field(540, 960, [
+        dict(cx=600, cy=580, r0=380, sig=230, spill=0.3, rs=300, sx=1.35, sy=1.0, gain=0.46),
+        dict(cx=1532, cy=372, r0=232, sig=56, spill=0.16, rs=110, sx=1.45, sy=0.86),
+        dict(cx=1532, cy=780, r0=230, sig=140, spill=0.2, rs=200, sx=1.4, sy=1.0, gain=0.56),
+    ], scale=2)
+    shroud_from(I, 0.09, "shroud_catalogue.png")
+    # Portraits (music): a spot on the big canvas + a soft light on the index of names
+    I = light_field(540, 960, [
+        dict(cx=1290, cy=532, r0=360, sig=60, spill=0.16, rs=120, sx=1.5, sy=0.86),
+        dict(cx=1290, cy=900, r0=220, sig=120, spill=0.2, rs=180, sx=2.2, sy=0.6, gain=0.6),
+        dict(cx=380, cy=600, r0=300, sig=220, spill=0.3, rs=280, sx=1.1, sy=1.25, gain=0.44),
+    ], scale=2)
+    shroud_from(I, 0.075, "shroud_portraits.png")
+
+
 # ------------------------------------------------------------------ Nocturne skin extras
 def plaque_halves():
     """plaque.png split for auto-width plaques built from two buttons (title | meta)."""
@@ -797,6 +828,7 @@ def engine_overrides():
 if __name__ == "__main__":
     plaster()
     board_shrouds()
+    view_shrouds()
     glow("glow_warm.png")
     halo("halo_white.png", size=512)
     halo("halo_warm.png", (255, 226, 184), size=512)

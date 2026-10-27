@@ -1,3 +1,12 @@
+0.9.16 (2026-10-27)
+- More ways to see your library. Videos now have six views, music four; the sentence at the top says which one you are using ("as a page").
+- As a page: one film, show, episode or set at a time, written out the way its information page writes it, with the plot below and its picture behind the right side of the page. Left and right turn the page.
+- As scenes: wide pictures, four by two, with a title and a caption under each and the one you are on described in a sentence underneath. For shows, episodes, sets, add-ons and anything that has a wide picture; posters and icons sit whole on a dark block.
+- Music, as portraits: an artist or album at a time with its picture, a sentence about it and its story (biography or review). Without a wide picture the photo or cover sits on the right.
+- Music, as a tracklist: songs as a contents page (number, title, who and from which album, time), the song you are on described next to its cover.
+- "See them as..." shows up to six views in two rows, the current one first.
+- Folders that never had a view chosen still open the way they did.
+
 0.9.15 (2026-10-25)
 - Keep this sentence: with all three places taken it only says so; the third saved sentence is no longer overwritten.
 - Search: a query with a double quote (e.g. "Superman" or Waiting for "Superman") now finds its matches; before, the quote broke the search and nothing came up. Past the result limit a count reads "30+" instead of one more than the matches (the last item, More..., opens them all).

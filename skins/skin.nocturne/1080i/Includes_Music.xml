@@ -494,6 +494,7 @@
 	<variable name="Music_ViewName">
 		<value condition="Control.IsVisible(504)">$LOCALIZE[31230]</value>
 		<value condition="Control.IsVisible(505)">$LOCALIZE[31274]</value>
+		<value condition="Control.IsVisible(508)">$LOCALIZE[31393]</value>
 		<value>$LOCALIZE[535]</value>
 	</variable>
 

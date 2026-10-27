@@ -266,7 +266,108 @@ def record_bins():
     return im
 
 
+# ------------------------------------------------------------------ views added 2026-10-27
+def vitrine():
+    im = ground()
+    im = pool(im, 395, 470, 300, 380, 0.6)
+    im = pool(im, 1262, 450, 520, 300, 0.3)
+    im = pool(im, 960, 900, 900, 110, 0.35)
+    d = ImageDraw.Draw(im)
+    frame(d, 195, 170, 400, 600, 0, lit=True)
+    # the wall label
+    text_line(d, 772, 204, 300, 16)
+    text_line(d, 772, 244, 620, 50, TEXT)
+    text_line(d, 772, 326, 380, 26, (200, 180, 150))
+    text_line(d, 772, 382, 460, 16)
+    d.rectangle([772, 420, 828, 422], fill=BRASS)
+    for k, w in enumerate((940, 960, 900, 950, 620)):
+        text_line(d, 772, 458 + k * 40, w, 18)
+    # the drawer (pitch 112, focus slot 7 at x 904)
+    for k in range(15):
+        x = 120 + k * 112
+        if k == 7:
+            frame(d, x + 8, 826, 96, 144, 1, lit=True, title=False)
+            d.rectangle([x + 40, 988, x + 72, 991], fill=BRASS_LIGHT)
+        else:
+            frame(d, x + 14, 844, 84, 126, k + 2, title=False)
+    im = shroud(im, 700, 560, 1100, 520, 0.25)
+    d = ImageDraw.Draw(im)
+    options_row(d)
+    crumbs(d)
+    return im
+
+
+def panorama():
+    im = ground()
+    d = ImageDraw.Draw(im)
+    for r in range(3):
+        for c in range(4):
+            x = 96 + c * 432 + 32
+            y = 176 + r * 272 + 22
+            lit = (r == 0 and c == 1)
+            frame(d, x, y, 368, 207, r * 4 + c, lit=lit, title=False)
+            text_line(d, x + 104, y + 222, 160, 16, TEXT if lit else TEXT_DIM)
+    cx, cy = 96 + 432 + 216, 176 + 22 + 104
+    im = pool(im, cx, cy, 380, 230, 0.6)
+    im = shroud(im, cx, cy, 480, 300, 0.4)
+    d = ImageDraw.Draw(im)
+    crumbs(d)
+    options_row(d)
+    return im
+
+
+def catalogue():
+    im = ground()
+    im = pool(im, 1532, 372, 360, 230, 0.55)
+    d = ImageDraw.Draw(im)
+    for r in range(6):
+        y = 190 + r * 132
+        d.line([96, y + 131, 1156, y + 131], fill=(52, 48, 44), width=3)
+        if r == 1:
+            d.rounded_rectangle([96, y + 4, 1156, y + 128], radius=6, fill=(92, 80, 62))
+            d.rectangle([96, y + 40, 104, y + 92], fill=BRASS_LIGHT)
+        frame(d, 124, y + 12, 72, 108, r + 3, lit=(r == 1), title=False)
+        text_line(d, 230, y + 26, 300 + (r * 83) % 260, 22, TEXT if r == 1 else TEXT_DIM)
+        text_line(d, 230, y + 66, 220, 14)
+        text_line(d, 230, y + 98, 700, 14, (90, 82, 72))
+    frame(d, 1240, 208, 584, 328, 1, lit=True, title=False)
+    text_line(d, 1240, 576, 300, 24, (200, 180, 150))
+    text_line(d, 1240, 622, 220, 16)
+    d.rectangle([1240, 658, 1296, 660], fill=BRASS)
+    for k in range(7):
+        text_line(d, 1240, 690 + k * 36, 560 if k < 6 else 320, 16)
+    crumbs(d)
+    options_row(d)
+    return im
+
+
+def portraits():
+    im = ground()
+    im = pool(im, 1290, 532, 600, 340, 0.6)
+    d = ImageDraw.Draw(im)
+    for r in range(9):
+        y = 250 + r * 66
+        d.line([96, y + 65, 696, y + 65], fill=(52, 48, 44), width=3)
+        if r == 2:
+            d.rounded_rectangle([96, y + 4, 696, y + 62], radius=6, fill=(92, 80, 62))
+            d.rectangle([96, y + 14, 104, y + 52], fill=BRASS_LIGHT)
+        text_line(d, 124, y + 22, 200 + (r * 71) % 240, 22, TEXT if r == 2 else TEXT_DIM)
+    frame(d, 810, 262, 960, 540, 4, lit=True, title=False)
+    plaque(d, 1290, 824, 520)
+    text_line(d, 930, 892, 720, 16)
+    text_line(d, 1010, 924, 560, 16)
+    im = shroud(im, 1100, 560, 1100, 560, 0.2)
+    d = ImageDraw.Draw(im)
+    crumbs(d)
+    options_row(d, 208, (180, 150, 130, 140, 260, 200))
+    return im
+
+
 if __name__ == "__main__":
+    finish(vitrine(), "vitrine")
+    finish(panorama(), "panorama")
+    finish(catalogue(), "catalogue")
+    finish(portraits(), "portraits")
     random.seed(7)
     finish(corridor(), "corridor")
     finish(salon(), "salon")

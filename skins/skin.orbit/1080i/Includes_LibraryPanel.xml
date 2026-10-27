@@ -44,6 +44,8 @@
 	<variable name="Pick_Cur_Arc"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31312])">current</value></variable>
 	<variable name="Pick_Cur_Grid"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31313])">current</value></variable>
 	<variable name="Pick_Cur_Episodes"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31314])">current</value></variable>
+	<variable name="Pick_Cur_Horizon"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31320])">current</value></variable>
+	<variable name="Pick_Cur_Tiles"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31321])">current</value></variable>
 	<variable name="Pick_Cur_List"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[535])">current</value></variable>
 
 	<!-- One preview card: 320x180 schematic, name, amber dot + "current". Focus = Orbit's corner
@@ -52,23 +54,23 @@
 		<param name="focused">false</param>
 		<definition>
 			<control type="group">
-				<left>30</left>
-				<top>24</top>
-				<width>320</width>
-				<height>180</height>
+				<left>20</left>
+				<top>20</top>
+				<width>260</width>
+				<height>146</height>
 				<control type="image">
 					<left>0</left>
 					<top>0</top>
-					<width>320</width>
-					<height>180</height>
+					<width>260</width>
+					<height>146</height>
 					<texture colordiffuse="ffa0a0a0" diffuse="masks/landscape_r4.png">$INFO[ListItem.Icon]</texture>
 					<visible>!$PARAM[focused] | !Control.HasFocus(100)</visible>
 				</control>
 				<control type="image">
 					<left>0</left>
 					<top>0</top>
-					<width>320</width>
-					<height>180</height>
+					<width>260</width>
+					<height>146</height>
 					<texture diffuse="masks/landscape_r4.png">$INFO[ListItem.Icon]</texture>
 					<visible>$PARAM[focused] + Control.HasFocus(100)</visible>
 				</control>
@@ -78,9 +80,9 @@
 				</include>
 			</control>
 			<control type="label">
-				<left>30</left>
-				<top>226</top>
-				<width>320</width>
+				<left>20</left>
+				<top>184</top>
+				<width>260</width>
 				<height>36</height>
 				<font>text_26_med</font>
 				<textcolor>text_secondary</textcolor>
@@ -89,9 +91,9 @@
 				<visible>!$PARAM[focused] | !Control.HasFocus(100)</visible>
 			</control>
 			<control type="label">
-				<left>30</left>
-				<top>226</top>
-				<width>320</width>
+				<left>20</left>
+				<top>184</top>
+				<width>260</width>
 				<height>36</height>
 				<font>text_26_semi</font>
 				<textcolor>text_primary</textcolor>
@@ -100,17 +102,17 @@
 				<visible>$PARAM[focused] + Control.HasFocus(100)</visible>
 			</control>
 			<control type="image">
-				<left>31</left>
-				<top>278</top>
+				<left>21</left>
+				<top>232</top>
 				<width>10</width>
 				<height>10</height>
 				<texture colordiffuse="accent">masks/circle.png</texture>
 				<visible>!String.IsEmpty(ListItem.Label2)</visible>
 			</control>
 			<control type="label">
-				<left>50</left>
-				<top>270</top>
-				<width>300</width>
+				<left>40</left>
+				<top>224</top>
+				<width>240</width>
 				<height>26</height>
 				<font>mono_13</font>
 				<textcolor>accent</textcolor>

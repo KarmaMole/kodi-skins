@@ -3,7 +3,8 @@
 	Video library (MyVideoNav.xml) in the Orbit language. Mockup: OrbitArc.dc.html.
 	View ids: 500 ARC (movies, sets, tv shows, seasons, music videos: hidden fixedlist + the arc of
 	offset items, Includes_Arc.xml) | 501 GRID (same content, for scanning big libraries) |
-	502 EPISODES (dial list + episode panel; episodes, seasons) | 50 dial list (everything).
+	502 EPISODES (dial list + episode panel; episodes, seasons) | 503 HORIZON (0.9.16: showcase + a dial of wide
+	pictures along the bottom; library video) | 506 TILES (0.9.16: wide tiles; everything) | 50 dial list (everything).
 	Each view gates itself with Container.Content so VIEW only cycles valid views. The first visible
 	view in <views> is Kodi's default for a new node; setting "library opens in" (orbit.libview)
 	switches movies/shows/sets to the grid on window open.
@@ -203,16 +204,22 @@
 			<onup condition="Control.IsVisible(500)">500</onup>
 			<onup condition="Control.IsVisible(501)">501</onup>
 			<onup condition="Control.IsVisible(502)">502</onup>
+			<onup condition="Control.IsVisible(503)">503</onup>
+			<onup condition="Control.IsVisible(506)">506</onup>
 			<onup>50</onup>
 			<onright condition="Control.IsVisible(500)">500</onright>
 			<onright condition="Control.IsVisible(501)">501</onright>
 			<onright condition="Control.IsVisible(502)">502</onright>
+			<onright condition="Control.IsVisible(503)">503</onright>
+			<onright condition="Control.IsVisible(506)">506</onright>
 			<onright>50</onright>
 			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.9: Left past the first pill = Library panel -->
 			<ondown>noop</ondown>
 			<onback condition="Control.IsVisible(500)">500</onback>
 			<onback condition="Control.IsVisible(501)">501</onback>
 			<onback condition="Control.IsVisible(502)">502</onback>
+			<onback condition="Control.IsVisible(503)">503</onback>
+			<onback condition="Control.IsVisible(506)">506</onback>
 			<onback>50</onback>
 			<control type="button" id="9321">
 				<include>VidView_NavButtonLook</include>
@@ -292,8 +299,12 @@
 	</include>
 
 	<include name="VidView_Empty">
-		<include>Orbit_EmptyFolder</include>
+		<control type="group">
+			<animation effect="slide" start="0,0" end="0,-300" time="0" condition="Control.IsVisible(503)">Conditional</animation>
+			<include>Orbit_EmptyFolder</include>
+		</control>
 		<control type="label">
+			<animation effect="slide" start="0,0" end="0,-300" time="0" condition="Control.IsVisible(503)">Conditional</animation>
 			<left>440</left>
 			<top>596</top>
 			<width>1300</width>
@@ -752,6 +763,283 @@
 		</control>
 	</include>
 
+
+	<!-- ================================================================ 0.9.16 views
+	     503 HORIZON  the focused title as a showcase (its fanart across the page, title, meta, end time, plot)
+	                  over a dial of wide pictures riding a flat circle along the bottom (Arc_HorizonWide,
+	                  Includes_Arc.xml): Left / Right turn it, the lens is the middle card. Library video.
+	     506 TILES    a grid of wide tiles for everything (series, episodes, sets, add-ons, plug-ins, files):
+	                  library items show a real wide picture, the rest keep their own picture whole. -->
+	<expression name="VidView_HorizonHasFanart">!ListItem.IsParentFolder + [!String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(tvshow.fanart))]</expression>
+	<variable name="VidView_HorizonFanart">
+		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+		<value>$INFO[ListItem.Art(tvshow.fanart)]</value>
+	</variable>
+	<variable name="VidView_HorizonLine">
+		<value condition="$EXP[VidView_IsPlayable] + Integer.IsGreater(ListItem.Duration(mins),0)">$VAR[VidView_Runtime]  ·  ends [COLOR accent]$VAR[VidView_Ends][/COLOR]$INFO[ListItem.Rating,  ·  , / 10]</value>
+		<value>$VAR[VidView_Status]$INFO[ListItem.Rating,  ·  , / 10]</value>
+	</variable>
+	<include name="VidView_503_Horizon">
+		<control type="group">
+			<visible>Control.IsVisible(503)</visible>
+			<include>Anim_VisibleFade</include>
+			<!-- the showcase: the lens title's fanart across the page, fading into the ground at the text and the dial -->
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>screen_w</width>
+				<height>screen_h</height>
+				<aspectratio>scale</aspectratio>
+				<fadetime>240</fadetime>
+				<texture background="true" colordiffuse="art_soft">$VAR[VidView_HorizonFanart]</texture>
+				<visible>$EXP[VidView_HorizonHasFanart]</visible>
+			</control>
+			<include content="Orbit_GroundScrim">
+				<param name="mask" value="common/scrim_left.png"/>
+				<param name="ground" value="page"/>
+				<param name="width" value="1400"/>
+				<param name="visible" value="$EXP[VidView_HorizonHasFanart]"/>
+			</include>
+			<include content="Orbit_GroundScrim">
+				<param name="mask" value="common/scrim_bottom.png"/>
+				<param name="ground" value="page"/>
+				<param name="visible" value="$EXP[VidView_HorizonHasFanart]"/>
+			</include>
+			<!-- the engraved horizon under the cards, amber tick under the lens -->
+			<control type="image">
+				<left>0</left>
+				<top>760</top>
+				<width>screen_w</width>
+				<height>320</height>
+				<texture>rings/horizon_arc.png</texture>
+			</control>
+			<control type="fixedlist" id="503">
+				<left>955</left>
+				<top>700</top>
+				<include>Arc_HiddenListH</include>
+				<onleft>9000</onleft>  <!-- Left at the first item = option bar (Left in every Orbit view) -->
+				<onright>ActivateWindow(1160)</onright>  <!-- Right at the last item = Library panel -->
+				<onup>noop</onup>
+				<ondown>9000</ondown>
+				<viewtype label="31320">biginfo</viewtype>
+				<visible>$EXP[VidView_ArcContent] | Container.Content(episodes)</visible>
+			</control>
+			<include content="Arc_HorizonWide">
+				<param name="id" value="503"/>
+			</include>
+			<!-- info block over the showcase -->
+			<control type="grouplist">
+				<left>64</left>
+				<top>176</top>
+				<width>960</width>
+				<height>380</height>
+				<orientation>vertical</orientation>
+				<usecontrolcoords>true</usecontrolcoords>
+				<visible>!ListItem.IsParentFolder</visible>
+				<control type="label">
+					<width>900</width>
+					<height>24</height>
+					<font>label_20</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$VAR[VidView_HorizonKicker]</label>
+				</control>
+				<include content="Fit_LibArc">
+					<param name="top" value="14"/>
+					<param name="label" value="$VAR[VidView_ItemTitle]"/>
+				</include>
+				<control type="grouplist">
+					<top>12</top>
+					<width>900</width>
+					<height>26</height>
+					<orientation>horizontal</orientation>
+					<usecontrolcoords>true</usecontrolcoords>
+					<control type="label">
+						<width>auto</width>
+						<height>26</height>
+						<font>mono_20</font>
+						<textcolor>text_meta</textcolor>
+						<label>$INFO[ListItem.Year,,  ·  ]</label>
+					</control>
+					<control type="label">
+						<width>auto</width>
+						<height>26</height>
+						<font>label_20</font>
+						<textcolor>text_meta</textcolor>
+						<label>$VAR[VidView_MPAA]  ·  </label>
+						<visible>!String.IsEmpty(ListItem.MPAA)</visible>
+					</control>
+					<control type="label">
+						<width max="560">auto</width>
+						<height>26</height>
+						<font>label_20</font>
+						<textcolor>text_meta</textcolor>
+						<label>$VAR[VidView_People]</label>
+					</control>
+				</control>
+				<control type="label">
+					<top>12</top>
+					<width>900</width>
+					<height>30</height>
+					<font>mono_22</font>
+					<textcolor>text_primary</textcolor>
+					<label>$VAR[VidView_HorizonLine]</label>
+				</control>
+				<control type="textbox">
+					<top>18</top>
+					<width>620</width>
+					<height max="114">auto</height>
+					<font>text_26</font>
+					<textcolor>text_plot</textcolor>
+					<label>$INFO[ListItem.Plot]</label>
+				</control>
+			</control>
+			<control type="group">
+				<visible>ListItem.IsParentFolder + Integer.IsGreater(Container.NumItems,0)</visible>
+				<control type="label">
+					<left>64</left>
+					<top>300</top>
+					<width>900</width>
+					<height>80</height>
+					<font>wide_66</font>
+					<textcolor>text_primary</textcolor>
+					<label>$LOCALIZE[31251]</label>
+				</control>
+				<control type="label">
+					<left>64</left>
+					<top>390</top>
+					<width>900</width>
+					<height>30</height>
+					<font>label_20</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$LOCALIZE[31255]</label>
+				</control>
+			</control>
+		</control>
+	</include>
+	<variable name="VidView_HorizonKicker">
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.TVShowTitle,  ·  ,]</value>
+		<value>$INFO[ListItem.Genre]</value>
+	</variable>
+
+	<!-- ================================================================ 506 tiles -->
+	<expression name="VidView_TileHasWide">!ListItem.IsParentFolder + [[String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),image://video@)] | [!String.IsEmpty(ListItem.DBType) + [!String.IsEmpty(ListItem.Art(landscape)) | !String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(tvshow.landscape)) | !String.IsEmpty(ListItem.Art(tvshow.fanart))]] | [Container.Content(addons) + !String.IsEmpty(ListItem.Art(fanart))]]</expression>
+	<variable name="VidView_TileWide">
+		<value condition="!$EXP[VidView_TileHasWide]"></value>
+		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),image://video@)">$INFO[ListItem.Art(thumb)]</value>
+		<value condition="!String.IsEmpty(ListItem.DBType) + !String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
+		<value condition="!String.IsEmpty(ListItem.DBType) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(ListItem.DBType) + !String.IsEmpty(ListItem.Art(tvshow.landscape))">$INFO[ListItem.Art(tvshow.landscape)]</value>
+		<value condition="!String.IsEmpty(ListItem.DBType) + !String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
+		<value condition="Container.Content(addons)">$INFO[ListItem.Art(fanart)]</value>
+	</variable>
+	<variable name="VidView_TileIcon">
+		<value condition="ListItem.IsParentFolder"></value>
+		<value condition="$EXP[VidView_TileHasWide]"></value>
+		<value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
+		<value condition="!String.StartsWith(ListItem.Art(icon),Default)">$INFO[ListItem.Art(icon)]</value>
+	</variable>
+	<variable name="VidView_TileMeta">
+		<value condition="ListItem.IsParentFolder">$LOCALIZE[31255]</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.Duration(mins),  ·  , min]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Year,,  ·  ]$VAR[VidView_Status]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$INFO[ListItem.EndTime,  ·  ends ,]</value>
+		<value>$INFO[ListItem.Label2]</value>
+	</variable>
+	<include name="VidView_TileItem">
+		<param name="focused">false</param>
+		<definition>
+			<control type="group">
+				<left>24</left>
+				<top>24</top>
+				<width>412</width>
+				<height>232</height>
+				<animation effect="fadediffuse" start="ffb0b0b0" end="ffb0b0b0" time="0" condition="!$PARAM[focused] | !Control.HasFocus(506)">Conditional</animation>
+				<animation effect="zoom" start="100" end="104" center="auto" time="160" tween="cubic" easing="out" condition="$PARAM[focused] + !Skin.HasSetting(orbit.reducemotion)">Focus</animation>
+				<!-- reduce motion: a time-0 Conditional, not a second Focus animation (LESSONS, Groove device pass 2) -->
+				<animation effect="zoom" start="100" end="104" center="auto" time="0" condition="$PARAM[focused] + Skin.HasSetting(orbit.reducemotion) + Control.HasFocus(506)">Conditional</animation>
+				<include content="Orbit_Artwork">
+					<param name="art" value="$VAR[VidView_TileWide]"/>
+					<param name="mask" value="masks/landscape_r4.png"/>
+					<param name="title" value=""/>
+				</include>
+				<control type="image">
+					<left>24</left>
+					<top>18</top>
+					<width>364</width>
+					<height>196</height>
+					<aspectratio>keep</aspectratio>
+					<fadetime>120</fadetime>
+					<texture background="true">$VAR[VidView_TileIcon]</texture>
+				</control>
+				<control type="textbox">
+					<left>24</left>
+					<top>24</top>
+					<width>364</width>
+					<height>184</height>
+					<font>label_20</font>
+					<textcolor>text_secondary</textcolor>
+					<align>center</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.Label]</label>
+					<visible>!ListItem.IsParentFolder + !$EXP[VidView_TileHasWide] + String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(poster)) + ![!String.IsEmpty(ListItem.Art(icon)) + !String.StartsWith(ListItem.Art(icon),Default)]</visible>
+				</control>
+				<include>Orbit_ParentIcon</include>
+				<include>Orbit_WatchedMarkers</include>
+				<include content="Orbit_Brackets">
+					<param name="out" value="-12"/>
+					<param name="visible" value="$PARAM[focused] + Control.HasFocus(506)"/>
+				</include>
+			</control>
+			<control type="label">
+				<left>24</left>
+				<top>268</top>
+				<width>412</width>
+				<height>32</height>
+				<font>text_24_med</font>
+				<textcolor>text_primary</textcolor>
+				<selectedcolor>text_primary</selectedcolor>
+				<label>$VAR[VidView_ItemTitle]</label>
+			</control>
+			<control type="label">
+				<left>24</left>
+				<top>302</top>
+				<width>412</width>
+				<height>28</height>
+				<font>mono_20</font>
+				<textcolor>text_meta</textcolor>
+				<selectedcolor>text_meta</selectedcolor>
+				<label>$VAR[VidView_TileMeta]</label>
+			</control>
+		</definition>
+	</include>
+	<include name="VidView_506_Tiles">
+		<control type="group">
+			<visible>Control.IsVisible(506)</visible>
+			<include>Anim_VisibleFade</include>
+			<control type="panel" id="506">
+				<left>40</left>
+				<top>176</top>
+				<width>1840</width>
+				<height>804</height>
+				<orientation>vertical</orientation>
+				<onleft>9000</onleft>
+				<onright>ActivateWindow(1160)</onright>  <!-- Right at the last column = Library panel -->
+				<onup>noop</onup>
+				<ondown>9000</ondown>
+				<scrolltime tween="cubic" easing="out">220</scrolltime>
+				<preloaditems>2</preloaditems>
+				<viewtype label="31321">wide</viewtype>
+				<itemlayout width="460" height="352">
+					<include>VidView_TileItem</include>
+				</itemlayout>
+				<focusedlayout width="460" height="352">
+					<include content="VidView_TileItem"><param name="focused" value="true"/></include>
+				</focusedlayout>
+			</control>
+		</control>
+	</include>
+
 	<!-- ============================================================ window composition -->
 	<include name="VidView_Window">
 		<include content="Orbit_Background">
@@ -769,6 +1057,8 @@
 		<include>VidView_500_Arc</include>
 		<include>VidView_501_Grid</include>
 		<include>VidView_502_Episodes</include>
+		<include>VidView_503_Horizon</include>
+		<include>VidView_506_Tiles</include>
 		<include>View_50_List</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>

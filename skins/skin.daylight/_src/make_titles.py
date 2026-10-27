@@ -32,6 +32,8 @@ SITES = {
     "MusicView": (500, [("display_48", 2), ("display_40", 3)], 7751),
     "Generic": (500, [("display_48", 2), ("display_40", 2), ("serif_30", 3)], 7761),
     "OSD": (900, [("display_48", 1), ("display_40", 1)], 7771),
+    # 0.9.15 Spotlight views (video 502, music 507): the text column of the card's hero
+    "Spot": (760, [("display_52", 2), ("display_40", 2), ("serif_30", 3)], 7781),
 }
 
 

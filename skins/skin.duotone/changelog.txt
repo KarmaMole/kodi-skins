@@ -1,3 +1,13 @@
+0.9.16 (2026-10-27)
+- More ways to browse: five new library views, all as one-colour prints with the focused item in full colour. Videos now have six views, music four.
+- Poster: one item at a time, its print large on the right, the title in big type, year / minutes / rating between thick rules and the plot. Left and Right flip through the library; the tab under the plot says where you are.
+- Screens: wide prints, three by two, with the title under each. For series, episodes, sets, add-ons and anything with a wide picture; posters and icons sit whole on a black block.
+- Sheet: a contact sheet of thirty small prints at once, with the focused title on a black band underneath. Films, sets, series, seasons, music videos.
+- Music, Stage: the artist (or the album's artist) on a big print band with the name on a black block, covers in a strip below. Without a wide picture the photo or cover sits on the black band.
+- Music, Tracks: songs with big track numbers, artist and album, time; the cover on the right.
+- The View picker shows up to six views in two rows, the current one first.
+- Folders that never had a view chosen still open in the same view as before.
+
 0.9.15 (2026-10-25)
 - Search: a query with a double quote (e.g. "Superman" or Waiting for "Superman") now finds its matches; before, the quote broke the search and nothing came up. Past the result limit a count reads "30+" instead of one more than the matches (the last item, More..., opens them all).
 - Video: the buffering box also shows at 0 %, so a stall at the very start of a stream is visible.

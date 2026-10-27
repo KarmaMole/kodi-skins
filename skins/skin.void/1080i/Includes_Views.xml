@@ -27,7 +27,7 @@
 		<value condition="Container.Content(movies) + String.StartsWith(Container.FolderPath,videodb://movies/titles)">Movies</value>
 		<value condition="$EXP[Lib_IsTVRoot]">TV Shows</value>
 		<value condition="$EXP[Lib_IsInProgressTV]">TV Shows</value>
-		<value condition="Container.Content(episodes) + !String.IsEmpty(Container(50).ListItem.TVShowTitle)">$INFO[Container(50).ListItem.TVShowTitle]</value>
+		<value condition="Container.Content(episodes) + !String.IsEmpty(ListItem.TVShowTitle)">$INFO[ListItem.TVShowTitle]</value>
 		<value condition="!String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
 		<value condition="Window.IsActive(music)">Music</value>
 		<value>$LOCALIZE[3]</value>
@@ -35,7 +35,7 @@
 	<!-- "A to Z" when sorted by name, else "by <sort>"; filters appended -->
 	<variable name="Lib_Sub">
 		<value condition="$EXP[Lib_IsInProgressTV]">In progress</value>
-		<value condition="Container.Content(episodes)">$INFO[Container(50).ListItem.Season,Season ,]</value>
+		<value condition="Container.Content(episodes)">$INFO[ListItem.Season,Season ,]</value>
 		<value condition="$EXP[SortIsAlpha] + Container.SortDirection(ascending) + System.Setting(hidewatched) + $EXP[Lib_IsVideoLibrary]">A to Z  ·  unwatched</value>
 		<value condition="$EXP[SortIsAlpha] + Container.SortDirection(ascending)">A to Z</value>
 		<value condition="$EXP[SortIsAlpha]">Z to A</value>

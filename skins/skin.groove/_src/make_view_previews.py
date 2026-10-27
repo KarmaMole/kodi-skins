@@ -161,6 +161,62 @@ def carousel(img, c):
         rect(d, 856 + 480 * k, 650, 440, 248, c["block"])
 
 
+def sleeve(img, c):
+    """520 Sleeve: square sleeve with the record half out of it, notes on the right, a row of small sleeves."""
+    d = ImageDraw.Draw(img)
+    header(d, c)
+    d.ellipse([380, 160, 940, 720], fill=(20, 20, 20))
+    for r in range(270, 100, -24):
+        d.ellipse([660 - r, 440 - r, 660 + r, 440 + r], outline=(44, 44, 44), width=3)
+    d.ellipse([564, 344, 756, 536], fill=c["block"])
+    d = lit(img, d, c, 96, 160, 560, 560, 700)
+    rect(d, 1010, 180, 620, 60, c["ink"])
+    rect(d, 1010, 340, 420, 30, c["ink2"])
+    for k in range(6):
+        rect(d, 1010, 410 + k * 40, 800 - (k == 5) * 300, 18, c["ink2"])
+    for k in range(10):
+        x = 96 + 184 * k
+        if k == 2:
+            d = lit(img, d, c, x - 8, 808, 176, 176, 260)
+            continue
+        rect(d, x, 816, 160, 160, c["block"])
+
+
+def gatefold(img, c):
+    """521 Gatefold: 16:9 cards four across with a crease, the focused one lit."""
+    d = ImageDraw.Draw(img)
+    header(d, c)
+    for r in range(3):
+        for k in range(4):
+            x, y = 32 + 480 * k, 158 + 300 * r
+            if (r, k) == (0, 1):
+                continue
+            rect(d, x, y, 416, 234, c["block"])
+            rect(d, x + 207, y, 2, 234, c["line"])
+    d = lit(img, d, c, 32 + 480 - 10, 148, 436, 254, 520)
+    rect(d, 32 + 480 + 207, 148, 2, 254, c["line"])
+    caption(d, c, 960, 966)
+
+
+def liner(img, c):
+    """522 Liner notes: rows of picture + title + details + a line of the story; the lit picture and the story."""
+    d = ImageDraw.Draw(img)
+    header(d, c)
+    for i in range(7):
+        y = 150 + 120 * i
+        if i == 2:
+            rect(d, 84, y, 884, 120, c["block2"])
+        rect(d, 120, y + 10, 66, 100, c["block"])
+        rect(d, 210, y + 20, 360 - (i * 37) % 160, 22, c["ink"] if i == 2 else c["ink2"])
+        rect(d, 210, y + 58, 220, 16, c["ink2"])
+        rect(d, 210, y + 88, 640, 14, c["line"])
+    d = lit(img, d, c, 1032, 150, 792, 446, 700)
+    rect(d, 1032, 648, 480, 34, c["ink"])
+    rect(d, 1032, 706, 360, 24, c["ink2"])
+    for k in range(5):
+        rect(d, 1032, 770 + k * 40, 780 - (k == 4) * 300, 18, c["ink2"])
+
+
 PREVIEWS = {
     "cover_wall_music": lambda i, c: cover_wall(i, c),
     "crate_dig": crate,
@@ -170,6 +226,9 @@ PREVIEWS = {
     "cover_wall_video": lambda i, c: cover_wall(i, c, True),
     "backdrop_carousel": carousel,
     "list_video": lambda i, c: list_view(i, c, True),
+    "sleeve": sleeve,
+    "gatefold": gatefold,
+    "liner_notes": liner,
 }
 
 

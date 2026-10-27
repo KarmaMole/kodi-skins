@@ -603,6 +603,95 @@
 			</control>
 		</definition>
 	</include>
+	<!-- Poster view (505) title: caps band y 236-476, x 58-1154 -->
+	<include name="Title_Poster">
+		<param name="left">0</param>
+		<param name="top">0</param>
+		<definition>
+			<control type="group">
+				<left>$PARAM[left]</left>
+				<top>$PARAM[top]</top>
+				<width>1096</width>
+				<control type="textbox" id="7201">
+					<left>0</left>
+					<top>-107</top>
+					<width>1096</width>
+					<height>264</height>
+					<align>left</align>
+					<font>an_200</font>
+					<textcolor>clear</textcolor>
+					<label>$VAR[VidView_WallBigTitle]</label>
+					<visible>true</visible>
+				</control>
+				<control type="textbox" id="7202">
+					<left>0</left>
+					<top>-73</top>
+					<width>1096</width>
+					<height>299</height>
+					<align>left</align>
+					<font>an_136</font>
+					<textcolor>clear</textcolor>
+					<label>$VAR[VidView_WallBigTitle]</label>
+					<visible>true</visible>
+				</control>
+				<control type="textbox" id="7203">
+					<left>0</left>
+					<top>-56</top>
+					<width>1096</width>
+					<height>229</height>
+					<align>left</align>
+					<font>an_104</font>
+					<textcolor>clear</textcolor>
+					<label>$VAR[VidView_WallBigTitle]</label>
+					<visible>true</visible>
+				</control>
+				<control type="textbox">
+					<left>0</left>
+					<top>-107</top>
+					<width>1096</width>
+					<height>300</height>
+					<align>left</align>
+					<font>an_200</font>
+					<textcolor>$VAR[SectionText]</textcolor>
+					<label>$VAR[VidView_WallBigTitle]</label>
+					<visible>!Integer.IsGreater(Container(7201).NumPages,1)</visible>
+				</control>
+				<control type="textbox">
+					<left>0</left>
+					<top>-73</top>
+					<width>1096</width>
+					<height>324</height>
+					<align>left</align>
+					<font>an_136</font>
+					<textcolor>$VAR[SectionText]</textcolor>
+					<label>$VAR[VidView_WallBigTitle]</label>
+					<visible>Integer.IsGreater(Container(7201).NumPages,1) + !Integer.IsGreater(Container(7202).NumPages,1)</visible>
+				</control>
+				<control type="textbox">
+					<left>0</left>
+					<top>-56</top>
+					<width>1096</width>
+					<height>248</height>
+					<align>left</align>
+					<font>an_104</font>
+					<textcolor>$VAR[SectionText]</textcolor>
+					<label>$VAR[VidView_WallBigTitle]</label>
+					<visible>Integer.IsGreater(Container(7201).NumPages,1) + Integer.IsGreater(Container(7202).NumPages,1) + !Integer.IsGreater(Container(7203).NumPages,1)</visible>
+				</control>
+				<control type="textbox">
+					<left>0</left>
+					<top>-39</top>
+					<width>1096</width>
+					<height>245</height>
+					<align>left</align>
+					<font>an_72</font>
+					<textcolor>$VAR[SectionText]</textcolor>
+					<label>$VAR[VidView_WallBigTitle]</label>
+					<visible>Integer.IsGreater(Container(7201).NumPages,1) + Integer.IsGreater(Container(7202).NumPages,1) + Integer.IsGreater(Container(7203).NumPages,1)</visible>
+				</control>
+			</control>
+		</definition>
+	</include>
 	<!-- Home spotlight title in the ink block, 968 wide, caps band 104 high. params: label, pb (probe id prefix) -->
 	<include name="Title_Spot">
 		<param name="left">0</param>
@@ -668,6 +757,73 @@
 					<textcolor>$VAR[paper]</textcolor>
 					<label>$PARAM[label]</label>
 					<visible>Integer.IsGreater(Container($PARAM[pb]0).NumPages,1) + Integer.IsGreater(Container($PARAM[pb]1).NumPages,1)</visible>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<!-- Stage view (508) name in the ink block: caps band from y 508, 1040 wide, paper on ink -->
+	<include name="Title_Stage">
+		<param name="left">0</param>
+		<param name="top">0</param>
+		<definition>
+			<control type="group">
+				<left>$PARAM[left]</left>
+				<top>$PARAM[top]</top>
+				<width>1040</width>
+				<control type="textbox" id="7211">
+					<left>0</left>
+					<top>-73</top>
+					<width>1040</width>
+					<height>180</height>
+					<align>left</align>
+					<font>an_136</font>
+					<textcolor>clear</textcolor>
+					<label>$VAR[Stage_Name]</label>
+					<visible>true</visible>
+				</control>
+				<control type="textbox" id="7212">
+					<left>0</left>
+					<top>-56</top>
+					<width>1040</width>
+					<height>137</height>
+					<align>left</align>
+					<font>an_104</font>
+					<textcolor>clear</textcolor>
+					<label>$VAR[Stage_Name]</label>
+					<visible>true</visible>
+				</control>
+				<control type="textbox">
+					<left>0</left>
+					<top>-73</top>
+					<width>1040</width>
+					<height>204</height>
+					<align>left</align>
+					<font>an_136</font>
+					<textcolor>$VAR[paper]</textcolor>
+					<label>$VAR[Stage_Name]</label>
+					<visible>!Integer.IsGreater(Container(7211).NumPages,1)</visible>
+				</control>
+				<control type="textbox">
+					<left>0</left>
+					<top>-56</top>
+					<width>1040</width>
+					<height>156</height>
+					<align>left</align>
+					<font>an_104</font>
+					<textcolor>$VAR[paper]</textcolor>
+					<label>$VAR[Stage_Name]</label>
+					<visible>Integer.IsGreater(Container(7211).NumPages,1) + !Integer.IsGreater(Container(7212).NumPages,1)</visible>
+				</control>
+				<control type="textbox">
+					<left>0</left>
+					<top>-39</top>
+					<width>1040</width>
+					<height>176</height>
+					<align>left</align>
+					<font>an_72</font>
+					<textcolor>$VAR[paper]</textcolor>
+					<label>$VAR[Stage_Name]</label>
+					<visible>Integer.IsGreater(Container(7211).NumPages,1) + Integer.IsGreater(Container(7212).NumPages,1)</visible>
 				</control>
 			</control>
 		</definition>

@@ -264,7 +264,8 @@
 	<!-- Artwork inside a group of the art size, with an ink "no art" block + title behind it.
 	     params: art (infolabel), title (fallback label), tint (colordiffuse: $VAR[SectionTint] for the
 	     one-colour print, white for full colour), dots (condition: halftone over the print),
-	     mask_round / mask_square (unused: Duotone is square; kept for forked callers) -->
+	     mask_round / mask_square (unused: Duotone is square; kept for forked callers), titlefont (the no-art title;
+     an_32 in the small tiles of the Sheet / Stage views) -->
 	<include name="DT_Artwork">
 		<param name="art">$INFO[ListItem.Art(poster)]</param>
 		<param name="mask_round"></param>
@@ -273,6 +274,7 @@
 		<param name="tint">white</param>
 		<param name="dots">false</param>
 		<param name="aspect">scale</param>
+		<param name="titlefont">an_40</param>
 		<definition>
 			<control type="image">
 				<left>0</left>
@@ -286,7 +288,7 @@
 				<right>16</right>
 				<top>16</top>
 				<height>120</height>
-				<font>an_40</font>
+				<font>$PARAM[titlefont]</font>
 				<textcolor>$VAR[SectionColor]</textcolor>
 				<label>$PARAM[title]</label>
 			</control>

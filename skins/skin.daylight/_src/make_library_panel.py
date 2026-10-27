@@ -298,29 +298,41 @@ open(SKIN + "/Custom_1160_LibraryPanel.xml", "w", encoding="utf-8", newline="\n"
 
 # ------------------------------------------------------------------ picker 1161
 G = "Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)"
+MG = "Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)"
+# 0.9.15 (docs/VIEWS_BRIEF_2026-10-27.md): Spotlight 502, Wide 505, Time 506; music Wall 508, Spotlight 507
 VIEWS = [
     ("videos", 500, "$LOCALIZE[31312]", "views/grid", G, "Pick_Cur_Grid"),
     ("videos", 501, "$LOCALIZE[31313]", "views/wall", G, "Pick_Cur_Wall"),
+    ("videos", 502, "$LOCALIZE[31320]", "views/spotlight", G, "Pick_Cur_Spotlight"),
     ("videos", 503, "$LOCALIZE[31314]", "views/episodes", "Container.Content(episodes)", "Pick_Cur_Episodes"),
+    ("videos", 505, "$LOCALIZE[31321]", "views/wide", None, "Pick_Cur_Wide"),
+    ("videos", 506, "$LOCALIZE[31322]", "views/time", "Container.Content(movies) | Container.Content(episodes) | Container.Content(musicvideos)", "Pick_Cur_Time"),
     ("videos", 50, "$LOCALIZE[535]", "views/list", None, "Pick_Cur_List"),
-    ("music", 504, "$LOCALIZE[31312]", "views/music_grid", "Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)", "Pick_Cur_Grid"),
+    ("music", 504, "$LOCALIZE[31312]", "views/music_grid", MG, "Pick_Cur_Grid"),
+    ("music", 508, "$LOCALIZE[31313]", "views/music_wall", MG, "Pick_Cur_Wall"),
+    ("music", 507, "$LOCALIZE[31320]", "views/music_spot", "Container.Content(artists) | Container.Content(albums)", "Pick_Cur_Spotlight"),
     ("music", 50, "$LOCALIZE[535]", "views/music_list", None, "Pick_Cur_List"),
 ]
-PITCH = 380
+# up to six previews side by side (films: Grid, Wall, Spotlight, Wide, Time, List)
+PITCH = 280
+MAXN = 6
 cards = []
-for n in range(1, 5):
+for n in range(1, MAXN + 1):
     cards.append(f"""			<control type="group">
 				<left>0</left>
 				<top>0</top>
 				<width>{n * PITCH + 40}</width>
-				<height>420</height>
+				<height>340</height>
 				<visible>Integer.IsEqual(Container(100).NumItems,{n})</visible>
 				<include>DL_Card</include>
 			</control>""")
-slides = [f'\t\t\t<animation effect="slide" end="{(4 - n) * PITCH // 2},0" time="0" condition="Integer.IsEqual(Container(100).NumItems,{n})">Conditional</animation>' for n in range(1, 4)]
+slides = [f'\t\t\t<animation effect="slide" end="{(MAXN - n) * PITCH // 2},0" time="0" condition="Integer.IsEqual(Container(100).NumItems,{n})">Conditional</animation>' for n in range(1, MAXN)]
 # display names (localized); VIEWS keeps the viewtype labels (string ids) that Container.Viewmode is compared with
-names = {("videos", 500): "$LOCALIZE[31312]", ("videos", 501): "$LOCALIZE[31313]", ("videos", 503): "$LOCALIZE[31314]", ("videos", 50): "$LOCALIZE[31315]",
-         ("music", 504): "$LOCALIZE[31312]", ("music", 50): "$LOCALIZE[31315]"}
+names = {("videos", 500): "$LOCALIZE[31312]", ("videos", 501): "$LOCALIZE[31313]", ("videos", 502): "$LOCALIZE[31320]",
+         ("videos", 503): "$LOCALIZE[31314]", ("videos", 505): "$LOCALIZE[31321]", ("videos", 506): "$LOCALIZE[31322]",
+         ("videos", 50): "$LOCALIZE[31315]",
+         ("music", 504): "$LOCALIZE[31312]", ("music", 508): "$LOCALIZE[31313]", ("music", 507): "$LOCALIZE[31320]",
+         ("music", 50): "$LOCALIZE[31315]"}
 pitems = picker_items(VIEWS, name_map=names)
 pitems = re.sub(r"<icon>(views/[a-z_]+)</icon>", r'<property name="prev">\1</property>', pitems)
 picker = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -351,10 +363,10 @@ picker = f"""<?xml version="1.0" encoding="UTF-8"?>
 			<texture colordiffuse="$VAR[DL_DimDialog]">common/white.png</texture>
 		</control>
 		<control type="group">
-			<left>{(1920 - 4 * PITCH - 40) // 2}</left>
-			<top>330</top>
-			<width>{4 * PITCH + 40}</width>
-			<height>420</height>
+			<left>{(1920 - MAXN * PITCH - 40) // 2}</left>
+			<top>350</top>
+			<width>{MAXN * PITCH + 40}</width>
+			<height>340</height>
 {chr(10).join(slides)}
 {chr(10).join(cards)}
 			<control type="label">
@@ -377,18 +389,18 @@ picker = f"""<?xml version="1.0" encoding="UTF-8"?>
 			<control type="list" id="100">
 				<left>20</left>
 				<top>76</top>
-				<width>{4 * PITCH}</width>
-				<height>330</height>
+				<width>{MAXN * PITCH}</width>
+				<height>250</height>
 				<orientation>horizontal</orientation>
 				<onleft>noop</onleft>
 				<onright>noop</onright>
 				<onup>noop</onup>
 				<ondown>noop</ondown>
 				<scrolltime tween="cubic" easing="out">160</scrolltime>
-				<itemlayout width="{PITCH}" height="330">
+				<itemlayout width="{PITCH}" height="250">
 					<include>Pick_Item</include>
 				</itemlayout>
-				<focusedlayout width="{PITCH}" height="330">
+				<focusedlayout width="{PITCH}" height="250">
 					<include content="Pick_Item"><param name="focused" value="true"/></include>
 				</focusedlayout>
 				<content>

@@ -1,3 +1,12 @@
+0.9.15 (2026-10-27)
+- More ways to browse (View pill or Options > View; the picker now shows up to six previews):
+  - Spotlight (films, sets, shows, seasons, music videos): the focused title large, its fanart melting into the card, plot and "start now and it ends at ...", over a strip of posters that each say when they would end.
+  - Wide (everything, add-ons and plug-ins too): landscape cards in four columns; episodes show their stills, add-ons their fanart, other items keep their own picture whole.
+  - Time (films, episodes, music videos): each title is a bar from now to the moment it ends, four hours across; in the bedtime hours a moon line marks your bedtime and everything after it falls into shade.
+  - Music Wall (albums, artists, genres, years): the whole page of covers, eight across; artists as round portraits.
+  - Music Spotlight (artists, albums): the artist's fanart large with the biography or album notes, over a strip of round portraits or covers.
+- Existing views and their defaults are unchanged. The Wall header no longer prints ".." for the Back item and sits on the card's inset.
+
 0.9.14 (2026-10-25)
 - Sleep after this: seeking, skipping, fast-forward or buffering re-time the stop, so the end of the film is no longer cut off.
 - Sunday and weekend choices on Home now work in every language (they never matched before).

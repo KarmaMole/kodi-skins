@@ -316,6 +316,18 @@ msgctxt "#31129"
 msgid "Video settings"
 msgstr ""
 
+msgctxt "#31481"
+msgid "a page"
+msgstr ""
+
+msgctxt "#31482"
+msgid "postcards"
+msgstr ""
+
+msgctxt "#31483"
+msgid "album pages"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Keepsake (Caveat, Fraunces, DM Mono)"
 msgstr ""

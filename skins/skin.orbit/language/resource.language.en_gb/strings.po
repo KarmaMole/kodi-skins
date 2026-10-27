@@ -732,6 +732,14 @@ msgctxt "#31315"
 msgid "List"
 msgstr ""
 
+msgctxt "#31320"
+msgid "Horizon"
+msgstr ""
+
+msgctxt "#31321"
+msgid "Tiles"
+msgstr ""
+
 msgctxt "#31330"
 msgid "Main menu"
 msgstr ""

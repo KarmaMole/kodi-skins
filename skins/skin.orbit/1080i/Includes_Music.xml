@@ -439,14 +439,17 @@
 			<!-- the visible view (a hidden 50 is a dead end) -->
 			<onup condition="Control.IsVisible(504)">504</onup>
 			<onup condition="Control.IsVisible(505)">505</onup>
+			<onup condition="Control.IsVisible(507)">507</onup>
 			<onup>50</onup>
 			<ondown>noop</ondown>
 			<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.9: Left past the first tab = Library panel -->
 			<onright condition="Control.IsVisible(504)">504</onright>
 			<onright condition="Control.IsVisible(505)">505</onright>
+			<onright condition="Control.IsVisible(507)">507</onright>
 			<onright>50</onright>
 			<onback condition="Control.IsVisible(504)">504</onback>
 			<onback condition="Control.IsVisible(505)">505</onback>
+			<onback condition="Control.IsVisible(507)">507</onback>
 			<onback>50</onback>
 			<include content="Music_Tab">
 				<param name="id" value="9320"/>

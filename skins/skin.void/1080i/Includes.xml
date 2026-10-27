@@ -14,6 +14,7 @@
 	<include file="Includes_Dialogs.xml"/>
 	<include file="Includes_Settings.xml"/>
 	<include file="Includes_Views.xml"/>
+	<include file="Includes_ViewsMore.xml"/>
 	<include file="Includes_Rotary.xml"/>
 	<include file="Includes_Titles.xml"/>
 	<include file="Includes_Home.xml"/>

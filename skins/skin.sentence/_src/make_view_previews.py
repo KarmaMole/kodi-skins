@@ -169,7 +169,72 @@ def albums():
     save(im, "albums")
 
 
+# ------------------------------------------------------------ 0.9.16 views (_src/make_views_more.py geometry)
+def page_view(name, square=False):
+    """a page / portraits: the paragraph and plot on the left, the fanart behind the right half with ramps."""
+    im, d = canvas()
+    header(d, 110)
+    # the backdrop, fading into the ground towards the article
+    for x in range(760, 1920, 8):
+        a = min(1.0, (x - 760) / 600.0)
+        c = tuple(round(g + (t - g) * a * 0.55) for g, t in zip(GROUND, (96, 104, 98)))
+        bar(d, x, 230, 8, 850, c)
+    bar(d, 120, 256, 220, 14, MUTED)            # Page 5 of 997
+    for k in range(5):                          # the serif paragraph
+        bar(d, 120, 316 + k * 64, 860 - (k == 4) * 380, 32, TEXT)
+    for k in range(4):                          # plot
+        bar(d, 120, 670 + k * 38, 800 - (k == 3) * 300, 16, BODY)
+    if square:
+        tile(d, 1308, 256, 492, 492, 2, dim=False)
+    bar(d, 120, 1004, 520, 12, MUTED)           # hint
+    save(im, name)
+
+
+def scenes():
+    im, d = canvas()
+    header(d, 104)
+    i = 0
+    for r in range(2):
+        for c in range(4):
+            x, y = 108 + c * 430 + 12, 244 + r * 350 + 12
+            f = (r == 0 and c == 1)
+            tile(d, x, y, 400, 225, i, dim=not f)
+            if f:
+                bar(d, x, y + 235, 400, 4, LILAC)
+            bar(d, x, y + 250, 220, 14, TEXT if f else MUTED)
+            bar(d, x, y + 278, 160, 12, LILAC if f else FAINT)
+            i += 1
+    for k in range(1):                          # the focused one, in a sentence
+        bar(d, 120, 962, 1100, 26, TEXT)
+    save(im, "scenes")
+
+
+def tracklist():
+    im, d = canvas()
+    header(d, 150)
+    for r in range(12):
+        y = 244 + r * 66
+        f = r == 3
+        if f:
+            bar(d, 120, y, 1080, 64, LILAC)
+        ink = GROUND if f else TEXT
+        soft = GROUND if f else MUTED
+        bar(d, 150, y + 26, 26, 14, soft)                       # number
+        bar(d, 204, y + 22, 260 + (r * 97) % 280, 22, ink)      # title (serif)
+        bar(d, 780, y + 26, 220, 14, soft)                      # by ..., from ...
+        bar(d, 1110, y + 26, 66, 14, soft)                      # time
+        bar(d, 120, y + 65, 1080, 1, FAINT)
+    tile(d, 1308, 256, 492, 492, 4, dim=False)
+    for k in range(3):
+        bar(d, 1308, 788 + k * 52, 460 - (k == 2) * 200, 26, TEXT)
+    save(im, "tracklist")
+
+
 if __name__ == "__main__":
+    page_view("page")
+    page_view("portraits", square=False)
+    scenes()
+    tracklist()
     grid()
     wall()
     episodes()

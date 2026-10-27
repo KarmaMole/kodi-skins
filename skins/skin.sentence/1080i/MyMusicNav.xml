@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	Music library. Header sentence + views: Includes_Views_Music.xml. Now-playing line: Includes_Music.xml.
+	Music library. Header sentence + views: Includes_Views_Music.xml; 0.9.16: 507 a tracklist (songs), 508 portraits
+	(albums, artists) in Includes_Views_More.xml (_src/make_views_more.py). Now-playing line: Includes_Music.xml.
 	Kodi id contract (Estuary Omega MyMusicNav.xml / GUIWindowMusicNav.cpp): <views>, menucontrol 9000,
 	3 sort by, 4 sort order (hidden, clicked by the header phrases). Reserved by Kodi and not reused:
 	2, 5, 8, 12, 15, 16, 17, 19, 20.
@@ -11,12 +12,14 @@
 	<menucontrol>9000</menucontrol>
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>
 	<backgroundcolor>ground</backgroundcolor>
-	<views>504,50</views>
+	<views>504,507,508,50</views>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>Sen_Background</include>
 		<include>Music_Header</include>
 		<include>Music_View_504</include>
+		<include>Music_View_507</include>
+		<include>Music_View_508</include>
 		<include>Music_View_50</include>
 		<control type="group">
 			<left>page_margin</left>

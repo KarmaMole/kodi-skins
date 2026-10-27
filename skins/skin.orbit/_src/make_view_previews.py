@@ -268,6 +268,79 @@ def save(img, name):
     print(f"  media/views/{name}  {W}x{H}")
 
 
+# ------------------------------------------------------------------ 0.9.16 views
+def horizon_view(name, geom, ring_png, ring_top, square=False):
+    """views 503 / 507: the showcase (fanart across the page) over a dial of wide cards / covers along the bottom
+    (arc_horizon.HORIZON / HORIZON_SQ)."""
+    import arc_horizon as Hz
+    img = ground("page")
+    # the lens title's fanart across the page, fading into the ground at the text and the dial
+    lay, d = layer()
+    for i in range(14):
+        a = 0.06 + 0.035 * i
+        d.rectangle([c(560 + i * 70), 0, c(1920), c(760 - i * 18)], fill=(70, 86, 120, round(255 * min(a, 0.42))))
+    comp(img, lay)
+    header(img)
+    texture(img, f"rings/{ring_png}", 0, ring_top, 1920, 1080 - ring_top)
+    slots = Hz.horizon_slots(**geom)
+    rnd = random.Random(len(name) + 5)
+    for k in (5, -5, 4, -4, 3, -3, 2, -2, 1, -1):
+        x, y, w, h, rot = slots[k]
+        b = A.B[abs(k)]
+        base = rnd.choice(TILES)
+        col = tuple(round(v * (0.55 + 0.45 * b)) for v in base)
+        place(img, poster(w, h, col, title=abs(k) <= 1, radius=w / 2 if square and name.startswith("music") and False else 4), x, y, rot)
+    x, y, w, h, rot = slots[0]
+    place(img, poster(w, h, FOCUS), x, y, rot)
+    brackets(img, x - w / 2, y - h / 2, w, h, out=14)
+    lay, d = layer()
+    bar(d, 64, 176, 300, 18, TEXT2, 0.8)
+    bar(d, 64, 216, 620, 54, TEXT, 0.95)
+    bar(d, 64, 300, 420, 18, TEXT2, 0.7)
+    bar(d, 64, 340, 380, 20, ACCENT, 0.85)
+    for i in range(2):
+        bar(d, 64, 390 + i * 38, 820 * (0.92 if i == 0 else 0.6), 18, TEXT2, 0.55)
+    comp(img, lay)
+    option_bar(img, (232, 238, 232, 150, 276, 200) if square else (168, 298, 276, 220, 44))
+    save(img, name)
+
+
+def tiles_view():
+    img = ground("page")
+    header(img)
+    rnd = random.Random(61)
+    focus = (0, 1)
+    for r in range(3):
+        for col in range(4):
+            x = 40 + col * 460 + 24
+            y = 176 + r * 352 + 24
+            if y > 980:
+                continue
+            if (r, col) == focus:
+                continue
+            t = poster(412, 232, tuple(round(v * 0.69) for v in rnd.choice(TILES)), title=False)
+            if y + 232 > 980:
+                t = t.crop((0, 0, t.width, max(1, round(c(980 - y)))))
+            img.alpha_composite(t, (round(c(x)), round(c(y))))
+            if y + 300 < 980:
+                lay, d = layer()
+                bar(d, x, y + 250, rnd.uniform(200, 340), 22, TEXT, 0.8)
+                bar(d, x, y + 284, 160, 14, TEXT2, 0.55)
+                comp(img, lay)
+    r, col = focus
+    x, y = 40 + col * 460 + 24, 176 + r * 352 + 24
+    zw, zh = 412 * 1.04, 232 * 1.04
+    zx, zy = x - (zw - 412) / 2, y - (zh - 232) / 2
+    img.alpha_composite(poster(zw, zh, FOCUS, title=False), (round(c(zx)), round(c(zy))))
+    brackets(img, zx, zy, zw, zh, out=12)
+    lay, d = layer()
+    bar(d, x, y + 250, 300, 22, TEXT, 0.95)
+    bar(d, x, y + 284, 160, 14, TEXT2, 0.7)
+    comp(img, lay)
+    option_bar(img)
+    save(img, "tiles.png")
+
+
 def main():
     arc_view("arc.png", "lib")
     grid_view("grid.png", 230, 352, 196, 294, 8)
@@ -276,6 +349,10 @@ def main():
     arc_view("music_arc.png", "libsq", record=True)
     grid_view("music_grid.png", 262, 262, 214, 214, 7)
     list_view("music_list.png", square=True)
+    import arc_horizon as Hz
+    horizon_view("horizon.png", Hz.HORIZON, "horizon_arc.png", 760)
+    tiles_view()
+    horizon_view("music_horizon.png", Hz.HORIZON_SQ, "horizon_arc_sq.png", 740, square=True)
 
 
 if __name__ == "__main__":

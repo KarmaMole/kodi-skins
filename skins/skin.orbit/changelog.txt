@@ -1,3 +1,10 @@
+0.9.16 (2026-10-27)
+- More ways to browse (VIEW or Options > View; the picker shows up to six previews):
+  - Horizon (films, sets, shows, seasons, episodes, music videos): the focused title as a showcase, its fanart across the page with title, meta, end time and plot, over a dial of wide pictures riding a flat circle along the bottom; Left / Right turn it.
+  - Tiles (everything, add-ons and plug-ins too): wide tiles in four columns with titles and facts; episode stills, fanart, landscape art; add-ons and plug-in items keep their own picture whole.
+  - Music Horizon (artists, albums): the artist's fanart across the page with name, dates and story, over a dial of covers and round artist discs.
+- Existing views and their first-run defaults are unchanged.
+
 0.9.15 (2026-10-25)
 - Home: Live TV (with a TV add-on), Pictures and Folders (your video sources) are stations in Settings, so photos and live TV can be reached again.
 - Search: a query with a double quote (e.g. "Superman" or Waiting for "Superman") now finds its matches; before, the quote broke the search and nothing came up. Past the result limit a count reads "40+" instead of one more than the matches (the last item, More..., opens them all).

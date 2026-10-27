@@ -198,7 +198,79 @@ def instant_prints(square=False):
     return im
 
 
+# ------------------------------------------------------------------ views added 2026-10-27
+def a_page():
+    """525: the big print + tucked poster on the left page, title / plot / pen line on the right, a strip below."""
+    im = ground()
+    im = photo_print(im, 124, 226, 728, 422, 1, lift=True, stamp=True)
+    im = photo_print(im, 650, 470, 224, 309, 3, border=12)
+    d = ImageDraw.Draw(im)
+    label(d, 1064, 220, 200)
+    d.rectangle([1060, 250, 1640, 340], fill=(239, 230, 214))
+    label(d, 1066, 400, 420, (201, 194, 184))
+    for k in range(4):
+        d.rectangle([1066, 450 + k * 40, 1066 + 740 - (k == 3) * 300, 462 + k * 40], fill=(120, 118, 114))
+    pen(d, 1064, 660, 520, 26, INK)
+    for c in range(9):
+        x = 52 + c * 200 + 15
+        if c == 2:
+            continue
+        im = photo_print(im, x, 804, 170, 245, c + 2, border=10)
+    im = photo_print(im, 52 + 400 + 8, 790, 184, 262, 5, lift=True, border=10)
+    d = ImageDraw.Draw(im)
+    header(d)
+    return im
+
+
+def postcards():
+    """526: wide prints four across the spread, names written under them."""
+    im = ground()
+    for r in range(3):
+        for c in range(4):
+            x = 52 + c * 453 + 22
+            y = 176 + r * 300 + 14
+            if (r, c) == (0, 1):
+                continue
+            im = photo_print(im, x, y, 408, 242, r * 4 + c)
+            d = ImageDraw.Draw(im)
+            pen(d, x + 120, y + 266, 160, 14, INK_FAINT)
+    x, y = 52 + 453 + 12, 176 + 6
+    im = photo_print(im, x, y, 428, 254, 6, lift=True, stamp=True)
+    d = ImageDraw.Draw(im)
+    pen(d, x + 110, y + 278, 200, 16, INK)
+    header(d)
+    return im
+
+
+def album_pages():
+    """532: the cover as a big print on the left page; title, meta and the tracks on the right; instant prints below."""
+    im = ground()
+    im = photo_print(im, 220, 232, 492, 492, 2, lift=True, border=16)
+    d = ImageDraw.Draw(im)
+    d.rectangle([1060, 226, 1560, 290], fill=(239, 230, 214))
+    label(d, 1066, 312, 380, (201, 194, 184))
+    for k in range(10):
+        y = 360 + k * 40
+        label(d, 1064, y + 8, 22)
+        pen(d, 1116, y + 12, 200 + (k * 53) % 300, 12, (190, 186, 180))
+        label(d, 1760, y + 8, 50)
+    for c in range(7):
+        x = 52 + c * 262 + 14
+        if c == 1:
+            continue
+        im = photo_print(im, x, 794, 234, 280, c + 3, border=12)
+        d = ImageDraw.Draw(im)
+        d.rectangle([x + 12, y + 0, x + 12, y + 0], fill=PRINT)
+    im = photo_print(im, 52 + 262 + 4, 780, 254, 300, 0, lift=True, border=12)
+    d = ImageDraw.Draw(im)
+    header(d, 190, (260, 110))
+    return im
+
+
 if __name__ == "__main__":
+    finish(a_page(), "a_page")
+    finish(postcards(), "postcards")
+    finish(album_pages(), "album_pages")
     finish(wall(1), "prints_films")
     finish(wall(1), "prints_series")
     finish(seasons(), "seasons")

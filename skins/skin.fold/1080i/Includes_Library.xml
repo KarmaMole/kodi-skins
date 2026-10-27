@@ -35,6 +35,11 @@
 		<value condition="String.IsEqual(Container.Viewmode,Seasons)">Cards</value>
 		<value condition="String.IsEqual(Container.Viewmode,Concertina)">Strip</value>
 		<value condition="String.IsEqual(Container.Viewmode,Sleeves)">Sleeves</value>
+		<value condition="String.IsEqual(Container.Viewmode,Table)">Table</value>
+		<value condition="String.IsEqual(Container.Viewmode,Leaflet)">Leaflet</value>
+		<value condition="String.IsEqual(Container.Viewmode,Prints)">Prints</value>
+		<value condition="String.IsEqual(Container.Viewmode,Crate)">Crate</value>
+		<value condition="String.IsEqual(Container.Viewmode,Poster)">Poster</value>
 		<value>List</value>
 	</variable>
 	<variable name="Fold_Lib_HideWatched">

@@ -240,7 +240,60 @@ def big_album():
     return im
 
 
+# ------------------------------------------------------------------ views added 2026-10-27
+def network():
+    """506 Network: 4 x 3 wide stations hung on grey lines, a stop under each, names below."""
+    im = ground()
+    d = ImageDraw.Draw(im)
+    header(d)
+    for r in range(3):
+        y0 = 164 + r * 284
+        d.rectangle([64, y0 + 236, 1856, y0 + 244], fill=(196, 197, 192))
+        for c in range(4):
+            x = 64 + c * 448 + 24
+            foc = (r == 0 and c == 1)
+            tile(d, x, y0 + 8, 400, 225, r * 4 + c, focus=foc, title=False)
+            cx, cy = x + 200, y0 + 240
+            if foc:
+                d.ellipse([cx - 17, cy - 17, cx + 17, cy + 17], fill=INK)
+                d.ellipse([cx - 8, cy - 8, cx + 8, cy + 8], fill=CARD)
+            else:
+                d.ellipse([cx - 11, cy - 11, cx + 11, cy + 11], fill=CARD, outline=ROUTE, width=6)
+            bar(d, cx - 90, y0 + 258, 180, 16, INK if foc else INK2)
+    return im
+
+
+def interchange(music=False):
+    """507 Interchange: a vertical line of stops (focused = ink pill), the focused one's picture in the ring."""
+    im = ground()
+    d = ImageDraw.Draw(im)
+    music_header(d) if music else header(d)
+    top = 160 if music else 164
+    d.rectangle([100, top, 108, 1040], fill=(200, 201, 204))
+    for r in range(13):
+        y = top + 33 + r * 66
+        if y > 1020:
+            break
+        if r == 3:
+            d.rounded_rectangle([64, y - 28, 664, y + 28], radius=28, fill=INK)
+            d.ellipse([88, y - 16, 120, y + 16], fill=CARD)
+            d.ellipse([97, y - 7, 111, y + 7], fill=INK)
+            bar(d, 140, y - 11, 300, 22, CARD)
+            continue
+        d.ellipse([90, y - 14, 118, y + 14], fill=CARD, outline=ROUTE, width=7)
+        bar(d, 140, y - 11, 180 + (r * 71) % 260, 22, INK)
+    tile(d, 752, top, 1040, 585, 2, focus=True, title=False, r=14)
+    bar(d, 752, top + 622, 520, 40, INK)
+    bar(d, 752, top + 680, 640, 20, INK2)
+    for k in range(3):
+        bar(d, 752, top + 724 + k * 34, 1000 - k * 220, 18, INK3)
+    return im
+
+
 if __name__ == "__main__":
+    finish(network(), "network")
+    finish(interchange(False), "interchange")
+    finish(interchange(True), "interchange_music")
     finish(line_view(), "line")
     finish(platform(), "platform")
     finish(wall(), "wall")

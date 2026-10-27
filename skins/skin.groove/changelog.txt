@@ -1,3 +1,6 @@
+1.0.5 (2026-10-27)
+- Films and TV: three new views. Sleeve: the picture on a square sleeve with the record half out of it (the poster is its label), the title, the icon line and the story beside it, and the rest of the crate in a row of small sleeves. Gatefold: wide pictures opened flat, four across, for films, series, episodes, sets, add-ons and everything else (posters and icons are shown whole, never cropped). Liner notes: each title with its picture, details and the first line of its story, the whole story beside the lit picture; episodes read like a tracklist with their stills. The view each library opens in is unchanged.
+
 1.0.4 (2026-10-25)
 - Search: a query with a double quote (e.g. "Superman" or Waiting for "Superman") now finds its matches; before, the quote broke the search and nothing came up.
 - Code clean-up: dialog buttons no longer carry an undeclared enable parameter.

@@ -512,13 +512,26 @@
 				<control type="group">
 					<left>256</left>
 					<top>340</top>
-					<!-- centre the card on the number of views: 3 = 1104 wide at 408, 2 = 752 at 584, 1 = 400 at 760 -->
+					<!-- centre the card on the number of views: 5+ = 1808 wide at 56, 4 = 1456 at 232, 3 = 1104 at 408,
+					     2 = 752 at 584, 1 = 400 at 760 (five previews at once; more scroll) -->
+					<animation effect="slide" start="0,0" end="-352,0" time="0" condition="Integer.IsGreaterOrEqual(Container(9851).NumItems,5)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="-176,0" time="0" condition="Integer.IsEqual(Container(9851).NumItems,4)">Conditional</animation>
 					<animation effect="slide" start="0,0" end="176,0" time="0" condition="Integer.IsEqual(Container(9851).NumItems,2)">Conditional</animation>
 					<animation effect="slide" start="0,0" end="352,0" time="0" condition="Integer.IsEqual(Container(9851).NumItems,1)">Conditional</animation>
 					<include content="Lib_Card">
 						<param name="sl" value="92"/><param name="st" value="-46"/><param name="sw" value="1224"/><param name="sh" value="520"/>
 						<param name="left" value="152"/><param name="top" value="0"/><param name="width" value="1104"/><param name="height" value="400"/>
-						<param name="visible" value="Integer.IsGreaterOrEqual(Container(9851).NumItems,3)"/>
+						<param name="visible" value="Integer.IsEqual(Container(9851).NumItems,3)"/>
+					</include>
+					<include content="Lib_Card">
+						<param name="sl" value="92"/><param name="st" value="-46"/><param name="sw" value="1576"/><param name="sh" value="520"/>
+						<param name="left" value="152"/><param name="top" value="0"/><param name="width" value="1456"/><param name="height" value="400"/>
+						<param name="visible" value="Integer.IsEqual(Container(9851).NumItems,4)"/>
+					</include>
+					<include content="Lib_Card">
+						<param name="sl" value="92"/><param name="st" value="-46"/><param name="sw" value="1928"/><param name="sh" value="520"/>
+						<param name="left" value="152"/><param name="top" value="0"/><param name="width" value="1808"/><param name="height" value="400"/>
+						<param name="visible" value="Integer.IsGreaterOrEqual(Container(9851).NumItems,5)"/>
 					</include>
 					<include content="Lib_Card">
 						<param name="sl" value="92"/><param name="st" value="-46"/><param name="sw" value="872"/><param name="sh" value="520"/>
@@ -551,11 +564,13 @@
 						<textcolor>ink2</textcolor>
 						<label>$PARAM[section]</label>
 						<visible>Integer.IsGreaterOrEqual(Container(9851).NumItems,3)</visible>
+						<animation effect="slide" start="0,0" end="704,0" time="0" condition="Integer.IsGreaterOrEqual(Container(9851).NumItems,5)">Conditional</animation>
+						<animation effect="slide" start="0,0" end="352,0" time="0" condition="Integer.IsEqual(Container(9851).NumItems,4)">Conditional</animation>
 					</control>
 					<control type="list" id="9851">
 						<left>176</left>
 						<top>72</top>
-						<width>1056</width>
+						<width>1760</width>
 						<height>310</height>
 						<orientation>horizontal</orientation>
 						<onleft>noop</onleft>
@@ -574,24 +589,52 @@
 
 	<!-- picker focus = the view that is showing (absolute positions among the visible items) -->
 	<include name="Lib_PickFocusVideo">
-		<onclick condition="Control.IsVisible(501)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(500) + [Container.Content(movies) | Container.Content(sets)]">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(501) + [Container.Content(movies) | Container.Content(sets)]">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(502) + [Container.Content(movies) | Container.Content(sets)]">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="Control.IsVisible(506) + [Container.Content(movies) | Container.Content(sets)]">SetFocus(9851,3,absolute)</onclick>
+		<onclick condition="Control.IsVisible(507) + [Container.Content(movies) | Container.Content(sets)]">SetFocus(9851,4,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + [Container.Content(movies) | Container.Content(sets)]">SetFocus(9851,5,absolute)</onclick>
+		<onclick condition="Control.IsVisible(502) + Container.Content(tvshows)">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(506) + Container.Content(tvshows)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(507) + Container.Content(tvshows)">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + Container.Content(tvshows)">SetFocus(9851,3,absolute)</onclick>
+		<onclick condition="Control.IsVisible(502) + Container.Content(seasons)">SetFocus(9851,0,absolute)</onclick>
 		<onclick condition="Control.IsVisible(503) + Container.Content(seasons)">SetFocus(9851,1,absolute)</onclick>
-		<onclick condition="Control.IsVisible(50) + [Container.Content(movies) | Container.Content(sets) | Container.Content(seasons)]">SetFocus(9851,2,absolute)</onclick>
-		<onclick condition="Control.IsVisible(50) + [Container.Content(tvshows) | Container.Content(episodes)]">SetFocus(9851,1,absolute)</onclick>
-		<onclick condition="Control.IsVisible(500) | Control.IsVisible(502) | [Control.IsVisible(503) + !Container.Content(seasons)] | [Control.IsVisible(50) + !Container.Content(movies) + !Container.Content(sets) + !Container.Content(seasons) + !Container.Content(tvshows) + !Container.Content(episodes)]">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(506) + Container.Content(seasons)">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="Control.IsVisible(507) + Container.Content(seasons)">SetFocus(9851,3,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + Container.Content(seasons)">SetFocus(9851,4,absolute)</onclick>
+		<onclick condition="Control.IsVisible(503) + Container.Content(episodes)">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(506) + Container.Content(episodes)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(507) + Container.Content(episodes)">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + Container.Content(episodes)">SetFocus(9851,3,absolute)</onclick>
+		<onclick condition="Control.IsVisible(502) + Container.Content(musicvideos)">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(506) + Container.Content(musicvideos)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(507) + Container.Content(musicvideos)">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + Container.Content(musicvideos)">SetFocus(9851,3,absolute)</onclick>
+		<onclick condition="Control.IsVisible(506) + !$EXP[VidView_IsLibraryVideo] + !String.IsEmpty(Container.PluginName)">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(507) + !$EXP[VidView_IsLibraryVideo] + !String.IsEmpty(Container.PluginName)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + !$EXP[VidView_IsLibraryVideo] + !String.IsEmpty(Container.PluginName)">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="Control.IsVisible(506) + !$EXP[VidView_IsLibraryVideo] + String.IsEmpty(Container.PluginName)">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + !$EXP[VidView_IsLibraryVideo] + String.IsEmpty(Container.PluginName)">SetFocus(9851,1,absolute)</onclick>
 	</include>
 	<include name="Lib_PickFocusMusic">
-		<onclick condition="Control.IsVisible(505)">SetFocus(9851,1,absolute)</onclick>
-		<onclick condition="Control.IsVisible(50) + Container.Content(albums)">SetFocus(9851,2,absolute)</onclick>
-		<onclick condition="Control.IsVisible(50) + Container.Content(artists)">SetFocus(9851,1,absolute)</onclick>
-		<onclick condition="Control.IsVisible(504) | [Control.IsVisible(50) + !Container.Content(albums) + !Container.Content(artists)]">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(504) + Container.Content(albums)">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(505) + Container.Content(albums)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(507) + Container.Content(albums)">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + Container.Content(albums)">SetFocus(9851,3,absolute)</onclick>
+		<onclick condition="Control.IsVisible(504) + Container.Content(artists)">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(507) + Container.Content(artists)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + Container.Content(artists)">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="!Container.Content(albums) + !Container.Content(artists)">SetFocus(9851,0,absolute)</onclick>
 	</include>
 
-	<!-- video: Line 500 + Platform 501 (movies, sets), Wall 502 (tvshows, seasons), Episodes 503 (episodes,
-	     seasons), Index 50 -->
+	<!-- video: Line 500 + Platform 501 (movies, sets), Wall 502 (tvshows, seasons, movies, sets, music videos),
+	     Episodes 503 (episodes, seasons), Network 506 (everything), Interchange 507 (library + add-on listings),
+	     Index 50 -->
 	<include name="Lib_PickerVideo">
 		<include content="Lib_PickerItemLayout">
-			<param name="current" value="[String.IsEqual(ListItem.Property(view),v500) + Control.IsVisible(500)] | [String.IsEqual(ListItem.Property(view),v501) + Control.IsVisible(501)] | [String.IsEqual(ListItem.Property(view),v502) + Control.IsVisible(502)] | [String.IsEqual(ListItem.Property(view),v503) + Control.IsVisible(503)] | [String.IsEqual(ListItem.Property(view),v50) + Control.IsVisible(50)]"/>
+			<param name="current" value="[String.IsEqual(ListItem.Property(view),v500) + Control.IsVisible(500)] | [String.IsEqual(ListItem.Property(view),v501) + Control.IsVisible(501)] | [String.IsEqual(ListItem.Property(view),v502) + Control.IsVisible(502)] | [String.IsEqual(ListItem.Property(view),v503) + Control.IsVisible(503)] | [String.IsEqual(ListItem.Property(view),v506) + Control.IsVisible(506)] | [String.IsEqual(ListItem.Property(view),v507) + Control.IsVisible(507)] | [String.IsEqual(ListItem.Property(view),v50) + Control.IsVisible(50)]"/>
 		</include>
 		<content>
 			<item>
@@ -616,7 +659,7 @@
 				<property name="view">v502</property>
 				<onclick>Container.SetViewMode(502)</onclick>
 				<onclick>SetFocus(50)</onclick>
-				<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+				<visible>Container.Content(tvshows) | Container.Content(seasons) | Container.Content(movies) | Container.Content(sets) | Container.Content(musicvideos)</visible>
 			</item>
 			<item>
 				<label>$LOCALIZE[31246]</label>
@@ -625,6 +668,21 @@
 				<onclick>Container.SetViewMode(503)</onclick>
 				<onclick>SetFocus(50)</onclick>
 				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
+			</item>
+			<item>
+				<label>$LOCALIZE[31357]</label>
+				<icon>sd/views/network.png</icon>
+				<property name="view">v506</property>
+				<onclick>Container.SetViewMode(506)</onclick>
+				<onclick>SetFocus(50)</onclick>
+			</item>
+			<item>
+				<label>$LOCALIZE[31358]</label>
+				<icon>sd/views/interchange.png</icon>
+				<property name="view">v507</property>
+				<onclick>Container.SetViewMode(507)</onclick>
+				<onclick>SetFocus(50)</onclick>
+				<visible>$EXP[SDV_ShowInterchange]</visible>
 			</item>
 			<item>
 				<label>$LOCALIZE[31200]</label>
@@ -639,7 +697,7 @@
 	<!-- music: Grid 504 (albums, artists), Big album 505 (albums), List 50 -->
 	<include name="Lib_PickerMusic">
 		<include content="Lib_PickerItemLayout">
-			<param name="current" value="[String.IsEqual(ListItem.Property(view),v504) + Control.IsVisible(504)] | [String.IsEqual(ListItem.Property(view),v505) + Control.IsVisible(505)] | [String.IsEqual(ListItem.Property(view),v50) + Control.IsVisible(50)]"/>
+			<param name="current" value="[String.IsEqual(ListItem.Property(view),v504) + Control.IsVisible(504)] | [String.IsEqual(ListItem.Property(view),v505) + Control.IsVisible(505)] | [String.IsEqual(ListItem.Property(view),v507) + Control.IsVisible(507)] | [String.IsEqual(ListItem.Property(view),v50) + Control.IsVisible(50)]"/>
 		</include>
 		<content>
 			<item>
@@ -657,6 +715,14 @@
 				<onclick>Container.SetViewMode(505)</onclick>
 				<onclick>SetFocus(50)</onclick>
 				<visible>Container.Content(albums)</visible>
+			</item>
+			<item>
+				<label>$LOCALIZE[31358]</label>
+				<icon>sd/views/interchange_music.png</icon>
+				<property name="view">v507</property>
+				<onclick>Container.SetViewMode(507)</onclick>
+				<onclick>SetFocus(50)</onclick>
+				<visible>Container.Content(albums) | Container.Content(artists)</visible>
 			</item>
 			<item>
 				<label>$LOCALIZE[535]</label>

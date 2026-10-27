@@ -1034,6 +1034,7 @@
 			<width>1200</width>
 			<height>200</height>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<animation effect="slide" start="0,0" end="0,300" time="0" condition="Control.IsVisible(526)">Conditional</animation>
 			<control type="textbox">
 				<left>0</left>
 				<top>0</top>
@@ -1068,6 +1069,8 @@
 		</include>
 		<include>VidView_523_Seasons</include>
 		<include>VidView_524_Episodes</include>
+		<include>VidView_525_Page</include>
+		<include>VidView_526_Postcards</include>
 		<include>View_50_List</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>

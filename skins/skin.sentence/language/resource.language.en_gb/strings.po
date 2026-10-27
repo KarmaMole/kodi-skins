@@ -1014,6 +1014,26 @@ msgctxt "#31508"
 msgid "Your third row shows"
 msgstr ""
 
+msgctxt "#31509"
+msgid "a page"
+msgstr ""
+
+msgctxt "#31510"
+msgid "scenes"
+msgstr ""
+
+msgctxt "#31511"
+msgid "a tracklist"
+msgstr ""
+
+msgctxt "#31512"
+msgid "portraits"
+msgstr ""
+
+msgctxt "#31513"
+msgid "Left and right turn the page. Up takes you to the sentence above, where you can change it."
+msgstr ""
+
 msgctxt "#31962"
 msgid "Up and down change the highlighted word. Left and right move along. OK shows what matches."
 msgstr ""

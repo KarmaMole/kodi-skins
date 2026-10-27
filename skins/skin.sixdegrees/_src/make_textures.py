@@ -238,7 +238,7 @@ def make_posters():
     # poster masks (diffuse): rounded 7 at the line size, 8 for the centre, 5 for the mini map
     for (w, h, r) in ((110, 165, 7), (164, 246, 7), (184, 276, 7), (224, 336, 7), (300, 450, 8),
                       (330, 495, 8), (100, 150, 5), (240, 360, 7), (160, 240, 7), (120, 180, 6),
-                      (200, 300, 7), (280, 280, 8), (180, 180, 7), (320, 180, 8), (560, 315, 10), (400, 225, 8)):
+                      (200, 300, 7), (280, 280, 8), (180, 180, 7), (320, 180, 8), (560, 315, 10), (400, 225, 8), (1040, 585, 14)):
         save(rrect(w, h, r), f"sd/mask_{w}x{h}.png")
     # poster frame on a line (CSS outline 3-4px, offset 0): outer radius r+4 -> 9-slice border 14
     save(rrect_outline(40, 40, 11, 4), "sd/frame_o4.png")

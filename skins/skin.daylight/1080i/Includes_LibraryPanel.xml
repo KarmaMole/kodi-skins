@@ -44,28 +44,31 @@
 	<variable name="Pick_Cur_Grid"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31312])">Current</value></variable>
 	<variable name="Pick_Cur_Wall"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31313])">Current</value></variable>
 	<variable name="Pick_Cur_Episodes"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31314])">Current</value></variable>
+	<variable name="Pick_Cur_Spotlight"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31320])">Current</value></variable>
+	<variable name="Pick_Cur_Wide"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31321])">Current</value></variable>
+	<variable name="Pick_Cur_Time"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31322])">Current</value></variable>
 	<variable name="Pick_Cur_List"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[535])">Current</value></variable>
 
 	<!-- One preview: seven white-alpha layers tinted with the live mood colours
 	     (_src/make_view_previews.py), so it matches the page at any time of day. Icon = media/views/<name>. -->
 	<include name="Pick_Layers">
-		<control type="image"><left>0</left><top>0</top><width>320</width><height>180</height><texture colordiffuse="$VAR[DL_Ground]">$INFO[ListItem.Property(prev)]_ground.png</texture></control>
-		<control type="image"><left>0</left><top>0</top><width>320</width><height>180</height><texture colordiffuse="$VAR[DL_Surface]">$INFO[ListItem.Property(prev)]_surface.png</texture></control>
-		<control type="image"><left>0</left><top>0</top><width>320</width><height>180</height><texture colordiffuse="$VAR[DL_Raised]">$INFO[ListItem.Property(prev)]_raised.png</texture></control>
-		<control type="image"><left>0</left><top>0</top><width>320</width><height>180</height><texture colordiffuse="$VAR[DL_Ink]">$INFO[ListItem.Property(prev)]_ink.png</texture></control>
-		<control type="image"><left>0</left><top>0</top><width>320</width><height>180</height><texture colordiffuse="$VAR[DL_Ink2]">$INFO[ListItem.Property(prev)]_ink2.png</texture></control>
-		<control type="image"><left>0</left><top>0</top><width>320</width><height>180</height><texture colordiffuse="$VAR[DL_Accent]">$INFO[ListItem.Property(prev)]_accent.png</texture></control>
-		<control type="image"><left>0</left><top>0</top><width>320</width><height>180</height><texture colordiffuse="$VAR[DL_OnAccent]">$INFO[ListItem.Property(prev)]_onaccent.png</texture></control>
+		<control type="image"><left>0</left><top>0</top><width>240</width><height>135</height><texture colordiffuse="$VAR[DL_Ground]">$INFO[ListItem.Property(prev)]_ground.png</texture></control>
+		<control type="image"><left>0</left><top>0</top><width>240</width><height>135</height><texture colordiffuse="$VAR[DL_Surface]">$INFO[ListItem.Property(prev)]_surface.png</texture></control>
+		<control type="image"><left>0</left><top>0</top><width>240</width><height>135</height><texture colordiffuse="$VAR[DL_Raised]">$INFO[ListItem.Property(prev)]_raised.png</texture></control>
+		<control type="image"><left>0</left><top>0</top><width>240</width><height>135</height><texture colordiffuse="$VAR[DL_Ink]">$INFO[ListItem.Property(prev)]_ink.png</texture></control>
+		<control type="image"><left>0</left><top>0</top><width>240</width><height>135</height><texture colordiffuse="$VAR[DL_Ink2]">$INFO[ListItem.Property(prev)]_ink2.png</texture></control>
+		<control type="image"><left>0</left><top>0</top><width>240</width><height>135</height><texture colordiffuse="$VAR[DL_Accent]">$INFO[ListItem.Property(prev)]_accent.png</texture></control>
+		<control type="image"><left>0</left><top>0</top><width>240</width><height>135</height><texture colordiffuse="$VAR[DL_OnAccent]">$INFO[ListItem.Property(prev)]_onaccent.png</texture></control>
 	</include>
 	<!-- One picker card: preview, name, accent dot + "Current". Focus = Daylight's accent ring + 6 %. -->
 	<include name="Pick_Item">
 		<param name="focused">false</param>
 		<definition>
 			<control type="group">
-				<left>30</left>
-				<top>30</top>
-				<width>320</width>
-				<height>180</height>
+				<left>20</left>
+				<top>24</top>
+				<width>240</width>
+				<height>135</height>
 				<animation type="Focus" reversible="true" condition="$PARAM[focused] + !$EXP[ReduceMotion]">
 					<effect type="zoom" start="100" end="106" center="auto" time="160" tween="cubic" easing="out"/>
 				</animation>
@@ -79,9 +82,9 @@
 				</include>
 			</control>
 			<control type="label">
-				<left>30</left>
-				<top>232</top>
-				<width>320</width>
+				<left>20</left>
+				<top>174</top>
+				<width>240</width>
 				<height>34</height>
 				<font>ui_25_semibold</font>
 				<textcolor>$VAR[DL_Ink2]</textcolor>
@@ -90,9 +93,9 @@
 				<visible>!$PARAM[focused] | !Control.HasFocus(100)</visible>
 			</control>
 			<control type="label">
-				<left>30</left>
-				<top>232</top>
-				<width>320</width>
+				<left>20</left>
+				<top>174</top>
+				<width>240</width>
 				<height>34</height>
 				<font>ui_25_bold</font>
 				<textcolor>$VAR[DL_Ink]</textcolor>
@@ -101,17 +104,17 @@
 				<visible>$PARAM[focused] + Control.HasFocus(100)</visible>
 			</control>
 			<control type="image">
-				<left>31</left>
-				<top>280</top>
+				<left>21</left>
+				<top>222</top>
 				<width>12</width>
 				<height>12</height>
 				<texture colordiffuse="$VAR[DL_Accent]">daylight/circle_12.png</texture>
 				<visible>!String.IsEmpty(ListItem.Label2)</visible>
 			</control>
 			<control type="label">
-				<left>52</left>
-				<top>272</top>
-				<width>280</width>
+				<left>42</left>
+				<top>214</top>
+				<width>220</width>
 				<height>28</height>
 				<font>small_20_semibold</font>
 				<textcolor>$VAR[DL_AccentText]</textcolor>

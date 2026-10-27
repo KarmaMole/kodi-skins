@@ -1432,6 +1432,18 @@ msgctxt "#31647"
 msgid "Mood"
 msgstr ""
 
+msgctxt "#31745"
+msgid "Sleeve"
+msgstr ""
+
+msgctxt "#31746"
+msgid "Gatefold"
+msgstr ""
+
+msgctxt "#31747"
+msgid "Liner notes"
+msgstr ""
+
 msgctxt "#31800"
 msgid "Nothing to choose"
 msgstr ""

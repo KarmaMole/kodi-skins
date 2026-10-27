@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.nocturne" version="0.9.12" name="Nocturne" provider-name="KarmaMole">
+<addon id="skin.nocturne" version="0.9.13" name="Nocturne" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required: script.skinvariables URL-encodes the search query (get_encoded_string; unencoded_paths since 2.1.21). -->
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#nocturne</website>
-		<news>v0.9.12 - Search: a query with a double quote (e.g. &quot;Superman&quot;) now finds its matches; before, the quote broke the search and nothing came up. Code clean-up: dialog buttons no longer carry an unused enable parameter.</news>
+		<news>v0.9.13 - More ways to browse: three new film and series views (Vitrine, Panorama, Catalogue) and a Portraits view for artists and albums. Choose them with VIEW.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

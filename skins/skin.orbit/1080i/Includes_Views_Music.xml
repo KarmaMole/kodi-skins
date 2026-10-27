@@ -4,6 +4,7 @@
 	504 ARC: album covers / artist discs on the library circle, the lens album's record peeks out of
 	     its sleeve ("record dial"); albums, artists, genres-with-art.
 	505 GRID: covers for scanning.
+	507 HORIZON (0.9.16): the focused artist / album as a showcase over a dial of covers / discs along the bottom.
 	50  DIAL LIST + item panel (songs, genres, files, everything).
 	Option bar (menucontrol 9000, bottom left): Albums / Artists / Songs / Genres / Sort / View.
 -->
@@ -245,6 +246,127 @@
 						</include>
 					</control>
 				</focusedlayout>
+			</control>
+		</control>
+	</include>
+
+
+	<!-- ================================================================ 507 horizon (0.9.16)
+	     The focused artist / album as a showcase (the artist's fanart across the page, name, dates, story) over a
+	     dial of covers / artist discs riding a flat circle along the bottom (Arc_HorizonSquares). Left / Right
+	     turn it. Artists without fanart (most music libraries) keep the deep-blue ground; the lens disc carries them. -->
+	<expression name="MusicView_HorizonHasFanart">!ListItem.IsParentFolder + [!String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(artist.fanart)) | !String.IsEmpty(ListItem.Art(albumartist.fanart))]</expression>
+	<variable name="MusicView_HorizonFanart">
+		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(artist.fanart))">$INFO[ListItem.Art(artist.fanart)]</value>
+		<value>$INFO[ListItem.Art(albumartist.fanart)]</value>
+	</variable>
+	<include name="Music_View_507">
+		<control type="group">
+			<visible>Control.IsVisible(507)</visible>
+			<include>Anim_VisibleFade</include>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>screen_w</width>
+				<height>screen_h</height>
+				<aspectratio>scale</aspectratio>
+				<fadetime>240</fadetime>
+				<texture background="true" colordiffuse="art_soft">$VAR[MusicView_HorizonFanart]</texture>
+				<visible>$EXP[MusicView_HorizonHasFanart]</visible>
+			</control>
+			<include content="Orbit_GroundScrim">
+				<param name="mask" value="common/scrim_left.png"/>
+				<param name="ground" value="page"/>
+				<param name="width" value="1400"/>
+				<param name="visible" value="$EXP[MusicView_HorizonHasFanart]"/>
+			</include>
+			<include content="Orbit_GroundScrim">
+				<param name="mask" value="common/scrim_bottom.png"/>
+				<param name="ground" value="page"/>
+				<param name="visible" value="$EXP[MusicView_HorizonHasFanart]"/>
+			</include>
+			<control type="image">
+				<left>0</left>
+				<top>740</top>
+				<width>screen_w</width>
+				<height>340</height>
+				<texture>rings/horizon_arc_sq.png</texture>
+			</control>
+			<control type="fixedlist" id="507">
+				<left>955</left>
+				<top>690</top>
+				<include>Arc_HiddenListHSquare</include>
+				<onleft>9000</onleft>  <!-- Left at the first item = option bar -->
+				<onright>ActivateWindow(1160)</onright>  <!-- Right at the last item = Library panel -->
+				<onup>noop</onup>
+				<ondown>9000</ondown>
+				<viewtype label="31320">biginfo</viewtype>
+				<visible>$EXP[MusicView_ArcContent]</visible>
+			</control>
+			<include content="Arc_HorizonSquares">
+				<param name="id" value="507"/>
+			</include>
+			<control type="grouplist">
+				<left>64</left>
+				<top>176</top>
+				<width>900</width>
+				<height>300</height>
+				<orientation>vertical</orientation>
+				<usecontrolcoords>true</usecontrolcoords>
+				<visible>!ListItem.IsParentFolder</visible>
+				<control type="label">
+					<width>900</width>
+					<height>24</height>
+					<font>label_20</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$VAR[MusicView_Kicker]</label>
+				</control>
+				<include content="Fit_MusicArc">
+					<param name="top" value="14"/>
+					<param name="label" value="$INFO[ListItem.Label]"/>
+				</include>
+				<control type="grouplist">
+					<top>12</top>
+					<width>900</width>
+					<height>26</height>
+					<orientation>horizontal</orientation>
+					<usecontrolcoords>true</usecontrolcoords>
+					<control type="label">
+						<width>auto</width>
+						<height>26</height>
+						<font>mono_20</font>
+						<textcolor>text_meta</textcolor>
+						<label>$INFO[ListItem.Year,,  ·  ]</label>
+					</control>
+					<control type="label">
+						<width max="860">auto</width>
+						<height>26</height>
+						<font>label_20</font>
+						<textcolor>text_meta</textcolor>
+						<label>$VAR[MusicView_MetaRest]</label>
+					</control>
+				</control>
+				<control type="textbox">
+					<top>22</top>
+					<width>620</width>
+					<height max="76">auto</height>
+					<font>text_26</font>
+					<textcolor>text_plot</textcolor>
+					<label>$VAR[MusicView_Description]</label>
+				</control>
+			</control>
+			<control type="group">
+				<visible>ListItem.IsParentFolder + Integer.IsGreater(Container.NumItems,0)</visible>
+				<control type="label">
+					<left>64</left>
+					<top>300</top>
+					<width>900</width>
+					<height>80</height>
+					<font>wide_66</font>
+					<textcolor>text_primary</textcolor>
+					<label>$LOCALIZE[31251]</label>
+				</control>
 			</control>
 		</control>
 	</include>

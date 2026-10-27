@@ -788,22 +788,25 @@ msgctxt "#31415"
 msgid "Home: Music"
 msgstr ""
 
+msgctxt "#31416"
+msgid "Poster"
+msgstr ""
 
+msgctxt "#31417"
+msgid "Screens"
+msgstr ""
 
+msgctxt "#31418"
+msgid "Sheet"
+msgstr ""
 
+msgctxt "#31419"
+msgid "Stage"
+msgstr ""
 
-
-
-
-
-
-
-
-
-
-
-
-
+msgctxt "#31420"
+msgid "Tracks"
+msgstr ""
 
 msgctxt "#31940"
 msgid "Custom rows"

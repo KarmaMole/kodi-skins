@@ -2,7 +2,9 @@
     python skins/skin.fold/_src/make_music_views.py
 
 Views: 504 Sleeves (albums, artists: a 5 x 3 shelf of marigold sleeves with the cover as a tipped-in square
-plate, lift and tilt on focus, the label column on the right), 50 List (songs, genres, files).
+plate, lift and tilt on focus, the label column on the right), 507 Crate (a dense wall of small sleeves) and
+508 Poster (artist / album as a folded gig poster over a strip of sleeves), both in _src/fold_music_more.py
+(0.9.13), 50 List (songs, genres, files).
 Header words (grouplist 9000): Albums 9320, Artists 9321, Songs 9322, Genres 9323 (ReplaceWindow, so Back
 stays one press: LESSONS Daylight 0.9.2), View 9326 (the view picker 1156), Options 9327 (the Library panel 1155),
 Sort 9324, direction 9325; Kodi ids 3 / 4. Left past the first column of the sleeves opens the Library panel.
@@ -12,6 +14,7 @@ from pathlib import Path
 import re
 from default_repeats import strip as strip_defaults  # kodi-review xml.redundant: drop tags that repeat Defaults.xml
 from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
+import fold_music_more as fmm
 
 ROOT = Path(__file__).resolve().parents[1] / "1080i"
 RM = "Skin.HasSetting(fold.reducemotion)"
@@ -168,6 +171,8 @@ def build():
 	</variable>
 	<variable name="Music_ViewWord">
 		<value condition="Control.IsVisible(50)">View: list</value>
+		<value condition="Control.IsVisible(507)">View: crate</value>
+		<value condition="Control.IsVisible(508)">View: poster</value>
 		<value>View: sleeves</value>
 	</variable>
 	<variable name="Sleeve_Kicker">
@@ -267,11 +272,15 @@ def build():
 		</control>
 	</include>
 
+{fmm.music_variables()}
+{fmm.crate_view()}
+{fmm.poster_view()}
+
 	<include name="Music_Header">
 		<include content="Fold_RowHead">
 			<param name="top" value="118"/>
 			<param name="label" value="$VAR[Music_Crumb]"/>
-			<param name="sub" value="$INFO[Container.NumItems,   ,]"/>
+			<param name="sub" value="$VAR[Music_Sub]"/>
 			<param name="color" value="mari_ink"/>
 			<param name="width" value="560"/>
 		</include>
@@ -284,10 +293,14 @@ def build():
 			<itemgap>6</itemgap>
 			<onup>noop</onup>
 			<ondown condition="Control.IsVisible(504)">504</ondown>
+			<ondown condition="Control.IsVisible(507)">507</ondown>
+			<ondown condition="Control.IsVisible(508)">508</ondown>
 			<ondown>50</ondown>
 			<onleft>noop</onleft>
 			<onright>noop</onright>
 			<onback condition="Control.IsVisible(504)">504</onback>
+			<onback condition="Control.IsVisible(507)">507</onback>
+			<onback condition="Control.IsVisible(508)">508</onback>
 			<onback>50</onback>{word(9320, 'Albums', 'ReplaceWindow(Music,musicdb://albums/,return)', width=118, active='Music_TabChip_Albums')}{word(9321, 'Artists', 'ReplaceWindow(Music,musicdb://artists/,return)', width=133, active='Music_TabChip_Artists')}{word(9322, 'Songs', 'ReplaceWindow(Music,musicdb://songs/,return)', width=103, active='Music_TabChip_Songs')}{word(9323, 'Genres', 'ReplaceWindow(Music,musicdb://genres/,return)', width=118, active='Music_TabChip_Genres')}{word(9326, '$VAR[Music_ViewWord]', 'ActivateWindow(1156)', 'Integer.IsGreater(Container.ViewCount,1)', 223)}{word(9327, 'Options', 'ActivateWindow(1155)', 'true', 134)}{word(9324, 'Sort $INFO[Container.SortMethod]', 'SendClick(3)', 'Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)')}{word(9325, '$VAR[Music_SortArrow]', 'Container.SetSortDirection', 'Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)', 44)}
 		</control>
 		<control type="button" id="3">
@@ -316,17 +329,20 @@ def build():
 	<menucontrol>9000</menucontrol>
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>
 	<backgroundcolor>table</backgroundcolor>
-	<views>504,50</views>
+	<views>504,507,508,50</views>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>Fold_Background</include>
 		<include>Fold_Tabs</include>
 		<include>Fold_Clock</include>
 		<include>Music_View_504</include>
+		<include>Music_View_507</include>
+		<include>Music_View_508</include>
 		<include>View_50_List</include>
 		<include>Music_Header</include>
 		<control type="group">
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<animation effect="slide" start="0,0" end="0,250" time="0" condition="Control.IsVisible(504) | Control.IsVisible(507)">Conditional</animation>
 			<control type="label">
 				<left>96</left>
 				<top>240</top>

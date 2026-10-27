@@ -1,13 +1,18 @@
 """Generate the video library views: skins/skin.fold/1080i/Includes_Views_Video.xml and 1080i/Timers.xml.
     python skins/skin.fold/_src/make_views.py
 
-Views (MyVideoNav <views>500,501,502,50</views>), each gated by Container.Content:
+Views (MyVideoNav <views>500,501,502,503,505,506,50</views>), each gated by Container.Content:
   500 Shelf      films, sets, series, music videos: a 5 x 2 shelf of closed cards that lift and tilt on focus,
                  with the focused card's label in a column on the right (fold_geo.SHELF_*)
   501 Seasons    seasons: the show card on the left, season cards in a row
   502 Concertina episodes: the season pulled open into a zig-zag strip (FoldSeries.html): panels alternate
                  +/-12 deg about their own centres (Integer.IsOdd(ListItem.CurrentItem)), the focused panel
                  flat, lit and 16 % bigger; one shared camera on the list (perspective-origin 1150, 440)
+  503 Table      films, sets, series, seasons, music videos: the table covered with small closed cards, 8 across
+  505 Leaflet    films, sets, series, seasons, episodes, music videos: the focused title opened as a tri-fold
+                 leaflet over a strip of small cards (stills in a season)
+  506 Prints     everything: landscape prints (fanart, stills; add-ons and plug-ins keep their own picture)
+                 (503 / 505 / 506: _src/fold_views_more.py, 0.9.13)
   50  List       everything else (Includes_Views.xml)
 Header: 9000 filter words (9321 All, 9322 Unwatched, 9323 In progress, 9326 View = the view picker 1156,
 9327 Options = the Library panel 1155, 9324 Sort, 9325 direction). Left past the first column (shelf) / off either
@@ -20,6 +25,7 @@ from pathlib import Path
 from fold_geo import (SHELF_X, SHELF_Y, SHELF_SLOT_W, SHELF_SLOT_H, SHELF_PAD_X, SHELF_PAD_Y,
                       SHELF_CARD_W, SHELF_CARD_H, SHELF_LIFT_W, SHELF_LIFT_H, SHELF_COLS)
 from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
+import fold_views_more as fm
 
 ROOT = Path(__file__).resolve().parents[1] / "1080i"
 OUT = ROOT / "Includes_Views_Video.xml"
@@ -863,13 +869,19 @@ def header():
 			<ondown condition="Control.IsVisible(500)">500</ondown>
 			<ondown condition="Control.IsVisible(501)">501</ondown>
 			<ondown condition="Control.IsVisible(502)">502</ondown>
+			<ondown condition="Control.IsVisible(503)">503</ondown>
+			<ondown condition="Control.IsVisible(505)">505</ondown>
+			<ondown condition="Control.IsVisible(506)">506</ondown>
 			<ondown>50</ondown>
 			<onleft>noop</onleft>
 			<onright>noop</onright>
 			<onback condition="Control.IsVisible(500)">500</onback>
 			<onback condition="Control.IsVisible(501)">501</onback>
 			<onback condition="Control.IsVisible(502)">502</onback>
-			<onback condition="Control.IsVisible(50)">50</onback>{word(9321, 'All $VAR[VidView_CountAll]', '$EXP[VidView_IsLibraryVideo] | $EXP[VidView_IsInProgressTV]', [('$EXP[VidView_IsInProgressTV]', 'Action(ParentDir)'), ('!$EXP[VidView_IsInProgressTV] + System.Setting(hidewatched)', 'SendClick(14)')], 163, 'VidView_ColNavAll')}{word(9322, 'Unwatched $VAR[VidView_CountUnwatched]', 'Container.Content(movies) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)', [('!System.Setting(hidewatched)', 'SendClick(14)')], 238, 'VidView_ColNavUnwatched')}{word(9323, 'In progress', '$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]', [('!$EXP[VidView_IsInProgressTV]', 'Container.Update(videodb://inprogresstvshows/)')], 193, 'VidView_ColNavInProgress')}{word(9326, '$VAR[VidView_ViewWord]', 'Integer.IsGreater(Container.ViewCount,1)', [('', 'ActivateWindow(1156)')], 193)}{word(9327, 'Options', 'true', [('', 'ActivateWindow(1155)')], 134)}{word(9324, 'Sort $INFO[Container.SortMethod]', 'Control.IsEnabled(3)', [('', 'SendClick(3)')])}{word(9325, '$VAR[VidView_SortArrow]', 'Control.IsEnabled(4)', [('', 'SendClick(4)')], 44)}
+			<onback condition="Control.IsVisible(503)">503</onback>
+			<onback condition="Control.IsVisible(505)">505</onback>
+			<onback condition="Control.IsVisible(506)">506</onback>
+			<onback condition="Control.IsVisible(50)">50</onback>{word(9321, 'All $VAR[VidView_CountAll]', '$EXP[VidView_IsLibraryVideo] | $EXP[VidView_IsInProgressTV]', [('$EXP[VidView_IsInProgressTV]', 'Action(ParentDir)'), ('!$EXP[VidView_IsInProgressTV] + System.Setting(hidewatched)', 'SendClick(14)')], 163, 'VidView_ColNavAll')}{word(9322, 'Unwatched $VAR[VidView_CountUnwatched]', 'Container.Content(movies) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)', [('!System.Setting(hidewatched)', 'SendClick(14)')], 238, 'VidView_ColNavUnwatched')}{word(9323, 'In progress', '$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]', [('!$EXP[VidView_IsInProgressTV]', 'Container.Update(videodb://inprogresstvshows/)')], 193, 'VidView_ColNavInProgress')}{word(9326, '$VAR[VidView_ViewWord]', 'Integer.IsGreater(Container.ViewCount,1)', [('', 'ActivateWindow(1156)')], 221)}{word(9327, 'Options', 'true', [('', 'ActivateWindow(1155)')], 134)}{word(9324, 'Sort $INFO[Container.SortMethod]', 'Control.IsEnabled(3)', [('', 'SendClick(3)')])}{word(9325, '$VAR[VidView_SortArrow]', 'Control.IsEnabled(4)', [('', 'SendClick(4)')], 44)}
 		</control>
 		<control type="button" id="3">
 			<description>Sort by (Kodi)</description>
@@ -914,6 +926,7 @@ def build():
 		<value>$LOCALIZE[3]</value>
 	</variable>
 	<variable name="VidView_Sub">
+		<value condition="Control.IsVisible(503) + Integer.IsGreater(Container.NumItems,0) + !ListItem.IsParentFolder">   [COLOR ink]$INFO[ListItem.Label][/COLOR]$INFO[ListItem.Year,  ·  ,]$INFO[Container.NumItems,  ·  , in all]</value>
 		<value condition="$EXP[VidView_IsInProgressTV]">   in progress</value>
 		<value condition="Container.Content(episodes) + !String.IsEqual(Container.FolderName,ListItem.TVShowTitle)">   $INFO[Container.FolderName]$INFO[Container.NumItems,  ·  , episodes]</value>
 		<value condition="Container.Content(episodes)">$INFO[Container.NumItems,   , episodes]</value>
@@ -936,6 +949,9 @@ def build():
 	<variable name="VidView_ViewWord">
 		<value condition="Control.IsVisible(50)">View: list</value>
 		<value condition="Control.IsVisible(502)">View: strip</value>
+		<value condition="Control.IsVisible(503)">View: table</value>
+		<value condition="Control.IsVisible(505)">View: leaflet</value>
+		<value condition="Control.IsVisible(506)">View: prints</value>
 		<value condition="Control.IsVisible(501)">View: cards</value>
 		<value>View: shelf</value>
 	</variable>
@@ -1072,14 +1088,22 @@ def build():
 		<value condition="ListItem.IsParentFolder">OK goes up one level</value>
 		<value>$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes), · , watched]$INFO[ListItem.Year, · ,]</value>
 	</variable>
+{fm.variables()}
 {shelf_view()}
 {seasons_view()}
 {concertina_view()}
+{fm.table_view()}
+{fm.leaflet_view()}
+{fm.prints_view()}
 {header()}
 
 	<include name="VidView_Empty">
 		<control type="group">
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<!-- 0.9.13: under the first row of cards (the ".." card stands where the message was) -->
+			<animation effect="slide" start="0,0" end="0,350" time="0" condition="Control.IsVisible(500)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,230" time="0" condition="Control.IsVisible(503)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,300" time="0" condition="Control.IsVisible(506)">Conditional</animation>
 			<control type="label">
 				<left>96</left>
 				<top>240</top>
@@ -1108,6 +1132,9 @@ def build():
 		<include>VidView_500_Shelf</include>
 		<include>VidView_501_Seasons</include>
 		<include>VidView_502_Concertina</include>
+		<include>VidView_503_Table</include>
+		<include>VidView_505_Leaflet</include>
+		<include>VidView_506_Prints</include>
 		<include>View_50_List</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>
@@ -1121,7 +1148,13 @@ def build():
          "<!-- GENERATED by _src/make_views.py. View self-correction + first-visit defaults (LESSONS: Orbit timers). -->",
          "<timers>"]
     fix = [("movies", "500"), ("sets", "500"), ("tvshows", "500"), ("musicvideos", "500"), ("seasons", "501"), ("episodes", "502")]
+    # 0.9.13: the views each content type offers (a view the user picked must never be undone)
+    valid = {"movies": ["500", "503", "505", "506"], "sets": ["500", "503", "505", "506"],
+             "tvshows": ["500", "503", "505", "506"], "musicvideos": ["500", "503", "505", "506"],
+             "seasons": ["501", "503", "505", "506"], "episodes": ["502", "505", "506"]}
     for content, view in fix:
+        none_vis = " + ".join(f"!Control.IsVisible({v})" for v in valid[content])
+        any_vis = " | ".join(f"Control.IsVisible({v})" for v in valid[content])
         t.append(f"""	<timer>
 		<name>fold_view_first_{content}</name>
 		<start>Window.IsActive(videos) + Container.Content({content}) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Skin.HasSetting(fold.vreset.{content})</start>
@@ -1131,14 +1164,14 @@ def build():
 	</timer>
 	<timer>
 		<name>fold_view_fix_{content}</name>
-		<start>Window.IsActive(videos) + Container.Content({content}) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible({view}) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
-		<stop>Control.IsVisible({view}) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
+		<start>Window.IsActive(videos) + Container.Content({content}) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + {none_vis} + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
+		<stop>{any_vis} | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode({view})</onstart>
 	</timer>""")
     t.append(f"""	<timer>
 		<name>fold_view_fix_other</name>
-		<start>Window.IsActive(videos) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(501) + !Control.IsVisible(502) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
-		<stop>Control.IsVisible(500) | Control.IsVisible(501) | Control.IsVisible(502) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
+		<start>Window.IsActive(videos) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(501) + !Control.IsVisible(502) + !Control.IsVisible(503) + !Control.IsVisible(505) + !Control.IsVisible(506) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
+		<stop>Control.IsVisible(500) | Control.IsVisible(501) | Control.IsVisible(502) | Control.IsVisible(503) | Control.IsVisible(505) | Control.IsVisible(506) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode(50)</onstart>
 	</timer>""")
     for content in ("albums", "artists"):
@@ -1151,8 +1184,8 @@ def build():
 	</timer>""")
     t.append("""	<timer>
 		<name>fold_music_fix</name>
-		<start>Window.IsActive(music) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(504) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
-		<stop>Control.IsVisible(504) | Control.IsVisible(50) | !Window.IsActive(music)</stop>
+		<start>Window.IsActive(music) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(504) + !Control.IsVisible(507) + !Control.IsVisible(508) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
+		<stop>Control.IsVisible(504) | Control.IsVisible(507) | Control.IsVisible(508) | Control.IsVisible(50) | !Window.IsActive(music)</stop>
 		<onstart>Container.SetViewMode(50)</onstart>
 	</timer>""")
     t.append("</timers>\n")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.groove" version="1.0.4" name="Groove" provider-name="KarmaMole">
+<addon id="skin.groove" version="1.0.5" name="Groove" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required (Omar, 2026-10-21): encodes the Search query for the library paths (get_encoded_string with
@@ -21,7 +21,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#groove</website>
-		<news>v1.0.4 - Search: a query with a double quote (e.g. &quot;Superman&quot;) now finds its matches; before, the quote broke the search and nothing came up. Code clean-up: dialog buttons no longer carry an undeclared enable parameter.</news>
+		<news>v1.0.5 - Films and TV get three new views that feel like records: Sleeve (the picture on a square sleeve with the record half out of it and the story beside it), Gatefold (wide pictures opened flat, four across) and Liner notes (each title with its picture, details and the start of its story; episodes like a tracklist). Choose them with View.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

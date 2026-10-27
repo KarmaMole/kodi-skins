@@ -716,6 +716,42 @@ msgctxt "#31317"
 msgid "Press OK again to reset everything"
 msgstr ""
 
+msgctxt "#31320"
+msgid "Spotlight"
+msgstr ""
+
+msgctxt "#31321"
+msgid "Wide"
+msgstr ""
+
+msgctxt "#31322"
+msgid "Time"
+msgstr ""
+
+msgctxt "#31323"
+msgid "No runtime"
+msgstr ""
+
+msgctxt "#31324"
+msgid "Now"
+msgstr ""
+
+msgctxt "#31325"
+msgid "+1 h"
+msgstr ""
+
+msgctxt "#31326"
+msgid "+2 h"
+msgstr ""
+
+msgctxt "#31327"
+msgid "+3 h"
+msgstr ""
+
+msgctxt "#31328"
+msgid "+4 h"
+msgstr ""
+
 msgctxt "#31330"
 msgid "Main menu"
 msgstr ""

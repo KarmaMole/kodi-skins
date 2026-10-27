@@ -15,7 +15,8 @@ white-alpha LAYERS that the picker tints with the live mood colours (the same $V
 So morning / afternoon / evening / night previews match the page around them.
 No screenshots and no artwork (GPL skin, Kodi's official repository): the geometry is the views' own
 (Includes_Views_Video.xml / Includes_Views_Music.xml) scaled 1920x1080 -> 320x180, drawn at 4x.
-Views: grid (500), wall (501), episodes (503), list (50), music_grid (504), music_list (50).
+Views: grid (500), wall (501), spotlight (502), episodes (503), wide (505), time (506), list (50),
+music_grid (504), music_wall (508), music_spot (507), music_list (50).
 """
 import random
 from pathlib import Path
@@ -231,14 +232,149 @@ def music_grid():
     return p.save("music_grid")
 
 
+# ------------------------------------------------------------------ 0.9.15 views
+def wide_header(p, pills):
+    p.bar("ink", 160, 206, 85, 30, 0.95)
+    p.bar("ink2", 263, 214, 150, 16, 0.75)
+    header(p, 4000, pills)          # pills only (title drawn above at the card inset)
+
+
+def spot_hero(p, square=False, round_=False):
+    # fanart melting into the card from the right (raised, stepped alpha), text column on the left
+    for i, a in enumerate((0.25, 0.45, 0.65, 0.85, 1.0)):
+        p.rect("raised", 1000 + i * 70, 168, 800 - i * 70, 470 - i * 18, r=28, a=a * 0.8)
+    if round_:
+        p.rect("ink2", 1330, 270, 300, 300, r=150, a=0.35)
+    p.rect("accent", 160, 281, 10, 10, r=5)
+    p.bar("accent", 180, 274, 200, 18, 0.9)
+    p.bar("ink", 160, 312, 520, 52, 0.95)
+    p.bar("ink", 160, 392, 300, 22, 0.8)
+    p.bar("ink2", 160, 430, 260, 16, 0.7)
+    for i in range(3):
+        p.bar("ink2", 160, 476 + i * 34, 700 * (0.94 if i < 2 else 0.6), 16, 0.6)
+    if not (square or round_):
+        p.rect("accent", 160, 656, 22, 22, r=11, a=0.9)
+        p.bar("accent", 196, 658, 420, 18, 0.9)
+
+
+def spotlight():
+    p = Prev()
+    top_line(p, 1)
+    card(p, 120, 168, 1680, 848)
+    wide_header(p, [176, 200, 44, 172])
+    spot_hero(p)
+    rnd = random.Random(21)
+    for i in range(10):
+        x = 160 + i * 176
+        if x > 1700:
+            break
+        if i == 1:
+            p.rect("raised", x - 4, 708, 148, 218, r=16)
+            p.ring("accent", x - 13, 699, 166, 236, 25, width=4)
+            p.bar("accent", x + 20, 948, 100, 14, 0.9)
+            continue
+        p.rect("raised", x, 712, 140, 210, r=16, a=rnd.uniform(0.55, 1.0))
+        p.bar("ink2", x + 20, 948, 100, 14, 0.5)
+    return p.save("spotlight")
+
+
+def wide_view():
+    p = Prev()
+    top_line(p, 2)
+    card(p, 120, 168, 1680, 848)
+    wide_header(p, [128, 176, 200, 44, 172])
+    rnd = random.Random(33)
+    for row in range(3):
+        for col in range(4):
+            x = 160 + col * 409
+            y = 280 + row * 306
+            if y > 990:
+                continue
+            hh = min(210, 1016 - y)
+            if (row, col) == (0, 1):
+                p.rect("raised", x - 7, y - 4, 387, 218, r=16)
+                p.ring("accent", x - 16, y - 13, 405, 236, 25, width=4)
+            else:
+                p.rect("raised", x, y, 373, hh, r=16, a=rnd.uniform(0.55, 1.0))
+            if y + 240 < 1000:
+                p.bar("ink", x, y + 228, rnd.uniform(160, 300), 20, 0.85)
+                p.bar("ink2", x, y + 262, 150, 14, 0.6)
+    return p.save("wide")
+
+
+def time_view():
+    p = Prev()
+    top_line(p, 1)
+    card(p, 120, 168, 1680, 848)
+    wide_header(p, [176, 200, 44, 172])
+    p.bar("accent", 760, 268, 160, 18, 0.9)
+    for x in (1000, 1240, 1480, 1720):
+        p.rect("raised", x - 1, 300, 3, 716, a=0.9)
+        p.bar("ink2", x - 30, 270, 60, 14, 0.6)
+    rnd = random.Random(44)
+    bed = 1420
+    for i in range(8):
+        y = 300 + i * 96
+        if y > 980:
+            break
+        if i == 2:
+            p.rect("raised", 146, y + 4, 1628, 88, r=20)
+        p.rect("raised", 200, y + 6, 56, 84, r=10, a=1.0 if i == 2 else rnd.uniform(0.55, 1.0))
+        p.bar("ink", 316, y + 22, rnd.uniform(220, 380), 20, 0.9)
+        p.bar("ink2", 316, y + 56, 200, 14, 0.6)
+        mins = rnd.choice((92, 104, 118, 131, 145, 158, 176))
+        p.bar("accent", 760, y + 34, mins * 4, 28, 1.0)
+        p.bar("onaccent", 774, y + 42, 130, 12, 0.9)
+    p.rect("surface", bed, 300, 1780 - bed, 716, a=0.55)
+    p.rect("accent", bed - 1, 300, 3, 716)
+    p.rect("surface", bed - 84, 260, 168, 36, r=18)
+    p.bar("accent", bed - 60, 270, 120, 16, 0.9)
+    return p.save("time")
+
+
+def music_wall():
+    p = Prev()
+    top_line(p, 3)
+    card(p, 120, 168, 1680, 848)
+    for i, w in enumerate((120, 116, 108, 118)):
+        x = 160 + sum((120, 116, 108, 118)[:i]) + 8 * i
+        p.rect("raised", x, 204, w, 40, r=20, a=0.9)
+        p.bar("ink", x + 18, 216, w - 36, 14, 0.7)
+    header(p, 4000, [208, 44, 172])
+    poster_grid(p, 142, 262, 204, 262, 168, 168, 8, 3, (0, 2), r=14)
+    return p.save("music_wall")
+
+
+def music_spot():
+    p = Prev()
+    top_line(p, 3)
+    card(p, 120, 168, 1680, 848)
+    for i, w in enumerate((120, 116, 108, 118)):
+        x = 160 + sum((120, 116, 108, 118)[:i]) + 8 * i
+        p.rect("raised", x, 204, w, 40, r=20, a=0.9)
+        p.bar("ink", x + 18, 216, w - 36, 14, 0.7)
+    header(p, 4000, [208, 44, 172])
+    spot_hero(p, round_=True)
+    rnd = random.Random(55)
+    for i in range(9):
+        x = 160 + i * 186
+        if i == 1:
+            p.ring("accent", x - 9, 729, 168, 168, 84, width=4)
+        p.rect("raised", x, 738, 150, 150, r=75, a=1.0 if i == 1 else rnd.uniform(0.55, 1.0))
+        p.bar("ink" if i == 1 else "ink2", x + 25, 908, 100, 14, 0.7)
+    return p.save("music_spot")
+
+
 def main():
-    made = {"grid": grid(), "wall": wall(), "episodes": episodes(), "list": list_view("list"),
-            "music_grid": music_grid(), "music_list": list_view("music_list", square=True)}
+    made = {"grid": grid(), "wall": wall(), "spotlight": spotlight(), "episodes": episodes(), "wide": wide_view(),
+            "time": time_view(), "list": list_view("list"),
+            "music_grid": music_grid(), "music_wall": music_wall(), "music_spot": music_spot(),
+            "music_list": list_view("music_list", square=True)}
     SHEETS.mkdir(parents=True, exist_ok=True)
     for pal in PAL:
-        sheet = Image.new("RGB", (3 * 330, 2 * 190), (128, 128, 128))
+        sheet = Image.new("RGB", (4 * 330, 3 * 190), (128, 128, 128))
         for i, (n, p) in enumerate(made.items()):
-            sheet.paste(p.sheet(pal), ((i % 3) * 330 + 5, (i // 3) * 190 + 5))
+            sheet.paste(p.sheet(pal), ((i % 4) * 330 + 5, (i // 4) * 190 + 5))
         sheet.save(SHEETS / f"views_{pal}.png")
         print(f"  _src/previews/views_{pal}.png")
 

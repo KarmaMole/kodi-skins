@@ -15,12 +15,29 @@
 	<onload>SetFocus(100,0,absolute)</onload>
 	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31313]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]">SetFocus(100,1,absolute)</onload>
 	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31314]) + [Container.Content(episodes) | Container.Content(seasons)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]">SetFocus(100,2,absolute)</onload>
-	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)]">SetFocus(100,3,absolute)</onload>
-	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes) | Container.Content(seasons)]">SetFocus(100,2,absolute)</onload>
-	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)]">SetFocus(100,1,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31320]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)]">SetFocus(100,3,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31320]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes) | Container.Content(seasons)]">SetFocus(100,2,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31320]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)] + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)]">SetFocus(100,1,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31321]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,4,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31321]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)] + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,3,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31321]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes) | Container.Content(seasons)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,3,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31321]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes) | Container.Content(seasons)] + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,2,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31321]) + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,2,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31321]) + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)] + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,1,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[31321]) + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes) | Container.Content(seasons)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,1,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,5,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)] + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,4,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes) | Container.Content(seasons)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,4,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes) | Container.Content(seasons)] + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,3,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,3,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + [Container.Content(episodes) | Container.Content(seasons)] + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,2,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes) | Container.Content(seasons)] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,2,absolute)</onload>
+	<onload condition="Window.IsActive(videos) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)] + ![Container.Content(episodes) | Container.Content(seasons)] + ![Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]">SetFocus(100,1,absolute)</onload>
 	<onload condition="Window.IsActive(music) + String.IsEqual(Container.Viewmode,$LOCALIZE[31313]) + [Container.Content(albums) | Container.Content(artists) | Container.Content(genres)] + [Container.Content(albums) | Container.Content(artists)]">SetFocus(100,1,absolute)</onload>
-	<onload condition="Window.IsActive(music) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(albums) | Container.Content(artists)] + [Container.Content(albums) | Container.Content(artists) | Container.Content(genres)]">SetFocus(100,2,absolute)</onload>
-	<onload condition="Window.IsActive(music) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(albums) | Container.Content(artists)] + ![Container.Content(albums) | Container.Content(artists) | Container.Content(genres)]">SetFocus(100,1,absolute)</onload>
+	<onload condition="Window.IsActive(music) + String.IsEqual(Container.Viewmode,$LOCALIZE[31320]) + [Container.Content(albums) | Container.Content(artists)] + [Container.Content(albums) | Container.Content(artists) | Container.Content(genres)]">SetFocus(100,2,absolute)</onload>
+	<onload condition="Window.IsActive(music) + String.IsEqual(Container.Viewmode,$LOCALIZE[31320]) + [Container.Content(albums) | Container.Content(artists)] + ![Container.Content(albums) | Container.Content(artists) | Container.Content(genres)]">SetFocus(100,1,absolute)</onload>
+	<onload condition="Window.IsActive(music) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(albums) | Container.Content(artists)] + [Container.Content(albums) | Container.Content(artists) | Container.Content(genres)]">SetFocus(100,3,absolute)</onload>
+	<onload condition="Window.IsActive(music) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + [Container.Content(albums) | Container.Content(artists)] + ![Container.Content(albums) | Container.Content(artists) | Container.Content(genres)]">SetFocus(100,2,absolute)</onload>
 	<onload condition="Window.IsActive(music) + String.IsEqual(Container.Viewmode,$LOCALIZE[535]) + ![Container.Content(albums) | Container.Content(artists)] + [Container.Content(albums) | Container.Content(artists) | Container.Content(genres)]">SetFocus(100,1,absolute)</onload>
 	<controls>
 		<control type="image">
@@ -34,44 +51,62 @@
 			<texture colordiffuse="dim_dialog">common/white.png</texture>
 		</control>
 		<control type="group">
-			<left>180</left>
-			<top>344</top>
-			<width>1560</width>
-			<height>392</height>
-			<animation effect="slide" end="570,0" time="0" condition="Integer.IsEqual(Container(100).NumItems,1)">Conditional</animation>
-			<animation effect="slide" end="380,0" time="0" condition="Integer.IsEqual(Container(100).NumItems,2)">Conditional</animation>
-			<animation effect="slide" end="190,0" time="0" condition="Integer.IsEqual(Container(100).NumItems,3)">Conditional</animation>
+			<left>40</left>
+			<top>370</top>
+			<width>1840</width>
+			<height>340</height>
+			<animation effect="slide" end="750,0" time="0" condition="Integer.IsEqual(Container(100).NumItems,1)">Conditional</animation>
+			<animation effect="slide" end="600,0" time="0" condition="Integer.IsEqual(Container(100).NumItems,2)">Conditional</animation>
+			<animation effect="slide" end="450,0" time="0" condition="Integer.IsEqual(Container(100).NumItems,3)">Conditional</animation>
+			<animation effect="slide" end="300,0" time="0" condition="Integer.IsEqual(Container(100).NumItems,4)">Conditional</animation>
+			<animation effect="slide" end="150,0" time="0" condition="Integer.IsEqual(Container(100).NumItems,5)">Conditional</animation>
 			<control type="image">
 				<left>0</left>
 				<top>0</top>
-				<width>420</width>
-				<height>392</height>
+				<width>340</width>
+				<height>340</height>
 				<texture border="2">dialogs/panel_framed.png</texture>
 				<visible>Integer.IsEqual(Container(100).NumItems,1)</visible>
 			</control>
 			<control type="image">
 				<left>0</left>
 				<top>0</top>
-				<width>800</width>
-				<height>392</height>
+				<width>640</width>
+				<height>340</height>
 				<texture border="2">dialogs/panel_framed.png</texture>
 				<visible>Integer.IsEqual(Container(100).NumItems,2)</visible>
 			</control>
 			<control type="image">
 				<left>0</left>
 				<top>0</top>
-				<width>1180</width>
-				<height>392</height>
+				<width>940</width>
+				<height>340</height>
 				<texture border="2">dialogs/panel_framed.png</texture>
 				<visible>Integer.IsEqual(Container(100).NumItems,3)</visible>
 			</control>
 			<control type="image">
 				<left>0</left>
 				<top>0</top>
-				<width>1560</width>
-				<height>392</height>
+				<width>1240</width>
+				<height>340</height>
 				<texture border="2">dialogs/panel_framed.png</texture>
 				<visible>Integer.IsEqual(Container(100).NumItems,4)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1540</width>
+				<height>340</height>
+				<texture border="2">dialogs/panel_framed.png</texture>
+				<visible>Integer.IsEqual(Container(100).NumItems,5)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1840</width>
+				<height>340</height>
+				<texture border="2">dialogs/panel_framed.png</texture>
+				<visible>Integer.IsEqual(Container(100).NumItems,6)</visible>
 			</control>
 			<control type="label">
 				<left>24</left>
@@ -85,18 +120,18 @@
 			<control type="list" id="100">
 				<left>20</left>
 				<top>56</top>
-				<width>1520</width>
-				<height>320</height>
+				<width>1800</width>
+				<height>270</height>
 				<orientation>horizontal</orientation>
 				<onleft>noop</onleft>
 				<onright>noop</onright>
 				<onup>noop</onup>
 				<ondown>noop</ondown>
 				<scrolltime tween="cubic" easing="out">160</scrolltime>
-				<itemlayout width="380" height="320">
+				<itemlayout width="300" height="270">
 					<include>Pick_Item</include>
 				</itemlayout>
-				<focusedlayout width="380" height="320">
+				<focusedlayout width="300" height="270">
 					<include content="Pick_Item"><param name="focused" value="true"/></include>
 				</focusedlayout>
 				<content>
@@ -128,6 +163,24 @@
 					<visible>Window.IsActive(videos) + [Container.Content(episodes) | Container.Content(seasons)]</visible>
 				</item>
 				<item>
+					<label>$LOCALIZE[31320]</label>
+					<label2>$VAR[Pick_Cur_Horizon]</label2>
+					<icon>views/horizon.png</icon>
+					<onclick>Dialog.Close(1161,true)</onclick>
+					<onclick>Container.SetViewMode(503)</onclick>
+					<onclick>SetFocus(50)</onclick>
+					<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]</visible>
+				</item>
+				<item>
+					<label>$LOCALIZE[31321]</label>
+					<label2>$VAR[Pick_Cur_Tiles]</label2>
+					<icon>views/tiles.png</icon>
+					<onclick>Dialog.Close(1161,true)</onclick>
+					<onclick>Container.SetViewMode(506)</onclick>
+					<onclick>SetFocus(50)</onclick>
+					<visible>Window.IsActive(videos)</visible>
+				</item>
+				<item>
 					<label>$LOCALIZE[31315]</label>
 					<label2>$VAR[Pick_Cur_List]</label2>
 					<icon>views/list.png</icon>
@@ -153,6 +206,15 @@
 					<onclick>Container.SetViewMode(505)</onclick>
 					<onclick>SetFocus(50)</onclick>
 					<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists) | Container.Content(genres)]</visible>
+				</item>
+				<item>
+					<label>$LOCALIZE[31320]</label>
+					<label2>$VAR[Pick_Cur_Horizon]</label2>
+					<icon>views/music_horizon.png</icon>
+					<onclick>Dialog.Close(1161,true)</onclick>
+					<onclick>Container.SetViewMode(507)</onclick>
+					<onclick>SetFocus(50)</onclick>
+					<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists)]</visible>
 				</item>
 				<item>
 					<label>$LOCALIZE[31315]</label>

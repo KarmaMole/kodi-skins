@@ -1,3 +1,7 @@
+0.9.16 (2026-10-27)
+- More views. Network: wide pictures hung on the lines like stations, for films, series, episodes, sets, add-ons and everything else (posters and icons are shown whole, never cropped). Interchange: the stops of a line down the left, the one you are on as a big picture in the interchange ring with its title, facts and story; for films, series, episodes, add-on listings, artists and albums. The Wall now also shows films, sets and music videos. The view each library opens in is unchanged.
+- Index: the running time beside a film showed only the minutes past the hour ("19 min" for 2 h 19 min); it shows the whole running time now.
+
 0.9.15 (2026-10-25)
 - Map, station page and Home preview: films, shows and names with double quotes (Waiting for "Superman", Ed "Special Ed" Archer) keep their connections; before, every line of such a centre came up empty.
 - Search: a query with a double quote (e.g. "Superman") now finds its matches; before, the quote broke the search and nothing came up.

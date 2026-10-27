@@ -824,6 +824,8 @@
 		<include>VidView_500_Grid</include>
 		<include>VidView_501_Wall</include>
 		<include>VidView_503_Episodes</include>
+		<include>VidView_505_Page</include>
+		<include>VidView_506_Scenes</include>
 		<include content="View_50_List">
 			<param name="top" value="244"/>
 			<param name="height" value="792"/>

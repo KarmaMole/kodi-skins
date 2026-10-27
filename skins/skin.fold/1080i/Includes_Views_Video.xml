@@ -3,13 +3,18 @@
 <!--Generate the video library views: skins/skin.fold/1080i/Includes_Views_Video.xml and 1080i/Timers.xml.
     python skins/skin.fold/_src/make_views.py
 
-Views (MyVideoNav <views>500,501,502,50</views>), each gated by Container.Content:
+Views (MyVideoNav <views>500,501,502,503,505,506,50</views>), each gated by Container.Content:
   500 Shelf      films, sets, series, music videos: a 5 x 2 shelf of closed cards that lift and tilt on focus,
                  with the focused card's label in a column on the right (fold_geo.SHELF_*)
   501 Seasons    seasons: the show card on the left, season cards in a row
   502 Concertina episodes: the season pulled open into a zig-zag strip (FoldSeries.html): panels alternate
                  +/-12 deg about their own centres (Integer.IsOdd(ListItem.CurrentItem)), the focused panel
                  flat, lit and 16 % bigger; one shared camera on the list (perspective-origin 1150, 440)
+  503 Table      films, sets, series, seasons, music videos: the table covered with small closed cards, 8 across
+  505 Leaflet    films, sets, series, seasons, episodes, music videos: the focused title opened as a tri-fold
+                 leaflet over a strip of small cards (stills in a season)
+  506 Prints     everything: landscape prints (fanart, stills; add-ons and plug-ins keep their own picture)
+                 (503 / 505 / 506: _src/fold_views_more.py, 0.9.13)
   50  List       everything else (Includes_Views.xml)
 Header: 9000 filter words (9321 All, 9322 Unwatched, 9323 In progress, 9326 View = the view picker 1156,
 9327 Options = the Library panel 1155, 9324 Sort, 9325 direction). Left past the first column (shelf) / off either
@@ -40,6 +45,7 @@ view mode), and the first visit of each content type opens the Fold view.
 		<value>$LOCALIZE[3]</value>
 	</variable>
 	<variable name="VidView_Sub">
+		<value condition="Control.IsVisible(503) + Integer.IsGreater(Container.NumItems,0) + !ListItem.IsParentFolder">   [COLOR ink]$INFO[ListItem.Label][/COLOR]$INFO[ListItem.Year,  ·  ,]$INFO[Container.NumItems,  ·  , in all]</value>
 		<value condition="$EXP[VidView_IsInProgressTV]">   in progress</value>
 		<value condition="Container.Content(episodes) + !String.IsEqual(Container.FolderName,ListItem.TVShowTitle)">   $INFO[Container.FolderName]$INFO[Container.NumItems,  ·  , episodes]</value>
 		<value condition="Container.Content(episodes)">$INFO[Container.NumItems,   , episodes]</value>
@@ -62,6 +68,9 @@ view mode), and the first visit of each content type opens the Fold view.
 	<variable name="VidView_ViewWord">
 		<value condition="Control.IsVisible(50)">View: list</value>
 		<value condition="Control.IsVisible(502)">View: strip</value>
+		<value condition="Control.IsVisible(503)">View: table</value>
+		<value condition="Control.IsVisible(505)">View: leaflet</value>
+		<value condition="Control.IsVisible(506)">View: prints</value>
 		<value condition="Control.IsVisible(501)">View: cards</value>
 		<value>View: shelf</value>
 	</variable>
@@ -276,6 +285,62 @@ view mode), and the first visit of each content type opens the Fold view.
 	<variable name="Seasons_Meta">
 		<value condition="ListItem.IsParentFolder">OK goes up one level</value>
 		<value>$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes), · , watched]$INFO[ListItem.Year, · ,]</value>
+	</variable>
+
+	<!-- 0.9.13 views: Table / Leaflet / Prints -->
+	<variable name="Table_CardColor">
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">cobalt</value>
+		<value>verm</value>
+	</variable>
+	<variable name="Leaflet_Title">
+		<value condition="ListItem.IsParentFolder">Up a level</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Episode,,. ]$INFO[ListItem.Title]</value>
+		<value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+	<expression name="Leaflet_HasPrint">!ListItem.IsParentFolder + [!String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(tvshow.fanart)) | !String.IsEmpty(ListItem.Art(landscape))]</expression>
+	<variable name="Leaflet_Print">
+		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
+		<value>$INFO[ListItem.Art(landscape)]</value>
+	</variable>
+	<variable name="Leaflet_Facts2">
+		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Premiered)">Aired [COLOR ink]$VAR[Date_PR][/COLOR]</value>
+		<value condition="!String.IsEmpty(ListItem.Genre)">[COLOR ink]$INFO[ListItem.Genre][/COLOR]</value>
+	</variable>
+	<!-- prints: library items show a real wide picture; add-ons their fanart; plug-in items / files their own
+	     picture whole (keep), never a generated image://video@ frame grab -->
+	<expression name="Prints_HasWide">!ListItem.IsParentFolder + [[String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),image://video@)] | [!String.IsEmpty(ListItem.DBType) + [!String.IsEmpty(ListItem.Art(landscape)) | !String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(tvshow.landscape)) | !String.IsEmpty(ListItem.Art(tvshow.fanart))]] | [Container.Content(addons) + !String.IsEmpty(ListItem.Art(fanart))]]</expression>
+	<expression name="Prints_HasIcon">!ListItem.IsParentFolder + [!String.IsEmpty(ListItem.Art(thumb)) | !String.IsEmpty(ListItem.Art(poster)) | [!String.IsEmpty(ListItem.Art(icon)) + !String.StartsWith(ListItem.Art(icon),Default)]]</expression>
+	<variable name="Prints_WideArt">
+		<value condition="!$EXP[Prints_HasWide]"></value>
+		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),image://video@)">$INFO[ListItem.Art(thumb)]</value>
+		<value condition="!String.IsEmpty(ListItem.DBType) + !String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
+		<value condition="!String.IsEmpty(ListItem.DBType) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(ListItem.DBType) + !String.IsEmpty(ListItem.Art(tvshow.landscape))">$INFO[ListItem.Art(tvshow.landscape)]</value>
+		<value condition="!String.IsEmpty(ListItem.DBType) + !String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
+		<value condition="Container.Content(addons)">$INFO[ListItem.Art(fanart)]</value>
+	</variable>
+	<variable name="Prints_Icon">
+		<value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
+		<value>$INFO[ListItem.Art(icon)]</value>
+	</variable>
+	<variable name="Prints_CardColor">
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">cobalt</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,musicvideo)">verm</value>
+		<value>graph</value>
+	</variable>
+	<variable name="Prints_OnCard">
+		<value>on_card</value>
+	</variable>
+	<variable name="Prints_Meta">
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Season,S,]$INFO[ListItem.Episode, · E,]$INFO[ListItem.Duration(mins), · , min]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Property(TotalSeasons), · , seasons]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes), · , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Property(Watched), · , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins), · , min]</value>
+		<value>$INFO[ListItem.Label2]</value>
 	</variable>
 
 	<include name="VidView_500_Shelf">
@@ -1675,6 +1740,1267 @@ view mode), and the first visit of each content type opens the Fold view.
 		</control>
 	</include>
 
+	<include name="VidView_503_Table">
+		<control type="group">
+			<visible>Control.IsVisible(503)</visible>
+			<include content="Anim_StandUp"><param name="bottom" value="1014"/></include>
+			<control type="panel" id="503">
+				<left>56</left>
+				<top>150</top>
+				<width>1776</width>
+				<height>894</height>
+				<orientation>vertical</orientation>
+				<preloaditems>2</preloaditems>
+				<scrolltime tween="cubic" easing="out">260</scrolltime>
+				<onup>9000</onup>
+				<ondown>noop</ondown>
+				<onright>9000</onright>
+				<onleft>ActivateWindow(1155)</onleft>
+				<onback condition="$EXP[Lib_AtRoot]">9398</onback>
+				<viewtype label="31424">wrap</viewtype>
+				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)</visible>
+				<itemlayout width="222" height="288">
+				<control type="image">
+					<left>-13</left>
+					<top>-22</top>
+					<width>248</width>
+					<height>332</height>
+					<texture border="48" colordiffuse="$VAR[Shelf_ShadowTint]">fold/shadow_card.png</texture>
+				</control>
+				<control type="group">
+					<left>27</left>
+					<top>18</top>
+					<width>168</width>
+					<height>252</height>
+					<visible>!ListItem.IsParentFolder</visible>
+					<include content="Fold_CardBody">
+						<param name="w" value="168"/>
+						<param name="h" value="252"/>
+						<param name="fe_x" value="167"/>
+						<param name="fe_h" value="247"/>
+						<param name="color" value="$VAR[Table_CardColor]"/>
+						<param name="plate_l" value="13"/>
+						<param name="plate_t" value="12"/>
+						<param name="plate_w" value="145"/>
+						<param name="plate_h" value="218"/>
+						<param name="art" value="$VAR[Shelf_Art]"/>
+						<param name="aspect" value="scale"/>
+						<param name="foot_l" value="$INFO[ListItem.Year]"/>
+						<param name="foot_r" value="$VAR[Shelf_FootR]"/>
+						<param name="foot_font" value="num_20"/>
+						<param name="foot_b" value="9"/>
+						<param name="foot_color" value="on_card"/>
+						<param name="fallback" value="$INFO[ListItem.Label]"/>
+					</include>
+					<control type="image">
+						<left>124</left>
+						<top>18</top>
+						<width>28</width>
+						<height>28</height>
+						<texture>fold/punch.png</texture>
+						<visible>$EXP[Shelf_Watched] + $EXP[ShowWatchedMarkers]</visible>
+					</control>
+					<control type="progress">
+						<left>13</left>
+						<top>224</top>
+						<width>145</width>
+						<height>6</height>
+						<texturebg colordiffuse="99000000">common/white.png</texturebg>
+						<midtexture colordiffuse="on_card">common/white.png</midtexture>
+						<info>ListItem.PercentPlayed</info>
+						<visible>ListItem.IsResumable</visible>
+					</control>
+				</control>
+				<!-- the ".." parent item: a cream index card -->
+				<control type="group">
+					<left>27</left>
+					<top>18</top>
+					<visible>ListItem.IsParentFolder</visible>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>168</width>
+						<height>252</height>
+						<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+					</control>
+					<control type="label">
+						<left>16</left>
+						<top>12</top>
+						<width>136</width>
+						<height>72</height>
+						<font>disp_50</font>
+						<textcolor>$VAR[FoldAccentInk]</textcolor>
+						<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+						<label>←</label>
+					</control>
+					<control type="label">
+						<left>16</left>
+						<top>200</top>
+						<width>136</width>
+						<height>36</height>
+						<font>tab_22</font>
+						<textcolor>ink</textcolor>
+						<selectedcolor>ink</selectedcolor>
+						<label>$LOCALIZE[31393]</label>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>168</width>
+						<height>252</height>
+						<texture border="4" colordiffuse="$VAR[FoldAccent]">fold/edge_all.png</texture>
+						<visible>false</visible>
+					</control>
+				</control>
+				</itemlayout>
+				<focusedlayout width="222" height="288">
+				<control type="image">
+					<left>-54</left>
+					<top>-81</top>
+					<width>330</width>
+					<height>423</height>
+					<texture border="80" colordiffuse="$VAR[Shelf_ShadowTint]">fold/shadow_lift.png</texture>
+				<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
+					<effect type="fade" start="30" end="100" time="240"/>
+				</animation>
+				<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
+					<effect type="fade" start="100" end="45" time="180"/>
+				</animation>
+				</control>
+				<control type="group">
+					<left>18</left>
+					<top>-9</top>
+					<width>186</width>
+					<height>279</height>
+					<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
+						<effect type="zoom" start="90.3" end="100" center="111,270" time="240" tween="back" easing="out"/>
+						<effect type="rotatex" start="0" end="-9" center="270" time="240" tween="back" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(503)">
+						<effect type="rotatex" start="-9" end="-9" center="270" time="0"/>
+					</animation>
+					<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
+						<effect type="rotatex" start="-9" end="0" center="270" time="180" tween="cubic" easing="out"/>
+					</animation>
+					<visible>!ListItem.IsParentFolder</visible>
+					<include content="Fold_CardBody">
+						<param name="w" value="186"/>
+						<param name="h" value="279"/>
+						<param name="fe_x" value="185"/>
+						<param name="fe_h" value="274"/>
+						<param name="color" value="$VAR[Table_CardColor]"/>
+						<param name="plate_l" value="15"/>
+						<param name="plate_t" value="13"/>
+						<param name="plate_w" value="160"/>
+						<param name="plate_h" value="240"/>
+						<param name="art" value="$VAR[Shelf_Art]"/>
+						<param name="aspect" value="scale"/>
+						<param name="foot_l" value="$INFO[ListItem.Year]"/>
+						<param name="foot_r" value="$VAR[Shelf_FootR]"/>
+						<param name="foot_font" value="num_20"/>
+						<param name="foot_b" value="10"/>
+						<param name="foot_color" value="on_card"/>
+						<param name="fallback" value="$INFO[ListItem.Label]"/>
+					</include>
+					<control type="image">
+						<left>141</left>
+						<top>19</top>
+						<width>28</width>
+						<height>28</height>
+						<texture>fold/punch.png</texture>
+						<visible>$EXP[Shelf_Watched] + $EXP[ShowWatchedMarkers]</visible>
+					</control>
+					<control type="progress">
+						<left>15</left>
+						<top>247</top>
+						<width>160</width>
+						<height>6</height>
+						<texturebg colordiffuse="99000000">common/white.png</texturebg>
+						<midtexture colordiffuse="on_card">common/white.png</midtexture>
+						<info>ListItem.PercentPlayed</info>
+						<visible>ListItem.IsResumable</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>186</width>
+						<height>279</height>
+						<texture>fold/card_light.png</texture>
+						<visible>Control.HasFocus(503)</visible>
+					</control>
+				</control>
+				<!-- the ".." parent item: a cream index card -->
+				<control type="group">
+					<left>18</left>
+					<top>-9</top>
+					<visible>ListItem.IsParentFolder</visible>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>186</width>
+						<height>279</height>
+						<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+					</control>
+					<control type="label">
+						<left>16</left>
+						<top>12</top>
+						<width>154</width>
+						<height>72</height>
+						<font>disp_50</font>
+						<textcolor>$VAR[FoldAccentInk]</textcolor>
+						<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+						<label>←</label>
+					</control>
+					<control type="label">
+						<left>16</left>
+						<top>227</top>
+						<width>154</width>
+						<height>36</height>
+						<font>tab_22</font>
+						<textcolor>ink</textcolor>
+						<selectedcolor>ink</selectedcolor>
+						<label>$LOCALIZE[31393]</label>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>186</width>
+						<height>279</height>
+						<texture border="4" colordiffuse="$VAR[FoldAccent]">fold/edge_all.png</texture>
+						<visible>Control.HasFocus(503)</visible>
+					</control>
+				</control>
+				</focusedlayout>
+			</control>
+		</control>
+	</include>
+
+	<include name="VidView_505_Leaflet">
+		<control type="group">
+			<visible>Control.IsVisible(505)</visible>
+			<!-- the leaflet: three panels standing on the table, the outer ones turned a little toward you -->
+			<control type="group">
+				<visible>Integer.IsGreater(Container.NumItems,0)</visible>
+				<include>Anim_FadeVisible</include>
+				<control type="image">
+					<left>60</left>
+					<top>120</top>
+					<width>1800</width>
+					<height>690</height>
+					<texture border="104">fold/shadow_spread.png</texture>
+				</control>
+				<control type="group">
+					<camera x="960" y="430"/>
+					<animation effect="rotatey" start="-7" end="-7" center="684" time="0" condition="true">Conditional</animation>
+				<control type="image">
+					<left>132</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture border="8" colordiffuse="cream">fold/rr5_l.png</texture>
+				</control>
+				<control type="image">
+					<left>132</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture diffuse="fold/rr5_l.png">fold/tooth_cream.png</texture>
+				</control>
+				<control type="image">
+					<left>132</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture>fold/shade_p1.png</texture>
+				</control>
+				<control type="image">
+					<left>132</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture border="4" colordiffuse="$VAR[FoldAccentEdge]">fold/edge_l.png</texture>
+				</control>
+					
+				<control type="group">
+					<left>184</left>
+					<top>204</top>
+					<width>300</width>
+					<height>450</height>
+					<visible>!Container.Content(episodes) + !ListItem.IsParentFolder</visible>
+					<control type="image">
+						<left>-12</left>
+						<top>-12</top>
+						<right>-12</right>
+						<bottom>-12</bottom>
+						<texture border="14">fold/plate_frame.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>450</height>
+						<texture colordiffuse="cream_deep">common/white.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>450</height>
+						<aspectratio>scale</aspectratio>
+						<fadetime>200</fadetime>
+						<texture background="true">$VAR[Shelf_Art]</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>450</height>
+						<texture>fold/plate_sheen.png</texture>
+					</control>
+				</control>
+					
+				<control type="group">
+					<left>160</left>
+					<top>280</top>
+					<width>496</width>
+					<height>279</height>
+					<visible>Container.Content(episodes) + !ListItem.IsParentFolder</visible>
+					<control type="image">
+						<left>-12</left>
+						<top>-12</top>
+						<right>-12</right>
+						<bottom>-12</bottom>
+						<texture border="14">fold/plate_frame.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>496</width>
+						<height>279</height>
+						<texture colordiffuse="cream_deep">common/white.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>496</width>
+						<height>279</height>
+						<aspectratio>scale</aspectratio>
+						<fadetime>200</fadetime>
+						<texture background="true">$VAR[Concertina_Still]</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>496</width>
+						<height>279</height>
+						<texture>fold/plate_sheen.png</texture>
+					</control>
+				</control>
+					<control type="label">
+						<left>172</left>
+						<top>200</top>
+						<width>460</width>
+						<height>120</height>
+						<font>disp_112</font>
+						<textcolor>$VAR[FoldAccentInk]</textcolor>
+						<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+						<label>←</label>
+						<visible>ListItem.IsParentFolder</visible>
+					</control>
+				</control>
+				<control type="group">
+				<control type="image">
+					<left>684</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture colordiffuse="cream">common/white.png</texture>
+				</control>
+				<control type="image">
+					<left>684</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture diffuse="common/white.png">fold/tooth_cream.png</texture>
+				</control>
+				<control type="image">
+					<left>684</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture>fold/shade_p2.png</texture>
+				</control>
+				<control type="image">
+					<left>684</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture border="4" colordiffuse="$VAR[FoldAccentEdge]">fold/edge_c.png</texture>
+				</control>
+					<control type="grouplist">
+						<left>724</left>
+						<top>200</top>
+						<width>472</width>
+						<height>470</height>
+						<orientation>vertical</orientation>
+						<itemgap>0</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+						<control type="label">
+							<width>472</width>
+							<height>36</height>
+							<font>caps_20_b</font>
+							<textcolor>$VAR[FoldAccentInk]</textcolor>
+							<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+							<label>$VAR[Shelf_Kicker]</label>
+						</control>
+						<control type="group">
+							<width>472</width>
+							<height>0</height>
+							<control type="textbox">
+								<left>0</left>
+								<top>0</top>
+								<width>472</width>
+								<height>184</height>
+								<font>head_50</font>
+								<textcolor>ink</textcolor>
+								<selectedcolor>ink</selectedcolor>
+								<label>$VAR[Leaflet_Title]</label>
+							</control>
+						</control>
+						<control type="textbox">
+							<width>472</width>
+							<height max="162">auto</height>
+							<font>head_50</font>
+							<textcolor>clear</textcolor>
+							<selectedcolor>clear</selectedcolor>
+							<label>$VAR[Leaflet_Title]</label>
+						</control>
+						<control type="image">
+							<width>10</width>
+							<height>16</height>
+							<texture />
+						</control>
+						<control type="textbox">
+							<width>472</width>
+							<height max="64">auto</height>
+							<font>caps_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label>$VAR[Shelf_Meta]</label>
+						</control>
+						<control type="image">
+							<width>10</width>
+							<height>14</height>
+							<texture />
+						</control>
+						<control type="textbox">
+							<width>472</width>
+							<height max="42">auto</height>
+							<font>light_30</font>
+							<textcolor>ink2</textcolor>
+							<selectedcolor>ink2</selectedcolor>
+							<label>$INFO[ListItem.Tagline]</label>
+						</control>
+						<control type="image">
+							<width>10</width>
+							<height>10</height>
+							<texture />
+							<visible>!String.IsEmpty(ListItem.Tagline)</visible>
+						</control>
+						<control type="textbox">
+							<width>472</width>
+							<height>170</height>
+							<font>body_24</font>
+							<textcolor>body</textcolor>
+							<selectedcolor>body</selectedcolor>
+							<label>$INFO[ListItem.Plot]</label>
+						</control>
+					</control>
+				</control>
+				<control type="group">
+					<camera x="960" y="430"/>
+					<animation effect="rotatey" start="7" end="7" center="1236" time="0" condition="true">Conditional</animation>
+				<control type="image">
+					<left>1236</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture border="8" colordiffuse="cream">fold/rr5_r.png</texture>
+				</control>
+				<control type="image">
+					<left>1236</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture diffuse="fold/rr5_r.png">fold/tooth_cream.png</texture>
+				</control>
+				<control type="image">
+					<left>1236</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture>fold/shade_p3.png</texture>
+				</control>
+				<control type="image">
+					<left>1236</left>
+					<top>160</top>
+					<width>552</width>
+					<height>540</height>
+					<texture border="4" colordiffuse="$VAR[FoldAccentEdge]">fold/edge_r.png</texture>
+				</control>
+					
+				<control type="group">
+					<left>1272</left>
+					<top>204</top>
+					<width>480</width>
+					<height>270</height>
+					<visible>$EXP[Leaflet_HasPrint]</visible>
+					<control type="image">
+						<left>-12</left>
+						<top>-12</top>
+						<right>-12</right>
+						<bottom>-12</bottom>
+						<texture border="14">fold/plate_frame.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>480</width>
+						<height>270</height>
+						<texture colordiffuse="cream_deep">common/white.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>480</width>
+						<height>270</height>
+						<aspectratio>scale</aspectratio>
+						<fadetime>200</fadetime>
+						<texture background="true">$VAR[Leaflet_Print]</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>480</width>
+						<height>270</height>
+						<texture>fold/plate_sheen.png</texture>
+					</control>
+				</control>
+					<control type="label">
+						<left>1276</left>
+						<top>204</top>
+						<width>472</width>
+						<height>32</height>
+						<font>caps_20_b</font>
+						<textcolor>$VAR[FoldAccentInk]</textcolor>
+						<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+						<label>$LOCALIZE[31425]</label>
+						<visible>!$EXP[Leaflet_HasPrint] + !ListItem.IsParentFolder</visible>
+					</control>
+					<control type="group">
+						<left>1276</left>
+						<top>512</top>
+						<visible>!ListItem.IsParentFolder</visible>
+						<animation effect="slide" start="0,0" end="0,-292" time="0" condition="!$EXP[Leaflet_HasPrint]">Conditional</animation>
+						<control type="label">
+							<left>0</left>
+							<top>0</top>
+							<width>472</width>
+							<height>32</height>
+							<font>caps_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label>$VAR[Shelf_Facts]</label>
+						</control>
+						<control type="label">
+							<left>0</left>
+							<top>40</top>
+							<width>472</width>
+							<height>32</height>
+							<font>caps_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label>$VAR[Leaflet_Facts2]</label>
+						</control>
+						<control type="label">
+							<left>0</left>
+							<top>80</top>
+							<width>472</width>
+							<height>32</height>
+							<font>caps_20</font>
+							<textcolor>cap</textcolor>
+							<selectedcolor>cap</selectedcolor>
+							<label>$INFO[ListItem.Studio,Studio [COLOR ink],[/COLOR]]</label>
+						</control>
+					</control>
+				</control>
+			</control>
+			<!-- the strip of closed cards (stills in a season) -->
+			<control type="group">
+				<include content="Anim_StandUp"><param name="bottom" value="1040"/></include>
+				<control type="list" id="505">
+					<left>96</left>
+					<top>740</top>
+					<width>1760</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<preloaditems>2</preloaditems>
+					<scrolltime tween="cubic" easing="out">260</scrolltime>
+					<onup>9000</onup>
+					<ondown>noop</ondown>
+					<onleft>ActivateWindow(1155)</onleft>
+					<onright>ActivateWindow(1155)</onright>
+					<onback condition="$EXP[Lib_AtRoot]">9398</onback>
+					<viewtype label="31426">biginfo</viewtype>
+					<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)</visible>
+				<itemlayout width="160" height="300" condition="!Container.Content(episodes)">
+				<control type="image">
+					<left>-24</left>
+					<top>10</top>
+					<width>208</width>
+					<height>272</height>
+					<texture border="48" colordiffuse="$VAR[Shelf_ShadowTint]">fold/shadow_card.png</texture>
+				</control>
+				<control type="group">
+					<left>16</left>
+					<top>50</top>
+					<width>128</width>
+					<height>192</height>
+					<visible>!ListItem.IsParentFolder</visible>
+					<include content="Fold_CardBody">
+						<param name="w" value="128"/>
+						<param name="h" value="192"/>
+						<param name="fe_x" value="127"/>
+						<param name="fe_h" value="187"/>
+						<param name="color" value="$VAR[Table_CardColor]"/>
+						<param name="plate_l" value="10"/>
+						<param name="plate_t" value="9"/>
+						<param name="plate_w" value="110"/>
+						<param name="plate_h" value="165"/>
+						<param name="art" value="$VAR[Shelf_Art]"/>
+						<param name="aspect" value="scale"/>
+						<param name="foot_l" value=""/>
+						<param name="foot_r" value=""/>
+						<param name="foot_font" value="num_20"/>
+						<param name="foot_b" value="7"/>
+						<param name="foot_color" value="on_card"/>
+						<param name="fallback" value="$INFO[ListItem.Label]"/>
+					</include>
+					<control type="image">
+						<left>86</left>
+						<top>15</top>
+						<width>28</width>
+						<height>28</height>
+						<texture>fold/punch.png</texture>
+						<visible>$EXP[Shelf_Watched] + $EXP[ShowWatchedMarkers]</visible>
+					</control>
+					<control type="progress">
+						<left>10</left>
+						<top>168</top>
+						<width>110</width>
+						<height>6</height>
+						<texturebg colordiffuse="99000000">common/white.png</texturebg>
+						<midtexture colordiffuse="on_card">common/white.png</midtexture>
+						<info>ListItem.PercentPlayed</info>
+						<visible>ListItem.IsResumable</visible>
+					</control>
+				</control>
+				<!-- the ".." parent item: a cream index card -->
+				<control type="group">
+					<left>16</left>
+					<top>50</top>
+					<visible>ListItem.IsParentFolder</visible>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>128</width>
+						<height>192</height>
+						<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+					</control>
+					<control type="label">
+						<left>16</left>
+						<top>12</top>
+						<width>96</width>
+						<height>72</height>
+						<font>disp_50</font>
+						<textcolor>$VAR[FoldAccentInk]</textcolor>
+						<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+						<label>←</label>
+					</control>
+					<control type="label">
+						<left>16</left>
+						<top>140</top>
+						<width>96</width>
+						<height>36</height>
+						<font>tab_22</font>
+						<textcolor>ink</textcolor>
+						<selectedcolor>ink</selectedcolor>
+						<label>Up</label>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>128</width>
+						<height>192</height>
+						<texture border="4" colordiffuse="$VAR[FoldAccent]">fold/edge_all.png</texture>
+						<visible>false</visible>
+					</control>
+				</control>
+				</itemlayout>
+				<focusedlayout width="160" height="300" condition="!Container.Content(episodes)">
+				<control type="image">
+					<left>-63</left>
+					<top>-43</top>
+					<width>286</width>
+					<height>357</height>
+					<texture border="80" colordiffuse="$VAR[Shelf_ShadowTint]">fold/shadow_lift.png</texture>
+				<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
+					<effect type="fade" start="30" end="100" time="240"/>
+				</animation>
+				<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
+					<effect type="fade" start="100" end="45" time="180"/>
+				</animation>
+				</control>
+				<control type="group">
+					<left>9</left>
+					<top>29</top>
+					<width>142</width>
+					<height>213</height>
+					<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
+						<effect type="zoom" start="90.1" end="100" center="80,242" time="240" tween="back" easing="out"/>
+						<effect type="rotatex" start="0" end="-9" center="242" time="240" tween="back" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(505)">
+						<effect type="rotatex" start="-9" end="-9" center="242" time="0"/>
+					</animation>
+					<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
+						<effect type="rotatex" start="-9" end="0" center="242" time="180" tween="cubic" easing="out"/>
+					</animation>
+					<visible>!ListItem.IsParentFolder</visible>
+					<include content="Fold_CardBody">
+						<param name="w" value="142"/>
+						<param name="h" value="213"/>
+						<param name="fe_x" value="141"/>
+						<param name="fe_h" value="208"/>
+						<param name="color" value="$VAR[Table_CardColor]"/>
+						<param name="plate_l" value="11"/>
+						<param name="plate_t" value="10"/>
+						<param name="plate_w" value="122"/>
+						<param name="plate_h" value="183"/>
+						<param name="art" value="$VAR[Shelf_Art]"/>
+						<param name="aspect" value="scale"/>
+						<param name="foot_l" value=""/>
+						<param name="foot_r" value=""/>
+						<param name="foot_font" value="num_20"/>
+						<param name="foot_b" value="7"/>
+						<param name="foot_color" value="on_card"/>
+						<param name="fallback" value="$INFO[ListItem.Label]"/>
+					</include>
+					<control type="image">
+						<left>99</left>
+						<top>16</top>
+						<width>28</width>
+						<height>28</height>
+						<texture>fold/punch.png</texture>
+						<visible>$EXP[Shelf_Watched] + $EXP[ShowWatchedMarkers]</visible>
+					</control>
+					<control type="progress">
+						<left>11</left>
+						<top>187</top>
+						<width>122</width>
+						<height>6</height>
+						<texturebg colordiffuse="99000000">common/white.png</texturebg>
+						<midtexture colordiffuse="on_card">common/white.png</midtexture>
+						<info>ListItem.PercentPlayed</info>
+						<visible>ListItem.IsResumable</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>142</width>
+						<height>213</height>
+						<texture>fold/card_light.png</texture>
+						<visible>Control.HasFocus(505)</visible>
+					</control>
+				</control>
+				<!-- the ".." parent item: a cream index card -->
+				<control type="group">
+					<left>9</left>
+					<top>29</top>
+					<visible>ListItem.IsParentFolder</visible>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>142</width>
+						<height>213</height>
+						<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+					</control>
+					<control type="label">
+						<left>16</left>
+						<top>12</top>
+						<width>110</width>
+						<height>72</height>
+						<font>disp_50</font>
+						<textcolor>$VAR[FoldAccentInk]</textcolor>
+						<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+						<label>←</label>
+					</control>
+					<control type="label">
+						<left>16</left>
+						<top>161</top>
+						<width>110</width>
+						<height>36</height>
+						<font>tab_22</font>
+						<textcolor>ink</textcolor>
+						<selectedcolor>ink</selectedcolor>
+						<label>Up</label>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>142</width>
+						<height>213</height>
+						<texture border="4" colordiffuse="$VAR[FoldAccent]">fold/edge_all.png</texture>
+						<visible>Control.HasFocus(505)</visible>
+					</control>
+				</control>
+				</focusedlayout>
+				<itemlayout width="240" height="300" condition="Container.Content(episodes)">
+				<control type="image">
+					<left>-26</left>
+					<top>0</top>
+					<width>292</width>
+					<height>238</height>
+					<texture border="48">fold/shadow_card.png</texture>
+				</control>
+				<control type="group">
+					<left>14</left>
+					<top>40</top>
+					<width>212</width>
+					<height>158</height>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>212</width>
+						<height>158</height>
+						<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>212</width>
+						<height>158</height>
+						<texture diffuse="fold/rr4.png">fold/tooth_cream.png</texture>
+					</control>
+					<control type="image">
+						<left>10</left>
+						<top>10</top>
+						<width>192</width>
+						<height>108</height>
+						<texture colordiffuse="cream_deep">common/white.png</texture>
+					</control>
+					<control type="image">
+						<left>10</left>
+						<top>10</top>
+						<width>192</width>
+						<height>108</height>
+						<aspectratio>scale</aspectratio>
+						<fadetime>160</fadetime>
+						<texture background="true">$VAR[Concertina_Still]</texture>
+						<visible>!ListItem.IsParentFolder</visible>
+					</control>
+					<control type="label">
+						<left>12</left>
+						<top>112</top>
+						<width>188</width>
+						<height>40</height>
+						<font>disp_50</font>
+						<textcolor>$VAR[FoldAccentInk]</textcolor>
+						<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+						<label>$VAR[Concertina_Num]</label>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>212</width>
+						<height>6</height>
+						<texture colordiffuse="$VAR[FoldAccent]">common/white.png</texture>
+						<visible>false</visible>
+					</control>
+				</control>
+				</itemlayout>
+				<focusedlayout width="240" height="300" condition="Container.Content(episodes)">
+				<control type="image">
+					<left>-38</left>
+					<top>-18</top>
+					<width>316</width>
+					<height>256</height>
+					<texture border="48">fold/shadow_lift.png</texture>
+				</control>
+				<control type="group">
+					<left>2</left>
+					<top>22</top>
+					<width>236</width>
+					<height>176</height>
+					<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
+						<effect type="zoom" start="89.8" end="100" center="120,198" time="240" tween="back" easing="out"/>
+					</animation>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>236</width>
+						<height>176</height>
+						<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>236</width>
+						<height>176</height>
+						<texture diffuse="fold/rr4.png">fold/tooth_cream.png</texture>
+					</control>
+					<control type="image">
+						<left>10</left>
+						<top>10</top>
+						<width>216</width>
+						<height>122</height>
+						<texture colordiffuse="cream_deep">common/white.png</texture>
+					</control>
+					<control type="image">
+						<left>10</left>
+						<top>10</top>
+						<width>216</width>
+						<height>122</height>
+						<aspectratio>scale</aspectratio>
+						<fadetime>160</fadetime>
+						<texture background="true">$VAR[Concertina_Still]</texture>
+						<visible>!ListItem.IsParentFolder</visible>
+					</control>
+					<control type="label">
+						<left>12</left>
+						<top>130</top>
+						<width>212</width>
+						<height>40</height>
+						<font>disp_50</font>
+						<textcolor>$VAR[FoldAccentInk]</textcolor>
+						<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+						<label>$VAR[Concertina_Num]</label>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>236</width>
+						<height>6</height>
+						<texture colordiffuse="$VAR[FoldAccent]">common/white.png</texture>
+						<visible>Control.HasFocus(505)</visible>
+					</control>
+				</control>
+				</focusedlayout>
+				</control>
+			</control>
+		</control>
+	</include>
+
+	<include name="VidView_506_Prints">
+		<control type="group">
+			<visible>Control.IsVisible(506)</visible>
+			<include content="Anim_StandUp"><param name="bottom" value="1206"/></include>
+			<control type="panel" id="506">
+				<left>52</left>
+				<top>150</top>
+				<width>1776</width>
+				<height>930</height>
+				<orientation>vertical</orientation>
+				<preloaditems>2</preloaditems>
+				<scrolltime tween="cubic" easing="out">280</scrolltime>
+				<onup>9000</onup>
+				<ondown>noop</ondown>
+				<onright>9000</onright>
+				<onleft>ActivateWindow(1155)</onleft>
+				<onback condition="$EXP[Lib_AtRoot]">9398</onback>
+				<viewtype label="31427">wide</viewtype>
+				<itemlayout width="444" height="352">
+				<control type="image">
+					<left>-24</left>
+					<top>-22</top>
+					<width>492</width>
+					<height>396</height>
+					<texture border="48">fold/shadow_card.png</texture>
+				</control>
+				<control type="group">
+					<left>16</left>
+					<top>18</top>
+					<width>412</width>
+					<height>316</height>
+					<visible>!ListItem.IsParentFolder</visible>
+					<include content="Fold_CardBody">
+						<param name="w" value="412"/>
+						<param name="h" value="316"/>
+						<param name="fe_x" value="411"/>
+						<param name="fe_h" value="311"/>
+						<param name="color" value="$VAR[Prints_CardColor]"/>
+						<param name="plate_l" value="18"/>
+						<param name="plate_t" value="16"/>
+						<param name="plate_w" value="380"/>
+						<param name="plate_h" value="214"/>
+						<param name="art" value="$VAR[Prints_WideArt]"/>
+						<param name="fallback" value=""/>
+					</include>
+					<!-- no wide picture: the item's own picture whole on the plate, or a glyph-free title card -->
+					<control type="image">
+						<left>30</left>
+						<top>26</top>
+						<width>356</width>
+						<height>194</height>
+						<aspectratio>keep</aspectratio>
+						<fadetime>160</fadetime>
+						<texture background="true">$VAR[Prints_Icon]</texture>
+						<visible>!$EXP[Prints_HasWide] + $EXP[Prints_HasIcon]</visible>
+					</control>
+					<control type="textbox">
+						<left>38</left>
+						<top>34</top>
+						<width>340</width>
+						<height>178</height>
+						<font>head_34</font>
+						<textcolor>ink2</textcolor>
+						<selectedcolor>ink2</selectedcolor>
+						<label>$VAR[List_Title]</label>
+						<visible>!$EXP[Prints_HasWide] + !$EXP[Prints_HasIcon]</visible>
+					</control>
+					<control type="image">
+						<left>364</left>
+						<top>22</top>
+						<width>28</width>
+						<height>28</height>
+						<texture>fold/punch.png</texture>
+						<visible>$EXP[Shelf_Watched] + $EXP[ShowWatchedMarkers]</visible>
+					</control>
+					<control type="progress">
+						<left>18</left>
+						<top>224</top>
+						<width>380</width>
+						<height>6</height>
+						<texturebg colordiffuse="99000000">common/white.png</texturebg>
+						<midtexture colordiffuse="on_card">common/white.png</midtexture>
+						<info>ListItem.PercentPlayed</info>
+						<visible>ListItem.IsResumable</visible>
+					</control>
+					<control type="label">
+						<left>18</left>
+						<top>242</top>
+						<width>380</width>
+						<height>34</height>
+						<font>sans_22_semi</font>
+						<textcolor>$VAR[Prints_OnCard]</textcolor>
+						<selectedcolor>$VAR[Prints_OnCard]</selectedcolor>
+						<label>$VAR[List_Title]</label>
+						<visible>$EXP[Prints_HasWide] | $EXP[Prints_HasIcon]</visible>
+					</control>
+					<control type="label">
+						<left>18</left>
+						<top>276</top>
+						<width>380</width>
+						<height>30</height>
+						<font>caps_20</font>
+						<textcolor>$VAR[Prints_OnCard]</textcolor>
+						<selectedcolor>$VAR[Prints_OnCard]</selectedcolor>
+						<label>$VAR[Prints_Meta]</label>
+					</control>
+				</control>
+				<control type="group">
+					<left>16</left>
+					<top>18</top>
+					<visible>ListItem.IsParentFolder</visible>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>412</width>
+						<height>316</height>
+						<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+					</control>
+					<control type="label">
+						<left>24</left>
+						<top>20</top>
+						<width>364</width>
+						<height>80</height>
+						<font>disp_64</font>
+						<textcolor>$VAR[FoldAccentInk]</textcolor>
+						<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+						<label>←</label>
+					</control>
+					<control type="label">
+						<left>24</left>
+						<top>252</top>
+						<width>364</width>
+						<height>40</height>
+						<font>tab_22</font>
+						<textcolor>ink</textcolor>
+						<selectedcolor>ink</selectedcolor>
+						<label>$LOCALIZE[31393]</label>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>412</width>
+						<height>316</height>
+						<texture border="4" colordiffuse="$VAR[FoldAccent]">fold/edge_all.png</texture>
+						<visible>false</visible>
+					</control>
+				</control>
+				</itemlayout>
+				<focusedlayout width="444" height="352">
+				<control type="image">
+					<left>-68</left>
+					<top>-72</top>
+					<width>580</width>
+					<height>478</height>
+					<texture border="80">fold/shadow_lift.png</texture>
+				</control>
+				<control type="group">
+					<left>4</left>
+					<top>0</top>
+					<width>436</width>
+					<height>334</height>
+					<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
+						<effect type="zoom" start="94.5" end="100" center="222,334" time="240" tween="back" easing="out"/>
+						<effect type="rotatex" start="0" end="-7" center="334" time="240" tween="back" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(506)">
+						<effect type="rotatex" start="-7" end="-7" center="334" time="0"/>
+					</animation>
+					<animation type="Unfocus" condition="!Skin.HasSetting(fold.reducemotion)">
+						<effect type="rotatex" start="-7" end="0" center="334" time="180" tween="cubic" easing="out"/>
+					</animation>
+					<visible>!ListItem.IsParentFolder</visible>
+					<include content="Fold_CardBody">
+						<param name="w" value="436"/>
+						<param name="h" value="334"/>
+						<param name="fe_x" value="435"/>
+						<param name="fe_h" value="329"/>
+						<param name="color" value="$VAR[Prints_CardColor]"/>
+						<param name="plate_l" value="19"/>
+						<param name="plate_t" value="17"/>
+						<param name="plate_w" value="402"/>
+						<param name="plate_h" value="226"/>
+						<param name="art" value="$VAR[Prints_WideArt]"/>
+						<param name="fallback" value=""/>
+					</include>
+					<!-- no wide picture: the item's own picture whole on the plate, or a glyph-free title card -->
+					<control type="image">
+						<left>31</left>
+						<top>27</top>
+						<width>378</width>
+						<height>206</height>
+						<aspectratio>keep</aspectratio>
+						<fadetime>160</fadetime>
+						<texture background="true">$VAR[Prints_Icon]</texture>
+						<visible>!$EXP[Prints_HasWide] + $EXP[Prints_HasIcon]</visible>
+					</control>
+					<control type="textbox">
+						<left>39</left>
+						<top>35</top>
+						<width>362</width>
+						<height>190</height>
+						<font>head_34</font>
+						<textcolor>ink2</textcolor>
+						<selectedcolor>ink2</selectedcolor>
+						<label>$VAR[List_Title]</label>
+						<visible>!$EXP[Prints_HasWide] + !$EXP[Prints_HasIcon]</visible>
+					</control>
+					<control type="image">
+						<left>387</left>
+						<top>23</top>
+						<width>28</width>
+						<height>28</height>
+						<texture>fold/punch.png</texture>
+						<visible>$EXP[Shelf_Watched] + $EXP[ShowWatchedMarkers]</visible>
+					</control>
+					<control type="progress">
+						<left>19</left>
+						<top>237</top>
+						<width>402</width>
+						<height>6</height>
+						<texturebg colordiffuse="99000000">common/white.png</texturebg>
+						<midtexture colordiffuse="on_card">common/white.png</midtexture>
+						<info>ListItem.PercentPlayed</info>
+						<visible>ListItem.IsResumable</visible>
+					</control>
+					<control type="label">
+						<left>19</left>
+						<top>255</top>
+						<width>402</width>
+						<height>34</height>
+						<font>sans_24_semi</font>
+						<textcolor>$VAR[Prints_OnCard]</textcolor>
+						<selectedcolor>$VAR[Prints_OnCard]</selectedcolor>
+						<label>$VAR[List_Title]</label>
+						<visible>$EXP[Prints_HasWide] | $EXP[Prints_HasIcon]</visible>
+					</control>
+					<control type="label">
+						<left>19</left>
+						<top>289</top>
+						<width>402</width>
+						<height>30</height>
+						<font>caps_20</font>
+						<textcolor>$VAR[Prints_OnCard]</textcolor>
+						<selectedcolor>$VAR[Prints_OnCard]</selectedcolor>
+						<label>$VAR[Prints_Meta]</label>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>436</width>
+						<height>334</height>
+						<texture>fold/card_light.png</texture>
+						<visible>Control.HasFocus(506)</visible>
+					</control>
+				</control>
+				<control type="group">
+					<left>4</left>
+					<top>0</top>
+					<visible>ListItem.IsParentFolder</visible>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>436</width>
+						<height>334</height>
+						<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+					</control>
+					<control type="label">
+						<left>24</left>
+						<top>20</top>
+						<width>388</width>
+						<height>80</height>
+						<font>disp_64</font>
+						<textcolor>$VAR[FoldAccentInk]</textcolor>
+						<selectedcolor>$VAR[FoldAccentInk]</selectedcolor>
+						<label>←</label>
+					</control>
+					<control type="label">
+						<left>24</left>
+						<top>270</top>
+						<width>388</width>
+						<height>40</height>
+						<font>tab_22</font>
+						<textcolor>ink</textcolor>
+						<selectedcolor>ink</selectedcolor>
+						<label>$LOCALIZE[31393]</label>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>436</width>
+						<height>334</height>
+						<texture border="4" colordiffuse="$VAR[FoldAccent]">fold/edge_all.png</texture>
+						<visible>Control.HasFocus(506)</visible>
+					</control>
+				</control>
+				</focusedlayout>
+			</control>
+		</control>
+	</include>
+
 	<include name="VidView_Header">
 		<control type="group">
 			<visible>!Control.IsVisible(502)</visible>
@@ -1698,12 +3024,18 @@ view mode), and the first visit of each content type opens the Fold view.
 			<ondown condition="Control.IsVisible(500)">500</ondown>
 			<ondown condition="Control.IsVisible(501)">501</ondown>
 			<ondown condition="Control.IsVisible(502)">502</ondown>
+			<ondown condition="Control.IsVisible(503)">503</ondown>
+			<ondown condition="Control.IsVisible(505)">505</ondown>
+			<ondown condition="Control.IsVisible(506)">506</ondown>
 			<ondown>50</ondown>
 			<onleft>noop</onleft>
 			<onright>noop</onright>
 			<onback condition="Control.IsVisible(500)">500</onback>
 			<onback condition="Control.IsVisible(501)">501</onback>
 			<onback condition="Control.IsVisible(502)">502</onback>
+			<onback condition="Control.IsVisible(503)">503</onback>
+			<onback condition="Control.IsVisible(505)">505</onback>
+			<onback condition="Control.IsVisible(506)">506</onback>
 			<onback condition="Control.IsVisible(50)">50</onback>
 			<control type="button" id="9321">
 				<width>163</width>
@@ -1752,7 +3084,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				<visible>$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]</visible>
 			</control>
 			<control type="button" id="9326">
-				<width>193</width>
+				<width>221</width>
 				<height>40</height>
 				<font>caps_20_b</font>
 				<textcolor>ink2</textcolor>
@@ -1831,6 +3163,10 @@ view mode), and the first visit of each content type opens the Fold view.
 	<include name="VidView_Empty">
 		<control type="group">
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<!-- 0.9.13: under the first row of cards (the ".." card stands where the message was) -->
+			<animation effect="slide" start="0,0" end="0,350" time="0" condition="Control.IsVisible(500)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,230" time="0" condition="Control.IsVisible(503)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,300" time="0" condition="Control.IsVisible(506)">Conditional</animation>
 			<control type="label">
 				<left>96</left>
 				<top>240</top>
@@ -1861,6 +3197,9 @@ view mode), and the first visit of each content type opens the Fold view.
 		<include>VidView_500_Shelf</include>
 		<include>VidView_501_Seasons</include>
 		<include>VidView_502_Concertina</include>
+		<include>VidView_503_Table</include>
+		<include>VidView_505_Leaflet</include>
+		<include>VidView_506_Prints</include>
 		<include>View_50_List</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>

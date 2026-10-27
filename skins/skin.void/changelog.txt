@@ -1,3 +1,12 @@
+0.9.14 (2026-10-27)
+- More ways to browse: five new library views, all in Void's quiet style. Videos now have six views, music four.
+- One: a single item in large type with its neighbours faintly above and below, as on Home. Rest on it and the details, then the plot, then the artwork arrive. Films, series, seasons, episodes, sets, music videos, add-ons, albums and artists.
+- Frames: wide pictures, three by two, for series, episodes, sets, add-ons and anything that only has a wide picture. Posters and icons sit whole on a dark tile; with no picture the title is printed instead.
+- Notes: a plain list on the left and a reading column on the right (title, details, ten lines of plot, who made it, watched state).
+- Stills: episodes with their still, number, title and two lines of plot.
+- Tracks: songs as a tracklist (number, title, artist and album, time).
+- All views are in the View picker with a preview. Folders without a saved view still open in Index.
+
 0.9.13 (2026-10-25)
 - Search: a query with a double quote (e.g. "Superman") now finds its matches; before, the quote broke the search and nothing came up.
 

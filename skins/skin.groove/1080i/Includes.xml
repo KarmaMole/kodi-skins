@@ -21,6 +21,7 @@
 	<include file="Includes_OSD.xml"/>
 	<include file="Includes_Search.xml"/>
 	<include file="Includes_Views_Video.xml"/>
+	<include file="Includes_Views_More.xml"/>
 	<include file="Includes_VideoInfo.xml"/>
 	<include file="Includes_VideoOSD.xml"/>
 	<include file="Includes_Music.xml"/>

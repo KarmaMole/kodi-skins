@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.daylight" version="0.9.14" name="Daylight" provider-name="KarmaMole">
+<addon id="skin.daylight" version="0.9.15" name="Daylight" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#daylight</website>
-		<news>v0.9.14 - Sleep after this follows seeks and stalls; Sunday and weekend rows work in every language; quoted searches work.</news>
+		<news>v0.9.15 - Three new film and TV views (Spotlight, Wide, Time) and two music views (Wall, Spotlight); the view picker shows them all.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

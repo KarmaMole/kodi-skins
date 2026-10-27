@@ -309,30 +309,38 @@ VIEWS = [
     ("videos", 500, "$LOCALIZE[31312]", "views/arc.png", ARC, "Pick_Cur_Arc"),
     ("videos", 501, "$LOCALIZE[31313]", "views/grid.png", ARC, "Pick_Cur_Grid"),
     ("videos", 502, "$LOCALIZE[31314]", "views/episodes.png", EPI, "Pick_Cur_Episodes"),
+    ("videos", 503, "$LOCALIZE[31320]", "views/horizon.png", ARC + " | Container.Content(episodes)", "Pick_Cur_Horizon"),
+    ("videos", 506, "$LOCALIZE[31321]", "views/tiles.png", None, "Pick_Cur_Tiles"),
     ("videos", 50, "$LOCALIZE[535]", "views/list.png", None, "Pick_Cur_List"),
     ("music", 504, "$LOCALIZE[31312]", "views/music_arc.png", MARC, "Pick_Cur_Arc"),
     ("music", 505, "$LOCALIZE[31313]", "views/music_grid.png", MGRID, "Pick_Cur_Grid"),
+    ("music", 507, "$LOCALIZE[31320]", "views/music_horizon.png", MARC, "Pick_Cur_Horizon"),
     ("music", 50, "$LOCALIZE[535]", "views/music_list.png", None, "Pick_Cur_List"),
 ]
-PITCH = 380
+# 0.9.16 (docs/VIEWS_BRIEF_2026-10-27.md): Horizon 503 / 507 and Tiles 506. Seasons offer six views (Arc, Grid,
+# Episodes, Horizon, Tiles, List), so the card holds six smaller previews (260 x 146) side by side.
+PITCH = 300
+MAXN = 6
 # display names (localized); VIEWS keeps the viewtype labels (string ids) that Container.Viewmode is compared with
 names = {("videos", 500): "$LOCALIZE[31312]", ("videos", 501): "$LOCALIZE[31313]", ("videos", 502): "$LOCALIZE[31314]", ("videos", 50): "$LOCALIZE[31315]",
-         ("music", 504): "$LOCALIZE[31312]", ("music", 505): "$LOCALIZE[31313]", ("music", 50): "$LOCALIZE[31315]"}
+         ("videos", 503): "$LOCALIZE[31320]", ("videos", 506): "$LOCALIZE[31321]",
+         ("music", 504): "$LOCALIZE[31312]", ("music", 505): "$LOCALIZE[31313]", ("music", 507): "$LOCALIZE[31320]",
+         ("music", 50): "$LOCALIZE[31315]"}
 
 frames = []
-for n in range(1, 5):
+for n in range(1, MAXN + 1):
     w = n * PITCH + 40
     frames.append(f"""			<control type="image">
 				<left>0</left>
 				<top>0</top>
 				<width>{w}</width>
-				<height>392</height>
+				<height>340</height>
 				<texture border="2">dialogs/panel_framed.png</texture>
 				<visible>Integer.IsEqual(Container(100).NumItems,{n})</visible>
 			</control>""")
 slides = []
-for n in range(1, 4):
-    slides.append(f'\t\t\t<animation effect="slide" end="{(4 - n) * PITCH // 2},0" time="0" condition="Integer.IsEqual(Container(100).NumItems,{n})">Conditional</animation>')
+for n in range(1, MAXN):
+    slides.append(f'\t\t\t<animation effect="slide" end="{(MAXN - n) * PITCH // 2},0" time="0" condition="Integer.IsEqual(Container(100).NumItems,{n})">Conditional</animation>')
 
 xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!--
@@ -361,10 +369,10 @@ xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 			<texture colordiffuse="dim_dialog">common/white.png</texture>
 		</control>
 		<control type="group">
-			<left>{(1920 - 4 * PITCH - 40) // 2}</left>
-			<top>344</top>
-			<width>{4 * PITCH + 40}</width>
-			<height>392</height>
+			<left>{(1920 - MAXN * PITCH - 40) // 2}</left>
+			<top>370</top>
+			<width>{MAXN * PITCH + 40}</width>
+			<height>340</height>
 {chr(10).join(slides)}
 {chr(10).join(frames)}
 			<control type="label">
@@ -379,18 +387,18 @@ xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 			<control type="list" id="100">
 				<left>20</left>
 				<top>56</top>
-				<width>{4 * PITCH}</width>
-				<height>320</height>
+				<width>{MAXN * PITCH}</width>
+				<height>270</height>
 				<orientation>horizontal</orientation>
 				<onleft>noop</onleft>
 				<onright>noop</onright>
 				<onup>noop</onup>
 				<ondown>noop</ondown>
 				<scrolltime tween="cubic" easing="out">160</scrolltime>
-				<itemlayout width="{PITCH}" height="320">
+				<itemlayout width="{PITCH}" height="270">
 					<include>Pick_Item</include>
 				</itemlayout>
-				<focusedlayout width="{PITCH}" height="320">
+				<focusedlayout width="{PITCH}" height="270">
 					<include content="Pick_Item"><param name="focused" value="true"/></include>
 				</focusedlayout>
 				<content>

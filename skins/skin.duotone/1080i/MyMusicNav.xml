@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	Music library (DuotoneMusic.dc.html), acid field. Views: 504 Albums wall (albums, artists), 50 List.
+	Music library (DuotoneMusic.dc.html), acid field. Views: 504 Albums wall (albums, artists), 508 Stage (albums,
+	artists), 509 Tracks (songs), 50 List; 508 / 509 in Includes_Views_More.xml (_src/make_views_more.py).
 	Kodi id contract (Estuary Omega MyMusicNav.xml / GUIWindowMusicNav.cpp): views in <views>,
 	menucontrol 9000, 3 sort by, 4 sort order (hidden, clicked by the header tabs).
 	Reserved by Kodi in this window and not reused: 2, 5, 8, 12, 15, 16, 17, 19, 20.
@@ -15,7 +16,7 @@
 	<!-- an empty folder has nothing focusable in the view: put focus on the header tabs -->
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>
 	<backgroundcolor>ground_static</backgroundcolor>
-	<views>504,50</views>
+	<views>504,508,509,50</views>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>DT_Background</include>
@@ -33,6 +34,8 @@
 
 		<!-- views -->
 		<include>Music_View_504</include>
+		<include>Music_View_508</include>
+		<include>Music_View_509</include>
 		<include>Music_View_50</include>
 
 		<!-- empty folder (the empty view keeps focus; Up reaches the tabs) -->

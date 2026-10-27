@@ -393,6 +393,124 @@
 			</control>
 		</definition>
 	</include>
+	<!-- Notes view reading column title, x 1000, 760 wide: tiers [(56, 1), (56, 2), (44, 2)] -->
+	<include name="Title_Notes_Visible">
+		<param name="label"/>
+		<param name="color">text</param>
+		<param name="recede">false</param>
+		<param name="p0"/>
+		<param name="p1"/>
+		<definition>
+			<control type="group">
+				<width>1760</width>
+				<height>0</height>
+				<control type="textbox" id="$PARAM[p0]">
+					<left>1000</left>
+					<top>0</top>
+					<width>760</width>
+					<height>87</height>
+					<font>serif_56</font>
+					<textcolor>00ffffff</textcolor>
+					<label>$PARAM[label]</label>
+					<visible>true</visible>
+				</control>
+				<control type="textbox" id="$PARAM[p1]">
+					<left>1000</left>
+					<top>0</top>
+					<width>760</width>
+					<height>146</height>
+					<font>serif_56</font>
+					<textcolor>00ffffff</textcolor>
+					<label>$PARAM[label]</label>
+					<visible>true</visible>
+				</control>
+				<control type="textbox">
+					<left>1000</left>
+					<top>0</top>
+					<width>760</width>
+					<height>83</height>
+					<font>serif_56</font>
+					<textcolor>$PARAM[color]</textcolor>
+					<label>$PARAM[label]</label>
+					<visible>!Integer.IsGreater(Container($PARAM[p0]).NumPages,1)</visible>
+				<include content="Void_Anim_Recede"><param name="condition" value="$PARAM[recede]"/><param name="level" value="84"/></include>
+				</control>
+				<control type="textbox">
+					<left>1000</left>
+					<top>0</top>
+					<width>760</width>
+					<height>141</height>
+					<font>serif_56</font>
+					<textcolor>$PARAM[color]</textcolor>
+					<label>$PARAM[label]</label>
+					<visible>Integer.IsGreater(Container($PARAM[p0]).NumPages,1) + !Integer.IsGreater(Container($PARAM[p1]).NumPages,1)</visible>
+				<include content="Void_Anim_Recede"><param name="condition" value="$PARAM[recede]"/><param name="level" value="84"/></include>
+				</control>
+				<control type="textbox">
+					<left>1000</left>
+					<top>0</top>
+					<width>760</width>
+					<height>114</height>
+					<font>serif_44</font>
+					<textcolor>$PARAM[color]</textcolor>
+					<label>$PARAM[label]</label>
+					<visible>Integer.IsGreater(Container($PARAM[p0]).NumPages,1) + Integer.IsGreater(Container($PARAM[p1]).NumPages,1)</visible>
+				<include content="Void_Anim_Recede"><param name="condition" value="$PARAM[recede]"/><param name="level" value="84"/></include>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="Title_Notes_Layout">
+		<param name="label"/>
+		<param name="color">text</param>
+		<param name="recede">false</param>
+		<param name="p0"/>
+		<param name="p1"/>
+		<definition>
+			<control type="textbox">
+				<left>1000</left>
+				<width>760</width>
+				<height max="58">auto</height>
+				<font>serif_56</font>
+				<textcolor>00000000</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>!Integer.IsGreater(Container($PARAM[p0]).NumPages,1)</visible>
+			</control>
+			<control type="group">
+				<width>1760</width>
+				<height>4</height>
+				<visible>!Integer.IsGreater(Container($PARAM[p0]).NumPages,1)</visible>
+			</control>
+			<control type="textbox">
+				<left>1000</left>
+				<width>760</width>
+				<height max="116">auto</height>
+				<font>serif_56</font>
+				<textcolor>00000000</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>Integer.IsGreater(Container($PARAM[p0]).NumPages,1) + !Integer.IsGreater(Container($PARAM[p1]).NumPages,1)</visible>
+			</control>
+			<control type="group">
+				<width>1760</width>
+				<height>4</height>
+				<visible>Integer.IsGreater(Container($PARAM[p0]).NumPages,1) + !Integer.IsGreater(Container($PARAM[p1]).NumPages,1)</visible>
+			</control>
+			<control type="textbox">
+				<left>1000</left>
+				<width>760</width>
+				<height max="91">auto</height>
+				<font>serif_44</font>
+				<textcolor>00000000</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>Integer.IsGreater(Container($PARAM[p0]).NumPages,1) + Integer.IsGreater(Container($PARAM[p1]).NumPages,1)</visible>
+			</control>
+			<control type="group">
+				<width>1760</width>
+				<height>3</height>
+				<visible>Integer.IsGreater(Container($PARAM[p0]).NumPages,1) + Integer.IsGreater(Container($PARAM[p1]).NumPages,1)</visible>
+			</control>
+		</definition>
+	</include>
 	<!-- Rotary index focus row, centred on y 544 (0.9.4: 4 px up = air over the next row), x 152, 1110 wide: tiers [(132, 1), (104, 1), (80, 1), (68, 2)] -->
 	<include name="Title_Rotary">
 		<param name="label"/>

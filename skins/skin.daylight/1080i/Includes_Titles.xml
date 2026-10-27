@@ -555,4 +555,86 @@
 			</control>
 		</definition>
 	</include>
+	<!-- Spot: display_52 x2, display_40 x2, serif_30 x3 at 760 px (probes 7781-7782) -->
+	<include name="T_Spot_Title">
+		<param name="color">$VAR[DL_Ink]</param>
+		<definition>
+			<control type="textbox" id="7781">
+				<left>0</left>
+				<top>0</top>
+				<width>760</width>
+				<height>146</height>
+				<font>display_52</font>
+				<textcolor>00ffffff</textcolor>
+				<label>$PARAM[label]</label>
+			</control>
+			<control type="textbox" id="7782">
+				<left>0</left>
+				<top>0</top>
+				<width>760</width>
+				<height>123</height>
+				<font>display_40</font>
+				<textcolor>00ffffff</textcolor>
+				<label>$PARAM[label]</label>
+			</control>
+			<control type="textbox">
+				<left>0</left>
+				<top>0</top>
+				<width>760</width>
+				<height>136</height>
+				<font>display_52</font>
+				<textcolor>$PARAM[color]</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>!Integer.IsGreater(Container(7781).NumPages,1)</visible>
+			</control>
+			<control type="textbox">
+				<left>0</left>
+				<top>0</top>
+				<width>760</width>
+				<height>109</height>
+				<font>display_40</font>
+				<textcolor>$PARAM[color]</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>Integer.IsGreater(Container(7781).NumPages,1) + !Integer.IsGreater(Container(7782).NumPages,1)</visible>
+			</control>
+			<control type="textbox">
+				<left>0</left>
+				<top>0</top>
+				<width>760</width>
+				<height>121</height>
+				<font>serif_30</font>
+				<textcolor>$PARAM[color]</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>Integer.IsGreater(Container(7781).NumPages,1) + Integer.IsGreater(Container(7782).NumPages,1)</visible>
+			</control>
+		</definition>
+	</include>
+	<include name="T_Spot_Measure">
+		<definition>
+			<control type="textbox">
+				<width>760</width>
+				<height max="117">auto</height>
+				<font>display_52</font>
+				<textcolor>00ffffff</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>!Integer.IsGreater(Container(7781).NumPages,1)</visible>
+			</control>
+			<control type="textbox">
+				<width>760</width>
+				<height max="99">auto</height>
+				<font>display_40</font>
+				<textcolor>00ffffff</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>Integer.IsGreater(Container(7781).NumPages,1) + !Integer.IsGreater(Container(7782).NumPages,1)</visible>
+			</control>
+			<control type="textbox">
+				<width>760</width>
+				<height max="114">auto</height>
+				<font>serif_30</font>
+				<textcolor>00ffffff</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>Integer.IsGreater(Container(7781).NumPages,1) + Integer.IsGreater(Container(7782).NumPages,1)</visible>
+			</control>
+		</definition>
+	</include>
 </includes>

@@ -11,9 +11,9 @@
 	<defaultcontrol always="true">100</defaultcontrol>
 	<include>Anim_DialogOpenClose</include>
 	<!-- Kodi restores the list's last selection when the dialog reopens (and Control.Move wraps), so
-	     select absolutely (0-based): item 0, or item 1 when the second view is current -->
+	     select absolutely (0-based): item 0, then the current view's place (Pick_Onload, Includes_ViewsMore.xml) -->
 	<onload>SetFocus(100,0,absolute)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31218]) | String.IsEqual(Container.Viewmode,$LOCALIZE[31219])">SetFocus(100,1,absolute)</onload>
+	<include>Pick_Onload</include>
 	<controls>
 		<control type="image">
 			<description>backdrop dim</description>
@@ -53,32 +53,7 @@
 				<include content="Pick_Item"><param name="focused" value="true"/></include>
 			</focusedlayout>
 			<content>
-				<item>
-					<label>$LOCALIZE[31217]</label>
-					<label2>$VAR[Pick_Cur_Index]</label2>
-					<icon>views/index.png</icon>
-					<onclick>Dialog.Close(1161,true)</onclick>
-					<onclick>Container.SetViewMode(50)</onclick>
-					<onclick>SetFocus(50)</onclick>
-				</item>
-				<item>
-					<label>$LOCALIZE[31218]</label>
-					<label2>$VAR[Pick_Cur_Wall]</label2>
-					<icon>views/wall.png</icon>
-					<onclick>Dialog.Close(1161,true)</onclick>
-					<onclick>Container.SetViewMode(51)</onclick>
-					<onclick>SetFocus(50)</onclick>
-					<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]</visible>
-				</item>
-				<item>
-					<label>$LOCALIZE[31219]</label>
-					<label2>$VAR[Pick_Cur_Covers]</label2>
-					<icon>views/covers.png</icon>
-					<onclick>Dialog.Close(1161,true)</onclick>
-					<onclick>Container.SetViewMode(52)</onclick>
-					<onclick>SetFocus(50)</onclick>
-					<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)]</visible>
-				</item>
+				<include>Pick_Items</include>
 			</content>
 		</control>
 		<control type="label">

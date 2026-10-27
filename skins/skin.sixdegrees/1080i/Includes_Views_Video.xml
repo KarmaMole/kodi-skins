@@ -766,6 +766,9 @@
 			<width>page_width</width>
 			<height>120</height>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<animation effect="slide" start="0,0" end="0,300" time="0" condition="Control.IsVisible(506)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="688,40" time="0" condition="Control.IsVisible(507)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,140" time="0" condition="Control.IsVisible(502)">Conditional</animation>
 			<control type="label">
 				<left>0</left>
 				<top>0</top>
@@ -1241,7 +1244,7 @@
 				<include>Lib_OpenLeft</include>
 				<include>Lib_OpenRight</include>
 				<viewtype label="31245">list</viewtype>
-				<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+				<visible>Container.Content(tvshows) | Container.Content(seasons) | Container.Content(movies) | Container.Content(sets) | Container.Content(musicvideos)</visible>
 				<itemlayout width="vidview_wall_pitch_x" height="vidview_wall_pitch_y">
 					<control type="group">
 						<left>8</left>
@@ -1251,6 +1254,7 @@
 						<include content="VidView_ArtFallback"/>
 						<include content="VidView_ArtImage"/>
 						<include>VidView_TVMarkers</include>
+						<include>VidView_Markers</include>
 					</control>
 				</itemlayout>
 				<focusedlayout width="vidview_wall_pitch_x" height="vidview_wall_pitch_y">
@@ -1263,6 +1267,7 @@
 						<include content="VidView_ArtFallback"/>
 						<include content="VidView_ArtImage"/>
 						<include>VidView_TVMarkers</include>
+						<include>VidView_Markers</include>
 						<include content="VidView_PosterFocus">
 							<param name="id" value="502"/>
 						</include>
@@ -1667,6 +1672,8 @@
 		<include>VidView_501_BigPoster</include>
 		<include>VidView_502_Wall</include>
 		<include>VidView_503_Episodes</include>
+		<include>VidView_506_Network</include>
+		<include>VidView_507_Interchange</include>
 		<include>View_50_List</include>
 		<include>VidView_50_ParentPanel</include>
 		<include>VidView_Empty</include>

@@ -1,3 +1,13 @@
+0.9.13 (2026-10-27)
+- More ways to browse (the View word or Options > View; the picker shows up to five previews at once):
+  - Table (films, sets, series, seasons, music videos): the whole table covered with small closed cards, eight across; the focused title rides on the crumb line.
+  - Leaflet (films, sets, series, seasons, episodes, music videos): the focused title opened as a tri-fold leaflet standing on the table (poster or still inside, title, tagline and story in the middle, the fanart print and facts on the right) over a strip of small cards (stills in a season).
+  - Prints (everything, add-ons and plug-ins too): landscape prints on section-coloured cards; episode stills, fanart, landscape art; add-ons and plug-in items keep their own picture whole.
+  - Crate (albums, artists): small marigold sleeves, eight across.
+  - Poster (artists, albums): the artist's fanart as a gig poster folded in four, with the name, dates and story beside it and a strip of sleeves below.
+- Existing views and their first-visit defaults are unchanged; a view you pick is never switched back (the view timers know every view a folder offers).
+- Empty folders: the message moves clear of the "Up a level" card in Shelf, Table, Prints, Sleeves and Crate.
+
 0.9.12 (2026-10-25)
 - Home: the Settings cards include Live TV (with a TV add-on), Pictures and Folders (your video sources), so photos and live TV can be reached again.
 - Album and artist info: Shuffle now shuffles.

@@ -604,6 +604,26 @@ msgctxt "#31348"
 msgid "Hidden"
 msgstr ""
 
+msgctxt "#31350"
+msgid "One"
+msgstr ""
+
+msgctxt "#31351"
+msgid "Frames"
+msgstr ""
+
+msgctxt "#31352"
+msgid "Notes"
+msgstr ""
+
+msgctxt "#31353"
+msgid "Stills"
+msgstr ""
+
+msgctxt "#31354"
+msgid "Tracks"
+msgstr ""
+
 msgctxt "#31940"
 msgid "Custom rows"
 msgstr ""

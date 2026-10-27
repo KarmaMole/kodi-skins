@@ -16,7 +16,7 @@
 	<defaultcontrol always="true">50</defaultcontrol>
 	<menucontrol>9521</menucontrol>
 	<backgroundcolor>ground_static</backgroundcolor>
-	<views>500,510,50</views>
+	<views>500,510,50,520,521,522</views>
 	<!-- empty folder: an empty view can't take focus, so land on the header -->
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9521)</onload>
 	<controls>

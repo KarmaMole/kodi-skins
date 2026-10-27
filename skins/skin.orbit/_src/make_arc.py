@@ -628,6 +628,17 @@ def main():
     hq = arc_slots(**{k: g[k] for k in ("cx", "cy", "R", "F", "H", "aspect", "extra_h", "gap")})
     L += poster_arc("Arc_Search9103", hq, "ArcArt9103", "masks/square_r4.png", "Search: albums (container 9103)", shadows=2)
     L += poster_arc("Arc_Search9104", hq, "ArcArt9104", "masks/circle.png", "Search: artists (container 9104)", shadows=2)
+    # 0.9.16 horizons (arc_horizon.py): wide pictures (view 503) and covers / portraits (view 507) along the bottom
+    from arc_horizon import horizon_slots, wide_art_variables, hidden_list_h, HORIZON, HORIZON_SQ
+    L += wide_art_variables("ArcArt503", 503)
+    L += art_variables("ArcArt507", 507, SQUARE_CHAIN)
+    L += poster_arc("Arc_HorizonWide", horizon_slots(**HORIZON), "ArcArt503", "masks/landscape_r4.png",
+                    "Horizon (view 503): wide pictures on a flat circle along the bottom, lens at 960,706", shadows=2)
+    L += poster_arc("Arc_HorizonSquares", horizon_slots(**HORIZON_SQ), "ArcArt507", "masks/square_r4.png",
+                    "Music horizon (view 507): album covers / artist discs along the bottom, lens at 960,660",
+                    shadows=2, circle_cond="Container.Content(artists)")
+    L += hidden_list_h("Arc_HiddenListH", "Focus-owning list for a horizon: 11 x 1px items side by side, lens at item 5")
+    L += hidden_list_h("Arc_HiddenListHSquare", "Same, art = thumb (albums, artists)", art="ListItem.Art(thumb)")
     L += hidden_list("Arc_HiddenList", "Focus-owning list for an arc: 11 x 1px rows, lens at row 5")
     L += hidden_list("Arc_HiddenListSquare", "Same, art = thumb (albums, artists)", art="ListItem.Art(thumb)")
     L += hidden_list("Arc_HiddenListIcon", "Same, art = icon (generic items)", art="ListItem.Icon")

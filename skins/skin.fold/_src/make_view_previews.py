@@ -213,7 +213,127 @@ def list_view(name, accent, active, square):
     save(im, name)
 
 
+# ---------------------------------------------------------------- 0.9.13 views (fold_views_more.py / fold_music_more.py)
+def table(name, color, active, w=168, h=252, slot=(222, 288), top=150, square=False):
+    im, d = canvas()
+    tabs(d, active)
+    words(d, color if color != MARI else (168, 108, 12), x0=640 if square else 930)
+    bar(d, 236, 126, 300, 16, INK)                 # the crumb names the focused card
+    i = 0
+    for r in range(4):
+        for c in range(8):
+            x = 56 + c * slot[0] + 27
+            y = top + r * slot[1] + 18
+            if y > 1040:
+                continue
+            hh = min(h, 1080 - y)
+            if (r, c) == (0, 2):
+                card(d, x - 9, y - 27, w + 18, h + 27, color, i, plate=not square)
+                if square:
+                    bar(d, x + 7, y - 12, w - 14 + 18 - 14, w - 14 + 18 - 14, PLATES[i % 6])
+            else:
+                card(d, x, y, w, hh, color, i, plate=not square)
+                if square:
+                    bar(d, x + 14, y + 14, w - 28, w - 28, PLATES[i % 6])
+            i += 1
+    save(im, name)
+
+
+def leaflet():
+    im, d = canvas()
+    tabs(d, 0)
+    words(d, VERM)
+    top, h, w = 160, 540, 552
+    d.rounded_rectangle([132 + 10, top + 14, 132 + 3 * w + 10, top + h + 18], radius=6, fill=SHADOW)
+    # outer panels turned toward you: drawn a little taller at their outer edge
+    d.polygon([(132, top - 14), (132 + w, top), (132 + w, top + h), (132, top + h + 14)], fill=CREAM, outline=RULE)
+    d.rectangle([132 + w, top, 132 + 2 * w, top + h], fill=(250, 246, 238), outline=RULE)
+    d.polygon([(132 + 2 * w, top), (132 + 3 * w, top - 14), (132 + 3 * w, top + h + 14), (132 + 2 * w, top + h)], fill=CREAM, outline=RULE)
+    bar(d, 184, top + 44, 300, 450, PLATES[2])
+    x2 = 132 + w + 40
+    bar(d, x2, top + 44, 220, 16, VERM)
+    bar(d, x2, top + 80, 420, 48, INK)
+    bar(d, x2, top + 136, 300, 48, INK)
+    bar(d, x2, top + 210, 360, 14, CAP)
+    for k in range(5):
+        bar(d, x2, top + 260 + k * 34, 460 - (k == 4) * 200, 16, INK2)
+    x3 = 132 + 2 * w + 36
+    bar(d, x3, top + 44, 480, 270, PLATES[4])
+    for k in range(3):
+        bar(d, x3 + 4, top + 352 + k * 40, 340 - k * 60, 14, CAP)
+    for k in range(11):
+        x = 96 + 16 + k * 160
+        if x > 1880:
+            break
+        if k == 1:
+            card(d, x - 7, 790 - 21, 142, 213, VERM, k)
+            bar(d, x - 7, 790 + 192 + 2, 142, 6, VERM)
+        else:
+            card(d, x, 790, 128, 192, VERM, k)
+    save(im, "leaflet")
+
+
+def prints():
+    im, d = canvas()
+    tabs(d, 1)
+    words(d, COBALT)
+    i = 0
+    for r in range(3):
+        for c in range(4):
+            x, y = 52 + c * 444 + 16, 150 + r * 352 + 18
+            if y > 1040:
+                continue
+            col = COBALT if (r + c) % 3 else VERM
+            ww, hh = (436, 334) if (r, c) == (0, 1) else (412, 316)
+            if (r, c) == (0, 1):
+                x, y = x - 12, y - 18
+            hh = min(hh, 1080 - y)
+            d.rounded_rectangle([x + 6, y + 10, x + ww + 6, y + hh + 12], radius=6, fill=SHADOW)
+            d.rounded_rectangle([x, y, x + ww, y + hh], radius=6, fill=col)
+            pw = ww - 32
+            bar(d, x + 18, y + 16, pw, min(int(pw * 9 / 16), hh - 20), PLATES[i % 6])
+            if y + 16 + int(pw * 9 / 16) + 60 < 1080:
+                bar(d, x + 18, y + 16 + int(pw * 9 / 16) + 18, 240, 18, CREAM)
+                bar(d, x + 18, y + 16 + int(pw * 9 / 16) + 50, 160, 12, CREAM)
+            i += 1
+    save(im, "prints")
+
+
+def poster():
+    im, d = canvas()
+    tabs(d, 2)
+    words(d, (168, 108, 12), x0=640)
+    x, y, w, h = 96, 164, 1240, 540
+    d.rounded_rectangle([x + 10, y + 14, x + w + 10, y + h + 18], radius=6, fill=SHADOW)
+    d.rounded_rectangle([x, y, x + w, y + h], radius=6, fill=CREAM)
+    bar(d, x + 14, y + 14, w - 28, h - 28, PLATES[1])
+    bar(d, x + w // 2 - 2, y, 4, h, (220, 214, 204))
+    bar(d, x, y + h // 2 - 2, w, 4, (220, 214, 204))
+    cx = 1400
+    bar(d, cx, y + 12, 220, 16, (168, 108, 12))
+    bar(d, cx, y + 50, 380, 46, INK)
+    bar(d, cx, y + 120, 260, 14, CAP)
+    for k in range(7):
+        bar(d, cx, y + 160 + k * 34, 400 - (k == 6) * 180, 16, INK2)
+    for k in range(10):
+        sx = 96 + 18 + k * 186
+        if sx > 1880:
+            break
+        if k == 1:
+            card(d, sx - 7, 794 - 17, 162, 197, MARI, k, plate=False)
+            bar(d, sx + 7, 794 - 3, 134, 134, PLATES[k % 6])
+        else:
+            card(d, sx, 794, 148, 180, MARI, k, plate=False)
+            bar(d, sx + 12, 806, 124, 124, PLATES[k % 6])
+    save(im, "poster")
+
+
 if __name__ == "__main__":
+    table("table", VERM, 0)
+    leaflet()
+    prints()
+    table("crate", MARI, 2, w=168, h=206, slot=(222, 252), top=164, square=True)
+    poster()
     shelf("shelf_films", VERM, 0)
     shelf("shelf_series", COBALT, 1)
     seasons()

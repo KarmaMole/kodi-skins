@@ -944,3 +944,26 @@ msgctxt "#31958"
 msgid "Folders"
 msgstr ""
 
+msgctxt "#31424"
+msgid "Table"
+msgstr ""
+
+msgctxt "#31425"
+msgid "No picture"
+msgstr ""
+
+msgctxt "#31426"
+msgid "Leaflet"
+msgstr ""
+
+msgctxt "#31427"
+msgid "Prints"
+msgstr ""
+
+msgctxt "#31428"
+msgid "Crate"
+msgstr ""
+
+msgctxt "#31429"
+msgid "Poster"
+msgstr ""

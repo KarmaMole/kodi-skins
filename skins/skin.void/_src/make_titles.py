@@ -122,6 +122,9 @@ def main():
                              [(120, 2), (96, 2), (72, 2)]),
              grouplist_title("Title_NowPlaying", "Now playing song, x 152, 1100 wide", 152, 1100,
                              [(120, 2), (96, 2), (72, 2)]),
+             # 0.9.14 Notes view (55): the reading column's title, x 1000, 760 wide
+             grouplist_title("Title_Notes", "Notes view reading column title, x 1000, 760 wide", 1000, 760,
+                             [(56, 1), (56, 2), (44, 2)]),
              placed_title("Title_Rotary", "Rotary index focus row, centred on y 544 (0.9.4: 4 px up = air over the next row), x 152, 1110 wide", 152, 1110,
                           [(132, 1), (104, 1), (80, 1), (68, 2)], centre=544),
              placed_title("Title_OSD", "OSD title, bottom edge y 904, x 156, 1600 wide", 156, 1600,

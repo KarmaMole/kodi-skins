@@ -9046,6 +9046,2086 @@
 		</definition>
 	</include>
 
+	<variable name="ArcArt503_m5">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(-5).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(-5).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(-5).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(-5).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-5).Art(landscape))">$INFO[Container(503).ListItemNoWrap(-5).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-5).Art(fanart))">$INFO[Container(503).ListItemNoWrap(-5).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-5).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(-5).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-5).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(-5).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(-5).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(-5).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt503_m4">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(-4).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(-4).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(-4).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(-4).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-4).Art(landscape))">$INFO[Container(503).ListItemNoWrap(-4).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-4).Art(fanart))">$INFO[Container(503).ListItemNoWrap(-4).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-4).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(-4).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-4).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(-4).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(-4).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(-4).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt503_m3">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(-3).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(-3).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(-3).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(-3).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-3).Art(landscape))">$INFO[Container(503).ListItemNoWrap(-3).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-3).Art(fanart))">$INFO[Container(503).ListItemNoWrap(-3).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-3).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(-3).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-3).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(-3).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(-3).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(-3).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt503_m2">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(-2).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(-2).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(-2).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(-2).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-2).Art(landscape))">$INFO[Container(503).ListItemNoWrap(-2).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-2).Art(fanart))">$INFO[Container(503).ListItemNoWrap(-2).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-2).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(-2).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-2).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(-2).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(-2).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(-2).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt503_m1">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(-1).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(-1).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(-1).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(-1).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-1).Art(landscape))">$INFO[Container(503).ListItemNoWrap(-1).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-1).Art(fanart))">$INFO[Container(503).ListItemNoWrap(-1).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-1).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(-1).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(-1).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(-1).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(-1).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(-1).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt503_p0">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(0).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(0).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(0).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(0).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(0).Art(landscape))">$INFO[Container(503).ListItemNoWrap(0).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(0).Art(fanart))">$INFO[Container(503).ListItemNoWrap(0).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(0).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(0).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(0).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(0).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(0).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(0).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt503_p1">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(1).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(1).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(1).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(1).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(1).Art(landscape))">$INFO[Container(503).ListItemNoWrap(1).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(1).Art(fanart))">$INFO[Container(503).ListItemNoWrap(1).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(1).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(1).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(1).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(1).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(1).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(1).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt503_p2">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(2).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(2).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(2).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(2).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(2).Art(landscape))">$INFO[Container(503).ListItemNoWrap(2).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(2).Art(fanart))">$INFO[Container(503).ListItemNoWrap(2).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(2).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(2).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(2).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(2).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(2).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(2).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt503_p3">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(3).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(3).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(3).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(3).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(3).Art(landscape))">$INFO[Container(503).ListItemNoWrap(3).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(3).Art(fanart))">$INFO[Container(503).ListItemNoWrap(3).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(3).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(3).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(3).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(3).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(3).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(3).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt503_p4">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(4).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(4).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(4).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(4).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(4).Art(landscape))">$INFO[Container(503).ListItemNoWrap(4).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(4).Art(fanart))">$INFO[Container(503).ListItemNoWrap(4).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(4).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(4).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(4).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(4).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(4).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(4).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt503_p5">
+		<value condition="String.IsEqual(Container(503).ListItemNoWrap(5).DBType,episode) + !String.IsEmpty(Container(503).ListItemNoWrap(5).Art(thumb)) + !String.StartsWith(Container(503).ListItemNoWrap(5).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(5).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(5).Art(landscape))">$INFO[Container(503).ListItemNoWrap(5).Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(5).Art(fanart))">$INFO[Container(503).ListItemNoWrap(5).Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(5).Art(tvshow.fanart))">$INFO[Container(503).ListItemNoWrap(5).Art(tvshow.fanart)]</value>
+		<value condition="!String.IsEmpty(Container(503).ListItemNoWrap(5).Art(tvshow.landscape))">$INFO[Container(503).ListItemNoWrap(5).Art(tvshow.landscape)]</value>
+		<value condition="!String.StartsWith(Container(503).ListItemNoWrap(5).Art(thumb),image://video@)">$INFO[Container(503).ListItemNoWrap(5).Art(thumb)]</value>
+	</variable>
+	<variable name="ArcArt507_m5">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(-5).Art(thumb))">$INFO[Container(507).ListItemNoWrap(-5).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(-5).Art(poster))">$INFO[Container(507).ListItemNoWrap(-5).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(-5).Icon]</value>
+	</variable>
+	<variable name="ArcArt507_m4">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(-4).Art(thumb))">$INFO[Container(507).ListItemNoWrap(-4).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(-4).Art(poster))">$INFO[Container(507).ListItemNoWrap(-4).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(-4).Icon]</value>
+	</variable>
+	<variable name="ArcArt507_m3">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(-3).Art(thumb))">$INFO[Container(507).ListItemNoWrap(-3).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(-3).Art(poster))">$INFO[Container(507).ListItemNoWrap(-3).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(-3).Icon]</value>
+	</variable>
+	<variable name="ArcArt507_m2">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(-2).Art(thumb))">$INFO[Container(507).ListItemNoWrap(-2).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(-2).Art(poster))">$INFO[Container(507).ListItemNoWrap(-2).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(-2).Icon]</value>
+	</variable>
+	<variable name="ArcArt507_m1">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(-1).Art(thumb))">$INFO[Container(507).ListItemNoWrap(-1).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(-1).Art(poster))">$INFO[Container(507).ListItemNoWrap(-1).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(-1).Icon]</value>
+	</variable>
+	<variable name="ArcArt507_p0">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(0).Art(thumb))">$INFO[Container(507).ListItemNoWrap(0).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(0).Art(poster))">$INFO[Container(507).ListItemNoWrap(0).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(0).Icon]</value>
+	</variable>
+	<variable name="ArcArt507_p1">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(1).Art(thumb))">$INFO[Container(507).ListItemNoWrap(1).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(1).Art(poster))">$INFO[Container(507).ListItemNoWrap(1).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(1).Icon]</value>
+	</variable>
+	<variable name="ArcArt507_p2">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(2).Art(thumb))">$INFO[Container(507).ListItemNoWrap(2).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(2).Art(poster))">$INFO[Container(507).ListItemNoWrap(2).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(2).Icon]</value>
+	</variable>
+	<variable name="ArcArt507_p3">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(3).Art(thumb))">$INFO[Container(507).ListItemNoWrap(3).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(3).Art(poster))">$INFO[Container(507).ListItemNoWrap(3).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(3).Icon]</value>
+	</variable>
+	<variable name="ArcArt507_p4">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(4).Art(thumb))">$INFO[Container(507).ListItemNoWrap(4).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(4).Art(poster))">$INFO[Container(507).ListItemNoWrap(4).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(4).Icon]</value>
+	</variable>
+	<variable name="ArcArt507_p5">
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(5).Art(thumb))">$INFO[Container(507).ListItemNoWrap(5).Art(thumb)]</value>
+		<value condition="!String.IsEmpty(Container(507).ListItemNoWrap(5).Art(poster))">$INFO[Container(507).ListItemNoWrap(5).Art(poster)]</value>
+		<value>$INFO[Container(507).ListItemNoWrap(5).Icon]</value>
+	</variable>
+	<!-- Horizon (view 503): wide pictures on a flat circle along the bottom, lens at 960,676 -->
+	<include name="Arc_HorizonWide">
+		<param name="t">180</param>
+		<definition>
+			<control type="group">
+				<left>0</left>
+				<top>0</top>
+				<!-- slot +5: centre 2236,1043 size 150x84 rot -30.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(5).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,55.3" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="2235.7,1043.1" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,55.3" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="2235.7,1043.1" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-160.3,-92.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="111.9" end="100" center="2235.7,1043.1" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="2.3" end="0" center="2235.7,1043.1" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-160.3,-92.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="111.9" end="100" center="2235.7,1043.1" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="2.3" end="0" center="2235.7,1043.1" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>2161</left>
+						<top>1001</top>
+						<width>150</width>
+						<height>84</height>
+						<animation effect="rotate" end="-30" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>150</width>
+							<height>84</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>37</width>
+							<height>37</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(5).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>150</width>
+							<height>84</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_p5]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff262626" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff383838" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -5: centre -316,1043 size 150x84 rot 30.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(-5).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="160.3,-92.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="111.9" end="100" center="-315.7,1043.1" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-2.3" end="0" center="-315.7,1043.1" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="160.3,-92.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="111.9" end="100" center="-315.7,1043.1" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-2.3" end="0" center="-315.7,1043.1" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,55.3" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="-315.7,1043.1" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,55.3" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="-315.7,1043.1" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>-391</left>
+						<top>1001</top>
+						<width>150</width>
+						<height>84</height>
+						<animation effect="rotate" end="30" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>150</width>
+							<height>84</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>37</width>
+							<height>37</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(-5).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>150</width>
+							<height>84</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_m5]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff383838" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff262626" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +4: centre 2075,951 size 168x94 rot -27.7 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(4).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="160.3,92.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="89.4" end="100" center="2075.4,950.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-2.3" end="0" center="2075.4,950.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="160.3,92.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="89.4" end="100" center="2075.4,950.9" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-2.3" end="0" center="2075.4,950.9" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-188.1,-88.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="117" end="100" center="2075.4,950.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5" end="0" center="2075.4,950.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-188.1,-88.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="117" end="100" center="2075.4,950.9" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5" end="0" center="2075.4,950.9" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1991</left>
+						<top>904</top>
+						<width>168</width>
+						<height>94</height>
+						<animation effect="rotate" end="-27.7" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>94</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>42</width>
+							<height>42</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(4).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>94</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_p4]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffaeaeae" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff525252" end="ff383838" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -4: centre -155,951 size 168x94 rot 27.7 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(-4).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="188.1,-88.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="117" end="100" center="-155.4,950.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5" end="0" center="-155.4,950.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="188.1,-88.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="117" end="100" center="-155.4,950.9" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5" end="0" center="-155.4,950.9" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-160.3,92.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="89.4" end="100" center="-155.4,950.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="2.3" end="0" center="-155.4,950.9" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-160.3,92.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="89.4" end="100" center="-155.4,950.9" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="2.3" end="0" center="-155.4,950.9" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>-239</left>
+						<top>904</top>
+						<width>168</width>
+						<height>94</height>
+						<animation effect="rotate" end="27.7" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>94</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>42</width>
+							<height>42</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(-4).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>94</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_m4]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff525252" end="ff383838" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffaeaeae" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +3: centre 1887,862 size 196x110 rot -22.7 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(3).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="188.1,88.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="85.5" end="100" center="1887.2,862.4" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5" end="0" center="1887.2,862.4" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="188.1,88.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="85.5" end="100" center="1887.2,862.4" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5" end="0" center="1887.2,862.4" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-227.5,-82.1" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="120.9" end="100" center="1887.2,862.4" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5.8" end="0" center="1887.2,862.4" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-227.5,-82.1" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="120.9" end="100" center="1887.2,862.4" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5.8" end="0" center="1887.2,862.4" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1789</left>
+						<top>807</top>
+						<width>196</width>
+						<height>110</height>
+						<animation effect="rotate" end="-22.7" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>196</width>
+							<height>110</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>49</width>
+							<height>49</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(3).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>196</width>
+							<height>110</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_p3]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffafafaf" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff707070" end="ff525252" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -3: centre 33,862 size 196x110 rot 22.7 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(-3).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="227.5,-82.1" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="120.9" end="100" center="32.8,862.4" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5.8" end="0" center="32.8,862.4" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="227.5,-82.1" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="120.9" end="100" center="32.8,862.4" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5.8" end="0" center="32.8,862.4" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-188.1,88.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="85.5" end="100" center="32.8,862.4" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5" end="0" center="32.8,862.4" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-188.1,88.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="85.5" end="100" center="32.8,862.4" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5" end="0" center="32.8,862.4" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>-65</left>
+						<top>807</top>
+						<width>196</width>
+						<height>110</height>
+						<animation effect="rotate" end="22.7" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>196</width>
+							<height>110</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>49</width>
+							<height>49</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(-3).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>196</width>
+							<height>110</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_m3]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff707070" end="ff525252" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffafafaf" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +2: centre 1660,780 size 236x133 rot -17.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(2).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="227.5,82.1" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="82.7" end="100" center="1659.7,780.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5.8" end="0" center="1659.7,780.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="227.5,82.1" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="82.7" end="100" center="1659.7,780.3" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5.8" end="0" center="1659.7,780.3" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-285.8,-68.3" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="127.1" end="100" center="1659.7,780.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="7" end="0" center="1659.7,780.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-285.8,-68.3" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="127.1" end="100" center="1659.7,780.3" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="7" end="0" center="1659.7,780.3" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1542</left>
+						<top>714</top>
+						<width>236</width>
+						<height>133</height>
+						<animation effect="rotate" end="-17" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>236</width>
+							<height>133</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>59</width>
+							<height>59</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(2).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>236</width>
+							<height>133</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_p2]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb9b9b9" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ff707070" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -2: centre 260,780 size 236x133 rot 17.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(-2).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="285.8,-68.3" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="127.1" end="100" center="260.3,780.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-7" end="0" center="260.3,780.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="285.8,-68.3" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="127.1" end="100" center="260.3,780.3" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-7" end="0" center="260.3,780.3" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-227.5,82.1" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="82.7" end="100" center="260.3,780.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5.8" end="0" center="260.3,780.3" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-227.5,82.1" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="82.7" end="100" center="260.3,780.3" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5.8" end="0" center="260.3,780.3" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>142</left>
+						<top>714</top>
+						<width>236</width>
+						<height>133</height>
+						<animation effect="rotate" end="17" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>236</width>
+							<height>133</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>59</width>
+							<height>59</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(-2).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>236</width>
+							<height>133</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_m2]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ff707070" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb9b9b9" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +1: centre 1374,712 size 300x169 rot -9.9 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(1).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="285.8,68.3" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="78.7" end="100" center="1373.9,712" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-7" end="0" center="1373.9,712" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="285.8,68.3" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="78.7" end="100" center="1373.9,712" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-7" end="0" center="1373.9,712" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-413.9,-36" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="159.8" end="100" center="1373.9,712" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="9.9" end="0" center="1373.9,712" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-413.9,-36" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="159.8" end="100" center="1373.9,712" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="9.9" end="0" center="1373.9,712" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1224</left>
+						<top>627</top>
+						<width>300</width>
+						<height>169</height>
+						<animation effect="rotate" end="-9.9" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>300</width>
+							<height>169</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>276</width>
+							<height>145</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(1).Label]</label>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>75</width>
+							<height>75</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>300</width>
+							<height>169</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_p1]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItemNoWrap(1).PlayCount,0) + !Container($PARAM[id]).ListItemNoWrap(1).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -1: centre 546,712 size 300x169 rot 9.9 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(-1).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="413.9,-36" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="159.8" end="100" center="546.1,712" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-9.9" end="0" center="546.1,712" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="413.9,-36" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="159.8" end="100" center="546.1,712" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-9.9" end="0" center="546.1,712" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-285.8,68.3" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="78.7" end="100" center="546.1,712" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="7" end="0" center="546.1,712" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-285.8,68.3" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="78.7" end="100" center="546.1,712" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="7" end="0" center="546.1,712" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>396</left>
+						<top>627</top>
+						<width>300</width>
+						<height>169</height>
+						<animation effect="rotate" end="9.9" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>300</width>
+							<height>169</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>276</width>
+							<height>145</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(-1).Label]</label>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(-1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>75</width>
+							<height>75</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(-1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>300</width>
+							<height>169</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_m1]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItemNoWrap(-1).PlayCount,0) + !Container($PARAM[id]).ListItemNoWrap(-1).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +0: centre 960,676 size 480x270 rot -0.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(0).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="413.9,36" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="62.6" end="100" center="960,676" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-9.9" end="0" center="960,676" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="413.9,36" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="62.6" end="100" center="960,676" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-9.9" end="0" center="960,676" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-413.9,36" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="62.6" end="100" center="960,676" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="9.9" end="0" center="960,676" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-413.9,36" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="62.6" end="100" center="960,676" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="9.9" end="0" center="960,676" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>720</left>
+						<top>541</top>
+						<width>480</width>
+						<height>270</height>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>480</width>
+							<height>270</height>
+							<texture colordiffuse="plate" diffuse="masks/landscape_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>456</width>
+							<height>246</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(0).Label]</label>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(0).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>120</width>
+							<height>120</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(0).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>480</width>
+							<height>270</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/landscape_r4.png">$VAR[ArcArt503_p0]</texture>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItemNoWrap(0).PlayCount,0) + !Container($PARAM[id]).ListItemNoWrap(0).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="progress">
+							<left>0</left>
+							<top>265</top>
+							<width>480</width>
+							<height>5</height>
+							<texturebg colordiffuse="scrim_track">common/white.png</texturebg>
+							<midtexture colordiffuse="accent">common/white.png</midtexture>
+							<info>Container($PARAM[id]).ListItem.PercentPlayed</info>
+							<visible>Container($PARAM[id]).ListItem.IsResumable</visible>
+						</control>
+						<control type="image">
+							<left>-14</left>
+							<top>-14</top>
+							<width>508</width>
+							<height>298</height>
+							<texture border="32" colordiffuse="text_primary">focus/brackets.png</texture>
+							<visible>Control.HasFocus($PARAM[id])</visible>
+							<animation effect="zoom" start="94" end="100" center="auto" time="200" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">Visible</animation>
+							<animation effect="fade" start="0" end="100" time="160">Visible</animation>
+						</control>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Music horizon (view 507): album covers / artist discs along the bottom, lens at 960,660 -->
+	<include name="Arc_HorizonSquares">
+		<param name="t">180</param>
+		<definition>
+			<control type="group">
+				<left>0</left>
+				<top>0</top>
+				<!-- slot +5: centre 1916,859 size 104x104 rot -23.5 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(5).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,30.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="1915.7,858.5" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,30.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="1915.7,858.5" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-127.2,-50.9" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="113.5" end="100" center="1915.7,858.5" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="3.3" end="0" center="1915.7,858.5" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-127.2,-50.9" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="113.5" end="100" center="1915.7,858.5" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="3.3" end="0" center="1915.7,858.5" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1864</left>
+						<top>807</top>
+						<width>104</width>
+						<height>104</height>
+						<animation effect="rotate" end="-23.5" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>104</width>
+							<height>104</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>26</width>
+							<height>26</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(5).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>104</width>
+							<height>104</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_p5]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff262626" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff383838" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>104</width>
+							<height>104</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p5]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff262626" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff383838" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -5: centre 4,859 size 104x104 rot 23.5 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(-5).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="127.2,-50.9" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="113.5" end="100" center="4.3,858.5" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-3.3" end="0" center="4.3,858.5" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="127.2,-50.9" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="113.5" end="100" center="4.3,858.5" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-3.3" end="0" center="4.3,858.5" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,30.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="4.3,858.5" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="0,30.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="4.3,858.5" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>-48</left>
+						<top>807</top>
+						<width>104</width>
+						<height>104</height>
+						<animation effect="rotate" end="23.5" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>104</width>
+							<height>104</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>26</width>
+							<height>26</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(-5).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>104</width>
+							<height>104</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_m5]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff383838" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff262626" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>104</width>
+							<height>104</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_m5]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff383838" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff262626" end="ff262626" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +4: centre 1789,808 size 118x118 rot -20.2 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(4).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="127.2,50.9" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="88.1" end="100" center="1788.6,807.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-3.3" end="0" center="1788.6,807.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="127.2,50.9" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="88.1" end="100" center="1788.6,807.6" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-3.3" end="0" center="1788.6,807.6" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-147.1,-48.8" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="118.6" end="100" center="1788.6,807.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="3.7" end="0" center="1788.6,807.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-147.1,-48.8" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="118.6" end="100" center="1788.6,807.6" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="3.7" end="0" center="1788.6,807.6" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1730</left>
+						<top>749</top>
+						<width>118</width>
+						<height>118</height>
+						<animation effect="rotate" end="-20.2" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>118</width>
+							<height>118</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>29</width>
+							<height>29</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(4).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>118</width>
+							<height>118</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_p4]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffaeaeae" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff525252" end="ff383838" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>118</width>
+							<height>118</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p4]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffaeaeae" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff525252" end="ff383838" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -4: centre 131,808 size 118x118 rot 20.2 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(-4).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="147.1,-48.8" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="118.6" end="100" center="131.4,807.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-3.7" end="0" center="131.4,807.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="147.1,-48.8" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="118.6" end="100" center="131.4,807.6" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-3.7" end="0" center="131.4,807.6" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-127.2,50.9" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="88.1" end="100" center="131.4,807.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="3.3" end="0" center="131.4,807.6" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-127.2,50.9" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="88.1" end="100" center="131.4,807.6" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="3.3" end="0" center="131.4,807.6" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>72</left>
+						<top>749</top>
+						<width>118</width>
+						<height>118</height>
+						<animation effect="rotate" end="20.2" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>118</width>
+							<height>118</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>29</width>
+							<height>29</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(-4).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>118</width>
+							<height>118</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_m4]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff525252" end="ff383838" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffaeaeae" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>118</width>
+							<height>118</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_m4]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff525252" end="ff383838" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffaeaeae" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +3: centre 1641,759 size 140x140 rot -16.5 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(3).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="147.1,48.8" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="84.3" end="100" center="1641.5,758.8" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-3.7" end="0" center="1641.5,758.8" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="147.1,48.8" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="84.3" end="100" center="1641.5,758.8" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-3.7" end="0" center="1641.5,758.8" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-174.3,-44.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="120" end="100" center="1641.5,758.8" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="4.3" end="0" center="1641.5,758.8" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-174.3,-44.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="120" end="100" center="1641.5,758.8" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="4.3" end="0" center="1641.5,758.8" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1571</left>
+						<top>689</top>
+						<width>140</width>
+						<height>140</height>
+						<animation effect="rotate" end="-16.5" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>140</width>
+							<height>140</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>35</width>
+							<height>35</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(3).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>140</width>
+							<height>140</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_p3]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffafafaf" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff707070" end="ff525252" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>140</width>
+							<height>140</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p3]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffafafaf" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff707070" end="ff525252" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -3: centre 279,759 size 140x140 rot 16.5 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(-3).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="174.3,-44.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="120" end="100" center="278.5,758.8" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-4.3" end="0" center="278.5,758.8" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="174.3,-44.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="120" end="100" center="278.5,758.8" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-4.3" end="0" center="278.5,758.8" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-147.1,48.8" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="84.3" end="100" center="278.5,758.8" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="3.7" end="0" center="278.5,758.8" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-147.1,48.8" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="84.3" end="100" center="278.5,758.8" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="3.7" end="0" center="278.5,758.8" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>209</left>
+						<top>689</top>
+						<width>140</width>
+						<height>140</height>
+						<animation effect="rotate" end="16.5" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>140</width>
+							<height>140</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>35</width>
+							<height>35</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(-3).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>140</width>
+							<height>140</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_m3]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff707070" end="ff525252" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffafafaf" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>140</width>
+							<height>140</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_m3]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff707070" end="ff525252" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffafafaf" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +2: centre 1467,714 size 168x168 rot -12.2 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(2).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="174.3,44.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="83.3" end="100" center="1467.1,714.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-4.3" end="0" center="1467.1,714.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="174.3,44.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="83.3" end="100" center="1467.1,714.2" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-4.3" end="0" center="1467.1,714.2" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-211.9,-36" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="125" end="100" center="1467.1,714.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5.1" end="0" center="1467.1,714.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-211.9,-36" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="125" end="100" center="1467.1,714.2" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5.1" end="0" center="1467.1,714.2" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1383</left>
+						<top>630</top>
+						<width>168</width>
+						<height>168</height>
+						<animation effect="rotate" end="-12.2" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>168</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>144</width>
+							<height>144</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(2).Label]</label>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(2).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>42</width>
+							<height>42</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(2).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>168</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_p2]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb9b9b9" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ff707070" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>168</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p2]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb9b9b9" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ff707070" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItemNoWrap(2).PlayCount,0) + !Container($PARAM[id]).ListItemNoWrap(2).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb9b9b9" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ff707070" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -2: centre 453,714 size 168x168 rot 12.2 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(-2).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="211.9,-36" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="125" end="100" center="452.9,714.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5.1" end="0" center="452.9,714.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="211.9,-36" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="125" end="100" center="452.9,714.2" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5.1" end="0" center="452.9,714.2" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-174.3,44.6" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="83.3" end="100" center="452.9,714.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="4.3" end="0" center="452.9,714.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-174.3,44.6" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="83.3" end="100" center="452.9,714.2" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="4.3" end="0" center="452.9,714.2" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>369</left>
+						<top>630</top>
+						<width>168</width>
+						<height>168</height>
+						<animation effect="rotate" end="12.2" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>168</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>144</width>
+							<height>144</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(-2).Label]</label>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(-2).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>42</width>
+							<height>42</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(-2).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>168</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_m2]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ff707070" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb9b9b9" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>168</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_m2]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ff707070" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb9b9b9" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItemNoWrap(-2).PlayCount,0) + !Container($PARAM[id]).ListItemNoWrap(-2).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ff707070" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb9b9b9" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +1: centre 1255,678 size 210x210 rot -7.1 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(1).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="211.9,36" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="1255.3,678.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5.1" end="0" center="1255.3,678.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="211.9,36" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="1255.3,678.2" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-5.1" end="0" center="1255.3,678.2" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-295.3,-18.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="157.1" end="100" center="1255.3,678.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="7.1" end="0" center="1255.3,678.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-295.3,-18.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="157.1" end="100" center="1255.3,678.2" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="7.1" end="0" center="1255.3,678.2" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>1150</left>
+						<top>573</top>
+						<width>210</width>
+						<height>210</height>
+						<animation effect="rotate" end="-7.1" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>210</width>
+							<height>210</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>186</width>
+							<height>186</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(1).Label]</label>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>52</width>
+							<height>52</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>210</width>
+							<height>210</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_p1]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>210</width>
+							<height>210</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p1]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItemNoWrap(1).PlayCount,0) + !Container($PARAM[id]).ListItemNoWrap(1).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot -1: centre 665,678 size 210x210 rot 7.1 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(-1).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="295.3,-18.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="157.1" end="100" center="664.7,678.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-7.1" end="0" center="664.7,678.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="295.3,-18.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="157.1" end="100" center="664.7,678.2" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-7.1" end="0" center="664.7,678.2" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-211.9,36" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="664.7,678.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5.1" end="0" center="664.7,678.2" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-211.9,36" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="80" end="100" center="664.7,678.2" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="5.1" end="0" center="664.7,678.2" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>560</left>
+						<top>573</top>
+						<width>210</width>
+						<height>210</height>
+						<animation effect="rotate" end="7.1" center="auto" time="0" condition="true">Conditional</animation>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>210</width>
+							<height>210</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>186</width>
+							<height>186</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(-1).Label]</label>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(-1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>52</width>
+							<height>52</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(-1).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>210</width>
+							<height>210</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_m1]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>210</width>
+							<height>210</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_m1]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItemNoWrap(-1).PlayCount,0) + !Container($PARAM[id]).ListItemNoWrap(-1).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ffffffff" end="ff9e9e9e" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ffb5b5b5" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+					</control>
+				</control>
+				<!-- slot +0: centre 960,660 size 330x330 rot -0.0 -->
+				<control type="group">
+					<left>0</left>
+					<top>0</top>
+					<visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(0).Label)</visible>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="295.3,18.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="63.6" end="100" center="960,660" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-7.1" end="0" center="960,660" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnNext] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="295.3,18.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="63.6" end="100" center="960,660" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="-7.1" end="0" center="960,660" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + !Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-295.3,18.2" end="0,0" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="zoom" start="63.6" end="100" center="960,660" time="$PARAM[t]" tween="cubic" easing="out"/>
+						<effect type="rotate" start="7.1" end="0" center="960,660" time="$PARAM[t]" tween="cubic" easing="out"/>
+					</animation>
+					<animation type="Conditional" condition="[!Container($PARAM[id]).OnPrevious] + Skin.HasSetting(orbit.reducemotion)" reversible="false">
+						<effect type="slide" start="-295.3,18.2" end="0,0" time="0" tween="cubic" easing="out"/>
+						<effect type="zoom" start="63.6" end="100" center="960,660" time="0" tween="cubic" easing="out"/>
+						<effect type="rotate" start="7.1" end="0" center="960,660" time="0" tween="cubic" easing="out"/>
+					</animation>
+					<control type="group">
+						<left>795</left>
+						<top>495</top>
+						<width>330</width>
+						<height>330</height>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture border="128">common/shadow_soft.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>330</width>
+							<height>330</height>
+							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>306</width>
+							<height>306</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(0).Label]</label>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(0).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<centerleft>50%</centerleft>
+							<centertop>50%</centertop>
+							<width>82</width>
+							<height>82</height>
+							<texture colordiffuse="text_secondary">icons/back.png</texture>
+							<visible>Container($PARAM[id]).ListItemNoWrap(0).IsParentFolder</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>330</width>
+							<height>330</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/square_r4.png">$VAR[ArcArt507_p0]</texture>
+							<visible>!Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>330</width>
+							<height>330</height>
+							<aspectratio>scale</aspectratio>
+							<fadetime>100</fadetime>
+							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p0]</texture>
+							<visible>Container.Content(artists)</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="image">
+							<right>8</right>
+							<top>8</top>
+							<width>30</width>
+							<height>30</height>
+							<texture>markers/watched_badge.png</texture>
+							<visible>$EXP[ShowWatchedMarkers] + Integer.IsGreater(Container($PARAM[id]).ListItemNoWrap(0).PlayCount,0) + !Container($PARAM[id]).ListItemNoWrap(0).IsResumable</visible>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+							<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false">
+								<effect type="fadediffuse" start="ff9e9e9e" end="ffffffff" time="$PARAM[t]" tween="cubic" easing="out"/>
+							</animation>
+						</control>
+						<control type="progress">
+							<left>0</left>
+							<top>325</top>
+							<width>330</width>
+							<height>5</height>
+							<texturebg colordiffuse="scrim_track">common/white.png</texturebg>
+							<midtexture colordiffuse="accent">common/white.png</midtexture>
+							<info>Container($PARAM[id]).ListItem.PercentPlayed</info>
+							<visible>Container($PARAM[id]).ListItem.IsResumable</visible>
+						</control>
+						<control type="image">
+							<left>-14</left>
+							<top>-14</top>
+							<width>358</width>
+							<height>358</height>
+							<texture border="32" colordiffuse="text_primary">focus/brackets.png</texture>
+							<visible>Control.HasFocus($PARAM[id])</visible>
+							<animation effect="zoom" start="94" end="100" center="auto" time="200" tween="cubic" easing="out" condition="!Skin.HasSetting(orbit.reducemotion)">Visible</animation>
+							<animation effect="fade" start="0" end="100" time="160">Visible</animation>
+						</control>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Focus-owning list for a horizon: 11 x 1px items side by side, lens at item 5 -->
+	<include name="Arc_HiddenListH">
+		<orientation>horizontal</orientation>
+		<width>11</width>
+		<height>1</height>
+		<focusposition>5</focusposition>
+		<movement>0</movement>
+		<scrolltime>0</scrolltime>
+		<preloaditems>2</preloaditems>
+		<itemlayout width="1" height="1">
+			<control type="image"><left>0</left><top>0</top><width>1</width><height>1</height><texture background="true" colordiffuse="01ffffff">$INFO[ListItem.Art(fanart)]</texture></control>
+		</itemlayout>
+		<focusedlayout width="1" height="1">
+			<control type="image"><left>0</left><top>0</top><width>1</width><height>1</height><texture background="true" colordiffuse="01ffffff">$INFO[ListItem.Art(fanart)]</texture></control>
+		</focusedlayout>
+	</include>
+
+	<!-- Same, art = thumb (albums, artists) -->
+	<include name="Arc_HiddenListHSquare">
+		<orientation>horizontal</orientation>
+		<width>11</width>
+		<height>1</height>
+		<focusposition>5</focusposition>
+		<movement>0</movement>
+		<scrolltime>0</scrolltime>
+		<preloaditems>2</preloaditems>
+		<itemlayout width="1" height="1">
+			<control type="image"><left>0</left><top>0</top><width>1</width><height>1</height><texture background="true" colordiffuse="01ffffff">$INFO[ListItem.Art(thumb)]</texture></control>
+		</itemlayout>
+		<focusedlayout width="1" height="1">
+			<control type="image"><left>0</left><top>0</top><width>1</width><height>1</height><texture background="true" colordiffuse="01ffffff">$INFO[ListItem.Art(thumb)]</texture></control>
+		</focusedlayout>
+	</include>
+
 	<!-- Focus-owning list for an arc: 11 x 1px rows, lens at row 5 -->
 	<include name="Arc_HiddenList">
 		<orientation>vertical</orientation>

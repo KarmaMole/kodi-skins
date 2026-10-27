@@ -74,6 +74,9 @@ SPECS = [
      1032, [(72, 1), (48, 1), (40, 2)], 7161, "$VAR[OSD_Title]"),
     ("Title_FSInfo", "Fullscreen info title: caps band 80 high, 1528 wide",
      1528, [(72, 1), (48, 1), (40, 2)], 7171, "$VAR[OSD_Title]"),
+    # 0.9.16 views (docs/VIEWS_BRIEF_2026-10-27.md, _src/make_views_more.py)
+    ("Title_Poster", "Poster view (505) title: caps band y 236-476, x 58-1154",
+     1096, [(200, 1), (136, 2), (104, 2), (72, 3)], 7201, "$VAR[VidView_WallBigTitle]"),
 ]
 
 
@@ -86,6 +89,8 @@ def main():
     parts.append(masthead("Title_Spot", "Home spotlight title in the ink block, 968 wide, caps band 104 high. params: label, pb (probe id prefix)",
                           968, [(104, 1), (72, 1), (48, 2)], 0, "$PARAM[label]", color="$VAR[paper]",
                           pid=lambda k: f"$PARAM[pb]{k}", extra_params=("label", "pb")))
+    parts.append(masthead("Title_Stage", "Stage view (508) name in the ink block: caps band from y 508, 1040 wide, paper on ink",
+                          1040, [(136, 1), (104, 1), (72, 2)], 7211, "$VAR[Stage_Name]", color="$VAR[paper]"))
     parts.append("</includes>" + NL)
     OUT.write_text(finish_xml(NL.join(parts)), encoding="utf-8", newline=NL)
     print("wrote", OUT)

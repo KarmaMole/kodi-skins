@@ -198,7 +198,112 @@ def albums():
     save(im, "albums")
 
 
+# ------------------------------------------------------------ 0.9.16 views (_src/make_views_more.py geometry)
+def poster():
+    im, d = canvas()
+    header(d)
+    bar(d, 64, 180, 300, 18)                 # kicker
+    bar(d, 64, 236, 900, 172)                # Anton title
+    rule(d, 64, 500, 1096)
+    for x in (64, 432, 800):                 # three numerals between rules
+        bar(d, x, 532, 110, 18)
+        bar(d, x, 566, 200, 116)
+    rule(d, 400, 528, 8, 160)
+    rule(d, 768, 528, 8, 160)
+    rule(d, 64, 712, 1096)
+    for k in range(6):                       # plot
+        bar(d, 64, 748 + k * 34, 1096 - (k == 5) * 420, 16, 120)
+    print_tile(d, 1280, 176, 576, 864, 3)    # the print, focused
+    frame(d, 1280, 176, 576, 864)
+    bar(d, 920, 992, 240, 48)                # pager tab under the plot
+    bar(d, 980, 1010, 120, 14, FIELD)
+    save(im, "poster")
+
+
+def screens():
+    im, d = canvas()
+    header(d)
+    i = 0
+    for r in range(2):
+        for c in range(3):
+            x, y = 64 + c * 608, 176 + r * 420
+            print_tile(d, x, y, 576, 324, i, title=False)
+            bar(d, x, y + 352, 260 + (i * 61) % 200, 28)      # Anton title under the print
+            i += 1
+    frame(d, 64 + 608, 176, 576, 324)
+    save(im, "screens")
+
+
+def sheet():
+    im, d = canvas()
+    header(d)
+    i = 0
+    for r in range(3):
+        for c in range(10):
+            print_tile(d, 64 + c * 180, 176 + r * 266, 156, 234, i)
+            i += 1
+    frame(d, 64 + 2 * 180, 176, 156, 234)
+    bar(d, 64, 976, 1792, 64)                # ink caption band
+    bar(d, 88, 992, 520, 32, FIELD)
+    bar(d, 1560, 1000, 270, 16, 170)
+    save(im, "sheet")
+
+
+def stage():
+    im, d = canvas()
+    bar(d, 64, 80, 90, 18)                   # MUSIC caption + tabs
+    for x, w in ((190, 120), (340, 130), (500, 110), (640, 110), (780, 60), (860, 22), (910, 68)):
+        bar(d, x, 80, w, 18, 60)
+    bar(d, 1742, 70, 112, 56)
+    rule(d, 64, 136, 1792)
+    print_tile(d, 0, 144, 1920, 512, 5, title=False)   # fanart band
+    bar(d, 0, 456, 1152, 200)                # ink name block
+    bar(d, 64, 474, 260, 18, 200)
+    bar(d, 64, 508, 760, 116, FIELD)         # Anton name
+    rule(d, 0, 656, 1920)
+    for c in range(8):                       # cover strip
+        print_tile(d, 64 + c * 224, 688, 192, 192, c, title=False)
+    frame(d, 64 + 224, 688, 192, 192)
+    bar(d, 64, 908, 420, 16, 90)
+    save(im, "stage")
+
+
+def tracks():
+    im, d = canvas()
+    bar(d, 64, 80, 90, 18)
+    for x, w in ((190, 120), (340, 130), (500, 110), (640, 110), (780, 60), (860, 22), (910, 68)):
+        bar(d, x, 80, w, 18, 60)
+    bar(d, 1742, 70, 112, 56)
+    rule(d, 64, 136, 1792)
+    for r in range(12):
+        y = 176 + r * 72
+        if r == 3:
+            bar(d, 64, y, 1160, 72)
+            bar(d, 80, y + 18, 50, 36, 200)
+            bar(d, 176, y + 26, 420, 22, FIELD)
+            bar(d, 836, y + 28, 220, 16, 200)
+            bar(d, 1150, y + 28, 60, 16, FIELD)
+        else:
+            bar(d, 80, y + 18, 50, 36)
+            bar(d, 176, y + 26, 220 + (r * 89) % 300, 22)
+            bar(d, 836, y + 28, 200, 16, 110)
+            bar(d, 1150, y + 28, 60, 16)
+            rule(d, 64, y + 70, 1160, 2)
+    rule(d, 1248, 176, 8, 864)
+    print_tile(d, 1288, 176, 568, 568, 4, title=False)
+    frame(d, 1288, 176, 568, 568)
+    bar(d, 1288, 776, 200, 18)
+    bar(d, 1288, 808, 420, 48)
+    bar(d, 1288, 876, 240, 16, 90)
+    save(im, "tracks")
+
+
 if __name__ == "__main__":
+    poster()
+    screens()
+    sheet()
+    stage()
+    tracks()
     wall()
     list_view("list", square=False)
     list_view("list_music", square=True)

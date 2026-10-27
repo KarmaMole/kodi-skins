@@ -1044,6 +1044,9 @@
 		<include>DT_Background</include>
 		<include>VidView_500_Wall</include>
 		<include>VidView_503_Episodes</include>
+		<include>VidView_505_Poster</include>
+		<include>VidView_506_Screens</include>
+		<include>VidView_507_Sheet</include>
 		<include>View_50_List</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>

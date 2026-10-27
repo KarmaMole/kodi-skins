@@ -968,6 +968,26 @@ msgctxt "#31316"
 msgid "Collections"
 msgstr ""
 
+msgctxt "#31390"
+msgid "Vitrine"
+msgstr ""
+
+msgctxt "#31391"
+msgid "Panorama"
+msgstr ""
+
+msgctxt "#31392"
+msgid "Catalogue"
+msgstr ""
+
+msgctxt "#31393"
+msgid "Portraits"
+msgstr ""
+
+msgctxt "#31394"
+msgid "Info  ·  the whole text"
+msgstr ""
+
 msgctxt "#31740"
 msgid "Main menu"
 msgstr ""

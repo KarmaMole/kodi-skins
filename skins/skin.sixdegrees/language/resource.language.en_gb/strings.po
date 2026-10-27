@@ -952,6 +952,14 @@ msgctxt "#31202"
 msgid "Platform"
 msgstr ""
 
+msgctxt "#31357"
+msgid "Network"
+msgstr ""
+
+msgctxt "#31358"
+msgid "Interchange"
+msgstr ""
+
 msgctxt "#31640"
 msgid "Movies on Home"
 msgstr ""

@@ -2,7 +2,8 @@
 <!--
 	Music library (Daylight): same composition as Films - detail panel on the left (square cover,
 	title, artist, meta, description), a soft card on the right with the cover grid or the list.
-	Views: 504 Grid (albums, artists, genres with art), 50 List (songs, everything else).
+	Views: 504 Grid (albums, artists, genres with art), 508 Wall (the same, full page), 507 Spotlight (artists,
+	albums), 50 List (songs, everything else).
 	Header (inside the card): tabs Albums · Artists · Songs · Genres (grouplist 9001) on the left,
 	Sort / order / View pills (9002) on the right, both inside group 9000 (menucontrol).
 	Kodi ids (Estuary Omega MyMusicNav.xml): 3 sort by, 4 sort order (hidden, clicked by the pills).
@@ -210,6 +211,463 @@
 		</control>
 	</include>
 
+	<!-- ============================================================ 0.9.15 views
+	     508 Wall       the whole page of covers, 8 across (artists as round portraits); no detail panel.
+	     507 Spotlight  the focused artist or album large (fanart melting into the card, or the portrait /
+	                    cover standing on it when there is no fanart; biography / album notes) over a
+	                    strip of portraits or covers (list 507).
+	     Both span the page in the wide card (MusicView_Wide); tabs slide to the card's left edge. -->
+	<expression name="MusicView_Wide">Control.IsVisible(507) | Control.IsVisible(508)</expression>
+	<expression name="MusicView_IsArtist">String.IsEqual(ListItem.DBType,artist)</expression>
+
+	<!-- one wall cover (508) -->
+	<include name="MusicView_WallItem">
+		<param name="focused">false</param>
+		<definition>
+			<control type="group">
+				<left>18</left>
+				<top>18</top>
+				<width>168</width>
+				<height>168</height>
+				<animation type="Focus" reversible="true" condition="$PARAM[focused] + !$EXP[ReduceMotion]">
+					<effect type="zoom" start="100" end="106" center="auto" time="160" tween="cubic" easing="out"/>
+				</animation>
+				<!-- square card / round portrait placeholder -->
+				<include content="VidView_ParentTile">
+					<param name="icon" value="36"/>
+					<param name="caption_visible" value="false"/>
+				</include>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<texture diffuse="daylight/mask_circle.png" colordiffuse="$VAR[DL_Raised]">common/white.png</texture>
+					<visible>!ListItem.IsParentFolder + String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<texture diffuse="masks/square_round8.png" colordiffuse="$VAR[DL_Raised]">common/white.png</texture>
+					<visible>!ListItem.IsParentFolder + !String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="image">
+					<centerleft>50%</centerleft>
+					<centertop>50%</centertop>
+					<width>44</width>
+					<height>44</height>
+					<texture colordiffuse="$VAR[DL_Ink3]">daylight/icons/music.png</texture>
+					<visible>!ListItem.IsParentFolder + String.IsEmpty(ListItem.Art(thumb))</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+					<fadetime>160</fadetime>
+					<texture background="true" diffuse="daylight/mask_circle.png" colordiffuse="$VAR[DL_ArtDim]">$VAR[MusicView_Art]</texture>
+					<visible>!ListItem.IsParentFolder + String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+					<fadetime>160</fadetime>
+					<texture background="true" diffuse="masks/square_round8.png" colordiffuse="$VAR[DL_ArtDim]">$VAR[MusicView_Art]</texture>
+					<visible>!ListItem.IsParentFolder + !String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="group">
+					<visible>$PARAM[focused] + Control.HasFocus(508) + !$EXP[MusicView_IsArtist]</visible>
+					<include content="DL_FocusRing"><param name="r" value="14"/></include>
+				</control>
+				<control type="group">
+					<visible>$PARAM[focused] + Control.HasFocus(508) + $EXP[MusicView_IsArtist]</visible>
+					<control type="image">
+						<left>-9</left>
+						<top>-9</top>
+						<right>-9</right>
+						<bottom>-9</bottom>
+						<texture colordiffuse="$VAR[DL_Accent]">daylight/ring_circle.png</texture>
+					</control>
+				</control>
+			</control>
+			<control type="label">
+				<left>18</left>
+				<top>198</top>
+				<width>168</width>
+				<height>28</height>
+				<font>small_20_semibold</font>
+				<textcolor>$VAR[DL_Ink]</textcolor>
+				<selectedcolor>$VAR[DL_Ink]</selectedcolor>
+				<label>$VAR[Music_ItemLabel]</label>
+				<visible>!$EXP[MusicView_IsArtist]</visible>
+			</control>
+			<control type="label">
+				<left>10</left>
+				<top>198</top>
+				<width>184</width>
+				<height>28</height>
+				<align>center</align>
+				<font>small_20_semibold</font>
+				<textcolor>$VAR[DL_Ink]</textcolor>
+				<selectedcolor>$VAR[DL_Ink]</selectedcolor>
+				<label>$VAR[Music_ItemLabel]</label>
+				<visible>$EXP[MusicView_IsArtist]</visible>
+			</control>
+			<control type="label">
+				<left>18</left>
+				<top>224</top>
+				<width>168</width>
+				<height>26</height>
+				<font>small_20</font>
+				<textcolor>$VAR[DL_Ink2]</textcolor>
+				<selectedcolor>$VAR[DL_Ink2]</selectedcolor>
+				<label>$INFO[ListItem.Artist]</label>
+				<visible>String.IsEqual(ListItem.DBType,album)</visible>
+			</control>
+		</definition>
+	</include>
+	<include name="Music_View_508">
+		<control type="group">
+		<visible>Control.IsVisible(508)</visible>
+		<include>Anim_FadeVisible</include>
+		<control type="panel" id="508">
+			<left>142</left>
+			<top>vv_grid_y</top>
+			<width>1636</width>
+			<height>vv_grid_h</height>
+			<orientation>vertical</orientation>
+			<onup>9000</onup>
+			<ondown>noop</ondown>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- past the first / last column = Library panel -->
+			<onright>ActivateWindow(1160)</onright>
+			<preloaditems>2</preloaditems>
+			<scrolltime tween="cubic" easing="out">260</scrolltime>
+			<viewtype label="31313">wrap</viewtype>
+			<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)</visible>
+			<itemlayout width="204" height="262">
+				<include>MusicView_WallItem</include>
+			</itemlayout>
+			<focusedlayout width="204" height="262">
+				<include content="MusicView_WallItem"><param name="focused" value="true"/></include>
+			</focusedlayout>
+		</control>
+		</control>
+	</include>
+
+	<!-- ============================================================ Spotlight (507) -->
+	<expression name="MusicView_SpotHasFanart">!ListItem.IsParentFolder + [!String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(artist.fanart)) | !String.IsEmpty(ListItem.Art(albumartist.fanart))]</expression>
+	<variable name="MusicView_SpotFanart">
+		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(artist.fanart))">$INFO[ListItem.Art(artist.fanart)]</value>
+		<value>$INFO[ListItem.Art(albumartist.fanart)]</value>
+	</variable>
+	<variable name="MusicView_SpotKicker">
+		<value condition="ListItem.IsParentFolder">Up one level</value>
+		<value condition="$EXP[MusicView_IsArtist] + !String.IsEmpty(ListItem.Property(Artist_Type))">$INFO[ListItem.Property(Artist_Type)]</value>
+		<value condition="$EXP[MusicView_IsArtist]">Artist</value>
+		<value>$VAR[MusicView_Kicker]</value>
+	</variable>
+	<variable name="MusicView_SpotSub">
+		<value condition="$EXP[MusicView_IsArtist] + !String.IsEmpty(ListItem.Property(Artist_Formed))">Formed $INFO[ListItem.Property(Artist_Formed)]$INFO[ListItem.Property(Artist_Disbanded),  ·  split ,]</value>
+		<value condition="$EXP[MusicView_IsArtist] + !String.IsEmpty(ListItem.Property(Artist_Born))">Born $INFO[ListItem.Property(Artist_Born)]$INFO[ListItem.Property(Artist_Died),  ·  died ,]</value>
+		<value condition="$EXP[MusicView_IsArtist] + !String.IsEmpty(ListItem.Property(Artist_YearsActive))">Active $INFO[ListItem.Property(Artist_YearsActive)]</value>
+		<value condition="$EXP[MusicView_IsArtist]"></value>
+		<value>$VAR[MusicView_Sub]</value>
+	</variable>
+	<variable name="MusicView_SpotMeta">
+		<value condition="$EXP[MusicView_IsArtist] + !String.IsEmpty(ListItem.Property(Artist_Style))">$INFO[ListItem.Property(Artist_Style)]</value>
+		<value condition="$EXP[MusicView_IsArtist] + !String.IsEmpty(ListItem.Property(Artist_Genre))">$INFO[ListItem.Property(Artist_Genre)]</value>
+		<value condition="$EXP[MusicView_IsArtist]">$INFO[ListItem.Genre]</value>
+		<value>$VAR[MusicView_Meta]</value>
+	</variable>
+	<variable name="MusicView_SpotText">
+		<value condition="$EXP[MusicView_IsArtist]">$INFO[ListItem.Property(Artist_Description)]</value>
+		<value>$INFO[ListItem.Property(Album_Description)]</value>
+	</variable>
+	<include name="MusicView_SpotHero">
+		<control type="group">
+			<left>page_margin</left>
+			<top>168</top>
+			<width>page_width</width>
+			<height>520</height>
+			<visible>Control.IsVisible(507) + Integer.IsGreater(Container.NumItems,0)</visible>
+			<include>Anim_FadeVisible</include>
+			<control type="image">
+				<left>540</left>
+				<top>0</top>
+				<width>1140</width>
+				<height>520</height>
+				<aspectratio scalediffuse="false">scale</aspectratio>
+				<fadetime>240</fadetime>
+				<texture background="true" diffuse="daylight/mask_spot.png" colordiffuse="$VAR[DL_ArtDim]">$VAR[MusicView_SpotFanart]</texture>
+				<visible>$EXP[MusicView_SpotHasFanart]</visible>
+			</control>
+			<!-- no fanart: the portrait (round) or the cover (rounded square) stands on the card -->
+			<control type="group">
+				<left>1250</left>
+				<top>90</top>
+				<width>340</width>
+				<height>340</height>
+				<visible>!$EXP[MusicView_SpotHasFanart] + !ListItem.IsParentFolder + !String.IsEmpty(ListItem.Art(thumb))</visible>
+				<control type="image">
+					<left>-120</left>
+					<top>-90</top>
+					<right>-120</right>
+					<bottom>-150</bottom>
+					<texture border="120" colordiffuse="$VAR[DL_Shadow]">daylight/card_shadow.png</texture>
+					<visible>!$EXP[MusicView_IsArtist]</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+					<fadetime>200</fadetime>
+					<texture background="true" diffuse="daylight/mask_circle.png" colordiffuse="$VAR[DL_ArtDim]">$INFO[ListItem.Art(thumb)]</texture>
+					<visible>String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+					<fadetime>200</fadetime>
+					<texture background="true" diffuse="masks/square_round8_large.png" colordiffuse="$VAR[DL_ArtDim]">$INFO[ListItem.Art(thumb)]</texture>
+					<visible>!String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+			</control>
+			<!-- no picture at all (many artists): a raised disc / card with the music glyph keeps the place -->
+			<control type="group">
+				<left>1250</left>
+				<top>90</top>
+				<width>340</width>
+				<height>340</height>
+				<visible>!$EXP[MusicView_SpotHasFanart] + !ListItem.IsParentFolder + String.IsEmpty(ListItem.Art(thumb))</visible>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>340</width>
+					<height>340</height>
+					<texture diffuse="daylight/mask_circle.png" colordiffuse="$VAR[DL_Raised]">common/white.png</texture>
+					<visible>String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>340</width>
+					<height>340</height>
+					<texture diffuse="masks/square_round8_large.png" colordiffuse="$VAR[DL_Raised]">common/white.png</texture>
+					<visible>!String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="image">
+					<centerleft>50%</centerleft>
+					<centertop>50%</centertop>
+					<width>96</width>
+					<height>96</height>
+					<texture colordiffuse="$VAR[DL_Ink3]">daylight/icons/music.png</texture>
+				</control>
+			</control>
+			<control type="image">
+				<left>40</left>
+				<top>113</top>
+				<width>10</width>
+				<height>10</height>
+				<texture colordiffuse="$VAR[DL_Accent]">daylight/circle_12.png</texture>
+			</control>
+			<control type="label">
+				<left>60</left>
+				<top>104</top>
+				<width>740</width>
+				<height>28</height>
+				<font>ui_22_semibold</font>
+				<textcolor>$VAR[DL_AccentText]</textcolor>
+				<label>$VAR[MusicView_SpotKicker]</label>
+			</control>
+			<control type="grouplist">
+				<left>40</left>
+				<top>140</top>
+				<width>760</width>
+				<height>370</height>
+				<orientation>vertical</orientation>
+				<itemgap>0</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+				<include content="T_Spot_Measure">
+					<param name="label" value="$VAR[MusicView_Title]"/>
+				</include>
+				<control type="image"><width>10</width><height>12</height><texture></texture></control>
+				<control type="label">
+					<width>760</width>
+					<height>34</height>
+					<font>ui_26</font>
+					<textcolor>$VAR[DL_Ink]</textcolor>
+					<label>$VAR[MusicView_SpotSub]</label>
+					<visible>!ListItem.IsParentFolder</visible>
+				</control>
+				<control type="label">
+					<width>760</width>
+					<height>32</height>
+					<font>ui_22</font>
+					<textcolor>$VAR[DL_Ink2]</textcolor>
+					<label>$VAR[MusicView_SpotMeta]</label>
+					<visible>!ListItem.IsParentFolder</visible>
+				</control>
+				<control type="image"><width>10</width><height>14</height><texture></texture></control>
+				<control type="textbox">
+					<width>720</width>
+					<height>144</height>
+					<font>body_24</font>
+					<textcolor>$VAR[DL_Body]</textcolor>
+					<label>$VAR[MusicView_SpotText]</label>
+					<autoscroll delay="8000" time="3000" repeat="10000">!Container.Scrolling</autoscroll>
+					<visible>!ListItem.IsParentFolder</visible>
+				</control>
+			</control>
+			<control type="group">
+				<left>40</left>
+				<top>140</top>
+				<width>760</width>
+				<include content="T_Spot_Title">
+					<param name="label" value="$VAR[MusicView_Title]"/>
+					<param name="color" value="$VAR[DL_Ink]"/>
+				</include>
+			</control>
+		</control>
+	</include>
+	<!-- one strip item (507): portrait or cover, name under it -->
+	<include name="MusicView_StripItem">
+		<param name="focused">false</param>
+		<definition>
+			<control type="group">
+				<left>18</left>
+				<top>18</top>
+				<width>150</width>
+				<height>150</height>
+				<animation type="Focus" reversible="true" condition="$PARAM[focused] + !$EXP[ReduceMotion]">
+					<effect type="zoom" start="100" end="106" center="auto" time="160" tween="cubic" easing="out"/>
+				</animation>
+				<include content="VidView_ParentTile">
+					<param name="icon" value="32"/>
+					<param name="caption_visible" value="false"/>
+				</include>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<texture diffuse="daylight/mask_circle.png" colordiffuse="$VAR[DL_Raised]">common/white.png</texture>
+					<visible>!ListItem.IsParentFolder + String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<texture diffuse="masks/square_round8.png" colordiffuse="$VAR[DL_Raised]">common/white.png</texture>
+					<visible>!ListItem.IsParentFolder + !String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="image">
+					<centerleft>50%</centerleft>
+					<centertop>50%</centertop>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[DL_Ink3]">daylight/icons/music.png</texture>
+					<visible>!ListItem.IsParentFolder + String.IsEmpty(ListItem.Art(thumb))</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+					<fadetime>160</fadetime>
+					<texture background="true" diffuse="daylight/mask_circle.png" colordiffuse="$VAR[DL_ArtDim]">$VAR[MusicView_Art]</texture>
+					<visible>!ListItem.IsParentFolder + String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+					<fadetime>160</fadetime>
+					<texture background="true" diffuse="masks/square_round8.png" colordiffuse="$VAR[DL_ArtDim]">$VAR[MusicView_Art]</texture>
+					<visible>!ListItem.IsParentFolder + !String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<control type="group">
+					<visible>$PARAM[focused] + Control.HasFocus(507) + !$EXP[MusicView_IsArtist]</visible>
+					<include content="DL_FocusRing"><param name="r" value="14"/></include>
+				</control>
+				<control type="image">
+					<left>-9</left>
+					<top>-9</top>
+					<right>-9</right>
+					<bottom>-9</bottom>
+					<texture colordiffuse="$VAR[DL_Accent]">daylight/ring_circle.png</texture>
+					<visible>$PARAM[focused] + Control.HasFocus(507) + $EXP[MusicView_IsArtist]</visible>
+				</control>
+			</control>
+			<control type="label">
+				<left>8</left>
+				<top>182</top>
+				<width>170</width>
+				<height>28</height>
+				<align>center</align>
+				<font>small_20_semibold</font>
+				<textcolor>$VAR[DL_Ink]</textcolor>
+				<selectedcolor>$VAR[DL_Ink]</selectedcolor>
+				<label>$VAR[Music_ItemLabel]</label>
+			</control>
+			<control type="label">
+				<left>8</left>
+				<top>208</top>
+				<width>170</width>
+				<height>26</height>
+				<align>center</align>
+				<font>small_20</font>
+				<textcolor>$VAR[DL_Ink2]</textcolor>
+				<selectedcolor>$VAR[DL_Ink2]</selectedcolor>
+				<label>$INFO[ListItem.Year]</label>
+				<visible>String.IsEqual(ListItem.DBType,album)</visible>
+			</control>
+		</definition>
+	</include>
+	<include name="Music_View_507">
+		<include>MusicView_SpotHero</include>
+		<control type="group">
+		<visible>Control.IsVisible(507)</visible>
+		<include>Anim_FadeVisible</include>
+		<control type="list" id="507">
+			<left>142</left>
+			<top>720</top>
+			<width>1636</width>
+			<height>270</height>
+			<orientation>horizontal</orientation>
+			<onup>9000</onup>
+			<ondown>noop</ondown>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- past the first / last item = Library panel -->
+			<onright>ActivateWindow(1160)</onright>
+			<preloaditems>2</preloaditems>
+			<scrolltime tween="cubic" easing="out">260</scrolltime>
+			<viewtype label="31320">biginfo</viewtype>
+			<visible>Container.Content(artists) | Container.Content(albums)</visible>
+			<itemlayout width="186" height="270">
+				<include>MusicView_StripItem</include>
+			</itemlayout>
+			<focusedlayout width="186" height="270">
+				<include content="MusicView_StripItem"><param name="focused" value="true"/></include>
+			</focusedlayout>
+		</control>
+		</control>
+	</include>
+
 	<!-- ============================================================ detail panel -->
 	<include name="MusicView_Detail">
 		<control type="group">
@@ -217,7 +675,7 @@
 			<top>168</top>
 			<width>500</width>
 			<height>848</height>
-			<visible>Integer.IsGreater(Container.NumItems,0)</visible>
+			<visible>Integer.IsGreater(Container.NumItems,0) + !$EXP[MusicView_Wide]</visible>
 			<include>Anim_FadeVisible</include>
 			<control type="group">
 				<left>0</left>
@@ -309,7 +767,7 @@
 			<top>952</top>
 			<width>500</width>
 			<height>64</height>
-			<visible>$EXP[Music_IsPlaying]</visible>
+			<visible>$EXP[Music_IsPlaying] + !$EXP[MusicView_Wide]</visible>
 			<include>Anim_FadeVisible</include>
 			<control type="image">
 				<left>0</left>
@@ -380,6 +838,7 @@
 				<onup>9400</onup>
 				<ondown>50</ondown>
 				<onleft>ActivateWindow(1160)</onleft>  <!-- 0.9.8: Left past the first tab = Library panel -->
+				<animation effect="slide" start="0,0" end="-560,0" time="0" condition="$EXP[MusicView_Wide]">Conditional</animation>
 				<onright>9002</onright>
 				<onback>50</onback>
 				<include content="MusicView_Tab">
@@ -425,7 +884,7 @@
 					<visible>Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)</visible>
 				</control>
 				<control type="button" id="9326">
-					<include content="VidView_PillFixed"><param name="w" value="124"/></include>
+					<include content="VidView_PillFixed"><param name="w" value="172"/></include>  <!-- 0.9.15: "View: Spotlight" -->
 					<label>View: $INFO[Container.Viewmode]</label>
 					<onclick>ActivateWindow(1161)</onclick>
 					<visible>Integer.IsGreater(Container.ViewCount,1)</visible>

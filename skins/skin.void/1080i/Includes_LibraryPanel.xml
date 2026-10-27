@@ -39,11 +39,6 @@
 		<value>Kodi removes the movies, shows and episodes whose files it can no longer find. Your files stay where they are.</value>
 	</variable>
 
-	<!-- view picker: "current" under the view the library shows now (labels = viewtype labels) -->
-	<variable name="Pick_Cur_Index"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31217])">Current</value></variable>
-	<variable name="Pick_Cur_Wall"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31218])">Current</value></variable>
-	<variable name="Pick_Cur_Covers"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31219])">Current</value></variable>
-
 	<!-- "↑ Options" in the library header (the options row above is invisible until focused, so the
 	     header says it is there). Sits left of the clock, same caps line. -->
 	<include name="LibPanel_HeaderWord">

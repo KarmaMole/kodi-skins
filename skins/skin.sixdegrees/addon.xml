@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.sixdegrees" version="0.9.15" name="Six Degrees" provider-name="KarmaMole">
+<addon id="skin.sixdegrees" version="0.9.16" name="Six Degrees" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required. script.skinvariables URL-encodes the typed search query (get_encoded_string,
@@ -18,7 +18,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#sixdegrees</website>
-		<news>v0.9.15 - Map, station page and Home preview: films, shows and names with double quotes (Waiting for &quot;Superman&quot;, Ed &quot;Special Ed&quot; Archer) keep their connections; before, every line of such a centre came up empty. Search: a query with a double quote (e.g. &quot;Superman&quot;) now finds its matches; before, the quote broke the search and nothing came up. Code clean-up: dialog buttons no longer carry an unused enable parameter.</news>
+		<news>v0.9.16 - More ways to browse: Network (wide stations for series, episodes, sets and add-ons) and Interchange (the stops of a line beside a big picture and its story) for films and series, Interchange for artists and albums, and the Wall now also shows films. Choose them with View.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

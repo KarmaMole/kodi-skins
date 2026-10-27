@@ -53,6 +53,9 @@
 		<value condition="Control.IsVisible(500)">$LOCALIZE[31232]</value>
 		<value condition="Control.IsVisible(501)">$LOCALIZE[31233]</value>
 		<value condition="Control.IsVisible(503)">$LOCALIZE[31234]</value>
+		<value condition="Control.IsVisible(502)">$LOCALIZE[31390]</value>
+		<value condition="Control.IsVisible(506)">$LOCALIZE[31391]</value>
+		<value condition="Control.IsVisible(507)">$LOCALIZE[31392]</value>
 		<value>$LOCALIZE[535]</value>
 	</variable>
 	<variable name="VidView_Status">
@@ -685,6 +688,9 @@
 		<include>VidView_500_Corridor</include>
 		<include>VidView_501_Salon</include>
 		<include>VidView_503_Stills</include>
+		<include>VidView_502_Vitrine</include>
+		<include>VidView_506_Panorama</include>
+		<include>VidView_507_Catalogue</include>
 		<control type="group">
 			<visible>Control.IsVisible(50) | Integer.IsEqual(Container.NumItems,0)</visible>
 			<include content="Noc_ShroudStatic">

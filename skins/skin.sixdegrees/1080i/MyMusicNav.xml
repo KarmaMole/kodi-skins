@@ -19,7 +19,7 @@
 	<!-- an empty folder has nothing focusable in the view: put focus on the header tabs -->
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>
 	<backgroundcolor>ground</backgroundcolor>
-	<views>50,504,505</views>
+	<views>50,504,505,507</views>
 	<include>Music_BlurSourceOnload</include>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
@@ -41,10 +41,12 @@
 		<include>Music_View_504</include>
 		<include>Music_View_505</include>
 		<include>Music_View_50</include>
+		<include>Music_View_507</include>
 
 		<!-- empty folder (the empty view keeps focus; Up reaches the tabs) -->
 		<control type="group">
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<animation effect="slide" start="0,0" end="688,0" time="0" condition="Control.IsVisible(507)">Conditional</animation>
 			<control type="label">
 				<left>page_margin</left>
 				<top>200</top>

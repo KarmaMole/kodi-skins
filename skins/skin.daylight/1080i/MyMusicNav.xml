@@ -23,7 +23,7 @@
 	<onload condition="$EXP[DL_ArtColourOn]">Skin.SetString(TMDbHelper.Colors.Saturation,$VAR[DL_ColorSat])</onload>
 	<onload condition="$EXP[DL_ArtColourOn]">SetProperty(TMDbHelper.Colors.SourceImage,Art(thumb)||Art(album.thumb)||Art(fanart),home)</onload>
 	<backgroundcolor>ff000000</backgroundcolor>
-	<views>504,50</views>
+	<views>504,508,507,50</views>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>DL_Background</include>
@@ -32,10 +32,22 @@
 			<top>vv_top</top>
 			<width>vv_card_w</width>
 			<height>vv_card_h</height>
+			<visible>!$EXP[MusicView_Wide]</visible>
+			<include>DL_Card</include>
+		</control>
+		<!-- 0.9.15: Wall / Spotlight span the page -->
+		<control type="group">
+			<left>page_margin</left>
+			<top>vv_top</top>
+			<width>page_width</width>
+			<height>vv_card_h</height>
+			<visible>$EXP[MusicView_Wide]</visible>
 			<include>DL_Card</include>
 		</control>
 		<include>MusicView_Detail</include>
 		<include>Music_View_504</include>
+		<include>Music_View_508</include>
+		<include>Music_View_507</include>
 		<include>Music_View_50</include>
 		<control type="image">
 			<left>vv_card_x</left>
@@ -43,6 +55,15 @@
 			<width>vv_card_w</width>
 			<height>150</height>
 			<texture diffuse="daylight/mask_fade_card.png" colordiffuse="$VAR[DL_Surface]">daylight/fade_bottom_150.png</texture>
+			<visible>!$EXP[MusicView_Wide]</visible>
+		</control>
+		<control type="image">
+			<left>page_margin</left>
+			<top>866</top>
+			<width>page_width</width>
+			<height>150</height>
+			<texture diffuse="daylight/mask_fade_wide.png" colordiffuse="$VAR[DL_Surface]">daylight/fade_bottom_150.png</texture>
+			<visible>Control.IsVisible(508)</visible>
 		</control>
 		<!-- empty folder -->
 		<control type="group">

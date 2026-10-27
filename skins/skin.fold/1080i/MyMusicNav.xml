@@ -9,17 +9,20 @@
 	<menucontrol>9000</menucontrol>
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>
 	<backgroundcolor>table</backgroundcolor>
-	<views>504,50</views>
+	<views>504,507,508,50</views>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>Fold_Background</include>
 		<include>Fold_Tabs</include>
 		<include>Fold_Clock</include>
 		<include>Music_View_504</include>
+		<include>Music_View_507</include>
+		<include>Music_View_508</include>
 		<include>View_50_List</include>
 		<include>Music_Header</include>
 		<control type="group">
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<animation effect="slide" start="0,0" end="0,250" time="0" condition="Control.IsVisible(504) | Control.IsVisible(507)">Conditional</animation>
 			<control type="label">
 				<left>96</left>
 				<top>240</top>

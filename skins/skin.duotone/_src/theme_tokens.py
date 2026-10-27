@@ -15,7 +15,8 @@ STATIC = {"white", "black", "clear", "ground_static"}
 
 # XML files written by a generator (edit the generator, not the file); Includes_Theme.xml is make_theme.py's
 GENERATED = {"Includes_Theme.xml", "DialogKeyboard.xml", "SkinSettings.xml", "Includes_Titles.xml",
-             "Custom_1155_LibraryPanel.xml", "Custom_1156_ViewPicker.xml", "Includes_Library.xml", "Font.xml"}
+             "Custom_1155_LibraryPanel.xml", "Custom_1156_ViewPicker.xml", "Includes_Library.xml", "Font.xml",
+             "Includes_Views_More.xml"}
 
 # colour slots: tags, colordiffuse attributes, [COLOR x] in labels
 SLOT_TAGS = ("textcolor", "focusedcolor", "disabledcolor", "selectedcolor", "invalidcolor", "shadowcolor",

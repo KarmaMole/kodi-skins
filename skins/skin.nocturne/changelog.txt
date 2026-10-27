@@ -1,3 +1,6 @@
+0.9.13 (2026-10-27)
+- More views. Films, series and episodes: Vitrine (one picture under the spot with its wall label and text, the rest of the room in a drawer below), Panorama (a hang of wide pictures for series, episodes, sets and add-ons) and Catalogue (a register with the picture, details and the first line of the text; the whole text on the wall). Music: Portraits (the artist's fanart as a big canvas beside an index of names). The views you already use and the view each library opens in are unchanged.
+
 0.9.12 (2026-10-25)
 - Search: a query with a double quote (e.g. "Superman") now finds its matches; before, the quote broke the search and nothing came up.
 - Code clean-up: dialog buttons no longer carry an unused enable parameter.

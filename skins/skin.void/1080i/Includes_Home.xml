@@ -1315,6 +1315,9 @@
 					<item><label>$LOCALIZE[31307]</label><label2>$LOCALIZE[31314]</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(FavouritesBrowser)</onclick><visible>!Skin.HasSetting(HideMenu.Favourites)</visible></item>
 					<item><label>$LOCALIZE[31308]</label><label2>$LOCALIZE[31315]</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(Pictures)</onclick><visible>!Skin.HasSetting(HideMenu.Pictures)</visible></item>
 					<item><label>$LOCALIZE[31309]</label><label2>$LOCALIZE[31316]</label2><property name="kicker">Elsewhere</property><onclick>ActivateWindow(Videos,sources://video/,return)</onclick><visible>!Skin.HasSetting(HideMenu.Files)</visible></item>
+					<item><label>$VAR[CustomMenu_Label1]</label><label2>$VAR[CustomMenu_Opens1]</label2><property name="kicker">$VAR[CustomMenu_Kind1]</property><include content="CustomMenu_OnClick"><param name="item" value="1"/></include><visible>$EXP[CustomMenu1On]</visible></item>
+					<item><label>$VAR[CustomMenu_Label2]</label><label2>$VAR[CustomMenu_Opens2]</label2><property name="kicker">$VAR[CustomMenu_Kind2]</property><include content="CustomMenu_OnClick"><param name="item" value="2"/></include><visible>$EXP[CustomMenu2On]</visible></item>
+					<item><label>$VAR[CustomMenu_Label3]</label><label2>$VAR[CustomMenu_Opens3]</label2><property name="kicker">$VAR[CustomMenu_Kind3]</property><include content="CustomMenu_OnClick"><param name="item" value="3"/></include><visible>$EXP[CustomMenu3On]</visible></item>
 					<item><label>$LOCALIZE[31310]</label><label2>$LOCALIZE[31317]</label2><property name="kicker">System</property><onclick>ActivateWindow(Settings)</onclick></item>
 					<item><label>$LOCALIZE[31311]</label><label2>$LOCALIZE[31318]</label2><property name="kicker">System</property><onclick>ActivateWindow(1151)</onclick></item>
 				</content>

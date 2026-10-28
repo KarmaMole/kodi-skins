@@ -72,6 +72,6 @@ def hidden_list_h(name, desc, art="ListItem.Art(fanart)"):
             "\t</include>", ""]
 
 
-# lens at (960, 706); flat enough that the neighbours stay clear of the option bar (y 1000)
-HORIZON = dict(cx=960, cy=3106, R=2400, W=[480, 300, 236, 196, 168], ratio=9 / 16, extra_w=150)
+# lens at (960, 676) (0.9.17, shipped); flat enough that the neighbours stay clear of the option bar (y 1000)
+HORIZON = dict(cx=960, cy=3076, R=2400, W=[480, 300, 236, 196, 168], ratio=9 / 16, extra_w=150)
 HORIZON_SQ = dict(cx=960, cy=3060, R=2400, W=[330, 210, 168, 140, 118], ratio=1.0, extra_w=104)

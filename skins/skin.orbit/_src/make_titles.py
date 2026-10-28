@@ -25,6 +25,7 @@ SPECS = [
     ("Home", 566, [(56, 2), (44, 3), (34, 4)], 9711, "Home poster panel title"),
     ("HomeMusic", 516, [(56, 2), (44, 3), (34, 4)], 9714, "Home album panel title"),
     ("HomeStation", 516, [(44, 2), (34, 3)], 9717, "Home settings station title"),
+    ("HomeCustom", 566, [(56, 2), (44, 3)], 9761, "Home custom menu item title (0.9.18)"),
     ("SearchVideo", 566, [(56, 2), (44, 3), (34, 4)], 9721, "Search films / shows panel title"),
     ("SearchMusic", 516, [(56, 2), (44, 3), (34, 4)], 9724, "Search albums / artists panel title"),
     ("LibArc", 900, [(66, 2), (50, 3), (38, 4)], 9731, "Library arc info block title"),

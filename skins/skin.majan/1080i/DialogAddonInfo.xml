@@ -130,20 +130,20 @@
 				<left>0</left>
 				<top>76</top>
 				<width>1264</width>
-				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
+				<height>327</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_23</font>
 				<label>$INFO[ListItem.AddonDescription]</label>
-				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
+				<include>Majan_PlotScroll</include>
 				<visible>String.IsEmpty(Window(Home).Property(majan.addonnews))</visible>
 			</control>
 			<control type="textbox">
 				<left>0</left>
 				<top>76</top>
 				<width>1264</width>
-				<height>330</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
+				<height>327</height>  <!-- 10 lines exactly: no half-clipped line at the bottom -->
 				<font>body_23</font>
 				<label>$INFO[ListItem.AddonNews]</label>
-				<autoscroll time="3000" delay="6000" repeat="6000">true</autoscroll>
+				<include>Majan_PlotScroll</include>
 				<visible>!String.IsEmpty(Window(Home).Property(majan.addonnews))</visible>
 			</control>
 			<control type="label">

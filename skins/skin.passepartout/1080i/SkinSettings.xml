@@ -26,20 +26,22 @@
 			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),home)">9102</onright>
 			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),menu)">9103</onright>
 			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),rows)">9104</onright>
-			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),libraries)">9105</onright>
-			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),playback)">9106</onright>
-			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),motion)">9107</onright>
-			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),kodi)">9108</onright>
+			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),menuitems)">9105</onright>
+			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),libraries)">9106</onright>
+			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),playback)">9107</onright>
+			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),motion)">9108</onright>
+			<onright condition="String.IsEqual(Container(9000).ListItem.Property(cat),kodi)">9109</onright>
 			<include content="PP_IndexLayout"><param name="list_id" value="9000"/></include>
 			<content>
 				<item><label>$LOCALIZE[31223]</label><property name="cat">paper</property><onclick>SetFocus(9101)</onclick></item>
 				<item><label>$LOCALIZE[31019]</label><property name="cat">home</property><onclick>SetFocus(9102)</onclick></item>
 				<item><label>$LOCALIZE[31263]</label><property name="cat">menu</property><onclick>SetFocus(9103)</onclick></item>
 				<item><label>$LOCALIZE[31940]</label><property name="cat">rows</property><onclick>SetFocus(9104)</onclick></item>
-				<item><label>$LOCALIZE[31224]</label><property name="cat">libraries</property><onclick>SetFocus(9105)</onclick></item>
-				<item><label>$LOCALIZE[31225]</label><property name="cat">playback</property><onclick>SetFocus(9106)</onclick></item>
-				<item><label>$LOCALIZE[31226]</label><property name="cat">motion</property><onclick>SetFocus(9107)</onclick></item>
-				<item><label>$LOCALIZE[31227]</label><property name="cat">kodi</property><onclick>SetFocus(9108)</onclick></item>
+				<item><label>$LOCALIZE[31980]</label><property name="cat">menuitems</property><onclick>SetFocus(9105)</onclick></item>
+				<item><label>$LOCALIZE[31224]</label><property name="cat">libraries</property><onclick>SetFocus(9106)</onclick></item>
+				<item><label>$LOCALIZE[31225]</label><property name="cat">playback</property><onclick>SetFocus(9107)</onclick></item>
+				<item><label>$LOCALIZE[31226]</label><property name="cat">motion</property><onclick>SetFocus(9108)</onclick></item>
+				<item><label>$LOCALIZE[31227]</label><property name="cat">kodi</property><onclick>SetFocus(9109)</onclick></item>
 			</content>
 		</control>
 		<include>PP_SettingsDivider</include>
@@ -598,6 +600,139 @@
 		</control>
 		</control>
 		<control type="group">
+			<visible>String.IsEqual(Container(9000).ListItem.Property(cat),menuitems)</visible>
+			<animation effect="fade" start="0" end="100" time="200">Visible</animation>
+			<control type="label">
+				<left>680</left>
+				<top>134</top>
+				<width>1120</width>
+				<height>112</height>
+				<font>disp_96</font>
+				<label>$LOCALIZE[31980]</label>
+			</control>
+			<control type="textbox">
+				<left>680</left>
+				<top>256</top>
+				<width>1040</width>
+				<height>68</height>
+				<font>body_24</font>
+				<textcolor>ink2</textcolor>
+				<label>$LOCALIZE[31994]</label>
+			</control>
+			<control type="image">
+				<left>680</left>
+				<top>339</top>
+				<width>1120</width>
+				<height>1</height>
+				<texture colordiffuse="rule">common/white.png</texture>
+			</control>
+			<control type="grouplist" id="9105">
+				<left>680</left>
+				<top>340</top>
+				<width>1120</width>
+				<height>540</height>
+				<orientation>vertical</orientation>
+				<onleft>9000</onleft>
+				<onright>noop</onright>
+				<onup>noop</onup>
+				<ondown>noop</ondown>
+				<onback>9000</onback>
+				<control type="button" id="9184">
+					<width>1120</width>
+					<height>76</height>
+					<font>body_28</font>
+					<textoffsetx>28</textoffsetx>
+					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
+					<label>$LOCALIZE[31981]</label>
+					<include content="CustomMenu_SettingsClick"><param name="item" value="1"/><param name="heading" value="$LOCALIZE[31981]"/></include>
+				</control>
+				<control type="button" id="9185">
+					<width>1120</width>
+					<height>76</height>
+					<font>body_28</font>
+					<textoffsetx>28</textoffsetx>
+					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
+					<label>$LOCALIZE[31982]</label>
+					<include content="CustomMenu_SettingsClick"><param name="item" value="2"/><param name="heading" value="$LOCALIZE[31982]"/></include>
+				</control>
+				<control type="button" id="9186">
+					<width>1120</width>
+					<height>76</height>
+					<font>body_28</font>
+					<textoffsetx>28</textoffsetx>
+					<texturenofocus border="0,0,0,2" colordiffuse="rule_row">pp/underline.png</texturenofocus>
+					<label>$LOCALIZE[31983]</label>
+					<include content="CustomMenu_SettingsClick"><param name="item" value="3"/><param name="heading" value="$LOCALIZE[31983]"/></include>
+				</control>
+			</control>
+		<control type="label">
+			<left>840</left>
+			<top>340</top>
+			<width>932</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>ink2</textcolor>
+			<label>$VAR[SS_Value_9184]</label>
+			<visible>!Control.HasFocus(9184)</visible>
+		</control>
+		<control type="label">
+			<left>840</left>
+			<top>340</top>
+			<width>932</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>$VAR[PaperColor]</textcolor>
+			<label>$VAR[SS_Value_9184]</label>
+			<visible>Control.HasFocus(9184)</visible>
+		</control>
+		<control type="label">
+			<left>840</left>
+			<top>416</top>
+			<width>932</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>ink2</textcolor>
+			<label>$VAR[SS_Value_9185]</label>
+			<visible>!Control.HasFocus(9185)</visible>
+		</control>
+		<control type="label">
+			<left>840</left>
+			<top>416</top>
+			<width>932</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>$VAR[PaperColor]</textcolor>
+			<label>$VAR[SS_Value_9185]</label>
+			<visible>Control.HasFocus(9185)</visible>
+		</control>
+		<control type="label">
+			<left>840</left>
+			<top>492</top>
+			<width>932</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>ink2</textcolor>
+			<label>$VAR[SS_Value_9186]</label>
+			<visible>!Control.HasFocus(9186)</visible>
+		</control>
+		<control type="label">
+			<left>840</left>
+			<top>492</top>
+			<width>932</width>
+			<height>76</height>
+			<align>right</align>
+			<font>cap_20</font>
+			<textcolor>$VAR[PaperColor]</textcolor>
+			<label>$VAR[SS_Value_9186]</label>
+			<visible>Control.HasFocus(9186)</visible>
+		</control>
+		</control>
+		<control type="group">
 			<visible>String.IsEqual(Container(9000).ListItem.Property(cat),libraries)</visible>
 			<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 			<control type="label">
@@ -624,7 +759,7 @@
 				<height>1</height>
 				<texture colordiffuse="rule">common/white.png</texture>
 			</control>
-			<control type="grouplist" id="9105">
+			<control type="grouplist" id="9106">
 				<left>680</left>
 				<top>340</top>
 				<width>1120</width>
@@ -867,7 +1002,7 @@
 				<height>1</height>
 				<texture colordiffuse="rule">common/white.png</texture>
 			</control>
-			<control type="grouplist" id="9106">
+			<control type="grouplist" id="9107">
 				<left>680</left>
 				<top>340</top>
 				<width>1120</width>
@@ -973,7 +1108,7 @@
 				<height>1</height>
 				<texture colordiffuse="rule">common/white.png</texture>
 			</control>
-			<control type="grouplist" id="9107">
+			<control type="grouplist" id="9108">
 				<left>680</left>
 				<top>340</top>
 				<width>1120</width>
@@ -1044,7 +1179,7 @@
 				<height>1</height>
 				<texture colordiffuse="rule">common/white.png</texture>
 			</control>
-			<control type="grouplist" id="9108">
+			<control type="grouplist" id="9109">
 				<left>680</left>
 				<top>340</top>
 				<width>1120</width>

@@ -847,11 +847,11 @@
 				<left>0</left>
 				<top>456</top>
 				<width>list_panel_w</width>
-				<height>230</height>
+				<height>229</height>
 				<font>body_23</font>
 				<textcolor>text_body</textcolor>
 				<label>$INFO[ListItem.Plot]</label>
-				<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
+				<include>Majan_PlotScroll</include>
 			</control>
 			<control type="label">
 				<left>0</left>

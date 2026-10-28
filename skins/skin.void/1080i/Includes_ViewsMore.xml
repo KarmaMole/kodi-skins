@@ -70,6 +70,9 @@
 	<variable name="One_Next">
 		<value>$INFO[Container(53).ListItemNoWrap(1).Label]</value>
 	</variable>
+	<!-- One's art comes up after ~1 s of rest (it rises over 1.6 s), not Home's 8 s ambient dwell (Dwell3):
+	     on a one-item-at-a-time view the picture is the content (Shield check 2026-10-27: nothing by 5 s). -->
+	<expression name="One_AmbientDwell">!Skin.HasSetting(void.noambient) + [[!String.IsEqual(Skin.String(void.dwell),slow) + System.IdleTime(1)] | [String.IsEqual(Skin.String(void.dwell),slow) + System.IdleTime(3)]]</expression>
 	<variable name="One_Art">
 		<value condition="!String.IsEmpty(Container(53).ListItem.Art(fanart))">$INFO[Container(53).ListItem.Art(fanart)]</value>
 		<value condition="!String.IsEmpty(Container(53).ListItem.Art(tvshow.fanart))">$INFO[Container(53).ListItem.Art(tvshow.fanart)]</value>
@@ -282,13 +285,13 @@
 						<textcolor>grey</textcolor>
 						<selectedcolor>grey</selectedcolor>
 						<label>$VAR[One_Kicker]</label>
-						<include content="Void_Anim_Recede"><param name="condition" value="$EXP[Dwell3] + !Container(53).Scrolling + [!String.IsEmpty(Container(53).ListItem.Art(fanart)) | !String.IsEmpty(Container(53).ListItem.Art(tvshow.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(artist.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(landscape))]"/><param name="level" value="85"/></include>
+						<include content="Void_Anim_Recede"><param name="condition" value="$EXP[One_AmbientDwell] + !Container(53).Scrolling + [!String.IsEmpty(Container(53).ListItem.Art(fanart)) | !String.IsEmpty(Container(53).ListItem.Art(tvshow.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(artist.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(landscape))]"/><param name="level" value="85"/></include>
 					</control>
 				</control>
 				<!-- title fitted to the width (Includes_Titles.xml): 172 / 132 on one line, then 132 / 104 on two -->
 				<include content="Title_Home_Visible">
 					<param name="label" value="$VAR[One_Title]"/>
-					<param name="recede" value="$EXP[Dwell3] + !Container(53).Scrolling + [!String.IsEmpty(Container(53).ListItem.Art(fanart)) | !String.IsEmpty(Container(53).ListItem.Art(tvshow.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(artist.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(landscape))]"/>
+					<param name="recede" value="$EXP[One_AmbientDwell] + !Container(53).Scrolling + [!String.IsEmpty(Container(53).ListItem.Art(fanart)) | !String.IsEmpty(Container(53).ListItem.Art(tvshow.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(artist.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(landscape))]"/>
 					<param name="p0" value="7531"/>
 					<param name="p1" value="7532"/>
 					<param name="p2" value="7533"/>
@@ -358,7 +361,7 @@
 	<!-- One's ambient fanart: drawn by the window right after Void_Background (under the header), like Home -->
 	<include name="Void_View53_Ambient">
 		<control type="group">
-			<visible>Control.IsVisible(53) + !$EXP[Lib_OptionsFocus] + $EXP[Dwell3] + !Container(53).Scrolling + !Container(53).ListItem.IsParentFolder + [!String.IsEmpty(Container(53).ListItem.Art(fanart)) | !String.IsEmpty(Container(53).ListItem.Art(tvshow.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(artist.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(landscape))]</visible>
+			<visible>Control.IsVisible(53) + !$EXP[Lib_OptionsFocus] + $EXP[One_AmbientDwell] + !Container(53).Scrolling + !Container(53).ListItem.IsParentFolder + [!String.IsEmpty(Container(53).ListItem.Art(fanart)) | !String.IsEmpty(Container(53).ListItem.Art(tvshow.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(artist.fanart)) | !String.IsEmpty(Container(53).ListItem.Art(landscape))]</visible>
 			<include>Void_Anim_AmbientRise</include>
 			<control type="group">
 				<include>Void_Anim_KenBurns</include>

@@ -80,6 +80,12 @@ STATIC_ITEMS = {
         ("$LOCALIZE[31307]", "$LOCALIZE[31314]", "Elsewhere", "ActivateWindow(FavouritesBrowser)", "!Skin.HasSetting(HideMenu.Favourites)"),
         ("$LOCALIZE[31308]", "$LOCALIZE[31315]", "Elsewhere", "ActivateWindow(Pictures)", "!Skin.HasSetting(HideMenu.Pictures)"),
         ("$LOCALIZE[31309]", "$LOCALIZE[31316]", "Elsewhere", "ActivateWindow(Videos,sources://video/,return)", "!Skin.HasSetting(HideMenu.Files)"),
+        # custom main-menu items 1-3 (0.9.16, Skin settings > Custom menu items; Includes_CustomMenu.xml from
+        # tools/customrows/make_customrows.py): after Void's own items, before Settings / System. A slot that is not
+        # set (or whose add-on is gone) leaves the list, so with none set the shelf is exactly as before.
+        *[(f"$VAR[CustomMenu_Label{c}]", f"$VAR[CustomMenu_Opens{c}]", f"$VAR[CustomMenu_Kind{c}]",
+           f'<include content="CustomMenu_OnClick"><param name="item" value="{c}"/></include>', f"$EXP[CustomMenu{c}On]")
+          for c in (1, 2, 3)],
         ("$LOCALIZE[31310]", "$LOCALIZE[31317]", "System", "ActivateWindow(Settings)", ""),
         ("$LOCALIZE[31311]", "$LOCALIZE[31318]", "System", "ActivateWindow(1151)", ""),
     ],
@@ -317,9 +323,10 @@ def driver_list(n, i, kind, content):
         items = []
         for label, label2, kicker, onclick, vis in STATIC_ITEMS[i]:
             v = f"<visible>{vis}</visible>" if vis else ""
+            click = onclick if onclick.startswith("<include") else f"<onclick>{onclick}</onclick>"
             items.append(
                 f"\t\t\t\t\t<item><label>{label}</label><label2>{label2}</label2>"
-                f"<property name=\"kicker\">{kicker}</property><onclick>{onclick}</onclick>{v}</item>")
+                f"<property name=\"kicker\">{kicker}</property>{click}{v}</item>")
         body = "\t\t\t\t<content>\n" + "\n".join(items) + "\n\t\t\t\t</content>\n"
     # the focused layout draws the fanart invisibly once focus rests (Dwell1) so the provider loads the
     # item's art (LESSONS 2: provider art only loads for drawn items) - never while moving.

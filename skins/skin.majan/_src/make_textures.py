@@ -180,6 +180,11 @@ def make_common() -> None:
     save(Image.new("RGBA", (8, 8), WHITE), "common/white.png")
     save(Image.new("RGBA", (8, 1), WHITE), "common/hairline.png")
     save(Image.new("RGBA", (1, 8), WHITE), "common/hairline_v.png")
+    # 1.0.17: 3 px underline at rows 44-46 of a 48 px cell (custom menu items: texturenofocus of a disabled
+    # auto-width button, so the line is exactly as wide as the label; Home_MenuItem's underline sits at item top + 44)
+    ul = Image.new("RGBA", (4, 48), (255, 255, 255, 0))
+    ul.paste(Image.new("RGBA", (4, 3), WHITE), (0, 44))
+    save(ul, "common/underline_48.png")
 
     # Filled rounded panel (buttons / chips in "Slightly rounded" mode). r = 8.
     save(alpha_to_white(rounded_alpha(32, 32, 8)), "common/rect_round8.png", "10")

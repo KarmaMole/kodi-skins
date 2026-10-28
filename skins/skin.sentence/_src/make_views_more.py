@@ -184,7 +184,7 @@ def page(vid, label_id, vtype, visible, about, plot, plot_color="body"):
 					<width>900</width>
 					<height>30</height>
 				</control>
-				<control type="textbox">
+				<control type="textbox" id="{vid}1">
 					<description>the plot, 5 lines max (body 24 at 38 px)</description>
 					<width>820</width>
 					<height max="186">auto</height>
@@ -192,6 +192,31 @@ def page(vid, label_id, vtype, visible, about, plot, plot_color="body"):
 					<textcolor>{plot_color}</textcolor>
 					<label>{plot}</label>
 				</control>
+				<control type="group" id="{vid}3">
+					<description>"…" after the 5th line when the plot runs on (Kodi never adds one to multi-line text)</description>
+					<width>900</width>
+					<height>0</height>
+					<control type="label">
+						<left>826</left>
+						<top>-34</top>
+						<width>60</width>
+						<height>38</height>
+						<font>body_24</font>
+						<textcolor>{plot_color}</textcolor>
+						<label>…</label>
+						<visible>Integer.IsGreater(Container({vid}2).NumPages,1)</visible>
+					</control>
+				</control>
+			</control>
+			<!-- probe: the plot in a clear box of 5.5 lines (5 per page): NumPages > 1 = more than the 5 lines shown -->
+			<control type="textbox" id="{vid}2">
+				<left>page_margin</left>
+				<top>252</top>
+				<width>820</width>
+				<height>209</height>
+				<font>body_24</font>
+				<textcolor>clear</textcolor>
+				<label>{plot}</label>
 			</control>
 			<control type="label">
 				<left>page_margin</left>

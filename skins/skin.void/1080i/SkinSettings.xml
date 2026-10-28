@@ -4,7 +4,7 @@
 	left, value on the right; OK / Right = next value, Left = previous. The focused row is white and
 	grows a little; what it does is explained on the right. Reset asks for a second OK.
 	Ids: 9600 rows grouplist, 9601-9610 rows, 9630 Main menu heading, 9611-9621 main menu rows,
-	9631 Custom rows heading, 9622-9624 custom rows, 9889 favourites data list. No Kodi-owned ids (custom content of skinsettings).
+	9631 Custom rows heading, 9622-9624 custom rows, 9632 Custom menu items heading, 9625-9627 menu items, 9889 favourites data list. No Kodi-owned ids (custom content of skinsettings).
 -->
 <window>
 	<defaultcontrol always="true">9601</defaultcontrol>
@@ -266,6 +266,40 @@
 				<label>$LOCALIZE[31943]</label>
 				<label2>$VAR[CustomRow_Value3]</label2>
 				<include content="CustomRows_SettingsClick"><param name="row" value="3"/><param name="heading" value="$LOCALIZE[31943]"/></include>
+			</control>
+			<!-- custom menu items (0.9.16): up to three add-ons / favourites / library folders in the Library shelf, before
+			     Settings / System; OK opens the item's options (Includes_CustomMenu.xml) -->
+			<control type="group" id="9632">
+				<width>1100</width>
+				<height>96</height>
+				<control type="label">
+					<left>14</left>
+					<top>44</top>
+					<width>1000</width>
+					<height>24</height>
+					<aligny>top</aligny>
+					<font>caps_20</font>
+					<textcolor>grey_soft</textcolor>
+					<label>$LOCALIZE[31980]</label>
+				</control>
+			</control>
+			<control type="button" id="9625">
+				<include>SkinSet_Row</include>
+				<label>$LOCALIZE[31981]</label>
+				<label2>$VAR[CustomMenu_Value1]</label2>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="1"/><param name="heading" value="$LOCALIZE[31981]"/></include>
+			</control>
+			<control type="button" id="9626">
+				<include>SkinSet_Row</include>
+				<label>$LOCALIZE[31982]</label>
+				<label2>$VAR[CustomMenu_Value2]</label2>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="2"/><param name="heading" value="$LOCALIZE[31982]"/></include>
+			</control>
+			<control type="button" id="9627">
+				<include>SkinSet_Row</include>
+				<label>$LOCALIZE[31983]</label>
+				<label2>$VAR[CustomMenu_Value3]</label2>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="3"/><param name="heading" value="$LOCALIZE[31983]"/></include>
 			</control>
 		</control>
 		<include>CustomRows_FavData</include>

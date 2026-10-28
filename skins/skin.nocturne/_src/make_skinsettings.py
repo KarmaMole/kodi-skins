@@ -56,6 +56,20 @@ MENU_TOP = 812  # 0.9.9: was 712; the custom rows panel sits above it
 # after Restore in the Up / Down chain; OK opens the row's options
 CUSTOM = [(9515, "$LOCALIZE[31941]", 1), (9516, "$LOCALIZE[31942]", 2), (9517, "$LOCALIZE[31943]", 3)]
 CUSTOM_TOP = 564
+# 0.9.14 custom menu items (Includes_CustomMenu.xml): no room left on the page, so they are a second tab of the custom
+# rows panel ("CUSTOM ROWS · CUSTOM MENU ITEMS"): Right on a row goes to the menu item beside it, Left comes back.
+# The tab on show follows Window(Home).Property(nocturne.cmtab) (set by the menu items' onfocus, cleared by the rows').
+CMENU = [(9518, "$LOCALIZE[31981]", 1), (9519, "$LOCALIZE[31982]", 2), (9520, "$LOCALIZE[31983]", 3)]
+CMTAB = "String.IsEqual(Window(Home).Property(nocturne.cmtab),1)"
+PANEL_FOCUS = " | ".join(f"Control.HasFocus({r[0]})" for r in CUSTOM + CMENU)
+
+
+def onup_xml(up):
+    """the first main-menu row goes up into the custom panel's tab on show"""
+    if up is not None:
+        return f"\t\t\t\t<onup>{up}</onup>"
+    return (f"\t\t\t\t<onup condition=\"!{CMTAB}\">{CUSTOM[-1][0]}</onup>\n"
+            f"\t\t\t\t<onup condition=\"{CMTAB}\">{CMENU[-1][0]}</onup>")
 
 
 def menu_xml():
@@ -75,7 +89,7 @@ def menu_xml():
 			</control>
 		</control>"""]
     for k, (rid, label, key) in enumerate(MENU):
-        up = MENU[k - 1][0] if k else CUSTOM[-1][0]
+        up = MENU[k - 1][0] if k else None
         down = MENU[k + 1][0] if k + 1 < len(MENU) else ROWS[0][0]
         o.append(f"""		<control type="group">
 			<left>1240</left>
@@ -109,7 +123,7 @@ def menu_xml():
 				<texturefocus />
 				<texturenofocus />
 				<label>{label}</label>
-				<onup>{up}</onup>
+{onup_xml(up)}
 				<ondown>{down}</ondown>
 				<onright>Skin.ToggleSetting({key})</onright>
 				<onclick>Skin.ToggleSetting({key})</onclick>
@@ -150,26 +164,69 @@ def menu_xml():
     return "\n".join(o)
 
 
+def tab_label(text, on, dim_when):
+    """one header word: lit (the tab on show) or dim"""
+    out = []
+    for lit in (True, False):
+        vis = f"!{dim_when}" if lit else dim_when
+        out.append(f"""				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<aligny>center</aligny>
+					<font>caps_20</font>
+					<textcolor>{'8cc8b8a0' if lit else '40c8b8a0'}</textcolor>
+					<label>{text}</label>
+					<visible>{vis}</visible>
+				</control>""")
+    return "\n".join(out)
+
+
 def custom_xml():
-    o = [f"""		<!-- custom rows panel -->
-		<control type="group">
+    """the custom panel: tab 1 = custom rows (9515-9517), tab 2 = custom menu items (9518-9520)"""
+    o = [f"""		<!-- custom rows / custom menu items panel (two tabs; Right / Left on a row switches) -->
+		<control type="grouplist">
 			<left>1240</left>
 			<top>{CUSTOM_TOP - 44}</top>
-			<control type="label">
-				<left>0</left>
-				<top>0</top>
-				<width>590</width>
-				<height>32</height>
-				<aligny>center</aligny>
-				<font>caps_20</font>
-				<textcolor>8cc8b8a0</textcolor>
-				<label>$LOCALIZE[31940]</label>
-			</control>
+			<width>590</width>
+			<height>32</height>
+			<orientation>horizontal</orientation>
+			<itemgap>0</itemgap>
+{tab_label("$LOCALIZE[31940]", True, CMTAB)}
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<aligny>center</aligny>
+					<font>caps_20</font>
+					<textcolor>40c8b8a0</textcolor>
+					<label>   ·   </label>
+				</control>
+{tab_label("$LOCALIZE[31980]", True, "!" + CMTAB)}
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<aligny>center</aligny>
+					<font>caps_20</font>
+					<textcolor>8cc8b8a0</textcolor>
+					<label>   ◀ ▶</label>
+					<visible>{PANEL_FOCUS}</visible>
+				</control>
 		</control>"""]
-    for k, (rid, label, n) in enumerate(CUSTOM):
-        up = CUSTOM[k - 1][0] if k else RESET_ID
-        down = CUSTOM[k + 1][0] if k + 1 < len(CUSTOM) else MENU[0][0]
-        o.append(f"""		<control type="group">
+    for tab, items in ((0, CUSTOM), (1, CMENU)):
+        for k, (rid, label, n) in enumerate(items):
+            up = items[k - 1][0] if k else RESET_ID
+            down = items[k + 1][0] if k + 1 < len(items) else MENU[0][0]
+            shown = f"!{CMTAB}" if tab == 0 else CMTAB
+            if tab == 0:
+                side = f"<onleft>noop</onleft>\n\t\t\t\t<onright>{CMENU[k][0]}</onright>"
+                focus = "<onfocus>ClearProperty(nocturne.cmtab,home)</onfocus>"
+                click = f'<include content="CustomRows_SettingsClick"><param name="row" value="{n}"/><param name="heading" value="{label}"/></include>'
+                value = f"$VAR[CustomRow_Value{n}]"
+            else:
+                side = f"<onleft>{CUSTOM[k][0]}</onleft>\n\t\t\t\t<onright>noop</onright>"
+                focus = "<onfocus>SetProperty(nocturne.cmtab,1,home)</onfocus>"
+                click = f'<include content="CustomMenu_SettingsClick"><param name="item" value="{n}"/><param name="heading" value="{label}"/></include>'
+                value = f"$VAR[CustomMenu_Value{n}]"
+            o.append(f"""		<control type="group">
 			<left>1240</left>
 			<top>{CUSTOM_TOP + k * 64}</top>
 			<control type="image">
@@ -199,11 +256,12 @@ def custom_xml():
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
 				<label>{label}</label>
+				<visible allowhiddenfocus="true">{shown}</visible>
 				<onup>{up}</onup>
 				<ondown>{down}</ondown>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
-				<include content="CustomRows_SettingsClick"><param name="row" value="{n}"/><param name="heading" value="{label}"/></include>
+				{side}
+				{focus}
+				{click}
 			</control>
 			<control type="label">
 				<left>200</left>
@@ -214,8 +272,8 @@ def custom_xml():
 				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
-				<label>$VAR[CustomRow_Value{n}]</label>
-				<visible>!Control.HasFocus({rid})</visible>
+				<label>{value}</label>
+				<visible>{shown} + !Control.HasFocus({rid})</visible>
 			</control>
 			<control type="label">
 				<left>200</left>
@@ -226,18 +284,23 @@ def custom_xml():
 				<aligny>center</aligny>
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
-				<label>$VAR[CustomRow_Value{n}]</label>
-				<visible>Control.HasFocus({rid})</visible>
-			</control>
+				<label>{value}</label>
+				<visible>{shown} + Control.HasFocus({rid})</visible>
+			</control>{RULE if tab == 0 else ""}
+		</control>""")
+    # (no tab visibility on the row groups: a button inside a hidden group can't take focus, even with
+    #  allowhiddenfocus; the hairline is drawn once, by the custom rows tab, for both tabs)
+    return "\n".join(o)
+
+
+RULE = """
 			<control type="image">
 				<left>0</left>
 				<top>59</top>
 				<width>590</width>
 				<height>1</height>
 				<texture colordiffuse="1adcbe8c">common/white.png</texture>
-			</control>
-		</control>""")
-    return "\n".join(o)
+			</control>"""
 
 
 def esc(s):
@@ -375,6 +438,7 @@ def main():
 	<defaultcontrol always="true">{ROWS[0][0]}</defaultcontrol>
 	<backgroundcolor>bg</backgroundcolor>
 	<onload>ClearProperty(nocturne.resetarmed,home)</onload>
+	<onload>ClearProperty(nocturne.cmtab,home)</onload>
 	<onload condition="!String.IsEmpty(Window(Home).Property(nocturne.refocus))">SetFocus($INFO[Window(Home).Property(nocturne.refocus)])</onload>
 	<onload>ClearProperty(nocturne.refocus,home)</onload>
 	<include>Anim_WindowOpenClose</include>
@@ -403,7 +467,8 @@ def main():
 				<texturefocus border="26,0,26,0">noc/plaque.png</texturefocus>
 				<label>$VAR[SkinSet_ResetLabel]</label>
 				<onup>{ROWS[-1][0]}</onup>
-				<ondown>{CUSTOM[0][0]}</ondown>
+				<ondown condition="!{CMTAB}">{CUSTOM[0][0]}</ondown>
+				<ondown condition="{CMTAB}">{CMENU[0][0]}</ondown>
 				<onunfocus>ClearProperty(nocturne.resetarmed,home)</onunfocus>
 {resets}
 				<onclick condition="!String.IsEmpty(Window(Home).Property(nocturne.resetarmed))">ClearProperty(nocturne.resetarmed,home)</onclick>
@@ -469,6 +534,8 @@ def main():
     help_text += "\n" + "\n".join(f'\t\t<value condition="Control.HasFocus({rid})">$LOCALIZE[31743]</value>' for rid, _l, _k in MENU)
     help_title += "\n" + "\n".join(f'\t\t<value condition="Control.HasFocus({rid})">{label}</value>' for rid, label, _n in CUSTOM)
     help_text += "\n" + "\n".join(f'\t\t<value condition="Control.HasFocus({rid})">$LOCALIZE[31957]</value>' for rid, _l, _n in CUSTOM)
+    help_title += "\n" + "\n".join(f'\t\t<value condition="Control.HasFocus({rid})">{label}</value>' for rid, label, _n in CMENU)
+    help_text += "\n" + "\n".join(f'\t\t<value condition="Control.HasFocus({rid})">$LOCALIZE[31994]</value>' for rid, _l, _n in CMENU)
     vars_xml += f"""
 	<variable name="SkinSet_HelpTitle">
 {help_title}

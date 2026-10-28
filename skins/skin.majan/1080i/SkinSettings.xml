@@ -10,7 +10,7 @@
 	onunload: that crashed Kodi on the Shield (2026-10-18).
 	Artwork background also drives TMDb Helper's blur: Off resets TMDbHelper.EnableBlur (and clears
 	TMDbHelper.Service, never set: it would do per-item TMDb lookups); Faint / Soft / Visible set EnableBlur plus Blur.Size 480 / Radius 12.
-	Ids: rows 9510-9516 / 9520-9521 / 9530-9531 / 9560-9564 (main menu) / 9570-9572 (custom rows), categories 9550-9555,
+	Ids: rows 9510-9516 / 9520-9521 / 9530-9531 / 9560-9564 (main menu) / 9570-9572 (custom rows) / 9573-9575 (custom menu items, 1.0.17), categories 9550-9556,
 	preview data list 9590, favourites data list 9889 (custom rows picker).
 	Generated once by a scratch script; edit by hand.
 -->
@@ -63,7 +63,7 @@
 				<param name="label" value="Appearance"/>
 				<param name="key" value="appearance"/>
 				<param name="onright" value="9510"/>
-				<param name="onup" value="9555"/>
+				<param name="onup" value="9556"/>
 				<param name="ondown" value="9551"/>
 			</include>
 			<include content="Dlg_SkinCategory">
@@ -114,9 +114,19 @@
 				<param name="key" value="rows"/>
 				<param name="onright" value="9570"/>
 				<param name="onup" value="9554"/>
+				<param name="ondown" value="9556"/>
+			</include>
+			<include content="Dlg_SkinCategory">
+				<param name="id" value="9556"/>
+				<param name="top" value="600"/>
+				<param name="index" value="07"/>
+				<param name="label" value="$LOCALIZE[31980]"/>
+				<param name="key" value="menuitems"/>
+				<param name="onright" value="9573"/>
+				<param name="onup" value="9555"/>
 				<param name="ondown" value="9550"/>
 			</include>
-			<include content="Majan_Rule"><param name="top" value="600"/><param name="left" value="0"/><param name="width" value="settings_cat_w"/></include>
+			<include content="Majan_Rule"><param name="top" value="672"/><param name="left" value="0"/><param name="width" value="settings_cat_w"/></include>
 		</control>
 
 		<!-- ============================================================ appearance -->
@@ -898,6 +908,128 @@
 					<textcolor>text_tertiary</textcolor>
 					<label>$LOCALIZE[31944]</label>
 					<visible>String.IsEmpty(Skin.String(CustomRow.3.Path))</visible>
+				</control>
+			</control>
+			<include content="Majan_Rule"><param name="top" value="468"/><param name="left" value="0"/><param name="width" value="860"/></include>
+		</control>
+		<!-- ============================================================ custom menu items (1.0.17): three opt-in main-menu
+		     items after Music. OK opens the item's options (the custom rows' picker, Includes_CustomMenu.xml). -->
+		<control type="group">
+			<left>settings_list_x</left>
+			<visible>String.IsEqual(Window(Home).Property(majan.skincat),menuitems)</visible>
+			<include>Anim_FadeVisible</include>
+			<control type="group">
+				<top>168</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9573"/>
+					<param name="label" value="$LOCALIZE[31981]"/>
+					<param name="hint" value="$LOCALIZE[31985]"/>
+				</include>
+				<control type="button" id="9573">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9575</onup>
+					<ondown>9574</ondown>
+					<onback>9556</onback>
+					<onleft>9556</onleft>
+					<onright>noop</onright>
+					<include content="CustomMenu_SettingsClick"><param name="item" value="1"/><param name="heading" value="$LOCALIZE[31981]"/></include>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21_bold</font>
+					<label>$VAR[CustomMenu_Value1]</label>
+					<visible>!String.IsEmpty(Skin.String(CustomMenu.1.Path))</visible>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21</font>
+					<textcolor>text_tertiary</textcolor>
+					<label>$LOCALIZE[31944]</label>
+					<visible>String.IsEmpty(Skin.String(CustomMenu.1.Path))</visible>
+				</control>
+			</control>
+			<control type="group">
+				<top>268</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9574"/>
+					<param name="label" value="$LOCALIZE[31982]"/>
+					<param name="hint" value="$LOCALIZE[31985]"/>
+				</include>
+				<control type="button" id="9574">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9573</onup>
+					<ondown>9575</ondown>
+					<onback>9556</onback>
+					<onleft>9556</onleft>
+					<onright>noop</onright>
+					<include content="CustomMenu_SettingsClick"><param name="item" value="2"/><param name="heading" value="$LOCALIZE[31982]"/></include>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21_bold</font>
+					<label>$VAR[CustomMenu_Value2]</label>
+					<visible>!String.IsEmpty(Skin.String(CustomMenu.2.Path))</visible>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21</font>
+					<textcolor>text_tertiary</textcolor>
+					<label>$LOCALIZE[31944]</label>
+					<visible>String.IsEmpty(Skin.String(CustomMenu.2.Path))</visible>
+				</control>
+			</control>
+			<control type="group">
+				<top>368</top>
+				<include content="Dlg_SkinRowChrome">
+					<param name="id" value="9575"/>
+					<param name="label" value="$LOCALIZE[31983]"/>
+					<param name="hint" value="$LOCALIZE[31985]"/>
+				</include>
+				<control type="button" id="9575">
+					<include>Dlg_SkinRowButton</include>
+					<onup>9574</onup>
+					<ondown>9573</ondown>
+					<onback>9556</onback>
+					<onleft>9556</onleft>
+					<onright>noop</onright>
+					<include content="CustomMenu_SettingsClick"><param name="item" value="3"/><param name="heading" value="$LOCALIZE[31983]"/></include>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21_bold</font>
+					<label>$VAR[CustomMenu_Value3]</label>
+					<visible>!String.IsEmpty(Skin.String(CustomMenu.3.Path))</visible>
+				</control>
+				<control type="label">
+					<left>540</left>
+					<top>22</top>
+					<width>320</width>
+					<height>34</height>
+					<align>right</align>
+					<font>card_21</font>
+					<textcolor>text_tertiary</textcolor>
+					<label>$LOCALIZE[31944]</label>
+					<visible>String.IsEmpty(Skin.String(CustomMenu.3.Path))</visible>
 				</control>
 			</control>
 			<include content="Majan_Rule"><param name="top" value="468"/><param name="left" value="0"/><param name="width" value="860"/></include>

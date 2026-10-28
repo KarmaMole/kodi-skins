@@ -81,8 +81,15 @@ ROWS = {
         ("9182", "$LOCALIZE[31942]", "cap", None),
         ("9183", "$LOCALIZE[31943]", "cap", None),
     ],
+    # 0.9.17: custom main-menu items on Home (Includes_CustomMenu.xml); OK opens the item's options
+    "menuitems": [
+        ("9184", "$LOCALIZE[31981]", "cap", None),
+        ("9185", "$LOCALIZE[31982]", "cap", None),
+        ("9186", "$LOCALIZE[31983]", "cap", None),
+    ],
 }
 CUSTOM = {"9181": 1, "9182": 2, "9183": 3}
+CUSTOM_MENU = {"9184": 1, "9185": 2, "9186": 3}
 
 BOOLS = {
     "9111": ("neutralpaper", "Neutral", "From the artwork", True),
@@ -103,6 +110,7 @@ CATS = [
     ("home", "Home", "What hangs in the exhibition on Home. Left and right turn the prints; down shows the rest of the room."),
     ("menu", "Main menu", "The words at the top of Home. A hidden word takes its exhibition and room with it; Settings always stays, so you can always come back here."),
     ("rows", "$LOCALIZE[31940]", "$LOCALIZE[31957]"),
+    ("menuitems", "$LOCALIZE[31980]", "$LOCALIZE[31994]"),
     ("libraries", "Libraries", "How the hang, the salon and the wall mark what you have seen, and what the wall label offers."),
     ("playback", "Playback", "The caption bar while a film plays."),
     ("motion", "Motion", "Prints grow and slide into place. Reduce motion makes every change instant."),
@@ -255,6 +263,10 @@ def row(rid, label, font, spec, first, last):
         n = CUSTOM[rid]
         custom = f'\n\t\t\t\t\t<include content="CustomRows_SettingsClick"><param name="row" value="{n}"/><param name="heading" value="$LOCALIZE[{31940 + n}]"/></include>'
         values.append(("true", f"$VAR[CustomRow_Value{n}]"))
+    elif rid in CUSTOM_MENU:
+        n = CUSTOM_MENU[rid]
+        custom = f'\n\t\t\t\t\t<include content="CustomMenu_SettingsClick"><param name="item" value="{n}"/><param name="heading" value="$LOCALIZE[{31980 + n}]"/></include>'
+        values.append(("true", f"$VAR[CustomMenu_Value{n}]"))
     elif rid in BOOLS:
         name, on_lab, off_lab, paper = BOOLS[rid]
         clicks.append(("true", f"Skin.ToggleSetting({bool_name(name)})"))

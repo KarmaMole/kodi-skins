@@ -27,4 +27,5 @@
 	<include file="Includes_Misc.xml"/>
 	<include file="Includes_Titles.xml"/>
 	<include file="Includes_CustomRows.xml"/>
+	<include file="Includes_CustomMenu.xml"/>
 </includes>

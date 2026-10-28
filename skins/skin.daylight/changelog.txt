@@ -1,3 +1,10 @@
+0.9.17 (2026-10-28)
+- Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
+- On Home they are pills of the top line between Search and the settings gear, in the same type and focus colour; the other pills move left to make room (long names are shortened when two or three show). OK opens the item; Back comes home to its pill. With none set Home is unchanged.
+
+0.9.16 (2026-10-28)
+- Spotlight (films and music): the strip ends on a whole poster or portrait instead of one cut at the card's edge.
+
 0.9.15 (2026-10-27)
 - More ways to browse (View pill or Options > View; the picker now shows up to six previews):
   - Spotlight (films, sets, shows, seasons, music videos): the focused title large, its fanart melting into the card, plot and "start now and it ends at ...", over a strip of posters that each say when they would end.

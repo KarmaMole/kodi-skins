@@ -1,3 +1,9 @@
+0.9.18 (2026-10-28)
+- Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items). On the second page of Home they get a line of their own that still reads as a sentence: "Or go straight to YouTube, Weather or Films A-Z." OK opens one, Back comes home to it. An empty slot or an uninstalled add-on leaves the line, and the commas and "or" follow what is left.
+
+0.9.17 (2026-10-28)
+- As a page and as portraits: a story longer than five lines now ends in "…" instead of stopping mid-sentence.
+
 0.9.16 (2026-10-27)
 - More ways to see your library. Videos now have six views, music four; the sentence at the top says which one you are using ("as a page").
 - As a page: one film, show, episode or set at a time, written out the way its information page writes it, with the plot below and its picture behind the right side of the page. Left and right turn the page.

@@ -250,7 +250,7 @@ def label(left, top, width, height, font, color, text, visible=None, t="\t\t\t\t
 # ---------------------------------------------------------------- 53 One
 def view53():
     C = 53
-    recede = f"$EXP[Dwell3] + !Container({C}).Scrolling + [{has_ambient(C)}]"
+    recede = f"$EXP[One_AmbientDwell] + !Container({C}).Scrolling + [{has_ambient(C)}]"
     body = f"""			<!-- the driver: invisible fixedlist like the index; the card reads Container(53) -->
 			<control type="fixedlist" id="{C}">
 				<left>0</left>
@@ -338,7 +338,7 @@ def view53():
 	<!-- One's ambient fanart: drawn by the window right after Void_Background (under the header), like Home -->
 	<include name="Void_View53_Ambient">
 		<control type="group">
-			<visible>Control.IsVisible({C}) + !$EXP[Lib_OptionsFocus] + $EXP[Dwell3] + !Container({C}).Scrolling + !Container({C}).ListItem.IsParentFolder + [{has_ambient(C)}]</visible>
+			<visible>Control.IsVisible({C}) + !$EXP[Lib_OptionsFocus] + $EXP[One_AmbientDwell] + !Container({C}).Scrolling + !Container({C}).ListItem.IsParentFolder + [{has_ambient(C)}]</visible>
 			<include>Void_Anim_AmbientRise</include>
 			<control type="group">
 				<include>Void_Anim_KenBurns</include>
@@ -704,7 +704,10 @@ def main():
 	</variable>
 	<variable name="One_Next">
 		<value>$INFO[Container(53).ListItemNoWrap(1).Label]</value>
-	</variable>""",
+	</variable>
+	<!-- One's art comes up after ~1 s of rest (it rises over 1.6 s), not Home's 8 s ambient dwell (Dwell3):
+	     on a one-item-at-a-time view the picture is the content (Shield check 2026-10-27: nothing by 5 s). -->
+	<expression name="One_AmbientDwell">!Skin.HasSetting(void.noambient) + [[!String.IsEqual(Skin.String(void.dwell),slow) + System.IdleTime(1)] | [String.IsEqual(Skin.String(void.dwell),slow) + System.IdleTime(3)]]</expression>""",
              ambient_art_var(53, "One"),
              item_vars(55, "Notes", parent_meta="Up one level"),
              runtime_vars(None, "Still"),

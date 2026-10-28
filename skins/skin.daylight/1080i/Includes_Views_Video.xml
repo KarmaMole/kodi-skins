@@ -1260,7 +1260,7 @@
 		<control type="list" id="502">
 			<left>142</left>
 			<top>694</top>
-			<width>1636</width>
+			<width>1584</width>
 			<height>312</height>
 			<orientation>horizontal</orientation>
 			<onup>9000</onup>

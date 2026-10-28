@@ -282,6 +282,10 @@ def hidden_list(name, desc, rows=11, focuspos=5, art="ListItem.Art(poster)", cty
 DIAL_C = (200, 540)
 DIAL_ANGLES = {-2: -64, -1: -32, 0: 0, 1: 32, 2: 64}
 DIAL_R = {0: 300, 1: 292, 2: 292}
+DIAL_TIERS = (44, 38, 34, 30)          # 0.9.18: focused station sizes for long custom item names
+DIAL_PITCH = {44: 54, 38: 46, 34: 44}  # wide font line pitches (make_titles.py)
+DIAL_FIT_W = 295                       # room before the amber lens dash
+DIAL_PROBE = 9762
 
 
 def dial():
@@ -327,13 +331,26 @@ def dial():
         L.append("\t\t\t\t\t<orientation>horizontal</orientation>")
         L.append("\t\t\t\t\t<itemgap>14</itemgap>")
         L.append("\t\t\t\t\t<usecontrolcoords>true</usecontrolcoords>")
-        L.append('\t\t\t\t\t<control type="label">')
-        L.append("\t\t\t\t\t\t<width>auto</width>")
-        L.append(f"\t\t\t\t\t\t<height>{h}</height>")
-        L.append(f"\t\t\t\t\t\t<font>{font}</font>")
-        L.append(f"\t\t\t\t\t\t<textcolor>{'text_primary' if focused else 'text_secondary'}</textcolor>")
-        L.append(f"\t\t\t\t\t\t<label>$INFO[Container(9000).ListItem({k}).Label]</label>")
-        L.append("\t\t\t\t\t</control>")
+        # 0.9.18: custom menu items carry any name. Unfocused stations are capped at 300 px; the focused one has only
+        # 295 px before the amber lens dash (x 800), so a long name steps down 44 -> 38 -> 34 -> 30 (probes 9762-9764
+        # in Arc_HomeDial: NumPages > 1 = the name needs a second line at that size) and is cut only at 30.
+        # Every built-in label fits at 44 (SETTINGS 291 px), so those render exactly as before.
+        tiers = [(font, None)] if not focused else [
+            (f"wide_{sz}", " + ".join([f"Integer.IsGreater(Container({DIAL_PROBE + j}).NumPages,1)" for j in range(i)]
+                                      + ([f"!Integer.IsGreater(Container({DIAL_PROBE + i}).NumPages,1)"] if i < 3 else [])))
+            for i, sz in enumerate(DIAL_TIERS)]
+        for tfont, vis in tiers:
+            L.append('\t\t\t\t\t<control type="label">')
+            L.append(f'\t\t\t\t\t\t<width max="{DIAL_FIT_W if focused else 300}">auto</width>')
+            L.append(f"\t\t\t\t\t\t<height>{h}</height>")
+            if tfont != font:
+                L.append("\t\t\t\t\t\t<aligny>center</aligny>")
+            L.append(f"\t\t\t\t\t\t<font>{tfont}</font>")
+            L.append(f"\t\t\t\t\t\t<textcolor>{'text_primary' if focused else 'text_secondary'}</textcolor>")
+            L.append(f"\t\t\t\t\t\t<label>$INFO[Container(9000).ListItem({k}).Label]</label>")
+            if vis:
+                L.append(f"\t\t\t\t\t\t<visible>{vis}</visible>")
+            L.append("\t\t\t\t\t</control>")
         if not focused:
             L.append('\t\t\t\t\t<control type="label">')
             L.append("\t\t\t\t\t\t<top>2</top>")
@@ -345,6 +362,13 @@ def dial():
             L.append("\t\t\t\t\t</control>")
         L.append("\t\t\t\t</control>")
         L.append("\t\t\t</control>")
+    # fit probes for the focused station (alpha 0, off screen): one line + half of each tier but the last
+    for j, sz in enumerate(DIAL_TIERS[:-1]):
+        L += [f'\t\t\t<control type="textbox" id="{DIAL_PROBE + j}">', "\t\t\t\t<left>-4000</left>",
+              f"\t\t\t\t<top>{-2400 + j * 200}</top>", f"\t\t\t\t<width>{DIAL_FIT_W}</width>",
+              f"\t\t\t\t<height>{round(1.5 * DIAL_PITCH[sz])}</height>", f"\t\t\t\t<font>wide_{sz}</font>",
+              "\t\t\t\t<textcolor>00ffffff</textcolor>",
+              "\t\t\t\t<label>$INFO[Container(9000).ListItem.Label]</label>", "\t\t\t</control>"]
     L += ["\t\t</definition>", "\t</include>", ""]
     return L
 
@@ -633,7 +657,7 @@ def main():
     L += wide_art_variables("ArcArt503", 503)
     L += art_variables("ArcArt507", 507, SQUARE_CHAIN)
     L += poster_arc("Arc_HorizonWide", horizon_slots(**HORIZON), "ArcArt503", "masks/landscape_r4.png",
-                    "Horizon (view 503): wide pictures on a flat circle along the bottom, lens at 960,706", shadows=2)
+                    "Horizon (view 503): wide pictures on a flat circle along the bottom, lens at 960,676", shadows=2)
     L += poster_arc("Arc_HorizonSquares", horizon_slots(**HORIZON_SQ), "ArcArt507", "masks/square_r4.png",
                     "Music horizon (view 507): album covers / artist discs along the bottom, lens at 960,660",
                     shadows=2, circle_cond="Container.Content(artists)")

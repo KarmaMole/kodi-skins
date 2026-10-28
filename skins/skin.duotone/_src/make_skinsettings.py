@@ -1,7 +1,8 @@
 """Generate skins/skin.duotone/1080i/SkinSettings.xml (docs/skin.duotone/SETTINGS.md).
 
 One page, paper field (Search / Settings section). Left column: Anton "SKIN" + the focused row's help.
-Right column: 13 rows of 58 + Reset (0.9.13: 3 main menu rows). Each row is ONE focus target: Left / Right step through the options and
+Right column: 16 rows of 50 + Reset (0.9.13: 3 main menu rows + 3 custom rows; 0.9.17: the custom rows' lines
+also hold Menu item 1-3 as a right half cell, ids after Reset). Each row is ONE focus target: Left / Right step through the options and
 apply at once (Left on the first option returns... nowhere: the page has no other column), OK cycles.
 The current option is a chip: ink block + paper text on a resting row, paper block + ink text on the
 focused (ink) row. Spotlight interval runs ReloadSkin() from the row itself (Home reads <autoscroll time>
@@ -77,6 +78,11 @@ for _i, _r in enumerate(ROWS):
     _r["id"] = 9501 + _i
 RESET_ID = 9501 + len(ROWS)
 FIRST, LAST = ROWS[0]["id"], RESET_ID
+# 0.9.17 custom main-menu items (Includes_CustomMenu.xml, tools/customrows/make_customrows.py): the page has no room
+# for three more rows (Reset already ends at y 1060), so "Menu item n" shares the line of "Row n": two half cells,
+# Left / Right between them. Ids after Reset: menu item n = RESET_ID + n.
+MENU_ID = {n: RESET_ID + n for n in (1, 2, 3)}
+HALF_W, HALF_GAP = 508, 16
 ROW_TOP, ROW_H = 176, 50  # 0.9.13: 50 (was 72, then 58) so the main menu and custom rows fit; Reset keeps 72
 CHIP_H = 40
 
@@ -98,6 +104,39 @@ def set_action(row, opt):
     return acts
 
 
+def menu_cell(row):
+    """the right half of a custom row's line: Menu item n (its own button, the row cell's look)"""
+    n = row["row"]
+    mid = MENU_ID[n]
+    up = MENU_ID[n - 1] if n > 1 else row["id"] - 1   # Menu item 1: up to the line above the pairs (Home: Music)
+    down = MENU_ID[n + 1] if n < 3 else RESET_ID
+    x = HALF_W + HALF_GAP
+    lines = []
+    a = lines.append
+    a(f'\t\t\t<control type="button" id="{mid}">')
+    a(f'\t\t\t\t<left>{x}</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>{HALF_W}</width>\n\t\t\t\t<height>{ROW_H}</height>')
+    a('\t\t\t\t<label></label>')
+    a('\t\t\t\t<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>')
+    a('\t\t\t\t<texturenofocus border="0,0,0,4" colordiffuse="$VAR[SectionText]">dialogs/row_rule.png</texturenofocus>')
+    a(f'\t\t\t\t<onup>{up}</onup>\n\t\t\t\t<ondown>{down}</ondown>')
+    a(f'\t\t\t\t<onleft>{row["id"]}</onleft>\n\t\t\t\t<onright>noop</onright>')
+    a(f'\t\t\t\t<include content="CustomMenu_SettingsClick"><param name="item" value="{n}"/><param name="heading" value="$LOCALIZE[{31980 + n}]"/></include>')
+    a('\t\t\t</control>')
+    for vis, col in ((f"!Control.HasFocus({mid})", "$VAR[SectionText]"), (f"Control.HasFocus({mid})", "$VAR[paper]")):
+        a('\t\t\t<control type="label">')
+        a(f'\t\t\t\t<left>{x + 24}</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>200</width>\n\t\t\t\t<height>{ROW_H}</height>')
+        a(f'\t\t\t\t<aligny>center</aligny>\n\t\t\t\t<font>bold_28</font>\n\t\t\t\t<textcolor>{col}</textcolor>')
+        a(f'\t\t\t\t<label>$LOCALIZE[{31980 + n}]</label>\n\t\t\t\t<visible>{vis}</visible>')
+        a('\t\t\t</control>')
+    for vis, col in ((f"!Control.HasFocus({mid})", "$VAR[SectionText2]"), (f"Control.HasFocus({mid})", "$VAR[paper_70]")):
+        a('\t\t\t<control type="label">')
+        a(f'\t\t\t\t<left>{x + 232}</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>{HALF_W - 256}</width>\n\t\t\t\t<height>{ROW_H}</height>')
+        a(f'\t\t\t\t<align>right</align>\n\t\t\t\t<aligny>center</aligny>\n\t\t\t\t<font>cap_20</font>\n\t\t\t\t<textcolor>{col}</textcolor>')
+        a(f'\t\t\t\t<label>$VAR[CustomMenu_Value{n}]</label>\n\t\t\t\t<visible>{vis}</visible>')
+        a('\t\t\t</control>')
+    return lines
+
+
 def row_xml(i, row):
     rid = row["id"]
     top = ROW_TOP + i * ROW_H
@@ -106,18 +145,19 @@ def row_xml(i, row):
     opts = row["opts"]
     lines = []
     a = lines.append
+    w = HALF_W if row["kind"] == "custom" else 1032
     a(f'\t\t<!-- {row["label"]} -->')
     a('\t\t<control type="group">')
     a(f'\t\t\t<left>824</left>\n\t\t\t<top>{top}</top>\n\t\t\t<width>1032</width>\n\t\t\t<height>{ROW_H}</height>')
     a(f'\t\t\t<control type="button" id="{rid}">')
-    a(f'\t\t\t\t<left>0</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>1032</width>\n\t\t\t\t<height>{ROW_H}</height>')
+    a(f'\t\t\t\t<left>0</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>{w}</width>\n\t\t\t\t<height>{ROW_H}</height>')
     a('\t\t\t\t<label></label>')
     a('\t\t\t\t<texturefocus colordiffuse="$VAR[ink]">common/white.png</texturefocus>')
     a('\t\t\t\t<texturenofocus border="0,0,0,4" colordiffuse="$VAR[SectionText]">dialogs/row_rule.png</texturenofocus>')
     a(f'\t\t\t\t<onup>{up}</onup>\n\t\t\t\t<ondown>{down}</ondown>')
     if row["kind"] == "custom":
         a(f'\t\t\t\t<include content="CustomRows_SettingsClick"><param name="row" value="{row["row"]}"/><param name="heading" value="{row["label"]}"/></include>')
-        a('\t\t\t\t<onleft>noop</onleft>\n\t\t\t\t<onright>noop</onright>')
+        a(f'\t\t\t\t<onleft>noop</onleft>\n\t\t\t\t<onright>{MENU_ID[row["row"]]}</onright>')
     n = len(opts)
     for j, opt in enumerate(opts):
         cond = opt[2]
@@ -134,7 +174,7 @@ def row_xml(i, row):
     # label (two colours)
     for vis, col in ((f"!Control.HasFocus({rid})", "$VAR[SectionText]"), (f"Control.HasFocus({rid})", "$VAR[paper]")):
         a('\t\t\t<control type="label">')
-        a(f'\t\t\t\t<left>24</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>480</width>\n\t\t\t\t<height>{ROW_H}</height>')
+        a(f'\t\t\t\t<left>24</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>{200 if row["kind"] == "custom" else 480}</width>\n\t\t\t\t<height>{ROW_H}</height>')
         a(f'\t\t\t\t<aligny>center</aligny>\n\t\t\t\t<font>bold_28</font>\n\t\t\t\t<textcolor>{col}</textcolor>')
         a(f'\t\t\t\t<label>{row["label"]}</label>\n\t\t\t\t<visible>{vis}</visible>')
         a('\t\t\t</control>')
@@ -143,10 +183,11 @@ def row_xml(i, row):
         k = row["row"]
         for vis, col in ((f"!Control.HasFocus({rid})", "$VAR[SectionText2]"), (f"Control.HasFocus({rid})", "$VAR[paper_70]")):
             a('\t\t\t<control type="label">')
-            a(f'\t\t\t\t<left>440</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>568</width>\n\t\t\t\t<height>{ROW_H}</height>')
+            a(f'\t\t\t\t<left>232</left>\n\t\t\t\t<top>0</top>\n\t\t\t\t<width>{HALF_W - 256}</width>\n\t\t\t\t<height>{ROW_H}</height>')
             a(f'\t\t\t\t<align>right</align>\n\t\t\t\t<aligny>center</aligny>\n\t\t\t\t<font>cap_20</font>\n\t\t\t\t<textcolor>{col}</textcolor>')
             a(f'\t\t\t\t<label>$VAR[CustomRow_Value{k}]</label>\n\t\t\t\t<visible>{vis}</visible>')
             a('\t\t\t</control>')
+        lines.extend(menu_cell(row))
         a('\t\t</control>')
         return "\n".join(lines)
     # chips
@@ -295,14 +336,18 @@ def main():
     if start != -1:
         end = s.index("\t<!-- /SKINSETTINGS-GENERATED -->") + len("\t<!-- /SKINSETTINGS-GENERATED -->\n")
         s = s[:start] + s[end:]
+    menu_helps = "\n".join(f'\t\t<value condition="Control.HasFocus({i})">$LOCALIZE[31984]</value>' for i in MENU_ID.values())
+    menu_titles = "\n".join(f'\t\t<value condition="Control.HasFocus({i})">$LOCALIZE[{31980 + n}]</value>' for n, i in MENU_ID.items())
     titles = "\n".join(f'\t\t<value condition="Control.HasFocus({r["id"]})">{r["label"]}</value>' for r in ROWS)
     block = f'''	<!-- SKINSETTINGS-GENERATED -->
 	<variable name="Skin_Help">
 {helps}
+{menu_helps}
 		<value condition="Control.HasFocus({RESET_ID})">Puts every Duotone setting back to its default and reloads the skin. Press OK twice.</value>
 	</variable>
 	<variable name="Skin_HelpTitle">
 {titles}
+{menu_titles}
 		<value>Reset</value>
 	</variable>
 	<variable name="Skin_ResetLabel">

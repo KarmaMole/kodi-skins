@@ -41,6 +41,9 @@
 		<value condition="Control.IsVisible(523)">seasons</value>
 		<value condition="Control.IsVisible(524)">a strip</value>
 		<value condition="Control.IsVisible(530)">instant prints</value>
+		<value condition="Control.IsVisible(525)">$LOCALIZE[31481]</value>
+		<value condition="Control.IsVisible(526)">$LOCALIZE[31482]</value>
+		<value condition="Control.IsVisible(532)">$LOCALIZE[31483]</value>
 		<value>prints</value>
 	</variable>
 

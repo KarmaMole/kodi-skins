@@ -832,7 +832,7 @@
 				<left>64</left>
 				<top>176</top>
 				<width>960</width>
-				<height>380</height>
+				<height>412</height>  <!-- worst case 410 (2-line wide_66 title + 3-line plot); was 380, which cut the plot's 3rd line -->
 				<orientation>vertical</orientation>
 				<usecontrolcoords>true</usecontrolcoords>
 				<visible>!ListItem.IsParentFolder</visible>
@@ -884,14 +884,76 @@
 					<textcolor>text_primary</textcolor>
 					<label>$VAR[VidView_HorizonLine]</label>
 				</control>
-				<control type="textbox">
+				<!-- the plot: 3 lines under a wide_66 title, 2 under the taller wide_50 / wide_38 tiers, so the block always
+				     ends above the dial's left card (y ~600 at x 664); a longer plot ends in "…" just past the column
+				     (Kodi never adds one to multi-line text; probes 5032 / 5033 below) -->
+				<control type="textbox" id="5034">
 					<top>18</top>
-					<width>620</width>
+					<width>600</width>
 					<height max="114">auto</height>
 					<font>text_26</font>
 					<textcolor>text_plot</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
+					<visible>!Integer.IsGreater(Container(9731).NumPages,1)</visible>
 				</control>
+				<control type="group" id="5035">
+					<width>900</width>
+					<height>0</height>
+					<visible>!Integer.IsGreater(Container(9731).NumPages,1)</visible>
+					<control type="label">
+						<left>604</left>
+						<top>-38</top>
+						<width>48</width>
+						<height>38</height>
+						<font>text_26</font>
+						<textcolor>text_plot</textcolor>
+						<label>…</label>
+						<visible>Integer.IsGreater(Container(5032).NumPages,1)</visible>
+					</control>
+				</control>
+				<control type="textbox" id="5036">
+					<top>18</top>
+					<width>600</width>
+					<height max="76">auto</height>
+					<font>text_26</font>
+					<textcolor>text_plot</textcolor>
+					<label>$INFO[ListItem.Plot]</label>
+					<visible>Integer.IsGreater(Container(9731).NumPages,1)</visible>
+				</control>
+				<control type="group" id="5037">
+					<width>900</width>
+					<height>0</height>
+					<visible>Integer.IsGreater(Container(9731).NumPages,1)</visible>
+					<control type="label">
+						<left>604</left>
+						<top>-38</top>
+						<width>48</width>
+						<height>38</height>
+						<font>text_26</font>
+						<textcolor>text_plot</textcolor>
+						<label>…</label>
+						<visible>Integer.IsGreater(Container(5033).NumPages,1)</visible>
+					</control>
+				</control>
+			</control>
+			<!-- plot probes (clear, on screen): 3.5 and 2.5 lines of text_26 (38 px pitch); NumPages > 1 = it runs on -->
+			<control type="textbox" id="5032">
+				<left>64</left>
+				<top>176</top>
+				<width>600</width>
+				<height>133</height>
+				<font>text_26</font>
+				<textcolor>clear</textcolor>
+				<label>$INFO[ListItem.Plot]</label>
+			</control>
+			<control type="textbox" id="5033">
+				<left>64</left>
+				<top>176</top>
+				<width>600</width>
+				<height>95</height>
+				<font>text_26</font>
+				<textcolor>clear</textcolor>
+				<label>$INFO[ListItem.Plot]</label>
 			</control>
 			<control type="group">
 				<visible>ListItem.IsParentFolder + Integer.IsGreater(Container.NumItems,0)</visible>

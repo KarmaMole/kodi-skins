@@ -449,10 +449,100 @@ def datalists():
         "\t</include>"])
 
 
+# 0.9.14 custom menu items (Includes_CustomMenu.xml): up to three words after Music, before Search / Settings.
+# The tail of the cornice (custom words, Search, Settings) is a pair of horizontal grouplists so a word of any width
+# pushes Search / Settings along: TAIL_GLOWS (the glows, drawn where the glows always were) and TAIL_WORDS (the
+# buttons, in 9000). With no custom item both grouplists put Search at 539 and Settings at 710, as before.
+# Every direct child of the words grouplist has an id (Omega's grouplist replaces its children's Left / Right with
+# the neighbouring child's id; an id-less spacer would end the chain). Ends: the grouplist's own onleft / onright.
+# slot, wide button (one or two items), narrow button (all three), gap id
+CUSTOM_WORDS = [(1, 9006, 9026, 9016), (2, 9007, 9027, 9017), (3, 9008, 9028, 9018)]
+TAIL_GROUP = 9010
+TAIL_X = 539           # where Search sat; the first custom word starts here
+CUSTOM_GAP = 46        # the visible gap between two words (pitch - text width, NocturneNav 24, every word)
+# longest custom word (px). Settings ends at 878 and the clock's 12-hour time starts near 1690: two words of 330 or
+# three of 210 (+ gaps) end by 1650. A longer name is cut ("...") and scrolls while focused, as Kodi buttons do.
+CUSTOM_MAX_WIDE, CUSTOM_MAX_NARROW = 330, 210
+ALL3 = "$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]"
+
+
+def custom_on(n):
+    return f"$EXP[CustomMenu{n}On]"
+
+
+def custom_variants(n, wide, narrow):
+    """(id, max width, visible) of slot n's two buttons"""
+    return [(wide, CUSTOM_MAX_WIDE, f"{custom_on(n)} + ![{ALL3}]"), (narrow, CUSTOM_MAX_NARROW, f"{custom_on(n)} + {ALL3}")]
+
+
+def tail_slides(indent):
+    xs = [w[2] for w in WORDS]
+    ids = [w[0] for w in WORDS]
+    return [f'{indent}<animation effect="slide" start="0,0" end="-{xs[j + 1] - xs[j]},0" time="0" condition="{HIDE[pid]}">Conditional</animation>'
+            for j, pid in enumerate(ids[:3])]
+
+
+def tail_glows_xml():
+    """the glows of the custom words, Search and Settings (a grouplist that starts at 0: its clip holds the glows)"""
+    o = ["\t\t<control type=\"grouplist\">",
+         "\t\t\t<left>0</left>\n\t\t\t<top>-78</top>\n\t\t\t<width>1920</width>\n\t\t\t<height>300</height>",
+         "\t\t\t<orientation>horizontal</orientation>\n\t\t\t<itemgap>0</itemgap>",
+         *tail_slides("\t\t\t"),
+         f"\t\t\t<control type=\"image\">\n\t\t\t\t<width>{TAIL_X}</width>\n\t\t\t\t<height>1</height>\n\t\t\t\t<texture />\n\t\t\t</control>"]
+    for n, wide, narrow, gid in CUSTOM_WORDS:
+        for bid, mx, vis in custom_variants(n, wide, narrow):
+            # a 0-wide holder at the word's start; inside it a centred grouplist [clear word, glow] puts the glow's
+            # centre on the word's centre whatever its width (start = -(w + 400) / 2, glow left = w / 2 - 200)
+            o += ["\t\t\t<control type=\"group\">",
+                  "\t\t\t\t<width>0</width>\n\t\t\t\t<height>300</height>",
+                  f"\t\t\t\t<visible>{vis} + Control.HasFocus({bid})</visible>",
+                  "\t\t\t\t<include>Anim_GlowVisible</include>",
+                  "\t\t\t\t<control type=\"grouplist\">",
+                  "\t\t\t\t\t<left>-1000</left>\n\t\t\t\t\t<top>0</top>\n\t\t\t\t\t<width>2000</width>\n\t\t\t\t\t<height>300</height>",
+                  "\t\t\t\t\t<orientation>horizontal</orientation>\n\t\t\t\t\t<align>center</align>\n\t\t\t\t\t<itemgap>0</itemgap>",
+                  "\t\t\t\t\t<control type=\"label\">",
+                  f"\t\t\t\t\t\t<width max=\"{mx}\">auto</width>\n\t\t\t\t\t\t<height>300</height>",
+                  "\t\t\t\t\t\t<font>nav_24</font>\n\t\t\t\t\t\t<textcolor>00000000</textcolor>",
+                  f"\t\t\t\t\t\t<label>$VAR[CustomMenu_Label{n}]</label>",
+                  "\t\t\t\t\t</control>",
+                  "\t\t\t\t\t<control type=\"image\">",
+                  "\t\t\t\t\t\t<width>400</width>\n\t\t\t\t\t\t<height>300</height>",
+                  "\t\t\t\t\t\t<texture>noc/glow_warm.png</texture>",
+                  "\t\t\t\t\t</control>",
+                  "\t\t\t\t</control>",
+                  "\t\t\t</control>",
+                  # the word's advance: a clear copy (same font and limit as the button)
+                  "\t\t\t<control type=\"label\">",
+                  f"\t\t\t\t<width max=\"{mx}\">auto</width>\n\t\t\t\t<height>48</height>",
+                  "\t\t\t\t<font>nav_24</font>\n\t\t\t\t<textcolor>00000000</textcolor>",
+                  f"\t\t\t\t<label>$VAR[CustomMenu_Label{n}]</label>",
+                  f"\t\t\t\t<visible>{vis}</visible>",
+                  "\t\t\t</control>"]
+        o += [f"\t\t\t<control type=\"image\">\n\t\t\t\t<width>{CUSTOM_GAP}</width>\n\t\t\t\t<height>1</height>\n\t\t\t\t<texture />",
+              f"\t\t\t\t<visible>{custom_on(n)}</visible>\n\t\t\t</control>"]
+    xs = [w[2] for w in WORDS]
+    for k, (cid, label, x, w, sec) in enumerate(WORDS[3:], start=3):
+        pitch = (xs[k + 1] - x) if k + 1 < len(WORDS) else w
+        cx = x + (w - 10) // 2
+        o += ["\t\t\t<control type=\"group\">",
+              f"\t\t\t\t<width>{pitch}</width>\n\t\t\t\t<height>300</height>"]
+        if cid in HIDE:
+            o.append(f"\t\t\t\t<visible>!{HIDE[cid]}</visible>")
+        o += ["\t\t\t\t<control type=\"image\">",
+              f"\t\t\t\t\t<left>{cx - 200 - x}</left>\n\t\t\t\t\t<top>0</top>\n\t\t\t\t\t<width>400</width>\n\t\t\t\t\t<height>300</height>",
+              "\t\t\t\t\t<texture>noc/glow_warm.png</texture>",
+              f"\t\t\t\t\t<visible>Control.HasFocus({cid})</visible>",
+              "\t\t\t\t\t<include>Anim_GlowVisible</include>",
+              "\t\t\t\t</control>",
+              "\t\t\t</control>"]
+    o.append("\t\t</control>")
+    return o
+
+
 def words_xml():
     o = ["\t<include name=\"Home_Cornice\">"]
-    # glows (above the shroud, under the words)
-    for cid, label, x, w, sec in WORDS:
+    # glows (above the shroud, under the words); Search / Settings / custom words: tail_glows_xml()
+    for cid, label, x, w, sec in WORDS[:3]:
         cx = x + (w - 10) // 2
         on = f"Control.HasFocus({cid})"
         if sec:
@@ -468,33 +558,48 @@ def words_xml():
               *[l for l in word_hide_xml(cid, "\t\t\t") if "<animation" in l],
               "\t\t\t<include>Anim_GlowVisible</include>",
               "\t\t</control>"]
+    o += tail_glows_xml()
     o += ["\t\t<control type=\"group\" id=\"9000\">"]
     ids = [w[0] for w in WORDS]
+    xs = [w[2] for w in WORDS]
+    first_custom = CUSTOM_WORDS[0][1]
     for i, (cid, label, x, w, sec) in enumerate(WORDS):
+        tail = i >= 3
+        if i == 3:
+            o += custom_words_xml()
         on = f"[!ControlGroup(9000).HasFocus() + String.IsEqual(Window(Home).Property(nocturne.section),{sec})]" if sec else "false"
         if sec == "films":
             on += " | [!ControlGroup(9000).HasFocus() + String.IsEmpty(Window(Home).Property(nocturne.section))]"
-        o += [f"\t\t\t<control type=\"button\" id=\"{cid}\">",
-              f"\t\t\t\t<left>{x}</left>\n\t\t\t\t<top>48</top>\n\t\t\t\t<width>{w}</width>\n\t\t\t\t<height>48</height>",
-              "\t\t\t\t<font>nav_24</font>\n\t\t\t\t<textoffsetx>0</textoffsetx>\n\t\t\t\t<aligny>center</aligny>",
-              "\t\t\t\t<textcolor>5ca49680</textcolor>\n\t\t\t\t<focusedcolor>text_primary</focusedcolor>",
-              "\t\t\t\t<shadowcolor>b3000000</shadowcolor>",
-              "\t\t\t\t<texturefocus />\n\t\t\t\t<texturenofocus />",
-              f"\t\t\t\t<label>{label}</label>",
-              *word_hide_xml(cid, "\t\t\t\t"),
-              f"\t\t\t\t<onleft>{ids[i - 1]}</onleft>\n\t\t\t\t<onright>{ids[(i + 1) % len(ids)]}</onright>"]
-        if sec in ("films", "series"):
-            o += [f"\t\t\t\t<onfocus>SetProperty(nocturne.section,{sec},home)</onfocus>",
-                  "\t\t\t\t<onfocus>SetProperty(nocturne.slot,b3,home)</onfocus>",
-                  f"\t\t\t\t<ondown>{SECTIONS[sec]['first'] + ORDER.index('b3')}</ondown>"]
-        elif sec == "music":
-            o += ["\t\t\t\t<onfocus>SetProperty(nocturne.section,music,home)</onfocus>",
-                  "\t\t\t\t<onfocus>SetProperty(TMDbHelper.WidgetContainer,9260,home)</onfocus>",
-                  "\t\t\t\t<ondown>9260</ondown>"]
+        ind = "\t\t\t\t" if tail else "\t\t\t"
+        if tail:   # inside the words grouplist: the slot is the pitch (left-aligned text, no textures: same pixels)
+            geo = f"{ind}\t<width>{(xs[i + 1] - x) if i + 1 < len(WORDS) else w}</width>\n{ind}\t<height>48</height>"
+            hide = [f"{ind}\t<visible>!{HIDE[cid]}</visible>"] if cid in HIDE else []
+            nav = []   # the grouplist sets Left / Right (neighbour ids; ends = its onleft / onright)
         else:
-            o += [f"\t\t\t\t<ondown condition=\"{sec_on('music')}\">9260</ondown>",
-                  f"\t\t\t\t<ondown condition=\"{sec_on('series')}\">9246</ondown>",
-                  f"\t\t\t\t<ondown condition=\"{sec_on('films')}\">9226</ondown>"]
+            geo = f"{ind}\t<left>{x}</left>\n{ind}\t<top>48</top>\n{ind}\t<width>{w}</width>\n{ind}\t<height>48</height>"
+            hide = word_hide_xml(cid, ind + "\t")
+            right = first_custom if i == 2 else ids[(i + 1) % len(ids)]
+            nav = [f"{ind}\t<onleft>{ids[i - 1]}</onleft>\n{ind}\t<onright>{right}</onright>"]
+        o += [f"{ind}<control type=\"button\" id=\"{cid}\">",
+              geo,
+              f"{ind}\t<font>nav_24</font>\n{ind}\t<textoffsetx>0</textoffsetx>\n{ind}\t<aligny>center</aligny>",
+              f"{ind}\t<textcolor>5ca49680</textcolor>\n{ind}\t<focusedcolor>text_primary</focusedcolor>",
+              f"{ind}\t<shadowcolor>b3000000</shadowcolor>",
+              f"{ind}\t<texturefocus />\n{ind}\t<texturenofocus />",
+              f"{ind}\t<label>{label}</label>",
+              *hide, *nav]
+        if sec in ("films", "series"):
+            o += [f"{ind}\t<onfocus>SetProperty(nocturne.section,{sec},home)</onfocus>",
+                  f"{ind}\t<onfocus>SetProperty(nocturne.slot,b3,home)</onfocus>",
+                  f"{ind}\t<ondown>{SECTIONS[sec]['first'] + ORDER.index('b3')}</ondown>"]
+        elif sec == "music":
+            o += [f"{ind}\t<onfocus>SetProperty(nocturne.section,music,home)</onfocus>",
+                  f"{ind}\t<onfocus>SetProperty(TMDbHelper.WidgetContainer,9260,home)</onfocus>",
+                  f"{ind}\t<ondown>9260</ondown>"]
+        else:
+            o += [f"{ind}\t<ondown condition=\"{sec_on('music')}\">9260</ondown>",
+                  f"{ind}\t<ondown condition=\"{sec_on('series')}\">9246</ondown>",
+                  f"{ind}\t<ondown condition=\"{sec_on('films')}\">9226</ondown>"]
         click = {
             "films": "ActivateWindow(Videos,videodb://movies/titles/,return)",
             "series": "ActivateWindow(Videos,videodb://tvshows/titles/,return)",
@@ -505,8 +610,8 @@ def words_xml():
             click = "ActivateWindow(1150)"
         if cid == 9005:
             click = "ActivateWindow(1151)"
-        o.append(f"\t\t\t\t<onclick>{click}</onclick>")
-        o.append("\t\t\t</control>")
+        o.append(f"{ind}\t<onclick>{click}</onclick>")
+        o.append(f"{ind}</control>")
         # lit copy for the active section word while focus is on the wall
         if sec:
             o += ["\t\t\t<control type=\"label\">",
@@ -517,7 +622,75 @@ def words_xml():
                   f"\t\t\t\t<visible>[{on}] + !{HIDE[cid]}</visible>",
                   *[l for l in word_hide_xml(cid, "\t\t\t\t") if "<animation" in l],
                   "\t\t\t</control>"]
-    o += ["\t\t</control>", "\t</include>"]
+    o += ["\t\t\t</control>", "\t\t</control>", "\t</include>"]
+    return "\n".join(o)
+
+
+def custom_words_xml():
+    """opens the words grouplist (closed in words_xml after Settings) and writes the custom words + their gaps"""
+    o = [f"\t\t\t<control type=\"grouplist\" id=\"{TAIL_GROUP}\">",
+         f"\t\t\t\t<left>{TAIL_X}</left>\n\t\t\t\t<top>48</top>\n\t\t\t\t<width>{1920 - TAIL_X}</width>\n\t\t\t\t<height>48</height>",
+         "\t\t\t\t<orientation>horizontal</orientation>\n\t\t\t\t<itemgap>0</itemgap>",
+         f"\t\t\t\t<onleft>{WORDS[2][0]}</onleft>\n\t\t\t\t<onright>{WORDS[0][0]}</onright>",
+         *tail_slides("\t\t\t\t")]
+    for n, wide, narrow, gid in CUSTOM_WORDS:
+        for bid, mx, vis in custom_variants(n, wide, narrow):
+            o += [f"\t\t\t\t<control type=\"button\" id=\"{bid}\">",
+                  f"\t\t\t\t\t<width max=\"{mx}\">auto</width>\n\t\t\t\t\t<height>48</height>",
+                  "\t\t\t\t\t<font>nav_24</font>\n\t\t\t\t\t<textoffsetx>0</textoffsetx>\n\t\t\t\t\t<aligny>center</aligny>",
+                  "\t\t\t\t\t<textcolor>5ca49680</textcolor>\n\t\t\t\t\t<focusedcolor>text_primary</focusedcolor>",
+                  "\t\t\t\t\t<shadowcolor>b3000000</shadowcolor>",
+                  "\t\t\t\t\t<texturefocus />\n\t\t\t\t\t<texturenofocus />",
+                  f"\t\t\t\t\t<label>$VAR[CustomMenu_Label{n}]</label>",
+                  f"\t\t\t\t\t<visible>{vis}</visible>",
+                  f"\t\t\t\t\t<onfocus>SetProperty(nocturne.section,custom{n},home)</onfocus>",
+                  "\t\t\t\t\t<ondown>noop</ondown>",
+                  f"\t\t\t\t\t<include content=\"CustomMenu_OnClick\"><param name=\"item\" value=\"{n}\"/></include>",
+                  "\t\t\t\t</control>"]
+        o += [f"\t\t\t\t<control type=\"image\" id=\"{gid}\">",
+              f"\t\t\t\t\t<width>{CUSTOM_GAP}</width>\n\t\t\t\t\t<height>48</height>\n\t\t\t\t\t<texture />",
+              f"\t\t\t\t\t<visible>{custom_on(n)}</visible>",
+              "\t\t\t\t</control>"]
+    return o
+
+
+def custom_room_xml():
+    """Home > a custom menu item: no room of its own, so one lit frame (the add-on's icon, else its name on the
+    board) with a brass plaque (name · kind) and the room caption (Opens <add-on> · OK to open)."""
+    o = ["\t<include name=\"Home_CustomMenuRooms\">"]
+    for n, wide, narrow, gid in CUSTOM_WORDS:
+        o += ["\t\t<control type=\"group\">",
+              f"\t\t\t<visible>String.IsEqual(Window(Home).Property(nocturne.section),custom{n}) + {custom_on(n)}</visible>",
+              "\t\t\t<include>Anim_SectionSwap</include>",
+              "\t\t\t<include content=\"Noc_ShroudStatic\">\n\t\t\t\t<param name=\"texture\" value=\"noc/shroud_music.png\"/>\n\t\t\t</include>",
+              "\t\t\t<control type=\"image\">\n\t\t\t\t<left>260</left>\n\t\t\t\t<top>190</top>\n\t\t\t\t<width>1400</width>\n\t\t\t\t<height>840</height>\n\t\t\t\t<texture>noc/cone.png</texture>\n\t\t\t</control>",
+              "\t\t\t<control type=\"image\">\n\t\t\t\t<left>750</left>\n\t\t\t\t<top>-40</top>\n\t\t\t\t<width>420</width>\n\t\t\t\t<height>300</height>\n\t\t\t\t<texture>noc/lamp.png</texture>\n\t\t\t</control>",
+              "\t\t\t<control type=\"label\">",
+              "\t\t\t\t<left>96</left>\n\t\t\t\t<top>190</top>\n\t\t\t\t<width>1000</width>\n\t\t\t\t<height>32</height>",
+              "\t\t\t\t<aligny>center</aligny>\n\t\t\t\t<font>caps_20</font>\n\t\t\t\t<textcolor>6bc8b8a0</textcolor>",
+              f"\t\t\t\t<label>$VAR[CustomMenu_Opens{n}]  ·  $LOCALIZE[31995]</label>",
+              "\t\t\t</control>"]
+        for has_icon in (True, False):
+            art = f"$VAR[CustomMenu_Icon{n}]" if has_icon else ""
+            lab = "" if has_icon else f"$VAR[CustomMenu_Label{n}]"
+            neg = "" if has_icon else "!"
+            o += ["\t\t\t<control type=\"group\">",
+                  "\t\t\t\t<left>810</left>\n\t\t\t\t<top>330</top>\n\t\t\t\t<width>300</width>\n\t\t\t\t<height>300</height>",
+                  f"\t\t\t\t<visible>{neg}$EXP[CustomMenu{n}HasIcon]</visible>",
+                  "\t\t\t\t<include content=\"Noc_FrameParts\">",
+                  f"\t\t\t\t\t<param name=\"art\" value=\"{art}\"/>",
+                  "\t\t\t\t\t<param name=\"lit\" value=\"true\"/>",
+                  "\t\t\t\t\t<param name=\"aspect\" value=\"keep\"/>",
+                  f"\t\t\t\t\t<param name=\"label\" value=\"{lab}\"/>",
+                  "\t\t\t\t</include>",
+                  "\t\t\t</control>"]
+        o += ["\t\t\t<include content=\"Noc_Plaque\">",
+              "\t\t\t\t<param name=\"left\" value=\"360\"/>\n\t\t\t\t<param name=\"top\" value=\"666\"/>",
+              f"\t\t\t\t<param name=\"title\" value=\"$VAR[CustomMenu_Label{n}]\"/>",
+              f"\t\t\t\t<param name=\"meta\" value=\"$VAR[CustomMenu_Kind{n}]\"/>",
+              "\t\t\t</include>",
+              "\t\t</control>"]
+    o.append("\t</include>")
     return "\n".join(o)
 
 
@@ -525,7 +698,7 @@ def main():
     parts = ['<?xml version="1.0" encoding="UTF-8"?>',
              "<!-- GENERATED by _src/make_home.py - edit the tables there, then re-run. Home = the Grand Gallery. -->",
              "<includes>",
-             art_vars(), datalists(), wander_list(), words_xml(),
+             art_vars(), datalists(), wander_list(), words_xml(), custom_room_xml(),
              wall_xml("films"), wall_xml("series"),
              labels_xml("films"), labels_xml("series"),
              '\t<include name="Home_TorchNormal">\n' + "\n".join(torch_xml(GLIDE, WANDER).split("\n")[1:]),

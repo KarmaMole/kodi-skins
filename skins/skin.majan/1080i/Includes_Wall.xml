@@ -753,11 +753,11 @@
 					<left>28</left>
 					<top>142</top>
 					<width>632</width>
-					<height>64</height>
+					<height>66</height>
 					<font>body_23</font>
 					<textcolor>text_body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
+					<include>Majan_PlotScroll</include>
 				</control>
 			</control>
 
@@ -831,11 +831,11 @@
 					<left>28</left>
 					<top>142</top>
 					<width>584</width>
-					<height>64</height>
+					<height>66</height>
 					<font>body_23</font>
 					<textcolor>text_body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
+					<include>Majan_PlotScroll</include>
 				</control>
 			</control>
 
@@ -905,11 +905,11 @@
 					<left>36</left>
 					<top>166</top>
 					<width>638</width>
-					<height>97</height>
+					<height>99</height>
 					<font>body_23</font>
 					<textcolor>text_body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
+					<include>Majan_PlotScroll</include>
 				</control>
 				<control type="label">
 					<left>36</left>
@@ -988,11 +988,11 @@
 					<left>36</left>
 					<top>166</top>
 					<width>648</width>
-					<height>97</height>
+					<height>99</height>
 					<font>body_23</font>
 					<textcolor>text_body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
+					<include>Majan_PlotScroll</include>
 				</control>
 				<control type="label">
 					<left>36</left>
@@ -1068,11 +1068,11 @@
 					<left>32</left>
 					<top>176</top>
 					<width>560</width>
-					<height>130</height>
+					<height>131</height>
 					<font>body_23</font>
 					<textcolor>text_body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
+					<include>Majan_PlotScroll</include>
 				</control>
 				<control type="label">
 					<left>32</left>
@@ -1176,11 +1176,11 @@
 					<left>32</left>
 					<top>176</top>
 					<width>576</width>
-					<height>130</height>
+					<height>131</height>
 					<font>body_23</font>
 					<textcolor>text_body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
+					<include>Majan_PlotScroll</include>
 				</control>
 				<control type="label">
 					<left>32</left>

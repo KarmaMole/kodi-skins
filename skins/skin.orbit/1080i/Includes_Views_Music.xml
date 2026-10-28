@@ -311,7 +311,7 @@
 				<left>64</left>
 				<top>176</top>
 				<width>900</width>
-				<height>300</height>
+				<height>362</height>  <!-- worst case 360 (3-line wide_38 / 2-line wide_50 title + 2-line text); was 300, which cut the text to one line -->
 				<orientation>vertical</orientation>
 				<usecontrolcoords>true</usecontrolcoords>
 				<visible>!ListItem.IsParentFolder</visible>
@@ -347,7 +347,7 @@
 						<label>$VAR[MusicView_MetaRest]</label>
 					</control>
 				</control>
-				<control type="textbox">
+				<control type="textbox" id="5074">
 					<top>22</top>
 					<width>620</width>
 					<height max="76">auto</height>
@@ -355,6 +355,31 @@
 					<textcolor>text_plot</textcolor>
 					<label>$VAR[MusicView_Description]</label>
 				</control>
+				<!-- "…" just past the column when the text runs on (Kodi never adds one to multi-line text; probe 5072) -->
+				<control type="group" id="5075">
+					<width>900</width>
+					<height>0</height>
+					<control type="label">
+						<left>624</left>
+						<top>-38</top>
+						<width>48</width>
+						<height>38</height>
+						<font>text_26</font>
+						<textcolor>text_plot</textcolor>
+						<label>…</label>
+						<visible>Integer.IsGreater(Container(5072).NumPages,1)</visible>
+					</control>
+				</control>
+			</control>
+			<!-- text probe (clear, on screen): 2.5 lines of text_26 (38 px pitch); NumPages > 1 = it runs on -->
+			<control type="textbox" id="5072">
+				<left>64</left>
+				<top>176</top>
+				<width>620</width>
+				<height>95</height>
+				<font>text_26</font>
+				<textcolor>clear</textcolor>
+				<label>$VAR[MusicView_Description]</label>
 			</control>
 			<control type="group">
 				<visible>ListItem.IsParentFolder + Integer.IsGreater(Container.NumItems,0)</visible>

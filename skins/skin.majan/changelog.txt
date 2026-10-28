@@ -1,3 +1,8 @@
+1.0.17 (2026-10-28)
+- Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
+- Skin settings > Custom menu items: Menu item 1, 2 and 3. OK offers the same choices as the custom rows (Add-on, playlist or library..., A favourite..., Rename..., Clear). The items sit after Music in the top bar, numbered on from it; OK opens the add-on, folder or favourite and Back comes home to the item. An item hides while its add-on is uninstalled or disabled. Nothing changes until an item is set up.
+- Plots: no more half-cut lines. The Home spotlight plot stops at whole lines with a ... when it runs on (it no longer scrolls); the plots on the info page, in the library views, the Poster wall cards and the TV guide step up one whole line every few seconds instead of crawling, and their boxes are exactly whole lines tall.
+
 1.0.16 (2026-10-25)
 - Focus: with Focus outline Off and Reduce motion On, the music grid, Big album view, Home poster rows and Search keep a thin frame on the focused item (as the video views already did).
 - Search: a query with a double quote (e.g. "Superman") now finds its matches; before, the quote broke the search and nothing came up.

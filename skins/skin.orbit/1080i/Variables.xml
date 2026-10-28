@@ -154,6 +154,9 @@
 		<value condition="Control.HasFocus(9615)">$LOCALIZE[31941]</value>
 		<value condition="Control.HasFocus(9616)">$LOCALIZE[31942]</value>
 		<value condition="Control.HasFocus(9617)">$LOCALIZE[31943]</value>
+		<value condition="Control.HasFocus(9618)">$LOCALIZE[31981]</value>
+		<value condition="Control.HasFocus(9619)">$LOCALIZE[31982]</value>
+		<value condition="Control.HasFocus(9620)">$LOCALIZE[31983]</value>
 	</variable>
 	<variable name="Set_FocusValue">
 		<value condition="Control.HasFocus(9601)">$VAR[LabelLibView]</value>
@@ -171,6 +174,9 @@
 		<value condition="Control.HasFocus(9615)">$VAR[CustomRow_Value1]</value>
 		<value condition="Control.HasFocus(9616)">$VAR[CustomRow_Value2]</value>
 		<value condition="Control.HasFocus(9617)">$VAR[CustomRow_Value3]</value>
+		<value condition="Control.HasFocus(9618)">$VAR[CustomMenu_Value1]</value>
+		<value condition="Control.HasFocus(9619)">$VAR[CustomMenu_Value2]</value>
+		<value condition="Control.HasFocus(9620)">$VAR[CustomMenu_Value3]</value>
 	</variable>
 	<variable name="Set_FocusHelp">
 		<value condition="Control.HasFocus(9601)">Films, shows and albums open on the arc (choose on a dial) or on the grid (scan a big library fast). VIEW in the options row switches any time.</value>
@@ -188,6 +194,9 @@
 		<value condition="Control.HasFocus(9615)">$LOCALIZE[31957]</value>
 		<value condition="Control.HasFocus(9616)">$LOCALIZE[31957]</value>
 		<value condition="Control.HasFocus(9617)">$LOCALIZE[31957]</value>
+		<value condition="Control.HasFocus(9618)">$LOCALIZE[31994]</value>
+		<value condition="Control.HasFocus(9619)">$LOCALIZE[31994]</value>
+		<value condition="Control.HasFocus(9620)">$LOCALIZE[31994]</value>
 	</variable>
 	<variable name="Set_Knob">
 		<value condition="Control.HasFocus(9601) + String.IsEqual(Skin.String(orbit.libview),grid)">rings/knob/2_1.png</value>
@@ -224,6 +233,12 @@
 		<value condition="Control.HasFocus(9616)">rings/knob/2_0.png</value>
 		<value condition="Control.HasFocus(9617) + !String.IsEmpty(Skin.String(CustomRow.3.Path))">rings/knob/2_1.png</value>
 		<value condition="Control.HasFocus(9617)">rings/knob/2_0.png</value>
+		<value condition="Control.HasFocus(9618) + !String.IsEmpty(Skin.String(CustomMenu.1.Path))">rings/knob/2_1.png</value>
+		<value condition="Control.HasFocus(9618)">rings/knob/2_0.png</value>
+		<value condition="Control.HasFocus(9619) + !String.IsEmpty(Skin.String(CustomMenu.2.Path))">rings/knob/2_1.png</value>
+		<value condition="Control.HasFocus(9619)">rings/knob/2_0.png</value>
+		<value condition="Control.HasFocus(9620) + !String.IsEmpty(Skin.String(CustomMenu.3.Path))">rings/knob/2_1.png</value>
+		<value condition="Control.HasFocus(9620)">rings/knob/2_0.png</value>
 	</variable>
 
 	<variable name="LabelWatchedMarkers"><value condition="Skin.HasSetting(orbit.nowatchedbadges)">Off</value><value>On</value></variable>

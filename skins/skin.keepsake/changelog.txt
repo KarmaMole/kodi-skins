@@ -1,3 +1,11 @@
+0.9.14 (2026-10-28)
+- Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
+- Skin settings: a "menu items" line above the custom rows (item 1, 2 and 3), with the same choices (Add-on, playlist or library..., A favourite..., Rename..., Clear). Each item is a pen word after music, before search and settings, in the same hand; OK opens the add-on, folder or favourite and Back comes home to the word. An item hides while its add-on is uninstalled or disabled. Nothing changes until an item is set up.
+
+0.9.13 (2026-10-28)
+- "a page", "postcards" and "album pages": the pen word under the title now names the view on show (it said "view: prints").
+- "a page" and an artist's story in "album pages": a story longer than the page ends with "…" until it starts to scroll.
+
 0.9.12 (2026-10-27)
 - More views. "a page": one spread per film, series or episode, the big print with the poster tucked under it on the left page, the title, the story and a handwritten line on the right, the rest of the shelf in a strip of prints below. "postcards": wide prints four across the album for films, series, episodes, sets, add-ons and everything else (posters and icons printed whole, never cropped). Music, "album pages": the cover as a big print with the tracks written out beside it; an artist gets their photo (or fanart) and their story. The view each library opens in is unchanged.
 

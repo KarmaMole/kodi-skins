@@ -13,6 +13,9 @@
 	           611-614 / 615-618 link phrases; rows 640, 650, 660, 670, 680
 	  Data     311.. spinner lists, 399 rest timer (Includes_Sentence.xml)
 	  Page 3   0.9.11 custom rows 9881-9883 (Includes_CustomRows.xml): Down from page 2's last line
+	  0.9.18   custom menu items (Includes_CustomMenu.xml): page 2 line 665 "Or go straight to [1], [2] or [3]." between
+	           the browse line and the last line, phrases 621-623 (only the set slots; the punctuation follows them).
+	           While it shows, the browse line moves up 30, the last line down 60 and the hint down 34.
 
 	Navigation (Omar's d-pad)
 	  Phrases: Left/Right move between phrases, Up/Down change the phrase, OK = go to the results,
@@ -803,6 +806,80 @@
 			</control>
 		</definition>
 	</include>
+	<!-- 0.9.18 a custom menu item as a page-2 phrase (params id, n): opens the item (CustomMenu_OnClick); Home comes back to it -->
+	<include name="Home_CustomPhrase">
+		<param name="push">false</param>
+		<definition>
+			<control type="button" id="$PARAM[id]">
+				<animation effect="slide" start="0,0" end="20,0" time="120" tween="cubic" easing="out" condition="[$PARAM[push]] + !$EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<animation effect="slide" start="0,0" end="20,0" time="0" condition="[$PARAM[push]] + $EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<left>8</left>
+				<top>0</top>
+				<width max="400">auto</width>
+				<height>72</height>
+				<font>serif_44</font>
+				<label>$VAR[CustomMenu_Label$PARAM[n]]</label>
+				<include>Sen_PhraseTextures</include>
+				<onfocus>SetProperty(sentence.page,2,home)</onfocus>
+				<onfocus>SetProperty(sentence.p2,1,home)</onfocus>
+				<onclick>SetProperty(sentence.back,$PARAM[id],home)</onclick>
+				<include content="CustomMenu_OnClick"><param name="item" value="$PARAM[n]"/></include>
+				<onup>SetFocus($VAR[Home_AboveCustom])</onup>
+				<ondown>SetFocus($VAR[Home_FirstLast])</ondown>
+				<onback>SetFocus(201)</onback>
+				<visible>$EXP[CustomMenu$PARAM[n]On]</visible>
+			</control>
+		</definition>
+	</include>
+	<!-- 0.9.18 the "or" / marks of the custom line (params as Home_MidWords / Home_MidMark, plus push). The lilac block of a
+	     focused phrase fills its 24 px right padding, so the "or" after it would touch the block: while the phrase before
+	     an "or" has focus, that "or" and the words after it ease 20 px right (Shield check 2026-10-28). -->
+	<include name="Home_CustomWords">
+		<param name="push">false</param>
+		<definition>
+			<control type="label" id="$PARAM[wid]">
+				<left>$PARAM[left]</left>
+				<top>0</top>
+				<width>auto</width>
+				<height>72</height>
+				<font>serif_44</font>
+				<textcolor>text</textcolor>
+				<label>$PARAM[label]</label>
+				<animation effect="slide" start="0,0" end="20,0" time="120" tween="cubic" easing="out" condition="[$PARAM[push]] + !$EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<animation effect="slide" start="0,0" end="20,0" time="0" condition="[$PARAM[push]] + $EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<visible>$PARAM[visible]</visible>
+			</control>
+		</definition>
+	</include>
+	<include name="Home_CustomMark">
+		<param name="push">false</param>
+		<definition>
+			<control type="label" id="$PARAM[wid]">
+				<left>-20</left>
+				<top>0</top>
+				<width>auto</width>
+				<height>72</height>
+				<font>serif_44</font>
+				<textcolor>text</textcolor>
+				<label>$PARAM[mark]</label>
+				<animation effect="slide" start="0,0" end="20,0" time="120" tween="cubic" easing="out" condition="[$PARAM[push]] + !$EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<animation effect="slide" start="0,0" end="20,0" time="0" condition="[$PARAM[push]] + $EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<visible>!Control.HasFocus($PARAM[id]) + [$PARAM[visible]]</visible>
+			</control>
+			<control type="label" id="$PARAM[wid]9">
+				<left>-20</left>
+				<top>0</top>
+				<width>auto</width>
+				<height>72</height>
+				<font>serif_44</font>
+				<textcolor>text</textcolor>
+				<label>[COLOR on_lilac]$PARAM[mark][/COLOR]</label>
+				<animation effect="slide" start="0,0" end="20,0" time="120" tween="cubic" easing="out" condition="[$PARAM[push]] + !$EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<animation effect="slide" start="0,0" end="20,0" time="0" condition="[$PARAM[push]] + $EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<visible>Control.HasFocus($PARAM[id]) + [$PARAM[visible]]</visible>
+			</control>
+		</definition>
+	</include>
 	<include name="Home_MidWords">
 		<param name="wid">0</param>
 		<param name="left">0</param>
@@ -1268,17 +1345,18 @@
 			<control type="grouplist" id="660">
 				<animation effect="slide" start="0,0" end="0,-400" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="0,-210" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,-30" time="0" condition="$EXP[CustomMenuAnyOn]">Conditional</animation>
 				<include content="Home_MidRow">
 					<param name="top" value="770"/>
 					<param name="onleft" value="SetFocus($VAR[Home_AboveLinks])"/>
-					<param name="onright" value="SetFocus($VAR[Home_FirstLast])"/>
+					<param name="onright" value="SetFocus($VAR[Home_BelowBrowse])"/>
 					<param name="visible" value="$EXP[Home_AnyBrowse]"/>
 				</include>
 				<include content="Home_MidWords"><param name="wid" value="21110"/><param name="label" value="Or browse"/></include>
 				<include content="Home_MidPhrase">
 					<param name="id" value="611"/><param name="label" value="all films"/>
 					<param name="onclick" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
-					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_FirstLast])"/>
+					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_BelowBrowse])"/>
 					<param name="visible" value="!Skin.HasSetting(HideMenu.Movies)"/>
 				</include>
 				<include content="Home_MidMark"><param name="wid" value="22001"/><param name="id" value="611"/><param name="mark" value=","/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/></include>
@@ -1287,7 +1365,7 @@
 				<include content="Home_MidPhrase">
 					<param name="id" value="612"/><param name="label" value="all shows"/>
 					<param name="onclick" value="ActivateWindow(Videos,videodb://tvshows/titles/,return)"/>
-					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_FirstLast])"/>
+					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_BelowBrowse])"/>
 					<param name="visible" value="!Skin.HasSetting(HideMenu.TVShows)"/>
 				</include>
 				<include content="Home_MidMark"><param name="wid" value="22011"/><param name="id" value="612"/><param name="mark" value=","/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/></include>
@@ -1296,7 +1374,7 @@
 				<include content="Home_MidPhrase">
 					<param name="id" value="613"/><param name="label" value="your music"/>
 					<param name="onclick" value="ActivateWindow(Music,musicdb://albums/,return)"/>
-					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_FirstLast])"/>
+					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_BelowBrowse])"/>
 					<param name="visible" value="!Skin.HasSetting(HideMenu.Music)"/>
 				</include>
 				<include content="Home_MidWords"><param name="wid" value="22022"/><param name="label" value="or"/><param name="left" value="-6"/><param name="visible" value="[!Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/></include>
@@ -1304,10 +1382,33 @@
 				<include content="Home_MidPhrase">
 					<param name="id" value="614"/><param name="label" value="your pictures"/>
 					<param name="onclick" value="ActivateWindow(Pictures)"/>
-					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_FirstLast])"/>
+					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_BelowBrowse])"/>
 					<param name="visible" value="!Skin.HasSetting(HideMenu.Pictures)"/>
 				</include>
 				<include content="Home_MidMark"><param name="wid" value="22033"/><param name="id" value="614"/><param name="mark" value="."/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.Pictures)]"/></include>
+			</control>
+			<!-- 0.9.18 custom menu items: Or go straight to [CM Test Videos], [Weather] or [Films A-Z].
+			     Only the set slots show; the comma / "or" / full stop after each follow the slots after it. -->
+			<control type="grouplist" id="665">
+				<animation effect="slide" start="0,0" end="0,-400" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,-210" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,-90" time="0" condition="!$EXP[Home_AnyBrowse]">Conditional</animation>
+				<include content="Home_MidRow">
+					<param name="top" value="830"/>
+					<param name="onleft" value="SetFocus($VAR[Home_LastBrowse])"/>
+					<param name="onright" value="SetFocus($VAR[Home_FirstLast])"/>
+					<param name="visible" value="$EXP[CustomMenuAnyOn]"/>
+				</include>
+				<include content="Home_MidWords"><param name="wid" value="21300"/><param name="label" value="$LOCALIZE[31977]"/></include>
+				<include content="Home_CustomPhrase"><param name="id" value="621"/><param name="n" value="1"/></include>
+				<include content="Home_MidMark"><param name="wid" value="21311"/><param name="id" value="621"/><param name="mark" value=","/><param name="rest" value=""/><param name="visible" value="$EXP[CustomMenu1On] + [$EXP[CustomMenu2On] + $EXP[CustomMenu3On]]"/></include>
+				<include content="Home_CustomWords"><param name="wid" value="21312"/><param name="label" value="or"/><param name="left" value="-6"/><param name="push" value="Control.HasFocus(621) + ![$EXP[CustomMenu2On] + $EXP[CustomMenu3On]]"/><param name="visible" value="$EXP[CustomMenu1On] + [[$EXP[CustomMenu2On] + !$EXP[CustomMenu3On]] | [!$EXP[CustomMenu2On] + $EXP[CustomMenu3On]]]"/></include>
+				<include content="Home_MidMark"><param name="wid" value="21313"/><param name="id" value="621"/><param name="mark" value="."/><param name="rest" value=""/><param name="visible" value="$EXP[CustomMenu1On] + [!$EXP[CustomMenu2On] + !$EXP[CustomMenu3On]]"/></include>
+				<include content="Home_CustomPhrase"><param name="id" value="622"/><param name="n" value="2"/><param name="push" value="Control.HasFocus(621) + ![$EXP[CustomMenu2On] + $EXP[CustomMenu3On]]"/></include>
+				<include content="Home_CustomWords"><param name="wid" value="21314"/><param name="label" value="or"/><param name="left" value="-6"/><param name="push" value="[Control.HasFocus(621) + ![$EXP[CustomMenu2On] + $EXP[CustomMenu3On]]] | [Control.HasFocus(622) + $EXP[CustomMenu3On]]"/><param name="visible" value="$EXP[CustomMenu2On] + [$EXP[CustomMenu3On]]"/></include>
+				<include content="Home_CustomMark"><param name="wid" value="21315"/><param name="id" value="622"/><param name="mark" value="."/><param name="push" value="Control.HasFocus(621) + ![$EXP[CustomMenu2On] + $EXP[CustomMenu3On]]"/><param name="visible" value="$EXP[CustomMenu2On] + [!$EXP[CustomMenu3On]]"/></include>
+				<include content="Home_CustomPhrase"><param name="id" value="623"/><param name="n" value="3"/><param name="push" value="[Control.HasFocus(621) + ![$EXP[CustomMenu2On] + $EXP[CustomMenu3On]]] | [Control.HasFocus(622) + $EXP[CustomMenu3On]]"/></include>
+				<include content="Home_CustomMark"><param name="wid" value="21316"/><param name="id" value="623"/><param name="mark" value="."/><param name="push" value="[Control.HasFocus(621) + ![$EXP[CustomMenu2On] + $EXP[CustomMenu3On]]] | [Control.HasFocus(622) + $EXP[CustomMenu3On]]"/><param name="visible" value="$EXP[CustomMenu3On]"/></include>
 			</control>
 			<!-- Or [find something], open [add-ons], change [settings] or [switch off].
 			     ("You could also ..." was 1720 px: the full stop fell off the 1700 px row) -->
@@ -1315,9 +1416,10 @@
 				<animation effect="slide" start="0,0" end="0,-400" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="0,-210" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="0,-90" time="0" condition="!$EXP[Home_AnyBrowse]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,60" time="0" condition="$EXP[CustomMenuAnyOn]">Conditional</animation>
 				<include content="Home_MidRow">
 					<param name="top" value="860"/>
-					<param name="onleft" value="SetFocus($VAR[Home_LastBrowse])"/>
+					<param name="onleft" value="SetFocus($VAR[Home_LeftOfLast])"/>
 					<param name="onright" value="noop"/>
 				</include>
 				<include content="Home_MidWords"><param name="wid" value="21160"/><param name="label" value="Or"/></include>
@@ -1357,6 +1459,7 @@
 				<top>976</top>
 				<width>page_width</width>
 				<height>32</height>
+				<animation effect="slide" start="0,0" end="0,34" time="0" condition="$EXP[CustomMenuAnyOn]">Conditional</animation>
 				<font>ui_20</font>
 				<textcolor>muted</textcolor>
 				<label>$VAR[Home_P2Hint]</label>
@@ -1401,7 +1504,30 @@
 		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">612</value>
 		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">613</value>
 		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)">614</value>
+		<value>$VAR[Home_BelowBrowse]</value>
+	</variable>
+	<!-- 0.9.18 custom menu items: first / last shown phrase of the custom line, and the moves around it -->
+	<variable name="Home_FirstCustom">
+		<value condition="$EXP[CustomMenu1On]">621</value>
+		<value condition="$EXP[CustomMenu2On]">622</value>
+		<value condition="$EXP[CustomMenu3On]">623</value>
+	</variable>
+	<variable name="Home_LastCustom">
+		<value condition="$EXP[CustomMenu3On]">623</value>
+		<value condition="$EXP[CustomMenu2On]">622</value>
+		<value condition="$EXP[CustomMenu1On]">621</value>
+	</variable>
+	<variable name="Home_BelowBrowse">
+		<value condition="$EXP[CustomMenuAnyOn]">$VAR[Home_FirstCustom]</value>
 		<value>$VAR[Home_FirstLast]</value>
+	</variable>
+	<variable name="Home_LeftOfLast">
+		<value condition="$EXP[CustomMenuAnyOn]">$VAR[Home_LastCustom]</value>
+		<value>$VAR[Home_LastBrowse]</value>
+	</variable>
+	<variable name="Home_AboveCustom">
+		<value condition="$EXP[Home_AnyBrowse]">$VAR[Home_FirstLink]</value>
+		<value>$VAR[Home_AboveLinks]</value>
 	</variable>
 	<variable name="Home_LastBrowse">
 		<value condition="!Skin.HasSetting(HideMenu.Pictures)">614</value>
@@ -1416,8 +1542,8 @@
 		<value>617</value>
 	</variable>
 	<variable name="Home_LastAbove">
-		<value condition="$EXP[Home_AnyBrowse]">$VAR[Home_FirstLink]</value>
-		<value>$VAR[Home_AboveLinks]</value>
+		<value condition="$EXP[CustomMenuAnyOn]">$VAR[Home_FirstCustom]</value>
+		<value>$VAR[Home_AboveCustom]</value>
 	</variable>
 	<variable name="Home_AboveFilm">
 		<value condition="$EXP[Home_HasNextUp]">604</value>

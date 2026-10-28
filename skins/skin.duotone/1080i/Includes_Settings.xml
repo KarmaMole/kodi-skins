@@ -466,6 +466,9 @@
 		<value condition="Control.HasFocus(9514)">$LOCALIZE[31950]</value>
 		<value condition="Control.HasFocus(9515)">$LOCALIZE[31950]</value>
 		<value condition="Control.HasFocus(9516)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9518)">$LOCALIZE[31984]</value>
+		<value condition="Control.HasFocus(9519)">$LOCALIZE[31984]</value>
+		<value condition="Control.HasFocus(9520)">$LOCALIZE[31984]</value>
 		<value condition="Control.HasFocus(9517)">Puts every Duotone setting back to its default and reloads the skin. Press OK twice.</value>
 	</variable>
 	<variable name="Skin_HelpTitle">
@@ -485,6 +488,9 @@
 		<value condition="Control.HasFocus(9514)">$LOCALIZE[31941]</value>
 		<value condition="Control.HasFocus(9515)">$LOCALIZE[31942]</value>
 		<value condition="Control.HasFocus(9516)">$LOCALIZE[31943]</value>
+		<value condition="Control.HasFocus(9518)">$LOCALIZE[31981]</value>
+		<value condition="Control.HasFocus(9519)">$LOCALIZE[31982]</value>
+		<value condition="Control.HasFocus(9520)">$LOCALIZE[31983]</value>
 		<value>Reset</value>
 	</variable>
 	<variable name="Skin_ResetLabel">

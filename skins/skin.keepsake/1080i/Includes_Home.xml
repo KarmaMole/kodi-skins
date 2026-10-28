@@ -11,6 +11,9 @@
 	  9140 films in progress (2)        9151 / 9152 this year / waiting since (stat words)
 	  9000 nav grouplist: 9001 films, 9002 series, 9003 music, 9004 search, 9005 settings, 9006 playing
 	       (0.9.8: 9001-9004 and their dots hide with HideMenu.*; the centred grouplist closes up)
+	       0.9.14 custom menu items (Includes_CustomMenu.xml): words 9007-9009 + dots 9017-9019 after music's dot,
+	       before search; hidden while not set. Every child of 9000 has an id (Omega's grouplist gives each child
+	       its neighbours' ids for Left / Right; an id-less child would end the chain).
 	  data: 9101-9104 memory windows, 9161/9162 counts this year, 9163 never played, 9164 oldest never played,
 	        9171-9173 Skin Variables details (time of day), 9181/9182 title probes
 	Focus: the memory print on open (or the nav word you left from). Back from anything -> the nav words.
@@ -31,6 +34,9 @@
 		<value condition="!Skin.HasSetting(HideMenu.Movies)">SetFocus(9001)</value>
 		<value condition="!Skin.HasSetting(HideMenu.TVShows)">SetFocus(9002)</value>
 		<value condition="!Skin.HasSetting(HideMenu.Music)">SetFocus(9003)</value>
+		<value condition="$EXP[CustomMenu1On]">SetFocus(9007)</value>
+		<value condition="$EXP[CustomMenu2On]">SetFocus(9008)</value>
+		<value condition="$EXP[CustomMenu3On]">SetFocus(9009)</value>
 		<value condition="!Skin.HasSetting(HideMenu.Search)">SetFocus(9004)</value>
 		<value>SetFocus(9005)</value>
 	</variable>
@@ -255,8 +261,11 @@
 			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">9007</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">9008</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + $EXP[CustomMenu3On]">9009</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<itemlayout width="600" height="400">
 				<include content="Home_PrintSlot">
 					<param name="kind" value="Memory"/><param name="w" value="460"/><param name="h" value="271"/>
@@ -414,8 +423,11 @@
 			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">9007</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">9008</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + $EXP[CustomMenu3On]">9009</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<itemlayout width="880" height="330">
 				<include>Home_StoppedItem</include>
 			</itemlayout>
@@ -462,8 +474,11 @@
 			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">9007</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">9008</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + $EXP[CustomMenu3On]">9009</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<onclick condition="!Skin.HasSetting(HideMenu.Movies)">SetProperty(keepsake.navfrom,9151,home)</onclick>
 			<onclick condition="!Skin.HasSetting(HideMenu.Movies)">ActivateWindow(1161)</onclick>
 		</control>
@@ -485,8 +500,11 @@
 			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">9007</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">9008</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + $EXP[CustomMenu3On]">9009</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<onclick>SetProperty(keepsake.navfrom,9152,home)</onclick>
 			<onclick>ActivateWindow(1160)</onclick>
 		</control>
@@ -713,8 +731,11 @@
 			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">9007</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">9008</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + $EXP[CustomMenu3On]">9009</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<itemlayout width="900" height="420">
 				<include>Home_EpisodeItem</include>
 			</itemlayout>
@@ -741,8 +762,11 @@
 			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">9007</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">9008</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + $EXP[CustomMenu3On]">9009</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<visible>!$EXP[Home_HasEpisode] + !Skin.HasSetting(HideMenu.TVShows)</visible>
 			<itemlayout width="900" height="420">
 				<include>Home_ShowItem</include>
@@ -774,8 +798,11 @@
 			<onback condition="!Skin.HasSetting(HideMenu.Movies)">9001</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">9002</onback>
 			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">9003</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Search)">9004</onback>
-			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Search)">9005</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">9007</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">9008</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + $EXP[CustomMenu3On]">9009</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + !Skin.HasSetting(HideMenu.Search)">9004</onback>
+			<onback condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On] + !$EXP[CustomMenu3On] + Skin.HasSetting(HideMenu.Search)">9005</onback>
 			<itemlayout width="404" height="440">
 				<include>Home_FilmItem</include>
 			</itemlayout>
@@ -1047,6 +1074,25 @@
 			</control>
 		</definition>
 	</include>
+	<!-- 0.9.14 a custom menu item's pen word (params id, item): the Home_NavWord look, lower case like every word,
+	     cut at 300 px. OK opens the item (CustomMenu_OnClick); Home comes back to the word (keepsake.navfrom). -->
+	<include name="Home_NavCustom">
+		<definition>
+			<control type="button" id="$PARAM[id]">
+				<width max="300">auto</width>
+				<height>74</height>
+				<textoffsetx>4</textoffsetx>
+				<font>hand_46</font>
+				<include>KS_PenWordLook</include>
+				<label>[LOWERCASE]$VAR[CustomMenu_Label$PARAM[item]][/LOWERCASE]</label>
+				<onup>$VAR[Home_NavUpRight]</onup>
+				<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
+				<onclick>SetProperty(keepsake.navfrom,$PARAM[id],home)</onclick>
+				<include content="CustomMenu_OnClick"><param name="item" value="$PARAM[item]"/></include>
+				<visible>$EXP[CustomMenu$PARAM[item]On]</visible>
+			</control>
+		</definition>
+	</include>
 	<include name="Home_NavDot">
 		<param name="visible">true</param>
 		<definition>
@@ -1099,6 +1145,13 @@
 				<param name="onclick" value="ActivateWindow(Music,musicdb://albums/,return)"/>
 			</include>
 			<include content="Home_NavDot"><param name="id" value="9013"/><param name="visible" value="!Skin.HasSetting(HideMenu.Music)"/></include>
+			<!-- 0.9.14 custom menu items -->
+			<include content="Home_NavCustom"><param name="id" value="9007"/><param name="item" value="1"/></include>
+			<include content="Home_NavDot"><param name="id" value="9017"/><param name="visible" value="$EXP[CustomMenu1On]"/></include>
+			<include content="Home_NavCustom"><param name="id" value="9008"/><param name="item" value="2"/></include>
+			<include content="Home_NavDot"><param name="id" value="9018"/><param name="visible" value="$EXP[CustomMenu2On]"/></include>
+			<include content="Home_NavCustom"><param name="id" value="9009"/><param name="item" value="3"/></include>
+			<include content="Home_NavDot"><param name="id" value="9019"/><param name="visible" value="$EXP[CustomMenu3On]"/></include>
 			<include content="Home_NavWord">
 				<param name="id" value="9004"/>
 				<param name="visible" value="!Skin.HasSetting(HideMenu.Search)"/>

@@ -1177,7 +1177,7 @@
 					<left>0</left>
 					<top>136</top>
 					<width>1180</width>
-					<height>101</height>  <!-- 3 lines exactly: no half-clipped line at the bottom -->
+					<height>102</height>  <!-- 3 lines exactly (reg_24 pitch 34): 101 made Kodi count 2 lines a page and scroll 3-line plots -->
 					<font>reg_24</font>
 					<textcolor>body</textcolor>
 					<label>$INFO[Container(502).ListItem.Plot]</label>
@@ -1616,7 +1616,7 @@
 					<left>0</left>
 					<top>88</top>
 					<width>1300</width>
-					<height>66</height>
+					<height>68</height>  <!-- 2 whole lines (reg_24 pitch 34): 66 made Kodi count 1 line a page and scroll 2-line plots -->
 					<font>reg_24</font>
 					<textcolor>body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>

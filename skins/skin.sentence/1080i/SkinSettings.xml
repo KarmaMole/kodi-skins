@@ -3,7 +3,7 @@
 <!--
 	Sentence's own settings, one sentence each. Up/Down move between them; OK or Right changes the phrase,
 	Left steps it back. Rows that reload the skin come back through Window(Home).Property(sentence.refocus).
-	Ids: phrases 9510-9527 (rows 9610-9627; 9519-9524 = main menu, 9525-9527 = custom rows), 9530 forget saved sentences,
+	Ids: phrases 9510-9529 + 9532 (rows +100; 9519-9524 = main menu, 9525-9527 = custom rows, 9528 / 9529 / 9532 = custom menu items), 9530 forget saved sentences,
 	9531 reset everything (OK twice), 9889 favourites data list (custom rows).
 -->
 <window>
@@ -352,20 +352,59 @@
 				<control type="button" id="9527">
 					<left>-2</left><top>6</top><width max="650">auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include>
-					<onup>9526</onup><ondown condition="Control.IsVisible(9530)">9530</ondown><ondown condition="!Control.IsVisible(9530)">9531</ondown>
+					<onup>9526</onup><ondown>9528</ondown>
 					<label>$VAR[SkinSet_C3]</label>
 					<include content="CustomRows_SettingsClick"><param name="row" value="3"/><param name="heading" value="$LOCALIZE[31943]"/></include>
 				</control>
 				<control type="label" id="9736"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
+			<control type="grouplist" id="9628">
+				<width>1180</width><height>84</height>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
+				<control type="label" id="9737"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31514]</label></control>
+				<control type="button" id="9528">
+					<left>-2</left><top>6</top><width max="650">auto</width><height>72</height><font>serif_40</font>
+					<include>Sen_PhraseTextures</include>
+					<onup>9527</onup><ondown>9529</ondown>
+					<label>$VAR[SkinSet_M1]</label>
+					<include content="CustomMenu_SettingsClick"><param name="item" value="1"/><param name="heading" value="$LOCALIZE[31981]"/></include>
+				</control>
+				<control type="label" id="9738"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
+			</control>
+			<control type="grouplist" id="9629">
+				<width>1180</width><height>84</height>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
+				<control type="label" id="9739"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31515]</label></control>
+				<control type="button" id="9529">
+					<left>-2</left><top>6</top><width max="650">auto</width><height>72</height><font>serif_40</font>
+					<include>Sen_PhraseTextures</include>
+					<onup>9528</onup><ondown>9532</ondown>
+					<label>$VAR[SkinSet_M2]</label>
+					<include content="CustomMenu_SettingsClick"><param name="item" value="2"/><param name="heading" value="$LOCALIZE[31982]"/></include>
+				</control>
+				<control type="label" id="9740"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
+			</control>
+			<control type="grouplist" id="9632">
+				<width>1180</width><height>84</height>
+				<orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
+				<control type="label" id="9741"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31516]</label></control>
+				<control type="button" id="9532">
+					<left>-2</left><top>6</top><width max="650">auto</width><height>72</height><font>serif_40</font>
+					<include>Sen_PhraseTextures</include>
+					<onup>9529</onup><ondown condition="Control.IsVisible(9530)">9530</ondown><ondown condition="!Control.IsVisible(9530)">9531</ondown>
+					<label>$VAR[SkinSet_M3]</label>
+					<include content="CustomMenu_SettingsClick"><param name="item" value="3"/><param name="heading" value="$LOCALIZE[31983]"/></include>
+				</control>
+				<control type="label" id="9742"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
+			</control>
 			<control type="grouplist" id="9630">
 				<width>1180</width><height>84</height><orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
 				<visible>!String.IsEmpty(Skin.String(sentence.slot1.name)) | !String.IsEmpty(Skin.String(sentence.slot2.name)) | !String.IsEmpty(Skin.String(sentence.slot3.name))</visible>
-				<control type="label" id="9737"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31479]</label></control>
+				<control type="label" id="9743"><width>auto</width><height>84</height><font>serif_40</font><label>$LOCALIZE[31479]</label></control>
 				<control type="button" id="9530">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include><label>$LOCALIZE[31480]</label>
-					<onup>9527</onup><ondown>9531</ondown>
+					<onup>9532</onup><ondown>9531</ondown>
 					<onclick>Skin.Reset(sentence.slot1.name)</onclick>
 					<onclick>Skin.Reset(sentence.slot1.kind)</onclick>
 					<onclick>Skin.Reset(sentence.slot1.len)</onclick>
@@ -388,22 +427,22 @@
 					<onclick>Skin.Reset(sentence.slot3.seen)</onclick>
 					<onclick>Skin.Reset(sentence.slot3.order)</onclick>
 				</control>
-				<control type="label" id="9738"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
+				<control type="label" id="9744"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 			<control type="grouplist" id="9631">
 				<width>1180</width><height>84</height><orientation>horizontal</orientation><usecontrolcoords>true</usecontrolcoords>
-				<control type="label" id="9739"><width>auto</width><height>84</height><font>serif_40</font><label>Or</label></control>
+				<control type="label" id="9745"><width>auto</width><height>84</height><font>serif_40</font><label>Or</label></control>
 				<control type="button" id="9531">
 					<left>-2</left><top>6</top><width>auto</width><height>72</height><font>serif_40</font>
 					<include>Sen_PhraseTextures</include><label>$VAR[SkinSet_ResetLabel]</label>
-					<onup condition="Control.IsVisible(9530)">9530</onup><onup condition="!Control.IsVisible(9530)">9527</onup><ondown>9510</ondown>
+					<onup condition="Control.IsVisible(9530)">9530</onup><onup condition="!Control.IsVisible(9530)">9532</onup><ondown>9510</ondown>
 					<onclick condition="!!String.IsEmpty(Window(Home).Property(sentence.resetarmed))">SetProperty(sentence.resetarmed,1,home)</onclick>
 					<onclick condition="!String.IsEmpty(Window(Home).Property(sentence.resetarmed))">ClearProperty(sentence.resetarmed,home)</onclick>
 					<onclick condition="!String.IsEmpty(Window(Home).Property(sentence.resetarmed))">Skin.ResetSettings</onclick>
 					<onclick condition="!String.IsEmpty(Window(Home).Property(sentence.resetarmed))">ReloadSkin()</onclick>
 					<onunfocus>ClearProperty(sentence.resetarmed,home)</onunfocus>
 				</control>
-				<control type="label" id="9740"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
+				<control type="label" id="9746"><left>-22</left><width>auto</width><height>84</height><font>serif_40</font><label>.</label></control>
 			</control>
 		</control>
 		<control type="textbox">

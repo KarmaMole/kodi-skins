@@ -1,3 +1,11 @@
+1.0.7 (2026-10-28)
+- Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
+- Skin settings: Menu item 1, 2 and 3 after the custom rows, with the same choices (Add-on, playlist or library..., A favourite..., Rename..., Clear). Each item is an icon on the rail after TV, before Search and Settings: the add-on's own icon (or a folder / favourite glyph), lit with its name when focused, with a quiet stage of its own (the icon, the name and what it opens). OK opens the add-on, folder or favourite and Back comes home to the icon. An item hides while its add-on is uninstalled or disabled. Nothing changes until an item is set up.
+
+1.0.6 (2026-10-28)
+- Gatefold: three whole rows that end above the focused title's caption (it sat on the third row).
+- Sleeve: the row of small sleeves shows each poster whole (an episode's still fitted whole) instead of a square crop that cut titles, and ends on a whole sleeve inside the screen.
+
 1.0.5 (2026-10-27)
 - Films and TV: three new views. Sleeve: the picture on a square sleeve with the record half out of it (the poster is its label), the title, the icon line and the story beside it, and the rest of the crate in a row of small sleeves. Gatefold: wide pictures opened flat, four across, for films, series, episodes, sets, add-ons and everything else (posters and icons are shown whole, never cropped). Liner notes: each title with its picture, details and the first line of its story, the whole story beside the lit picture; episodes read like a tracklist with their stills. The view each library opens in is unchanged.
 

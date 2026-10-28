@@ -27,4 +27,5 @@
 	<include file="Includes_Map.xml"/>
 	<include file="Includes_OSD_SD.xml"/>
 	<include file="Includes_CustomRows.xml"/>
+	<include file="Includes_CustomMenu.xml"/>
 </includes>

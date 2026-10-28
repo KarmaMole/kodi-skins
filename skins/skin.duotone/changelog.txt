@@ -1,3 +1,7 @@
+0.9.17 (2026-10-28)
+- Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
+- They are words of the Home stack after Music, before Search, in the same Anton type (long names step down a size so they fit); the stack tightens when it holds more than four words. A custom item shows a quiet panel in the paper colours: what it is, its name, "Opens …" and its icon. Skin settings: Menu item 1-3 sit beside Row 1-3. With none set Home is unchanged.
+
 0.9.16 (2026-10-27)
 - More ways to browse: five new library views, all as one-colour prints with the focused item in full colour. Videos now have six views, music four.
 - Poster: one item at a time, its print large on the right, the title in big type, year / minutes / rating between thick rules and the plot. Left and Right flip through the library; the tab under the plot says where you are.

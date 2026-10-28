@@ -39,12 +39,15 @@
 	</variable>
 
 	<!-- A card with honest fallbacks, inside a group at its rect: the wide art (scale), else the poster / cover / icon
-	     whole on the raised surface (keep), else the title; ".." = the back arrow. params: lit, dim, shadow -->
+	     whole on the raised surface (keep), else the title; ".." = the back arrow. params: lit, dim, shadow.
+	     fit = true (small square sleeves): never crop; the poster whole, an episode's still (or wide art with no
+	     poster) fitted whole -->
 	<include name="GV_Card">
 		<param name="lit">false</param>
 		<param name="dim">false</param>
 		<param name="shadow">true</param>
 		<param name="crease">false</param>
+		<param name="fit">false</param>
 		<definition>
 			<control type="image">
 				<left>-96</left>
@@ -98,7 +101,7 @@
 				<aspectratio>keep</aspectratio>
 				<include>Anim_ArtFadetime</include>
 				<texture background="true">$VAR[VidView_PosterArt]</texture>
-				<visible>!ListItem.IsParentFolder + !$EXP[GV_HasWide] + $EXP[GV_HasMat]</visible>
+				<visible>!ListItem.IsParentFolder + $EXP[GV_HasMat] + [!$EXP[GV_HasWide] | [[$PARAM[fit]] + !String.IsEqual(ListItem.DBType,episode)]]</visible>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -108,7 +111,7 @@
 				<aspectratio>scale</aspectratio>
 				<include>Anim_ArtFadetime</include>
 				<texture background="true" colordiffuse="$VAR[dim_cover]">$VAR[GV_WideArt]</texture>
-				<visible>$EXP[GV_HasWide] + [$PARAM[dim]]</visible>
+				<visible>$EXP[GV_HasWide] + [$PARAM[dim]] + ![$PARAM[fit]]</visible>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -118,7 +121,28 @@
 				<aspectratio>scale</aspectratio>
 				<include>Anim_ArtFadetime</include>
 				<texture background="true">$VAR[GV_WideArt]</texture>
-				<visible>$EXP[GV_HasWide] + ![$PARAM[dim]]</visible>
+				<visible>$EXP[GV_HasWide] + ![$PARAM[dim]] + ![$PARAM[fit]]</visible>
+			</control>
+			<!-- fit: the wide picture whole (episodes, items with no poster) -->
+			<control type="image">
+				<left>8</left>
+				<top>8</top>
+				<right>8</right>
+				<bottom>8</bottom>
+				<aspectratio>keep</aspectratio>
+				<include>Anim_ArtFadetime</include>
+				<texture background="true" colordiffuse="$VAR[dim_cover]">$VAR[GV_WideArt]</texture>
+				<visible>[$PARAM[fit]] + $EXP[GV_HasWide] + [String.IsEqual(ListItem.DBType,episode) | !$EXP[GV_HasMat]] + [$PARAM[dim]]</visible>
+			</control>
+			<control type="image">
+				<left>8</left>
+				<top>8</top>
+				<right>8</right>
+				<bottom>8</bottom>
+				<aspectratio>keep</aspectratio>
+				<include>Anim_ArtFadetime</include>
+				<texture background="true">$VAR[GV_WideArt]</texture>
+				<visible>[$PARAM[fit]] + $EXP[GV_HasWide] + [String.IsEqual(ListItem.DBType,episode) | !$EXP[GV_HasMat]] + ![$PARAM[dim]]</visible>
 			</control>
 			<!-- the gatefold crease -->
 			<control type="image">
@@ -272,11 +296,14 @@
 				</control>
 			</control>
 		</control>
-		<!-- the crate: small sleeves (square crops of the picture) -->
+		<!-- the crate: small sleeves (the poster whole, an episode's still fitted); 192 px slots and a list that ends
+		     at 1800 (in the gap between sleeves, before the next one's contact shadow), so nine whole sleeves show and none is cut at the screen edge.
+		     preloaditems 1: at rest Kodi draws no cached item before the first slot (GetCacheOffsets: preload / 2 = 0),
+		     whose sleeve would otherwise show cut at the left edge (the layouts draw 96 px into the slot) -->
 		<control type="list" id="520">
 			<left>0</left>
 			<top>752</top>
-			<width>1920</width>
+			<width>1800</width>
 			<height>328</height>
 			<orientation>horizontal</orientation>
 			<onup condition="$EXP[VidView_IsTVContent]">9522</onup>
@@ -285,11 +312,11 @@
 			<include>Lib_OpenLeft</include>
 			<include>Lib_OpenRight</include>
 			<onback condition="$EXP[VidView_AtRoot]">9398</onback>
-			<preloaditems>2</preloaditems>
+			<preloaditems>1</preloaditems>
 			<include>Anim_ScrollRow</include>
 			<viewtype label="31745">bigwrap</viewtype>
 			<visible>$EXP[GV_Offered]</visible>
-			<itemlayout width="184" height="328">
+			<itemlayout width="192" height="328">
 				<control type="group">
 					<left>96</left>
 					<top>64</top>
@@ -298,10 +325,11 @@
 					<include content="GV_Card">
 						<param name="dim" value="true"/>
 						<param name="shadow" value="false"/>
+						<param name="fit" value="true"/>
 					</include>
 				</control>
 			</itemlayout>
-			<focusedlayout width="184" height="328">
+			<focusedlayout width="192" height="328">
 				<include content="VidView_CardLight">
 					<param name="list" value="520"/>
 					<param name="gx" value="16"/><param name="gy" value="-16"/><param name="gw" value="320"/><param name="gh" value="320"/>
@@ -318,12 +346,13 @@
 						<param name="lit" value="Control.HasFocus(520)"/>
 						<param name="dim" value="!Control.HasFocus(520)"/>
 						<param name="shadow" value="false"/>
+						<param name="fit" value="true"/>
 					</include>
 				</control>
 				<control type="label">
-					<left>40</left>
+					<left>64</left>
 					<top>250</top>
-					<width>272</width>
+					<width>224</width>
 					<height>40</height>
 					<align>center</align>
 					<aligny>center</aligny>
@@ -348,7 +377,7 @@
 		<!-- the focused card's light, behind the grid, on the focused cell (Column / Row time-0 slides) -->
 		<control type="group">
 			<left>-260</left>
-			<top>-5</top>
+			<top>-23</top>
 			<width>1000</width>
 			<height>560</height>
 			<visible>Control.HasFocus(521) + !Container(521).Scrolling</visible>
@@ -356,8 +385,8 @@
 			<animation effect="slide" start="0,0" end="480,0" time="0" condition="Container(521).Column(1)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="960,0" time="0" condition="Container(521).Column(2)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="1440,0" time="0" condition="Container(521).Column(3)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,300" time="0" condition="Container(521).Row(1)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,600" time="0" condition="Container(521).Row(2)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,270" time="0" condition="Container(521).Row(1)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,540" time="0" condition="Container(521).Row(2)">Conditional</animation>
 			<control type="image">
 				<left>0</left>
 				<top>0</top>
@@ -379,7 +408,7 @@
 			<left>0</left>
 			<top>110</top>
 			<width>1920</width>
-			<height>959</height>
+			<height>810</height>
 			<orientation>vertical</orientation>
 			<onup condition="$EXP[VidView_IsTVContent]">9522</onup>
 			<onup>9521</onup>
@@ -390,10 +419,10 @@
 			<preloaditems>2</preloaditems>
 			<include>Anim_ScrollPanel</include>
 			<viewtype label="31746">bigwide</viewtype>
-			<itemlayout width="480" height="300">
+			<itemlayout width="480" height="270">
 				<control type="group">
 					<left>32</left>
-					<top>48</top>
+					<top>30</top>
 					<width>416</width>
 					<height>234</height>
 					<include content="GV_Card">
@@ -402,17 +431,17 @@
 					</include>
 				</control>
 			</itemlayout>
-			<focusedlayout width="480" height="300">
+			<focusedlayout width="480" height="270">
 				<include content="VidView_CardLight">
 					<param name="list" value="521"/>
 					<param name="radial" value="false"/>
 					<param name="gx" value="0"/><param name="gy" value="0"/><param name="gw" value="1"/><param name="gh" value="1"/>
-					<param name="cx" value="-30"/><param name="cy" value="16"/><param name="cw" value="540"/><param name="ch" value="304"/>
-					<param name="fx" value="8"/><param name="fy" value="24"/><param name="fw" value="464"/><param name="fh" value="282"/>
+					<param name="cx" value="-30"/><param name="cy" value="0"/><param name="cw" value="540"/><param name="ch" value="302"/>
+					<param name="fx" value="8"/><param name="fy" value="6"/><param name="fw" value="464"/><param name="fh" value="282"/>
 				</include>
 				<control type="group">
 					<left>32</left>
-					<top>48</top>
+					<top>30</top>
 					<width>416</width>
 					<height>234</height>
 					<include content="Anim_FocusCover"><param name="center" value="208,117"/></include>

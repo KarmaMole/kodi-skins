@@ -521,6 +521,7 @@
 	</variable>
 	<variable name="SkinSet_Help">
 		<value condition="Control.HasFocus(9622) | Control.HasFocus(9623) | Control.HasFocus(9624)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9625) | Control.HasFocus(9626) | Control.HasFocus(9627)">$LOCALIZE[31984]</value>
 		<value condition="Control.HasFocus(9611)">$LOCALIZE[31341][CR][CR]$LOCALIZE[31346]</value>
 		<value condition="Control.HasFocus(9612)">$LOCALIZE[31342][CR][CR]$LOCALIZE[31346]</value>
 		<value condition="Control.HasFocus(9613)">$LOCALIZE[31343][CR][CR]$LOCALIZE[31346]</value>

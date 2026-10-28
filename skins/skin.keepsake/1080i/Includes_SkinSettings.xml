@@ -68,6 +68,9 @@
 		<value condition="Control.HasFocus(9517)">$LOCALIZE[31964]</value>
 		<value condition="Control.HasFocus(9518)">$LOCALIZE[31964]</value>
 		<value condition="Control.HasFocus(9519)">$LOCALIZE[31964]</value>
+		<value condition="Control.HasFocus(9520)">$LOCALIZE[31994]</value>
+		<value condition="Control.HasFocus(9521)">$LOCALIZE[31994]</value>
+		<value condition="Control.HasFocus(9522)">$LOCALIZE[31994]</value>
 	</variable>
 	<variable name="SkinSet_Ink_Custom">
 		<value condition="Control.HasFocus(9517) | Control.HasFocus(9518) | Control.HasFocus(9519)">ink_bold</value>
@@ -77,6 +80,13 @@
 		<value condition="Control.HasFocus(9517)">$LOCALIZE[31941]  ·  $VAR[CustomRow_Value1]</value>
 		<value condition="Control.HasFocus(9518)">$LOCALIZE[31942]  ·  $VAR[CustomRow_Value2]</value>
 		<value condition="Control.HasFocus(9519)">$LOCALIZE[31943]  ·  $VAR[CustomRow_Value3]</value>
+		<value condition="Control.HasFocus(9520)">$LOCALIZE[31981]  ·  $VAR[CustomMenu_Value1]</value>
+		<value condition="Control.HasFocus(9521)">$LOCALIZE[31982]  ·  $VAR[CustomMenu_Value2]</value>
+		<value condition="Control.HasFocus(9522)">$LOCALIZE[31983]  ·  $VAR[CustomMenu_Value3]</value>
+	</variable>
+	<variable name="SkinSet_Ink_CMenu">
+		<value condition="Control.HasFocus(9520) | Control.HasFocus(9521) | Control.HasFocus(9522)">ink_bold</value>
+		<value>ink_soft</value>
 	</variable>
 	<variable name="SkinSet_PreviewWhen">
 		<value condition="!String.IsEmpty(Container(9590).ListItem.LastPlayed)">  ·  watched $INFO[Container(9590).ListItem.LastPlayed]</value>

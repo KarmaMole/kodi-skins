@@ -1,3 +1,9 @@
+0.9.18 (2026-10-28)
+- Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items). They join the Home dial after Music and before Search and Settings; OK or Right opens one, Back comes home to it. An empty slot isn't on the dial at all, and an item whose add-on is uninstalled leaves it.
+
+0.9.17 (2026-10-28)
+- Horizon (films and music): the plot or story is no longer cut off part-way. It shows up to three lines (two under a long title) and ends in "…" when there is more.
+
 0.9.16 (2026-10-27)
 - More ways to browse (VIEW or Options > View; the picker shows up to six previews):
   - Horizon (films, sets, shows, seasons, episodes, music videos): the focused title as a showcase, its fanart across the page with title, meta, end time and plot, over a dial of wide pictures riding a flat circle along the bottom; Left / Right turn it.

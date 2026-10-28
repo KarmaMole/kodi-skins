@@ -2348,7 +2348,7 @@
 			<control type="button" id="9514">
 				<left>0</left>
 				<top>0</top>
-				<width>1032</width>
+				<width>508</width>
 				<height>50</height>
 				<label></label>
 				<texturenofocus border="0,0,0,4" colordiffuse="$VAR[SectionText]">dialogs/row_rule.png</texturenofocus>
@@ -2356,12 +2356,12 @@
 				<ondown>9515</ondown>
 				<include content="CustomRows_SettingsClick"><param name="row" value="1"/><param name="heading" value="$LOCALIZE[31941]"/></include>
 				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onright>9518</onright>
 			</control>
 			<control type="label">
 				<left>24</left>
 				<top>0</top>
-				<width>480</width>
+				<width>200</width>
 				<height>50</height>
 				<font>bold_28</font>
 				<label>$LOCALIZE[31941]</label>
@@ -2370,7 +2370,7 @@
 			<control type="label">
 				<left>24</left>
 				<top>0</top>
-				<width>480</width>
+				<width>200</width>
 				<height>50</height>
 				<font>bold_28</font>
 				<textcolor>$VAR[paper]</textcolor>
@@ -2378,9 +2378,9 @@
 				<visible>Control.HasFocus(9514)</visible>
 			</control>
 			<control type="label">
-				<left>440</left>
+				<left>232</left>
 				<top>0</top>
-				<width>568</width>
+				<width>252</width>
 				<height>50</height>
 				<align>right</align>
 				<font>cap_20</font>
@@ -2389,15 +2389,69 @@
 				<visible>!Control.HasFocus(9514)</visible>
 			</control>
 			<control type="label">
-				<left>440</left>
+				<left>232</left>
 				<top>0</top>
-				<width>568</width>
+				<width>252</width>
 				<height>50</height>
 				<align>right</align>
 				<font>cap_20</font>
 				<textcolor>$VAR[paper_70]</textcolor>
 				<label>$VAR[CustomRow_Value1]</label>
 				<visible>Control.HasFocus(9514)</visible>
+			</control>
+			<control type="button" id="9518">
+				<left>524</left>
+				<top>0</top>
+				<width>508</width>
+				<height>50</height>
+				<label></label>
+				<texturenofocus border="0,0,0,4" colordiffuse="$VAR[SectionText]">dialogs/row_rule.png</texturenofocus>
+				<onup>9513</onup>
+				<ondown>9519</ondown>
+				<onleft>9514</onleft>
+				<onright>noop</onright>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="1"/><param name="heading" value="$LOCALIZE[31981]"/></include>
+			</control>
+			<control type="label">
+				<left>548</left>
+				<top>0</top>
+				<width>200</width>
+				<height>50</height>
+				<font>bold_28</font>
+				<label>$LOCALIZE[31981]</label>
+				<visible>!Control.HasFocus(9518)</visible>
+			</control>
+			<control type="label">
+				<left>548</left>
+				<top>0</top>
+				<width>200</width>
+				<height>50</height>
+				<font>bold_28</font>
+				<textcolor>$VAR[paper]</textcolor>
+				<label>$LOCALIZE[31981]</label>
+				<visible>Control.HasFocus(9518)</visible>
+			</control>
+			<control type="label">
+				<left>756</left>
+				<top>0</top>
+				<width>252</width>
+				<height>50</height>
+				<align>right</align>
+				<font>cap_20</font>
+				<textcolor>$VAR[SectionText2]</textcolor>
+				<label>$VAR[CustomMenu_Value1]</label>
+				<visible>!Control.HasFocus(9518)</visible>
+			</control>
+			<control type="label">
+				<left>756</left>
+				<top>0</top>
+				<width>252</width>
+				<height>50</height>
+				<align>right</align>
+				<font>cap_20</font>
+				<textcolor>$VAR[paper_70]</textcolor>
+				<label>$VAR[CustomMenu_Value1]</label>
+				<visible>Control.HasFocus(9518)</visible>
 			</control>
 		</control>
 		<!-- $LOCALIZE[31942] -->
@@ -2409,7 +2463,7 @@
 			<control type="button" id="9515">
 				<left>0</left>
 				<top>0</top>
-				<width>1032</width>
+				<width>508</width>
 				<height>50</height>
 				<label></label>
 				<texturenofocus border="0,0,0,4" colordiffuse="$VAR[SectionText]">dialogs/row_rule.png</texturenofocus>
@@ -2417,12 +2471,12 @@
 				<ondown>9516</ondown>
 				<include content="CustomRows_SettingsClick"><param name="row" value="2"/><param name="heading" value="$LOCALIZE[31942]"/></include>
 				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onright>9519</onright>
 			</control>
 			<control type="label">
 				<left>24</left>
 				<top>0</top>
-				<width>480</width>
+				<width>200</width>
 				<height>50</height>
 				<font>bold_28</font>
 				<label>$LOCALIZE[31942]</label>
@@ -2431,7 +2485,7 @@
 			<control type="label">
 				<left>24</left>
 				<top>0</top>
-				<width>480</width>
+				<width>200</width>
 				<height>50</height>
 				<font>bold_28</font>
 				<textcolor>$VAR[paper]</textcolor>
@@ -2439,9 +2493,9 @@
 				<visible>Control.HasFocus(9515)</visible>
 			</control>
 			<control type="label">
-				<left>440</left>
+				<left>232</left>
 				<top>0</top>
-				<width>568</width>
+				<width>252</width>
 				<height>50</height>
 				<align>right</align>
 				<font>cap_20</font>
@@ -2450,15 +2504,69 @@
 				<visible>!Control.HasFocus(9515)</visible>
 			</control>
 			<control type="label">
-				<left>440</left>
+				<left>232</left>
 				<top>0</top>
-				<width>568</width>
+				<width>252</width>
 				<height>50</height>
 				<align>right</align>
 				<font>cap_20</font>
 				<textcolor>$VAR[paper_70]</textcolor>
 				<label>$VAR[CustomRow_Value2]</label>
 				<visible>Control.HasFocus(9515)</visible>
+			</control>
+			<control type="button" id="9519">
+				<left>524</left>
+				<top>0</top>
+				<width>508</width>
+				<height>50</height>
+				<label></label>
+				<texturenofocus border="0,0,0,4" colordiffuse="$VAR[SectionText]">dialogs/row_rule.png</texturenofocus>
+				<onup>9518</onup>
+				<ondown>9520</ondown>
+				<onleft>9515</onleft>
+				<onright>noop</onright>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="2"/><param name="heading" value="$LOCALIZE[31982]"/></include>
+			</control>
+			<control type="label">
+				<left>548</left>
+				<top>0</top>
+				<width>200</width>
+				<height>50</height>
+				<font>bold_28</font>
+				<label>$LOCALIZE[31982]</label>
+				<visible>!Control.HasFocus(9519)</visible>
+			</control>
+			<control type="label">
+				<left>548</left>
+				<top>0</top>
+				<width>200</width>
+				<height>50</height>
+				<font>bold_28</font>
+				<textcolor>$VAR[paper]</textcolor>
+				<label>$LOCALIZE[31982]</label>
+				<visible>Control.HasFocus(9519)</visible>
+			</control>
+			<control type="label">
+				<left>756</left>
+				<top>0</top>
+				<width>252</width>
+				<height>50</height>
+				<align>right</align>
+				<font>cap_20</font>
+				<textcolor>$VAR[SectionText2]</textcolor>
+				<label>$VAR[CustomMenu_Value2]</label>
+				<visible>!Control.HasFocus(9519)</visible>
+			</control>
+			<control type="label">
+				<left>756</left>
+				<top>0</top>
+				<width>252</width>
+				<height>50</height>
+				<align>right</align>
+				<font>cap_20</font>
+				<textcolor>$VAR[paper_70]</textcolor>
+				<label>$VAR[CustomMenu_Value2]</label>
+				<visible>Control.HasFocus(9519)</visible>
 			</control>
 		</control>
 		<!-- $LOCALIZE[31943] -->
@@ -2470,7 +2578,7 @@
 			<control type="button" id="9516">
 				<left>0</left>
 				<top>0</top>
-				<width>1032</width>
+				<width>508</width>
 				<height>50</height>
 				<label></label>
 				<texturenofocus border="0,0,0,4" colordiffuse="$VAR[SectionText]">dialogs/row_rule.png</texturenofocus>
@@ -2478,12 +2586,12 @@
 				<ondown>9517</ondown>
 				<include content="CustomRows_SettingsClick"><param name="row" value="3"/><param name="heading" value="$LOCALIZE[31943]"/></include>
 				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onright>9520</onright>
 			</control>
 			<control type="label">
 				<left>24</left>
 				<top>0</top>
-				<width>480</width>
+				<width>200</width>
 				<height>50</height>
 				<font>bold_28</font>
 				<label>$LOCALIZE[31943]</label>
@@ -2492,7 +2600,7 @@
 			<control type="label">
 				<left>24</left>
 				<top>0</top>
-				<width>480</width>
+				<width>200</width>
 				<height>50</height>
 				<font>bold_28</font>
 				<textcolor>$VAR[paper]</textcolor>
@@ -2500,9 +2608,9 @@
 				<visible>Control.HasFocus(9516)</visible>
 			</control>
 			<control type="label">
-				<left>440</left>
+				<left>232</left>
 				<top>0</top>
-				<width>568</width>
+				<width>252</width>
 				<height>50</height>
 				<align>right</align>
 				<font>cap_20</font>
@@ -2511,15 +2619,69 @@
 				<visible>!Control.HasFocus(9516)</visible>
 			</control>
 			<control type="label">
-				<left>440</left>
+				<left>232</left>
 				<top>0</top>
-				<width>568</width>
+				<width>252</width>
 				<height>50</height>
 				<align>right</align>
 				<font>cap_20</font>
 				<textcolor>$VAR[paper_70]</textcolor>
 				<label>$VAR[CustomRow_Value3]</label>
 				<visible>Control.HasFocus(9516)</visible>
+			</control>
+			<control type="button" id="9520">
+				<left>524</left>
+				<top>0</top>
+				<width>508</width>
+				<height>50</height>
+				<label></label>
+				<texturenofocus border="0,0,0,4" colordiffuse="$VAR[SectionText]">dialogs/row_rule.png</texturenofocus>
+				<onup>9519</onup>
+				<ondown>9517</ondown>
+				<onleft>9516</onleft>
+				<onright>noop</onright>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="3"/><param name="heading" value="$LOCALIZE[31983]"/></include>
+			</control>
+			<control type="label">
+				<left>548</left>
+				<top>0</top>
+				<width>200</width>
+				<height>50</height>
+				<font>bold_28</font>
+				<label>$LOCALIZE[31983]</label>
+				<visible>!Control.HasFocus(9520)</visible>
+			</control>
+			<control type="label">
+				<left>548</left>
+				<top>0</top>
+				<width>200</width>
+				<height>50</height>
+				<font>bold_28</font>
+				<textcolor>$VAR[paper]</textcolor>
+				<label>$LOCALIZE[31983]</label>
+				<visible>Control.HasFocus(9520)</visible>
+			</control>
+			<control type="label">
+				<left>756</left>
+				<top>0</top>
+				<width>252</width>
+				<height>50</height>
+				<align>right</align>
+				<font>cap_20</font>
+				<textcolor>$VAR[SectionText2]</textcolor>
+				<label>$VAR[CustomMenu_Value3]</label>
+				<visible>!Control.HasFocus(9520)</visible>
+			</control>
+			<control type="label">
+				<left>756</left>
+				<top>0</top>
+				<width>252</width>
+				<height>50</height>
+				<align>right</align>
+				<font>cap_20</font>
+				<textcolor>$VAR[paper_70]</textcolor>
+				<label>$VAR[CustomMenu_Value3]</label>
+				<visible>Control.HasFocus(9520)</visible>
 			</control>
 		</control>
 		<!-- reset: first OK arms, second OK resets everything and reloads -->

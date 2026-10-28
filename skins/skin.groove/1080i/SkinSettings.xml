@@ -536,6 +536,96 @@
 					<visible>!Control.HasFocus(9520)</visible>
 				</control>
 			</control>
+			<control type="button" id="9521">
+				<width>1000</width>
+				<height>72</height>
+				<font>font_label</font>
+				<textoffsetx>88</textoffsetx>
+				<label>$LOCALIZE[31981]</label>
+				<label2>$VAR[CustomMenu_Value1]</label2>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="1"/><param name="heading" value="$LOCALIZE[31981]"/></include>
+			</control>
+			<control type="group" id="9571">
+				<top>-72</top>
+				<width>1000</width>
+				<height>80</height>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[ink]">icons/addons.png</texture>
+					<visible>Control.HasFocus(9521)</visible>
+				</control>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[icon_rest]">icons/addons.png</texture>
+					<visible>!Control.HasFocus(9521)</visible>
+				</control>
+			</control>
+			<control type="button" id="9522">
+				<width>1000</width>
+				<height>72</height>
+				<font>font_label</font>
+				<textoffsetx>88</textoffsetx>
+				<label>$LOCALIZE[31982]</label>
+				<label2>$VAR[CustomMenu_Value2]</label2>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="2"/><param name="heading" value="$LOCALIZE[31982]"/></include>
+			</control>
+			<control type="group" id="9572">
+				<top>-72</top>
+				<width>1000</width>
+				<height>80</height>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[ink]">icons/addons.png</texture>
+					<visible>Control.HasFocus(9522)</visible>
+				</control>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[icon_rest]">icons/addons.png</texture>
+					<visible>!Control.HasFocus(9522)</visible>
+				</control>
+			</control>
+			<control type="button" id="9523">
+				<width>1000</width>
+				<height>72</height>
+				<font>font_label</font>
+				<textoffsetx>88</textoffsetx>
+				<label>$LOCALIZE[31983]</label>
+				<label2>$VAR[CustomMenu_Value3]</label2>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="3"/><param name="heading" value="$LOCALIZE[31983]"/></include>
+			</control>
+			<control type="group" id="9573">
+				<top>-72</top>
+				<width>1000</width>
+				<height>80</height>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[ink]">icons/addons.png</texture>
+					<visible>Control.HasFocus(9523)</visible>
+				</control>
+				<control type="image">
+					<left>24</left>
+					<top>16</top>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[icon_rest]">icons/addons.png</texture>
+					<visible>!Control.HasFocus(9523)</visible>
+				</control>
+			</control>
 			<control type="button" id="9510">
 				<width>1000</width>
 				<height>72</height>

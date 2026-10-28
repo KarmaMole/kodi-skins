@@ -501,6 +501,26 @@
 			</control>
 		</definition>
 	</include>
+	<!-- 0.9.15 a custom menu item's row (params id, item, label): the SkinSet_CustomRow look -->
+	<include name="SkinSet_CustomMenu">
+		<definition>
+			<control type="button" id="$PARAM[id]">
+				<width>984</width>
+				<height>72</height>
+				<label>$PARAM[label]</label>
+				<label2>$VAR[CustomMenu_Value$PARAM[item]]</label2>
+				<font>sans_28_semi</font>
+				<textcolor>ink</textcolor>
+				<focusedcolor>$VAR[FoldOnAccent]</focusedcolor>
+				<disabledcolor>disabled</disabledcolor>
+				<textoffsetx>18</textoffsetx>
+				<aligny>center</aligny>
+				<texturefocus border="6" colordiffuse="$VAR[FoldAccent]">fold/chip.png</texturefocus>
+				<texturenofocus border="6" colordiffuse="0f1d1b18">fold/chip.png</texturenofocus>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="$PARAM[item]"/><param name="heading" value="$PARAM[label]"/></include>
+			</control>
+		</definition>
+	</include>
 	<variable name="SkinSet_Motion">
 		<value condition="Skin.HasSetting(fold.reducemotion)">On · quick fades</value>
 		<value>Off · full folds</value>
@@ -562,6 +582,7 @@
 	<variable name="SkinSet_Help">
 		<value condition="Control.HasFocus(9607) | Control.HasFocus(9608) | Control.HasFocus(9609) | Control.HasFocus(9610)">$LOCALIZE[31706]</value>
 		<value condition="Control.HasFocus(9611) | Control.HasFocus(9612) | Control.HasFocus(9613)">$LOCALIZE[31957]</value>
+		<value condition="Control.HasFocus(9614) | Control.HasFocus(9615) | Control.HasFocus(9616)">$LOCALIZE[31994]</value>
 		<value condition="Control.HasFocus(9601)">Every fold, lift and unfold becomes a short fade. The cards still open into their spreads.</value>
 		<value condition="Control.HasFocus(9602)">While a video or song plays, the strip of controls folds away on its own after this long without a key press (never while paused).</value>
 		<value condition="Control.HasFocus(9603)">The time and date in the top right corner of the table.</value>

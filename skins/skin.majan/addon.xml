@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.majan" version="1.0.16" name="Majan" provider-name="KarmaMole">
+<addon id="skin.majan" version="1.0.17" name="Majan" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#majan</website>
-		<news>v1.0.16 - Focus: with Focus outline Off and Reduce motion On, the music grid, Big album view, Home poster rows and Search keep a thin frame on the focused item (as the video views already did). Search: a query with a double quote (e.g. &quot;Superman&quot;) now finds its matches; before, the quote broke the search and nothing came up. Code clean-up: dialog buttons no longer carry an undeclared enable parameter.</news>
+		<news>v1.0.17 - Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings &gt; Custom menu items).</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

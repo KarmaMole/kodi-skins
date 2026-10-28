@@ -219,7 +219,7 @@
 					<textcolor>meta</textcolor>
 					<label>$VAR[VidInfo_Meta]</label>
 				</control>
-				<control type="textbox">
+				<control type="textbox" id="5252">
 					<left>1066</left>
 					<top>444</top>
 					<width>745</width>
@@ -228,6 +228,18 @@
 					<textcolor>body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
 					<autoscroll delay="9000" time="3000" repeat="10000">true</autoscroll>
+				</control>
+				<!-- a plot cut by the box ends with "…" just past the column on its last line (Kodi can't add one to a
+				     textbox) until the box starts to scroll (9 s at rest, LESSONS Cue 0.9.1) -->
+				<control type="label">
+					<left>1813</left>
+					<top>566</top>
+					<width>48</width>
+					<height>41</height>
+					<font>body_28</font>
+					<textcolor>body</textcolor>
+					<label>…</label>
+					<visible>Integer.IsGreater(Container(5252).NumPages,1) + Integer.IsEqual(Container(5252).CurrentPage,1) + !System.IdleTime(9)</visible>
 				</control>
 				<control type="textbox">
 					<left>1064</left>
@@ -514,7 +526,7 @@
 					<textcolor>meta</textcolor>
 					<label>$VAR[KSV_AlbumMeta]</label>
 				</control>
-				<control type="textbox">
+				<control type="textbox" id="5322">
 					<left>1066</left>
 					<top>356</top>
 					<width>745</width>
@@ -524,6 +536,18 @@
 					<label>$INFO[ListItem.Property(Artist_Description)]</label>
 					<autoscroll delay="9000" time="3000" repeat="10000">true</autoscroll>
 					<visible>String.IsEqual(ListItem.DBType,artist)</visible>
+				</control>
+				<!-- a plot cut by the box ends with "…" just past the column on its last line (Kodi can't add one to a
+				     textbox) until the box starts to scroll (9 s at rest, LESSONS Cue 0.9.1) -->
+				<control type="label">
+					<left>1813</left>
+					<top>640</top>
+					<width>48</width>
+					<height>41</height>
+					<font>body_28</font>
+					<textcolor>body</textcolor>
+					<label>…</label>
+					<visible>Integer.IsGreater(Container(5322).NumPages,1) + Integer.IsEqual(Container(5322).CurrentPage,1) + !System.IdleTime(9) + String.IsEqual(ListItem.DBType,artist)</visible>
 				</control>
 				<control type="label">
 					<left>1066</left>

@@ -10,6 +10,11 @@
 	  0.9.12 custom rows (Includes_CustomRows.xml): arcs 9881-9883 (Arc_HomeCustom) with an info panel each, past the
 	  station arcs: Right off 9300 / 9301 / 9310 -> the first row with items, Right / Left between them, Left from the
 	  first -> the station arc, Back -> the dial. The dial itself never changes.
+	  0.9.18 custom menu items (Includes_CustomMenu.xml, CustomMenu_ListItem): up to three more dial items after Music,
+	  before Search / Settings (static items with <visible>, so an empty slot is not on the dial at all). The dial still
+	  shows five stations of the wraplist, so 8 items don't crowd it; labels are capped (Includes_Arc.xml). A custom item
+	  has no arc: the station panel Home_CustomStation (minimal ring + the add-on's icon as the lens, its name, "Opens <add-on>").
+	  OK or Right opens it (folders with return: Back comes straight to the item on the dial).
 	Window properties: orbit.reload (stamp per Home open, appended to the Next-up plugin path).
 	Library totals come from the Home window properties Kodi core sets (RecentlyAddedJob.cpp):
 	Movies.Count / Movies.UnWatched / TVShows.Count / Episodes.UnWatched / Music.AlbumsCount /
@@ -22,6 +27,11 @@
 	<expression name="Home_KindMusic">String.IsEqual(Container(9000).ListItem.Property(kind),music)</expression>
 	<expression name="Home_KindSearch">String.IsEqual(Container(9000).ListItem.Property(kind),search)</expression>
 	<expression name="Home_KindSettings">String.IsEqual(Container(9000).ListItem.Property(kind),settings)</expression>
+	<!-- 0.9.18: the dial rests on custom menu item n (ListItem.Property(custommenu), CustomMenu_ListItem) -->
+	<expression name="Home_KindCustom">!String.IsEmpty(Container(9000).ListItem.Property(custommenu))</expression>
+	<expression name="Home_Custom1">String.IsEqual(Container(9000).ListItem.Property(custommenu),1)</expression>
+	<expression name="Home_Custom2">String.IsEqual(Container(9000).ListItem.Property(custommenu),2)</expression>
+	<expression name="Home_Custom3">String.IsEqual(Container(9000).ListItem.Property(custommenu),3)</expression>
 	<expression name="Home_CustomArcReady1">Control.HasFocus(9881) + Integer.IsGreater(Container(9881).NumItems,0)</expression>
 	<expression name="Home_CustomArcReady2">Control.HasFocus(9882) + Integer.IsGreater(Container(9882).NumItems,0)</expression>
 	<expression name="Home_CustomArcReady3">Control.HasFocus(9883) + Integer.IsGreater(Container(9883).NumItems,0)</expression>
@@ -135,6 +145,21 @@
 		<value condition="$EXP[Home_KindMusic]">Albums</value>
 		<value condition="$EXP[Home_KindSearch]">Search</value>
 		<value condition="$EXP[Home_KindSettings]">System</value>
+		<value condition="$EXP[Home_Custom1]">$VAR[CustomMenu_Kind1]</value>
+		<value condition="$EXP[Home_Custom2]">$VAR[CustomMenu_Kind2]</value>
+		<value condition="$EXP[Home_Custom3]">$VAR[CustomMenu_Kind3]</value>
+	</variable>
+	<!-- 0.9.18: engraved glyph of the custom item the dial rests on: add-on, else a library / folder item, else a shortcut -->
+	<variable name="Home_CustomGlyph">
+		<value condition="[$EXP[Home_Custom1] + !String.IsEmpty(Skin.String(CustomMenu.1.Addon))] | [$EXP[Home_Custom2] + !String.IsEmpty(Skin.String(CustomMenu.2.Addon))] | [$EXP[Home_Custom3] + !String.IsEmpty(Skin.String(CustomMenu.3.Addon))]">icons/addons.png</value>
+		<value condition="[$EXP[Home_Custom1] + !String.IsEmpty(Skin.String(CustomMenu.1.Target))] | [$EXP[Home_Custom2] + !String.IsEmpty(Skin.String(CustomMenu.2.Target))] | [$EXP[Home_Custom3] + !String.IsEmpty(Skin.String(CustomMenu.3.Target))]">icons/folder.png</value>
+		<value>icons/arrow_right.png</value>
+	</variable>
+	<!-- 0.9.18: the custom menu item the dial rests on: its name (the station panel title and its fit probe) -->
+	<variable name="Home_CustomName">
+		<value condition="$EXP[Home_Custom1]">$VAR[CustomMenu_Label1]</value>
+		<value condition="$EXP[Home_Custom2]">$VAR[CustomMenu_Label2]</value>
+		<value condition="$EXP[Home_Custom3]">$VAR[CustomMenu_Label3]</value>
 	</variable>
 	<variable name="Home_DialSub">
 		<value condition="$EXP[CustomRowsFocus]">$VAR[Home_CustomSub]</value>
@@ -243,6 +268,8 @@
 			<onright condition="$EXP[Home_AlbumArcReady]">9301</onright>
 			<onright condition="$EXP[Home_KindSettings]">9310</onright>
 			<onright condition="$EXP[Home_KindSearch]">ActivateWindow(1150)</onright>
+			<!-- 0.9.18: a custom item has no arc: Right opens it, as OK does (and as Right opens Search) -->
+			<onright condition="$EXP[Home_KindCustom]">Action(Select)</onright>
 			<onback>noop</onback>
 			<itemlayout width="1" height="1"/>
 			<focusedlayout width="1" height="1"/>
@@ -279,6 +306,10 @@
 					<visible>!Skin.HasSetting(HideMenu.Music)</visible>
 					<onclick>ActivateWindow(Music,musicdb://albums/,return)</onclick>
 				</item>
+				<!-- 0.9.18 custom menu items 1-3 (only set ones exist; wrap order: Music, these, Search, Settings) -->
+				<include content="CustomMenu_ListItem"><param name="item" value="1"/></include>
+				<include content="CustomMenu_ListItem"><param name="item" value="2"/></include>
+				<include content="CustomMenu_ListItem"><param name="item" value="3"/></include>
 			</content>
 		</control>
 		<!-- custom row 1: the arc's focus-owning list (always processed: a hidden list never loads) -->
@@ -478,6 +509,15 @@
 				<height>66</height>
 				<texture colordiffuse="text_primary">icons/knob.png</texture>
 				<visible>$EXP[Home_KindSettings]</visible>
+			</control>
+			<!-- 0.9.18 custom menu item: engraved add-on / folder glyph (the add-on's own icon sits in the station ring) -->
+			<control type="image">
+				<left>117</left>
+				<top>0</top>
+				<width>66</width>
+				<height>66</height>
+				<texture colordiffuse="text_primary">$VAR[Home_CustomGlyph]</texture>
+				<visible>$EXP[Home_KindCustom]</visible>
 			</control>
 			<control type="label">
 				<left>0</left>
@@ -1068,6 +1108,80 @@
 				</control>
 			</control>
 		</control>
+	</include>
+
+	<!-- ================================================================ custom menu item station (0.9.18) -->
+	<!-- A custom item has no arc: the Search station's layout (minimal dial ring at 830,370 + text column at 1290) with the
+	     add-on's own icon as the round lens, else the engraved glyph in amber; kicker = what it is, the name fitted
+	     (56 / 44), "Opens <add-on>", "OK to open". Param n = the slot. -->
+	<include name="Home_CustomStation">
+		<definition>
+			<control type="group">
+				<visible>$EXP[Home_Custom$PARAM[n]]</visible>
+				<include>Home_ArcReveal</include>
+				<!-- the minimal ring always: the clock numerals would peek round the add-on's icon -->
+				<control type="image">
+					<left>830</left>
+					<top>370</top>
+					<width>340</width>
+					<height>340</height>
+					<texture>rings/dial_min_260.png</texture>
+				</control>
+				<control type="image">
+					<left>900</left>
+					<top>440</top>
+					<width>200</width>
+					<height>200</height>
+					<aspectratio>scale</aspectratio>
+					<fadetime>200</fadetime>
+					<texture diffuse="masks/circle.png">$VAR[CustomMenu_Icon$PARAM[n]]</texture>
+					<visible>$EXP[CustomMenu$PARAM[n]HasIcon]</visible>
+				</control>
+				<control type="image">
+					<left>952</left>
+					<top>492</top>
+					<width>96</width>
+					<height>96</height>
+					<texture colordiffuse="accent">$VAR[Home_CustomGlyph]</texture>
+					<visible>!$EXP[CustomMenu$PARAM[n]HasIcon]</visible>
+				</control>
+				<control type="grouplist">
+					<left>1290</left>
+					<top>420</top>
+					<width>566</width>
+					<height>400</height>
+					<orientation>vertical</orientation>
+					<usecontrolcoords>true</usecontrolcoords>
+					<control type="label">
+						<width>566</width>
+						<height>24</height>
+						<font>label_20</font>
+						<textcolor>text_secondary</textcolor>
+						<label>$VAR[CustomMenu_Kind$PARAM[n]]</label>
+					</control>
+					<include content="Fit_HomeCustom">
+						<param name="top" value="22"/>
+						<param name="label" value="$VAR[CustomMenu_Label$PARAM[n]]"/>
+					</include>
+					<control type="label">
+						<top>18</top>
+						<width>566</width>
+						<height>34</height>
+						<font>text_26</font>
+						<textcolor>text_secondary</textcolor>
+						<label>$VAR[CustomMenu_Opens$PARAM[n]]</label>
+					</control>
+					<control type="label">
+						<top>6</top>
+						<width>566</width>
+						<height>26</height>
+						<font>label_20</font>
+						<textcolor>text_dim</textcolor>
+						<label>$LOCALIZE[31995]</label>
+					</control>
+				</control>
+			</control>
+		</definition>
 	</include>
 
 	<!-- ================================================================ now playing -->

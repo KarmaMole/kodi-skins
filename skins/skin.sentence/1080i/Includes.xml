@@ -28,4 +28,5 @@
 	<include file="Includes_Library.xml"/>
 	<include file="Includes_Misc.xml"/>
 	<include file="Includes_CustomRows.xml"/>
+	<include file="Includes_CustomMenu.xml"/>
 </includes>

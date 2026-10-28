@@ -239,7 +239,8 @@ CARD = {
     "large": dict(pad=32, kfont="mono_15", ktop=34, tfont="display_56", ttop=62, th=66, mfont="mono_15", mtop=138,
                   ptop=176, plines=4, ctop=322, flags=True),
 }
-PLOT_H = {2: 64, 3: 97, 4: 130}  # body_23 line pitch 32.7 px: whole lines (68 showed a sliver of line 3 on the Shield)
+PLOT_H = {2: 66, 3: 99, 4: 131}  # body_23 line pitch 32.7 px: ceil(N x pitch). 1.0.17: 64 / 97 / 130 held N-1 lines a page
+# (Kodi: floor(height / pitch)) and drew most of line N clipped; 68 showed a sliver of line 3 on the Shield
 CARD_ID = {k: 5061 + i for i, k in enumerate(FIT)}  # card groups 5061-5066 (ids only for tests: Control.IsVisible)  # body_23 line pitch 32.7 px: whole lines, no half line
 
 
@@ -315,7 +316,7 @@ def card(size, gap):
 	<font>body_23</font>
 	<textcolor>text_body</textcolor>
 	<label>$INFO[ListItem.Plot]</label>
-	<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
+	<include>Majan_PlotScroll</include>
 </control>"""]
     if k["ctop"]:
         parts.append(f"""

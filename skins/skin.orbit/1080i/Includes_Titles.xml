@@ -155,6 +155,45 @@
 		</definition>
 	</include>
 
+	<!-- Home custom menu item title (0.9.18): 566px, tiers [(56, 2), (44, 3)] -->
+	<include name="Fit_HomeCustom">
+		<param name="top">0</param>
+		<param name="color">text_primary</param>
+		<definition>
+			<control type="textbox">
+				<top>$PARAM[top]</top>
+				<width>566</width>
+				<height max="136">auto</height>
+				<font>wide_56</font>
+				<textcolor>$PARAM[color]</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>!Integer.IsGreater(Container(9761).NumPages,1)</visible>
+			</control>
+			<control type="textbox">
+				<top>$PARAM[top]</top>
+				<width>566</width>
+				<height max="163">auto</height>
+				<font>wide_44</font>
+				<textcolor>$PARAM[color]</textcolor>
+				<label>$PARAM[label]</label>
+				<visible>Integer.IsGreater(Container(9761).NumPages,1)</visible>
+			</control>
+		</definition>
+	</include>
+	<include name="Fit_HomeCustom_Probes">
+		<definition>
+			<control type="textbox" id="9761">
+				<left>-4000</left>
+				<top>-4000</top>
+				<width>566</width>
+				<height>165</height>
+				<font>wide_56</font>
+				<textcolor>00ffffff</textcolor>
+				<label>$PARAM[label]</label>
+			</control>
+		</definition>
+	</include>
+
 	<!-- Search films / shows panel title: 566px, tiers [(56, 2), (44, 3), (34, 4)] -->
 	<include name="Fit_SearchVideo">
 		<param name="top">0</param>

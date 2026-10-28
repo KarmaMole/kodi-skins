@@ -4,7 +4,7 @@
 	Left / Right step the value (applied at once), OK steps forward. The right-hand instrument shows the
 	focused setting as a detent knob (rings/knob/<N>_<i>.png) with its value and what it does.
 	Ids: rows 9601-9608, reset 9609, Main menu heading 9630 + rows 9611-9614 (HideMenu.*), Custom rows heading 9631 +
-	rows 9615-9617, favourites data list 9889. Back closes the window.
+	rows 9615-9617, Custom menu items heading 9632 + rows 9618-9620 (0.9.18), favourites data list 9889. Back closes the window.
 -->
 <window>
 	<defaultcontrol always="true">9600</defaultcontrol>
@@ -169,6 +169,23 @@
 			<include content="Set_CustomRow"><param name="id" value="9615"/><param name="row" value="1"/><param name="label" value="$LOCALIZE[31941]"/></include>
 			<include content="Set_CustomRow"><param name="id" value="9616"/><param name="row" value="2"/><param name="label" value="$LOCALIZE[31942]"/></include>
 			<include content="Set_CustomRow"><param name="id" value="9617"/><param name="row" value="3"/><param name="label" value="$LOCALIZE[31943]"/></include>
+			<!-- custom menu items (0.9.18): up to three more Home dial items; OK opens the item's options (Includes_CustomMenu.xml) -->
+			<control type="group" id="9632">
+				<width>1000</width>
+				<height>70</height>
+				<control type="label">
+					<left>28</left>
+					<top>30</top>
+					<width>900</width>
+					<height>30</height>
+					<font>label_20</font>
+					<textcolor>text_dim</textcolor>
+					<label>[UPPERCASE]$LOCALIZE[31980][/UPPERCASE]</label>
+				</control>
+			</control>
+			<include content="Set_CustomMenu"><param name="id" value="9618"/><param name="item" value="1"/><param name="label" value="$LOCALIZE[31981]"/></include>
+			<include content="Set_CustomMenu"><param name="id" value="9619"/><param name="item" value="2"/><param name="label" value="$LOCALIZE[31982]"/></include>
+			<include content="Set_CustomMenu"><param name="id" value="9620"/><param name="item" value="3"/><param name="label" value="$LOCALIZE[31983]"/></include>
 			<!-- reset (OK twice) -->
 			<control type="button" id="9609">
 				<width>1000</width>

@@ -410,7 +410,7 @@
 					<font>body_26</font>
 					<textcolor>text_body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
+					<include>Majan_PlotScroll</include>
 					<visible>!String.IsEmpty(ListItem.Plot)</visible>
 				</control>
 				<control type="textbox">
@@ -809,18 +809,18 @@
 				<left>360</left>
 				<top>290</top>
 				<width>1160</width>
-				<height>676</height>
+				<height>680</height>
 				<font>body_26</font>
 				<textcolor>text_body</textcolor>
 				<pagecontrol>61</pagecontrol>
 				<label>$INFO[ListItem.Plot]</label>
-				<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
+				<include>Majan_PlotScroll</include>
 			</control>
 			<control type="scrollbar" id="61">
 				<left>1556</left>
 				<top>290</top>
 				<width>4</width>
-				<height>676</height>
+				<height>680</height>
 				<orientation>vertical</orientation>
 				<showonepage>true</showonepage>
 				<onleft>9001</onleft>

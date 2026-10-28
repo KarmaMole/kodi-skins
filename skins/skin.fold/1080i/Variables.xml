@@ -9,6 +9,7 @@
 
 	<!-- Section colour (DESIGN: card stock). Home: the focused tab / section property; libraries: the content type. -->
 	<variable name="FoldAccent">
+		<value condition="$EXP[SectionCustom]">graph</value>
 		<value condition="$EXP[SectionSeries]">cobalt</value>
 		<value condition="$EXP[SectionMusic]">mari</value>
 		<value condition="$EXP[SectionSearch]">jade</value>
@@ -17,6 +18,7 @@
 	</variable>
 	<!-- The section colour as TEXT on cream / table (marigold prints as ochre) -->
 	<variable name="FoldAccentInk">
+		<value condition="$EXP[SectionCustom]">graph</value>
 		<value condition="$EXP[SectionSeries]">cobalt</value>
 		<value condition="$EXP[SectionMusic]">mari_ink</value>
 		<value condition="$EXP[SectionSearch]">jade</value>

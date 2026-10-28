@@ -54,6 +54,15 @@
 	<variable name="SS_Value_9183">
 		<value>$VAR[CustomRow_Value3]</value>
 	</variable>
+	<variable name="SS_Value_9184">
+		<value>$VAR[CustomMenu_Value1]</value>
+	</variable>
+	<variable name="SS_Value_9185">
+		<value>$VAR[CustomMenu_Value2]</value>
+	</variable>
+	<variable name="SS_Value_9186">
+		<value>$VAR[CustomMenu_Value3]</value>
+	</variable>
 	<variable name="SS_Value_9131">
 		<value condition="Skin.HasSetting(passepartout.nowatched)">Off</value>
 		<value>On</value>

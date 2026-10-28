@@ -68,6 +68,9 @@
 		<value condition="Control.HasFocus(9515)">$LOCALIZE[31941]</value>
 		<value condition="Control.HasFocus(9516)">$LOCALIZE[31942]</value>
 		<value condition="Control.HasFocus(9517)">$LOCALIZE[31943]</value>
+		<value condition="Control.HasFocus(9518)">$LOCALIZE[31981]</value>
+		<value condition="Control.HasFocus(9519)">$LOCALIZE[31982]</value>
+		<value condition="Control.HasFocus(9520)">$LOCALIZE[31983]</value>
 		<value condition="Control.HasFocus(9509)">Restore defaults</value>
 	</variable>
 	<variable name="SkinSet_HelpText">
@@ -86,6 +89,9 @@
 		<value condition="Control.HasFocus(9515)">$LOCALIZE[31957]</value>
 		<value condition="Control.HasFocus(9516)">$LOCALIZE[31957]</value>
 		<value condition="Control.HasFocus(9517)">$LOCALIZE[31957]</value>
+		<value condition="Control.HasFocus(9518)">$LOCALIZE[31994]</value>
+		<value condition="Control.HasFocus(9519)">$LOCALIZE[31994]</value>
+		<value condition="Control.HasFocus(9520)">$LOCALIZE[31994]</value>
 		<value condition="Control.HasFocus(9509)">Every Nocturne setting goes back to how it was built: velvet darkness, no dust, the wandering torch, no coloured spill, pins, trailers, controls hiding after five seconds, full motion.</value>
 	</variable>
 	<variable name="SkinSet_ResetLabel">

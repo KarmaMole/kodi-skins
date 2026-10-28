@@ -5,6 +5,8 @@ and tilt toward you, the info block of the focused card, and a second row of cre
 Design contract: docs/concepts/round4/mockups/FoldHome.html (pixel values below come from it).
 Ids
   9000 tab group: 9001 Films, 9002 Series, 9003 Music, 9004 Search, 9005 Settings (9001-9004 hide with HideMenu.*)
+       0.9.15 custom menu items: tabs 9006-9008 after Music (Includes_CustomMenu.xml; hidden while not set), each
+       with one cream card 9171-9173 (OK opens the item, like the Search card)
   row A (closed cards, fixedlist focusposition 2): 9110 films, 9130 series, 9150 music, 9180 settings
   row B (cream cards): 9120 films in progress | 9121 recently added films (when 9120 is empty),
                        9140 new episodes, 9160 recently played albums | 9161 random albums (fallback)
@@ -12,7 +14,7 @@ Ids
   title probes (NumPages tier tests): 9310 + n
   counters (hidden, loaded after a 1 s rest): 9191 films, 9192 unwatched films, 9193 shows, 9194 albums
 Window(Home) properties
-  fold.section  films|series|music|search|settings (focused tab; kept while focus is in the rows)
+  fold.section  films|series|music|search|settings|custom1-3 (focused tab; kept while focus is in the rows)
   fold.from     slot the info spread opens from (h0..h6 row A, b0..b5 row B), set right before Action(Info)
   fold.n.films / fold.n.series / fold.n.music   tab counts for the other windows' decorative tabs
 """
@@ -77,7 +79,8 @@ def custom_rows():
         ups += [('$EXP[Home_Films] + Integer.IsGreater(Container(9120).NumItems,0)', 9120), ('$EXP[Home_Films]', 9121),
                 ('$EXP[Home_Series]', 9140),
                 ('$EXP[Home_Music] + Integer.IsGreater(Container(9160).NumItems,0)', 9160), ('$EXP[Home_Music]', 9161),
-                ('$EXP[Home_Search]', 9170), ('$EXP[Home_Settings]', 9180)]
+                ('$EXP[Home_Search]', 9170), ('$EXP[Home_Settings]', 9180),
+                ('$EXP[Home_Custom1]', 9171), ('$EXP[Home_Custom2]', 9172), ('$EXP[Home_Custom3]', 9173)]
         up_xml = "".join(f'\n\t\t\t\t\t\t<onup condition="{c}">{t}</onup>' for c, t in ups) + "\n\t\t\t\t\t\t<onup>9000</onup>"
         downs = []
         if n == 1:
@@ -752,7 +755,93 @@ def tab_hide(tid):
         o.append(f"\n\t\t\t\t<visible>!{TAB_HIDE[tid]}</visible>")
     for p in range(9001, tid):
         o.append(f'\n\t\t\t\t<animation effect="slide" start="0,0" end="-206,0" time="0" condition="{TAB_HIDE[p]}">Conditional</animation>')
+    if tid in (9004, 9005):   # 0.9.15: the custom tabs sit before Search
+        for n in (1, 2, 3):
+            o.append(f'\n\t\t\t\t<animation effect="slide" start="0,0" end="206,0" time="0" condition="$EXP[CustomMenu{n}On]">Conditional</animation>')
     return "".join(o)
+
+
+# ---- 0.9.15 custom menu items (Includes_CustomMenu.xml, tools/customrows/make_customrows.py): up to three manila
+# tabs after Music (before Search / Settings), 206 px apart like every tab. A tab that isn't set doesn't exist: it is
+# hidden, the tabs after it close up (slides), Left / Right fall through it (numeric chain 9003 > 9006 > 9007 > 9008 >
+# 9004). Its section is one cream card (the Search card's shape): the name, "Opens <add-on>", the icon when there is
+# one; OK on the tab or the card opens the item. With all eight tabs on show the Home clock steps aside (Home.xml).
+CUSTOM_TABS = [(1, 9006, 9171), (2, 9007, 9172), (3, 9008, 9173)]
+CUSTOM_TAB_X = 714
+
+
+def custom_on(n):
+    return f"$EXP[CustomMenu{n}On]"
+
+
+def custom_expressions():
+    o = []
+    for n, tid, card in CUSTOM_TABS:
+        o.append(f'\t<expression name="Home_Custom{n}">String.IsEqual(Window(Home).Property(fold.section),custom{n}) + {custom_on(n)}</expression>')
+    o.append('\t<!-- every tab shows (5 + 3): the eighth tab reaches the clock -->')
+    o.append('\t<expression name="Home_TabsFull">' + " + ".join(custom_on(n) for n in (1, 2, 3)) + " + "
+             + " + ".join(f"!{TAB_HIDE[k]}" for k in (9001, 9002, 9003, 9004)) + "</expression>")
+    return "\n".join(o)
+
+
+def custom_rowheads():
+    return "\n".join(f'\t\t<value condition="$EXP[Home_Custom{n}]">$VAR[CustomMenu_Kind{n}][COLOR cap2]   $VAR[CustomMenu_Opens{n}][/COLOR]</value>'
+                     for n, tid, card in CUSTOM_TABS)
+
+
+def custom_tabs():
+    out = []
+    ids = [9003] + [c[1] for c in CUSTOM_TABS] + [9004]
+    for k, (n, tid, card) in enumerate(CUSTOM_TABS):
+        slides = "".join(f'\n\t\t\t\t<animation effect="slide" start="0,0" end="-206,0" time="0" condition="{TAB_HIDE[p]}">Conditional</animation>'
+                         for p in (9001, 9002, 9003))
+        slides += "".join(f'\n\t\t\t\t<animation effect="slide" start="0,0" end="-206,0" time="0" condition="!{custom_on(m)}">Conditional</animation>'
+                          for m in range(1, n))
+        x = CUSTOM_TAB_X + 206 * (n - 1)
+        out.append(f"""
+			<control type="group">
+				<visible>{custom_on(n)}</visible>{slides}
+				<include content="Fold_TabLook">
+					<param name="x" value="{x}"/>
+					<param name="color" value="cream_edge"/>
+					<param name="label" value="$VAR[CustomMenu_Label{n}]"/>
+					<param name="active" value="String.IsEqual(Window(Home).Property(fold.section),custom{n})"/>
+					<param name="focus" value="Control.HasFocus({tid})"/>
+					<param name="text" value="ink"/>
+					<param name="text2" value="cap"/>
+				</include>
+				<control type="button" id="{tid}">
+					<left>{x}</left>
+					<top>0</top>
+					<width>196</width>
+					<height>98</height>
+					<texturefocus />
+					<texturenofocus />
+					<label></label>
+					<onfocus>SetProperty(fold.section,custom{n},home)</onfocus>
+					<include content="CustomMenu_OnClick"><param name="item" value="{n}"/></include>
+					<ondown>{card}</ondown>
+					<onleft>{ids[k]}</onleft>
+					<onright>{ids[k + 2]}</onright>
+				</control>
+			</control>""")
+    return "".join(out)
+
+
+def custom_cards():
+    out = []
+    for n, tid, card in CUSTOM_TABS:
+        out.append(f"""
+				<control type="group">
+					<visible>$EXP[Home_Custom{n}]</visible>
+					<include>Home_SectionUnfold</include>
+					<include content="Home_CustomCard">
+						<param name="item" value="{n}"/>
+						<param name="id" value="{card}"/>
+						<param name="tab" value="{tid}"/>
+					</include>
+				</control>""")
+    return "".join(out)
 
 
 def tab(tid, x, color, label, section, count, onclick, ondown, left, right):
@@ -812,6 +901,7 @@ def build():
 	<expression name="Home_Music">String.IsEqual(Window(Home).Property(fold.section),music) + !Skin.HasSetting(HideMenu.Music)</expression>
 	<expression name="Home_Search">String.IsEqual(Window(Home).Property(fold.section),search) + !Skin.HasSetting(HideMenu.Search)</expression>
 	<expression name="Home_Settings">String.IsEqual(Window(Home).Property(fold.section),settings)</expression>
+{custom_expressions()}
 	<expression name="Home_RowB">{ROWB_FOCUS['films']} | {ROWB_FOCUS['series']} | {ROWB_FOCUS['music']}</expression>
 
 	<!-- ============================================================== variables -->
@@ -852,6 +942,7 @@ def build():
 		<value condition="$EXP[Home_Music]">New albums[COLOR cap2]   newest added first[/COLOR]</value>
 		<value condition="$EXP[Home_Settings]">System[COLOR cap2]   Kodi · Fold · add-ons[/COLOR]</value>
 		<value condition="$EXP[Home_Search]">Search[COLOR cap2]   films · series · music · people[/COLOR]</value>
+{custom_rowheads()}
 		<value condition="Integer.IsGreater(Container(9192).NumItems,0)">Unwatched[COLOR cap2]   $INFO[Container(9192).NumItems] films[/COLOR]</value>
 		<value>Unwatched[COLOR cap2]   newest added first[/COLOR]</value>
 	</variable>
@@ -867,7 +958,7 @@ def build():
 
 	<!-- ============================================================== the tabs (focusable) -->
 	<include name="Home_Tabs">
-		<control type="group" id="9000">{tab(9001, 96, 'verm', 31200, 'films', '$INFO[Container(9191).NumItems]', 'ActivateWindow(Videos,videodb://movies/titles/,return)', 9110, 9005, 9002)}{tab(9002, 302, 'cobalt', 31201, 'series', '$INFO[Container(9193).NumItems]', 'ActivateWindow(Videos,videodb://tvshows/titles/,return)', 9130, 9001, 9003)}{tab(9003, 508, 'mari', 31202, 'music', '$INFO[Container(9194).NumItems]', 'ActivateWindow(Music,musicdb://albums/,return)', 9150, 9002, 9004)}{tab(9004, 714, 'jade', 31203, 'search', '', 'ActivateWindow(1150)', 9170, 9003, 9005)}{tab(9005, 920, 'graph', 31204, 'settings', '', 'SetFocus(9180)', 9180, 9004, 9001)}
+		<control type="group" id="9000">{tab(9001, 96, 'verm', 31200, 'films', '$INFO[Container(9191).NumItems]', 'ActivateWindow(Videos,videodb://movies/titles/,return)', 9110, 9005, 9002)}{tab(9002, 302, 'cobalt', 31201, 'series', '$INFO[Container(9193).NumItems]', 'ActivateWindow(Videos,videodb://tvshows/titles/,return)', 9130, 9001, 9003)}{tab(9003, 508, 'mari', 31202, 'music', '$INFO[Container(9194).NumItems]', 'ActivateWindow(Music,musicdb://albums/,return)', 9150, 9002, 9006)}{custom_tabs()}{tab(9004, 714, 'jade', 31203, 'search', '', 'ActivateWindow(1150)', 9170, 9008, 9005)}{tab(9005, 920, 'graph', 31204, 'settings', '', 'SetFocus(9180)', 9180, 9004, 9001)}
 		</control>
 	</include>
 
@@ -965,6 +1056,7 @@ def build():
 					<include>Home_SectionUnfold</include>
 					<include>Home_SearchCard</include>
 				</control>
+				<!-- 0.9.15 custom menu items: one cream card each -->{custom_cards()}
 			</control>
 			<!-- info blocks (each bound to its container) -->
 			<control type="group">
@@ -1129,6 +1221,164 @@ def build():
 				<onclick>ActivateWindow(1150)</onclick>
 				<onup>9004</onup>{DOWN_TO_CUSTOM}
 				<onback>9004</onback>
+			</control>
+		</control>
+	</include>
+
+	<!-- 0.9.15 a custom menu item's section: one cream card (the Search card's shape, cream stock like row B).
+	     The name, "Opens <add-on>", the add-on's icon on the right when there is one, the slip "OK to open".
+	     params: item (1-3), id (the card's button), tab (the item's tab: Up / Back) -->
+	<include name="Home_CustomCard">
+		<control type="group">
+			<left>96</left>
+			<top>{LIST_Y + F_TOP}</top>
+			<control type="image">
+				<left>-96</left>
+				<top>-96</top>
+				<width>{900 + 192}</width>
+				<height>{F_H + 192}</height>
+				<texture border="104">fold/shadow_lift.png</texture>
+				<visible>Control.HasFocus($PARAM[id])</visible>
+			</control>
+			<control type="image">
+				<left>-48</left>
+				<top>-48</top>
+				<width>{900 + 96}</width>
+				<height>{F_H + 96}</height>
+				<texture border="56">fold/shadow_card.png</texture>
+				<visible>!Control.HasFocus($PARAM[id])</visible>
+			</control>
+			<control type="group">
+				<camera x="450" y="{CAM_Y - F_TOP}"/>
+				<animation type="Focus" condition="!{RM}">
+					<effect type="rotatex" start="0" end="-6" center="{F_H}" time="180" tween="sine" easing="out"/>
+				</animation>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>900</width>
+					<height>{F_H}</height>
+					<texture border="6" colordiffuse="cream">fold/rr4.png</texture>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>900</width>
+					<height>{F_H}</height>
+					<texture diffuse="fold/rr4.png">fold/tooth_cream.png</texture>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>900</width>
+					<height>{F_H}</height>
+					<texture>fold/card_sheen.png</texture>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>900</width>
+					<height>{F_H}</height>
+					<texture border="6">fold/card_rim.png</texture>
+				</control>
+				<control type="image">
+					<left>9</left>
+					<top>0</top>
+					<width>2</width>
+					<height>{F_H}</height>
+					<texture>fold/score.png</texture>
+				</control>
+				<!-- the add-on's icon, pasted on the card -->
+				<control type="group">
+					<left>664</left>
+					<top>48</top>
+					<visible>$EXP[CustomMenu$PARAM[item]HasIcon]</visible>
+					<control type="image">
+						<left>-6</left>
+						<top>-6</top>
+						<width>192</width>
+						<height>192</height>
+						<texture border="6" colordiffuse="cream_edge">fold/rr3.png</texture>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>180</width>
+						<height>180</height>
+						<aspectratio>keep</aspectratio>
+						<fadetime>200</fadetime>
+						<texture background="true">$VAR[CustomMenu_Icon$PARAM[item]]</texture>
+					</control>
+				</control>
+				<!-- a slip like the Search card's query line -->
+				<control type="image">
+					<left>56</left>
+					<top>256</top>
+					<width>788</width>
+					<height>72</height>
+					<texture border="6" colordiffuse="table_lo">fold/rr3.png</texture>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>900</width>
+					<height>{F_H}</height>
+					<texture>fold/card_light.png</texture>
+					<visible>Control.HasFocus($PARAM[id])</visible>
+				</control>
+			</control>
+			<!-- the text sits outside the camera group: under a <camera>, Windows (D3D) clips text left of the
+			     camera point (the Search card shows "and people." only on the PC benches); the -6 degree focus tilt
+			     moves the card's top edge about 2 px -->
+			<control type="label">
+				<left>56</left>
+				<top>48</top>
+				<width>800</width>
+				<height>100</height>
+				<font>disp_96</font>
+				<textcolor>ink</textcolor>
+				<label>$VAR[CustomMenu_Label$PARAM[item]]</label>
+				<visible>!$EXP[CustomMenu$PARAM[item]HasIcon]</visible>
+			</control>
+			<control type="label">
+				<left>56</left>
+				<top>48</top>
+				<width>560</width>
+				<height>100</height>
+				<font>disp_96</font>
+				<textcolor>ink</textcolor>
+				<label>$VAR[CustomMenu_Label$PARAM[item]]</label>
+				<visible>$EXP[CustomMenu$PARAM[item]HasIcon]</visible>
+			</control>
+			<control type="label">
+				<left>60</left>
+				<top>178</top>
+				<width>560</width>
+				<height>40</height>
+				<font>light_34</font>
+				<textcolor>ink2</textcolor>
+				<label>$VAR[CustomMenu_Opens$PARAM[item]]</label>
+			</control>
+			<control type="label">
+				<left>80</left>
+				<top>256</top>
+				<width>740</width>
+				<height>72</height>
+				<font>caps_22</font>
+				<textcolor>cap</textcolor>
+				<label>$VAR[CustomMenu_Kind$PARAM[item]]   ·   $LOCALIZE[31995]</label>
+			</control>
+			<control type="button" id="$PARAM[id]">
+				<left>0</left>
+				<top>0</top>
+				<width>900</width>
+				<height>{F_H}</height>
+				<texturefocus />
+				<texturenofocus />
+				<label></label>
+				<include content="CustomMenu_OnClick"><param name="item" value="$PARAM[item]"/></include>
+				<onup>$PARAM[tab]</onup>{DOWN_TO_CUSTOM}
+				<onback>$PARAM[tab]</onback>
 			</control>
 		</control>
 	</include>

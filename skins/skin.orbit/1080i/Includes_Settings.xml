@@ -471,6 +471,25 @@
 			</control>
 		</definition>
 	</include>
+	<!-- 0.9.18 custom menu item n (Includes_CustomMenu.xml): the same row as a custom row -->
+	<include name="Set_CustomMenu">
+		<definition>
+			<control type="button" id="$PARAM[id]">
+				<width>1000</width>
+				<height>80</height>
+				<font>text_26_med</font>
+				<textcolor>text_secondary</textcolor>
+				<focusedcolor>text_primary</focusedcolor>
+				<disabledcolor>disabled</disabledcolor>
+				<textoffsetx>28</textoffsetx>
+				<texturefocus border="8">focus/row.png</texturefocus>
+				<texturenofocus border="0,0,0,2" colordiffuse="line_soft">dialogs/row_rule.png</texturenofocus>
+				<label>$PARAM[label]</label>
+				<label2>[COLOR accent]$VAR[CustomMenu_Value$PARAM[item]][/COLOR]</label2>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="$PARAM[item]"/><param name="heading" value="$PARAM[label]"/></include>
+			</control>
+		</definition>
+	</include>
 	<include name="Set_Row">
 		<param name="also">noop</param>
 		<param name="also2">noop</param>

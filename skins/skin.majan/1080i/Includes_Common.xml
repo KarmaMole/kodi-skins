@@ -42,7 +42,23 @@
 	</include>
 
 	<!-- Date + clock, right side of the top bar (DESIGN 7.4) -->
+	<!-- Plot scroll, one whole line at a time (1.0.17, Signal's fix, LESSONS "View fixes 2026-10-28 (Signal)"): Kodi's
+	     textbox autoscroll crawls without a pause between lines, so every moment showed half lines at the top and bottom.
+	     The condition is false for one second in five (System.Time(ss) ends in 0 or 5), which resets only the delay
+	     counter, so the box moves one line (250 ms) per 5 s and rests on whole lines. No repeat: its fade restarts on
+	     every reset. Boxes must be whole lines tall: N x pitch (body_23 32.7, body_25 35.97, body_26 37.74). -->
+	<!-- param more: an extra condition (an AUTO-height box needs a fixed whole-line probe: its own page count is a line short) -->
+	<include name="Majan_PlotScroll">
+		<param name="more">true</param>
+		<definition>
+			<autoscroll delay="3800" time="250">!String.EndsWith(System.Time(ss),0) + !String.EndsWith(System.Time(ss),5) + $PARAM[more]</autoscroll>
+		</definition>
+	</include>
+
+	<!-- param date: false hides the date (Home, while 2+ custom menu items need the room; 1.0.17) -->
 	<include name="Majan_Clock">
+		<param name="date">true</param>
+		<definition>
 		<control type="grouplist">
 			<left>page_margin</left>
 			<top>topbar_item_top</top>
@@ -59,6 +75,7 @@
 				<font>mono_15</font>
 				<textcolor>text_secondary</textcolor>
 				<label>$VAR[DateLabel]</label>
+				<visible>$PARAM[date]</visible>
 			</control>
 			<control type="label">
 				<width>auto</width>
@@ -68,6 +85,7 @@
 				<label>$VAR[ClockLabel]</label>
 			</control>
 		</control>
+		</definition>
 	</include>
 
 	<!-- Page header for library / settings windows: mono index (accent) + page name.

@@ -1,3 +1,7 @@
+0.9.17 (2026-10-28)
+- Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
+- They are words of the Home menu between Search and Settings, in the same caps and ink focus. While one is in focus the page shows its icon as a matted print with a museum caption (its name, what it opens) instead of the exhibition. OK opens it; Back comes home to it. With none set Home is unchanged.
+
 0.9.16 (2026-10-23)
 - Settings: fixed text overlapping controls. A long custom row name or path ends in an ellipsis instead of running over "Row 1".
 

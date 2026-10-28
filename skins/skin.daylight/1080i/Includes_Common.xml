@@ -290,6 +290,9 @@
 		<param name="ondown">noop</param>
 		<param name="open">ActivateWindow</param>
 		<param name="options">false</param>
+		<!-- 0.9.17: custom = true on Home: the custom main-menu pills 9011-9013 between Search and the gear
+		     (Includes_CustomMenuPills.xml, _src/make_custom_pills.py); the pills to their left slide left -->
+		<param name="custom">false</param>
 		<definition>
 			<control type="group" id="$PARAM[gid]">
 				<defaultcontrol always="true">$PARAM[p]1</defaultcontrol>
@@ -317,35 +320,44 @@
 					</control>
 				</control>
 				<include content="DL_NavPill">
-					<param name="id" value="$PARAM[p]1"/><param name="x" value="996"/><param name="w" value="133"/>
+					<param name="id" value="$PARAM[p]1"/><param name="custom" value="$PARAM[custom]"/><param name="x" value="996"/><param name="w" value="133"/>
 					<param name="label" value="For now"/><param name="active" value="$PARAM[active1]"/>
 					<param name="s1" value="Skin.HasSetting(HideMenu.Movies)"/><param name="d1" value="102"/><param name="s2" value="Skin.HasSetting(HideMenu.TVShows)"/><param name="d2" value="116"/><param name="s3" value="Skin.HasSetting(HideMenu.Music)"/><param name="d3" value="109"/><param name="s4" value="Skin.HasSetting(HideMenu.Search)"/><param name="d4" value="120"/>
 					<param name="onclick" value="$PARAM[click1]"/><param name="ondown" value="$PARAM[ondown]"/>
 					<param name="onleft" value="$PARAM[p]7"/><param name="onright" value="$PARAM[p]2"/>
 				</include>
 				<include content="DL_NavPill">
-					<param name="id" value="$PARAM[p]2"/><param name="x" value="1135"/><param name="w" value="96"/>
+					<param name="id" value="$PARAM[p]2"/><param name="custom" value="$PARAM[custom]"/><param name="x" value="1135"/><param name="w" value="96"/>
 					<param name="label" value="Films"/><param name="shown" value="!Skin.HasSetting(HideMenu.Movies)"/><param name="s1" value="Skin.HasSetting(HideMenu.TVShows)"/><param name="d1" value="116"/><param name="s2" value="Skin.HasSetting(HideMenu.Music)"/><param name="d2" value="109"/><param name="s3" value="Skin.HasSetting(HideMenu.Search)"/><param name="d3" value="120"/><param name="active" value="$PARAM[active2]"/>
 					<param name="onclick" value="$PARAM[open](Videos,videodb://movies/titles/,return)"/><param name="ondown" value="$PARAM[ondown]"/>
 					<param name="onleft" value="$PARAM[p]1"/><param name="onright" value="$PARAM[p]3"/>
 				</include>
 				<include content="DL_NavPill">
-					<param name="id" value="$PARAM[p]3"/><param name="x" value="1237"/><param name="w" value="110"/>
+					<param name="id" value="$PARAM[p]3"/><param name="custom" value="$PARAM[custom]"/><param name="x" value="1237"/><param name="w" value="110"/>
 					<param name="label" value="Shows"/><param name="shown" value="!Skin.HasSetting(HideMenu.TVShows)"/><param name="s1" value="Skin.HasSetting(HideMenu.Music)"/><param name="d1" value="109"/><param name="s2" value="Skin.HasSetting(HideMenu.Search)"/><param name="d2" value="120"/><param name="active" value="$PARAM[active3]"/>
 					<param name="onclick" value="$PARAM[open](Videos,videodb://tvshows/titles/,return)"/><param name="ondown" value="$PARAM[ondown]"/>
 					<param name="onleft" value="$PARAM[p]2"/><param name="onright" value="$PARAM[p]4"/>
 				</include>
 				<include content="DL_NavPill">
-					<param name="id" value="$PARAM[p]4"/><param name="x" value="1353"/><param name="w" value="103"/>
+					<param name="id" value="$PARAM[p]4"/><param name="custom" value="$PARAM[custom]"/><param name="x" value="1353"/><param name="w" value="103"/>
 					<param name="label" value="Music"/><param name="shown" value="!Skin.HasSetting(HideMenu.Music)"/><param name="s1" value="Skin.HasSetting(HideMenu.Search)"/><param name="d1" value="120"/><param name="active" value="$PARAM[active4]"/>
 					<param name="onclick" value="$PARAM[open](Music,musicdb://albums/,return)"/><param name="ondown" value="$PARAM[ondown]"/>
 					<param name="onleft" value="$PARAM[p]3"/><param name="onright" value="$PARAM[p]5"/>
 				</include>
-				<include content="DL_NavPill">
+				<include content="DL_NavPill" condition="!$PARAM[custom]">
 					<param name="id" value="$PARAM[p]5"/><param name="x" value="1462"/><param name="w" value="114"/>
 					<param name="label" value="Search"/><param name="shown" value="!Skin.HasSetting(HideMenu.Search)"/>
 					<param name="onclick" value="$PARAM[open](1150)"/><param name="ondown" value="$PARAM[ondown]"/>
 					<param name="onleft" value="$PARAM[p]4"/><param name="onright" value="$PARAM[p]6"/>
+				</include>
+				<include content="DL_NavPill" condition="$PARAM[custom]">
+					<param name="id" value="$PARAM[p]5"/><param name="x" value="1462"/><param name="w" value="114"/><param name="custom" value="true"/>
+					<param name="label" value="Search"/><param name="shown" value="!Skin.HasSetting(HideMenu.Search)"/>
+					<param name="onclick" value="$PARAM[open](1150)"/><param name="ondown" value="$PARAM[ondown]"/>
+					<param name="onleft" value="$PARAM[p]4"/><param name="onright" value="9011"/>
+				</include>
+				<include content="DL_CustomMenuPills" condition="$PARAM[custom]">
+					<param name="p" value="$PARAM[p]"/><param name="ondown" value="$PARAM[ondown]"/>
 				</include>
 				<control type="group">
 					<left>1582</left>
@@ -359,7 +371,8 @@
 						<texturefocus colordiffuse="$VAR[DL_Accent]">daylight/circle_64.png</texturefocus>
 						<texturenofocus />
 						<onclick>ActivateWindow(1151)</onclick>
-						<onleft>$PARAM[p]5</onleft>
+						<onleft condition="$PARAM[custom]">9013</onleft>
+						<onleft condition="!$PARAM[custom]">$PARAM[p]5</onleft>
 						<onright>$PARAM[p]7</onright>
 						<ondown>$PARAM[ondown]</ondown>
 					</control>
@@ -397,6 +410,7 @@
 		<param name="d3">0</param>
 		<param name="s4">false</param>
 		<param name="d4">0</param>
+		<param name="custom">false</param>
 		<definition>
 			<control type="group">
 				<left>$PARAM[x]</left>
@@ -408,6 +422,7 @@
 				<animation effect="slide" start="0,0" end="$PARAM[d2],0" time="0" condition="$PARAM[s2]">Conditional</animation>
 				<animation effect="slide" start="0,0" end="$PARAM[d3],0" time="0" condition="$PARAM[s3]">Conditional</animation>
 				<animation effect="slide" start="0,0" end="$PARAM[d4],0" time="0" condition="$PARAM[s4]">Conditional</animation>
+				<include condition="$PARAM[custom]">DL_CMShift1</include>
 				<control type="image">
 					<left>0</left>
 					<top>0</top>

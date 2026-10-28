@@ -546,7 +546,7 @@
 		<param name="focused">false</param>
 		<definition>
 			<control type="group">
-				<left>18</left>
+				<left>15</left>
 				<top>18</top>
 				<width>150</width>
 				<height>150</height>
@@ -615,7 +615,7 @@
 				</control>
 			</control>
 			<control type="label">
-				<left>8</left>
+				<left>5</left>
 				<top>182</top>
 				<width>170</width>
 				<height>28</height>
@@ -626,7 +626,7 @@
 				<label>$VAR[Music_ItemLabel]</label>
 			</control>
 			<control type="label">
-				<left>8</left>
+				<left>5</left>
 				<top>208</top>
 				<width>170</width>
 				<height>26</height>
@@ -647,7 +647,7 @@
 		<control type="list" id="507">
 			<left>142</left>
 			<top>720</top>
-			<width>1636</width>
+			<width>1620</width>
 			<height>270</height>
 			<orientation>horizontal</orientation>
 			<onup>9000</onup>
@@ -658,10 +658,10 @@
 			<scrolltime tween="cubic" easing="out">260</scrolltime>
 			<viewtype label="31320">biginfo</viewtype>
 			<visible>Container.Content(artists) | Container.Content(albums)</visible>
-			<itemlayout width="186" height="270">
+			<itemlayout width="180" height="270">
 				<include>MusicView_StripItem</include>
 			</itemlayout>
-			<focusedlayout width="186" height="270">
+			<focusedlayout width="180" height="270">
 				<include content="MusicView_StripItem"><param name="focused" value="true"/></include>
 			</focusedlayout>
 		</control>

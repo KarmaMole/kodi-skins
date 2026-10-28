@@ -166,23 +166,19 @@
 		<param name="focus_b">noop</param>
 		<param name="active">false</param>
 		<param name="onclick">noop</param>
-		<!-- shown: false when hidden in Skin settings (HideMenu.*); s1..s3 / d1..d3: slide left by the words hidden before it.
+		<!-- shown: false when hidden in Skin settings (HideMenu.*). 0.9.17: the words are children of the grouplist 9000
+		     (Home_Nav), which closes up hidden ones; gid = the word's group id (a grouplist rewrites its children's
+		     Left / Right with the neighbours' ids, so every child needs one, LESSONS Custom menu items Majan).
 		     A hidden word keeps its numeric onleft / onright, so Left / Right fall through it. -->
 		<param name="shown">true</param>
-		<param name="s1">false</param><param name="d1">0</param>
-		<param name="s2">false</param><param name="d2">0</param>
-		<param name="s3">false</param><param name="d3">0</param>
-		<param name="s4">false</param><param name="d4">0</param>
 		<definition>
-			<control type="group">
+			<control type="group" id="$PARAM[gid]">
+			<width>$PARAM[width]</width>
+			<height>50</height>
 			<visible>$PARAM[shown]</visible>
-			<animation effect="slide" start="0,0" end="-$PARAM[d1],0" time="0" condition="$PARAM[s1]">Conditional</animation>
-			<animation effect="slide" start="0,0" end="-$PARAM[d2],0" time="0" condition="$PARAM[s2]">Conditional</animation>
-			<animation effect="slide" start="0,0" end="-$PARAM[d3],0" time="0" condition="$PARAM[s3]">Conditional</animation>
-			<animation effect="slide" start="0,0" end="-$PARAM[d4],0" time="0" condition="$PARAM[s4]">Conditional</animation>
 			<control type="button" id="$PARAM[id]">
-				<left>$PARAM[left]</left>
-				<top>53</top>
+				<left>0</left>
+				<top>0</top>
 				<width>$PARAM[width]</width>
 				<height>50</height>
 				<font>cap_20</font>
@@ -209,8 +205,8 @@
 			</control>
 			<!-- hairline under the section on show -->
 			<control type="image">
-				<left>$PARAM[uleft]</left>
-				<top>100</top>
+				<left>16</left>
+				<top>47</top>
 				<width>$PARAM[uwidth]</width>
 				<height>1</height>
 				<texture colordiffuse="ink">common/white.png</texture>
@@ -220,11 +216,142 @@
 		</definition>
 	</include>
 
+	<!-- 0.9.17 custom main-menu item n (Includes_CustomMenu.xml; params n, id): a word like the others, as wide as
+	     its name (auto width, the same 16 px either side as the measured words, cut at 300). A direct child of the
+	     grouplist, so its Left / Right are the neighbours (Search's group 9014 / the next item / Settings' 9015);
+	     hidden ones are walked past. It has no exhibition: the page shows Home_CustomMenuPanel instead. -->
+	<include name="Home_NavCustom">
+		<definition>
+			<control type="button" id="$PARAM[id]">
+				<width max="300">auto</width>
+				<height>50</height>
+				<font>cap_20</font>
+				<aligny>center</aligny>
+				<textoffsetx>16</textoffsetx>
+				<textcolor>ink2</textcolor>
+				<focusedcolor>$VAR[PaperColor]</focusedcolor>
+				<texturefocus colordiffuse="ink">common/white.png</texturefocus>
+				<texturenofocus />
+				<label>$VAR[CustomMenu_Label$PARAM[n]]</label>
+				<visible>$EXP[CustomMenu$PARAM[n]On]</visible>
+				<onfocus>SetProperty(passepartout.section,custom$PARAM[n],home)</onfocus>
+				<include content="CustomMenu_OnClick"><param name="item" value="$PARAM[n]"/></include>
+				<onup>noop</onup>
+				<ondown>noop</ondown>
+			</control>
+		</definition>
+	</include>
+	<variable name="Home_CustomMenuKind">
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom1)">$VAR[CustomMenu_Kind1]</value>
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom2)">$VAR[CustomMenu_Kind2]</value>
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom3)">$VAR[CustomMenu_Kind3]</value>
+	</variable>
+	<variable name="Home_CustomMenuOpens">
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom1)">$VAR[CustomMenu_Opens1]</value>
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom2)">$VAR[CustomMenu_Opens2]</value>
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom3)">$VAR[CustomMenu_Opens3]</value>
+	</variable>
+	<variable name="Home_CustomMenuLabel">
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom1)">$VAR[CustomMenu_Label1]</value>
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom2)">$VAR[CustomMenu_Label2]</value>
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom3)">$VAR[CustomMenu_Label3]</value>
+	</variable>
+	<variable name="Home_CustomMenuIcon">
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom1)">$VAR[CustomMenu_Icon1]</value>
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom2)">$VAR[CustomMenu_Icon2]</value>
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom3)">$VAR[CustomMenu_Icon3]</value>
+	</variable>
+	<variable name="Home_CustomMenuSlot">
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom1)">$LOCALIZE[31981]</value>
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom2)">$LOCALIZE[31982]</value>
+		<value condition="String.IsEqual(Window(Home).Property(passepartout.section),custom3)">$LOCALIZE[31983]</value>
+	</variable>
+	<expression name="Home_CustomMenuOn">[String.IsEqual(Window(Home).Property(passepartout.section),custom1) + $EXP[CustomMenu1On]] | [String.IsEqual(Window(Home).Property(passepartout.section),custom2) + $EXP[CustomMenu2On]] | [String.IsEqual(Window(Home).Property(passepartout.section),custom3) + $EXP[CustomMenu3On]]</expression>
+	<!-- A custom item on show: one small print in its mat, the add-on's icon as the picture (no icon: the mat shows
+	     the name, as for any print without art), with the museum caption under it: the name, what it is and what it
+	     opens, "OK to open". The exhibition's name corner says which menu item it is. -->
+	<include name="Home_CustomMenuPanel">
+		<control type="group">
+			<visible>$EXP[Home_CustomMenuOn] + !$EXP[CustomRowsFocus]</visible>
+			<animation effect="fade" start="0" end="100" time="320" delay="80">Visible</animation>
+			<animation effect="fade" start="100" end="0" time="160">Hidden</animation>
+			<include content="PP_Print">
+				<param name="left" value="730"/><param name="top" value="236"/>
+				<param name="width" value="460"/><param name="height" value="460"/>
+				<param name="art" value="$VAR[Home_CustomMenuIcon]"/>
+				<param name="aspect" value="keep"/>
+				<param name="title" value="$VAR[Home_CustomMenuLabel]"/>
+				<param name="lift" value="true"/>
+				<param name="fade" value="240"/>
+			</include>
+			<control type="label">
+				<left>260</left>
+				<top>812</top>
+				<width>1400</width>
+				<height>88</height>
+				<font>ttl_72</font>
+				<textcolor>ink</textcolor>
+				<align>center</align>
+				<label>$VAR[Home_CustomMenuLabel]</label>
+			</control>
+			<control type="label">
+				<left>260</left>
+				<top>914</top>
+				<width>1400</width>
+				<height>28</height>
+				<font>cap_20</font>
+				<textcolor>ink</textcolor>
+				<align>center</align>
+				<label>$VAR[Home_CustomMenuKind] · $VAR[Home_CustomMenuOpens]</label>
+			</control>
+			<control type="label">
+				<left>260</left>
+				<top>952</top>
+				<width>1400</width>
+				<height>34</height>
+				<font>body_24</font>
+				<textcolor>ink2</textcolor>
+				<align>center</align>
+				<label>$LOCALIZE[31995]</label>
+			</control>
+			<control type="group">
+				<visible>!$EXP[Home_MusicPlaying]</visible>
+				<control type="label">
+					<left>120</left>
+					<top>964</top>
+					<width>520</width>
+					<height>28</height>
+					<font>cap_20</font>
+					<textcolor>ink2</textcolor>
+					<label>$LOCALIZE[31980]</label>
+				</control>
+				<control type="label">
+					<left>120</left>
+					<top>992</top>
+					<width>520</width>
+					<height>28</height>
+					<font>cap_20</font>
+					<textcolor>ink</textcolor>
+					<label>$VAR[Home_CustomMenuSlot]</label>
+				</control>
+			</control>
+		</control>
+	</include>
+
 	<include name="Home_Nav">
-		<control type="group" id="9000">
+		<!-- 0.9.17: a horizontal grouplist from x 104 with 20 px gaps puts the words where they always were
+		     (104 / 232 / 372 / 505 / 658) and makes room for the custom main-menu items 9006-9008 between Search and
+		     Settings (auto-width words, Home_NavCustom). Word groups 9011-9015. -->
+		<control type="grouplist" id="9000">
+			<left>104</left>
+			<top>53</top>
+			<width>1360</width>
+			<height>50</height>
+			<orientation>horizontal</orientation>
+			<itemgap>20</itemgap>
 			<defaultcontrol>9001</defaultcontrol>
 			<include content="Home_NavWord">
-				<param name="id" value="9001"/><param name="shown" value="!Skin.HasSetting(HideMenu.Movies)"/><param name="left" value="104"/><param name="width" value="108"/>
+				<param name="id" value="9001"/><param name="gid" value="9011"/><param name="shown" value="!Skin.HasSetting(HideMenu.Movies)"/><param name="width" value="108"/>
 				<param name="uleft" value="120"/><param name="uwidth" value="76"/>
 				<param name="label" value="Films"/><param name="color" value="$VAR[Home_NavFilms]"/><param name="focus_a" value="SetProperty(passepartout.section,films,home)"/><param name="focus_b" value="SetProperty(TMDbHelper.Colors.SourceImage,Art(fanart)|Art(landscape)|Art(poster)|Art(thumb),home)"/>
 				<param name="active" value="$EXP[Home_Films]"/>
@@ -232,7 +359,7 @@
 				<param name="onleft" value="9005"/><param name="onright" value="9002"/>
 			</include>
 			<include content="Home_NavWord">
-				<param name="id" value="9002"/><param name="shown" value="!Skin.HasSetting(HideMenu.TVShows)"/><param name="s1" value="Skin.HasSetting(HideMenu.Movies)"/><param name="d1" value="128"/><param name="left" value="232"/><param name="width" value="120"/>
+				<param name="id" value="9002"/><param name="gid" value="9012"/><param name="shown" value="!Skin.HasSetting(HideMenu.TVShows)"/><param name="width" value="120"/>
 				<param name="uleft" value="248"/><param name="uwidth" value="88"/>
 				<param name="label" value="Series"/><param name="color" value="$VAR[Home_NavSeries]"/><param name="focus_a" value="SetProperty(passepartout.section,series,home)"/><param name="focus_b" value="SetProperty(TMDbHelper.Colors.SourceImage,Art(fanart)|Art(landscape)|Art(poster)|Art(thumb),home)"/>
 				<param name="active" value="$EXP[Home_Series]"/>
@@ -240,7 +367,7 @@
 				<param name="onleft" value="9001"/><param name="onright" value="9003"/>
 			</include>
 			<include content="Home_NavWord">
-				<param name="id" value="9003"/><param name="shown" value="!Skin.HasSetting(HideMenu.Music)"/><param name="s1" value="Skin.HasSetting(HideMenu.Movies)"/><param name="d1" value="128"/><param name="s2" value="Skin.HasSetting(HideMenu.TVShows)"/><param name="d2" value="140"/><param name="left" value="372"/><param name="width" value="113"/>
+				<param name="id" value="9003"/><param name="gid" value="9013"/><param name="shown" value="!Skin.HasSetting(HideMenu.Music)"/><param name="width" value="113"/>
 				<param name="uleft" value="388"/><param name="uwidth" value="81"/>
 				<param name="label" value="Music"/><param name="color" value="$VAR[Home_NavMusic]"/><param name="focus_a" value="SetProperty(passepartout.section,music,home)"/><param name="focus_b" value="SetProperty(TMDbHelper.Colors.SourceImage,Art(thumb)|Art(fanart),home)"/>
 				<param name="active" value="$EXP[Home_Music]"/>
@@ -248,18 +375,21 @@
 				<param name="onleft" value="9002"/><param name="onright" value="9004"/>
 			</include>
 			<include content="Home_NavWord">
-				<param name="id" value="9004"/><param name="shown" value="!Skin.HasSetting(HideMenu.Search)"/><param name="s1" value="Skin.HasSetting(HideMenu.Movies)"/><param name="d1" value="128"/><param name="s2" value="Skin.HasSetting(HideMenu.TVShows)"/><param name="d2" value="140"/><param name="s3" value="Skin.HasSetting(HideMenu.Music)"/><param name="d3" value="133"/><param name="left" value="505"/><param name="width" value="133"/>
+				<param name="id" value="9004"/><param name="gid" value="9014"/><param name="shown" value="!Skin.HasSetting(HideMenu.Search)"/><param name="width" value="133"/>
 				<param name="uleft" value="521"/><param name="uwidth" value="101"/>
 				<param name="label" value="Search"/>
 				<param name="onclick" value="ActivateWindow(1150)"/>
-				<param name="onleft" value="9003"/><param name="onright" value="9005"/>
+				<param name="onleft" value="9003"/><param name="onright" value="9006"/>
 			</include>
+			<include content="Home_NavCustom"><param name="n" value="1"/><param name="id" value="9006"/></include>
+			<include content="Home_NavCustom"><param name="n" value="2"/><param name="id" value="9007"/></include>
+			<include content="Home_NavCustom"><param name="n" value="3"/><param name="id" value="9008"/></include>
 			<include content="Home_NavWord">
-				<param name="id" value="9005"/><param name="s1" value="Skin.HasSetting(HideMenu.Movies)"/><param name="d1" value="128"/><param name="s2" value="Skin.HasSetting(HideMenu.TVShows)"/><param name="d2" value="140"/><param name="s3" value="Skin.HasSetting(HideMenu.Music)"/><param name="d3" value="133"/><param name="s4" value="Skin.HasSetting(HideMenu.Search)"/><param name="d4" value="153"/><param name="left" value="658"/><param name="width" value="154"/>
+				<param name="id" value="9005"/><param name="gid" value="9015"/><param name="width" value="154"/>
 				<param name="uleft" value="674"/><param name="uwidth" value="122"/>
 				<param name="label" value="Settings"/>
 				<param name="onclick" value="ActivateWindow(1151)"/>
-				<param name="onleft" value="9004"/><param name="onright" value="9001"/>
+				<param name="onleft" value="9008"/><param name="onright" value="9001"/>
 			</include>
 		</control>
 		<include>PP_Clock</include>

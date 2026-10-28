@@ -748,6 +748,7 @@
 		<value condition="Control.HasFocus(9552)">Motion, and a way back to the defaults.</value>
 		<value condition="Control.HasFocus(9554)">$LOCALIZE[31336]</value>
 		<value condition="Control.HasFocus(9555) | Control.HasFocus(9570) | Control.HasFocus(9571) | Control.HasFocus(9572)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9556) | Control.HasFocus(9573) | Control.HasFocus(9574) | Control.HasFocus(9575)">$LOCALIZE[31984]</value>
 		<value condition="Control.HasFocus(9560)">$LOCALIZE[31337]</value>
 		<value condition="Control.HasFocus(9561) | Control.HasFocus(9562) | Control.HasFocus(9563)">$LOCALIZE[31338]</value>
 		<value condition="Control.HasFocus(9564)">$LOCALIZE[31339]</value>

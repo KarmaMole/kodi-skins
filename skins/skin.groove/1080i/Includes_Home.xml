@@ -107,6 +107,23 @@
 		<value condition="Control.HasFocus(9882)">$VAR[CustomRow_Title2]  ·  $VAR[CustomRow_Count2]</value>
 		<value condition="Control.HasFocus(9883)">$VAR[CustomRow_Title3]  ·  $VAR[CustomRow_Count3]</value>
 	</variable>
+	<variable name="Home_CustomGlyph1">
+		<value condition="!String.IsEmpty(Skin.String(CustomMenu.1.Addon))">addons</value>
+		<value condition="!String.IsEmpty(Skin.String(CustomMenu.1.Target)) | String.EndsWith(Skin.String(CustomMenu.1.Path),.xsp) | String.StartsWith(Skin.String(CustomMenu.1.Path),library://) | String.StartsWith(Skin.String(CustomMenu.1.Path),videodb://) | String.StartsWith(Skin.String(CustomMenu.1.Path),musicdb://)">files</value>
+		<value>favourites</value>
+	</variable>
+	<variable name="Home_CustomGlyph2">
+		<value condition="!String.IsEmpty(Skin.String(CustomMenu.2.Addon))">addons</value>
+		<value condition="!String.IsEmpty(Skin.String(CustomMenu.2.Target)) | String.EndsWith(Skin.String(CustomMenu.2.Path),.xsp) | String.StartsWith(Skin.String(CustomMenu.2.Path),library://) | String.StartsWith(Skin.String(CustomMenu.2.Path),videodb://) | String.StartsWith(Skin.String(CustomMenu.2.Path),musicdb://)">files</value>
+		<value>favourites</value>
+	</variable>
+	<variable name="Home_CustomGlyph3">
+		<value condition="!String.IsEmpty(Skin.String(CustomMenu.3.Addon))">addons</value>
+		<value condition="!String.IsEmpty(Skin.String(CustomMenu.3.Target)) | String.EndsWith(Skin.String(CustomMenu.3.Path),.xsp) | String.StartsWith(Skin.String(CustomMenu.3.Path),library://) | String.StartsWith(Skin.String(CustomMenu.3.Path),videodb://) | String.StartsWith(Skin.String(CustomMenu.3.Path),musicdb://)">files</value>
+		<value>favourites</value>
+	</variable>
+	<!-- 1.0.7: all eight rail icons on show (three custom menu items, nothing hidden): the eighth reaches the clock -->
+	<expression name="Home_RailFull">$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On] + !Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Search)</expression>
 
 	<!-- hidden data lists: drawn first, under the opaque room, so their art loads (LESSONS: hidden lists never load) -->
 	<include name="Home_DataLists">
@@ -559,9 +576,156 @@
 				<visible>[Control.HasFocus(9881) + String.IsEmpty(Container(9881).ListItem.Art(clearlogo))] | [Control.HasFocus(9882) + String.IsEmpty(Container(9882).ListItem.Art(clearlogo))] | [Control.HasFocus(9883) + String.IsEmpty(Container(9883).ListItem.Art(clearlogo))]</visible>
 			</control>
 		</control>
+		<control type="group">
+			<visible>String.IsEqual(Window(Home).Property(groove.home),custom1) + $EXP[CustomMenu1On] + !$EXP[CustomRowsFocus]</visible>
+			<include>Anim_SectionSwap</include>
+			<control type="image">
+				<left>660</left>
+				<top>130</top>
+				<width>600</width>
+				<height>600</height>
+				<texture colordiffuse="$VAR[focus_glow]">groove/glow_radial.png</texture>
+			</control>
+			<control type="image">
+				<left>880</left>
+				<top>350</top>
+				<width>160</width>
+				<height>160</height>
+				<aspectratio>keep</aspectratio>
+				<fadetime>200</fadetime>
+				<texture background="true">$VAR[CustomMenu_Icon1]</texture>
+				<visible>$EXP[CustomMenu1HasIcon]</visible>
+			</control>
+			<control type="image">
+				<left>912</left>
+				<top>382</top>
+				<width>96</width>
+				<height>96</height>
+				<texture colordiffuse="$VAR[ink]">icons/96/$VAR[Home_CustomGlyph1].png</texture>
+				<visible>!$EXP[CustomMenu1HasIcon]</visible>
+			</control>
+			<control type="label">
+				<left>360</left>
+				<top>540</top>
+				<width>1200</width>
+				<height>48</height>
+				<align>center</align>
+				<font>font_label</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$VAR[CustomMenu_Label1]</label>
+			</control>
+			<control type="label">
+				<left>360</left>
+				<top>596</top>
+				<width>1200</width>
+				<height>40</height>
+				<align>center</align>
+				<font>font_small</font>
+				<textcolor>$VAR[ink2]</textcolor>
+				<label>$VAR[CustomMenu_Opens1]  ·  $LOCALIZE[31995]</label>
+			</control>
+		</control>
+		<control type="group">
+			<visible>String.IsEqual(Window(Home).Property(groove.home),custom2) + $EXP[CustomMenu2On] + !$EXP[CustomRowsFocus]</visible>
+			<include>Anim_SectionSwap</include>
+			<control type="image">
+				<left>660</left>
+				<top>130</top>
+				<width>600</width>
+				<height>600</height>
+				<texture colordiffuse="$VAR[focus_glow]">groove/glow_radial.png</texture>
+			</control>
+			<control type="image">
+				<left>880</left>
+				<top>350</top>
+				<width>160</width>
+				<height>160</height>
+				<aspectratio>keep</aspectratio>
+				<fadetime>200</fadetime>
+				<texture background="true">$VAR[CustomMenu_Icon2]</texture>
+				<visible>$EXP[CustomMenu2HasIcon]</visible>
+			</control>
+			<control type="image">
+				<left>912</left>
+				<top>382</top>
+				<width>96</width>
+				<height>96</height>
+				<texture colordiffuse="$VAR[ink]">icons/96/$VAR[Home_CustomGlyph2].png</texture>
+				<visible>!$EXP[CustomMenu2HasIcon]</visible>
+			</control>
+			<control type="label">
+				<left>360</left>
+				<top>540</top>
+				<width>1200</width>
+				<height>48</height>
+				<align>center</align>
+				<font>font_label</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$VAR[CustomMenu_Label2]</label>
+			</control>
+			<control type="label">
+				<left>360</left>
+				<top>596</top>
+				<width>1200</width>
+				<height>40</height>
+				<align>center</align>
+				<font>font_small</font>
+				<textcolor>$VAR[ink2]</textcolor>
+				<label>$VAR[CustomMenu_Opens2]  ·  $LOCALIZE[31995]</label>
+			</control>
+		</control>
+		<control type="group">
+			<visible>String.IsEqual(Window(Home).Property(groove.home),custom3) + $EXP[CustomMenu3On] + !$EXP[CustomRowsFocus]</visible>
+			<include>Anim_SectionSwap</include>
+			<control type="image">
+				<left>660</left>
+				<top>130</top>
+				<width>600</width>
+				<height>600</height>
+				<texture colordiffuse="$VAR[focus_glow]">groove/glow_radial.png</texture>
+			</control>
+			<control type="image">
+				<left>880</left>
+				<top>350</top>
+				<width>160</width>
+				<height>160</height>
+				<aspectratio>keep</aspectratio>
+				<fadetime>200</fadetime>
+				<texture background="true">$VAR[CustomMenu_Icon3]</texture>
+				<visible>$EXP[CustomMenu3HasIcon]</visible>
+			</control>
+			<control type="image">
+				<left>912</left>
+				<top>382</top>
+				<width>96</width>
+				<height>96</height>
+				<texture colordiffuse="$VAR[ink]">icons/96/$VAR[Home_CustomGlyph3].png</texture>
+				<visible>!$EXP[CustomMenu3HasIcon]</visible>
+			</control>
+			<control type="label">
+				<left>360</left>
+				<top>540</top>
+				<width>1200</width>
+				<height>48</height>
+				<align>center</align>
+				<font>font_label</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$VAR[CustomMenu_Label3]</label>
+			</control>
+			<control type="label">
+				<left>360</left>
+				<top>596</top>
+				<width>1200</width>
+				<height>40</height>
+				<align>center</align>
+				<font>font_small</font>
+				<textcolor>$VAR[ink2]</textcolor>
+				<label>$VAR[CustomMenu_Opens3]  ·  $LOCALIZE[31995]</label>
+			</control>
+		</control>
 	</include>
 
-	<!-- the rail: five icons, the focused one lit with its one-word label (DESIGN 4: y 920, pitch 232) -->
+	<!-- the rail: five icons (+ up to three custom menu items after TV), the focused one lit with its label (DESIGN 4: y 920, pitch 232) -->
 	<include name="Home_Rail">
 		<control type="group">
 		<include content="Anim_HomeLift"><param name="open" value="$EXP[Home_RowOpen]"/></include>
@@ -717,7 +881,7 @@
 				<onfocus condition="!Integer.IsGreater(Container(9121).NumItems,0)">SetProperty(Groove.Helper.Container,9122,home)</onfocus>
 				<onclick>ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick>
 				<onleft>9002</onleft>
-				<onright>9004</onright>
+				<onright>9006</onright>
 				<onup condition="Player.HasAudio + Control.IsVisible(9950)">9950</onup>
 				<ondown condition="Integer.IsGreater(Container(9121).NumItems,0)">9121</ondown>
 				<ondown>9122</ondown>
@@ -751,12 +915,258 @@
 				<include>Anim_LabelReveal</include>
 			</control>
 			</control>
+			<!-- custom menu item 1 -->
+			<control type="group">
+			<visible>$EXP[CustomMenu1On]</visible>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+			<control type="image">
+				<left>747</left>
+				<top>875</top>
+				<width>g_icon_glow</width>
+				<height>g_icon_glow</height>
+				<texture colordiffuse="$VAR[focus_glow]">groove/glow_radial.png</texture>
+				<visible>Control.HasFocus(9006)</visible>
+				<include>Anim_LabelReveal</include>
+			</control>
+			<control type="button" id="9006">
+				<left>784</left>
+				<top>912</top>
+				<width>216</width>
+				<height>80</height>
+				<texturefocus />
+				<texturenofocus />
+				<label />
+				<onfocus>SetProperty(groove.home,custom1,home)</onfocus>
+				<onfocus>SetProperty(groove.railid,9006,home)</onfocus>
+				<onfocus>ClearProperty(TMDbHelper.WidgetContainer,home)</onfocus>
+				<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
+				<include content="CustomMenu_OnClick"><param name="item" value="1"/></include>
+				<onleft>9003</onleft>
+				<onright>9007</onright>
+				<onup condition="Player.HasAudio + Control.IsVisible(9950)">9950</onup>
+				<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
+			</control>
+			<control type="image">
+				<left>792</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<aspectratio>keep</aspectratio>
+				<texture background="true" colordiffuse="b8ffffff">$VAR[CustomMenu_Icon1]</texture>
+				<visible>$EXP[CustomMenu1HasIcon] + !Control.HasFocus(9006)</visible>
+			</control>
+			<control type="image">
+				<left>792</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<aspectratio>keep</aspectratio>
+				<texture background="true">$VAR[CustomMenu_Icon1]</texture>
+				<visible>$EXP[CustomMenu1HasIcon] + Control.HasFocus(9006)</visible>
+			</control>
+			<control type="image">
+				<left>792</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<texture colordiffuse="$VAR[icon_rest]">icons/$VAR[Home_CustomGlyph1].png</texture>
+				<visible>!$EXP[CustomMenu1HasIcon] + !Control.HasFocus(9006)</visible>
+			</control>
+			<control type="image">
+				<left>792</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<texture colordiffuse="$VAR[ink]">icons/$VAR[Home_CustomGlyph1].png</texture>
+				<visible>!$EXP[CustomMenu1HasIcon] + Control.HasFocus(9006)</visible>
+			</control>
+			<control type="label">
+				<left>872</left>
+				<top>920</top>
+				<width>g_rail_label_w</width>
+				<height>g_rail_icon</height>
+				<aligny>center</aligny>
+				<font>font_label</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$VAR[CustomMenu_Label1]</label>
+				<visible>Control.HasFocus(9006)</visible>
+				<include>Anim_LabelReveal</include>
+			</control>
+			</control>
+			<!-- custom menu item 2 -->
+			<control type="group">
+			<visible>$EXP[CustomMenu2On]</visible>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="!$EXP[CustomMenu1On]">Conditional</animation>
+			<control type="image">
+				<left>979</left>
+				<top>875</top>
+				<width>g_icon_glow</width>
+				<height>g_icon_glow</height>
+				<texture colordiffuse="$VAR[focus_glow]">groove/glow_radial.png</texture>
+				<visible>Control.HasFocus(9007)</visible>
+				<include>Anim_LabelReveal</include>
+			</control>
+			<control type="button" id="9007">
+				<left>1016</left>
+				<top>912</top>
+				<width>216</width>
+				<height>80</height>
+				<texturefocus />
+				<texturenofocus />
+				<label />
+				<onfocus>SetProperty(groove.home,custom2,home)</onfocus>
+				<onfocus>SetProperty(groove.railid,9007,home)</onfocus>
+				<onfocus>ClearProperty(TMDbHelper.WidgetContainer,home)</onfocus>
+				<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
+				<include content="CustomMenu_OnClick"><param name="item" value="2"/></include>
+				<onleft>9006</onleft>
+				<onright>9008</onright>
+				<onup condition="Player.HasAudio + Control.IsVisible(9950)">9950</onup>
+				<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
+			</control>
+			<control type="image">
+				<left>1024</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<aspectratio>keep</aspectratio>
+				<texture background="true" colordiffuse="b8ffffff">$VAR[CustomMenu_Icon2]</texture>
+				<visible>$EXP[CustomMenu2HasIcon] + !Control.HasFocus(9007)</visible>
+			</control>
+			<control type="image">
+				<left>1024</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<aspectratio>keep</aspectratio>
+				<texture background="true">$VAR[CustomMenu_Icon2]</texture>
+				<visible>$EXP[CustomMenu2HasIcon] + Control.HasFocus(9007)</visible>
+			</control>
+			<control type="image">
+				<left>1024</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<texture colordiffuse="$VAR[icon_rest]">icons/$VAR[Home_CustomGlyph2].png</texture>
+				<visible>!$EXP[CustomMenu2HasIcon] + !Control.HasFocus(9007)</visible>
+			</control>
+			<control type="image">
+				<left>1024</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<texture colordiffuse="$VAR[ink]">icons/$VAR[Home_CustomGlyph2].png</texture>
+				<visible>!$EXP[CustomMenu2HasIcon] + Control.HasFocus(9007)</visible>
+			</control>
+			<control type="label">
+				<left>1104</left>
+				<top>920</top>
+				<width>g_rail_label_w</width>
+				<height>g_rail_icon</height>
+				<aligny>center</aligny>
+				<font>font_label</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$VAR[CustomMenu_Label2]</label>
+				<visible>Control.HasFocus(9007)</visible>
+				<include>Anim_LabelReveal</include>
+			</control>
+			</control>
+			<!-- custom menu item 3 -->
+			<control type="group">
+			<visible>$EXP[CustomMenu3On]</visible>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="!$EXP[CustomMenu1On]">Conditional</animation>
+			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="!$EXP[CustomMenu2On]">Conditional</animation>
+			<control type="image">
+				<left>1211</left>
+				<top>875</top>
+				<width>g_icon_glow</width>
+				<height>g_icon_glow</height>
+				<texture colordiffuse="$VAR[focus_glow]">groove/glow_radial.png</texture>
+				<visible>Control.HasFocus(9008)</visible>
+				<include>Anim_LabelReveal</include>
+			</control>
+			<control type="button" id="9008">
+				<left>1248</left>
+				<top>912</top>
+				<width>216</width>
+				<height>80</height>
+				<texturefocus />
+				<texturenofocus />
+				<label />
+				<onfocus>SetProperty(groove.home,custom3,home)</onfocus>
+				<onfocus>SetProperty(groove.railid,9008,home)</onfocus>
+				<onfocus>ClearProperty(TMDbHelper.WidgetContainer,home)</onfocus>
+				<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
+				<include content="CustomMenu_OnClick"><param name="item" value="3"/></include>
+				<onleft>9007</onleft>
+				<onright>9004</onright>
+				<onup condition="Player.HasAudio + Control.IsVisible(9950)">9950</onup>
+				<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
+			</control>
+			<control type="image">
+				<left>1256</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<aspectratio>keep</aspectratio>
+				<texture background="true" colordiffuse="b8ffffff">$VAR[CustomMenu_Icon3]</texture>
+				<visible>$EXP[CustomMenu3HasIcon] + !Control.HasFocus(9008)</visible>
+			</control>
+			<control type="image">
+				<left>1256</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<aspectratio>keep</aspectratio>
+				<texture background="true">$VAR[CustomMenu_Icon3]</texture>
+				<visible>$EXP[CustomMenu3HasIcon] + Control.HasFocus(9008)</visible>
+			</control>
+			<control type="image">
+				<left>1256</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<texture colordiffuse="$VAR[icon_rest]">icons/$VAR[Home_CustomGlyph3].png</texture>
+				<visible>!$EXP[CustomMenu3HasIcon] + !Control.HasFocus(9008)</visible>
+			</control>
+			<control type="image">
+				<left>1256</left>
+				<top>920</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<texture colordiffuse="$VAR[ink]">icons/$VAR[Home_CustomGlyph3].png</texture>
+				<visible>!$EXP[CustomMenu3HasIcon] + Control.HasFocus(9008)</visible>
+			</control>
+			<control type="label">
+				<left>1336</left>
+				<top>920</top>
+				<width>g_rail_label_w</width>
+				<height>g_rail_icon</height>
+				<aligny>center</aligny>
+				<font>font_label</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$VAR[CustomMenu_Label3]</label>
+				<visible>Control.HasFocus(9008)</visible>
+				<include>Anim_LabelReveal</include>
+			</control>
+			</control>
 			<!-- search -->
 			<control type="group">
 			<visible>!Skin.HasSetting(HideMenu.Search)</visible>
 			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="232,0" time="0" condition="$EXP[CustomMenu1On]">Conditional</animation>
+			<animation effect="slide" start="0,0" end="232,0" time="0" condition="$EXP[CustomMenu2On]">Conditional</animation>
+			<animation effect="slide" start="0,0" end="232,0" time="0" condition="$EXP[CustomMenu3On]">Conditional</animation>
 			<control type="image">
 				<left>747</left>
 				<top>875</top>
@@ -779,7 +1189,7 @@
 				<onfocus>ClearProperty(TMDbHelper.WidgetContainer,home)</onfocus>
 				<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
 				<onclick>ActivateWindow(1150)</onclick>
-				<onleft>9003</onleft>
+				<onleft>9008</onleft>
 				<onright>9005</onright>
 				<onup condition="Player.HasAudio + Control.IsVisible(9950)">9950</onup>
 				<ondown condition="$EXP[CustomRowsAnyOn]">$VAR[Home_DownToCustom]</ondown>
@@ -819,6 +1229,9 @@
 			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="-232,0" time="0" condition="Skin.HasSetting(HideMenu.Search)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="232,0" time="0" condition="$EXP[CustomMenu1On]">Conditional</animation>
+			<animation effect="slide" start="0,0" end="232,0" time="0" condition="$EXP[CustomMenu2On]">Conditional</animation>
+			<animation effect="slide" start="0,0" end="232,0" time="0" condition="$EXP[CustomMenu3On]">Conditional</animation>
 			<control type="image">
 				<left>979</left>
 				<top>875</top>
@@ -885,6 +1298,7 @@
 			<font>font_clock</font>
 			<textcolor>$VAR[ink2]</textcolor>
 			<label>$VAR[ClockLabel]</label>
+			<visible>!$EXP[Home_RailFull]</visible>
 		</control>
 		</control>
 	</include>

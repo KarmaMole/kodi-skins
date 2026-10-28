@@ -1,3 +1,10 @@
+0.9.16 (2026-10-28)
+- Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
+- They sit in the Library shelf after Void's own items, before Settings and System, and read like them: what it is above, the name in large type, "Opens …" below. OK opens it; Back comes home to it. With none set Home is unchanged.
+
+0.9.15 (2026-10-28)
+- One: the artwork now rises behind the item after about a second of rest (it waited eight seconds before, so it looked as if it never came).
+
 0.9.14 (2026-10-27)
 - More ways to browse: five new library views, all in Void's quiet style. Videos now have six views, music four.
 - One: a single item in large type with its neighbours faintly above and below, as on Home. Rest on it and the details, then the plot, then the artwork arrive. Films, series, seasons, episodes, sets, music videos, add-ons, albums and artists.

@@ -28,6 +28,7 @@
     <color name="l_co">ff8a4fd6</color>          <!-- Left: second star (violet) -->
     <color name="l_yg">ff1f9d57</color>          <!-- Down: year + genre (green) -->
     <color name="l_route">ff8c8e94</color>       <!-- route grey, start line on Home -->
+    <color name="l_own">ff55606e</color>         <!-- 0.9.18: a custom menu item's own line on Home (slate) -->
 
     <!-- Veils, video, shadows -->
     <color name="veil">8c15161a</color>          <!-- dim behind dialog cards (ink 55%) -->

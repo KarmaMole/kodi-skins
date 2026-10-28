@@ -2,7 +2,8 @@
 <!--
 	Home (SPEC 4, HomeTuned.dc.html + Hub.dc.html). Owner: Builder A.
 	Ids
-	  9000 top-bar group: 9001 Home, 9002 Movies, 9003 TV Shows, 9004 Music, 9005 Search, 9006 Gear
+	  9000 top-bar group: 9001 Home, 9002 Movies, 9003 TV Shows, 9004 Music, 9007-9009 custom menu items 1-3 (1.0.17),
+	                      9005 Search, 9006 Gear
 	  9101 spotlight data list (5 random, majan_spotlight.xsp), 9102 spotlight pool counter (caption n)
 	  9110-9112 Play / Details / Trailer, 9119 newest rows wrapper, 9120 date added, 9121 release date
 	  9211-9213 Movies hub rows, 9218 Movies rest timer
@@ -60,7 +61,7 @@
 	     newest films), so it goes with Films too. The gear (system menu) can never be hidden. -->
 	<expression name="Menu_HideHome">Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)</expression>
 	<!-- Home.xml onload: the remembered section can be focused again -->
-	<expression name="Home_RefocusValid">[String.IsEqual(Window(Home).Property(majan.section),movies) + !Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(majan.section),tv) + !Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(majan.section),music) + !Skin.HasSetting(HideMenu.Music)]</expression>
+	<expression name="Home_RefocusValid">[String.IsEqual(Window(Home).Property(majan.section),movies) + !Skin.HasSetting(HideMenu.Movies)] | [String.IsEqual(Window(Home).Property(majan.section),tv) + !Skin.HasSetting(HideMenu.TVShows)] | [String.IsEqual(Window(Home).Property(majan.section),music) + !Skin.HasSetting(HideMenu.Music)] | [String.IsEqual(Window(Home).Property(majan.section),custom1) + $EXP[CustomMenu1On]] | [String.IsEqual(Window(Home).Property(majan.section),custom2) + $EXP[CustomMenu2On]] | [String.IsEqual(Window(Home).Property(majan.section),custom3) + $EXP[CustomMenu3On]]</expression>
 	<!-- Kodi's own "More..." item (added when a limited row is cut short): a folder with no library id.
 	     Styled as the "See all" tile; selecting it opens the full source path. -->
 	<expression name="Home_IsMoreItem">ListItem.IsFolder + String.IsEmpty(ListItem.DBID)</expression>
@@ -151,6 +152,99 @@
 		<value condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]02[/UPPERCASE]</value>
 		<value condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]02[/UPPERCASE]</value>
 		<value condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)] + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows)">[UPPERCASE]01[/UPPERCASE]</value>
+	</variable>
+
+	<!-- 1.0.17: index numbers of the custom menu items: after the shown text items (01-04) and the custom items
+	     before them. Written out per case (scratch script custommenu/patch_majan_home.py, 2026-10-28). -->
+	<variable name="Home_MenuIdx_c1">
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">[UPPERCASE]01[/UPPERCASE]</value>
+	</variable>
+	<variable name="Home_MenuIdx_c2">
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]06[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On]">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On]">[UPPERCASE]01[/UPPERCASE]</value>
+	</variable>
+	<variable name="Home_MenuIdx_c3">
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]07[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]06[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]06[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]06[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]06[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]06[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]05[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]04[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]03[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + $EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + $EXP[CustomMenu2On]">[UPPERCASE]02[/UPPERCASE]</value>
+		<value condition="Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !$EXP[CustomMenu1On] + !$EXP[CustomMenu2On]">[UPPERCASE]01[/UPPERCASE]</value>
 	</variable>
 
 	<!-- Spotlight caption (pool size from the counter list, never hard-coded; Omar decision 6) -->
@@ -502,48 +596,373 @@
 				<param name="blur" value="9231"/>
 				<param name="onclick" value="ActivateWindow(Music,musicdb://albums/,return)"/>
 				<param name="onleft" value="9003"/>
-				<param name="onright" value="9005"/>
+				<param name="onright" value="9020"/>
 			</include>
-			<!-- Search: Majan search window (Custom_1150_Search.xml) -->
-			<include content="Home_MenuIcon">
-				<param name="id" value="9005"/>
-				<param name="x" value="menu_x_search"/>
-				<param name="icon" value="icons/search.png"/>
-				<param name="shown" value="!Skin.HasSetting(HideMenu.Search)"/>
-				<param name="s1" value="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]"/>
-				<param name="d1" value="155"/>
-				<param name="s2" value="Skin.HasSetting(HideMenu.Movies)"/>
-				<param name="d2" value="171"/>
-				<param name="s3" value="Skin.HasSetting(HideMenu.TVShows)"/>
-				<param name="d3" value="204"/>
-				<param name="s4" value="Skin.HasSetting(HideMenu.Music)"/>
-				<param name="d4" value="157"/>
-				<param name="onclick" value="ActivateWindow(1150)"/>
-				<param name="onleft" value="9004"/>
-				<param name="onright" value="9006"/>
-			</include>
-			<!-- Gear: System menu (Omar approved 2026-10-18) - the never-stranded route -->
-			<include content="Home_MenuIcon">
-				<param name="id" value="9006"/>
-				<param name="x" value="menu_x_gear"/>
-				<param name="icon" value="icons/settings.png"/>
-				<param name="s1" value="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]"/>
-				<param name="d1" value="155"/>
-				<param name="s2" value="Skin.HasSetting(HideMenu.Movies)"/>
-				<param name="d2" value="171"/>
-				<param name="s3" value="Skin.HasSetting(HideMenu.TVShows)"/>
-				<param name="d3" value="204"/>
-				<param name="s4" value="Skin.HasSetting(HideMenu.Music)"/>
-				<param name="d4" value="157"/>
-				<param name="s5" value="Skin.HasSetting(HideMenu.Search)"/>
-				<param name="d5" value="82"/>
-				<param name="onclick" value="ActivateWindow(1151)"/>
-				<param name="onleft" value="9005"/>
-				<param name="onright" value="9001"/>
-			</include>
+			<!-- 1.0.17: custom menu items 9007-9009 (Skin settings > Custom menu items), then Search and the gear, in one
+			     horizontal grouplist: it closes up by itself when an item is hidden (Search's own Show / Hide too), and the
+			     slides of the hidden text items before it move it as a whole (they used to move Search and the gear).
+			     The grouplist starts 16 px early (pad) so the icons' focus frames are not clipped; with no custom item
+			     Search sits at 767 + 16 = 783 and the gear at 865, as before. The custom items' text, index and underline
+			     are drawn by Home_MenuCustomDecor (one grouplist per item with clear copies of the items before it). -->
+			<control type="group">
+				<left>767</left>
+				<top>0</top>
+				<width>1100</width>
+				<height>topbar_h</height>
+				<animation effect="slide" start="0,0" end="-155,0" time="0" condition="[Skin.HasSetting(HideMenu.Home) | Skin.HasSetting(HideMenu.Movies)]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-171,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-204,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="-157,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+				<include content="Home_MenuCustomDecor"><param name="n" value="1"/><param name="before1" value="false"/><param name="before2" value="false"/></include>
+				<include content="Home_MenuCustomDecor"><param name="n" value="2"/><param name="before1" value="true"/><param name="before2" value="false"/></include>
+				<include content="Home_MenuCustomDecor"><param name="n" value="3"/><param name="before1" value="true"/><param name="before2" value="true"/></include>
+				<control type="grouplist">
+					<left>0</left>
+					<top>0</top>
+					<width>1100</width>
+					<height>topbar_h</height>
+					<orientation>horizontal</orientation>
+					<itemgap>0</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+					<!-- A horizontal grouplist REPLACES its children's Left / Right with the neighbouring child's id
+					     (Omega CGUIControlGroupList::AddControl), so every child has an id and Left / Right walk the
+					     chain, skipping hidden or unfocusable children (CGUIWindow::OnMove follows their actions):
+					     9020 pad, 9007, 9030, 9031, 9021, 9008, ... 9023, 9025 (Search), 9024, 9026 (gear). The ends come
+					     from the grouplist's own onleft / onright (Music / Home). Buttons inside the icon groups keep
+					     their own onleft / onright, which point at the neighbouring chain ids. -->
+					<onleft>9004</onleft>
+					<onright>9001</onright>
+					<include content="Home_MenuGap"><param name="id" value="9020"/><param name="w" value="16"/></include>
+					<include content="Home_MenuCustomButton"><param name="n" value="1"/><param name="id" value="9007"/><param name="wa_id" value="9030"/><param name="wb_id" value="9031"/><param name="gap_id" value="9021"/></include>
+					<include content="Home_MenuCustomButton"><param name="n" value="2"/><param name="id" value="9008"/><param name="wa_id" value="9032"/><param name="wb_id" value="9033"/><param name="gap_id" value="9022"/></include>
+					<include content="Home_MenuCustomButton"><param name="n" value="3"/><param name="id" value="9009"/><param name="wa_id" value="9034"/><param name="wb_id" value="9035"/><param name="gap_id" value="9023"/></include>
+					<!-- Search: Majan search window (Custom_1150_Search.xml) -->
+					<control type="group" id="9025">
+						<width>topbar_icon</width>
+						<height>topbar_h</height>
+						<visible>!Skin.HasSetting(HideMenu.Search)</visible>
+						<include content="Home_MenuIcon">
+							<param name="id" value="9005"/>
+							<param name="x" value="0"/>
+							<param name="icon" value="icons/search.png"/>
+							<param name="shown" value="!Skin.HasSetting(HideMenu.Search)"/>
+							<param name="onclick" value="ActivateWindow(1150)"/>
+							<param name="onleft" value="9023"/>
+							<param name="onright" value="9024"/>
+						</include>
+					</control>
+					<include content="Home_MenuGap"><param name="id" value="9024"/><param name="w" value="56"/><param name="visible" value="!Skin.HasSetting(HideMenu.Search)"/></include>
+					<!-- Gear: System menu (Omar approved 2026-10-18) - the never-stranded route -->
+					<control type="group" id="9026">
+						<width>topbar_icon</width>
+						<height>topbar_h</height>
+						<include content="Home_MenuIcon">
+							<param name="id" value="9006"/>
+							<param name="x" value="0"/>
+							<param name="icon" value="icons/settings.png"/>
+							<param name="onclick" value="ActivateWindow(1151)"/>
+							<param name="onleft" value="9024"/>
+							<param name="onright" value="9001"/>
+						</include>
+					</control>
+				</control>
+			</control>
 		</control>
-		<include>Majan_Clock</include>
+		<include content="Majan_Clock"><param name="date" value="!$EXP[CustomMenuCount2] + !$EXP[CustomMenuCount3]"/></include>
 		<include>Majan_TopRule</include>
+	</include>
+
+	<!-- ======================================================= custom menu items (1.0.17) -->
+	<!-- Pieces from tools/customrows/make_customrows.py (Includes_CustomMenu.xml): CustomMenu<n>On, CustomMenu_Label<n>,
+	     CustomMenu_OnClick, CustomMenu_Icon / Opens / Kind<n>. Contract: docs/CUSTOM_MENU_IMPLEMENTATION.md. -->
+	<!-- empty width-only grouplist child (params w, visible) -->
+	<include name="Home_MenuGap">
+		<param name="visible">true</param>
+		<param name="id">0</param>
+		<definition>
+			<control type="group" id="$PARAM[id]">
+				<width>$PARAM[w]</width>
+				<height>1</height>
+				<visible>$PARAM[visible]</visible>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Custom item n in the tail grouplist (params n, id, wa_id, wb_id, gap_id): the focus holder (a 1 px button at
+	     left -1, so it adds no width), then clear copies of the bold name that give the item its width (index 30 + bold
+	     label, like Home_MenuItem's fixed widths; at most 260 px, 150 px while all three items show, so the bar ends
+	     clear of the clock), then the 56 px gap. Hidden while the slot is empty or its add-on is missing; Left / Right
+	     then walk past it (the grouplist's id chain). -->
+	<include name="Home_MenuCustomButton">
+		<definition>
+			<control type="button" id="$PARAM[id]">
+				<left>-1</left>
+				<top>topbar_item_top</top>
+				<width>1</width>
+				<height>topbar_item_h</height>
+				<visible>$EXP[CustomMenu$PARAM[n]On]</visible>
+				<label>$VAR[CustomMenu_Label$PARAM[n]]</label>
+				<textcolor>00000000</textcolor>
+				<focusedcolor>00000000</focusedcolor>
+				<texturefocus />
+				<texturenofocus />
+				<onfocus condition="Integer.IsEqual(Container(9218).CurrentItem,2)">Control.Move(9218,1)</onfocus>
+				<onfocus condition="Integer.IsEqual(Container(9228).CurrentItem,2)">Control.Move(9228,1)</onfocus>
+				<onfocus condition="Integer.IsEqual(Container(9238).CurrentItem,2)">Control.Move(9238,1)</onfocus>
+				<onfocus>SetProperty(majan.section,custom$PARAM[n],home)</onfocus>
+				<!-- no artwork of its own: TMDb Helper reads an id that holds no list -->
+				<onfocus condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.WidgetContainer,9299,home)</onfocus>
+				<include content="CustomMenu_OnClick"><param name="item" value="$PARAM[n]"/></include>
+				<!-- Left / Right: set by the tail grouplist (neighbouring children) -->
+				<onup>noop</onup>
+				<include>Home_MenuDown</include>
+			</control>
+				<control type="label" id="$PARAM[wa_id]">
+					<left>topbar_label_x</left>
+					<top>topbar_item_top</top>
+					<width max="260">auto</width>
+					<height>topbar_item_h</height>
+					<font>menu_26_bold</font>
+					<textcolor>00000000</textcolor>
+					<label>$VAR[CustomMenu_Label$PARAM[n]]</label>
+					<visible>$EXP[CustomMenu$PARAM[n]On] + !$EXP[CustomMenuCount3]</visible>
+				</control>
+				<control type="label" id="$PARAM[wb_id]">
+					<left>topbar_label_x</left>
+					<top>topbar_item_top</top>
+					<width max="150">auto</width>
+					<height>topbar_item_h</height>
+					<font>menu_26_bold</font>
+					<textcolor>00000000</textcolor>
+					<label>$VAR[CustomMenu_Label$PARAM[n]]</label>
+					<visible>$EXP[CustomMenu$PARAM[n]On] + $EXP[CustomMenuCount3]</visible>
+				</control>
+			<include content="Home_MenuGap"><param name="id" value="$PARAM[gap_id]"/><param name="w" value="56"/><param name="visible" value="$EXP[CustomMenu$PARAM[n]On]"/></include>
+		</definition>
+	</include>
+
+	<!-- What custom item n looks like (params n, before1, before2): the same index + label + underline as
+	     Home_MenuItem. One grouplist per item at the tail's origin; clear copies of the items before it put its text
+	     where its width labels are. The active label is a disabled auto-width button whose texturenofocus is the 3 px
+	     accent underline (rows 44-46 of a 48 px cell), so the line is exactly as wide as the text. -->
+	<include name="Home_MenuCustomDecor">
+		<definition>
+			<control type="grouplist">
+				<left>0</left>
+				<top>0</top>
+				<width>1100</width>
+				<height>topbar_h</height>
+				<orientation>horizontal</orientation>
+				<itemgap>0</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+				<visible>$EXP[CustomMenu$PARAM[n]On]</visible>
+				<include content="Home_MenuGap"><param name="w" value="16"/></include>
+				<!-- clear copies of item 1 (only in the grouplists of the items after it) -->
+				<control type="label">
+					<left>topbar_label_x</left>
+					<top>topbar_item_top</top>
+					<width max="260">auto</width>
+					<height>topbar_item_h</height>
+					<font>menu_26_bold</font>
+					<textcolor>00000000</textcolor>
+					<label>$VAR[CustomMenu_Label1]</label>
+					<visible>$EXP[CustomMenu1On] + !$EXP[CustomMenuCount3] + $PARAM[before1]</visible>
+				</control>
+				<control type="label">
+					<left>topbar_label_x</left>
+					<top>topbar_item_top</top>
+					<width max="150">auto</width>
+					<height>topbar_item_h</height>
+					<font>menu_26_bold</font>
+					<textcolor>00000000</textcolor>
+					<label>$VAR[CustomMenu_Label1]</label>
+					<visible>$EXP[CustomMenu1On] + $EXP[CustomMenuCount3] + $PARAM[before1]</visible>
+				</control>
+				<include content="Home_MenuGap"><param name="w" value="56"/><param name="visible" value="$EXP[CustomMenu1On] + $PARAM[before1]"/></include>
+				<!-- clear copies of item 2 (only in the grouplists of the items after it) -->
+				<control type="label">
+					<left>topbar_label_x</left>
+					<top>topbar_item_top</top>
+					<width max="260">auto</width>
+					<height>topbar_item_h</height>
+					<font>menu_26_bold</font>
+					<textcolor>00000000</textcolor>
+					<label>$VAR[CustomMenu_Label2]</label>
+					<visible>$EXP[CustomMenu2On] + !$EXP[CustomMenuCount3] + $PARAM[before2]</visible>
+				</control>
+				<control type="label">
+					<left>topbar_label_x</left>
+					<top>topbar_item_top</top>
+					<width max="150">auto</width>
+					<height>topbar_item_h</height>
+					<font>menu_26_bold</font>
+					<textcolor>00000000</textcolor>
+					<label>$VAR[CustomMenu_Label2]</label>
+					<visible>$EXP[CustomMenu2On] + $EXP[CustomMenuCount3] + $PARAM[before2]</visible>
+				</control>
+				<include content="Home_MenuGap"><param name="w" value="56"/><param name="visible" value="$EXP[CustomMenu2On] + $PARAM[before2]"/></include>
+				<!-- index (20 px) -->
+				<control type="label">
+					<left>0</left>
+					<top>40</top>
+					<width>topbar_index_w</width>
+					<height>topbar_item_h</height>
+					<font>mono_14</font>
+					<textcolor>$VAR[ColorAccent]</textcolor>
+					<label>$VAR[Home_MenuIdx_c$PARAM[n]]</label>
+					<visible>String.IsEqual(Window(Home).Property(majan.section),custom$PARAM[n])</visible>
+				</control>
+				<control type="label">
+					<left>0</left>
+					<top>40</top>
+					<width>topbar_index_w</width>
+					<height>topbar_item_h</height>
+					<font>mono_14</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$VAR[Home_MenuIdx_c$PARAM[n]]</label>
+					<visible>!String.IsEqual(Window(Home).Property(majan.section),custom$PARAM[n])</visible>
+				</control>
+				<!-- label at 30 (index 20 + 10): bold / primary + underline when active, medium / secondary otherwise.
+				     The button keeps Kodi's centred aligny: it lands on the labels' line (aligny top put it 7 px high). -->
+				<control type="button">
+					<left>10</left>
+					<top>topbar_item_top</top>
+					<width max="260">auto</width>
+					<height>topbar_item_h</height>
+					<enable>false</enable>
+					<label>$VAR[CustomMenu_Label$PARAM[n]]</label>
+					<font>menu_26_bold</font>
+					<textcolor>text_primary</textcolor>
+					<disabledcolor>text_primary</disabledcolor>
+					<textoffsetx>0</textoffsetx>
+					<texturefocus colordiffuse="$VAR[ColorAccent]">common/underline_48.png</texturefocus>
+					<texturenofocus colordiffuse="$VAR[ColorAccent]">common/underline_48.png</texturenofocus>
+					<visible>String.IsEqual(Window(Home).Property(majan.section),custom$PARAM[n]) + !$EXP[CustomMenuCount3]</visible>
+				</control>
+				<control type="button">
+					<left>10</left>
+					<top>topbar_item_top</top>
+					<width max="150">auto</width>
+					<height>topbar_item_h</height>
+					<enable>false</enable>
+					<label>$VAR[CustomMenu_Label$PARAM[n]]</label>
+					<font>menu_26_bold</font>
+					<textcolor>text_primary</textcolor>
+					<disabledcolor>text_primary</disabledcolor>
+					<textoffsetx>0</textoffsetx>
+					<texturefocus colordiffuse="$VAR[ColorAccent]">common/underline_48.png</texturefocus>
+					<texturenofocus colordiffuse="$VAR[ColorAccent]">common/underline_48.png</texturenofocus>
+					<visible>String.IsEqual(Window(Home).Property(majan.section),custom$PARAM[n]) + $EXP[CustomMenuCount3]</visible>
+				</control>
+				<control type="label">
+					<left>10</left>
+					<top>topbar_item_top</top>
+					<width max="260">auto</width>
+					<height>topbar_item_h</height>
+					<font>menu_26_medium</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$VAR[CustomMenu_Label$PARAM[n]]</label>
+					<visible>!String.IsEqual(Window(Home).Property(majan.section),custom$PARAM[n]) + !$EXP[CustomMenuCount3]</visible>
+				</control>
+				<control type="label">
+					<left>10</left>
+					<top>topbar_item_top</top>
+					<width max="150">auto</width>
+					<height>topbar_item_h</height>
+					<font>menu_26_medium</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$VAR[CustomMenu_Label$PARAM[n]]</label>
+					<visible>!String.IsEqual(Window(Home).Property(majan.section),custom$PARAM[n]) + $EXP[CustomMenuCount3]</visible>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Home content while custom item n is the section: a quiet panel in the hub-header language (accent caption,
+	     ghost index, 68 px name), then the item's icon and what OK does. No rows, no artwork of its own. -->
+	<include name="Home_SectionCustom">
+		<include content="Home_CustomPanel"><param name="n" value="1"/></include>
+		<include content="Home_CustomPanel"><param name="n" value="2"/></include>
+		<include content="Home_CustomPanel"><param name="n" value="3"/></include>
+	</include>
+	<include name="Home_CustomPanel">
+		<definition>
+			<control type="group">
+				<left>page_margin</left>
+				<top>home_hub_info_y</top>
+				<visible>String.IsEqual(Window(Home).Property(majan.section),custom$PARAM[n]) + $EXP[CustomMenu$PARAM[n]On]</visible>
+				<include>Anim_FadeVisible</include>
+				<control type="label">
+					<left>0</left>
+					<top>0</top>
+					<width>home_hub_text_w</width>
+					<height>20</height>
+					<font>mono_15</font>
+					<textcolor>$VAR[ColorAccent]</textcolor>
+					<label>$VAR[Home_MenuIdx_c$PARAM[n]] / $VAR[CustomMenu_Kind$PARAM[n]]</label>
+				</control>
+				<control type="label">
+					<left>0</left>
+					<top>-24</top>
+					<width>page_width</width>
+					<height>220</height>
+					<align>right</align>
+					<font>ghost_220</font>
+					<textcolor>bg_ghost</textcolor>
+					<label>$VAR[Home_MenuIdx_c$PARAM[n]]</label>
+				</control>
+				<control type="label">
+					<left>0</left>
+					<top>30</top>
+					<width>home_hub_text_w</width>
+					<height>70</height>
+					<font>display_68</font>
+					<textcolor>text_primary</textcolor>
+					<label>$VAR[CustomMenu_Label$PARAM[n]]</label>
+				</control>
+				<!-- the item's icon in a hairline frame (only with a real icon: an add-on's, a favourite's thumb) -->
+				<control type="image">
+					<left>0</left>
+					<top>140</top>
+					<width>160</width>
+					<height>160</height>
+					<texture border="10" colordiffuse="hairline">common/rect_outline_1.png</texture>
+					<visible>$EXP[CustomMenu$PARAM[n]HasIcon]</visible>
+				</control>
+				<control type="image">
+					<left>20</left>
+					<top>160</top>
+					<width>120</width>
+					<height>120</height>
+					<aspectratio>keep</aspectratio>
+					<texture>$VAR[CustomMenu_Icon$PARAM[n]]</texture>
+					<visible>$EXP[CustomMenu$PARAM[n]HasIcon]</visible>
+				</control>
+				<control type="group">
+					<left>192</left>
+					<top>140</top>
+					<animation effect="slide" start="0,0" end="-192,0" time="0" condition="!$EXP[CustomMenu$PARAM[n]HasIcon]">Conditional</animation>
+				<control type="label">
+					<left>0</left>
+					<top>0</top>
+					<width>1048</width>
+					<height>34</height>
+					<font>body_25</font>
+					<textcolor>text_body</textcolor>
+					<label>$VAR[CustomMenu_Opens$PARAM[n]]</label>
+				</control>
+				<control type="label">
+					<left>0</left>
+					<top>44</top>
+					<width>1048</width>
+					<height>20</height>
+					<font>mono_14</font>
+					<textcolor>text_secondary</textcolor>
+					<label>$LOCALIZE[31995]</label>
+				</control>
+				</control>
+			</control>
+		</definition>
 	</include>
 
 	<!-- ================================================================ hidden data -->
@@ -1180,7 +1599,7 @@
 				<font>body_23</font>
 				<textcolor>text_body</textcolor>
 				<label>$INFO[Container($PARAM[id]).ListItem.Plot]</label>
-				<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
+				<include>Majan_PlotScroll</include>
 				<visible>!String.IsEmpty(Container($PARAM[id]).ListItem.Plot)</visible>
 			</control>
 			<control type="textbox">
@@ -1866,7 +2285,7 @@
 		<control type="grouplist">
 			<left>88</left>  <!-- page_margin - 8 and every child at left 8: room for the Play button focus frame (grouplists clip) -->
 			<top>content_top</top>
-			<width>712</width>
+			<width>760</width>  <!-- 712 + room for the plot's "..." past the column (1.0.17); the art starts at 864 -->
 			<height>592</height>  <!-- to y 760 (the Newest rule): room for the Play focus frame under a 2-line title + 3-line plot -->
 			<orientation>vertical</orientation>
 			<itemgap>14</itemgap>
@@ -1963,32 +2382,67 @@
 					</include>
 				</control>
 			</control>
-			<!-- plot (3-line clamp) -> tagline. 1.0.14: 2 lines (68) under a 2-line title at 100, which is 30 px taller
-			     than before: the column still ends above the Newest rule (2-line title + 2-line plot = 570 of 592). -->
-			<control type="textbox">
+			<!-- plot (3-line clamp) -> tagline. 1.0.14: 2 lines under a 2-line title at 100, which is 30 px taller
+			     than before: the column still ends above the Newest rule (2-line title + 2-line plot = 572 of 592).
+			     1.0.17: no autoscroll any more (Kodi's crawl always showed half lines at the top and bottom, and the
+			     spotlight moves on anyway): the box is 3 / 2 whole lines of body_25 (pitch 33 x 1.09 = 35.97: 108 / 72;
+			     107 held only 2 lines a page and showed most of a 3rd) and a "..." marks a plot that runs on. -->
+			<control type="textbox" id="9106">
 				<left>8</left>
 				<width>spot_text_w</width>
-				<height max="107">auto</height>
+				<height max="108">auto</height>
 				<font>body_25</font>
 				<textcolor>text_body</textcolor>
 				<label>$INFO[Container(9101).ListItem.Plot]</label>
-				<autoscroll delay="3000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 3s (spotlight rotates), roll, pause 10s, repeat -->
 				<visible>!String.IsEmpty(Container(9101).ListItem.Plot) + !$EXP[Home_SpotTitle100Two]</visible>
 			</control>
-			<control type="textbox">
+			<!-- "..." just past the column on the last line while the plot runs on (0 px advance: top -14 + gap 14) -->
+			<control type="group">
+				<left>8</left>
+				<top>-14</top>
+				<width>spot_text_w</width>
+				<height>0</height>
+				<visible>Control.IsVisible(9106) + Integer.IsGreater(Container(9108).NumPages,1)</visible>
+				<control type="label">
+					<left>spot_text_w</left>
+					<top>-36</top>
+					<width>40</width>
+					<height>36</height>
+					<font>body_25</font>
+					<textcolor>text_body</textcolor>
+					<label>…</label>
+				</control>
+			</control>
+			<control type="textbox" id="9107">
 				<left>8</left>
 				<width>spot_text_w</width>
-				<height max="70">auto</height>
+				<height max="72">auto</height>
 				<font>body_25</font>
 				<textcolor>text_body</textcolor>
 				<label>$INFO[Container(9101).ListItem.Plot]</label>
-				<autoscroll delay="3000" time="3000" repeat="10000">true</autoscroll>
 				<visible>!String.IsEmpty(Container(9101).ListItem.Plot) + $EXP[Home_SpotTitle100Two]</visible>
+			</control>
+			<!-- "..." just past the column on the last line while the plot runs on (0 px advance: top -14 + gap 14) -->
+			<control type="group">
+				<left>8</left>
+				<top>-14</top>
+				<width>spot_text_w</width>
+				<height>0</height>
+				<visible>Control.IsVisible(9107) + Integer.IsGreater(Container(9109).NumPages,1)</visible>
+				<control type="label">
+					<left>spot_text_w</left>
+					<top>-36</top>
+					<width>40</width>
+					<height>36</height>
+					<font>body_25</font>
+					<textcolor>text_body</textcolor>
+					<label>…</label>
+				</control>
 			</control>
 			<control type="textbox">
 				<left>8</left>
 				<width>spot_text_w</width>
-				<height max="107">auto</height>
+				<height max="108">auto</height>
 				<font>body_25</font>
 				<textcolor>text_body</textcolor>
 				<label>$INFO[Container(9101).ListItem.Tagline]</label>
@@ -1997,7 +2451,7 @@
 			<control type="textbox">
 				<left>8</left>
 				<width>spot_text_w</width>
-				<height max="70">auto</height>
+				<height max="72">auto</height>
 				<font>body_25</font>
 				<textcolor>text_body</textcolor>
 				<label>$INFO[Container(9101).ListItem.Tagline]</label>
@@ -2115,6 +2569,26 @@
 			<font>display_100</font>
 			<textcolor>clear</textcolor>
 			<label>$INFO[Container(9101).ListItem.Title]</label>
+		</control>
+		<!-- 1.0.17: plot probes for the spotlight's "...": fixed 3 / 2 whole lines of body_25 (108 / 72). The visible
+		     plot boxes are AUTO height ((N-1) x pitch + cell), so their own NumPages counts a line short. -->
+		<control type="textbox" id="9108">
+			<left>page_margin</left>
+			<top>202</top>
+			<width>spot_text_w</width>
+			<height>108</height>
+			<font>body_25</font>
+			<textcolor>clear</textcolor>
+			<label>$INFO[Container(9101).ListItem.Plot]</label>
+		</control>
+		<control type="textbox" id="9109">
+			<left>page_margin</left>
+			<top>202</top>
+			<width>spot_text_w</width>
+			<height>72</height>
+			<font>body_25</font>
+			<textcolor>clear</textcolor>
+			<label>$INFO[Container(9101).ListItem.Plot]</label>
 		</control>
 		<control type="textbox" id="9105">  <!-- 1 line at 100 (145 / 96.4): NumPages > 1 = the title wraps -->
 			<left>page_margin</left>

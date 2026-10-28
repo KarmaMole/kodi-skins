@@ -414,30 +414,276 @@
 			<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 			<include>Anim_GlowVisible</include>
 		</control>
-		<control type="image">
-			<left>401</left>
+		<control type="grouplist">
+			<left>0</left>
 			<top>-78</top>
-			<width>400</width>
+			<width>1920</width>
 			<height>300</height>
-			<texture>noc/glow_warm.png</texture>
-			<visible>[Control.HasFocus(9004)] + !Skin.HasSetting(HideMenu.Search)</visible>
+			<orientation>horizontal</orientation>
+			<itemgap>0</itemgap>
 			<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="-148,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
-			<include>Anim_GlowVisible</include>
-		</control>
-		<control type="image">
-			<left>589</left>
-			<top>-78</top>
-			<width>400</width>
-			<height>300</height>
-			<texture>noc/glow_warm.png</texture>
-			<visible>Control.HasFocus(9005)</visible>
-			<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="-148,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="-171,0" time="0" condition="Skin.HasSetting(HideMenu.Search)">Conditional</animation>
-			<include>Anim_GlowVisible</include>
+			<control type="image">
+				<width>539</width>
+				<height>1</height>
+				<texture />
+			</control>
+			<control type="group">
+				<width>0</width>
+				<height>300</height>
+				<visible>$EXP[CustomMenu1On] + ![$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]] + Control.HasFocus(9006)</visible>
+				<include>Anim_GlowVisible</include>
+				<control type="grouplist">
+					<left>-1000</left>
+					<top>0</top>
+					<width>2000</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<align>center</align>
+					<itemgap>0</itemgap>
+					<control type="label">
+						<width max="330">auto</width>
+						<height>300</height>
+						<font>nav_24</font>
+						<textcolor>00000000</textcolor>
+						<label>$VAR[CustomMenu_Label1]</label>
+					</control>
+					<control type="image">
+						<width>400</width>
+						<height>300</height>
+						<texture>noc/glow_warm.png</texture>
+					</control>
+				</control>
+			</control>
+			<control type="label">
+				<width max="330">auto</width>
+				<height>48</height>
+				<font>nav_24</font>
+				<textcolor>00000000</textcolor>
+				<label>$VAR[CustomMenu_Label1]</label>
+				<visible>$EXP[CustomMenu1On] + ![$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]]</visible>
+			</control>
+			<control type="group">
+				<width>0</width>
+				<height>300</height>
+				<visible>$EXP[CustomMenu1On] + $EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On] + Control.HasFocus(9026)</visible>
+				<include>Anim_GlowVisible</include>
+				<control type="grouplist">
+					<left>-1000</left>
+					<top>0</top>
+					<width>2000</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<align>center</align>
+					<itemgap>0</itemgap>
+					<control type="label">
+						<width max="210">auto</width>
+						<height>300</height>
+						<font>nav_24</font>
+						<textcolor>00000000</textcolor>
+						<label>$VAR[CustomMenu_Label1]</label>
+					</control>
+					<control type="image">
+						<width>400</width>
+						<height>300</height>
+						<texture>noc/glow_warm.png</texture>
+					</control>
+				</control>
+			</control>
+			<control type="label">
+				<width max="210">auto</width>
+				<height>48</height>
+				<font>nav_24</font>
+				<textcolor>00000000</textcolor>
+				<label>$VAR[CustomMenu_Label1]</label>
+				<visible>$EXP[CustomMenu1On] + $EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]</visible>
+			</control>
+			<control type="image">
+				<width>46</width>
+				<height>1</height>
+				<texture />
+				<visible>$EXP[CustomMenu1On]</visible>
+			</control>
+			<control type="group">
+				<width>0</width>
+				<height>300</height>
+				<visible>$EXP[CustomMenu2On] + ![$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]] + Control.HasFocus(9007)</visible>
+				<include>Anim_GlowVisible</include>
+				<control type="grouplist">
+					<left>-1000</left>
+					<top>0</top>
+					<width>2000</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<align>center</align>
+					<itemgap>0</itemgap>
+					<control type="label">
+						<width max="330">auto</width>
+						<height>300</height>
+						<font>nav_24</font>
+						<textcolor>00000000</textcolor>
+						<label>$VAR[CustomMenu_Label2]</label>
+					</control>
+					<control type="image">
+						<width>400</width>
+						<height>300</height>
+						<texture>noc/glow_warm.png</texture>
+					</control>
+				</control>
+			</control>
+			<control type="label">
+				<width max="330">auto</width>
+				<height>48</height>
+				<font>nav_24</font>
+				<textcolor>00000000</textcolor>
+				<label>$VAR[CustomMenu_Label2]</label>
+				<visible>$EXP[CustomMenu2On] + ![$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]]</visible>
+			</control>
+			<control type="group">
+				<width>0</width>
+				<height>300</height>
+				<visible>$EXP[CustomMenu2On] + $EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On] + Control.HasFocus(9027)</visible>
+				<include>Anim_GlowVisible</include>
+				<control type="grouplist">
+					<left>-1000</left>
+					<top>0</top>
+					<width>2000</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<align>center</align>
+					<itemgap>0</itemgap>
+					<control type="label">
+						<width max="210">auto</width>
+						<height>300</height>
+						<font>nav_24</font>
+						<textcolor>00000000</textcolor>
+						<label>$VAR[CustomMenu_Label2]</label>
+					</control>
+					<control type="image">
+						<width>400</width>
+						<height>300</height>
+						<texture>noc/glow_warm.png</texture>
+					</control>
+				</control>
+			</control>
+			<control type="label">
+				<width max="210">auto</width>
+				<height>48</height>
+				<font>nav_24</font>
+				<textcolor>00000000</textcolor>
+				<label>$VAR[CustomMenu_Label2]</label>
+				<visible>$EXP[CustomMenu2On] + $EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]</visible>
+			</control>
+			<control type="image">
+				<width>46</width>
+				<height>1</height>
+				<texture />
+				<visible>$EXP[CustomMenu2On]</visible>
+			</control>
+			<control type="group">
+				<width>0</width>
+				<height>300</height>
+				<visible>$EXP[CustomMenu3On] + ![$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]] + Control.HasFocus(9008)</visible>
+				<include>Anim_GlowVisible</include>
+				<control type="grouplist">
+					<left>-1000</left>
+					<top>0</top>
+					<width>2000</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<align>center</align>
+					<itemgap>0</itemgap>
+					<control type="label">
+						<width max="330">auto</width>
+						<height>300</height>
+						<font>nav_24</font>
+						<textcolor>00000000</textcolor>
+						<label>$VAR[CustomMenu_Label3]</label>
+					</control>
+					<control type="image">
+						<width>400</width>
+						<height>300</height>
+						<texture>noc/glow_warm.png</texture>
+					</control>
+				</control>
+			</control>
+			<control type="label">
+				<width max="330">auto</width>
+				<height>48</height>
+				<font>nav_24</font>
+				<textcolor>00000000</textcolor>
+				<label>$VAR[CustomMenu_Label3]</label>
+				<visible>$EXP[CustomMenu3On] + ![$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]]</visible>
+			</control>
+			<control type="group">
+				<width>0</width>
+				<height>300</height>
+				<visible>$EXP[CustomMenu3On] + $EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On] + Control.HasFocus(9028)</visible>
+				<include>Anim_GlowVisible</include>
+				<control type="grouplist">
+					<left>-1000</left>
+					<top>0</top>
+					<width>2000</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<align>center</align>
+					<itemgap>0</itemgap>
+					<control type="label">
+						<width max="210">auto</width>
+						<height>300</height>
+						<font>nav_24</font>
+						<textcolor>00000000</textcolor>
+						<label>$VAR[CustomMenu_Label3]</label>
+					</control>
+					<control type="image">
+						<width>400</width>
+						<height>300</height>
+						<texture>noc/glow_warm.png</texture>
+					</control>
+				</control>
+			</control>
+			<control type="label">
+				<width max="210">auto</width>
+				<height>48</height>
+				<font>nav_24</font>
+				<textcolor>00000000</textcolor>
+				<label>$VAR[CustomMenu_Label3]</label>
+				<visible>$EXP[CustomMenu3On] + $EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]</visible>
+			</control>
+			<control type="image">
+				<width>46</width>
+				<height>1</height>
+				<texture />
+				<visible>$EXP[CustomMenu3On]</visible>
+			</control>
+			<control type="group">
+				<width>171</width>
+				<height>300</height>
+				<visible>!Skin.HasSetting(HideMenu.Search)</visible>
+				<control type="image">
+					<left>-138</left>
+					<top>0</top>
+					<width>400</width>
+					<height>300</height>
+					<texture>noc/glow_warm.png</texture>
+					<visible>Control.HasFocus(9004)</visible>
+					<include>Anim_GlowVisible</include>
+				</control>
+			</control>
+			<control type="group">
+				<width>168</width>
+				<height>300</height>
+				<control type="image">
+					<left>-121</left>
+					<top>0</top>
+					<width>400</width>
+					<height>300</height>
+					<texture>noc/glow_warm.png</texture>
+					<visible>Control.HasFocus(9005)</visible>
+					<include>Anim_GlowVisible</include>
+				</control>
+			</control>
 		</control>
 		<control type="group" id="9000">
 			<control type="button" id="9001">
@@ -528,7 +774,7 @@
 				<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 				<onleft>9002</onleft>
-				<onright>9004</onright>
+				<onright>9006</onright>
 				<onfocus>SetProperty(nocturne.section,music,home)</onfocus>
 				<onfocus>SetProperty(TMDbHelper.WidgetContainer,9260,home)</onfocus>
 				<ondown>9260</ondown>
@@ -548,56 +794,365 @@
 				<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 			</control>
-			<control type="button" id="9004">
+			<control type="grouplist" id="9010">
 				<left>539</left>
 				<top>48</top>
-				<width>134</width>
+				<width>1381</width>
 				<height>48</height>
-				<font>nav_24</font>
-				<textoffsetx>0</textoffsetx>
-				<aligny>center</aligny>
-				<textcolor>5ca49680</textcolor>
-				<focusedcolor>text_primary</focusedcolor>
-				<shadowcolor>b3000000</shadowcolor>
-				<texturefocus />
-				<texturenofocus />
-				<label>$LOCALIZE[137]</label>
-				<visible>!Skin.HasSetting(HideMenu.Search)</visible>
-				<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
-				<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
-				<animation effect="slide" start="0,0" end="-148,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
+				<orientation>horizontal</orientation>
+				<itemgap>0</itemgap>
 				<onleft>9003</onleft>
-				<onright>9005</onright>
-				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),music) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomRowsFocus]">9260</ondown>
-				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows) + !$EXP[CustomRowsFocus]">9246</ondown>
-				<ondown condition="[String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))] + !Skin.HasSetting(HideMenu.Movies) + !$EXP[CustomRowsFocus]">9226</ondown>
-				<onclick>ActivateWindow(1150)</onclick>
-			</control>
-			<control type="button" id="9005">
-				<left>710</left>
-				<top>48</top>
-				<width>168</width>
-				<height>48</height>
-				<font>nav_24</font>
-				<textoffsetx>0</textoffsetx>
-				<aligny>center</aligny>
-				<textcolor>5ca49680</textcolor>
-				<focusedcolor>text_primary</focusedcolor>
-				<shadowcolor>b3000000</shadowcolor>
-				<texturefocus />
-				<texturenofocus />
-				<label>$LOCALIZE[5]</label>
+				<onright>9001</onright>
 				<animation effect="slide" start="0,0" end="-140,0" time="0" condition="Skin.HasSetting(HideMenu.Movies)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="-155,0" time="0" condition="Skin.HasSetting(HideMenu.TVShows)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="-148,0" time="0" condition="Skin.HasSetting(HideMenu.Music)">Conditional</animation>
-				<animation effect="slide" start="0,0" end="-171,0" time="0" condition="Skin.HasSetting(HideMenu.Search)">Conditional</animation>
-				<onleft>9004</onleft>
-				<onright>9001</onright>
-				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),music) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomRowsFocus]">9260</ondown>
-				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows) + !$EXP[CustomRowsFocus]">9246</ondown>
-				<ondown condition="[String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))] + !Skin.HasSetting(HideMenu.Movies) + !$EXP[CustomRowsFocus]">9226</ondown>
-				<onclick>ActivateWindow(1151)</onclick>
+				<control type="button" id="9006">
+					<width max="330">auto</width>
+					<height>48</height>
+					<font>nav_24</font>
+					<textoffsetx>0</textoffsetx>
+					<aligny>center</aligny>
+					<textcolor>5ca49680</textcolor>
+					<focusedcolor>text_primary</focusedcolor>
+					<shadowcolor>b3000000</shadowcolor>
+					<texturefocus />
+					<texturenofocus />
+					<label>$VAR[CustomMenu_Label1]</label>
+					<visible>$EXP[CustomMenu1On] + ![$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]]</visible>
+					<onfocus>SetProperty(nocturne.section,custom1,home)</onfocus>
+					<ondown>noop</ondown>
+					<include content="CustomMenu_OnClick"><param name="item" value="1"/></include>
+				</control>
+				<control type="button" id="9026">
+					<width max="210">auto</width>
+					<height>48</height>
+					<font>nav_24</font>
+					<textoffsetx>0</textoffsetx>
+					<aligny>center</aligny>
+					<textcolor>5ca49680</textcolor>
+					<focusedcolor>text_primary</focusedcolor>
+					<shadowcolor>b3000000</shadowcolor>
+					<texturefocus />
+					<texturenofocus />
+					<label>$VAR[CustomMenu_Label1]</label>
+					<visible>$EXP[CustomMenu1On] + $EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]</visible>
+					<onfocus>SetProperty(nocturne.section,custom1,home)</onfocus>
+					<ondown>noop</ondown>
+					<include content="CustomMenu_OnClick"><param name="item" value="1"/></include>
+				</control>
+				<control type="image" id="9016">
+					<width>46</width>
+					<height>48</height>
+					<texture />
+					<visible>$EXP[CustomMenu1On]</visible>
+				</control>
+				<control type="button" id="9007">
+					<width max="330">auto</width>
+					<height>48</height>
+					<font>nav_24</font>
+					<textoffsetx>0</textoffsetx>
+					<aligny>center</aligny>
+					<textcolor>5ca49680</textcolor>
+					<focusedcolor>text_primary</focusedcolor>
+					<shadowcolor>b3000000</shadowcolor>
+					<texturefocus />
+					<texturenofocus />
+					<label>$VAR[CustomMenu_Label2]</label>
+					<visible>$EXP[CustomMenu2On] + ![$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]]</visible>
+					<onfocus>SetProperty(nocturne.section,custom2,home)</onfocus>
+					<ondown>noop</ondown>
+					<include content="CustomMenu_OnClick"><param name="item" value="2"/></include>
+				</control>
+				<control type="button" id="9027">
+					<width max="210">auto</width>
+					<height>48</height>
+					<font>nav_24</font>
+					<textoffsetx>0</textoffsetx>
+					<aligny>center</aligny>
+					<textcolor>5ca49680</textcolor>
+					<focusedcolor>text_primary</focusedcolor>
+					<shadowcolor>b3000000</shadowcolor>
+					<texturefocus />
+					<texturenofocus />
+					<label>$VAR[CustomMenu_Label2]</label>
+					<visible>$EXP[CustomMenu2On] + $EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]</visible>
+					<onfocus>SetProperty(nocturne.section,custom2,home)</onfocus>
+					<ondown>noop</ondown>
+					<include content="CustomMenu_OnClick"><param name="item" value="2"/></include>
+				</control>
+				<control type="image" id="9017">
+					<width>46</width>
+					<height>48</height>
+					<texture />
+					<visible>$EXP[CustomMenu2On]</visible>
+				</control>
+				<control type="button" id="9008">
+					<width max="330">auto</width>
+					<height>48</height>
+					<font>nav_24</font>
+					<textoffsetx>0</textoffsetx>
+					<aligny>center</aligny>
+					<textcolor>5ca49680</textcolor>
+					<focusedcolor>text_primary</focusedcolor>
+					<shadowcolor>b3000000</shadowcolor>
+					<texturefocus />
+					<texturenofocus />
+					<label>$VAR[CustomMenu_Label3]</label>
+					<visible>$EXP[CustomMenu3On] + ![$EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]]</visible>
+					<onfocus>SetProperty(nocturne.section,custom3,home)</onfocus>
+					<ondown>noop</ondown>
+					<include content="CustomMenu_OnClick"><param name="item" value="3"/></include>
+				</control>
+				<control type="button" id="9028">
+					<width max="210">auto</width>
+					<height>48</height>
+					<font>nav_24</font>
+					<textoffsetx>0</textoffsetx>
+					<aligny>center</aligny>
+					<textcolor>5ca49680</textcolor>
+					<focusedcolor>text_primary</focusedcolor>
+					<shadowcolor>b3000000</shadowcolor>
+					<texturefocus />
+					<texturenofocus />
+					<label>$VAR[CustomMenu_Label3]</label>
+					<visible>$EXP[CustomMenu3On] + $EXP[CustomMenu1On] + $EXP[CustomMenu2On] + $EXP[CustomMenu3On]</visible>
+					<onfocus>SetProperty(nocturne.section,custom3,home)</onfocus>
+					<ondown>noop</ondown>
+					<include content="CustomMenu_OnClick"><param name="item" value="3"/></include>
+				</control>
+				<control type="image" id="9018">
+					<width>46</width>
+					<height>48</height>
+					<texture />
+					<visible>$EXP[CustomMenu3On]</visible>
+				</control>
+				<control type="button" id="9004">
+					<width>171</width>
+					<height>48</height>
+					<font>nav_24</font>
+					<textoffsetx>0</textoffsetx>
+					<aligny>center</aligny>
+					<textcolor>5ca49680</textcolor>
+					<focusedcolor>text_primary</focusedcolor>
+					<shadowcolor>b3000000</shadowcolor>
+					<texturefocus />
+					<texturenofocus />
+					<label>$LOCALIZE[137]</label>
+					<visible>!Skin.HasSetting(HideMenu.Search)</visible>
+					<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),music) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomRowsFocus]">9260</ondown>
+					<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows) + !$EXP[CustomRowsFocus]">9246</ondown>
+					<ondown condition="[String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))] + !Skin.HasSetting(HideMenu.Movies) + !$EXP[CustomRowsFocus]">9226</ondown>
+					<onclick>ActivateWindow(1150)</onclick>
+				</control>
+				<control type="button" id="9005">
+					<width>168</width>
+					<height>48</height>
+					<font>nav_24</font>
+					<textoffsetx>0</textoffsetx>
+					<aligny>center</aligny>
+					<textcolor>5ca49680</textcolor>
+					<focusedcolor>text_primary</focusedcolor>
+					<shadowcolor>b3000000</shadowcolor>
+					<texturefocus />
+					<texturenofocus />
+					<label>$LOCALIZE[5]</label>
+					<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),music) + !Skin.HasSetting(HideMenu.Music) + !$EXP[CustomRowsFocus]">9260</ondown>
+					<ondown condition="String.IsEqual(Window(Home).Property(nocturne.section),series) + !Skin.HasSetting(HideMenu.TVShows) + !$EXP[CustomRowsFocus]">9246</ondown>
+					<ondown condition="[String.IsEqual(Window(Home).Property(nocturne.section),films) | String.IsEmpty(Window(Home).Property(nocturne.section))] + !Skin.HasSetting(HideMenu.Movies) + !$EXP[CustomRowsFocus]">9226</ondown>
+					<onclick>ActivateWindow(1151)</onclick>
+				</control>
 			</control>
+		</control>
+	</include>
+	<include name="Home_CustomMenuRooms">
+		<control type="group">
+			<visible>String.IsEqual(Window(Home).Property(nocturne.section),custom1) + $EXP[CustomMenu1On]</visible>
+			<include>Anim_SectionSwap</include>
+			<include content="Noc_ShroudStatic">
+				<param name="texture" value="noc/shroud_music.png"/>
+			</include>
+			<control type="image">
+				<left>260</left>
+				<top>190</top>
+				<width>1400</width>
+				<height>840</height>
+				<texture>noc/cone.png</texture>
+			</control>
+			<control type="image">
+				<left>750</left>
+				<top>-40</top>
+				<width>420</width>
+				<height>300</height>
+				<texture>noc/lamp.png</texture>
+			</control>
+			<control type="label">
+				<left>96</left>
+				<top>190</top>
+				<width>1000</width>
+				<height>32</height>
+				<aligny>center</aligny>
+				<font>caps_20</font>
+				<textcolor>6bc8b8a0</textcolor>
+				<label>$VAR[CustomMenu_Opens1]  ·  $LOCALIZE[31995]</label>
+			</control>
+			<control type="group">
+				<left>810</left>
+				<top>330</top>
+				<width>300</width>
+				<height>300</height>
+				<visible>$EXP[CustomMenu1HasIcon]</visible>
+				<include content="Noc_FrameParts">
+					<param name="art" value="$VAR[CustomMenu_Icon1]"/>
+					<param name="lit" value="true"/>
+					<param name="aspect" value="keep"/>
+					<param name="label" value=""/>
+				</include>
+			</control>
+			<control type="group">
+				<left>810</left>
+				<top>330</top>
+				<width>300</width>
+				<height>300</height>
+				<visible>!$EXP[CustomMenu1HasIcon]</visible>
+				<include content="Noc_FrameParts">
+					<param name="art" value=""/>
+					<param name="lit" value="true"/>
+					<param name="aspect" value="keep"/>
+					<param name="label" value="$VAR[CustomMenu_Label1]"/>
+				</include>
+			</control>
+			<include content="Noc_Plaque">
+				<param name="left" value="360"/>
+				<param name="top" value="666"/>
+				<param name="title" value="$VAR[CustomMenu_Label1]"/>
+				<param name="meta" value="$VAR[CustomMenu_Kind1]"/>
+			</include>
+		</control>
+		<control type="group">
+			<visible>String.IsEqual(Window(Home).Property(nocturne.section),custom2) + $EXP[CustomMenu2On]</visible>
+			<include>Anim_SectionSwap</include>
+			<include content="Noc_ShroudStatic">
+				<param name="texture" value="noc/shroud_music.png"/>
+			</include>
+			<control type="image">
+				<left>260</left>
+				<top>190</top>
+				<width>1400</width>
+				<height>840</height>
+				<texture>noc/cone.png</texture>
+			</control>
+			<control type="image">
+				<left>750</left>
+				<top>-40</top>
+				<width>420</width>
+				<height>300</height>
+				<texture>noc/lamp.png</texture>
+			</control>
+			<control type="label">
+				<left>96</left>
+				<top>190</top>
+				<width>1000</width>
+				<height>32</height>
+				<aligny>center</aligny>
+				<font>caps_20</font>
+				<textcolor>6bc8b8a0</textcolor>
+				<label>$VAR[CustomMenu_Opens2]  ·  $LOCALIZE[31995]</label>
+			</control>
+			<control type="group">
+				<left>810</left>
+				<top>330</top>
+				<width>300</width>
+				<height>300</height>
+				<visible>$EXP[CustomMenu2HasIcon]</visible>
+				<include content="Noc_FrameParts">
+					<param name="art" value="$VAR[CustomMenu_Icon2]"/>
+					<param name="lit" value="true"/>
+					<param name="aspect" value="keep"/>
+					<param name="label" value=""/>
+				</include>
+			</control>
+			<control type="group">
+				<left>810</left>
+				<top>330</top>
+				<width>300</width>
+				<height>300</height>
+				<visible>!$EXP[CustomMenu2HasIcon]</visible>
+				<include content="Noc_FrameParts">
+					<param name="art" value=""/>
+					<param name="lit" value="true"/>
+					<param name="aspect" value="keep"/>
+					<param name="label" value="$VAR[CustomMenu_Label2]"/>
+				</include>
+			</control>
+			<include content="Noc_Plaque">
+				<param name="left" value="360"/>
+				<param name="top" value="666"/>
+				<param name="title" value="$VAR[CustomMenu_Label2]"/>
+				<param name="meta" value="$VAR[CustomMenu_Kind2]"/>
+			</include>
+		</control>
+		<control type="group">
+			<visible>String.IsEqual(Window(Home).Property(nocturne.section),custom3) + $EXP[CustomMenu3On]</visible>
+			<include>Anim_SectionSwap</include>
+			<include content="Noc_ShroudStatic">
+				<param name="texture" value="noc/shroud_music.png"/>
+			</include>
+			<control type="image">
+				<left>260</left>
+				<top>190</top>
+				<width>1400</width>
+				<height>840</height>
+				<texture>noc/cone.png</texture>
+			</control>
+			<control type="image">
+				<left>750</left>
+				<top>-40</top>
+				<width>420</width>
+				<height>300</height>
+				<texture>noc/lamp.png</texture>
+			</control>
+			<control type="label">
+				<left>96</left>
+				<top>190</top>
+				<width>1000</width>
+				<height>32</height>
+				<aligny>center</aligny>
+				<font>caps_20</font>
+				<textcolor>6bc8b8a0</textcolor>
+				<label>$VAR[CustomMenu_Opens3]  ·  $LOCALIZE[31995]</label>
+			</control>
+			<control type="group">
+				<left>810</left>
+				<top>330</top>
+				<width>300</width>
+				<height>300</height>
+				<visible>$EXP[CustomMenu3HasIcon]</visible>
+				<include content="Noc_FrameParts">
+					<param name="art" value="$VAR[CustomMenu_Icon3]"/>
+					<param name="lit" value="true"/>
+					<param name="aspect" value="keep"/>
+					<param name="label" value=""/>
+				</include>
+			</control>
+			<control type="group">
+				<left>810</left>
+				<top>330</top>
+				<width>300</width>
+				<height>300</height>
+				<visible>!$EXP[CustomMenu3HasIcon]</visible>
+				<include content="Noc_FrameParts">
+					<param name="art" value=""/>
+					<param name="lit" value="true"/>
+					<param name="aspect" value="keep"/>
+					<param name="label" value="$VAR[CustomMenu_Label3]"/>
+				</include>
+			</control>
+			<include content="Noc_Plaque">
+				<param name="left" value="360"/>
+				<param name="top" value="666"/>
+				<param name="title" value="$VAR[CustomMenu_Label3]"/>
+				<param name="meta" value="$VAR[CustomMenu_Kind3]"/>
+			</include>
 		</control>
 	</include>
 	<include name="Home_Wall_films">

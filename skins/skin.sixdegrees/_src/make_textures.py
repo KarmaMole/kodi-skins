@@ -186,6 +186,15 @@ def make_lines():
     save(white_alpha(down(rrect_mask(6, 30, 3), 6, 30)), "sd/tick_v6.png")
 
 
+def make_underline():
+    # 0.9.18 custom menu words: the active word's 6 px underline as the nofocus texture of a disabled auto-width
+    # button with textoffsetx 22 (Home top bar). 80 x 12: the line runs x 22-58 on rows 6-11 with round caps; the
+    # 9-slice border 25,0,25,0 keeps the caps and the 22 px insets, so the line is exactly as wide as the text.
+    m = Image.new("L", (80 * SS, 12 * SS), 0)
+    m.paste(rrect_mask(36, 6, 3), (22 * SS, 6 * SS))
+    save(white_alpha(down(m, 80, 12)), "sd/uline_22.png")
+
+
 # ------------------------------------------------------------------ mini map (Home preview, boards2.py)
 def make_station_conns():
     """Station page: four lines leave the poster as a bundle and peel off to their rows (boards2.py)."""
@@ -438,6 +447,7 @@ def make_engine():
 def main():
     SD.mkdir(parents=True, exist_ok=True)
     make_lines()
+    make_underline()
     make_connectors()
     make_minimap()
     make_station_conns()

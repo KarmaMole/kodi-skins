@@ -2301,7 +2301,7 @@ view mode), and the first visit of each content type opens the Fold view.
 						<left>1276</left>
 						<top>512</top>
 						<visible>!ListItem.IsParentFolder</visible>
-						<animation effect="slide" start="0,0" end="0,-292" time="0" condition="!$EXP[Leaflet_HasPrint]">Conditional</animation>
+						<animation effect="slide" start="0,0" end="0,-244" time="0" condition="!$EXP[Leaflet_HasPrint]">Conditional</animation>
 						<control type="label">
 							<left>0</left>
 							<top>0</top>
@@ -2341,7 +2341,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				<control type="list" id="505">
 					<left>96</left>
 					<top>740</top>
-					<width>1760</width>
+					<width>1680</width>
 					<height>300</height>
 					<orientation>horizontal</orientation>
 					<preloaditems>2</preloaditems>
@@ -2353,16 +2353,16 @@ view mode), and the first visit of each content type opens the Fold view.
 					<onback condition="$EXP[Lib_AtRoot]">9398</onback>
 					<viewtype label="31426">biginfo</viewtype>
 					<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)</visible>
-				<itemlayout width="160" height="300" condition="!Container.Content(episodes)">
+				<itemlayout width="168" height="300" condition="!Container.Content(episodes)">
 				<control type="image">
-					<left>-24</left>
+					<left>-20</left>
 					<top>10</top>
 					<width>208</width>
 					<height>272</height>
 					<texture border="48" colordiffuse="$VAR[Shelf_ShadowTint]">fold/shadow_card.png</texture>
 				</control>
 				<control type="group">
-					<left>16</left>
+					<left>20</left>
 					<top>50</top>
 					<width>128</width>
 					<height>192</height>
@@ -2407,7 +2407,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				</control>
 				<!-- the ".." parent item: a cream index card -->
 				<control type="group">
-					<left>16</left>
+					<left>20</left>
 					<top>50</top>
 					<visible>ListItem.IsParentFolder</visible>
 					<control type="image">
@@ -2447,9 +2447,9 @@ view mode), and the first visit of each content type opens the Fold view.
 					</control>
 				</control>
 				</itemlayout>
-				<focusedlayout width="160" height="300" condition="!Container.Content(episodes)">
+				<focusedlayout width="168" height="300" condition="!Container.Content(episodes)">
 				<control type="image">
-					<left>-63</left>
+					<left>-59</left>
 					<top>-43</top>
 					<width>286</width>
 					<height>357</height>
@@ -2462,12 +2462,12 @@ view mode), and the first visit of each content type opens the Fold view.
 				</animation>
 				</control>
 				<control type="group">
-					<left>9</left>
+					<left>13</left>
 					<top>29</top>
 					<width>142</width>
 					<height>213</height>
 					<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
-						<effect type="zoom" start="90.1" end="100" center="80,242" time="240" tween="back" easing="out"/>
+						<effect type="zoom" start="90.1" end="100" center="84,242" time="240" tween="back" easing="out"/>
 						<effect type="rotatex" start="0" end="-9" center="242" time="240" tween="back" easing="out"/>
 					</animation>
 					<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(505)">
@@ -2525,7 +2525,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				</control>
 				<!-- the ".." parent item: a cream index card -->
 				<control type="group">
-					<left>9</left>
+					<left>13</left>
 					<top>29</top>
 					<visible>ListItem.IsParentFolder</visible>
 					<control type="image">

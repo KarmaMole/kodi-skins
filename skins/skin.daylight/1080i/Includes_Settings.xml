@@ -726,6 +726,10 @@
 		<value condition="Control.HasFocus(9570)">$LOCALIZE[31950]</value>
 		<value condition="Control.HasFocus(9571)">$LOCALIZE[31950]</value>
 		<value condition="Control.HasFocus(9572)">$LOCALIZE[31950]</value>
+		<value condition="Control.HasFocus(9556)">$LOCALIZE[31984]</value>
+		<value condition="Control.HasFocus(9573)">$LOCALIZE[31984]</value>
+		<value condition="Control.HasFocus(9574)">$LOCALIZE[31984]</value>
+		<value condition="Control.HasFocus(9575)">$LOCALIZE[31984]</value>
 		<value>Daylight's own options. Kodi's settings live under Settings; switch skins in Settings &gt; Interface &gt; Skin.</value>
 	</variable>
 </includes>

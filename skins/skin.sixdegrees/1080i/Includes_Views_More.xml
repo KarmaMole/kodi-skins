@@ -360,16 +360,48 @@
 					<textcolor>ink2</textcolor>
 					<label>$VAR[SDV_Facts]</label>
 				</control>
-				<control type="textbox">
-					<left>0</left>
-					<top>716</top>
-					<width>1040</width>
-					<height>101</height>
-					<font>reg_24</font>
-					<textcolor>body</textcolor>
-					<label>$VAR[SDV_Text]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
+				<!-- the text: 3 whole lines of reg_24 (34 px pitch, so 102: at 101 Kodi counted 2 lines a page and
+				     scrolled even a 3-line plot), read from its start; a longer one ends in "…" (the station
+				     page's pattern), no autoscroll that leaves it mid-sentence -->
+				<control type="group">
 					<visible>$PARAM[text_visible]</visible>
+					<control type="textbox" id="5079">
+						<left>0</left>
+						<top>716</top>
+						<width>1040</width>
+						<height>102</height>
+						<font>reg_24</font>
+						<textcolor>body</textcolor>
+						<label>$VAR[SDV_Text]</label>
+					</control>
+					<control type="image">
+						<left>890</left>
+						<top>784</top>
+						<width>150</width>
+						<height>34</height>
+						<texture colordiffuse="ground">common/gradient_right.png</texture>
+						<visible>Integer.IsGreater(Container(5079).NumPages,1)</visible>
+					</control>
+					<control type="image">
+						<left>1000</left>
+						<top>784</top>
+						<width>40</width>
+						<height>34</height>
+						<texture colordiffuse="ground">common/white.png</texture>
+						<visible>Integer.IsGreater(Container(5079).NumPages,1)</visible>
+					</control>
+					<control type="label">
+						<left>1000</left>
+						<top>784</top>
+						<width>40</width>
+						<height>34</height>
+						<font>reg_24</font>
+						<textcolor>body</textcolor>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>…</label>
+						<visible>Integer.IsGreater(Container(5079).NumPages,1)</visible>
+					</control>
 				</control>
 			</control>
 		</definition>

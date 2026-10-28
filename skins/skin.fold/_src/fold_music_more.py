@@ -269,7 +269,7 @@ def poster_view():
 				<control type="list" id="508">
 					<left>96</left>
 					<top>744</top>
-					<width>1760</width>
+					<width>1674</width>
 					<height>300</height>
 					<orientation>horizontal</orientation>
 					<preloaditems>2</preloaditems>

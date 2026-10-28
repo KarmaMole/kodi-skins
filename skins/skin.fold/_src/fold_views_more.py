@@ -306,7 +306,7 @@ def leaflet_strip_item(focused, stills):
 						<visible>{'Control.HasFocus(505)' if focused else 'false'}</visible>
 					</control>
 				</control>"""
-    return closed_card(focused, 505, 128, 192, 142, 213, 16, 50, "$VAR[Table_CardColor]", "$VAR[Shelf_Art]", "", "",
+    return closed_card(focused, 505, 128, 192, 142, 213, 20, 50, "$VAR[Table_CardColor]", "$VAR[Shelf_Art]", "", "",
                        parent_word="Up")
 
 
@@ -353,7 +353,7 @@ def leaflet_view():
     p1 = L_P1 + 52
     p3 = L_P3 + 48
     lists = [
-        ("!Container.Content(episodes)", 160, False),
+        ("!Container.Content(episodes)", 168, False),
         ("Container.Content(episodes)", 240, True),
     ]
     layouts = "".join(f"""
@@ -485,7 +485,7 @@ def leaflet_view():
 						<left>{L_P3 + 40}</left>
 						<top>{L_TOP + 352}</top>
 						<visible>!ListItem.IsParentFolder</visible>
-						<animation effect="slide" start="0,0" end="0,-292" time="0" condition="!$EXP[Leaflet_HasPrint]">Conditional</animation>
+						<animation effect="slide" start="0,0" end="0,-244" time="0" condition="!$EXP[Leaflet_HasPrint]">Conditional</animation>
 						<control type="label">
 							<left>0</left>
 							<top>0</top>
@@ -522,7 +522,7 @@ def leaflet_view():
 				<control type="list" id="505">
 					<left>96</left>
 					<top>740</top>
-					<width>1760</width>
+					<width>1680</width>
 					<height>300</height>
 					<orientation>horizontal</orientation>
 					<preloaditems>2</preloaditems>

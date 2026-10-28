@@ -11215,7 +11215,7 @@
 					<itemgap>14</itemgap>
 					<usecontrolcoords>true</usecontrolcoords>
 					<control type="label">
-						<width>auto</width>
+						<width max="300">auto</width>
 						<height>32</height>
 						<font>wide_26</font>
 						<textcolor>text_secondary</textcolor>
@@ -11261,7 +11261,7 @@
 					<itemgap>14</itemgap>
 					<usecontrolcoords>true</usecontrolcoords>
 					<control type="label">
-						<width>auto</width>
+						<width max="300">auto</width>
 						<height>32</height>
 						<font>wide_26</font>
 						<textcolor>text_secondary</textcolor>
@@ -11307,7 +11307,7 @@
 					<itemgap>14</itemgap>
 					<usecontrolcoords>true</usecontrolcoords>
 					<control type="label">
-						<width>auto</width>
+						<width max="300">auto</width>
 						<height>32</height>
 						<font>wide_26</font>
 						<textcolor>text_secondary</textcolor>
@@ -11355,7 +11355,7 @@
 					<itemgap>14</itemgap>
 					<usecontrolcoords>true</usecontrolcoords>
 					<control type="label">
-						<width>auto</width>
+						<width max="300">auto</width>
 						<height>32</height>
 						<font>wide_26</font>
 						<textcolor>text_secondary</textcolor>
@@ -11400,13 +11400,68 @@
 					<itemgap>14</itemgap>
 					<usecontrolcoords>true</usecontrolcoords>
 					<control type="label">
-						<width>auto</width>
+						<width max="295">auto</width>
 						<height>54</height>
 						<font>wide_44</font>
 						<textcolor>text_primary</textcolor>
 						<label>$INFO[Container(9000).ListItem(0).Label]</label>
+						<visible>!Integer.IsGreater(Container(9762).NumPages,1)</visible>
+					</control>
+					<control type="label">
+						<width max="295">auto</width>
+						<height>54</height>
+						<aligny>center</aligny>
+						<font>wide_38</font>
+						<textcolor>text_primary</textcolor>
+						<label>$INFO[Container(9000).ListItem(0).Label]</label>
+						<visible>Integer.IsGreater(Container(9762).NumPages,1) + !Integer.IsGreater(Container(9763).NumPages,1)</visible>
+					</control>
+					<control type="label">
+						<width max="295">auto</width>
+						<height>54</height>
+						<aligny>center</aligny>
+						<font>wide_34</font>
+						<textcolor>text_primary</textcolor>
+						<label>$INFO[Container(9000).ListItem(0).Label]</label>
+						<visible>Integer.IsGreater(Container(9762).NumPages,1) + Integer.IsGreater(Container(9763).NumPages,1) + !Integer.IsGreater(Container(9764).NumPages,1)</visible>
+					</control>
+					<control type="label">
+						<width max="295">auto</width>
+						<height>54</height>
+						<aligny>center</aligny>
+						<font>wide_30</font>
+						<textcolor>text_primary</textcolor>
+						<label>$INFO[Container(9000).ListItem(0).Label]</label>
+						<visible>Integer.IsGreater(Container(9762).NumPages,1) + Integer.IsGreater(Container(9763).NumPages,1) + Integer.IsGreater(Container(9764).NumPages,1)</visible>
 					</control>
 				</control>
+			</control>
+			<control type="textbox" id="9762">
+				<left>-4000</left>
+				<top>-2400</top>
+				<width>295</width>
+				<height>81</height>
+				<font>wide_44</font>
+				<textcolor>00ffffff</textcolor>
+				<label>$INFO[Container(9000).ListItem.Label]</label>
+			</control>
+			<control type="textbox" id="9763">
+				<left>-4000</left>
+				<top>-2200</top>
+				<width>295</width>
+				<height>69</height>
+				<font>wide_38</font>
+				<textcolor>00ffffff</textcolor>
+				<label>$INFO[Container(9000).ListItem.Label]</label>
+			</control>
+			<control type="textbox" id="9764">
+				<left>-4000</left>
+				<top>-2000</top>
+				<width>295</width>
+				<height>66</height>
+				<font>wide_34</font>
+				<textcolor>00ffffff</textcolor>
+				<label>$INFO[Container(9000).ListItem.Label]</label>
 			</control>
 		</definition>
 	</include>

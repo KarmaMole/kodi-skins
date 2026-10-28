@@ -4,6 +4,7 @@
 	<defaultcontrol always="true">9501</defaultcontrol>
 	<backgroundcolor>bg</backgroundcolor>
 	<onload>ClearProperty(nocturne.resetarmed,home)</onload>
+	<onload>ClearProperty(nocturne.cmtab,home)</onload>
 	<onload condition="!String.IsEmpty(Window(Home).Property(nocturne.refocus))">SetFocus($INFO[Window(Home).Property(nocturne.refocus)])</onload>
 	<onload>ClearProperty(nocturne.refocus,home)</onload>
 	<include>Anim_WindowOpenClose</include>
@@ -587,7 +588,8 @@
 				<texturefocus border="26,0,26,0">noc/plaque.png</texturefocus>
 				<label>$VAR[SkinSet_ResetLabel]</label>
 				<onup>9508</onup>
-				<ondown>9515</ondown>
+				<ondown condition="!String.IsEqual(Window(Home).Property(nocturne.cmtab),1)">9515</ondown>
+				<ondown condition="String.IsEqual(Window(Home).Property(nocturne.cmtab),1)">9518</ondown>
 				<onunfocus>ClearProperty(nocturne.resetarmed,home)</onunfocus>
 				<onclick condition="!String.IsEmpty(Window(Home).Property(nocturne.resetarmed))">Skin.Reset(nocturne.darkness)</onclick>
 				<onclick condition="!String.IsEmpty(Window(Home).Property(nocturne.resetarmed))">Skin.Reset(nocturne.dust)</onclick>
@@ -605,19 +607,60 @@
 				<onclick condition="String.IsEmpty(Window(Home).Property(nocturne.resetarmed))">SetProperty(nocturne.resetarmed,1,home)</onclick>
 			</control>
 		</control>
-		<!-- custom rows panel -->
-		<control type="group">
+		<!-- custom rows / custom menu items panel (two tabs; Right / Left on a row switches) -->
+		<control type="grouplist">
 			<left>1240</left>
 			<top>520</top>
-			<control type="label">
-				<left>0</left>
-				<top>0</top>
-				<width>590</width>
-				<height>32</height>
-				<font>caps_20</font>
-				<textcolor>8cc8b8a0</textcolor>
-				<label>$LOCALIZE[31940]</label>
-			</control>
+			<width>590</width>
+			<height>32</height>
+			<orientation>horizontal</orientation>
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<font>caps_20</font>
+					<textcolor>8cc8b8a0</textcolor>
+					<label>$LOCALIZE[31940]</label>
+					<visible>!String.IsEqual(Window(Home).Property(nocturne.cmtab),1)</visible>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<font>caps_20</font>
+					<textcolor>40c8b8a0</textcolor>
+					<label>$LOCALIZE[31940]</label>
+					<visible>String.IsEqual(Window(Home).Property(nocturne.cmtab),1)</visible>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<font>caps_20</font>
+					<textcolor>40c8b8a0</textcolor>
+					<label>   ·   </label>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<font>caps_20</font>
+					<textcolor>8cc8b8a0</textcolor>
+					<label>$LOCALIZE[31980]</label>
+					<visible>!!String.IsEqual(Window(Home).Property(nocturne.cmtab),1)</visible>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<font>caps_20</font>
+					<textcolor>40c8b8a0</textcolor>
+					<label>$LOCALIZE[31980]</label>
+					<visible>!String.IsEqual(Window(Home).Property(nocturne.cmtab),1)</visible>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>32</height>
+					<font>caps_20</font>
+					<textcolor>8cc8b8a0</textcolor>
+					<label>   ◀ ▶</label>
+					<visible>Control.HasFocus(9515) | Control.HasFocus(9516) | Control.HasFocus(9517) | Control.HasFocus(9518) | Control.HasFocus(9519) | Control.HasFocus(9520)</visible>
+				</control>
 		</control>
 		<control type="group">
 			<left>1240</left>
@@ -649,10 +692,12 @@
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
 				<label>$LOCALIZE[31941]</label>
+				<visible allowhiddenfocus="true">!String.IsEqual(Window(Home).Property(nocturne.cmtab),1)</visible>
 				<onup>9509</onup>
 				<ondown>9516</ondown>
 				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onright>9518</onright>
+				<onfocus>ClearProperty(nocturne.cmtab,home)</onfocus>
 				<include content="CustomRows_SettingsClick"><param name="row" value="1"/><param name="heading" value="$LOCALIZE[31941]"/></include>
 			</control>
 			<control type="label">
@@ -664,7 +709,7 @@
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[CustomRow_Value1]</label>
-				<visible>!Control.HasFocus(9515)</visible>
+				<visible>!String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + !Control.HasFocus(9515)</visible>
 			</control>
 			<control type="label">
 				<left>200</left>
@@ -675,7 +720,7 @@
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>$VAR[CustomRow_Value1]</label>
-				<visible>Control.HasFocus(9515)</visible>
+				<visible>!String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + Control.HasFocus(9515)</visible>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -715,10 +760,12 @@
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
 				<label>$LOCALIZE[31942]</label>
+				<visible allowhiddenfocus="true">!String.IsEqual(Window(Home).Property(nocturne.cmtab),1)</visible>
 				<onup>9515</onup>
 				<ondown>9517</ondown>
 				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onright>9519</onright>
+				<onfocus>ClearProperty(nocturne.cmtab,home)</onfocus>
 				<include content="CustomRows_SettingsClick"><param name="row" value="2"/><param name="heading" value="$LOCALIZE[31942]"/></include>
 			</control>
 			<control type="label">
@@ -730,7 +777,7 @@
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[CustomRow_Value2]</label>
-				<visible>!Control.HasFocus(9516)</visible>
+				<visible>!String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + !Control.HasFocus(9516)</visible>
 			</control>
 			<control type="label">
 				<left>200</left>
@@ -741,7 +788,7 @@
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>$VAR[CustomRow_Value2]</label>
-				<visible>Control.HasFocus(9516)</visible>
+				<visible>!String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + Control.HasFocus(9516)</visible>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -781,10 +828,12 @@
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
 				<label>$LOCALIZE[31943]</label>
+				<visible allowhiddenfocus="true">!String.IsEqual(Window(Home).Property(nocturne.cmtab),1)</visible>
 				<onup>9516</onup>
 				<ondown>9511</ondown>
 				<onleft>noop</onleft>
-				<onright>noop</onright>
+				<onright>9520</onright>
+				<onfocus>ClearProperty(nocturne.cmtab,home)</onfocus>
 				<include content="CustomRows_SettingsClick"><param name="row" value="3"/><param name="heading" value="$LOCALIZE[31943]"/></include>
 			</control>
 			<control type="label">
@@ -796,7 +845,7 @@
 				<font>caps_22</font>
 				<textcolor>8cc8b8a0</textcolor>
 				<label>$VAR[CustomRow_Value3]</label>
-				<visible>!Control.HasFocus(9517)</visible>
+				<visible>!String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + !Control.HasFocus(9517)</visible>
 			</control>
 			<control type="label">
 				<left>200</left>
@@ -807,7 +856,7 @@
 				<font>caps_22</font>
 				<textcolor>fff4e6cf</textcolor>
 				<label>$VAR[CustomRow_Value3]</label>
-				<visible>Control.HasFocus(9517)</visible>
+				<visible>!String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + Control.HasFocus(9517)</visible>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -815,6 +864,189 @@
 				<width>590</width>
 				<height>1</height>
 				<texture colordiffuse="1adcbe8c">common/white.png</texture>
+			</control>
+		</control>
+		<control type="group">
+			<left>1240</left>
+			<top>564</top>
+			<control type="image">
+				<left>-40</left>
+				<top>0</top>
+				<width>670</width>
+				<height>56</height>
+				<texture border="64,0,64,0" colordiffuse="light">noc/glow_bar.png</texture>
+				<visible>Control.HasFocus(9518)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>12</top>
+				<width>3</width>
+				<height>32</height>
+				<texture>noc/tick.png</texture>
+				<visible>Control.HasFocus(9518)</visible>
+			</control>
+			<control type="button" id="9518">
+				<left>0</left>
+				<top>0</top>
+				<width>590</width>
+				<height>56</height>
+				<font>sans_26</font>
+				<textoffsetx>28</textoffsetx>
+				<textcolor>b8e2d0b4</textcolor>
+				<focusedcolor>text_lit</focusedcolor>
+				<texturefocus />
+				<label>$LOCALIZE[31981]</label>
+				<visible allowhiddenfocus="true">String.IsEqual(Window(Home).Property(nocturne.cmtab),1)</visible>
+				<onup>9509</onup>
+				<ondown>9519</ondown>
+				<onleft>9515</onleft>
+				<onright>noop</onright>
+				<onfocus>SetProperty(nocturne.cmtab,1,home)</onfocus>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="1"/><param name="heading" value="$LOCALIZE[31981]"/></include>
+			</control>
+			<control type="label">
+				<left>200</left>
+				<top>0</top>
+				<width>370</width>
+				<height>56</height>
+				<align>right</align>
+				<font>caps_22</font>
+				<textcolor>8cc8b8a0</textcolor>
+				<label>$VAR[CustomMenu_Value1]</label>
+				<visible>String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + !Control.HasFocus(9518)</visible>
+			</control>
+			<control type="label">
+				<left>200</left>
+				<top>0</top>
+				<width>370</width>
+				<height>56</height>
+				<align>right</align>
+				<font>caps_22</font>
+				<textcolor>fff4e6cf</textcolor>
+				<label>$VAR[CustomMenu_Value1]</label>
+				<visible>String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + Control.HasFocus(9518)</visible>
+			</control>
+		</control>
+		<control type="group">
+			<left>1240</left>
+			<top>628</top>
+			<control type="image">
+				<left>-40</left>
+				<top>0</top>
+				<width>670</width>
+				<height>56</height>
+				<texture border="64,0,64,0" colordiffuse="light">noc/glow_bar.png</texture>
+				<visible>Control.HasFocus(9519)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>12</top>
+				<width>3</width>
+				<height>32</height>
+				<texture>noc/tick.png</texture>
+				<visible>Control.HasFocus(9519)</visible>
+			</control>
+			<control type="button" id="9519">
+				<left>0</left>
+				<top>0</top>
+				<width>590</width>
+				<height>56</height>
+				<font>sans_26</font>
+				<textoffsetx>28</textoffsetx>
+				<textcolor>b8e2d0b4</textcolor>
+				<focusedcolor>text_lit</focusedcolor>
+				<texturefocus />
+				<label>$LOCALIZE[31982]</label>
+				<visible allowhiddenfocus="true">String.IsEqual(Window(Home).Property(nocturne.cmtab),1)</visible>
+				<onup>9518</onup>
+				<ondown>9520</ondown>
+				<onleft>9516</onleft>
+				<onright>noop</onright>
+				<onfocus>SetProperty(nocturne.cmtab,1,home)</onfocus>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="2"/><param name="heading" value="$LOCALIZE[31982]"/></include>
+			</control>
+			<control type="label">
+				<left>200</left>
+				<top>0</top>
+				<width>370</width>
+				<height>56</height>
+				<align>right</align>
+				<font>caps_22</font>
+				<textcolor>8cc8b8a0</textcolor>
+				<label>$VAR[CustomMenu_Value2]</label>
+				<visible>String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + !Control.HasFocus(9519)</visible>
+			</control>
+			<control type="label">
+				<left>200</left>
+				<top>0</top>
+				<width>370</width>
+				<height>56</height>
+				<align>right</align>
+				<font>caps_22</font>
+				<textcolor>fff4e6cf</textcolor>
+				<label>$VAR[CustomMenu_Value2]</label>
+				<visible>String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + Control.HasFocus(9519)</visible>
+			</control>
+		</control>
+		<control type="group">
+			<left>1240</left>
+			<top>692</top>
+			<control type="image">
+				<left>-40</left>
+				<top>0</top>
+				<width>670</width>
+				<height>56</height>
+				<texture border="64,0,64,0" colordiffuse="light">noc/glow_bar.png</texture>
+				<visible>Control.HasFocus(9520)</visible>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>12</top>
+				<width>3</width>
+				<height>32</height>
+				<texture>noc/tick.png</texture>
+				<visible>Control.HasFocus(9520)</visible>
+			</control>
+			<control type="button" id="9520">
+				<left>0</left>
+				<top>0</top>
+				<width>590</width>
+				<height>56</height>
+				<font>sans_26</font>
+				<textoffsetx>28</textoffsetx>
+				<textcolor>b8e2d0b4</textcolor>
+				<focusedcolor>text_lit</focusedcolor>
+				<texturefocus />
+				<label>$LOCALIZE[31983]</label>
+				<visible allowhiddenfocus="true">String.IsEqual(Window(Home).Property(nocturne.cmtab),1)</visible>
+				<onup>9519</onup>
+				<ondown>9511</ondown>
+				<onleft>9517</onleft>
+				<onright>noop</onright>
+				<onfocus>SetProperty(nocturne.cmtab,1,home)</onfocus>
+				<include content="CustomMenu_SettingsClick"><param name="item" value="3"/><param name="heading" value="$LOCALIZE[31983]"/></include>
+			</control>
+			<control type="label">
+				<left>200</left>
+				<top>0</top>
+				<width>370</width>
+				<height>56</height>
+				<align>right</align>
+				<font>caps_22</font>
+				<textcolor>8cc8b8a0</textcolor>
+				<label>$VAR[CustomMenu_Value3]</label>
+				<visible>String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + !Control.HasFocus(9520)</visible>
+			</control>
+			<control type="label">
+				<left>200</left>
+				<top>0</top>
+				<width>370</width>
+				<height>56</height>
+				<align>right</align>
+				<font>caps_22</font>
+				<textcolor>fff4e6cf</textcolor>
+				<label>$VAR[CustomMenu_Value3]</label>
+				<visible>String.IsEqual(Window(Home).Property(nocturne.cmtab),1) + Control.HasFocus(9520)</visible>
 			</control>
 		</control>
 		<!-- main menu panel -->
@@ -861,7 +1093,8 @@
 				<focusedcolor>text_lit</focusedcolor>
 				<texturefocus />
 				<label>$LOCALIZE[31200]</label>
-				<onup>9517</onup>
+				<onup condition="!String.IsEqual(Window(Home).Property(nocturne.cmtab),1)">9517</onup>
+				<onup condition="String.IsEqual(Window(Home).Property(nocturne.cmtab),1)">9520</onup>
 				<ondown>9512</ondown>
 				<onright>Skin.ToggleSetting(HideMenu.Movies)</onright>
 				<onclick>Skin.ToggleSetting(HideMenu.Movies)</onclick>

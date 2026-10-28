@@ -18,11 +18,18 @@
 	<onload condition="$EXP[DL_ArtColourOn]">SetProperty(TMDbHelper.WidgetContainer,9101,home)</onload>
 	<!-- other windows must not inherit Home's container id (TMDb Helper reads it globally) -->
 	<onunload>ClearProperty(TMDbHelper.WidgetContainer,home)</onunload>
+	<!-- 0.9.17: Back from a custom main-menu item comes home on its pill (it set daylight.custommenu on OK);
+	     Home otherwise opens on For now (defaultcontrol). Never focus a pill that no longer shows. -->
+	<onload condition="String.IsEqual(Window(Home).Property(daylight.custommenu),1) + $EXP[CustomMenu1On]">SetFocus(9011)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(daylight.custommenu),2) + $EXP[CustomMenu2On]">SetFocus(9012)</onload>
+	<onload condition="String.IsEqual(Window(Home).Property(daylight.custommenu),3) + $EXP[CustomMenu3On]">SetFocus(9013)</onload>
+	<onload>ClearProperty(daylight.custommenu,home)</onload>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>DL_Background</include>
 		<include>Home_DataLists</include>
 		<include>CustomRows_Probes</include>
+		<include>DL_CustomMenuProbes</include>
 		<!-- 0.9.11: the first page + the custom rows below it; slides one screen up while a custom row has focus -->
 		<control type="group">
 			<include>Home_CustomRowsPageAnim</include>

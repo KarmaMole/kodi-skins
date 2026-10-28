@@ -60,10 +60,39 @@ HIDE_SEARCH = "Skin.HasSetting(HideMenu.Search)"
 ALL_HIDDEN = " + ".join(HIDE.values())
 
 
+# 0.9.18 custom main-menu items (docs/CUSTOM_MENU_IMPLEMENTATION.md; generated pieces in Includes_CustomMenu.xml).
+# Each set slot is a word after Music in the top bar and, while it is the section (sixdegrees.section = custom<n>),
+# its own line on the map: a slate line from the left edge, the add-on's icon as the station (the focus target) and a
+# terminus that names it. The conditions are written out (Timers.xml does not expand $EXP).
+CM = (1, 2, 3)
+CM_WORD = {1: (9041, 9044), 2: (9042, 9045), 3: (9043, 9046)}   # (wide, narrow) focus buttons in grouplist 9040
+CM_STATION = {1: 9161, 2: 9162, 3: 9163}
+CM_GL = 9040
+CM_CAP = (320, 215)        # word width caps incl. the 44 px pill padding (bench: max counts the padding); narrow
+                           # while all three show: 3 x 215 = 645 of the 658 px before Search
+CM_X = 760                 # first custom word's button (text at 782 = 44 px after Music's text, like the words)
+SEC_PROP = "Window(Home).Property(sixdegrees.section)"
+
+
+def cm_on(n):
+    """= the generated CustomMenu<n>On (make_customrows.menu_on), written out"""
+    return (f"!String.IsEmpty(Skin.String(CustomMenu.{n}.Path)) + [String.IsEmpty(Skin.String(CustomMenu.{n}.Addon)) | "
+            f"!String.IsEmpty(System.AddonTitle(Skin.String(CustomMenu.{n}.Addon)))]")
+
+
+def cm_valid(n):
+    return f"[String.IsEqual({SEC_PROP},custom{n}) + {cm_on(n)}]"
+
+
+CM_ANY_VALID = " | ".join(cm_valid(n) for n in CM)
+CM_ALL3 = " + ".join(f"[{cm_on(n)}]" for n in CM)
+
+
 def _rem(sec):
-    s = "Window(Home).Property(sixdegrees.section)"
+    s = SEC_PROP
     if sec == "movies":
-        return f"!String.IsEqual({s},tvshows) + !String.IsEqual({s},music)"
+        # 0.9.18: a remembered custom section that still shows is not Movies (a stale one falls back as before)
+        return f"!String.IsEqual({s},tvshows) + !String.IsEqual({s},music) + ![{CM_ANY_VALID}]"
     return f"String.IsEqual({s},{sec})"
 
 
@@ -73,6 +102,13 @@ def eff_sec(sec):
     before = [HIDE[o] for o in list(HIDE)[: list(HIDE).index(sec)]]
     fallback = " + ".join([f"[{rem_hidden}]"] + before)
     return f"!{HIDE[sec]} + [[{_rem(sec)}] | [{fallback}]]"
+
+
+def cm_is(n):
+    """custom item n is the section: it was chosen and still shows, or every built-in section is hidden, no chosen
+    custom item shows and n is the first one set (Home then starts on it)"""
+    first = f"{ALL_HIDDEN} + ![{CM_ANY_VALID}]" + "".join(f" + ![{cm_on(k)}]" for k in CM if k < n)
+    return f"{cm_on(n)} + [{cm_valid(n)} | [{first}]]"
 
 
 def word_wrap(sec, controls):
@@ -592,7 +628,8 @@ def section_word(sec):
          f"<label>{s['label']}</label>",
          f'<onfocus>SetProperty({P}.section,{sec},home)</onfocus>',
          f"<ondown>{lid}</ondown>",
-         f"<onleft>{NAV[s['word']][0]}</onleft><onright>{NAV[s['word']][1]}</onright>",
+         f"<onleft>{NAV[s['word']][0]}</onleft>" + (cm_enter_tags("onright", first=True) if s["word"] == 9003 else "")
+         + f"<onright>{NAV[s['word']][1]}</onright>",
          "</control>"]
     # visible text (weights differ for active / inactive; colour white on focus)
     t.append(lbl(x, 62, tw + 12, 48, s["label"], "xb_26", "white", vis=f"Control.HasFocus({s['word']})"))
@@ -600,6 +637,143 @@ def section_word(sec):
     t.append(lbl(x, 62, tw + 12, 48, s["label"], "semi_26", "ink2", vis=f"!Control.HasFocus({s['word']}) + !$EXP[Home_Is_{sec}]"))
     t.append(img(x, 116, tw, 6, "sd/line_h6.png", diffuse="ink", border="3,0,3,0", vis=f"$EXP[Home_Is_{sec}]"))
     return word_wrap(sec, t)
+
+
+# ------------------------------------------------------------------ 0.9.18 custom menu items
+def cm_word_id(n):
+    """the shown focus button of custom word n (wide, or narrow while all three show)"""
+    return [(f"{cm_on(n)} + ![{CM_ALL3}]", CM_WORD[n][0]), (f"[{CM_ALL3}]", CM_WORD[n][1])]
+
+
+def cm_enter_tags(tag_name, first):
+    """conditional moves onto the first (from Music) / last (from Search) shown custom word"""
+    order = list(CM) if first else list(reversed(CM))
+    out, before = [], []
+    for n in order:
+        for cond, cid in cm_word_id(n):
+            c = " + ".join([f"[{cond}]"] + [f"![{cm_on(k)}]" for k in before])
+            out.append(f'<{tag_name} condition="{c}">{cid}</{tag_name}>')
+        before.append(n)
+    return "".join(out)
+
+
+def cm_spacer(n, height):
+    """clear copies of custom word n's focus button (same font, padding and cap): the advance in decor grouplists"""
+    return "".join(
+        f'<control type="button"><width max="{cap}">auto</width><height>{height}</height><font>xb_26</font>'
+        "<textcolor>clear</textcolor><disabledcolor>clear</disabledcolor><textoffsetx>22</textoffsetx>"
+        f"<texturefocus /><texturenofocus /><enable>false</enable><label>$VAR[CustomMenu_Label{n}]</label>"
+        f"<visible>{cond}</visible></control>"
+        for (cond, _cid), cap in zip(cm_word_id(n), CM_CAP))
+
+
+def cm_words():
+    """Top bar: the custom words after Music. Focus buttons sit in grouplist 9040 (auto width, bold clear text = the
+    advance, so a word never shifts when its weight changes); the visible text and the underline are drawn by
+    parallel grouplists that start with clear copies of the words before. Hidden words before them close up with the
+    same slides as the section words (word_wrap)."""
+    secs = list(SECTIONS)
+    slides = ""
+    for i, p in enumerate(secs):
+        nxt_x = SECTIONS[secs[i + 1]]["textx"] if i + 1 < len(secs) else CM_X + 22
+        slides += (f'<animation effect="slide" start="0,0" end="-{nxt_x - SECTIONS[p]["textx"]},0" time="0" '
+                   f'condition="{HIDE[p]}">Conditional</animation>')
+    gl = (f"<left>{CM_X}</left><width>{1418 - CM_X}</width><orientation>horizontal</orientation>"
+          "<itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords>")
+    focus = [f'<control type="grouplist" id="{CM_GL}"><top>62</top><height>48</height>{gl}',
+             f"<onleft>9003</onleft><onright>9005</onright>"]
+    for n in CM:
+        for (cond, cid), cap in zip(cm_word_id(n), CM_CAP):
+            focus.append(
+                f'<control type="button" id="{cid}"><width max="{cap}">auto</width><height>48</height>'
+                "<font>xb_26</font><textcolor>clear</textcolor><focusedcolor>clear</focusedcolor><textoffsetx>22</textoffsetx>"
+                '<texturefocus border="24" colordiffuse="ink">sd/pill_48.png</texturefocus><texturenofocus />'
+                f"<label>$VAR[CustomMenu_Label{n}]</label>"
+                f"<onfocus>SetProperty({P}.section,custom{n},home)</onfocus>"
+                f"<ondown>{CM_STATION[n]}</ondown>"
+                f'<include content="CustomMenu_OnClick"><param name="item" value="{n}"/></include>'
+                f"<visible>{cond}</visible></control>")
+    focus.append("</control>")
+    decor = []
+    for n in CM:
+        foc = " | ".join(f"Control.HasFocus({c})" for c in CM_WORD[n])
+        act = f"![{foc}] + [{cm_is(n)}]"
+        text = [f'<control type="grouplist"><top>62</top><height>48</height>{gl}<visible>{cm_on(n)}</visible>']
+        text += [cm_spacer(k, 48) for k in CM if k < n]
+        text.append('<control type="image"><width>22</width><height>48</height><texture>sd/clear40.png</texture></control>')
+        for (cond, _cid), cap in zip(cm_word_id(n), CM_CAP):
+            for font, col, vis in (("xb_26", "white", f"[{foc}]"), ("xb_26", "ink", act),
+                                   ("semi_26", "ink2", f"!{'[' + foc + ']'} + ![{cm_is(n)}]")):
+                text.append(f'<control type="label"><width max="{cap - 44}">auto</width><height>48</height>'
+                            f"<font>{font}</font><textcolor>{col}</textcolor><label>$VAR[CustomMenu_Label{n}]</label>"
+                            f"<visible>[{cond}] + {vis}</visible></control>")
+        text.append("</control>")
+        # underline of the active word: a disabled button as wide as the word, its nofocus texture a 6 px line
+        # inset 22 px each side (border 25) = the text width (media sd/uline_22.png, make_textures.make_underline)
+        uline = [f'<control type="grouplist"><top>110</top><height>12</height>{gl}<visible>{cm_on(n)} + {act}</visible>']
+        uline += [cm_spacer(k, 12) for k in CM if k < n]
+        for (cond, _cid), cap in zip(cm_word_id(n), CM_CAP):
+            uline.append(f'<control type="button"><width max="{cap}">auto</width><height>12</height><font>xb_26</font>'
+                         "<textcolor>clear</textcolor><disabledcolor>clear</disabledcolor><textoffsetx>22</textoffsetx>"
+                         '<texturefocus /><texturenofocus border="25,0,25,0" colordiffuse="ink">sd/uline_22.png</texturenofocus>'
+                         f"<enable>false</enable><label>$VAR[CustomMenu_Label{n}]</label><visible>{cond}</visible></control>")
+        uline.append("</control>")
+        decor += ["".join(text), "".join(uline)]
+    return ['<control type="group"><description>custom menu words (0.9.18)</description>'
+            f"<visible>$EXP[CustomMenuAnyOn]</visible>{slides}"] + ["".join(focus)] + decor + ["</control>"]
+
+
+def cm_stations():
+    """While custom item n is the section: its own line on the map (in group 9109, so Home's default focus lands on
+    the station). Station = the add-on's icon (else a wash tile with the name) in the starters' focused size, ink
+    ring while it has focus; the line runs from the left edge to a terminus that names the item."""
+    out = []
+    y_line = LIST_Y + LINE_Y          # 474
+    x0, s = LIST_X + PAD + 14, FW     # 78, 224: the focused starter's place
+    top = y_line - s // 2              # 362
+    rx = 420                           # terminus ring centre (under the Movies word)
+    o = 15
+    for n in CM:
+        sid = CM_STATION[n]
+        foc = f"Control.HasFocus({sid})"
+        ups = "".join(f'<onup condition="{c}">{cid}</onup>' for c, cid in cm_word_id(n))
+        backs = "".join(f'<onback condition="{c}">{cid}</onback>' for c, cid in cm_word_id(n))
+        btn = (f'<control type="button" id="{sid}"><left>{x0 - o}</left><top>{top - o}</top><width>{s + 2 * o}</width>'
+               f"<height>{s + 2 * o}</height><texturefocus /><texturenofocus /><label></label>"
+               f"<onfocus>SetProperty({P}.section,custom{n},home)</onfocus>{ups}{backs}"
+               "<onleft>noop</onleft><onright>noop</onright><ondown>$VAR[Home_DownToCustom]</ondown>"
+               f'<include content="CustomMenu_OnClick"><param name="item" value="{n}"/></include></control>')
+        ch = [lbl(64, LIST_Y + CAP_Y, 360, 30, f"$VAR[CustomMenu_Kind{n}]", "caps_21", "ink2", aligny="top"),
+              img(64, LIST_Y + HAIR_Y, x0 + s - 64, 2, "common/white.png", diffuse="hair"),
+              img(LIST_X, y_line - 4, rx - LIST_X, 8, "common/white.png", diffuse="l_own"),
+              img(x0 - o - 40, top - o - 20, s + 2 * o + 80, s + 2 * o + 80, "sd/shadow_big.png", diffuse="shadow",
+                  border="100", vis=foc),
+              img(x0 - o, top - o, s + 2 * o, s + 2 * o, "sd/ringf_fill.png", diffuse="ground", border="20", vis=foc),
+              img(x0 - o, top - o, s + 2 * o, s + 2 * o, "sd/ringf_7.png", diffuse="ink", border="20", vis=foc),
+              img(x0, top, s, s, "common/white.png", diffuse="wash"),
+              lbl(x0 + 12, top + 12, s - 24, 90, f"$VAR[CustomMenu_Label{n}]", "semi_22", "ink2", aligny="top", wrap=True,
+                  vis=f"!$EXP[CustomMenu{n}HasIcon]"),
+              '<control type="image">'
+              f"<left>{x0}</left><top>{top}</top><width>{s}</width><height>{s}</height><aspectratio>scale</aspectratio><fadetime>150</fadetime>"
+              f'<texture background="true" diffuse="sd/mask_180x180.png">$VAR[CustomMenu_Icon{n}]</texture>'
+              f"<visible>$EXP[CustomMenu{n}HasIcon]</visible></control>",
+              img(rx - 27, y_line - 27, 54, 54, "sd/disc_34.png", diffuse="white"),
+              img(rx - 27, y_line - 27, 54, 54, "sd/ring_34_8.png", diffuse="ink"),
+              lbl(rx + 42, y_line - 40, 1400, 50, f"$VAR[CustomMenu_Label{n}]", "xb_28", "ink"),
+              lbl(rx + 42, y_line + 4, 1400, 30, f"$VAR[CustomMenu_Opens{n}]", "semi_21", "ink2"),
+              btn]
+        out.append(group(ch, vis=f"$EXP[Home_Is_custom{n}]", desc=f"custom menu item {n}: its line"))
+    return out
+
+
+def cm_preview():
+    out = []
+    for n in CM:
+        out.append(group([lbl(64, 752, 860, 30, f"The terminus  ·  $VAR[CustomMenu_Kind{n}]", "caps_21", "ink2", aligny="top"),
+                          lbl(60, 782, 1700, 64, f"$VAR[CustomMenu_Label{n}]", "disp_52", "ink"),
+                          lbl(64, 850, 1700, 34, f"$VAR[CustomMenu_Opens{n}]  ·  $LOCALIZE[31995]", "semi_24", "ink2")],
+                         vis=f"$EXP[Home_Is_custom{n}]", desc=f"custom menu item {n}: preview"))
+    return out
 
 
 def top_bar():
@@ -616,9 +790,13 @@ def top_bar():
                 f"<label>{text}</label><onclick>{onclick}</onclick><onleft>{left}</onleft><onright>{right}</onright>"
                 "<ondown>$VAR[Home_RowId]</ondown></control>")
     # 0.9.12: Search hides with HideMenu.Search; Index only when every section is hidden (then Search moves into its place)
+    out += cm_words()
+    # 0.9.18: Left from Search reaches the last custom word first (numeric 9003 after them, as before)
+    search = word_btn(9005, 1418, 112, "Search", "ActivateWindow(1150)", 9003, 9006)
+    search = search.replace("<onleft>9003</onleft>", cm_enter_tags("onleft", first=False) + "<onleft>9003</onleft>", 1)
     out.append('<control type="group"><visible>!' + HIDE_SEARCH + '</visible>'
                f'<animation effect="slide" start="0,0" end="122,0" time="0" condition="{ALL_HIDDEN}">Conditional</animation>'
-               + word_btn(9005, 1418, 112, "Search", "ActivateWindow(1150)", 9003, 9006) + "</control>")
+               + search + "</control>")
     out.append(f'<control type="group"><visible>![{ALL_HIDDEN}]</visible>'
                + word_btn(9006, 1540, 96, "Index", "$VAR[Home_IndexAction]", 9005, 9007) + "</control>")
     out.append('<control type="button" id="9007"><left>1648</left><top>62</top><width>56</width><height>48</height>'
@@ -713,7 +891,7 @@ def preview_block():
     ch += pbtn(9153, 436, 196, "Station page", info, 9152, 9151)
     ch.append(lbl(652, 902, 360, 52, "▼ then OK", "semi_22", "ink3",
                   vis="!Control.HasFocus(9151) + !Control.HasFocus(9152) + !Control.HasFocus(9153)"))
-    return group(ch, vis="!$EXP[Home_SelIsTerminus]", desc="preview")
+    return group(ch, vis="!$EXP[Home_SelIsTerminus] + !$EXP[Home_IsCustom]", desc="preview")
 
 
 # ------------------------------------------------------------------ custom rows (0.9.12): "your lines"
@@ -763,6 +941,7 @@ def custom_list(n):
     any_sec = "[" + " | ".join(f"$EXP[Home_Is_{s}]" for s in SECTIONS) + "]"
     ups += [(f"{guard}{any_sec} + !$EXP[Home_SelIsTerminus]", "9151")]
     ups += [(f"{guard}$EXP[Home_Is_{s}]", str(SECTIONS[s]["list"])) for s in SECTIONS]
+    ups += [(f"{guard}$EXP[Home_Is_custom{k}]", str(CM_STATION[k])) for k in CM]
     t = [f'<control type="list" id="{lid}">',
          f"<left>{LIST_X}</left><top>{LIST_Y}</top><width>{1920 - LIST_X}</width><height>520</height>",
          "<orientation>horizontal</orientation><scrolltime tween=\"cubic\" easing=\"out\">240</scrolltime><preloaditems>2</preloaditems>"]
@@ -770,7 +949,8 @@ def custom_list(n):
     downs = {1: [("$EXP[CustomRow2On]", "9882"), ("!$EXP[CustomRow2On] + $EXP[CustomRow3On]", "9883")],
              2: [("$EXP[CustomRow3On]", "9883")], 3: []}[n]
     t += [tag("ondown", tgt, c) for c, tgt in downs] + ["<ondown>noop</ondown>", "<onleft>noop</onleft><onright>noop</onright>"]
-    t += [tag("onback", str(SECTIONS[s]["list"]), f"$EXP[Home_Is_{s}]") for s in SECTIONS] + ["<onback>9007</onback>"]
+    t += [tag("onback", str(SECTIONS[s]["list"]), f"$EXP[Home_Is_{s}]") for s in SECTIONS]
+    t += [tag("onback", str(CM_STATION[k]), f"$EXP[Home_Is_custom{k}]") for k in CM] + ["<onback>9007</onback>"]
     # never hidden (a hidden container never loads): on the page only while it has focus
     t.append(f'<animation effect="fade" start="0" end="100" time="240" delay="80" condition="Control.HasFocus({lid})">Conditional</animation>')
     t.append(f'<animation effect="fade" start="100" end="0" time="0" condition="!Control.HasFocus({lid})">Conditional</animation>')
@@ -828,9 +1008,14 @@ def home_variables():
     a = v.append
     for sec in SECTIONS:
         a(f'<expression name="Home_Is_{sec}">' + eff_sec(sec) + "</expression>")
+    for n in CM:
+        a(f'<expression name="Home_Is_custom{n}">' + cm_is(n) + "</expression>")
+    a('<expression name="Home_IsCustom">' + " | ".join(f"$EXP[Home_Is_custom{n}]" for n in CM) + "</expression>")
     a('<variable name="Home_RowId">')
     for sec, s in SECTIONS.items():
         a(f'\t<value condition="$EXP[Home_Is_{sec}]">SetFocus({s["list"]})</value>')
+    for n in CM:
+        a(f'\t<value condition="$EXP[Home_Is_custom{n}]">SetFocus({CM_STATION[n]})</value>')
     # 0.9.12: every section hidden: the custom rows (there was no value at all then)
     for k, cid in enumerate((9881, 9882, 9883), 1):
         a(f'\t<value condition="{ALL_HIDDEN} + $EXP[CustomRow{k}On]">SetFocus({cid})</value>')
@@ -897,6 +1082,8 @@ def home_variables():
         a(f'<variable name="Home_Seasons_{src}"><value condition="Integer.IsEqual({li}.Property(TotalSeasons),1)">1 season</value>'
           f'<value>$INFO[{li}.Property(TotalSeasons),, seasons]</value></variable>')
     a('<variable name="Home_Sub">')
+    a('\t<value condition="Player.HasMedia + $EXP[CustomMenuAnyOn]">Now playing  ·  $INFO[Player.Title]$INFO[MusicPlayer.Artist,  ·  ,]</value>')
+    a('\t<value condition="$EXP[Home_IsCustom]">A line of your own. OK rides it to its terminus.</value>')
     a('	<value condition="$EXP[Home_Is_tvshows]">Pick a first series. From there, every direction on the remote is a connection.</value>')
     a('	<value condition="$EXP[Home_Is_music]">Pick a first album. From there, every direction on the remote is a connection.</value>')
     a("	<value>Pick a first station. From there, every direction on the remote is a connection.</value>")
@@ -956,7 +1143,8 @@ def now_playing():
           '<texture background="true" diffuse="sd/mask_180x180.png">$INFO[Player.Art(thumb)]</texture></control>',
           lbl(848, 60, 540, 24, "Now playing", "caps_20", "ink2", aligny="top"),
           lbl(848, 82, 540, 30, "$INFO[Player.Title]$INFO[MusicPlayer.Artist,  ·  ,]", "semi_22", "ink")]
-    return group(ch, vis="Player.HasMedia", desc="now playing")
+    # 0.9.18: the custom words take this part of the bar; while any shows, the headline line says what is playing
+    return group(ch, vis="Player.HasMedia + !$EXP[CustomMenuAnyOn]", desc="now playing")
 
 
 def includes():
@@ -980,8 +1168,8 @@ def includes():
     # visible (a group hands focus to its first focusable child). Pointing defaultcontrol at 9110 logged
     # "Control 9110 ... can't" on every Home open with Series or Music active (it is hidden then).
     inc("Home_StartLines", ['<control type="group" id="9109">']
-        + ["\t" + x for x in "\n".join(start_list(sec) for sec in SECTIONS).split("\n")] + ["</control>"])
-    inc("Home_Preview", [preview_block(), index_preview(), minimap()])
+        + ["\t" + x for x in "\n".join([start_list(sec) for sec in SECTIONS] + cm_stations()).split("\n")] + ["</control>"])
+    inc("Home_Preview", [preview_block(), index_preview(), minimap()] + cm_preview())
     inc("Home_NowPlaying", [now_playing()])
     inc("Home_CustomPage", [cpage])
     # kept for Search (Includes_Search.xml): poster/cover art with fallback
@@ -1003,6 +1191,8 @@ def includes():
 
 
 def home_window():
+    CM_ANY = " | ".join(f"[{cm_on(n)}]" for n in CM)
+    CM_ONLOADS = "\n".join(f'\t<onload condition="{cm_is(n)}">SetFocus({CM_STATION[n]})</onload>' for n in CM)
     w = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!--
 	GENERATED by _src/make_home.py. Home = "Start somewhere" (board SixDegreesHome).
@@ -1019,8 +1209,10 @@ def home_window():
 	<onload condition="$EXP[Home_Is_tvshows]">SetFocus(9120)</onload>
 	<onload condition="$EXP[Home_Is_music]">SetFocus(9130)</onload>
 	<!-- 0.9.12: every section hidden in Skin settings (HideMenu.*): no start line, so Search or the gear -->
-	<onload condition="{ALL_HIDDEN} + !{HIDE_SEARCH}">SetFocus(9005)</onload>
-	<onload condition="{ALL_HIDDEN} + {HIDE_SEARCH}">SetFocus(9007)</onload>
+	<onload condition="{ALL_HIDDEN} + !{HIDE_SEARCH} + ![{CM_ANY}]">SetFocus(9005)</onload>
+	<onload condition="{ALL_HIDDEN} + {HIDE_SEARCH} + ![{CM_ANY}]">SetFocus(9007)</onload>
+	<!-- 0.9.18: a custom menu item that is the section (or the first one set when every section is hidden) -->
+{CM_ONLOADS}
 	<onload>SetProperty({P}.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
 	<onload>ClearProperty({P}.homeinit,home)</onload>
 	<include>Anim_WindowOpenClose</include>

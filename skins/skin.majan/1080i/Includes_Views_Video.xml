@@ -1160,6 +1160,18 @@
 				<visible>ListItem.IsParentFolder</visible>
 				<include>VidView_ParentInfo</include>
 			</control>
+			<!-- 1.0.17: plot probe, 4 whole lines of body_26 (151, fixed): the AUTO-height plot box below counts a line
+			     short ((N-1) x pitch + cell), so it stepped a 3-line plot that fits; it scrolls only while this has 2+ pages -->
+			<control type="textbox" id="9180">
+				<left>vidview_col_x</left>
+				<top>content_top</top>
+				<width>1080</width>
+				<height>151</height>
+				<font>body_26</font>
+				<textcolor>clear</textcolor>
+				<label>$INFO[ListItem.Plot]</label>
+				<visible>!ListItem.IsParentFolder</visible>
+			</control>
 			<!-- info column (flex column in the mockup; clipped at the strip) -->
 			<control type="grouplist">
 				<left>vidview_col_x</left>
@@ -1179,11 +1191,11 @@
 				<include>VidView_Facts</include>
 				<control type="textbox">
 					<width>1080</width>
-					<height max="152">auto</height>
+					<height max="151">auto</height>
 					<font>body_26</font>
 					<textcolor>text_body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
+					<include content="Majan_PlotScroll"><param name="more" value="Integer.IsGreater(Container(9180).NumPages,1)"/></include>
 					<visible>!String.IsEmpty(ListItem.Plot)</visible>
 				</control>
 				<control type="textbox">
@@ -1464,11 +1476,11 @@
 						<left>0</left>
 						<top>152</top>
 						<width>1180</width>
-						<height>68</height>
+						<height>66</height>
 						<font>body_23</font>
 						<textcolor>text_body</textcolor>
 						<label>$INFO[ListItem.Plot]</label>
-						<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
+						<include>Majan_PlotScroll</include>
 					</control>
 					<control type="grouplist">
 						<left>0</left>
@@ -1566,11 +1578,11 @@
 					<left>0</left>
 					<top>136</top>
 					<width>1180</width>
-					<height>101</height>  <!-- 3 lines exactly: no half-clipped line at the bottom -->
+					<height>99</height>  <!-- 3 lines exactly: no half-clipped line at the bottom -->
 					<font>body_23</font>
 					<textcolor>text_body</textcolor>
 					<label>$INFO[Container(502).ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
+					<include>Majan_PlotScroll</include>
 				</control>
 			</control>
 			<!-- header line: focused show + accent progress -->
@@ -2007,7 +2019,7 @@
 					<font>body_23</font>
 					<textcolor>text_body</textcolor>
 					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>  <!-- standard Kodi plot scroll: wait 6s, roll, pause 10s, repeat -->
+					<include>Majan_PlotScroll</include>
 				</control>
 			</control>
 		</definition>

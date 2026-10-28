@@ -5,6 +5,8 @@ hero on the stage with its glow, the clock. M2 adds the Down row (Spin something
 M3 the mini player (Up from the rail).
 
 Rail ids 9001-9005 inside group 9000 (menucontrol). Left/Right walk the rail, no wrap past Music / Settings.
+1.0.7 custom menu items (Includes_CustomMenu.xml): rail icons 9006-9008 after TV, before Search / Settings, hidden while
+not set; each has a quiet stage (custom_menu_stage). With all eight icons on show the clock on the rail steps aside.
 Each button's onfocus stores the section in Window(Home).Property(groove.home) (the stage follows it; Home reopens on
 it) and points TMDb Helper's colour service at that section's data list (TMDbHelper.WidgetContainer).
 Data list 9102 (last played album) sits under the opaque room: drawn (so its art loads), never seen.
@@ -37,6 +39,23 @@ X0, PITCH, Y = 96, 232, 920
 # Settings never hides. A hidden icon keeps its numeric onleft / onright, so Left / Right fall through it.
 HIDE = {"music": "Skin.HasSetting(HideMenu.Music)", "films": "Skin.HasSetting(HideMenu.Movies)",
         "tv": "Skin.HasSetting(HideMenu.TVShows)", "search": "Skin.HasSetting(HideMenu.Search)"}
+
+# 1.0.7 custom menu items: (slot, rail id). They sit after TV (RAIL index 2), before Search; the rail order below drives
+# Left / Right (numeric, so a hidden icon is walked past). Search / Settings slide right one PITCH per item shown.
+CUSTOM_MENU = [(1, 9006), (2, 9007), (3, 9008)]
+RAIL_ORDER = [9001, 9002, 9003, 9006, 9007, 9008, 9004, 9005]
+
+
+def cm_on(n):
+    return f"$EXP[CustomMenu{n}On]"
+
+
+def rail_lr(cid):
+    i = RAIL_ORDER.index(cid)
+    left = f"\n\t\t\t\t<onleft>{RAIL_ORDER[i - 1]}</onleft>" if i else ""
+    right = f"\n\t\t\t\t<onright>{RAIL_ORDER[i + 1]}</onright>" if i + 1 < len(RAIL_ORDER) else ""
+    return left, right
+
 
 DATA = [  # id, content (target, attrs, path), art key drawn
     (9102, 'target="music" limit="1" browse="never"', "musicdb://recentlyplayedalbums/", "thumb"),
@@ -76,8 +95,7 @@ def rail():
     o = []
     for i, (cid, key, icon, sid, click, widget) in enumerate(RAIL):
         x = X0 + i * PITCH
-        left = f"\n\t\t\t\t<onleft>{RAIL[i - 1][0]}</onleft>" if i else ""
-        right = f"\n\t\t\t\t<onright>{RAIL[i + 1][0]}</onright>" if i + 1 < len(RAIL) else ""
+        left, right = rail_lr(cid)
         wc = []
         if key == "music":
             wc = ['<onfocus condition="Integer.IsGreater(Container(9102).NumItems,0)">SetProperty(TMDbHelper.WidgetContainer,9102,home)</onfocus>',
@@ -97,6 +115,11 @@ def rail():
         hide = (f"\n\t\t\t<visible>!{HIDE[key]}</visible>" if key in HIDE else "") + "".join(
             f'\n\t\t\t<animation effect="slide" start="0,0" end="-{PITCH},0" time="0" condition="{HIDE[p[1]]}">Conditional</animation>'
             for p in RAIL[:i] if p[1] in HIDE)
+        if key in ("search", "settings"):   # 1.0.7: the custom menu items sit before Search
+            hide += "".join(f'\n\t\t\t<animation effect="slide" start="0,0" end="{PITCH},0" time="0" condition="{cm_on(n)}">Conditional</animation>'
+                            for n, _c in CUSTOM_MENU)
+        if key == "search":
+            o.append(custom_rail())
         o.append(f"""			<!-- {key} -->
 			<control type="group">{hide}
 			<control type="image">
@@ -150,6 +173,166 @@ def rail():
 			</control>
 			</control>""")
     return "\n".join(o)
+
+
+def custom_rail():
+    """1.0.7 custom menu items on the rail: the add-on's own icon (full colour, 72 % at rest like a dimmed icon), else a
+    rail glyph (add-on / folder / favourite) tinted like the others; the focused one glows and shows its name."""
+    o = []
+    for k, (n, cid) in enumerate(CUSTOM_MENU):
+        x = X0 + (3 + k) * PITCH
+        left, right = rail_lr(cid)
+        slides = "".join(f'\n\t\t\t<animation effect="slide" start="0,0" end="-{PITCH},0" time="0" condition="{HIDE[p[1]]}">Conditional</animation>'
+                         for p in RAIL[:3] if p[1] in HIDE)
+        slides += "".join(f'\n\t\t\t<animation effect="slide" start="0,0" end="-{PITCH},0" time="0" condition="!{cm_on(m)}">Conditional</animation>'
+                          for m, _c in CUSTOM_MENU[:k])
+        o.append(f"""			<!-- custom menu item {n} -->
+			<control type="group">
+			<visible>{cm_on(n)}</visible>{slides}
+			<control type="image">
+				<left>{x - 45}</left>
+				<top>{Y - 45}</top>
+				<width>g_icon_glow</width>
+				<height>g_icon_glow</height>
+				<texture colordiffuse="$VAR[focus_glow]">groove/glow_radial.png</texture>
+				<visible>Control.HasFocus({cid})</visible>
+				<include>Anim_LabelReveal</include>
+			</control>
+			<control type="button" id="{cid}">
+				<left>{x - 8}</left>
+				<top>{Y - 8}</top>
+				<width>{PITCH - 16}</width>
+				<height>80</height>
+				<texturefocus />
+				<texturenofocus />
+				<label />
+				<onfocus>SetProperty(groove.home,custom{n},home)</onfocus>
+				<onfocus>SetProperty(groove.railid,{cid},home)</onfocus>
+				<onfocus>ClearProperty(TMDbHelper.WidgetContainer,home)</onfocus>
+				<onfocus>ClearProperty(Groove.Helper.Container,home)</onfocus>
+				<include content="CustomMenu_OnClick"><param name="item" value="{n}"/></include>{left}{right}
+				{HR.MINI_UP}
+				{HR.DOWN_CUSTOM}
+			</control>
+			<control type="image">
+				<left>{x}</left>
+				<top>{Y}</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<aspectratio>keep</aspectratio>
+				<texture background="true" colordiffuse="b8ffffff">$VAR[CustomMenu_Icon{n}]</texture>
+				<visible>$EXP[CustomMenu{n}HasIcon] + !Control.HasFocus({cid})</visible>
+			</control>
+			<control type="image">
+				<left>{x}</left>
+				<top>{Y}</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<aspectratio>keep</aspectratio>
+				<texture background="true">$VAR[CustomMenu_Icon{n}]</texture>
+				<visible>$EXP[CustomMenu{n}HasIcon] + Control.HasFocus({cid})</visible>
+			</control>
+			<control type="image">
+				<left>{x}</left>
+				<top>{Y}</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<texture colordiffuse="$VAR[icon_rest]">icons/$VAR[Home_CustomGlyph{n}].png</texture>
+				<visible>!$EXP[CustomMenu{n}HasIcon] + !Control.HasFocus({cid})</visible>
+			</control>
+			<control type="image">
+				<left>{x}</left>
+				<top>{Y}</top>
+				<width>g_rail_icon</width>
+				<height>g_rail_icon</height>
+				<texture colordiffuse="$VAR[ink]">icons/$VAR[Home_CustomGlyph{n}].png</texture>
+				<visible>!$EXP[CustomMenu{n}HasIcon] + Control.HasFocus({cid})</visible>
+			</control>
+			<control type="label">
+				<left>{x + 80}</left>
+				<top>{Y}</top>
+				<width>g_rail_label_w</width>
+				<height>g_rail_icon</height>
+				<aligny>center</aligny>
+				<font>font_label</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$VAR[CustomMenu_Label{n}]</label>
+				<visible>Control.HasFocus({cid})</visible>
+				<include>Anim_LabelReveal</include>
+			</control>
+			</control>""")
+    return "\n".join(o)
+
+
+def custom_glyphs():
+    """the rail / stage glyph of an item without its own icon: addons, files (library, playlist, folder) or favourites"""
+    o = []
+    for n, _c in CUSTOM_MENU:
+        s = lambda k: f"Skin.String(CustomMenu.{n}.{k})"
+        o.append(f"""	<variable name="Home_CustomGlyph{n}">
+		<value condition="!String.IsEmpty({s('Addon')})">addons</value>
+		<value condition="!String.IsEmpty({s('Target')}) | String.EndsWith({s('Path')},.xsp) | String.StartsWith({s('Path')},library://) | String.StartsWith({s('Path')},videodb://) | String.StartsWith({s('Path')},musicdb://)">files</value>
+		<value>favourites</value>
+	</variable>""")
+    o.append('\t<!-- 1.0.7: all eight rail icons on show (three custom menu items, nothing hidden): the eighth reaches the clock -->')
+    o.append('\t<expression name="Home_RailFull">' + " + ".join(cm_on(n) for n, _c in CUSTOM_MENU) + " + "
+             + " + ".join(f"!{HIDE[k]}" for k in ("music", "films", "tv", "search")) + "</expression>")
+    return "\n".join(o)
+
+
+def custom_menu_stage(n):
+    """1.0.7 a custom menu item's stage: the Search / Settings stage's shape (glow + centred icon + one line), with the
+    add-on's icon (else the glyph), its name and "Opens <add-on>  ·  OK to open"."""
+    vis = f"String.IsEqual(Window(Home).Property(groove.home),custom{n}) + {cm_on(n)} + !$EXP[CustomRowsFocus]"
+    return f"""		<control type="group">
+			<visible>{vis}</visible>
+			<include>Anim_SectionSwap</include>
+			<control type="image">
+				<left>660</left>
+				<top>130</top>
+				<width>600</width>
+				<height>600</height>
+				<texture colordiffuse="$VAR[focus_glow]">groove/glow_radial.png</texture>
+			</control>
+			<control type="image">
+				<left>880</left>
+				<top>350</top>
+				<width>160</width>
+				<height>160</height>
+				<aspectratio>keep</aspectratio>
+				<fadetime>200</fadetime>
+				<texture background="true">$VAR[CustomMenu_Icon{n}]</texture>
+				<visible>$EXP[CustomMenu{n}HasIcon]</visible>
+			</control>
+			<control type="image">
+				<left>912</left>
+				<top>382</top>
+				<width>96</width>
+				<height>96</height>
+				<texture colordiffuse="$VAR[ink]">icons/96/$VAR[Home_CustomGlyph{n}].png</texture>
+				<visible>!$EXP[CustomMenu{n}HasIcon]</visible>
+			</control>
+			<control type="label">
+				<left>360</left>
+				<top>540</top>
+				<width>1200</width>
+				<height>48</height>
+				<align>center</align>
+				<font>font_label</font>
+				<textcolor>$VAR[ink]</textcolor>
+				<label>$VAR[CustomMenu_Label{n}]</label>
+			</control>
+			<control type="label">
+				<left>360</left>
+				<top>596</top>
+				<width>1200</width>
+				<height>40</height>
+				<align>center</align>
+				<font>font_small</font>
+				<textcolor>$VAR[ink2]</textcolor>
+				<label>$VAR[CustomMenu_Opens{n}]  ·  $LOCALIZE[31995]</label>
+			</control>
+		</control>"""
 
 
 # LESSONS: String.IsEmpty($VAR[...]) is invalid - test the real infolabels
@@ -519,6 +702,7 @@ def main():
 	<expression name="Home_films_Is4K">Integer.IsGreaterOrEqual(Container(9111).ListItem.VideoResolution,2160) | String.IsEqual(Container(9111).ListItem.VideoResolution,4K)</expression>
 	<expression name="Home_tv_Is4K">false</expression>
 {variables()}
+{custom_glyphs()}
 
 	<!-- hidden data lists: drawn first, under the opaque room, so their art loads (LESSONS: hidden lists never load) -->
 	<include name="Home_DataLists">
@@ -533,9 +717,10 @@ def main():
 {icon_stage('search', 'search', 31413)}
 {icon_stage('settings', 'settings', 31414)}
 {custom_stage()}
+{chr(10).join(custom_menu_stage(n) for n, _c in CUSTOM_MENU)}
 	</include>
 
-	<!-- the rail: five icons, the focused one lit with its one-word label (DESIGN 4: y 920, pitch 232) -->
+	<!-- the rail: five icons (+ up to three custom menu items after TV), the focused one lit with its label (DESIGN 4: y 920, pitch 232) -->
 	<include name="Home_Rail">
 		<control type="group">
 		<include content="Anim_HomeLift"><param name="open" value="$EXP[Home_RowOpen]"/></include>
@@ -552,6 +737,7 @@ def main():
 			<font>font_clock</font>
 			<textcolor>$VAR[ink2]</textcolor>
 			<label>$VAR[ClockLabel]</label>
+			<visible>!$EXP[Home_RailFull]</visible>
 		</control>
 		</control>
 	</include>

@@ -2,8 +2,9 @@
 <!--
 	Music library (Daylight): same composition as Films - detail panel on the left (square cover,
 	title, artist, meta, description), a soft card on the right with the cover grid or the list.
-	Views: 504 Grid (albums, artists, genres with art), 508 Wall (the same, full page), 507 Spotlight (artists,
-	albums), 50 List (songs, everything else).
+	Views: 504 Grid (albums, artists, genres with art; 0.9.18 also songs), 508 Wall (albums, artists, genres, full
+	page), 507 Spotlight (artists, albums; 0.9.18 also songs: the artist's fanart, the song, its album notes), 50 List
+	(songs, everything else).
 	Header (inside the card): tabs Albums · Artists · Songs · Genres (grouplist 9001) on the left,
 	Sort / order / View pills (9002) on the right, both inside group 9000 (menucontrol).
 	Kodi ids (Estuary Omega MyMusicNav.xml): 3 sort by, 4 sort order (hidden, clicked by the pills).
@@ -40,6 +41,12 @@
 		<value>$INFO[ListItem.Icon]</value>
 	</variable>
 
+	<!-- tile captions: the songs node's Label is Kodi's "01. Artist - Title", so songs print the title -->
+	<variable name="MusicView_TileLabel">
+		<value condition="ListItem.IsParentFolder">Back</value>
+		<value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
 	<!-- ============================================================ grid item -->
 	<include name="MusicView_GridItem">
 		<param name="focused">false</param>
@@ -73,7 +80,7 @@
 				<height>28</height>
 				<font>small_20_semibold</font>
 				<textcolor>$VAR[DL_Ink]</textcolor>
-				<label>$VAR[Music_ItemLabel]</label>
+				<label>$VAR[MusicView_TileLabel]</label>
 			</control>
 			<control type="label">
 				<left>18</left>
@@ -83,7 +90,7 @@
 				<font>small_20</font>
 				<textcolor>$VAR[DL_Ink2]</textcolor>
 				<label>$INFO[ListItem.Artist]</label>
-				<visible>String.IsEqual(ListItem.DBType,album)</visible>
+				<visible>String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,song)</visible>
 			</control>
 		</definition>
 	</include>
@@ -105,7 +112,7 @@
 			<preloaditems>2</preloaditems>
 			<scrolltime tween="cubic" easing="out">260</scrolltime>
 			<viewtype label="31312">icon</viewtype>
-			<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)</visible>
+			<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years) | Container.Content(songs)</visible>
 			<itemlayout width="214" height="282">
 				<include>MusicView_GridItem</include>
 			</itemlayout>
@@ -623,7 +630,7 @@
 				<font>small_20_semibold</font>
 				<textcolor>$VAR[DL_Ink]</textcolor>
 				<selectedcolor>$VAR[DL_Ink]</selectedcolor>
-				<label>$VAR[Music_ItemLabel]</label>
+				<label>$VAR[MusicView_TileLabel]</label>
 			</control>
 			<control type="label">
 				<left>5</left>
@@ -636,6 +643,18 @@
 				<selectedcolor>$VAR[DL_Ink2]</selectedcolor>
 				<label>$INFO[ListItem.Year]</label>
 				<visible>String.IsEqual(ListItem.DBType,album)</visible>
+			</control>
+			<control type="label">
+				<left>5</left>
+				<top>208</top>
+				<width>170</width>
+				<height>26</height>
+				<align>center</align>
+				<font>small_20</font>
+				<textcolor>$VAR[DL_Ink2]</textcolor>
+				<selectedcolor>$VAR[DL_Ink2]</selectedcolor>
+				<label>$INFO[ListItem.Duration]</label>
+				<visible>String.IsEqual(ListItem.DBType,song)</visible>
 			</control>
 		</definition>
 	</include>
@@ -657,7 +676,7 @@
 			<preloaditems>2</preloaditems>
 			<scrolltime tween="cubic" easing="out">260</scrolltime>
 			<viewtype label="31320">biginfo</viewtype>
-			<visible>Container.Content(artists) | Container.Content(albums)</visible>
+			<visible>Container.Content(artists) | Container.Content(albums) | Container.Content(songs)</visible>
 			<itemlayout width="180" height="270">
 				<include>MusicView_StripItem</include>
 			</itemlayout>

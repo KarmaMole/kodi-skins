@@ -307,16 +307,18 @@ MARC = "Container.Content(albums) | Container.Content(artists)"
 MGRID = "Container.Content(albums) | Container.Content(artists) | Container.Content(genres)"
 VIEWS = [
     ("videos", 500, "$LOCALIZE[31312]", "views/arc.png", ARC, "Pick_Cur_Arc"),
-    ("videos", 501, "$LOCALIZE[31313]", "views/grid.png", ARC, "Pick_Cur_Grid"),
-    ("videos", 502, "$LOCALIZE[31314]", "views/episodes.png", EPI, "Pick_Cur_Episodes"),
+    ("videos", 501, "$LOCALIZE[31313]", "views/grid.png", ARC + " | Container.Content(genres)", "Pick_Cur_Grid"),
+    ("videos", 502, "$LOCALIZE[31314]", "views/episodes.png", ARC + " | Container.Content(episodes)", "Pick_Cur_Episodes"),
     ("videos", 503, "$LOCALIZE[31320]", "views/horizon.png", ARC + " | Container.Content(episodes)", "Pick_Cur_Horizon"),
     ("videos", 506, "$LOCALIZE[31321]", "views/tiles.png", None, "Pick_Cur_Tiles"),
     ("videos", 50, "$LOCALIZE[535]", "views/list.png", None, "Pick_Cur_List"),
     ("music", 504, "$LOCALIZE[31312]", "views/music_arc.png", MARC, "Pick_Cur_Arc"),
-    ("music", 505, "$LOCALIZE[31313]", "views/music_grid.png", MGRID, "Pick_Cur_Grid"),
-    ("music", 507, "$LOCALIZE[31320]", "views/music_horizon.png", MARC, "Pick_Cur_Horizon"),
+    ("music", 505, "$LOCALIZE[31313]", "views/music_grid.png", MGRID + " | Container.Content(songs)", "Pick_Cur_Grid"),
+    ("music", 507, "$LOCALIZE[31320]", "views/music_horizon.png", MARC + " | Container.Content(songs)", "Pick_Cur_Horizon"),
     ("music", 50, "$LOCALIZE[535]", "views/music_list.png", None, "Pick_Cur_List"),
 ]
+# 0.9.19 (docs/VIEWS_PER_SECTION_2026-10-28.md): Grid 501 also genres, Episodes 502 also films / sets / shows / music
+# videos (with seasons and episodes: the same condition as Horizon 503), music Grid 505 and Horizon 507 also songs.
 # 0.9.16 (docs/VIEWS_BRIEF_2026-10-27.md): Horizon 503 / 507 and Tiles 506. Seasons offer six views (Arc, Grid,
 # Episodes, Horizon, Tiles, List), so the card holds six smaller previews (260 x 146) side by side.
 PITCH = 300

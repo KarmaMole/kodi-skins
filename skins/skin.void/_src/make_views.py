@@ -13,7 +13,8 @@ information that arrives the longer you rest):
   54 Frames  3 x 2 wall of 16:9 frames (landscape / still / fanart; posters and icons sit whole on a quiet tile; a
              serif title when there is no art): series, episodes, sets, add-ons and plug-ins that only have thumbs
   55 Notes   a plain text list on the left, a reading column on the right (title, meta, ten lines of plot, credits)
-  56 Stills  episodes: a still per row, its number, title and two lines of plot
+  56 Stills  episodes: a still per row, its number, title and two lines of plot; since 0.9.17 also films, series,
+             sets, seasons and music videos (their landscape / fanart; a poster sits whole on the tile)
   57 Tracks  songs: number, title, artist / album, time, as a tracklist
 viewtypes: list (50) and Kodi's panel default (51 / 52, = icon) keep the defaults; the new views use types no Kodi
 default asks for (bigwrap / wide / biglist / biginfo / bigwide; not info: CAutoSwitch picks info for folders with metadata), so a folder without a saved view still opens in Index.
@@ -36,12 +37,12 @@ VIEWS = [  # id, string id, preview, condition in the picker (None = always)
     (53, 31350, "one", f"{VID} | [{MUS} + [Container.Content(albums) | Container.Content(artists)]]"),
     (54, 31351, "frames", VID),
     (55, 31352, "notes", VID),
-    (56, 31353, "stills", f"{VID} + Container.Content(episodes)"),
+    (56, 31353, "stills", f"{VID} + [{POSTER_KINDS[1:-1]} | Container.Content(episodes)]"),
     (57, 31354, "tracks", f"{MUS} + Container.Content(songs)"),
 ]
 # content cases the picker can open on: (condition, views visible in this case, in picker order)
 CASES = [
-    (f"{VID} + {POSTER_KINDS}", [50, 51, 53, 54, 55]),
+    (f"{VID} + {POSTER_KINDS}", [50, 51, 53, 54, 55, 56]),
     (f"{VID} + Container.Content(episodes)", [50, 53, 54, 55, 56]),
     (f"{VID} + !{POSTER_KINDS} + !Container.Content(episodes)", [50, 53, 54, 55]),
     (f"{MUS} + [Container.Content(albums) | Container.Content(artists)]", [50, 52, 53]),
@@ -175,15 +176,21 @@ STATIC_VARS = """	<variable name="Frame_Wide">
 		<value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
 		<value>$INFO[ListItem.Art(icon)]</value>
 	</variable>
-	<variable name="Still_Art">
-		<value condition="!String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),image://video@)">$INFO[ListItem.Art(thumb)]</value>
-		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
-		<value>$INFO[ListItem.Art(tvshow.fanart)]</value>
-	</variable>
 	<variable name="Still_Kicker">
 		<value condition="ListItem.IsParentFolder">Up one level</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Year]$VAR[Still_RuntimePart]$VAR[Still_Seen]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year]""" + SEP + """$INFO[ListItem.Property(TotalSeasons)] seasons$INFO[ListItem.Genre,""" + SEP + """,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Genre,""" + SEP + """,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Property(TotalEpisodes),""" + SEP + """, episodes]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Property(Watched),""" + SEP + """, watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]</value>
 		<value condition="!String.IsEmpty(ListItem.Season) + !String.IsEmpty(ListItem.Episode)">Season $INFO[ListItem.Season]""" + SEP + """Episode $INFO[ListItem.Episode]$VAR[Still_RuntimePart]$VAR[Still_Seen]</value>
 		<value>$INFO[ListItem.Label2]$VAR[Still_Seen]</value>
+	</variable>
+	<variable name="Still_Title">
+		<value condition="!""" + FRAME_WIDE_HAS + " + " + SMALL_HAS + """"></value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Episode,Episode ,]</value>
+		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<variable name="Still_Seen">
 		<value condition="ListItem.IsResumable">""" + SEP + """$INFO[ListItem.PercentPlayed]% seen</value>
@@ -565,10 +572,21 @@ def stills_layout(focused):
 					<visible>!ListItem.IsParentFolder</visible>
 					{'<include>Void_Anim_FocusPoster</include>' if f else ''}
 					<include content="Void_Artwork">
-						<param name="art" value="$VAR[Still_Art]"/>
+						<param name="art" value="$VAR[Frame_Wide]"/>
 						<param name="color" value="{art_color}"/>
-						<param name="title" value="$INFO[ListItem.Episode,Episode ,]"/>
+						<param name="title" value="$VAR[Still_Title]"/>
 					</include>
+					<!-- no wide art: the poster / icon sits whole on the tile (never cropped), the title under it -->
+					<control type="image">
+						<left>8</left>
+						<top>8</top>
+						<width>224</width>
+						<height>119</height>
+						<aspectratio>keep</aspectratio>
+						<fadetime>160</fadetime>
+						<texture background="true" colordiffuse="{art_color}">$VAR[Frame_Small]</texture>
+						<visible>!{FRAME_WIDE_HAS} + {SMALL_HAS}</visible>
+					</control>
 					<include>Void_WatchedMarkers</include>
 				</control>
 {label(300, 16, 1300, 24, "capsw_20", "grey" if f else "grey_soft", "$VAR[Still_Kicker]", t=chr(9)*4)}
@@ -605,7 +623,7 @@ def view56():
 				</focusedlayout>
 			</control>
 {count_label()}"""
-    return f"""	<!-- ============================================================ 56: Stills (episodes) -->
+    return f"""	<!-- ============================================================ 56: Stills (episodes; films, series, sets, seasons, music videos) -->
 	<include name="Void_View56">
 {view_group(C, body)}
 	</include>"""

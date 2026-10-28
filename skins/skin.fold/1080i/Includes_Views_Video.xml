@@ -3,7 +3,7 @@
 <!--Generate the video library views: skins/skin.fold/1080i/Includes_Views_Video.xml and 1080i/Timers.xml.
     python skins/skin.fold/_src/make_views.py
 
-Views (MyVideoNav <views>500,501,502,503,505,506,50</views>), each gated by Container.Content:
+Views (MyVideoNav <views>500,501,502,503,505,506,50,509</views>), each gated by Container.Content:
   500 Shelf      films, sets, series, music videos: a 5 x 2 shelf of closed cards that lift and tilt on focus,
                  with the focused card's label in a column on the right (fold_geo.SHELF_*)
   501 Seasons    seasons: the show card on the left, season cards in a row
@@ -14,6 +14,8 @@ Views (MyVideoNav <views>500,501,502,503,505,506,50</views>), each gated by Cont
   505 Leaflet    films, sets, series, seasons, episodes, music videos: the focused title opened as a tri-fold
                  leaflet over a strip of small cards (stills in a season)
   506 Prints     everything: landscape prints (fanart, stills; add-ons and plug-ins keep their own picture)
+  509 Accordion  films, sets, series, music videos: the concertina pulled open with posters (0.9.16): panels
+                 alternate +/-12 deg, the focused one flat, lit and 16 % bigger; title, story and facts below
                  (503 / 505 / 506: _src/fold_views_more.py, 0.9.13)
   50  List       everything else (Includes_Views.xml)
 Header: 9000 filter words (9321 All, 9322 Unwatched, 9323 In progress, 9326 View = the view picker 1156,
@@ -72,6 +74,7 @@ view mode), and the first visit of each content type opens the Fold view.
 		<value condition="Control.IsVisible(505)">View: leaflet</value>
 		<value condition="Control.IsVisible(506)">View: prints</value>
 		<value condition="Control.IsVisible(501)">View: cards</value>
+		<value condition="Control.IsVisible(509)">View: zigzag</value>
 		<value>View: shelf</value>
 	</variable>
 	<!-- the active filter word sits on a pale chip -->
@@ -288,6 +291,10 @@ view mode), and the first visit of each content type opens the Fold view.
 	</variable>
 
 	<!-- 0.9.13 views: Table / Leaflet / Prints -->
+	<variable name="Table_Art">
+		<value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),Default)">$INFO[ListItem.Art(thumb)]</value>
+	</variable>
 	<variable name="Table_CardColor">
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">cobalt</value>
 		<value>verm</value>
@@ -341,6 +348,43 @@ view mode), and the first visit of each content type opens the Fold view.
 		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Property(Watched), · , watched]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins), · , min]</value>
 		<value>$INFO[ListItem.Label2]</value>
+	</variable>
+
+	<!-- 0.9.16 Accordion 509 -->
+	<variable name="Accordion_Num">
+		<value condition="ListItem.IsParentFolder">←</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(ListItem.Property(Total))">$INFO[ListItem.Property(Total)]</value>
+		<value>$INFO[ListItem.Year]</value>
+	</variable>
+	<variable name="Accordion_Title">
+		<value condition="ListItem.IsParentFolder">Up a level</value>
+		<value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+	<variable name="Accordion_PlateTitle">
+		<value condition="ListItem.IsParentFolder"></value>
+		<value>$VAR[Accordion_Title]</value>
+	</variable>
+	<variable name="Accordion_Head">
+		<value condition="ListItem.IsParentFolder">Up a level</value>
+		<value>$VAR[Accordion_Title]</value>
+	</variable>
+	<variable name="Accordion_Plot">
+		<value condition="ListItem.IsParentFolder">OK goes up one level.</value>
+		<value>$INFO[ListItem.Plot]</value>
+	</variable>
+	<variable name="Accordion_Facts">
+		<value condition="ListItem.IsParentFolder"></value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]  ·  1 season$INFO[ListItem.Property(TotalEpisodes),  ·  , episodes]$INFO[ListItem.Property(UnWatchedEpisodes),  ·  , unwatched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]$INFO[ListItem.Property(TotalSeasons),  ·  , seasons]$INFO[ListItem.Property(TotalEpisodes),  ·  , episodes]$INFO[ListItem.Property(UnWatchedEpisodes),  ·  , unwatched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total),  ·  , films]$INFO[ListItem.Property(Watched),  ·  , watched]</value>
+		<value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),  ·  , min]$INFO[ListItem.Genre,  ·  ,]$INFO[ListItem.Director,  ·  ,]</value>
+		<value>$INFO[ListItem.Genre]</value>
+	</variable>
+	<variable name="Accordion_OK">
+		<value condition="ListItem.IsParentFolder">Up a level</value>
+		<value condition="ListItem.IsFolder">Open</value>
+		<value>Play</value>
 	</variable>
 
 	<include name="VidView_500_Shelf">
@@ -1758,7 +1802,7 @@ view mode), and the first visit of each content type opens the Fold view.
 				<onleft>ActivateWindow(1155)</onleft>
 				<onback condition="$EXP[Lib_AtRoot]">9398</onback>
 				<viewtype label="31424">wrap</viewtype>
-				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)</visible>
+				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(genres) | Container.Content(years) | Container.Content(actors) | Container.Content(directors) | Container.Content(studios) | Container.Content(countries) | Container.Content(tags)</visible>
 				<itemlayout width="222" height="288">
 				<control type="image">
 					<left>-13</left>
@@ -1783,7 +1827,7 @@ view mode), and the first visit of each content type opens the Fold view.
 						<param name="plate_t" value="12"/>
 						<param name="plate_w" value="145"/>
 						<param name="plate_h" value="218"/>
-						<param name="art" value="$VAR[Shelf_Art]"/>
+						<param name="art" value="$VAR[Table_Art]"/>
 						<param name="aspect" value="scale"/>
 						<param name="foot_l" value="$INFO[ListItem.Year]"/>
 						<param name="foot_r" value="$VAR[Shelf_FootR]"/>
@@ -1893,7 +1937,7 @@ view mode), and the first visit of each content type opens the Fold view.
 						<param name="plate_t" value="13"/>
 						<param name="plate_w" value="160"/>
 						<param name="plate_h" value="240"/>
-						<param name="art" value="$VAR[Shelf_Art]"/>
+						<param name="art" value="$VAR[Table_Art]"/>
 						<param name="aspect" value="scale"/>
 						<param name="foot_l" value="$INFO[ListItem.Year]"/>
 						<param name="foot_r" value="$VAR[Shelf_FootR]"/>
@@ -3001,6 +3045,360 @@ view mode), and the first visit of each content type opens the Fold view.
 		</control>
 	</include>
 
+	<include name="VidView_509_Accordion">
+		<control type="group">
+			<visible>Control.IsVisible(509)</visible>
+			<control type="group">
+				<animation type="Visible" condition="!Skin.HasSetting(fold.reducemotion)">
+					<effect type="zoom" start="12,100" end="100,100" center="96,440" time="380" tween="cubic" easing="out"/>
+					<effect type="fade" start="0" end="100" time="140"/>
+				</animation>
+				<animation type="WindowOpen" condition="!Skin.HasSetting(fold.reducemotion)">
+					<effect type="zoom" start="12,100" end="100,100" center="96,440" time="380" tween="cubic" easing="out"/>
+					<effect type="fade" start="0" end="100" time="140"/>
+				</animation>
+				<control type="list" id="509">
+					<left>96</left>
+					<top>156</top>
+					<width>1824</width>
+					<height>588</height>
+					<orientation>horizontal</orientation>
+					<preloaditems>2</preloaditems>
+					<scrolltime tween="cubic" easing="out">260</scrolltime>
+					<onup>9000</onup>
+					<ondown>noop</ondown>
+					<onleft>ActivateWindow(1155)</onleft>
+					<onright>ActivateWindow(1155)</onright>
+					<onback condition="$EXP[Lib_AtRoot]">9398</onback>
+					<viewtype label="31431">bigwrap</viewtype>
+					<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)</visible>
+					<itemlayout width="192" height="588">
+			<control type="image">
+				<left>-46</left>
+				<top>10</top>
+				<width>292</width>
+				<height>564</height>
+				<texture border="56">fold/shadow_panel.png</texture>
+				<visible>!Integer.IsOdd(ListItem.CurrentItem)</visible>
+			</control>
+			<control type="group">
+				<left>-2</left>
+				<top>50</top>
+				<width>196</width>
+				<height>468</height>
+				<animation effect="rotatey" start="12" end="12" center="96" time="0" condition="Integer.IsOdd(ListItem.CurrentItem)">Conditional</animation>
+				<animation effect="rotatey" start="-12" end="-12" center="96" time="0" condition="!Integer.IsOdd(ListItem.CurrentItem)">Conditional</animation>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>196</width>
+					<height>468</height>
+					<texture colordiffuse="cream">common/white.png</texture>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>196</width>
+					<height>468</height>
+					<texture>fold/tooth_cream.png</texture>
+				</control>
+				<control type="label">
+					<left>18</left>
+					<top>10</top>
+					<width>126</width>
+					<height>60</height>
+					<font>disp_50</font>
+					<textcolor>$VAR[Table_CardColor]</textcolor>
+					<selectedcolor>$VAR[Table_CardColor]</selectedcolor>
+					<label>$VAR[Accordion_Num]</label>
+				</control>
+				<control type="image">
+					<left>148</left>
+					<top>20</top>
+					<width>34</width>
+					<height>34</height>
+					<texture>fold/punch.png</texture>
+					<visible>$EXP[Shelf_Watched] + $EXP[ShowWatchedMarkers]</visible>
+				</control>
+				<!-- the plate: the title printed on the stock under the poster (a poster that fails to load shows it) -->
+				<control type="image">
+					<left>14</left>
+					<top>82</top>
+					<width>168</width>
+					<height>252</height>
+					<texture colordiffuse="cream_deep">common/white.png</texture>
+				</control>
+				<control type="textbox">
+					<left>24</left>
+					<top>94</top>
+					<width>148</width>
+					<height>228</height>
+					<font>sans_22_semi</font>
+					<textcolor>ink2</textcolor>
+					<selectedcolor>ink2</selectedcolor>
+					<label>$VAR[Accordion_PlateTitle]</label>
+				</control>
+				<control type="image">
+					<left>14</left>
+					<top>82</top>
+					<width>168</width>
+					<height>252</height>
+					<aspectratio>scale</aspectratio>
+					<fadetime>160</fadetime>
+					<texture background="true">$VAR[Table_Art]</texture>
+				</control>
+				<control type="textbox">
+					<left>18</left>
+					<top>346</top>
+					<width>164</width>
+					<height>62</height>
+					<font>sans_22_semi</font>
+					<textcolor>ink</textcolor>
+					<selectedcolor>ink</selectedcolor>
+					<label>$VAR[Accordion_Title]</label>
+				</control>
+				<control type="label">
+					<left>18</left>
+					<top>416</top>
+					<width>162</width>
+					<height>36</height>
+					<font>numr_20</font>
+					<textcolor>cap</textcolor>
+					<selectedcolor>cap</selectedcolor>
+					<label>$VAR[Shelf_FootR]</label>
+				</control>
+				<control type="label">
+					<left>18</left>
+					<top>416</top>
+					<width>162</width>
+					<height>36</height>
+					<align>right</align>
+					<font>numr_20</font>
+					<textcolor>cap</textcolor>
+					<selectedcolor>cap</selectedcolor>
+					<label>$VAR[Concertina_State]</label>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>196</width>
+					<height>468</height>
+					<texture>fold/pnl_lit.png</texture>
+					<visible>Integer.IsOdd(ListItem.CurrentItem)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>196</width>
+					<height>468</height>
+					<texture>fold/pnl_away.png</texture>
+					<visible>!Integer.IsOdd(ListItem.CurrentItem)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>196</width>
+					<height>468</height>
+					<texture border="4">fold/pnl_hl.png</texture>
+				</control>
+			</control>
+					</itemlayout>
+					<focusedlayout width="263" height="588">
+			<control type="image">
+				<left>-37</left>
+				<top>-31</top>
+				<width>355</width>
+				<height>671</height>
+				<texture border="72">fold/shadow_panel_on.png</texture>
+				<visible>Control.HasFocus(509)</visible>
+			</control>
+			<control type="group">
+				<left>34</left>
+				<top>50</top>
+				<width>196</width>
+				<height>468</height>
+				<animation type="Focus" condition="!Skin.HasSetting(fold.reducemotion)">
+					<effect type="zoom" start="100" end="116" center="132,284" time="220" tween="cubic" easing="out"/>
+				</animation>
+				<animation type="Conditional" condition="Skin.HasSetting(fold.reducemotion) + Control.HasFocus(509)">
+					<effect type="zoom" start="116" end="116" center="132,284" time="0"/>
+				</animation>
+				<animation type="Unfocus">
+					<effect type="zoom" start="116" end="116" center="132,284" time="0"/>
+				</animation>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>196</width>
+					<height>468</height>
+					<texture colordiffuse="cream">common/white.png</texture>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>196</width>
+					<height>468</height>
+					<texture>fold/tooth_cream.png</texture>
+				</control>
+				<control type="label">
+					<left>18</left>
+					<top>10</top>
+					<width>126</width>
+					<height>60</height>
+					<font>disp_50</font>
+					<textcolor>$VAR[Table_CardColor]</textcolor>
+					<selectedcolor>$VAR[Table_CardColor]</selectedcolor>
+					<label>$VAR[Accordion_Num]</label>
+				</control>
+				<control type="image">
+					<left>148</left>
+					<top>20</top>
+					<width>34</width>
+					<height>34</height>
+					<texture>fold/punch.png</texture>
+					<visible>$EXP[Shelf_Watched] + $EXP[ShowWatchedMarkers]</visible>
+				</control>
+				<!-- the plate: the title printed on the stock under the poster (a poster that fails to load shows it) -->
+				<control type="image">
+					<left>14</left>
+					<top>82</top>
+					<width>168</width>
+					<height>252</height>
+					<texture colordiffuse="cream_deep">common/white.png</texture>
+				</control>
+				<control type="textbox">
+					<left>24</left>
+					<top>94</top>
+					<width>148</width>
+					<height>228</height>
+					<font>sans_22_semi</font>
+					<textcolor>ink2</textcolor>
+					<selectedcolor>ink2</selectedcolor>
+					<label>$VAR[Accordion_PlateTitle]</label>
+				</control>
+				<control type="image">
+					<left>14</left>
+					<top>82</top>
+					<width>168</width>
+					<height>252</height>
+					<aspectratio>scale</aspectratio>
+					<fadetime>160</fadetime>
+					<texture background="true">$VAR[Table_Art]</texture>
+				</control>
+				<control type="textbox">
+					<left>18</left>
+					<top>346</top>
+					<width>164</width>
+					<height>62</height>
+					<font>sans_24_semi</font>
+					<textcolor>ink</textcolor>
+					<selectedcolor>ink</selectedcolor>
+					<label>$VAR[Accordion_Title]</label>
+				</control>
+				<control type="label">
+					<left>18</left>
+					<top>416</top>
+					<width>162</width>
+					<height>36</height>
+					<font>numr_20</font>
+					<textcolor>cap</textcolor>
+					<selectedcolor>cap</selectedcolor>
+					<label>$VAR[Shelf_FootR]</label>
+				</control>
+				<control type="label">
+					<left>18</left>
+					<top>416</top>
+					<width>162</width>
+					<height>36</height>
+					<align>right</align>
+					<font>numr_20</font>
+					<textcolor>cap</textcolor>
+					<selectedcolor>cap</selectedcolor>
+					<label>$VAR[Concertina_State]</label>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>196</width>
+					<height>468</height>
+					<texture>fold/pnl_focus.png</texture>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>196</width>
+					<height>7</height>
+					<texture colordiffuse="$VAR[Table_CardColor]">common/white.png</texture>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>196</width>
+					<height>468</height>
+					<texture border="4">fold/pnl_hl.png</texture>
+				</control>
+			</control>
+					</focusedlayout>
+				</control>
+				<control type="image">
+					<left>96</left>
+					<top>668</top>
+					<width>1824</width>
+					<height>12</height>
+					<texture colordiffuse="40281e14">fold/score.png</texture>
+				</control>
+			</control>
+			<!-- the focused title -->
+			<control type="group">
+				<left>96</left>
+				<top>742</top>
+				<visible>Integer.IsGreater(Container.NumItems,0)</visible>
+				<control type="label">
+					<left>0</left>
+					<top>-8</top>
+					<width>1728</width>
+					<height>66</height>
+					<font>head_50</font>
+					<textcolor>ink</textcolor>
+					<selectedcolor>ink</selectedcolor>
+					<label>$VAR[Accordion_Head]</label>
+				</control>
+				<control type="textbox" id="9373">
+					<left>0</left>
+					<top>70</top>
+					<width>1240</width>
+					<height>111</height>
+					<font>body_26</font>
+					<textcolor>body</textcolor>
+					<selectedcolor>body</selectedcolor>
+					<label>$VAR[Accordion_Plot]</label>
+				</control>
+				<include content="Fold_PlotEllipsis"><param name="id" value="9373"/><param name="right" value="1240"/><param name="top" value="144"/><param name="pitch" value="37"/><param name="font" value="body_26"/></include>
+				<control type="label">
+					<left>0</left>
+					<top>196</top>
+					<width>1728</width>
+					<height>32</height>
+					<font>caps_20</font>
+					<textcolor>cap</textcolor>
+					<selectedcolor>cap</selectedcolor>
+					<label>$VAR[Accordion_Facts]</label>
+				</control>
+			</control>
+			<control type="grouplist">
+				<left>96</left>
+				<top>1012</top>
+				<width>1700</width>
+				<height>32</height>
+				<orientation>horizontal</orientation>
+				<itemgap>0</itemgap>
+				<include content="Fold_KeyHint"><param name="key" value="OK"/><param name="label" value="$VAR[Accordion_OK]"/></include>
+				<include content="Fold_KeyHint"><param name="key" value="← →"/><param name="label" value="Along the strip"/></include>
+				<include content="Fold_KeyHint"><param name="key" value="BACK"/><param name="label" value="Fold it closed"/></include>
+			</control>
+		</control>
+	</include>
+
 	<include name="VidView_Header">
 		<control type="group">
 			<visible>!Control.IsVisible(502)</visible>
@@ -3167,6 +3565,7 @@ view mode), and the first visit of each content type opens the Fold view.
 			<animation effect="slide" start="0,0" end="0,350" time="0" condition="Control.IsVisible(500)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="0,230" time="0" condition="Control.IsVisible(503)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="0,300" time="0" condition="Control.IsVisible(506)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,500" time="0" condition="Control.IsVisible(509)">Conditional</animation>
 			<control type="label">
 				<left>96</left>
 				<top>240</top>
@@ -3200,6 +3599,7 @@ view mode), and the first visit of each content type opens the Fold view.
 		<include>VidView_503_Table</include>
 		<include>VidView_505_Leaflet</include>
 		<include>VidView_506_Prints</include>
+		<include>VidView_509_Accordion</include>
 		<include>View_50_List</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>

@@ -1047,6 +1047,7 @@
 		<include>VidView_505_Poster</include>
 		<include>VidView_506_Screens</include>
 		<include>VidView_507_Sheet</include>
+		<include>VidView_510_Rows</include>
 		<include>View_50_List</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>

@@ -93,6 +93,7 @@
 	     up and crossfades, instead of flashing to black. -->
 	<variable name="Music_StageArt">
 		<value condition="!String.IsEmpty(Container(505).ListItem.Art(artist.fanart))">$INFO[Container(505).ListItem.Art(artist.fanart)]</value>
+		<value condition="Container.Content(artists) + !String.IsEmpty(Container(505).ListItem.Art(fanart))">$INFO[Container(505).ListItem.Art(fanart)]</value>
 		<value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.BlurImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</value>
 	</variable>
 
@@ -124,6 +125,8 @@
 	</variable>
 	<variable name="Music_PrevTitle">
 		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">Up one level</value>
+		<value condition="Container.Content(artists)">$INFO[Container(505).ListItemNoWrap(-1).Label]</value>
+		<value condition="Container.Content(songs) + !String.IsEmpty(Container(505).ListItemNoWrap(-1).Title)">$INFO[Container(505).ListItemNoWrap(-1).Title]$INFO[Container(505).ListItemNoWrap(-1).Artist,  ·  ,]</value>
 		<value>$INFO[Container(505).ListItemNoWrap(-1).Label]$INFO[Container(505).ListItemNoWrap(-1).Artist,  ·  ,]</value>
 	</variable>
 
@@ -167,7 +170,29 @@
 	</variable>
 	<!-- Big Album kicker: ALBUM · 14 / 229 · SORTED BY DATE ADDED -->
 	<variable name="Music_BigKicker">
+		<value condition="Container.Content(artists)">Artist$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]$INFO[Container.SortMethod,  ·  Sorted by ,]</value>
+		<value condition="Container.Content(songs)">Song$INFO[Container(505).ListItem.TrackNumber,  ·  Track ,]$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]</value>
 		<value>Album$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]$INFO[Container.SortMethod,  ·  Sorted by ,]</value>
+	</variable>
+	<!-- 1.0.18 Big album for artists / songs: a song's label is Kodi's "01. Artist - Title", so read the title -->
+	<variable name="Music_BigTitle">
+		<value condition="Container.Content(songs) + !String.IsEmpty(Container(505).ListItem.Title)">$INFO[Container(505).ListItem.Title]</value>
+		<value>$INFO[Container(505).ListItem.Label]</value>
+	</variable>
+	<variable name="Music_BigSubline">
+		<value condition="Container.Content(artists)">$INFO[Container(505).ListItem.Genre]</value>
+		<value>$INFO[Container(505).ListItem.Artist]</value>
+	</variable>
+	<variable name="Music_BigFootline">
+		<value condition="Container.Content(artists)">$INFO[Container(505).ListItem.Property(Artist_Type)]$INFO[Container(505).ListItem.Property(Artist_Style),  ·  ,]</value>
+		<value condition="Container.Content(songs)">$INFO[Container(505).ListItem.Album]$INFO[Container(505).ListItem.Duration,  ·  ,]$INFO[Container(505).ListItem.Genre,  ·  ,]</value>
+		<value>$INFO[Container(505).ListItem.Genre]</value>
+	</variable>
+	<!-- a song's title in a row (Tracklist 508) -->
+	<variable name="Music_SongTitle">
+		<value condition="ListItem.IsParentFolder">Back</value>
+		<value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<!-- Now playing kicker -->
 	<variable name="Music_NPKicker">

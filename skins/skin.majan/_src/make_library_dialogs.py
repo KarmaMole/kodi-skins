@@ -229,21 +229,79 @@ def task():
 
 V = "Window.IsVisible(videos)"
 M = "Window.IsVisible(music)"
-# (key, label, preview, visible = the view's own visible condition, view id)
+# (key, label, preview, visible = the view's own visible condition, view id). 1.0.18: one view can have two picker
+# entries with exclusive visibility when it reads differently per content (501 = "Big still" for episodes, 503 =
+# "Rows" outside TV); MJ_PickCurrent matches both entries on the view's own viewtype label.
+C = "Container.Content"
+NAME = "$EXP[VidView_IsNameNode]"
+FILMS_TV = f"{C}(movies) | {C}(sets) | {C}(tvshows) | {C}(seasons)"
 PICKS = [
-    ("showcase", "$LOCALIZE[31306]", "showcase", f"{V} + [Container.Content(movies) | Container.Content(sets)]", 500),
-    ("bigposter", "$LOCALIZE[31307]", "bigposter", f"{V} + [Container.Content(movies) | Container.Content(sets)]", 501),
-    ("tvwall", "$LOCALIZE[31308]", "tvwall", f"{V} + [Container.Content(tvshows) | Container.Content(seasons)]", 502),
-    ("episodes", "$LOCALIZE[31309]", "episodes", f"{V} + [Container.Content(episodes) | Container.Content(seasons)]", 503),
-    ("posterwall", "$LOCALIZE[31310]", "posterwall", f"{V} + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)]", 506),
+    ("showcase", "$LOCALIZE[31306]", "showcase", f"{V} + [{FILMS_TV}]", 500),
+    ("bigposter", "$LOCALIZE[31307]", "bigposter", f"{V} + [{FILMS_TV}]", 501),
+    ("bigstill", "$LOCALIZE[31324]", "bigstill", f"{V} + {C}(episodes)", 501),
+    ("tvwall", "$LOCALIZE[31308]", "tvwall", f"{V} + [{C}(tvshows) | {C}(seasons)]", 502),
+    ("episodes", "$LOCALIZE[31309]", "episodes", f"{V} + [{C}(episodes) | {C}(seasons)]", 503),
+    ("rows", "$LOCALIZE[31325]", "rows", f"{V} + [{C}(movies) | {C}(sets) | {C}(tvshows)]", 503),
+    ("posterwall", "$LOCALIZE[31310]", "posterwall", f"{V} + [{FILMS_TV} | {NAME}]", 506),
+    ("stills", "$LOCALIZE[31322]", "stills", f"{V} + [{C}(episodes) | {FILMS_TV} | {C}(musicvideos) | {NAME}]", 507),
     ("list", "$LOCALIZE[31311]", "list", V, 50),
-    ("grid", "$LOCALIZE[31312]", "music_grid", f"{M} + [Container.Content(albums) | Container.Content(artists)]", 504),
-    ("bigalbum", "$LOCALIZE[31313]", "music_bigalbum", f"{M} + Container.Content(albums)", 505),
+    ("grid", "$LOCALIZE[31312]", "music_grid", f"{M} + [{C}(albums) | {C}(artists)]", 504),
+    ("bigalbum", "$LOCALIZE[31313]", "music_bigalbum", f"{M} + [{C}(albums) | {C}(artists) | {C}(songs)]", 505),
+    ("tracklist", "$LOCALIZE[31323]", "music_tracklist", f"{M} + {C}(songs)", 508),
     ("list", "$LOCALIZE[31311]", "music_list", M, 50),
 ]
+# viewtype label each picker entry stands for (Container.Viewmode returns it)
+VIEWMODE = {500: 31306, 501: 31307, 502: 31308, 503: 31309, 506: 31310, 507: 31322, 504: 31312, 505: 31313, 508: 31323}
+# mutually exclusive content classes per window, and which picker entries each shows (in picker order)
+VIDEO_CLASSES = [(f"{C}({c})", c) for c in ("movies", "sets", "tvshows", "seasons", "episodes", "musicvideos")] + [(NAME, "names")]
+MUSIC_CLASSES = [(f"{C}({c})", c) for c in ("albums", "artists", "songs")]
+SHOWS = {
+    "movies": ["showcase", "bigposter", "rows", "posterwall", "stills", "list"],
+    "sets": ["showcase", "bigposter", "rows", "posterwall", "stills", "list"],
+    "tvshows": ["showcase", "bigposter", "tvwall", "rows", "posterwall", "stills", "list"],
+    "seasons": ["showcase", "bigposter", "tvwall", "episodes", "posterwall", "stills", "list"],
+    "episodes": ["bigstill", "episodes", "stills", "list"],
+    "musicvideos": ["stills", "list"],
+    "names": ["posterwall", "stills", "list"],
+    "albums": ["grid", "bigalbum", "list"],
+    "artists": ["grid", "bigalbum", "list"],
+    "songs": ["bigalbum", "tracklist", "list"],
+}
+
+
+def picker_onloads():
+    """Land on the view on show: after the reset to the first item, move k places (k = its place among the entries
+    this content shows). The list is always last, so it keeps the old Control.Move(100,-1) (wraps to the end)."""
+    vid = {k: v for k, _, _, _, v in PICKS}
+    out = []
+    for win, classes in (("Window.IsVisible(videos)", VIDEO_CLASSES), ("Window.IsVisible(music)", MUSIC_CLASSES)):
+        for cond, cls in classes:
+            for k, key in enumerate(SHOWS[cls]):
+                if k == 0 or key == "list":
+                    continue
+                vm = VIEWMODE[vid[key]]
+                out.append(f'\t<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[{vm}]) + {win} + {cond}">Control.Move(100,{k})</onload>')
+    out.append('\t<onload condition="$EXP[MJ_PickIsList]">Control.Move(100,-1)</onload>')
+    return "\n".join(out)
+
+
+def check_shows():
+    """SHOWS must agree with the entries' own visible conditions (a picker with a wrong count lands off by one)."""
+    import re
+    for key, _, _, vis, _ in PICKS:
+        for cls, keys in SHOWS.items():
+            music = cls in ("albums", "artists", "songs")
+            if ("Window.IsVisible(music)" in vis) != music and key != "list":
+                assert key not in keys, (key, cls)
+                continue
+            if key == "list":
+                continue
+            token = NAME if cls == "names" else f"{C}({cls})"
+            assert (token in vis) == (key in keys), (key, cls)
 
 
 def picker():
+    check_shows()
     c = "Dialog.Close(1156,true)"
     items = [item(label, "", [c, f"Container.SetViewMode({vid})", "SetFocus(50)"], vis,
                   {"key": key, "accent": f"majan/views/{img}_accent.png"}, f"majan/views/{img}.png")
@@ -268,12 +326,7 @@ def picker():
 	     visits, so first go back to the first item: Control.Move wraps, -CurrentItem lands on the last item, +1 on the first -->
 	<onload>Control.Move(100,-$INFO[Container(100).CurrentItem])</onload>
 	<onload>Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31307])">Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31309]) + Container.Content(seasons)">Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31310]) + !Container.Content(tvshows)">Control.Move(100,2)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31310]) + Container.Content(tvshows)">Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31313])">Control.Move(100,1)</onload>
-	<onload condition="$EXP[MJ_PickIsList]">Control.Move(100,-1)</onload>
+{picker_onloads()}
 	<controls>
 {DIM}
 		<control type="group">

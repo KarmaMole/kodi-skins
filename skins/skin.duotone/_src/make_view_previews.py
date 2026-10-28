@@ -298,7 +298,32 @@ def tracks():
     save(im, "tracks")
 
 
+def rows():
+    """510 Rows: 160 px rows, a wide print, Anton title, meta, two plot lines; the focused row is the ink bar."""
+    im, d = canvas()
+    header(d)
+    for r in range(5):
+        y = 168 + r * 160
+        if r == 1:
+            bar(d, 64, y, 1792, 160)
+            print_tile(d, 80, y + 8, 256, 144, r, title=False)
+            frame(d, 80, y + 8, 256, 144)
+            bar(d, 368, y + 22, 560, 40, FIELD)
+            bar(d, 368, y + 76, 420, 16, 200)
+            bar(d, 368, y + 106, 1100, 14, 160)
+            bar(d, 368, y + 134, 800, 14, 160)
+        else:
+            print_tile(d, 80, y + 8, 256, 144, r, title=False)
+            bar(d, 368, y + 22, 300 + (r * 97) % 360, 40)
+            bar(d, 368, y + 76, 380, 16, 90)
+            bar(d, 368, y + 106, 1100, 14, 140)
+            bar(d, 368, y + 134, 760, 14, 140)
+            rule(d, 64, y + 158, 1792, 2)
+    save(im, "rows")
+
+
 if __name__ == "__main__":
+    rows()
     poster()
     screens()
     sheet()

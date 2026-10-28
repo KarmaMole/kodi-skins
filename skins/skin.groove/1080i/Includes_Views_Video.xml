@@ -4,7 +4,7 @@
 	View_500_CoverWall.md (video), View_510_BackdropCarousel.md, View_50_List.md. Board language: mockups/02-home-films.
 
 	Views (MyVideoNav <views>500,510,50</views>; the first visible one is Kodi's default for a new node):
-	  500 Cover wall          posters edge to edge (movies, sets, tvshows, seasons, musicvideos)
+	  500 Cover wall          posters edge to edge (movies, sets, tvshows, seasons, musicvideos; 1.0.8 genres / years / people)
 	  510 Backdrop carousel   landscape cards, focused card large, logo + icon line above (movies, sets, tvshows, seasons, episodes)
 	  50  List                every content type; the focused item's art lit at the right
 	  TV shows' first visit is corrected to 510 once (Timers.xml groove_vfirst_tvshows).
@@ -16,6 +16,8 @@
 -->
 <includes>
 	<!-- ================================================================ expressions -->
+	<!-- 1.0.8: genres / years / people in the Cover wall (a title card each; actors' portraits) -->
+	<expression name="VidView_IsNode">Container.Content(genres) | Container.Content(years) | Container.Content(actors) | Container.Content(directors) | Container.Content(studios) | Container.Content(countries) | Container.Content(tags)</expression>
 	<expression name="VidView_IsLibraryVideo">Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)</expression>
 	<expression name="VidView_IsTVContent">Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | String.StartsWith(Container.FolderPath,videodb://tvshows) | String.StartsWith(Container.FolderPath,videodb://inprogresstvshows)</expression>
 	<expression name="VidView_AtRoot">String.IsEqual(Container.FolderPath,videodb://movies/titles/) | String.IsEqual(Container.FolderPath,videodb://tvshows/titles/)</expression>
@@ -664,7 +666,7 @@
 			<onback condition="$EXP[VidView_AtRoot]">9398</onback>
 			<preloaditems>2</preloaditems>
 			<include>Anim_ScrollPanel</include>
-			<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)</visible>
+			<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | $EXP[VidView_IsNode]</visible>
 			<itemlayout width="240" height="360">
 				<control type="group">
 					<left>8</left>
@@ -1304,7 +1306,7 @@
 				<property name="view">v500</property>
 				<onclick>Container.SetViewMode(500)</onclick>
 				<onclick>SetFocus(50)</onclick>
-				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)</visible>
+				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | $EXP[VidView_IsNode]</visible>
 			</item>
 			<item>
 				<label>$LOCALIZE[31807]</label>
@@ -1368,8 +1370,11 @@
 		<onclick condition="Control.IsVisible(521) + !$EXP[VidView_IsLibraryVideo] + !String.IsEmpty(Container.PluginName)">SetFocus(9851,1,absolute)</onclick>
 		<onclick condition="Control.IsVisible(522) + !$EXP[VidView_IsLibraryVideo] + !String.IsEmpty(Container.PluginName)">SetFocus(9851,2,absolute)</onclick>
 		<onclick condition="Control.IsVisible(50) + !$EXP[VidView_IsLibraryVideo] + !String.IsEmpty(Container.PluginName)">SetFocus(9851,3,absolute)</onclick>
-		<onclick condition="Control.IsVisible(521) + !$EXP[VidView_IsLibraryVideo] + !!String.IsEmpty(Container.PluginName)">SetFocus(9851,0,absolute)</onclick>
-		<onclick condition="Control.IsVisible(50) + !$EXP[VidView_IsLibraryVideo] + !!String.IsEmpty(Container.PluginName)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(500) + $EXP[VidView_IsNode]">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(521) + $EXP[VidView_IsNode]">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + $EXP[VidView_IsNode]">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="Control.IsVisible(521) + !$EXP[VidView_IsLibraryVideo] + String.IsEmpty(Container.PluginName) + !$EXP[VidView_IsNode]">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + !$EXP[VidView_IsLibraryVideo] + String.IsEmpty(Container.PluginName) + !$EXP[VidView_IsNode]">SetFocus(9851,1,absolute)</onclick>
 	</include>
 
 	<!-- Generic art pieces (DialogVideoManager): fallback block + image -->

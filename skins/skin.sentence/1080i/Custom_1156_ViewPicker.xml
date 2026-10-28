@@ -233,10 +233,18 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<onclick>Container.SetViewMode(506)</onclick>
 					</item>
 					<item>
+						<label>$LOCALIZE[31517]</label>
+						<label2>$LOCALIZE[31497]</label2>
+						<icon>sentence/views/rows.png</icon>
+						<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)] + [Window.IsActive(videos) + String.IsEqual(Container.Viewmode,rows)]</visible>
+						<onclick>Dialog.Close(1156,true)</onclick>
+						<onclick>Container.SetViewMode(509)</onclick>
+					</item>
+					<item>
 						<label>$LOCALIZE[31366]</label>
 						<label2>$LOCALIZE[31497]</label2>
 						<icon>sentence/views/list.png</icon>
-						<visible>Window.IsActive(videos) + [Window.IsActive(videos) + !String.IsEqual(Container.Viewmode,a grid) + !String.IsEqual(Container.Viewmode,a wall) + !String.IsEqual(Container.Viewmode,episodes) + !String.IsEqual(Container.Viewmode,a page) + !String.IsEqual(Container.Viewmode,scenes) + !String.IsEqual(Container.Viewmode,a tracklist) + !String.IsEqual(Container.Viewmode,portraits)]</visible>
+						<visible>Window.IsActive(videos) + [Window.IsActive(videos) + !String.IsEqual(Container.Viewmode,a grid) + !String.IsEqual(Container.Viewmode,a wall) + !String.IsEqual(Container.Viewmode,episodes) + !String.IsEqual(Container.Viewmode,a page) + !String.IsEqual(Container.Viewmode,scenes) + !String.IsEqual(Container.Viewmode,a tracklist) + !String.IsEqual(Container.Viewmode,portraits) + !String.IsEqual(Container.Viewmode,rows)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(50)</onclick>
 					</item>
@@ -252,7 +260,7 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<label>$LOCALIZE[31512]</label>
 						<label2>$LOCALIZE[31497]</label2>
 						<icon>sentence/views/portraits.png</icon>
-						<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists)] + [Window.IsActive(music) + String.IsEqual(Container.Viewmode,portraits)]</visible>
+						<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)] + [Window.IsActive(music) + String.IsEqual(Container.Viewmode,portraits)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(508)</onclick>
 					</item>
@@ -268,7 +276,7 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<label>$LOCALIZE[31366]</label>
 						<label2>$LOCALIZE[31497]</label2>
 						<icon>sentence/views/list_music.png</icon>
-						<visible>Window.IsActive(music) + [Window.IsActive(music) + !String.IsEqual(Container.Viewmode,a grid) + !String.IsEqual(Container.Viewmode,a wall) + !String.IsEqual(Container.Viewmode,episodes) + !String.IsEqual(Container.Viewmode,a page) + !String.IsEqual(Container.Viewmode,scenes) + !String.IsEqual(Container.Viewmode,a tracklist) + !String.IsEqual(Container.Viewmode,portraits)]</visible>
+						<visible>Window.IsActive(music) + [Window.IsActive(music) + !String.IsEqual(Container.Viewmode,a grid) + !String.IsEqual(Container.Viewmode,a wall) + !String.IsEqual(Container.Viewmode,episodes) + !String.IsEqual(Container.Viewmode,a page) + !String.IsEqual(Container.Viewmode,scenes) + !String.IsEqual(Container.Viewmode,a tracklist) + !String.IsEqual(Container.Viewmode,portraits) + !String.IsEqual(Container.Viewmode,rows)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(50)</onclick>
 					</item>
@@ -313,10 +321,18 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<onclick>Container.SetViewMode(506)</onclick>
 					</item>
 					<item>
+						<label>$LOCALIZE[31517]</label>
+						<label2></label2>
+						<icon>sentence/views/rows.png</icon>
+						<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)] + ![Window.IsActive(videos) + String.IsEqual(Container.Viewmode,rows)]</visible>
+						<onclick>Dialog.Close(1156,true)</onclick>
+						<onclick>Container.SetViewMode(509)</onclick>
+					</item>
+					<item>
 						<label>$LOCALIZE[31366]</label>
 						<label2></label2>
 						<icon>sentence/views/list.png</icon>
-						<visible>Window.IsActive(videos) + ![Window.IsActive(videos) + !String.IsEqual(Container.Viewmode,a grid) + !String.IsEqual(Container.Viewmode,a wall) + !String.IsEqual(Container.Viewmode,episodes) + !String.IsEqual(Container.Viewmode,a page) + !String.IsEqual(Container.Viewmode,scenes) + !String.IsEqual(Container.Viewmode,a tracklist) + !String.IsEqual(Container.Viewmode,portraits)]</visible>
+						<visible>Window.IsActive(videos) + ![Window.IsActive(videos) + !String.IsEqual(Container.Viewmode,a grid) + !String.IsEqual(Container.Viewmode,a wall) + !String.IsEqual(Container.Viewmode,episodes) + !String.IsEqual(Container.Viewmode,a page) + !String.IsEqual(Container.Viewmode,scenes) + !String.IsEqual(Container.Viewmode,a tracklist) + !String.IsEqual(Container.Viewmode,portraits) + !String.IsEqual(Container.Viewmode,rows)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(50)</onclick>
 					</item>
@@ -332,7 +348,7 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<label>$LOCALIZE[31512]</label>
 						<label2></label2>
 						<icon>sentence/views/portraits.png</icon>
-						<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists)] + ![Window.IsActive(music) + String.IsEqual(Container.Viewmode,portraits)]</visible>
+						<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)] + ![Window.IsActive(music) + String.IsEqual(Container.Viewmode,portraits)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(508)</onclick>
 					</item>
@@ -348,7 +364,7 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<label>$LOCALIZE[31366]</label>
 						<label2></label2>
 						<icon>sentence/views/list_music.png</icon>
-						<visible>Window.IsActive(music) + ![Window.IsActive(music) + !String.IsEqual(Container.Viewmode,a grid) + !String.IsEqual(Container.Viewmode,a wall) + !String.IsEqual(Container.Viewmode,episodes) + !String.IsEqual(Container.Viewmode,a page) + !String.IsEqual(Container.Viewmode,scenes) + !String.IsEqual(Container.Viewmode,a tracklist) + !String.IsEqual(Container.Viewmode,portraits)]</visible>
+						<visible>Window.IsActive(music) + ![Window.IsActive(music) + !String.IsEqual(Container.Viewmode,a grid) + !String.IsEqual(Container.Viewmode,a wall) + !String.IsEqual(Container.Viewmode,episodes) + !String.IsEqual(Container.Viewmode,a page) + !String.IsEqual(Container.Viewmode,scenes) + !String.IsEqual(Container.Viewmode,a tracklist) + !String.IsEqual(Container.Viewmode,portraits) + !String.IsEqual(Container.Viewmode,rows)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(50)</onclick>
 					</item>

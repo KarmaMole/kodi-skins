@@ -1,3 +1,6 @@
+0.9.15 (2026-10-28)
+- More views in every section. Genres, years and people can now hang in the Salon (a name card for each genre, the portrait for each actor). Songs can now be browsed in the Record bins (each song under its album sleeve) and in Portraits (song titles beside the artist's canvas or the album cover, with artist, album and time on the plaque). The view each section opens in is unchanged.
+
 0.9.14 (2026-10-28)
 - Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
 - Skin settings: the custom rows panel has a second tab, Custom menu items (Right on a row to reach it): Menu item 1, 2 and 3, with the same choices as the rows (Add-on, playlist or library..., A favourite..., Rename..., Clear). The items hang on the cornice after Music, in the same lettering and glow; each has a quiet room of its own (one lit frame and a brass plaque: the name and what it opens). OK opens the add-on, folder or favourite and Back comes home to the item. An item hides while its add-on is uninstalled or disabled. Nothing changes until an item is set up.

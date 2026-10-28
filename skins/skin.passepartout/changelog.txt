@@ -1,3 +1,8 @@
+0.9.18 (2026-10-28)
+- More views in every library section: films 6, series 7, sets 6, seasons 5, episodes 4, genres / years / people 3, artists, albums and songs 3 each. Every section still opens in the view it opened in before.
+- New views: The print room (landscape prints in a grid, each with its small label under it; films, sets, series, seasons, episodes, music videos and genres / years / people as name cards) and Track list (songs as a printed programme: No., title, artist, album, year, time).
+- The landscape hang of the episodes now also hangs films, sets and series ("The wide hang"); the wall also hangs genres, years and people (their names on the print, a person's photo when there is one); the music salon also shows songs.
+
 0.9.17 (2026-10-28)
 - Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
 - They are words of the Home menu between Search and Settings, in the same caps and ink focus. While one is in focus the page shows its icon as a matted print with a museum caption (its name, what it opens) instead of the exhibition. OK opens it; Back comes home to it. With none set Home is unchanged.

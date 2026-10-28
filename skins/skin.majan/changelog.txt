@@ -1,3 +1,8 @@
+1.0.18 (2026-10-28)
+- More views in every library section: films 6, TV series 7, seasons 7, episodes 4, genres / years / people 3, artists, albums and songs 3 each. Every section still opens in the view it opened in before.
+- New views: Stills (a wide grid of stills, fanart and name cards, for films, sets, series, seasons, episodes, music videos and genres / years / people) and Tracklist (songs as a full-width table: No., title, artist, album, year, time).
+- Showcase and Big Poster now also show series and seasons; Big Poster shows episodes as big stills ("Big still"); the Episodes list also shows films, sets and series ("Rows"); the Poster wall also shows genres, years and people (name tiles, with the person's photo when there is one); Big album also shows artists and songs.
+
 1.0.17 (2026-10-28)
 - Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
 - Skin settings > Custom menu items: Menu item 1, 2 and 3. OK offers the same choices as the custom rows (Add-on, playlist or library..., A favourite..., Rename..., Clear). The items sit after Music in the top bar, numbered on from it; OK opens the add-on, folder or favourite and Back comes home to the item. An item hides while its add-on is uninstalled or disabled. Nothing changes until an item is set up.

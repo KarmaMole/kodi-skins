@@ -1,7 +1,7 @@
 """Generate the video library views: skins/skin.fold/1080i/Includes_Views_Video.xml and 1080i/Timers.xml.
     python skins/skin.fold/_src/make_views.py
 
-Views (MyVideoNav <views>500,501,502,503,505,506,50</views>), each gated by Container.Content:
+Views (MyVideoNav <views>500,501,502,503,505,506,50,509</views>), each gated by Container.Content:
   500 Shelf      films, sets, series, music videos: a 5 x 2 shelf of closed cards that lift and tilt on focus,
                  with the focused card's label in a column on the right (fold_geo.SHELF_*)
   501 Seasons    seasons: the show card on the left, season cards in a row
@@ -12,6 +12,8 @@ Views (MyVideoNav <views>500,501,502,503,505,506,50</views>), each gated by Cont
   505 Leaflet    films, sets, series, seasons, episodes, music videos: the focused title opened as a tri-fold
                  leaflet over a strip of small cards (stills in a season)
   506 Prints     everything: landscape prints (fanart, stills; add-ons and plug-ins keep their own picture)
+  509 Accordion  films, sets, series, music videos: the concertina pulled open with posters (0.9.16): panels
+                 alternate +/-12 deg, the focused one flat, lit and 16 % bigger; title, story and facts below
                  (503 / 505 / 506: _src/fold_views_more.py, 0.9.13)
   50  List       everything else (Includes_Views.xml)
 Header: 9000 filter words (9321 All, 9322 Unwatched, 9323 In progress, 9326 View = the view picker 1156,
@@ -729,6 +731,325 @@ def concertina_view():
 	</include>"""
 
 
+# ------------------------------------------------------------------------------------------ 509 accordion (0.9.16)
+# The concertina for films and series: the same panels (196 x 468, +/-12 deg, focused flat at 116 %) with the year
+# as the panel number and a 2:3 poster plate. No <camera> (text under a camera group is clipped on D3D, LESSONS Fold
+# 2026-10-28), no show card: the strip starts at the left margin.
+A_X0 = 96
+A_PLATE_H = 252
+
+
+def acc_panel(focused):
+    if focused:
+        slot, x = C_FSLOT, 18 + 16
+    else:
+        slot, x = C_SLOT, -2
+    cx = x + C_W // 2
+    top = C_TOP - C_LIST_TOP
+    cy = top + C_H // 2
+    if focused:
+        anim = f"""
+				<animation type="Focus" condition="!{RM}">
+					<effect type="zoom" start="100" end="116" center="{cx},{cy}" time="220" tween="cubic" easing="out"/>
+				</animation>
+				<animation type="Conditional" condition="{RM} + Control.HasFocus(509)">
+					<effect type="zoom" start="116" end="116" center="{cx},{cy}" time="0"/>
+				</animation>
+				<animation type="Unfocus">
+					<effect type="zoom" start="116" end="116" center="{cx},{cy}" time="0"/>
+				</animation>"""
+        rot = ""
+        shade = f"""
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>{C_W}</width>
+					<height>{C_H}</height>
+					<texture>fold/pnl_focus.png</texture>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>{C_W}</width>
+					<height>7</height>
+					<texture colordiffuse="$VAR[Table_CardColor]">common/white.png</texture>
+				</control>"""
+        shadow = f"""
+			<control type="image">
+				<left>{x - 64 - 15 + 8}</left>
+				<top>{top - 64 - 37 + 20}</top>
+				<width>{227 + 128}</width>
+				<height>{543 + 128}</height>
+				<texture border="72">fold/shadow_panel_on.png</texture>
+				<visible>Control.HasFocus(509)</visible>
+			</control>"""
+    else:
+        anim = ""
+        rot = f"""
+				<animation effect="rotatey" start="12" end="12" center="{cx}" time="0" condition="Integer.IsOdd(ListItem.CurrentItem)">Conditional</animation>
+				<animation effect="rotatey" start="-12" end="-12" center="{cx}" time="0" condition="!Integer.IsOdd(ListItem.CurrentItem)">Conditional</animation>"""
+        shade = f"""
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>{C_W}</width>
+					<height>{C_H}</height>
+					<texture>fold/pnl_lit.png</texture>
+					<visible>Integer.IsOdd(ListItem.CurrentItem)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>{C_W}</width>
+					<height>{C_H}</height>
+					<texture>fold/pnl_away.png</texture>
+					<visible>!Integer.IsOdd(ListItem.CurrentItem)</visible>
+				</control>"""
+        shadow = f"""
+			<control type="image">
+				<left>{x - 48 + 4}</left>
+				<top>{top - 48 + 8}</top>
+				<width>{C_W + 96}</width>
+				<height>{C_H + 96}</height>
+				<texture border="56">fold/shadow_panel.png</texture>
+				<visible>!Integer.IsOdd(ListItem.CurrentItem)</visible>
+			</control>"""
+    tt_font = "sans_24_semi" if focused else "sans_22_semi"
+    pt = 82
+    return f"""{shadow}
+			<control type="group">
+				<left>{x}</left>
+				<top>{top}</top>
+				<width>{C_W}</width>
+				<height>{C_H}</height>{rot}{anim}
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>{C_W}</width>
+					<height>{C_H}</height>
+					<texture colordiffuse="cream">common/white.png</texture>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>{C_W}</width>
+					<height>{C_H}</height>
+					<texture>fold/tooth_cream.png</texture>
+				</control>
+				<control type="label">
+					<left>18</left>
+					<top>10</top>
+					<width>{C_W - 70}</width>
+					<height>60</height>
+					<font>disp_50</font>
+					<textcolor>$VAR[Table_CardColor]</textcolor>
+					<label>$VAR[Accordion_Num]</label>
+				</control>
+				<control type="image">
+					<left>{C_W - 16 - 32}</left>
+					<top>20</top>
+					<width>34</width>
+					<height>34</height>
+					<texture>fold/punch.png</texture>
+					<visible>$EXP[Shelf_Watched] + $EXP[ShowWatchedMarkers]</visible>
+				</control>
+				<!-- the plate: the title printed on the stock under the poster (a poster that fails to load shows it) -->
+				<control type="image">
+					<left>14</left>
+					<top>{pt}</top>
+					<width>{C_W - 28}</width>
+					<height>{A_PLATE_H}</height>
+					<texture colordiffuse="cream_deep">common/white.png</texture>
+				</control>
+				<control type="textbox">
+					<left>24</left>
+					<top>{pt + 12}</top>
+					<width>{C_W - 48}</width>
+					<height>{A_PLATE_H - 24}</height>
+					<font>sans_22_semi</font>
+					<textcolor>ink2</textcolor>
+					<label>$VAR[Accordion_PlateTitle]</label>
+				</control>
+				<control type="image">
+					<left>14</left>
+					<top>{pt}</top>
+					<width>{C_W - 28}</width>
+					<height>{A_PLATE_H}</height>
+					<aspectratio>scale</aspectratio>
+					<fadetime>160</fadetime>
+					<texture background="true">$VAR[Table_Art]</texture>
+				</control>
+				<control type="textbox">
+					<left>18</left>
+					<top>{pt + A_PLATE_H + 12}</top>
+					<width>{C_W - 32}</width>
+					<height>62</height>
+					<font>{tt_font}</font>
+					<textcolor>ink</textcolor>
+					<label>$VAR[Accordion_Title]</label>
+				</control>
+				<control type="label">
+					<left>18</left>
+					<top>{C_H - 52}</top>
+					<width>{C_W - 34}</width>
+					<height>36</height>
+					<font>numr_20</font>
+					<textcolor>cap</textcolor>
+					<label>$VAR[Shelf_FootR]</label>
+				</control>
+				<control type="label">
+					<left>18</left>
+					<top>{C_H - 52}</top>
+					<width>{C_W - 34}</width>
+					<height>36</height>
+					<align>right</align>
+					<font>numr_20</font>
+					<textcolor>cap</textcolor>
+					<label>$VAR[Concertina_State]</label>
+				</control>{shade}
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>{C_W}</width>
+					<height>{C_H}</height>
+					<texture border="4">fold/pnl_hl.png</texture>
+				</control>
+			</control>"""
+
+
+ACC_CONTENT = "Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)"
+
+
+def accordion_view():
+    return f"""
+	<include name="VidView_509_Accordion">
+		<control type="group">
+			<visible>Control.IsVisible(509)</visible>
+			<control type="group">
+				<animation type="Visible" condition="!{RM}">
+					<effect type="zoom" start="12,100" end="100,100" center="{A_X0},{C_TOP + C_H // 2}" time="380" tween="cubic" easing="out"/>
+					<effect type="fade" start="0" end="100" time="140"/>
+				</animation>
+				<animation type="WindowOpen" condition="!{RM}">
+					<effect type="zoom" start="12,100" end="100,100" center="{A_X0},{C_TOP + C_H // 2}" time="380" tween="cubic" easing="out"/>
+					<effect type="fade" start="0" end="100" time="140"/>
+				</animation>
+				<control type="list" id="509">
+					<left>{A_X0}</left>
+					<top>{C_LIST_TOP}</top>
+					<width>{1920 - A_X0}</width>
+					<height>{C_LIST_H}</height>
+					<orientation>horizontal</orientation>
+					<preloaditems>2</preloaditems>
+					<scrolltime tween="cubic" easing="out">260</scrolltime>
+					<onup>9000</onup>
+					<ondown>noop</ondown>
+					<onleft>ActivateWindow(1155)</onleft>
+					<onright>ActivateWindow(1155)</onright>
+					<onback condition="$EXP[Lib_AtRoot]">9398</onback>
+					<viewtype label="Zigzag">bigwrap</viewtype>
+					<visible>{ACC_CONTENT}</visible>
+					<itemlayout width="{C_SLOT}" height="{C_LIST_H}">{acc_panel(False)}
+					</itemlayout>
+					<focusedlayout width="{C_FSLOT}" height="{C_LIST_H}">{acc_panel(True)}
+					</focusedlayout>
+				</control>
+				<control type="image">
+					<left>{A_X0}</left>
+					<top>{C_TOP + C_H - 6}</top>
+					<width>{1920 - A_X0}</width>
+					<height>12</height>
+					<texture colordiffuse="40281e14">fold/score.png</texture>
+				</control>
+			</control>
+			<!-- the focused title -->
+			<control type="group">
+				<left>96</left>
+				<top>742</top>
+				<visible>Integer.IsGreater(Container.NumItems,0)</visible>
+				<control type="label">
+					<left>0</left>
+					<top>-8</top>
+					<width>1728</width>
+					<height>66</height>
+					<font>head_50</font>
+					<textcolor>ink</textcolor>
+					<label>$VAR[Accordion_Head]</label>
+				</control>
+				<control type="textbox" id="9373">
+					<left>0</left>
+					<top>70</top>
+					<width>1240</width>
+					<height>{37 * 3}</height>
+					<font>body_26</font>
+					<textcolor>body</textcolor>
+					<label>$VAR[Accordion_Plot]</label>
+				</control>
+				<include content="Fold_PlotEllipsis"><param name="id" value="9373"/><param name="right" value="1240"/><param name="top" value="{70 + 37 * 2}"/><param name="pitch" value="37"/><param name="font" value="body_26"/></include>
+				<control type="label">
+					<left>0</left>
+					<top>196</top>
+					<width>1728</width>
+					<height>32</height>
+					<font>caps_20</font>
+					<textcolor>cap</textcolor>
+					<label>$VAR[Accordion_Facts]</label>
+				</control>
+			</control>
+			<control type="grouplist">
+				<left>96</left>
+				<top>1012</top>
+				<width>1700</width>
+				<height>32</height>
+				<orientation>horizontal</orientation>
+				<itemgap>0</itemgap>
+				<include content="Fold_KeyHint"><param name="key" value="OK"/><param name="label" value="$VAR[Accordion_OK]"/></include>
+				<include content="Fold_KeyHint"><param name="key" value="← →"/><param name="label" value="Along the strip"/></include>
+				<include content="Fold_KeyHint"><param name="key" value="BACK"/><param name="label" value="Fold it closed"/></include>
+			</control>
+		</control>
+	</include>"""
+
+
+ACC_VARS = """
+	<!-- 0.9.16 Accordion 509 -->
+	<variable name="Accordion_Num">
+		<value condition="ListItem.IsParentFolder">←</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(ListItem.Property(Total))">$INFO[ListItem.Property(Total)]</value>
+		<value>$INFO[ListItem.Year]</value>
+	</variable>
+	<variable name="Accordion_Title">
+		<value condition="ListItem.IsParentFolder">Up a level</value>
+		<value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+	<variable name="Accordion_PlateTitle">
+		<value condition="ListItem.IsParentFolder"></value>
+		<value>$VAR[Accordion_Title]</value>
+	</variable>
+	<variable name="Accordion_Head">
+		<value condition="ListItem.IsParentFolder">Up a level</value>
+		<value>$VAR[Accordion_Title]</value>
+	</variable>
+	<variable name="Accordion_Plot">
+		<value condition="ListItem.IsParentFolder">OK goes up one level.</value>
+		<value>$INFO[ListItem.Plot]</value>
+	</variable>
+	<variable name="Accordion_Facts">
+		<value condition="ListItem.IsParentFolder"></value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]  ·  1 season$INFO[ListItem.Property(TotalEpisodes),  ·  , episodes]$INFO[ListItem.Property(UnWatchedEpisodes),  ·  , unwatched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]$INFO[ListItem.Property(TotalSeasons),  ·  , seasons]$INFO[ListItem.Property(TotalEpisodes),  ·  , episodes]$INFO[ListItem.Property(UnWatchedEpisodes),  ·  , unwatched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total),  ·  , films]$INFO[ListItem.Property(Watched),  ·  , watched]</value>
+		<value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),  ·  , min]$INFO[ListItem.Genre,  ·  ,]$INFO[ListItem.Director,  ·  ,]</value>
+		<value>$INFO[ListItem.Genre]</value>
+	</variable>
+	<variable name="Accordion_OK">
+		<value condition="ListItem.IsParentFolder">Up a level</value>
+		<value condition="ListItem.IsFolder">Open</value>
+		<value>Play</value>
+	</variable>"""
+
+
 # ------------------------------------------------------------------------------------------ seasons
 def season_card(focused):
     w, h = (SHELF_LIFT_W, SHELF_LIFT_H) if focused else (SHELF_CARD_W, SHELF_CARD_H)
@@ -953,6 +1274,7 @@ def build():
 		<value condition="Control.IsVisible(505)">View: leaflet</value>
 		<value condition="Control.IsVisible(506)">View: prints</value>
 		<value condition="Control.IsVisible(501)">View: cards</value>
+		<value condition="Control.IsVisible(509)">View: zigzag</value>
 		<value>View: shelf</value>
 	</variable>
 	<!-- the active filter word sits on a pale chip -->
@@ -1089,12 +1411,14 @@ def build():
 		<value>$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes), · , watched]$INFO[ListItem.Year, · ,]</value>
 	</variable>
 {fm.variables()}
+{ACC_VARS}
 {shelf_view()}
 {seasons_view()}
 {concertina_view()}
 {fm.table_view()}
 {fm.leaflet_view()}
 {fm.prints_view()}
+{accordion_view()}
 {header()}
 
 	<include name="VidView_Empty">
@@ -1104,6 +1428,7 @@ def build():
 			<animation effect="slide" start="0,0" end="0,350" time="0" condition="Control.IsVisible(500)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="0,230" time="0" condition="Control.IsVisible(503)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="0,300" time="0" condition="Control.IsVisible(506)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,500" time="0" condition="Control.IsVisible(509)">Conditional</animation>
 			<control type="label">
 				<left>96</left>
 				<top>240</top>
@@ -1135,6 +1460,7 @@ def build():
 		<include>VidView_503_Table</include>
 		<include>VidView_505_Leaflet</include>
 		<include>VidView_506_Prints</include>
+		<include>VidView_509_Accordion</include>
 		<include>View_50_List</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>
@@ -1149,8 +1475,8 @@ def build():
          "<timers>"]
     fix = [("movies", "500"), ("sets", "500"), ("tvshows", "500"), ("musicvideos", "500"), ("seasons", "501"), ("episodes", "502")]
     # 0.9.13: the views each content type offers (a view the user picked must never be undone)
-    valid = {"movies": ["500", "503", "505", "506"], "sets": ["500", "503", "505", "506"],
-             "tvshows": ["500", "503", "505", "506"], "musicvideos": ["500", "503", "505", "506"],
+    valid = {"movies": ["500", "503", "505", "506", "509"], "sets": ["500", "503", "505", "506", "509"],
+             "tvshows": ["500", "503", "505", "506", "509"], "musicvideos": ["500", "503", "505", "506", "509"],
              "seasons": ["501", "503", "505", "506"], "episodes": ["502", "505", "506"]}
     for content, view in fix:
         none_vis = " + ".join(f"!Control.IsVisible({v})" for v in valid[content])
@@ -1170,8 +1496,8 @@ def build():
 	</timer>""")
     t.append(f"""	<timer>
 		<name>fold_view_fix_other</name>
-		<start>Window.IsActive(videos) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(501) + !Control.IsVisible(502) + !Control.IsVisible(503) + !Control.IsVisible(505) + !Control.IsVisible(506) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
-		<stop>Control.IsVisible(500) | Control.IsVisible(501) | Control.IsVisible(502) | Control.IsVisible(503) | Control.IsVisible(505) | Control.IsVisible(506) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
+		<start>Window.IsActive(videos) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Control.IsVisible(500) + !Control.IsVisible(501) + !Control.IsVisible(502) + !Control.IsVisible(503) + !Control.IsVisible(505) + !Control.IsVisible(506) + !Control.IsVisible(509) + !Control.IsVisible(50) + !System.HasActiveModalDialog + !Window.IsVisible(1155) + !Window.IsVisible(1156)</start>
+		<stop>Control.IsVisible(500) | Control.IsVisible(501) | Control.IsVisible(502) | Control.IsVisible(503) | Control.IsVisible(505) | Control.IsVisible(506) | Control.IsVisible(509) | Control.IsVisible(50) | !Window.IsActive(videos)</stop>
 		<onstart>Container.SetViewMode(50)</onstart>
 	</timer>""")
     for content in ("albums", "artists"):

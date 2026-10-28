@@ -13,7 +13,7 @@
 	<menucontrol>9000</menucontrol>
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>
 	<backgroundcolor>paper</backgroundcolor>
-	<views>530,531,50,532</views>
+	<views>530,531,50,532,533</views>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>KS_Page</include>
@@ -21,6 +21,7 @@
 		<include>Music_View_531</include>
 		<include>Music_View_532</include>
 		<include>View_50_List</include>
+		<include>Music_View_533</include>
 		<control type="textbox">
 			<left>112</left>
 			<top>262</top>

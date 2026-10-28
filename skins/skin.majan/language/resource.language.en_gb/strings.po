@@ -740,6 +740,26 @@ msgctxt "#31320"
 msgid "Visualiser presets"
 msgstr ""
 
+msgctxt "#31322"
+msgid "Stills"
+msgstr ""
+
+msgctxt "#31323"
+msgid "Tracklist"
+msgstr ""
+
+msgctxt "#31324"
+msgid "Big still"
+msgstr ""
+
+msgctxt "#31325"
+msgid "Rows"
+msgstr ""
+
+msgctxt "#31326"
+msgid "No."
+msgstr ""
+
 msgctxt "#31330"
 msgid "Main menu"
 msgstr ""

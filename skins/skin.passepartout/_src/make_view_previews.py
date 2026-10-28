@@ -273,6 +273,69 @@ def music_salon():
     b.save("music_salon")
 
 
+def widehang():
+    """503 for films / series: the landscape hang, chosen print 704x396 at 120,174; label left, plot right."""
+    b = Board(513)
+    b.header()
+    b.lift(120, 174, 704, 396)
+    b.print_(120, 174, 704, 396, TONES[5], bevel=10)
+    for k in range(3):
+        b.print_(896 + k * 424, 273, 352, 198)
+    b.bar(120, 628, 420, 14, INK)
+    b.bar(120, 664, 300, 40, INK)
+    b.bar(120, 800, 360, 14, INK2)
+    b.bar(120, 838, 520, 16, INK2)
+    b.rule(904, 596, 896)
+    for k in range(3):
+        b.bar(904, 636 + k * 40, 896 if k < 2 else 540, 14, (90, 87, 82))
+    b.save("widehang")
+
+
+def printroom():
+    """507: 4 x 3 landscape prints 352x198 (pitch 432 x 300) from 98,118, a label under each; one chosen."""
+    b = Board(507)
+    b.header()
+    fx, fy = 1, 0
+    for r in range(3):
+        for c in range(4):
+            x, y = 98 + c * 432 + 40, 118 + r * 300 + 22
+            b.bar(x, y + 222, 240, 16, INK)
+            b.bar(x, y + 252, 170, 12, INK2)
+            if (c, r) == (fx, fy):
+                continue
+            b.print_(x, y, 352, 198, title=False)
+    x, y = 98 + fx * 432 + 40, 118 + fy * 300 + 22
+    w, h = int(352 * 1.08), int(198 * 1.08)
+    cx, cy = x + 176, y + 99
+    b.lift(cx - w // 2, cy - h // 2, w, h)
+    b.print_(cx - w // 2, cy - h // 2, w, h, TONES[1], title=False)
+    b.save("printroom")
+
+
+def music_tracklist():
+    """508: caps column head at y 132 over a rule, rows of 66 from 120,174 (1680 wide), the focused row the placard."""
+    b = Board(508)
+    b.header(words=(81, 103, 105, 86, 99, 81))
+    for x, w in ((144, 34), (220, 70), (844, 80), (1248, 70), (1612, 50), (1716, 60)):
+        b.bar(x, 138, w, 14, INK2)
+    b.rule(120, 172, 1680, RULE, 3)
+    for k in range(11):
+        y = 174 + k * 66
+        if k == 2:
+            b.bar(120, y, 1680, 66, INK)
+            for x, w in ((144, 30), (220, 360), (844, 220), (1248, 200), (1612, 48), (1716, 60)):
+                b.bar(x, y + 26, w, 14, (238, 234, 227))
+            continue
+        b.rule(120, y + 64, 1680, (222, 217, 209), 3)
+        b.bar(144, y + 26, 30, 14, INK3)
+        b.bar(220, y + 24, self_w(k), 16, INK)
+        b.bar(844, y + 26, self_w(k + 1) * 2 // 3, 14, INK2)
+        b.bar(1248, y + 26, self_w(k) // 2, 14, INK2)
+        b.bar(1612, y + 26, 48, 14, INK3)
+        b.bar(1716, y + 26, 60, 14, INK3)
+    b.save("music_tracklist")
+
+
 if __name__ == "__main__":
     hang()
     salon()
@@ -283,3 +346,6 @@ if __name__ == "__main__":
     listview(square=True)
     music_hang()
     music_salon()
+    widehang()
+    printroom()
+    music_tracklist()

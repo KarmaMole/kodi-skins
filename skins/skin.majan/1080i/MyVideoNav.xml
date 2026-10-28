@@ -4,6 +4,10 @@
 	Includes: Includes_Views_Video.xml (VidView_*), View_50_List from Includes_Views.xml.
 
 	Kodi id contract (Estuary Omega MyVideoNav.xml + CGUIWindowVideoNav, Omega source):
+	  1.0.18: <views> reordered 502,500,503,501,50,506,507 (every view is typed "list", so a node's default is the FIRST
+	  visible one; saved views match by id + type, so the order changes no saved view). With the widened views this
+	  keeps every default: movies / sets 500, tvshows / seasons 502, episodes 503, genres / years / people / files 50.
+	  507 Stills (wide grid) is new and last. Before 1.0.18:
 	  <views> containers 500/501/502/503/50 + 506 Poster wall appended LAST (Includes_Wall.xml, generated) (first visible one is the default for a new node, so
 	  movies/sets open in 500, tvshows/seasons in 502, episodes in 503, everything else in 50);
 	  menucontrol 9000 (header filter bar); 3 sort-by / 4 sort-order (hidden buttons the bar clicks);
@@ -17,7 +21,7 @@
 	<defaultcontrol always="true">50</defaultcontrol>
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>bg</backgroundcolor>
-	<views>500,501,502,503,50,506</views>
+	<views>502,500,503,501,50,506,507</views>
 	<onload condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.Blur.SourceImage,Art(fanart)|Art(tvshow.fanart)|Art(poster)|Art(tvshow.poster)|Art(thumb),Home)</onload>
 	<!-- empty folder: Kodi can't focus an empty view, so land on the header bar instead -->
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>

@@ -8,6 +8,7 @@
 	  522 series        tv shows: poster prints with "4 of 10 watched"
 	  523 seasons       a row of season prints under the show's title
 	  524 episodes      a strip of small prints stamped with when you watched each, the focused episode below
+	                    (0.9.15: films, sets, series, music videos too, as poster prints six to the strip)
 	  50  list          everything else (genres, years, files): rows on the left page, the print on the right
 	Header (VidView_Header): handwritten page title, DM Mono label line, option words (grouplist 9000),
 	LCD clock. Diary / films: the other page's word ("the unwatched" / "the diary").
@@ -867,7 +868,22 @@
 				<include>Lib_OpenLeft</include>
 				<include>Lib_OpenRight</include>
 				<viewtype label="31389">list</viewtype>
-				<visible>Container.Content(episodes)</visible>
+				<visible>Container.Content(episodes) | $EXP[KSV_IsFilmsTV]</visible>
+				<!-- 0.9.15 films / sets / series / music videos: poster prints, six to the strip (1614 = 6 x 269) -->
+				<itemlayout width="269" height="380" condition="!Container.Content(episodes)">
+					<include content="VidView_StripPosterPrint">
+						<param name="dim" value="$VAR[VidView_EpDim]"/>
+						<param name="lift" value="false"/>
+						<param name="focused" value="false"/>
+					</include>
+				</itemlayout>
+				<focusedlayout width="269" height="380" condition="!Container.Content(episodes)">
+					<include content="VidView_StripPosterPrint">
+						<param name="dim" value="white"/>
+						<param name="lift" value="Control.HasFocus(524)"/>
+						<param name="focused" value="true"/>
+					</include>
+				</focusedlayout>
 				<itemlayout width="404" height="380">
 					<include content="VidView_EpisodePrint">
 						<param name="dim" value="$VAR[VidView_EpDim]"/>
@@ -953,6 +969,35 @@
 			</control>
 		</control>
 	</include>
+	<!-- 0.9.15: a poster print in the strip (PosterM 200 x 300 -> 224 x 324), stamped with when you last watched it -->
+	<include name="VidView_StripPosterPrint">
+		<definition>
+			<include content="KSV_BackWord">
+				<param name="left" value="22"/><param name="top" value="28"/><param name="width" value="224"/><param name="height" value="324"/>
+			</include>
+			<control type="group">
+				<left>22</left>
+				<top>28</top>
+				<width>224</width>
+				<height>324</height>
+				<visible>!ListItem.IsParentFolder</visible>
+				<include>KS_TiltItem</include>
+				<control type="group">
+					<width>224</width>
+					<height>324</height>
+					<include condition="$PARAM[focused]">KS_TiltFocus</include>
+					<include content="KS_Print_PosterM">
+						<param name="art" value="$VAR[KS_PosterArt]"/>
+						<param name="dim" value="$PARAM[dim]"/>
+						<param name="stamp" value="$VAR[KS_LP_Stamp]"/>
+						<param name="stamped" value="Integer.IsGreater(ListItem.PlayCount,0) + !String.IsEmpty(ListItem.LastPlayed)"/>
+						<param name="lift" value="$PARAM[lift]"/>
+						<param name="title" value="$INFO[ListItem.Label]"/>
+					</include>
+				</control>
+			</control>
+		</definition>
+	</include>
 	<include name="VidView_EpisodePrint">
 		<definition>
 			<control type="label">
@@ -1012,9 +1057,17 @@
 		<value>$INFO[ListItem.Duration(mins),, min]</value>
 	</variable>
 	<variable name="VidView_EpKicker">
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]  ·  1 season$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]$INFO[ListItem.Property(TotalSeasons),  ·  , seasons]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),  ·  , min]$INFO[ListItem.Genre,  ·  ,]$INFO[ListItem.Director,  ·  ,]</value>
 		<value>$INFO[ListItem.TVShowTitle]$INFO[ListItem.Season,  ·  season ,]$INFO[ListItem.Episode,  ·  episode ,]$INFO[ListItem.Premiered,  ·  aired ,]</value>
 	</variable>
 	<variable name="VidView_EpHistory">
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(WatchedEpisodes),0)">$INFO[ListItem.Property(TotalEpisodes)] episodes, none seen yet.</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEqual(ListItem.Property(WatchedEpisodes),ListItem.Property(TotalEpisodes))">All $INFO[ListItem.Property(TotalEpisodes)] episodes seen.</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)] episodes seen.</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Watched)] of $INFO[ListItem.Property(Total)] films seen.</value>
 		<value condition="ListItem.IsResumable">You stopped $VAR[KS_MinutesIn] $VAR[KS_LP_Rel].</value>
 		<value condition="Integer.IsGreater(ListItem.PlayCount,1)">Watched $INFO[ListItem.PlayCount] times, last on $VAR[KS_LP_LongY].</value>
 		<value condition="Integer.IsGreater(ListItem.PlayCount,0) + !String.IsEmpty(ListItem.LastPlayed)">Watched on $VAR[KS_LP_LongY].</value>
@@ -1071,6 +1124,7 @@
 		<include>VidView_524_Episodes</include>
 		<include>VidView_525_Page</include>
 		<include>VidView_526_Postcards</include>
+		<include>VidView_527_Sheet</include>
 		<include>View_50_List</include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>

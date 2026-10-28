@@ -652,12 +652,18 @@
 	<!-- Cover wall 500 (albums, artists), Crate dig 501, Shelf 502, Orbit 503 (albums), List 50 (everything).
 	     The opener focuses the view on show: its absolute index among the items visible for this content. -->
 	<include name="Lib_PickFocusMusic">
-		<onclick condition="Control.IsVisible(501)">SetFocus(9851,1,absolute)</onclick>
-		<onclick condition="Control.IsVisible(502)">SetFocus(9851,2,absolute)</onclick>
-		<onclick condition="Control.IsVisible(503)">SetFocus(9851,3,absolute)</onclick>
+		<onclick condition="Control.IsVisible(500) + Container.Content(albums)">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(501) + Container.Content(albums)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(502) + Container.Content(albums)">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="Control.IsVisible(503) + Container.Content(albums)">SetFocus(9851,3,absolute)</onclick>
 		<onclick condition="Control.IsVisible(50) + Container.Content(albums)">SetFocus(9851,4,absolute)</onclick>
-		<onclick condition="Control.IsVisible(50) + Container.Content(artists)">SetFocus(9851,1,absolute)</onclick>
-		<onclick condition="Control.IsVisible(500) | [Control.IsVisible(50) + !Container.Content(albums) + !Container.Content(artists)]">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(500) + Container.Content(artists)">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(503) + Container.Content(artists)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + Container.Content(artists)">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="Control.IsVisible(500) + Container.Content(songs)">SetFocus(9851,0,absolute)</onclick>
+		<onclick condition="Control.IsVisible(503) + Container.Content(songs)">SetFocus(9851,1,absolute)</onclick>
+		<onclick condition="Control.IsVisible(50) + Container.Content(songs)">SetFocus(9851,2,absolute)</onclick>
+		<onclick condition="!Container.Content(albums) + !Container.Content(artists) + !Container.Content(songs)">SetFocus(9851,0,absolute)</onclick>
 	</include>
 	<include name="Lib_PickerMusic">
 		<include content="Lib_PickerItemLayout">
@@ -670,7 +676,7 @@
 				<property name="view">v500</property>
 				<onclick>Container.SetViewMode(500)</onclick>
 				<onclick>SetFocus(50)</onclick>
-				<visible>Container.Content(albums) | Container.Content(artists)</visible>
+				<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>
 			</item>
 			<item>
 				<label>$LOCALIZE[31602]</label>
@@ -694,7 +700,7 @@
 				<property name="view">v503</property>
 				<onclick>Container.SetViewMode(503)</onclick>
 				<onclick>SetFocus(50)</onclick>
-				<visible>Container.Content(albums)</visible>
+				<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>
 			</item>
 			<item>
 				<label>$LOCALIZE[535]</label>

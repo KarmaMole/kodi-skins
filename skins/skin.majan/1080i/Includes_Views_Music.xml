@@ -127,6 +127,7 @@
 				<include condition="$PARAM[focused]">Music_BigFocusUnderlay</include>
 				<include content="Music_Cover">
 					<param name="mask_round" value="masks/square_round8_large.png"/>
+					<param name="title" value="$VAR[Music_SongTitle]"/>
 					<param name="parent_icon" value="64"/>
 					<param name="parent_caption" value="true"/>
 				</include>
@@ -153,7 +154,8 @@
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<preloaditems>2</preloaditems>
 			<viewtype label="31313">wrap</viewtype>
-			<visible>Container.Content(albums)</visible>
+			<!-- 1.0.18: artists (their photo, fanart stage) and songs (the album cover) too -->
+			<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>
 			<include>Anim_FadeVisible</include>
 			<itemlayout width="408" height="668">
 				<include content="Music_BigItem">
@@ -269,7 +271,7 @@
 					<height>84</height>
 					<font>display_72</font>
 					<textcolor>text_primary</textcolor>
-					<label>$INFO[Container(505).ListItem.Label]</label>
+					<label>$VAR[Music_BigTitle]</label>
 				</control>
 				<control type="grouplist">
 					<left>0</left>
@@ -284,7 +286,7 @@
 						<height>40</height>
 						<font>title_28_semibold</font>
 						<textcolor>text_primary</textcolor>
-						<label>$INFO[Container(505).ListItem.Artist]</label>
+						<label>$VAR[Music_BigSubline]</label>
 					</control>
 					<control type="label">
 						<top>4</top>
@@ -302,7 +304,7 @@
 					<height>26</height>
 					<font>mono_13</font>
 					<textcolor>text_tertiary</textcolor>
-					<label>$INFO[Container(505).ListItem.Genre]</label>
+					<label>$VAR[Music_BigFootline]</label>
 				</control>
 			</control>
 		</control>
@@ -341,6 +343,213 @@
 				<param name="onright" value="ActivateWindow(1155)"/>
 			</include>
 			<include>Music_ListPanel</include>
+		</control>
+	</include>
+
+	<!-- ============================================================== 508 Tracklist -->
+	<!-- Tracklist (1.0.18): songs as a full-width table under a mono column head: No. | Title | Artist | Album |
+	     Year | Time, 11 rows of 66 (hairlines, the focused row raised with the accent bar, as the list), nothing
+	     beside it. The track number is the song's own (a row index would count ".."). -->
+	<include name="Music_TrackRow">
+		<param name="focused">false</param>
+		<definition>
+			<control type="label">
+				<left>list_text_x</left>
+				<top>0</top>
+				<width>60</width>
+				<height>66</height>
+				<font>num_16</font>
+				<textcolor>text_tertiary</textcolor>
+				<label>[UPPERCASE]$INFO[ListItem.TrackNumber][/UPPERCASE]</label>
+				<visible>!ListItem.IsPlaying + !ListItem.IsParentFolder</visible>
+			</control>
+			<control type="label">
+				<left>list_text_x</left>
+				<top>0</top>
+				<width>60</width>
+				<height>66</height>
+				<font>num_16</font>
+				<textcolor>$VAR[ColorAccent]</textcolor>
+				<label>▶</label>
+				<visible>ListItem.IsPlaying</visible>
+			</control>
+			<control type="label">
+				<left>100</left>
+				<top>0</top>
+				<width>600</width>
+				<height>66</height>
+				<font>label_25_semibold</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$VAR[Music_SongTitle]</label>
+				<visible>!$PARAM[focused]</visible>
+			</control>
+			<control type="label">
+				<left>100</left>
+				<top>0</top>
+				<width>600</width>
+				<height>66</height>
+				<font>label_25_bold</font>
+				<textcolor>text_primary</textcolor>
+				<scroll>true</scroll>
+				<label>$VAR[Music_SongTitle]</label>
+				<visible>$PARAM[focused]</visible>
+			</control>
+			<control type="label">
+				<left>724</left>
+				<top>0</top>
+				<width>380</width>
+				<height>66</height>
+				<font>credits_21</font>
+				<textcolor>text_secondary</textcolor>
+				<label>$INFO[ListItem.Artist]</label>
+			</control>
+			<control type="label">
+				<left>1128</left>
+				<top>0</top>
+				<width>380</width>
+				<height>66</height>
+				<font>credits_21</font>
+				<textcolor>text_tertiary</textcolor>
+				<label>$INFO[ListItem.Album]</label>
+			</control>
+			<control type="label">
+				<left>1532</left>
+				<top>0</top>
+				<width>64</width>
+				<height>66</height>
+				<font>num_16</font>
+				<textcolor>text_tertiary</textcolor>
+				<label>$INFO[ListItem.Year]</label>
+			</control>
+			<control type="label">
+				<right>list_text_x</right>
+				<top>0</top>
+				<width>100</width>
+				<height>66</height>
+				<align>right</align>
+				<font>num_16</font>
+				<textcolor>text_tertiary</textcolor>
+				<label>$INFO[ListItem.Duration]</label>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<bottom>0</bottom>
+				<width>page_width</width>
+				<height>rule_h</height>
+				<texture colordiffuse="hairline">common/hairline.png</texture>
+			</control>
+		</definition>
+	</include>
+	<include name="Music_View_508">
+		<control type="group">
+			<visible>Control.IsVisible(508)</visible>
+			<include>Anim_FadeVisible</include>
+			<!-- column head -->
+			<control type="group">
+				<left>page_margin</left>
+				<top>music_list_top</top>
+				<width>page_width</width>
+				<height>40</height>
+				<control type="label">
+					<left>list_text_x</left>
+					<top>0</top>
+					<width>60</width>
+					<height>30</height>
+					<font>mono_13</font>
+					<textcolor>$VAR[ColorCaption]</textcolor>
+					<label>$LOCALIZE[31326]</label>
+				</control>
+				<control type="label">
+					<left>100</left>
+					<top>0</top>
+					<width>600</width>
+					<height>30</height>
+					<font>mono_13</font>
+					<textcolor>$VAR[ColorCaption]</textcolor>
+					<label>$LOCALIZE[369]</label>
+				</control>
+				<control type="label">
+					<left>724</left>
+					<top>0</top>
+					<width>380</width>
+					<height>30</height>
+					<font>mono_13</font>
+					<textcolor>$VAR[ColorCaption]</textcolor>
+					<label>$LOCALIZE[557]</label>
+				</control>
+				<control type="label">
+					<left>1128</left>
+					<top>0</top>
+					<width>380</width>
+					<height>30</height>
+					<font>mono_13</font>
+					<textcolor>$VAR[ColorCaption]</textcolor>
+					<label>$LOCALIZE[558]</label>
+				</control>
+				<control type="label">
+					<left>1532</left>
+					<top>0</top>
+					<width>120</width>
+					<height>30</height>
+					<font>mono_13</font>
+					<textcolor>$VAR[ColorCaption]</textcolor>
+					<label>$LOCALIZE[562]</label>
+				</control>
+				<control type="label">
+					<right>list_text_x</right>
+					<top>0</top>
+					<width>200</width>
+					<height>30</height>
+					<align>right</align>
+					<font>mono_13</font>
+					<textcolor>$VAR[ColorCaption]</textcolor>
+					<label>$INFO[Container(508).CurrentItem]$INFO[Container(508).NumItems, / ,]</label>
+				</control>
+				<include content="Majan_Rule">
+					<param name="top" value="36"/>
+					<param name="left" value="0"/>
+					<param name="width" value="page_width"/>
+					<param name="color" value="$VAR[ColorRuleStrong]"/>
+				</include>
+			</control>
+			<control type="list" id="508">
+				<left>page_margin</left>
+				<top>198</top>
+				<width>page_width</width>
+				<height>726</height>  <!-- 11 rows of 66, ends at 924 above the now-playing bar -->
+				<onup>9000</onup>
+				<ondown>noop</ondown>
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
+				<scrolltime tween="cubic" easing="out">200</scrolltime>
+				<preloaditems>1</preloaditems>
+				<viewtype label="31323">list</viewtype>
+				<visible>Container.Content(songs)</visible>
+				<itemlayout width="page_width" height="66">
+					<include content="Music_TrackRow"/>
+				</itemlayout>
+				<focusedlayout width="page_width" height="66">
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>page_width</width>
+						<height>66</height>
+						<texture colordiffuse="bg_raised">common/white.png</texture>
+						<visible>Control.HasFocus(508)</visible>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>list_bar_w</width>
+						<height>66</height>
+						<texture colordiffuse="$VAR[ColorAccent]">common/white.png</texture>
+						<visible>Control.HasFocus(508)</visible>
+					</control>
+					<include content="Music_TrackRow">
+						<param name="focused" value="true"/>
+					</include>
+				</focusedlayout>
+			</control>
 		</control>
 	</include>
 </includes>

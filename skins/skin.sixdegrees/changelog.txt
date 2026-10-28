@@ -1,3 +1,6 @@
+0.9.19 (2026-10-28)
+- More views in every section. Series can now ride the Line (the show as a station with its facts and story above a line of posters) and be listed in Episodes (poster, seasons and episodes, two lines of the story). Genres, years and people can open in Interchange: the stops down the left, and the films of the focused one hanging on a line through the ring. Songs can now be browsed in the Grid (each song under its cover) and in Interchange (artist fanart or the cover in the ring; artist, album and time below). The view each section opens in is unchanged.
+
 0.9.18 (2026-10-28)
 - Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items). Each one is a word after Music at the top of Home and, when you pick it, a line of its own on the map: a slate line with the add-on's icon as its station and a terminus that names it. OK opens it, Back comes home to it. An empty slot or an uninstalled add-on adds nothing. While custom words fill the top bar, what is playing is named under "Start somewhere".
 

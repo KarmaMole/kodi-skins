@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.groove" version="1.0.7" name="Groove" provider-name="KarmaMole">
+<addon id="skin.groove" version="1.0.8" name="Groove" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required (Omar, 2026-10-21): encodes the Search query for the library paths (get_encoded_string with
@@ -21,7 +21,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#groove</website>
-		<news>v1.0.7 - Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings &gt; Custom menu items).</news>
+		<news>v1.0.8 - More views in every section: the Cover wall for genres, years and people; the Cover wall and Orbit for songs; Orbit for artists.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

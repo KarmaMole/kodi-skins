@@ -252,7 +252,9 @@ def isv(label):
 
 
 # 0.9.16 views (_src/make_views_more.py): a page / scenes (video), a tracklist / portraits (music)
-NAMED = ("a grid", "a wall", "episodes", "a page", "scenes", "a tracklist", "portraits")
+NAMED = ("a grid", "a wall", "episodes", "a page", "scenes", "a tracklist", "portraits", "rows")
+# 0.9.19 (docs/VIEWS_PER_SECTION_2026-10-28.md): rows 509 (films, sets, series, music videos), portraits also songs
+ROWS_V = "[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)]"
 IS_LIST = " + ".join(f"!{isv(n)}" for n in NAMED)
 
 VIEWS = [
@@ -261,13 +263,15 @@ VIEWS = [
     (503, "episodes", "episodes", f"{V} + {EPIS_V}", f"{V} + {isv('episodes')}"),
     (505, "a page", "page", V, f"{V} + {isv('a page')}"),
     (506, "scenes", "scenes", V, f"{V} + {isv('scenes')}"),
+    (509, "rows", "rows", f"{V} + {ROWS_V}", f"{V} + {isv('rows')}"),
     (50, "a list", "list", V, f"{V} + {IS_LIST}"),
     (504, "a grid", "albums", f"{M} + {ALB_V}", f"{M} + {isv('a grid')}"),
-    (508, "portraits", "portraits", f"{M} + {ALB_V}", f"{M} + {isv('portraits')}"),
+    (508, "portraits", "portraits", f"{M} + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)]", f"{M} + {isv('portraits')}"),
     (507, "a tracklist", "tracklist", f"{M} + Container.Content(songs)", f"{M} + {isv('a tracklist')}"),
     (50, "a list", "list_music", M, f"{M} + {IS_LIST}"),
 ]
 # 0.9.16: up to five views for one folder (films / seasons) -> a 3-column panel of one or two rows
+# (0.9.19: films / series offer six: still two rows of three)
 COLS, MAXROWS_PICK = 3, 2
 CARD_W, CARD_H = 360, 268   # slot: 20 + 320 x 180 preview + 8 + bar 4 + name 52
 PRE_W, PRE_H = 320, 180

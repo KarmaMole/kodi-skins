@@ -47,6 +47,7 @@
 	<variable name="Pick_Cur_Spotlight"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31320])">Current</value></variable>
 	<variable name="Pick_Cur_Wide"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31321])">Current</value></variable>
 	<variable name="Pick_Cur_Time"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31322])">Current</value></variable>
+	<variable name="Pick_Cur_Rows"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31329])">Current</value></variable>
 	<variable name="Pick_Cur_List"><value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[535])">Current</value></variable>
 
 	<!-- One preview: seven white-alpha layers tinted with the live mood colours

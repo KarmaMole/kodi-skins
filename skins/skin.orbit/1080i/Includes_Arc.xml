@@ -10559,7 +10559,19 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(2).Label]</label>
-							<visible>!Container($PARAM[id]).ListItemNoWrap(2).IsParentFolder</visible>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(2).IsParentFolder + !String.IsEqual(Container($PARAM[id]).ListItemNoWrap(2).DBType,song)</visible>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>144</width>
+							<height>144</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(2).Title]</label>
+							<visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(2).DBType,song)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -10672,7 +10684,19 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(-2).Label]</label>
-							<visible>!Container($PARAM[id]).ListItemNoWrap(-2).IsParentFolder</visible>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(-2).IsParentFolder + !String.IsEqual(Container($PARAM[id]).ListItemNoWrap(-2).DBType,song)</visible>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>144</width>
+							<height>144</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(-2).Title]</label>
+							<visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(-2).DBType,song)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -10785,7 +10809,19 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(1).Label]</label>
-							<visible>!Container($PARAM[id]).ListItemNoWrap(1).IsParentFolder</visible>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(1).IsParentFolder + !String.IsEqual(Container($PARAM[id]).ListItemNoWrap(1).DBType,song)</visible>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>186</width>
+							<height>186</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(1).Title]</label>
+							<visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(1).DBType,song)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -10898,7 +10934,19 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(-1).Label]</label>
-							<visible>!Container($PARAM[id]).ListItemNoWrap(-1).IsParentFolder</visible>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(-1).IsParentFolder + !String.IsEqual(Container($PARAM[id]).ListItemNoWrap(-1).DBType,song)</visible>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>186</width>
+							<height>186</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(-1).Title]</label>
+							<visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(-1).DBType,song)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -11010,7 +11058,19 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(0).Label]</label>
-							<visible>!Container($PARAM[id]).ListItemNoWrap(0).IsParentFolder</visible>
+							<visible>!Container($PARAM[id]).ListItemNoWrap(0).IsParentFolder + !String.IsEqual(Container($PARAM[id]).ListItemNoWrap(0).DBType,song)</visible>
+						</control>
+						<control type="textbox">
+							<left>12</left>
+							<top>12</top>
+							<width>306</width>
+							<height>306</height>
+							<font>label_20</font>
+							<textcolor>text_secondary</textcolor>
+							<align>center</align>
+							<aligny>center</aligny>
+							<label>$INFO[Container($PARAM[id]).ListItemNoWrap(0).Title]</label>
+							<visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(0).DBType,song)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>

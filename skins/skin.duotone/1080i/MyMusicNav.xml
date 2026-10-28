@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	Music library (DuotoneMusic.dc.html), acid field. Views: 504 Albums wall (albums, artists), 508 Stage (albums,
+	Music library (DuotoneMusic.dc.html), acid field. Views: 504 Albums wall (albums, artists), 508 Stage (albums, songs since 0.9.18,
 	artists), 509 Tracks (songs), 50 List; 508 / 509 in Includes_Views_More.xml (_src/make_views_more.py).
 	Kodi id contract (Estuary Omega MyMusicNav.xml / GUIWindowMusicNav.cpp): views in <views>,
 	menucontrol 9000, 3 sort by, 4 sort order (hidden, clicked by the header tabs).

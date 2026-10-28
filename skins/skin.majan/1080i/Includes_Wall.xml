@@ -78,7 +78,7 @@
 					<onleft>ActivateWindow(1155)</onleft>
 					<onright>ActivateWindow(1155)</onright>
 					<viewtype label="31310">list</viewtype>
-					<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)</visible>
+					<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | $EXP[VidView_IsNameNode]</visible>
 					<itemlayout width="176" height="256" condition="String.IsEqual(Skin.String(majan.wall.size),small) + !Skin.HasSetting(majan.wall.nogap)">
 						<control type="group">
 							<left>0</left>
@@ -87,10 +87,39 @@
 							<height>240</height>
 							<include content="VidView_ArtFallback">
 								<param name="mask" value="masks/poster_round8.png"/>
+								<param name="label_visible" value="String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]"/>
 							</include>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>10</left>
+									<top>12</top>
+									<width>140</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>10</left>
+									<top>40</top>
+									<width>140</width>
+									<height>86</height>
+									<font>card_21_bold</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
+								</control>
+							</control>
 							<include content="VidView_ArtImage">
 								<param name="mask" value="masks/poster_round8.png"/>
 								<param name="color" value="$VAR[Wall_ArtDim]"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImage">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="mask" value="masks/poster_round8.png"/>
+								<param name="color" value="$VAR[Wall_ArtDim]"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="fade" value="0"/>
 							</include>
 							<include content="VidView_Markers"/>
@@ -117,10 +146,39 @@
 							</control>
 							<include content="VidView_ArtFallback">
 								<param name="mask" value="masks/poster_round8.png"/>
+								<param name="label_visible" value="String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]"/>
 							</include>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>10</left>
+									<top>12</top>
+									<width>140</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>10</left>
+									<top>40</top>
+									<width>140</width>
+									<height>86</height>
+									<font>card_21_bold</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
+								</control>
+							</control>
 							<include content="VidView_ArtImage">
 								<param name="mask" value="masks/poster_round8.png"/>
 								<param name="color" value="white"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImage">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="mask" value="masks/poster_round8.png"/>
+								<param name="color" value="white"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="fade" value="0"/>
 							</include>
 							<include content="VidView_Markers"/>
@@ -156,13 +214,41 @@
 									<wrapmultiline>true</wrapmultiline>
 									<aligny>top</aligny>
 									<label>$INFO[ListItem.Label]</label>
-									<visible>String.IsEmpty(ListItem.Art(poster))</visible>
+									<visible>String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]</visible>
+								</control>
+							</control>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>10</left>
+									<top>12</top>
+									<width>140</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>10</left>
+									<top>40</top>
+									<width>140</width>
+									<height>86</height>
+									<font>card_21_bold</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
 								</control>
 							</control>
 							<include content="VidView_ArtImageSquare">
 								<param name="art" value="$INFO[ListItem.Art(poster)]"/>
 								<param name="color" value="$VAR[Wall_ArtDim]"/>
 								<param name="visible" value="true"/>
+								<param name="aspect" value="scale"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImageSquare">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="color" value="$VAR[Wall_ArtDim]"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="aspect" value="scale"/>
 								<param name="fade" value="0"/>
 							</include>
@@ -225,13 +311,41 @@
 									<wrapmultiline>true</wrapmultiline>
 									<aligny>top</aligny>
 									<label>$INFO[ListItem.Label]</label>
-									<visible>String.IsEmpty(ListItem.Art(poster))</visible>
+									<visible>String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]</visible>
+								</control>
+							</control>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>10</left>
+									<top>12</top>
+									<width>140</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>10</left>
+									<top>40</top>
+									<width>140</width>
+									<height>86</height>
+									<font>card_21_bold</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
 								</control>
 							</control>
 							<include content="VidView_ArtImageSquare">
 								<param name="art" value="$INFO[ListItem.Art(poster)]"/>
 								<param name="color" value="white"/>
 								<param name="visible" value="true"/>
+								<param name="aspect" value="scale"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImageSquare">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="color" value="white"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="aspect" value="scale"/>
 								<param name="fade" value="0"/>
 							</include>
@@ -288,10 +402,39 @@
 							<height>339</height>
 							<include content="VidView_ArtFallback">
 								<param name="mask" value="masks/poster_round8_wall.png"/>
+								<param name="label_visible" value="String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]"/>
 							</include>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>12</left>
+									<top>14</top>
+									<width>202</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>12</left>
+									<top>42</top>
+									<width>202</width>
+									<height>110</height>
+									<font>title_28_bold</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
+								</control>
+							</control>
 							<include content="VidView_ArtImage">
 								<param name="mask" value="masks/poster_round8_wall.png"/>
 								<param name="color" value="$VAR[Wall_ArtDim]"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImage">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="mask" value="masks/poster_round8_wall.png"/>
+								<param name="color" value="$VAR[Wall_ArtDim]"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="fade" value="0"/>
 							</include>
 							<include content="VidView_Markers"/>
@@ -318,10 +461,39 @@
 							</control>
 							<include content="VidView_ArtFallback">
 								<param name="mask" value="masks/poster_round8_wall.png"/>
+								<param name="label_visible" value="String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]"/>
 							</include>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>12</left>
+									<top>14</top>
+									<width>202</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>12</left>
+									<top>42</top>
+									<width>202</width>
+									<height>110</height>
+									<font>title_28_bold</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
+								</control>
+							</control>
 							<include content="VidView_ArtImage">
 								<param name="mask" value="masks/poster_round8_wall.png"/>
 								<param name="color" value="white"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImage">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="mask" value="masks/poster_round8_wall.png"/>
+								<param name="color" value="white"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="fade" value="0"/>
 							</include>
 							<include content="VidView_Markers"/>
@@ -357,13 +529,41 @@
 									<wrapmultiline>true</wrapmultiline>
 									<aligny>top</aligny>
 									<label>$INFO[ListItem.Label]</label>
-									<visible>String.IsEmpty(ListItem.Art(poster))</visible>
+									<visible>String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]</visible>
+								</control>
+							</control>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>12</left>
+									<top>14</top>
+									<width>216</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>12</left>
+									<top>42</top>
+									<width>216</width>
+									<height>110</height>
+									<font>title_28_bold</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
 								</control>
 							</control>
 							<include content="VidView_ArtImageSquare">
 								<param name="art" value="$INFO[ListItem.Art(poster)]"/>
 								<param name="color" value="$VAR[Wall_ArtDim]"/>
 								<param name="visible" value="true"/>
+								<param name="aspect" value="scale"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImageSquare">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="color" value="$VAR[Wall_ArtDim]"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="aspect" value="scale"/>
 								<param name="fade" value="0"/>
 							</include>
@@ -426,13 +626,41 @@
 									<wrapmultiline>true</wrapmultiline>
 									<aligny>top</aligny>
 									<label>$INFO[ListItem.Label]</label>
-									<visible>String.IsEmpty(ListItem.Art(poster))</visible>
+									<visible>String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]</visible>
+								</control>
+							</control>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>12</left>
+									<top>14</top>
+									<width>216</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>12</left>
+									<top>42</top>
+									<width>216</width>
+									<height>110</height>
+									<font>title_28_bold</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
 								</control>
 							</control>
 							<include content="VidView_ArtImageSquare">
 								<param name="art" value="$INFO[ListItem.Art(poster)]"/>
 								<param name="color" value="white"/>
 								<param name="visible" value="true"/>
+								<param name="aspect" value="scale"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImageSquare">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="color" value="white"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="aspect" value="scale"/>
 								<param name="fade" value="0"/>
 							</include>
@@ -489,10 +717,39 @@
 							<height>450</height>
 							<include content="VidView_ArtFallback">
 								<param name="mask" value="masks/poster_round8_large.png"/>
+								<param name="label_visible" value="String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]"/>
 							</include>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>16</left>
+									<top>18</top>
+									<width>268</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>16</left>
+									<top>46</top>
+									<width>268</width>
+									<height>134</height>
+									<font>header_34</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
+								</control>
+							</control>
 							<include content="VidView_ArtImage">
 								<param name="mask" value="masks/poster_round8_large.png"/>
 								<param name="color" value="$VAR[Wall_ArtDim]"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImage">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="mask" value="masks/poster_round8_large.png"/>
+								<param name="color" value="$VAR[Wall_ArtDim]"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="fade" value="0"/>
 							</include>
 							<include content="VidView_Markers"/>
@@ -519,10 +776,39 @@
 							</control>
 							<include content="VidView_ArtFallback">
 								<param name="mask" value="masks/poster_round8_large.png"/>
+								<param name="label_visible" value="String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]"/>
 							</include>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>16</left>
+									<top>18</top>
+									<width>268</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>16</left>
+									<top>46</top>
+									<width>268</width>
+									<height>134</height>
+									<font>header_34</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
+								</control>
+							</control>
 							<include content="VidView_ArtImage">
 								<param name="mask" value="masks/poster_round8_large.png"/>
 								<param name="color" value="white"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImage">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="mask" value="masks/poster_round8_large.png"/>
+								<param name="color" value="white"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="fade" value="0"/>
 							</include>
 							<include content="VidView_Markers"/>
@@ -558,13 +844,41 @@
 									<wrapmultiline>true</wrapmultiline>
 									<aligny>top</aligny>
 									<label>$INFO[ListItem.Label]</label>
-									<visible>String.IsEmpty(ListItem.Art(poster))</visible>
+									<visible>String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]</visible>
+								</control>
+							</control>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>16</left>
+									<top>18</top>
+									<width>288</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>16</left>
+									<top>46</top>
+									<width>288</width>
+									<height>134</height>
+									<font>header_34</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
 								</control>
 							</control>
 							<include content="VidView_ArtImageSquare">
 								<param name="art" value="$INFO[ListItem.Art(poster)]"/>
 								<param name="color" value="$VAR[Wall_ArtDim]"/>
 								<param name="visible" value="true"/>
+								<param name="aspect" value="scale"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImageSquare">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="color" value="$VAR[Wall_ArtDim]"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="aspect" value="scale"/>
 								<param name="fade" value="0"/>
 							</include>
@@ -627,13 +941,41 @@
 									<wrapmultiline>true</wrapmultiline>
 									<aligny>top</aligny>
 									<label>$INFO[ListItem.Label]</label>
-									<visible>String.IsEmpty(ListItem.Art(poster))</visible>
+									<visible>String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]</visible>
+								</control>
+							</control>
+							<control type="group">
+								<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+								<control type="label">
+									<left>16</left>
+									<top>18</top>
+									<width>288</width>
+									<height>20</height>
+									<font>mono_14</font>
+									<textcolor>$VAR[ColorAccent]</textcolor>
+									<label>$VAR[VidView_StillKind]</label>
+								</control>
+								<control type="textbox">
+									<left>16</left>
+									<top>46</top>
+									<width>288</width>
+									<height>134</height>
+									<font>header_34</font>
+									<textcolor>text_primary</textcolor>
+									<label>$INFO[ListItem.Label]</label>
 								</control>
 							</control>
 							<include content="VidView_ArtImageSquare">
 								<param name="art" value="$INFO[ListItem.Art(poster)]"/>
 								<param name="color" value="white"/>
 								<param name="visible" value="true"/>
+								<param name="aspect" value="scale"/>
+								<param name="fade" value="0"/>
+							</include>
+							<include content="VidView_ArtImageSquare">
+								<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+								<param name="color" value="white"/>
+								<param name="visible" value="$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"/>
 								<param name="aspect" value="scale"/>
 								<param name="fade" value="0"/>
 							</include>
@@ -690,7 +1032,7 @@
 				<top>0</top>
 				<width>688</width>
 				<height>240</height>
-				<visible>Control.HasFocus(506) + String.IsEqual(Skin.String(majan.wall.size),small) + !Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder</visible>
+				<visible>Control.HasFocus(506) + String.IsEqual(Skin.String(majan.wall.size),small) + !Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode]</visible>
 				<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 				<animation effect="slide" start="0,0" end="176,0" time="0" condition="Container(506).Column(0)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="352,0" time="0" condition="Container(506).Column(1)">Conditional</animation>
@@ -767,7 +1109,7 @@
 				<top>0</top>
 				<width>640</width>
 				<height>240</height>
-				<visible>Control.HasFocus(506) + String.IsEqual(Skin.String(majan.wall.size),small) + Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder</visible>
+				<visible>Control.HasFocus(506) + String.IsEqual(Skin.String(majan.wall.size),small) + Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode]</visible>
 				<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 				<animation effect="slide" start="0,0" end="160,0" time="0" condition="Container(506).Column(0)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="320,0" time="0" condition="Container(506).Column(1)">Conditional</animation>
@@ -845,7 +1187,7 @@
 				<top>0</top>
 				<width>710</width>
 				<height>339</height>
-				<visible>Control.HasFocus(506) + !String.IsEqual(Skin.String(majan.wall.size),small) + !String.IsEqual(Skin.String(majan.wall.size),large) + !Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder</visible>
+				<visible>Control.HasFocus(506) + !String.IsEqual(Skin.String(majan.wall.size),small) + !String.IsEqual(Skin.String(majan.wall.size),large) + !Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode]</visible>
 				<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 				<animation effect="slide" start="0,0" end="242,0" time="0" condition="Container(506).Column(0)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="484,0" time="0" condition="Container(506).Column(1)">Conditional</animation>
@@ -929,7 +1271,7 @@
 				<top>0</top>
 				<width>720</width>
 				<height>360</height>
-				<visible>Control.HasFocus(506) + !String.IsEqual(Skin.String(majan.wall.size),small) + !String.IsEqual(Skin.String(majan.wall.size),large) + Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder</visible>
+				<visible>Control.HasFocus(506) + !String.IsEqual(Skin.String(majan.wall.size),small) + !String.IsEqual(Skin.String(majan.wall.size),large) + Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode]</visible>
 				<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 				<animation effect="slide" start="0,0" end="240,0" time="0" condition="Container(506).Column(0)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="480,0" time="0" condition="Container(506).Column(1)">Conditional</animation>
@@ -1012,7 +1354,7 @@
 				<top>0</top>
 				<width>624</width>
 				<height>450</height>
-				<visible>Control.HasFocus(506) + String.IsEqual(Skin.String(majan.wall.size),large) + !Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder</visible>
+				<visible>Control.HasFocus(506) + String.IsEqual(Skin.String(majan.wall.size),large) + !Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode]</visible>
 				<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 				<animation effect="slide" start="0,0" end="324,0" time="0" condition="Container(506).Column(0)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="648,0" time="0" condition="Container(506).Column(1)">Conditional</animation>
@@ -1120,7 +1462,7 @@
 				<top>0</top>
 				<width>640</width>
 				<height>480</height>
-				<visible>Control.HasFocus(506) + String.IsEqual(Skin.String(majan.wall.size),large) + Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder</visible>
+				<visible>Control.HasFocus(506) + String.IsEqual(Skin.String(majan.wall.size),large) + Skin.HasSetting(majan.wall.nogap) + [[String.IsEqual(Skin.String(majan.wall.overlay),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(majan.wall.overlay),2) + System.IdleTime(2)]] + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode]</visible>
 				<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 				<animation effect="slide" start="0,0" end="320,0" time="0" condition="Container(506).Column(0)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="640,0" time="0" condition="Container(506).Column(1)">Conditional</animation>

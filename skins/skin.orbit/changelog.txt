@@ -1,3 +1,6 @@
+0.9.19 (2026-10-28)
+- More views in every section: Episodes (the dial list with a wide picture and its details) now also browses films, series, sets and music videos; Grid also shows genres as name cards; the music Grid and Horizon now also show songs. Films and series offer six views, genres three, songs three.
+
 0.9.18 (2026-10-28)
 - Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items). They join the Home dial after Music and before Search and Settings; OK or Right opens one, Back comes home to it. An empty slot isn't on the dial at all, and an item whose add-on is uninstalled leaves it.
 

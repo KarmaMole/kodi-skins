@@ -16,6 +16,11 @@ the focused item alone in full colour with the 8 px ink frame, Anton type, 8 px 
                a strip of square cover prints underneath (the d-pad moves along the strip).
   509 Tracks   songs: 72 px rows with Anton numerals, title, artist / album, time; focused row = ink bar; the
                focused song's cover as a print in the right column.
+0.9.18 (docs/VIEWS_PER_SECTION_2026-10-28.md):
+  510 Rows     films, sets, series, music videos: 160 px rows, a 256 x 144 wide print (a poster kept whole on the ink
+               block), the Anton title, a meta line in the section colour and two lines of plot; the focused row is
+               the ink bar with the print in full colour (Tracks' language). Typed biglist, last in <views>.
+  508 Stage    now also songs (the artist's fanart band, the song title in Anton, a strip of the songs' covers).
 viewtypes: Kodi's defaults ask for list / icon / big icon / info (CAutoSwitch: info when a quarter of the items carry
 metadata), so the new views use bigwrap / wide / bigwide / biglist and never become a folder's default.
 Every colour is a look token ($VAR[...], CONVENTIONS 4); check with _src/check_tokens.py.
@@ -93,14 +98,23 @@ VARIABLES = f"""
 	</variable>
 	<variable name="Stage_Name">
 		<value condition="Container(508).ListItem.IsParentFolder">Back</value>
+		<value condition="String.IsEqual(Container(508).ListItem.DBType,song) + !String.IsEmpty(Container(508).ListItem.Title)">$INFO[Container(508).ListItem.Title]</value>
 		<value>$INFO[Container(508).ListItem.Label]</value>
+	</variable>
+	<!-- strip cards without a cover: songs print their title, not Kodi's "01. Artist - Title" label -->
+	<variable name="Stage_CellTitle">
+		<value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<variable name="Stage_Kicker">
 		<value condition="Container(508).ListItem.IsParentFolder">Up one level</value>
+		<value condition="String.IsEqual(Container(508).ListItem.DBType,song)">Song$INFO[Container(508).ListItem.Artist,{SEP},]</value>
 		<value condition="String.IsEqual(Container(508).ListItem.DBType,artist)">Artist$INFO[Container(508).ListItem.Genre,{SEP},]</value>
 		<value>Album$INFO[Container(508).ListItem.Artist,{SEP},]</value>
 	</variable>
 	<variable name="Stage_Meta">
+		<value condition="String.IsEqual(Container(508).ListItem.DBType,song) + !String.IsEmpty(Container(508).ListItem.Album)">$INFO[Container(508).ListItem.Album]$INFO[Container(508).ListItem.Year,{SEP},]$INFO[Container(508).ListItem.Duration,{SEP},]</value>
+		<value condition="String.IsEqual(Container(508).ListItem.DBType,song)">$INFO[Container(508).ListItem.Year,,{SEP}]$INFO[Container(508).ListItem.Duration]</value>
 		<value condition="String.IsEqual(Container(508).ListItem.DBType,artist)">$INFO[Container(508).ListItem.Property(Artist_Style)]</value>
 		<value condition="String.IsEqual(Container(508).ListItem.DBType,album)">$INFO[Container(508).ListItem.Year]$INFO[Container(508).ListItem.Genre,{SEP},]$INFO[Container(508).ListItem.Property(Album_Duration),{SEP},]</value>
 	</variable>
@@ -117,6 +131,29 @@ VARIABLES = f"""
 	<variable name="Tracks_Where">
 		<value condition="!String.IsEmpty(ListItem.Artist) + !String.IsEmpty(ListItem.Album)">$INFO[ListItem.Artist]{SEP}$INFO[ListItem.Album]</value>
 		<value>$INFO[ListItem.Artist]$INFO[ListItem.Album]</value>
+	</variable>
+	<!-- Rows (510) -->
+	<variable name="Rows_Title">
+		<value condition="ListItem.IsParentFolder">Back</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+	<variable name="Rows_Meta">
+		<value condition="ListItem.IsParentFolder">Up one level</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)">$INFO[ListItem.Year,,{SEP}]$VAR[Rows_Seasons]{SEP}$INFO[ListItem.Property(UnWatchedEpisodes),, to watch]$INFO[ListItem.Genre,{SEP},]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year,,{SEP}]$VAR[Rows_Seasons]{SEP}all seen$INFO[ListItem.Genre,{SEP},]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Property(Watched),{SEP}, watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]</value>
+		<value condition="!String.IsEmpty(ListItem.Year) + Integer.IsGreater(ListItem.Duration(mins),0)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),{SEP}, min]$INFO[ListItem.Rating,{SEP},]$INFO[ListItem.Genre,{SEP},]</value>
+		<value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]$INFO[ListItem.Genre,{SEP},]</value>
+		<value>$INFO[ListItem.Label2]</value>
+	</variable>
+	<variable name="Rows_Seasons">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)">1 season</value>
+		<value>$INFO[ListItem.Property(TotalSeasons),, seasons]</value>
+	</variable>
+	<variable name="Rows_State">
+		<value condition="ListItem.IsResumable">$INFO[ListItem.PercentPlayed,,%]</value>
+		<value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + Integer.IsGreater(ListItem.PlayCount,0)">Seen</value>
 	</variable>
 	<variable name="Tracks_Cover">
 		<value condition="!String.IsEmpty(Container(509).ListItem.Art(thumb))">$INFO[Container(509).ListItem.Art(thumb)]</value>
@@ -382,9 +419,9 @@ def view507():
 def stage_cell(focused):
     t = "\t\t\t\t\t\t\t"
     if focused:
-        prints = print_pair(t, 508, 192, 192, "$INFO[ListItem.Art(thumb)]", font="an_32")
+        prints = print_pair(t, 508, 192, 192, "$INFO[ListItem.Art(thumb)]", title="$VAR[Stage_CellTitle]", font="an_32")
     else:
-        prints = art(t, "$INFO[ListItem.Art(thumb)]", "$VAR[SectionTint]", "true", font="an_32")
+        prints = art(t, "$INFO[ListItem.Art(thumb)]", "$VAR[SectionTint]", "true", title="$VAR[Stage_CellTitle]", font="an_32")
     return f"""					<control type="group">
 						<left>24</left>
 						<top>24</top>
@@ -473,7 +510,7 @@ def view508():
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<preloaditems>1</preloaditems>
 				<viewtype label="Stage">biglist</viewtype>
-				<visible>{M} + [Container.Content(albums) | Container.Content(artists)]</visible>
+				<visible>{M} + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)]</visible>
 				<itemlayout width="224" height="240">
 {stage_cell(False)}
 				</itemlayout>
@@ -485,6 +522,98 @@ def view508():
     return f"""	<!-- ============================================================== 508 Stage (music) -->
 	<include name="Music_View_508">
 {view_group(508, band + chr(10) + strip)}
+	</include>"""
+
+
+# --------------------------------------------------------------------------------- 510 Rows
+ROWS_KINDS = ("[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | "
+              "Container.Content(musicvideos)]")
+
+
+def rows_row(focused):
+    """One 160 px row: the 256 x 144 print at 16,8, text from x 304 (1472 wide).
+    focused=True draws the ink bar version (paper text, print in full colour)."""
+    t = "\t\t\t\t\t\t"
+    on = focused
+    txt_c = "$VAR[paper]" if on else "$VAR[SectionText]"
+    sub_c = "$VAR[SectionColor]" if on else "$VAR[SectionText]"
+    plot_c = "$VAR[paper_80]" if on else "$VAR[SectionText2]"
+    wide, small = "$EXP[View_ScreenHasWide]", "!$EXP[View_ScreenHasWide]"
+    tint = "white" if on else "$VAR[SectionTint]"
+    dots = "false" if on else "true"
+    rows = []
+    if not on:
+        rows.append(ink(t, 0, 158, 1792, 2, color="$VAR[SectionText3]"))
+    rows.append(f"""{t}<control type="group">
+{t}	<left>16</left>
+{t}	<top>8</top>
+{t}	<width>256</width>
+{t}	<height>144</height>
+{t}	<control type="group">
+{t}		<visible>!ListItem.IsParentFolder</visible>
+{t}		<control type="group">
+{t}			<visible>{wide}</visible>
+{art(t + chr(9) * 3, "$VAR[View_ScreenWide]", tint, dots, title="", font="an_32")}
+{t}		</control>
+{t}		<control type="group">
+{t}			<visible>{small}</visible>
+{art(t + chr(9) * 3, "$VAR[View_ScreenSmall]", tint, dots, "keep", title="", font="an_32")}
+{t}		</control>
+{t}		<include>DT_WatchedMarkers</include>
+{t}	</control>
+{t}	<include>VidView_WallParent</include>
+{t}</control>""")
+    rows += [label(t, 304, 8, 1300, 52, "an_40", txt_c, "$VAR[Rows_Title]", aligny="center"),
+             label(t, 1620, 22, 156, 24, "cap_20", sub_c, "$VAR[Rows_State]", align="right"),
+             label(t, 304, 62, 1472, 24, "cap_20", sub_c, "$VAR[Rows_Meta]")]
+    rows.append(f"""{t}<control type="textbox">
+{t}	<left>304</left>
+{t}	<top>88</top>
+{t}	<width>1400</width>
+{t}	<height>68</height>  <!-- 2 x 34 (Inter Tight 24 x 1.171) -->
+{t}	<font>body_24</font>
+{t}	<textcolor>{plot_c}</textcolor>
+{t}	<label>$INFO[ListItem.Plot]</label>
+{t}	<visible>!ListItem.IsParentFolder</visible>
+{t}</control>""")
+    return "\n".join(rows)
+
+
+def view510():
+    body = f"""			<control type="list" id="510">
+				<left>page_margin</left>
+				<top>168</top>
+				<width>1792</width>
+				<height>800</height>
+				<orientation>vertical</orientation>
+				<onup>9000</onup>
+				<ondown>noop</ondown>
+				<onleft>{PANEL}</onleft>
+				<onright>{PANEL}</onright>
+				<scrolltime tween="cubic" easing="out">160</scrolltime>
+				<preloaditems>1</preloaditems>
+				<viewtype label="Rows">biglist</viewtype>
+				<visible>{V} + {ROWS_KINDS}</visible>
+				<itemlayout width="1792" height="160">
+					<control type="group">
+{rows_row(False)}
+					</control>
+				</itemlayout>
+				<focusedlayout width="1792" height="160">
+					<control type="group">
+						<visible>!Control.HasFocus(510)</visible>
+{rows_row(False)}
+					</control>
+					<control type="group">
+						<visible>Control.HasFocus(510)</visible>
+{ink(chr(9) * 6, 0, 0, 1792, 160)}
+{rows_row(True)}
+					</control>
+				</focusedlayout>
+			</control>"""
+    return f"""	<!-- ============================================================== 510 Rows (0.9.18) -->
+	<include name="VidView_510_Rows">
+{view_group(510, body, empty_slide(120))}
 	</include>"""
 
 
@@ -566,7 +695,7 @@ def view509():
 def main():
     text = "\n".join(['<?xml version="1.0" encoding="UTF-8"?>',
                       "<!-- GENERATED by _src/make_views_more.py - edit the generator, not this file. -->",
-                      "<includes>", VARIABLES, view505(), view506(), view507(), view508(), view509(), "</includes>", ""])
+                      "<includes>", VARIABLES, view505(), view506(), view507(), view508(), view509(), view510(), "</includes>", ""])
     text = "\n".join(l for l in text.split("\n") if l.strip() != "")
     OUT.write_text(finish_xml(strip_defaults(text + "\n", ROOT / "Defaults.xml")), encoding="utf-8", newline="\n")
     print("wrote", OUT)

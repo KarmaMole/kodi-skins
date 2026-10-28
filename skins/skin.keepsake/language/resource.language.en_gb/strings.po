@@ -1231,3 +1231,15 @@ msgstr ""
 msgctxt "#31487"
 msgid "item 3"
 msgstr ""
+
+msgctxt "#31488"
+msgid "a contact sheet"
+msgstr ""
+
+msgctxt "#31489"
+msgid "a mixtape"
+msgstr ""
+
+msgctxt "#31490"
+msgid "from the album"
+msgstr ""

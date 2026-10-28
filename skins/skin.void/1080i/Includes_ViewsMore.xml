@@ -169,15 +169,21 @@
 		<value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
 		<value>$INFO[ListItem.Art(icon)]</value>
 	</variable>
-	<variable name="Still_Art">
-		<value condition="!String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),image://video@)">$INFO[ListItem.Art(thumb)]</value>
-		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
-		<value>$INFO[ListItem.Art(tvshow.fanart)]</value>
-	</variable>
 	<variable name="Still_Kicker">
 		<value condition="ListItem.IsParentFolder">Up one level</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Year]$VAR[Still_RuntimePart]$VAR[Still_Seen]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year][COLOR sep_light]  ·  [/COLOR]$INFO[ListItem.Property(TotalSeasons)] seasons$INFO[ListItem.Genre,[COLOR sep_light]  ·  [/COLOR],]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Genre,[COLOR sep_light]  ·  [/COLOR],]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Property(TotalEpisodes),[COLOR sep_light]  ·  [/COLOR], episodes]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Property(Watched),[COLOR sep_light]  ·  [/COLOR], watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]</value>
 		<value condition="!String.IsEmpty(ListItem.Season) + !String.IsEmpty(ListItem.Episode)">Season $INFO[ListItem.Season][COLOR sep_light]  ·  [/COLOR]Episode $INFO[ListItem.Episode]$VAR[Still_RuntimePart]$VAR[Still_Seen]</value>
 		<value>$INFO[ListItem.Label2]$VAR[Still_Seen]</value>
+	</variable>
+	<variable name="Still_Title">
+		<value condition="![[String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),image://video@)] | !String.IsEmpty(ListItem.Art(landscape)) | !String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(tvshow.fanart))] + [!String.IsEmpty(ListItem.Art(poster)) | !String.IsEmpty(ListItem.Art(tvshow.poster)) | !String.IsEmpty(ListItem.Art(thumb)) | [!String.IsEmpty(ListItem.Art(icon)) + !String.StartsWith(ListItem.Art(icon),Default)]]"></value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Episode,Episode ,]</value>
+		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<variable name="Still_Seen">
 		<value condition="ListItem.IsResumable">[COLOR sep_light]  ·  [/COLOR]$INFO[ListItem.PercentPlayed]% seen</value>
@@ -620,7 +626,7 @@
 			<include>Void_ViewCount</include>
 		</control>
 	</include>
-	<!-- ============================================================ 56: Stills (episodes) -->
+	<!-- ============================================================ 56: Stills (episodes; films, series, sets, seasons, music videos) -->
 	<include name="Void_View56">
 		<control type="group">
 			<visible>Control.IsVisible(56)</visible>
@@ -643,7 +649,7 @@
 				<onright condition="!Integer.IsEqual(Container(56).CurrentItem,Container(56).NumItems) + !$EXP[SortIsAlpha]">Action(pagedown)</onright>
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<viewtype label="31353">biginfo</viewtype>
-				<visible>Window.IsActive(videos) + Container.Content(episodes)</visible>
+				<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]</visible>
 				<itemlayout width="1656" height="160">
 				<control type="group">
 					<left>28</left>
@@ -652,10 +658,21 @@
 					<height>135</height>
 					<visible>!ListItem.IsParentFolder</visible>
 					<include content="Void_Artwork">
-						<param name="art" value="$VAR[Still_Art]"/>
+						<param name="art" value="$VAR[Frame_Wide]"/>
 						<param name="color" value="art_35"/>
-						<param name="title" value="$INFO[ListItem.Episode,Episode ,]"/>
+						<param name="title" value="$VAR[Still_Title]"/>
 					</include>
+					<!-- no wide art: the poster / icon sits whole on the tile (never cropped), the title under it -->
+					<control type="image">
+						<left>8</left>
+						<top>8</top>
+						<width>224</width>
+						<height>119</height>
+						<aspectratio>keep</aspectratio>
+						<fadetime>160</fadetime>
+						<texture background="true" colordiffuse="art_35">$VAR[Frame_Small]</texture>
+						<visible>![[String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),image://video@)] | !String.IsEmpty(ListItem.Art(landscape)) | !String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(tvshow.fanart))] + [!String.IsEmpty(ListItem.Art(poster)) | !String.IsEmpty(ListItem.Art(tvshow.poster)) | !String.IsEmpty(ListItem.Art(thumb)) | [!String.IsEmpty(ListItem.Art(icon)) + !String.StartsWith(ListItem.Art(icon),Default)]]</visible>
+					</control>
 					<include>Void_WatchedMarkers</include>
 				</control>
 				<control type="label">
@@ -699,10 +716,21 @@
 					<visible>!ListItem.IsParentFolder</visible>
 					<include>Void_Anim_FocusPoster</include>
 					<include content="Void_Artwork">
-						<param name="art" value="$VAR[Still_Art]"/>
+						<param name="art" value="$VAR[Frame_Wide]"/>
 						<param name="color" value="white"/>
-						<param name="title" value="$INFO[ListItem.Episode,Episode ,]"/>
+						<param name="title" value="$VAR[Still_Title]"/>
 					</include>
+					<!-- no wide art: the poster / icon sits whole on the tile (never cropped), the title under it -->
+					<control type="image">
+						<left>8</left>
+						<top>8</top>
+						<width>224</width>
+						<height>119</height>
+						<aspectratio>keep</aspectratio>
+						<fadetime>160</fadetime>
+						<texture background="true" colordiffuse="white">$VAR[Frame_Small]</texture>
+						<visible>![[String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),image://video@)] | !String.IsEmpty(ListItem.Art(landscape)) | !String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(tvshow.fanart))] + [!String.IsEmpty(ListItem.Art(poster)) | !String.IsEmpty(ListItem.Art(tvshow.poster)) | !String.IsEmpty(ListItem.Art(thumb)) | [!String.IsEmpty(ListItem.Art(icon)) + !String.StartsWith(ListItem.Art(icon),Default)]]</visible>
+					</control>
 					<include>Void_WatchedMarkers</include>
 				</control>
 				<control type="label">
@@ -967,7 +995,7 @@
 			<onclick>Dialog.Close(1161,true)</onclick>
 			<onclick>Container.SetViewMode(56)</onclick>
 			<onclick>SetFocus(50)</onclick>
-			<visible>Window.IsActive(videos) + Container.Content(episodes)</visible>
+			<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(episodes)]</visible>
 		</item>
 		<item>
 			<label>$LOCALIZE[31354]</label>
@@ -986,6 +1014,7 @@
 		<onload condition="[Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]] + String.IsEqual(Container.Viewmode,$LOCALIZE[31350])">SetFocus(100,2,absolute)</onload>
 		<onload condition="[Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]] + String.IsEqual(Container.Viewmode,$LOCALIZE[31351])">SetFocus(100,3,absolute)</onload>
 		<onload condition="[Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]] + String.IsEqual(Container.Viewmode,$LOCALIZE[31352])">SetFocus(100,4,absolute)</onload>
+		<onload condition="[Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)]] + String.IsEqual(Container.Viewmode,$LOCALIZE[31353])">SetFocus(100,5,absolute)</onload>
 		<onload condition="[Window.IsActive(videos) + Container.Content(episodes)] + String.IsEqual(Container.Viewmode,$LOCALIZE[31350])">SetFocus(100,1,absolute)</onload>
 		<onload condition="[Window.IsActive(videos) + Container.Content(episodes)] + String.IsEqual(Container.Viewmode,$LOCALIZE[31351])">SetFocus(100,2,absolute)</onload>
 		<onload condition="[Window.IsActive(videos) + Container.Content(episodes)] + String.IsEqual(Container.Viewmode,$LOCALIZE[31352])">SetFocus(100,3,absolute)</onload>

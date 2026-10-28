@@ -230,7 +230,28 @@ def tracklist():
     save(im, "tracklist")
 
 
+def rows():
+    """509 rows (0.9.19): 158 px rows, a wide picture, serif title, caption, two plot lines; focused = lilac block."""
+    im, d = canvas()
+    header(d, 80)
+    for r in range(5):
+        y = 244 + r * 158
+        f = r == 1
+        if f:
+            bar(d, 120, y, 1680, 156, LILAC)
+        tile(d, 136, y + 16, 224, 126, r, dim=not f)
+        ink = GROUND if f else TEXT
+        soft = GROUND if f else MUTED
+        bar(d, 392, y + 14, 300 + (r * 97) % 320, 26, ink)       # title (serif)
+        bar(d, 392, y + 58, 260, 14, soft)                       # caption
+        bar(d, 392, y + 92, 1200, 14, soft)                      # plot, two lines
+        bar(d, 392, y + 130, 900, 14, soft)
+        bar(d, 120, y + 156, 1680, 1, FAINT)
+    save(im, "rows")
+
+
 if __name__ == "__main__":
+    rows()
     page_view("page")
     page_view("portraits", square=False)
     scenes()

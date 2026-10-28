@@ -12,7 +12,7 @@
 	<defaultcontrol always="true">50</defaultcontrol>
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>paper</backgroundcolor>
-	<views>521,522,523,524,50,525,526</views>
+	<views>521,522,523,524,50,525,526,527</views>
 	<!-- empty folder: Kodi can't focus an empty view, so land on the option words instead -->
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9310)</onload>
 	<include>Anim_WindowOpenClose</include>

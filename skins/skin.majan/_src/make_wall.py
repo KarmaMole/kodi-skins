@@ -44,7 +44,10 @@ NOBORDER = "Skin.HasSetting(majan.wall.noborder)"
 OV1 = "String.IsEqual(Skin.String(majan.wall.overlay),1)"
 OV2 = "String.IsEqual(Skin.String(majan.wall.overlay),2)"
 RM = "Skin.HasSetting(majan.reducemotion)"
-CONTENT = "Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)"
+# 1.0.18: genre / year / people nodes too (name tiles: the fallback name, a person's photo when there is one; no card)
+CONTENT = ("Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)"
+           " | $EXP[VidView_IsNameNode]")
+NAME_THUMB = "$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb]"
 
 SIZE_COND = {"small": SMALL, "medium": MEDIUM, "large": LARGE}
 
@@ -92,16 +95,57 @@ def ind(text: str, n: int) -> str:
 
 
 # ------------------------------------------------------------------ poster pieces
+# name tiles (genre / year / people nodes): the accent kind kicker + the name large, like the Stills genre cards.
+# The longest names must fit one line per word ("Documentary"): Majan display 34 only from the large cells.
+NAME_FONT = {"small": ("card_21_bold", 10, 26), "medium": ("title_28_bold", 12, 34), "large": ("header_34", 16, 42)}
+
+
+def name_tile(size, gap):
+    """Drawn under the art (a person's photo covers it); the plain fallback label is off for these nodes."""
+    w, h = FIT[(size, gap)][1], FIT[(size, gap)][2]
+    font, pad, pitch = NAME_FONT[size]
+    return f"""
+<control type="group">
+	<visible>$EXP[VidView_IsNameNode] + !ListItem.IsParentFolder</visible>
+	<control type="label">
+		<left>{pad}</left>
+		<top>{pad + 2}</top>
+		<width>{w - 2 * pad}</width>
+		<height>20</height>
+		<font>mono_14</font>
+		<textcolor>$VAR[ColorAccent]</textcolor>
+		<label>$VAR[VidView_StillKind]</label>
+	</control>
+	<control type="textbox">
+		<left>{pad}</left>
+		<top>{pad + 30}</top>
+		<width>{w - 2 * pad}</width>
+		<height>{pitch * 3 + 8}</height>
+		<font>{font}</font>
+		<textcolor>text_primary</textcolor>
+		<label>$INFO[ListItem.Label]</label>
+	</control>
+</control>"""
+
+
 def poster_xml(size, gap, color, fade="0"):
     """Art + fallback + markers for one cell, inside a group at the poster rect."""
     if gap:  # follows Poster corners (rounded masks are exported per width range)
         return f"""
 <include content="VidView_ArtFallback">
 	<param name="mask" value="{MASK[size]}"/>
-</include>
+	<param name="label_visible" value="String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]"/>
+</include>{name_tile(size, gap)}
 <include content="VidView_ArtImage">
 	<param name="mask" value="{MASK[size]}"/>
 	<param name="color" value="{color}"/>
+	<param name="fade" value="{fade}"/>
+</include>
+<include content="VidView_ArtImage">
+	<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+	<param name="mask" value="{MASK[size]}"/>
+	<param name="color" value="{color}"/>
+	<param name="visible" value="{NAME_THUMB}"/>
 	<param name="fade" value="{fade}"/>
 </include>
 <include content="VidView_Markers"/>
@@ -122,13 +166,20 @@ def poster_xml(size, gap, color, fade="0"):
 		<wrapmultiline>true</wrapmultiline>
 		<aligny>top</aligny>
 		<label>$INFO[ListItem.Label]</label>
-		<visible>String.IsEmpty(ListItem.Art(poster))</visible>
+		<visible>String.IsEmpty(ListItem.Art(poster)) + !$EXP[VidView_IsNameNode]</visible>
 	</control>
-</control>
+</control>{name_tile(size, gap)}
 <include content="VidView_ArtImageSquare">
 	<param name="art" value="$INFO[ListItem.Art(poster)]"/>
 	<param name="color" value="{color}"/>
 	<param name="visible" value="true"/>
+	<param name="aspect" value="scale"/>
+	<param name="fade" value="{fade}"/>
+</include>
+<include content="VidView_ArtImageSquare">
+	<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+	<param name="color" value="{color}"/>
+	<param name="visible" value="{NAME_THUMB}"/>
 	<param name="aspect" value="scale"/>
 	<param name="fade" value="{fade}"/>
 </include>
@@ -259,7 +310,7 @@ def card(size, gap):
     pad = k["pad"]
     iw = cw - 2 * pad
     vis = (f"Control.HasFocus(506) + {mode_cond(size, gap)} + [[{OV1} + System.IdleTime(1)] | [{OV2} + System.IdleTime(2)]]"
-           " + !Container(506).Scrolling + !ListItem.IsParentFolder")
+           " + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode]")
     anims = [f'<animation effect="slide" start="0,0" end="{card_x(size, gap, c)},0" time="0" condition="Container(506).Column({c})">Conditional</animation>'
              for c in range(cols)]
     anims += [f'<animation effect="slide" start="0,0" end="0,{top + r * (h + g)}" time="0" condition="Container(506).Row({r})">Conditional</animation>'

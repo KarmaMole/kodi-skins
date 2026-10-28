@@ -13,7 +13,7 @@ def crate_view():
     def card(f):
         return closed_card(f, 507, 168, 206, 186, 228, 27, 18, "mari", "$INFO[ListItem.Art(thumb)]",
                            "$VAR[Sleeve_FootL]", "$VAR[Sleeve_FootR]", plate_ratio=1.0, foot_color="ink", marks=False,
-                           parent_color="mari_ink")
+                           parent_color="mari_ink", fallback="$VAR[Poster_Title]")
     return f"""
 	<include name="Music_View_507">
 		<control type="group">
@@ -33,7 +33,7 @@ def crate_view():
 				<onleft>ActivateWindow(1155)</onleft>
 				<onback condition="$EXP[Music_AtTabRoot]">9398</onback>
 				<viewtype label="Crate">wrap</viewtype>
-				<visible>Container.Content(albums) | Container.Content(artists)</visible>
+				<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>
 				<itemlayout width="222" height="252">{card(False)}
 				</itemlayout>
 				<focusedlayout width="222" height="252">{card(True)}
@@ -49,7 +49,8 @@ PO_X, PO_Y, PO_W, PO_H = 96, 164, 1240, 540
 def poster_view():
     def strip_card(f):
         return closed_card(f, 508, 148, 180, 162, 197, 18, 50, "mari", "$INFO[ListItem.Art(thumb)]", "", "",
-                           plate_ratio=1.0, foot_color="ink", marks=False, parent_word="Up", parent_color="mari_ink")
+                           plate_ratio=1.0, foot_color="ink", marks=False, parent_word="Up", parent_color="mari_ink",
+                           fallback="$VAR[Poster_Title]")
     half = PO_W // 2
     return f"""
 	<include name="Music_View_508">
@@ -135,7 +136,7 @@ def poster_view():
 					<height>370</height>
 					<font>disp_96</font>
 					<textcolor>ink</textcolor>
-					<label>$VAR[List_Title]</label>
+					<label>$VAR[Poster_Title]</label>
 					<visible>!$EXP[Poster_HasFanart] + !ListItem.IsParentFolder + !String.IsEmpty(ListItem.Art(thumb))</visible>
 				</control>
 				<!-- no picture at all: a typographic poster, the name printed across it -->
@@ -146,7 +147,7 @@ def poster_view():
 					<height>370</height>
 					<font>disp_112</font>
 					<textcolor>ink</textcolor>
-					<label>$VAR[List_Title]</label>
+					<label>$VAR[Poster_Title]</label>
 					<visible>!$EXP[Poster_HasFanart] + !ListItem.IsParentFolder + String.IsEmpty(ListItem.Art(thumb))</visible>
 				</control>
 				<control type="label">
@@ -226,7 +227,7 @@ def poster_view():
 							<height>184</height>
 							<font>head_50</font>
 							<textcolor>ink</textcolor>
-							<label>$VAR[List_Title]</label>
+							<label>$VAR[Poster_Title]</label>
 						</control>
 					</control>
 					<control type="textbox">
@@ -234,7 +235,7 @@ def poster_view():
 						<height max="162">auto</height>
 						<font>head_50</font>
 						<textcolor>clear</textcolor>
-						<label>$VAR[List_Title]</label>
+						<label>$VAR[Poster_Title]</label>
 						<visible>$EXP[Poster_HasFanart] | ListItem.IsParentFolder</visible>
 					</control>
 					<control type="image">
@@ -280,7 +281,7 @@ def poster_view():
 					<onright>ActivateWindow(1155)</onright>
 					<onback condition="$EXP[Music_AtTabRoot]">9398</onback>
 					<viewtype label="Poster">biginfo</viewtype>
-					<visible>Container.Content(artists) | Container.Content(albums)</visible>
+					<visible>Container.Content(artists) | Container.Content(albums) | Container.Content(songs)</visible>
 					<itemlayout width="186" height="300">{strip_card(False)}
 					</itemlayout>
 					<focusedlayout width="186" height="300">{strip_card(True)}
@@ -293,7 +294,12 @@ def poster_view():
 
 def music_variables():
     return """
-	<!-- 0.9.13 views: Crate / Poster -->
+	<!-- 0.9.13 views: Crate / Poster (0.9.16: songs too: the song's own title, not the node's "01. Artist - Title") -->
+	<variable name="Poster_Title">
+		<value condition="ListItem.IsParentFolder">Up a level</value>
+		<value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
 	<expression name="Poster_HasFanart">!ListItem.IsParentFolder + [!String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(artist.fanart)) | !String.IsEmpty(ListItem.Art(albumartist.fanart))]</expression>
 	<variable name="Poster_Fanart">
 		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
@@ -314,9 +320,10 @@ def music_variables():
 		<value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Property(Artist_Formed))">Formed [COLOR ink]$INFO[ListItem.Property(Artist_Formed)][/COLOR]$INFO[ListItem.Property(Artist_Disbanded), · split [COLOR ink],[/COLOR]]</value>
 		<value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Property(Artist_Born))">Born [COLOR ink]$INFO[ListItem.Property(Artist_Born)][/COLOR]</value>
 		<value condition="String.IsEqual(ListItem.DBType,artist)">$INFO[ListItem.Property(Artist_Style)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,song)">$INFO[ListItem.Album,[COLOR ink],[/COLOR]]$INFO[ListItem.TrackNumber, · track ,]$INFO[ListItem.Duration, · ,]</value>
 		<value>$INFO[ListItem.Genre]$INFO[ListItem.Property(Album_Label), · ,]</value>
 	</variable>
 	<variable name="Music_Sub">
-		<value condition="Control.IsVisible(507) + Integer.IsGreater(Container.NumItems,0) + !ListItem.IsParentFolder">   [COLOR ink]$INFO[ListItem.Label][/COLOR]$INFO[ListItem.Artist,  ·  ,]$INFO[Container.NumItems,  ·  , in all]</value>
+		<value condition="Control.IsVisible(507) + Integer.IsGreater(Container.NumItems,0) + !ListItem.IsParentFolder">   [COLOR ink]$VAR[Poster_Title][/COLOR]$INFO[ListItem.Artist,  ·  ,]$INFO[Container.NumItems,  ·  , in all]</value>
 		<value>$INFO[Container.NumItems,   ,]</value>
 	</variable>"""

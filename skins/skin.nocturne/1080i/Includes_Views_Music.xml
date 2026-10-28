@@ -2,7 +2,7 @@
 <!--
 	Music library = the listening room (mockup NocturneMusic.html). MyMusicNav <views>504,505,50</views>:
 	  504 Listening room  albums / artists on a shelf under the pendant lamp (Includes_Gallery.xml)
-	  505 Record bins     a grid of covers; a small torch follows Column(n)/Row(n)
+	  505 Record bins     a grid of covers (albums, artists, songs); a small torch follows Column(n)/Row(n)
 	  50  List            songs, genres, years, roots, playlists, files
 	Tabs and options (9000) sit under the cornice (y 184); views Up -> 9000, 9000 Down/Back -> the view.
 -->
@@ -39,7 +39,7 @@
 				<include>Lib_OpenLeft</include>
 				<include>Lib_OpenRight</include>
 				<viewtype label="31274">icon</viewtype>
-				<visible>Container.Content(albums) | Container.Content(artists)</visible>
+				<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>
 				<itemlayout width="216" height="300">
 					<control type="group">
 						<left>18</left>
@@ -48,7 +48,7 @@
 						<height>180</height>
 						<include content="Noc_CoverParts">
 							<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
-							<param name="label" value="$VAR[Music_ItemLabel]"/>
+							<param name="label" value="$VAR[Music_ViewTitle]"/>
 						</include>
 					</control>
 					<control type="label">
@@ -60,7 +60,7 @@
 						<aligny>center</aligny>
 						<font>title_30</font>
 						<textcolor>66e3cfae</textcolor>
-						<label>$VAR[Music_ItemLabel]</label>
+						<label>$VAR[Music_ViewTitle]</label>
 					</control>
 				</itemlayout>
 				<focusedlayout width="216" height="300">
@@ -71,7 +71,7 @@
 						<height>180</height>
 						<include content="Noc_CoverParts">
 							<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
-							<param name="label" value="$VAR[Music_ItemLabel]"/>
+							<param name="label" value="$VAR[Music_ViewTitle]"/>
 							<param name="lit" value="Control.HasFocus(505)"/>
 						</include>
 					</control>
@@ -84,7 +84,7 @@
 						<aligny>center</aligny>
 						<font>title_30</font>
 						<textcolor>66e3cfae</textcolor>
-						<label>$VAR[Music_ItemLabel]</label>
+						<label>$VAR[Music_ViewTitle]</label>
 						<visible>!Control.HasFocus(505)</visible>
 					</control>
 					<control type="label">
@@ -98,7 +98,7 @@
 						<textcolor>text_lit</textcolor>
 						<scroll>true</scroll>
 						<scrollsuffix>     ·     </scrollsuffix>
-						<label>$VAR[Music_ItemLabel]</label>
+						<label>$VAR[Music_ViewTitle]</label>
 						<visible>Control.HasFocus(505)</visible>
 					</control>
 					<control type="label">

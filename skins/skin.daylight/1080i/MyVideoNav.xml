@@ -9,7 +9,7 @@
 	<defaultcontrol always="true">50</defaultcontrol>
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>ff000000</backgroundcolor>
-	<views>500,501,502,503,505,506,50</views>
+	<views>500,501,502,503,505,506,50,509</views>
 	<!-- borrowed colour (TMDb Helper, optional) + minutes left until bedtime for the "fits" checks -->
 	<onload condition="$EXP[DL_ArtColourOn] + !Skin.HasSetting(TMDbHelper.EnableColors)">Skin.SetBool(TMDbHelper.EnableColors)</onload>
 	<onload condition="$EXP[DL_ArtColourOn]">Skin.SetString(TMDbHelper.Colors.Luminance,$VAR[DL_ColorLum])</onload>

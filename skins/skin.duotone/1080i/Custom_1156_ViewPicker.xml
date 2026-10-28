@@ -269,11 +269,20 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 						<onclick>Container.SetViewMode(507)</onclick>
 					</item>
 					<item>
+						<label>$LOCALIZE[31421]</label>
+						<label2>$LOCALIZE[31405]</label2>
+						<icon>duotone/views/rows.png</icon>
+						<property name="dark">duotone/views/dark/rows.png</property>
+						<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)] + [Window.IsActive(videos) + String.IsEqual(Container.Viewmode,Rows)]</visible>
+						<onclick>Dialog.Close(1156,true)</onclick>
+						<onclick>Container.SetViewMode(510)</onclick>
+					</item>
+					<item>
 						<label>$LOCALIZE[535]</label>
 						<label2>$LOCALIZE[31405]</label2>
 						<icon>duotone/views/list.png</icon>
 						<property name="dark">duotone/views/dark/list.png</property>
-						<visible>Window.IsActive(videos) + [Window.IsActive(videos) + !String.IsEqual(Container.Viewmode,Wall) + !String.IsEqual(Container.Viewmode,Episodes) + !String.IsEqual(Container.Viewmode,Poster) + !String.IsEqual(Container.Viewmode,Screens) + !String.IsEqual(Container.Viewmode,Sheet) + !String.IsEqual(Container.Viewmode,Stage) + !String.IsEqual(Container.Viewmode,Tracks)]</visible>
+						<visible>Window.IsActive(videos) + [Window.IsActive(videos) + !String.IsEqual(Container.Viewmode,Wall) + !String.IsEqual(Container.Viewmode,Episodes) + !String.IsEqual(Container.Viewmode,Poster) + !String.IsEqual(Container.Viewmode,Screens) + !String.IsEqual(Container.Viewmode,Sheet) + !String.IsEqual(Container.Viewmode,Stage) + !String.IsEqual(Container.Viewmode,Tracks) + !String.IsEqual(Container.Viewmode,Rows)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(50)</onclick>
 					</item>
@@ -291,7 +300,7 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 						<label2>$LOCALIZE[31405]</label2>
 						<icon>duotone/views/stage.png</icon>
 						<property name="dark">duotone/views/dark/stage.png</property>
-						<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists)] + [Window.IsActive(music) + String.IsEqual(Container.Viewmode,Stage)]</visible>
+						<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)] + [Window.IsActive(music) + String.IsEqual(Container.Viewmode,Stage)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(508)</onclick>
 					</item>
@@ -309,7 +318,7 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 						<label2>$LOCALIZE[31405]</label2>
 						<icon>duotone/views/list_music.png</icon>
 						<property name="dark">duotone/views/dark/list_music.png</property>
-						<visible>Window.IsActive(music) + [Window.IsActive(music) + !String.IsEqual(Container.Viewmode,Wall) + !String.IsEqual(Container.Viewmode,Episodes) + !String.IsEqual(Container.Viewmode,Poster) + !String.IsEqual(Container.Viewmode,Screens) + !String.IsEqual(Container.Viewmode,Sheet) + !String.IsEqual(Container.Viewmode,Stage) + !String.IsEqual(Container.Viewmode,Tracks)]</visible>
+						<visible>Window.IsActive(music) + [Window.IsActive(music) + !String.IsEqual(Container.Viewmode,Wall) + !String.IsEqual(Container.Viewmode,Episodes) + !String.IsEqual(Container.Viewmode,Poster) + !String.IsEqual(Container.Viewmode,Screens) + !String.IsEqual(Container.Viewmode,Sheet) + !String.IsEqual(Container.Viewmode,Stage) + !String.IsEqual(Container.Viewmode,Tracks) + !String.IsEqual(Container.Viewmode,Rows)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(50)</onclick>
 					</item>
@@ -359,11 +368,20 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 						<onclick>Container.SetViewMode(507)</onclick>
 					</item>
 					<item>
+						<label>$LOCALIZE[31421]</label>
+						<label2></label2>
+						<icon>duotone/views/rows.png</icon>
+						<property name="dark">duotone/views/dark/rows.png</property>
+						<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)] + ![Window.IsActive(videos) + String.IsEqual(Container.Viewmode,Rows)]</visible>
+						<onclick>Dialog.Close(1156,true)</onclick>
+						<onclick>Container.SetViewMode(510)</onclick>
+					</item>
+					<item>
 						<label>$LOCALIZE[535]</label>
 						<label2></label2>
 						<icon>duotone/views/list.png</icon>
 						<property name="dark">duotone/views/dark/list.png</property>
-						<visible>Window.IsActive(videos) + ![Window.IsActive(videos) + !String.IsEqual(Container.Viewmode,Wall) + !String.IsEqual(Container.Viewmode,Episodes) + !String.IsEqual(Container.Viewmode,Poster) + !String.IsEqual(Container.Viewmode,Screens) + !String.IsEqual(Container.Viewmode,Sheet) + !String.IsEqual(Container.Viewmode,Stage) + !String.IsEqual(Container.Viewmode,Tracks)]</visible>
+						<visible>Window.IsActive(videos) + ![Window.IsActive(videos) + !String.IsEqual(Container.Viewmode,Wall) + !String.IsEqual(Container.Viewmode,Episodes) + !String.IsEqual(Container.Viewmode,Poster) + !String.IsEqual(Container.Viewmode,Screens) + !String.IsEqual(Container.Viewmode,Sheet) + !String.IsEqual(Container.Viewmode,Stage) + !String.IsEqual(Container.Viewmode,Tracks) + !String.IsEqual(Container.Viewmode,Rows)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(50)</onclick>
 					</item>
@@ -381,7 +399,7 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 						<label2></label2>
 						<icon>duotone/views/stage.png</icon>
 						<property name="dark">duotone/views/dark/stage.png</property>
-						<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists)] + ![Window.IsActive(music) + String.IsEqual(Container.Viewmode,Stage)]</visible>
+						<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)] + ![Window.IsActive(music) + String.IsEqual(Container.Viewmode,Stage)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(508)</onclick>
 					</item>
@@ -399,7 +417,7 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 						<label2></label2>
 						<icon>duotone/views/list_music.png</icon>
 						<property name="dark">duotone/views/dark/list_music.png</property>
-						<visible>Window.IsActive(music) + ![Window.IsActive(music) + !String.IsEqual(Container.Viewmode,Wall) + !String.IsEqual(Container.Viewmode,Episodes) + !String.IsEqual(Container.Viewmode,Poster) + !String.IsEqual(Container.Viewmode,Screens) + !String.IsEqual(Container.Viewmode,Sheet) + !String.IsEqual(Container.Viewmode,Stage) + !String.IsEqual(Container.Viewmode,Tracks)]</visible>
+						<visible>Window.IsActive(music) + ![Window.IsActive(music) + !String.IsEqual(Container.Viewmode,Wall) + !String.IsEqual(Container.Viewmode,Episodes) + !String.IsEqual(Container.Viewmode,Poster) + !String.IsEqual(Container.Viewmode,Screens) + !String.IsEqual(Container.Viewmode,Sheet) + !String.IsEqual(Container.Viewmode,Stage) + !String.IsEqual(Container.Viewmode,Tracks) + !String.IsEqual(Container.Viewmode,Rows)]</visible>
 						<onclick>Dialog.Close(1156,true)</onclick>
 						<onclick>Container.SetViewMode(50)</onclick>
 					</item>

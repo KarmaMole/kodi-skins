@@ -2,7 +2,7 @@
 <!--
 	Music library views (Builder C, SPEC 6). Listed in MyMusicNav <views>50,504,505</views>.
 	  50  List      - songs, genres, years, roots, playlists, files (always valid: generic fallback)
-	  504 Grid      - albums, artists (Music.dc.html): 7 columns of square covers + title / artist
+	  504 Grid      - albums, artists, songs (Music.dc.html): 7 columns of square covers + title / artist
 	  505 Big album - albums (MusicStage.dc.html): 380 squares, focus fixed in slot 2, zoom 5 %,
 	                  passed slot dimmed .45, slots ahead .80 by fixed-slot overlays (covers opaque),
 	                  artist fanart stage behind
@@ -23,6 +23,7 @@
 				<height>music_tile</height>
 				<include condition="$PARAM[focused]">Anim_FocusZoom</include>
 				<include content="Music_Cover">
+					<param name="title" value="$VAR[SDV_Title]"/>
 					<param name="mask_round" value="masks/square_round8.png"/>
 					<param name="parent_icon" value="48"/>
 					<param name="parent_caption" value="true"/>
@@ -39,7 +40,7 @@
 				<font>xb_20</font>
 				<textcolor>ink</textcolor>
 				<scroll>$PARAM[focused]</scroll>
-				<label>$VAR[Music_ItemLabel]</label>
+				<label>$VAR[SDV_Title]</label>
 			</control>
 			<control type="label">
 				<left>music_pad</left>
@@ -78,7 +79,7 @@
 			<scrolltime tween="cubic" easing="out">200</scrolltime>
 			<preloaditems>1</preloaditems>
 			<viewtype label="31247">icon</viewtype>
-			<visible>Container.Content(albums) | Container.Content(artists)</visible>
+			<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>
 			<include>Anim_FadeVisible</include>
 			<itemlayout width="251" height="310">
 				<include content="Music_GridItem">

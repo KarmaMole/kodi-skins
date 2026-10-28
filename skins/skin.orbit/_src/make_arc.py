@@ -120,7 +120,8 @@ def bright_anims(k, cond_next_src, cond_prev_src, indent):
     return out
 
 
-def poster_arc(name, slots, art_var, mask, desc, shadows=2, lens_extra=True, circle_cond=None, icon_mode=False):
+def poster_arc(name, slots, art_var, mask, desc, shadows=2, lens_extra=True, circle_cond=None, icon_mode=False,
+               song_titles=False):
     """Emit an include drawing the arc for container $PARAM[id]."""
     L = [f"\t<!-- {desc} -->",
          f'\t<include name="{name}">',
@@ -171,8 +172,18 @@ def poster_arc(name, slots, art_var, mask, desc, shadows=2, lens_extra=True, cir
                   f"{i2}\t<font>label_20</font>", f"{i2}\t<textcolor>text_secondary</textcolor>",
                   f"{i2}\t<align>center</align>", f"{i2}\t<aligny>center</aligny>",
                   f"{i2}\t<label>$INFO[Container($PARAM[id]).ListItemNoWrap({kk}).Label]</label>",
-                  f"{i2}\t<visible>!Container($PARAM[id]).ListItemNoWrap({kk}).IsParentFolder</visible>",
+                  f"{i2}\t<visible>!Container($PARAM[id]).ListItemNoWrap({kk}).IsParentFolder"
+                  + (f" + !String.IsEqual(Container($PARAM[id]).ListItemNoWrap({kk}).DBType,song)" if song_titles else "")
+                  + "</visible>",
                   f"{i2}</control>"]
+            if song_titles:  # 0.9.19: songs print their title, not the songs node's "01. Artist - Title" label
+                L += [f'{i2}<control type="textbox">', f"{i2}\t<left>12</left>", f"{i2}\t<top>12</top>",
+                      f"{i2}\t<width>{w - 24}</width>", f"{i2}\t<height>{h - 24}</height>",
+                      f"{i2}\t<font>label_20</font>", f"{i2}\t<textcolor>text_secondary</textcolor>",
+                      f"{i2}\t<align>center</align>", f"{i2}\t<aligny>center</aligny>",
+                      f"{i2}\t<label>$INFO[Container($PARAM[id]).ListItemNoWrap({kk}).Title]</label>",
+                      f"{i2}\t<visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap({kk}).DBType,song)</visible>",
+                      f"{i2}</control>"]
         # parent folder tile: back icon in the plate
         L += [f'{i2}<control type="image">', f"{i2}\t<centerleft>50%</centerleft>", f"{i2}\t<centertop>50%</centertop>",
               f"{i2}\t<width>{max(24, w // 4)}</width>", f"{i2}\t<height>{max(24, w // 4)}</height>",
@@ -660,7 +671,7 @@ def main():
                     "Horizon (view 503): wide pictures on a flat circle along the bottom, lens at 960,676", shadows=2)
     L += poster_arc("Arc_HorizonSquares", horizon_slots(**HORIZON_SQ), "ArcArt507", "masks/square_r4.png",
                     "Music horizon (view 507): album covers / artist discs along the bottom, lens at 960,660",
-                    shadows=2, circle_cond="Container.Content(artists)")
+                    shadows=2, circle_cond="Container.Content(artists)", song_titles=True)
     L += hidden_list_h("Arc_HiddenListH", "Focus-owning list for a horizon: 11 x 1px items side by side, lens at item 5")
     L += hidden_list_h("Arc_HiddenListHSquare", "Same, art = thumb (albums, artists)", art="ListItem.Art(thumb)")
     L += hidden_list("Arc_HiddenList", "Focus-owning list for an arc: 11 x 1px rows, lens at row 5")

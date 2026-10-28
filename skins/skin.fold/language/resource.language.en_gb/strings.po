@@ -1031,3 +1031,7 @@ msgstr ""
 msgctxt "#31995"
 msgid "OK to open"
 msgstr ""
+
+msgctxt "#31431"
+msgid "Zigzag"
+msgstr ""

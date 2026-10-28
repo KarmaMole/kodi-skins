@@ -205,6 +205,8 @@ def panel():
 
 
 # ---------------------------------------------------------------------------------------------- view picker
+NODE = ("Container.Content(genres) | Container.Content(years) | Container.Content(actors) | Container.Content(directors) | "
+        "Container.Content(studios) | Container.Content(countries) | Container.Content(tags)")
 SHELF_V = "[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)]"
 SERIES = "[Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)]"
 
@@ -214,10 +216,14 @@ def isv(label):
 
 
 IS_LIST = (f"!{isv('Shelf')} + !{isv('Seasons')} + !{isv('Concertina')} + !{isv('Sleeves')} + !{isv('Table')} + "
-           f"!{isv('Leaflet')} + !{isv('Prints')} + !{isv('Crate')} + !{isv('Poster')}")
+           f"!{isv('Leaflet')} + !{isv('Prints')} + !{isv('Crate')} + !{isv('Poster')} + !{isv('Zigzag')}")
 # 0.9.13 views (docs/VIEWS_BRIEF_2026-10-27.md): Table 503, Leaflet 505, Prints 506; music Crate 507, Poster 508
 TABLE_V = ("[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | "
-           "Container.Content(musicvideos)]")
+           "Container.Content(musicvideos) | " + NODE + "]")
+# 0.9.16 (docs/VIEWS_PER_SECTION_2026-10-28.md): Accordion 509 for films / series; Table for genres / years / people;
+# Crate + Poster for songs
+ACC_V = "[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)]"
+MUS3 = "[Container.Content(albums) | Container.Content(artists) | Container.Content(songs)]"
 LEAF_V = ("[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | "
           "Container.Content(episodes) | Container.Content(musicvideos)]")
 
@@ -229,17 +235,18 @@ VIEWS = [
     (503, "Table", "table", f"{V} + {TABLE_V}", f"{V} + {isv('Table')}"),
     (505, "Leaflet", "leaflet", f"{V} + {LEAF_V}", f"{V} + {isv('Leaflet')}"),
     (506, "Prints", "prints", V, f"{V} + {isv('Prints')}"),
+    (509, "Zigzag", "accordion", f"{V} + {ACC_V}", f"{V} + {isv('Zigzag')}"),
     (50, "List", "list", V, f"{V} + {IS_LIST}"),
     (504, "Sleeves", "sleeves", f"{M} + [Container.Content(albums) | Container.Content(artists)]", f"{M} + {isv('Sleeves')}"),
-    (507, "Crate", "crate", f"{M} + [Container.Content(albums) | Container.Content(artists)]", f"{M} + {isv('Crate')}"),
-    (508, "Poster", "poster", f"{M} + [Container.Content(albums) | Container.Content(artists)]", f"{M} + {isv('Poster')}"),
+    (507, "Crate", "crate", f"{M} + {MUS3}", f"{M} + {isv('Crate')}"),
+    (508, "Poster", "poster", f"{M} + {MUS3}", f"{M} + {isv('Poster')}"),
     (50, "List", "list_music", M, f"{M} + {IS_LIST}"),
 ]
 # 0.9.13: up to five previews side by side (films: Shelf, Table, Leaflet, Prints, List); the note is as wide as the
 # views on offer (one frame per count, the list slid to the middle)
 CARD_W, CARD_H = 300, 236   # slot: 24 + 256 x 144 preview + 12 + name 48
 PRE_W, PRE_H = 256, 144
-MAXN = 5
+MAXN = 6   # 0.9.16: films / series offer six (1880 px note)
 
 
 def picker():

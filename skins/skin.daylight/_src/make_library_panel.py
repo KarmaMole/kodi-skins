@@ -300,17 +300,20 @@ open(SKIN + "/Custom_1160_LibraryPanel.xml", "w", encoding="utf-8", newline="\n"
 G = "Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)"
 MG = "Container.Content(albums) | Container.Content(artists) | Container.Content(genres) | Container.Content(years)"
 # 0.9.15 (docs/VIEWS_BRIEF_2026-10-27.md): Spotlight 502, Wide 505, Time 506; music Wall 508, Spotlight 507
+# 0.9.18 (docs/VIEWS_PER_SECTION_2026-10-28.md): Rows 509 (shows, seasons; Episodes' row and preview), Wall 501 also
+# genres, music Grid 504 and Spotlight 507 also songs. 509 is last in <views> (defaults); the picker shows it after Episodes.
 VIEWS = [
     ("videos", 500, "$LOCALIZE[31312]", "views/grid", G, "Pick_Cur_Grid"),
-    ("videos", 501, "$LOCALIZE[31313]", "views/wall", G, "Pick_Cur_Wall"),
+    ("videos", 501, "$LOCALIZE[31313]", "views/wall", G + " | Container.Content(genres)", "Pick_Cur_Wall"),
     ("videos", 502, "$LOCALIZE[31320]", "views/spotlight", G, "Pick_Cur_Spotlight"),
     ("videos", 503, "$LOCALIZE[31314]", "views/episodes", "Container.Content(episodes)", "Pick_Cur_Episodes"),
+    ("videos", 509, "$LOCALIZE[31329]", "views/episodes", "Container.Content(tvshows) | Container.Content(seasons)", "Pick_Cur_Rows"),
     ("videos", 505, "$LOCALIZE[31321]", "views/wide", None, "Pick_Cur_Wide"),
     ("videos", 506, "$LOCALIZE[31322]", "views/time", "Container.Content(movies) | Container.Content(episodes) | Container.Content(musicvideos)", "Pick_Cur_Time"),
     ("videos", 50, "$LOCALIZE[535]", "views/list", None, "Pick_Cur_List"),
-    ("music", 504, "$LOCALIZE[31312]", "views/music_grid", MG, "Pick_Cur_Grid"),
+    ("music", 504, "$LOCALIZE[31312]", "views/music_grid", MG + " | Container.Content(songs)", "Pick_Cur_Grid"),
     ("music", 508, "$LOCALIZE[31313]", "views/music_wall", MG, "Pick_Cur_Wall"),
-    ("music", 507, "$LOCALIZE[31320]", "views/music_spot", "Container.Content(artists) | Container.Content(albums)", "Pick_Cur_Spotlight"),
+    ("music", 507, "$LOCALIZE[31320]", "views/music_spot", "Container.Content(artists) | Container.Content(albums) | Container.Content(songs)", "Pick_Cur_Spotlight"),
     ("music", 50, "$LOCALIZE[535]", "views/music_list", None, "Pick_Cur_List"),
 ]
 # up to six previews side by side (films: Grid, Wall, Spotlight, Wide, Time, List)
@@ -330,7 +333,7 @@ slides = [f'\t\t\t<animation effect="slide" end="{(MAXN - n) * PITCH // 2},0" ti
 # display names (localized); VIEWS keeps the viewtype labels (string ids) that Container.Viewmode is compared with
 names = {("videos", 500): "$LOCALIZE[31312]", ("videos", 501): "$LOCALIZE[31313]", ("videos", 502): "$LOCALIZE[31320]",
          ("videos", 503): "$LOCALIZE[31314]", ("videos", 505): "$LOCALIZE[31321]", ("videos", 506): "$LOCALIZE[31322]",
-         ("videos", 50): "$LOCALIZE[31315]",
+         ("videos", 50): "$LOCALIZE[31315]", ("videos", 509): "$LOCALIZE[31329]",
          ("music", 504): "$LOCALIZE[31312]", ("music", 508): "$LOCALIZE[31313]", ("music", 507): "$LOCALIZE[31320]",
          ("music", 50): "$LOCALIZE[31315]"}
 pitems = picker_items(VIEWS, name_map=names)

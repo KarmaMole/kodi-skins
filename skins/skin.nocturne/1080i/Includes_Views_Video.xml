@@ -18,6 +18,9 @@
 	<expression name="VidView_IsMoviesRoot">Container.Content(movies) + String.StartsWith(Container.FolderPath,videodb://movies/titles)</expression>
 	<expression name="VidView_IsTVRoot">Container.Content(tvshows) + String.StartsWith(Container.FolderPath,videodb://tvshows/titles)</expression>
 	<expression name="VidView_IsLibraryVideo">Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)</expression>
+	<expression name="VidView_IsNode">Container.Content(genres) | Container.Content(years) | Container.Content(actors) | Container.Content(directors) | Container.Content(studios) | Container.Content(countries) | Container.Content(tags)</expression>
+	<!-- a node item with a real picture (actors' portraits); genres / years carry none, so their name card is the tile -->
+	<expression name="VidView_NodeHasArt">!String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),Default)</expression>
 	<expression name="VidView_NavActiveAll">!System.Setting(hidewatched) + !String.StartsWith(Container.FolderPath,videodb://inprogresstvshows)</expression>
 	<expression name="VidView_IsFolderType">String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,set)</expression>
 	<expression name="VidView_IsTVType">String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)</expression>
@@ -367,7 +370,7 @@
 				<include>Lib_OpenLeft</include>
 				<include>Lib_OpenRight</include>
 				<viewtype label="31233">icon</viewtype>
-				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)</visible>
+				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | $EXP[VidView_IsNode]</visible>
 				<itemlayout width="216" height="340">
 					<control type="group">
 						<left>24</left>
@@ -392,6 +395,7 @@
 						<font>title_30</font>
 						<textcolor>66e3cfae</textcolor>
 						<label>$VAR[VidView_ItemTitle]</label>
+						<visible>[!$EXP[VidView_IsNode] | $EXP[VidView_NodeHasArt] | ListItem.IsParentFolder]</visible>
 					</control>
 				</itemlayout>
 				<focusedlayout width="216" height="340">
@@ -419,7 +423,7 @@
 						<font>title_30</font>
 						<textcolor>66e3cfae</textcolor>
 						<label>$VAR[VidView_ItemTitle]</label>
-						<visible>!Control.HasFocus(501)</visible>
+						<visible>!Control.HasFocus(501) + [!$EXP[VidView_IsNode] | $EXP[VidView_NodeHasArt] | ListItem.IsParentFolder]</visible>
 					</control>
 					<control type="label">
 						<left>8</left>
@@ -433,7 +437,7 @@
 						<scroll>true</scroll>
 						<scrollsuffix>     ·     </scrollsuffix>
 						<label>$VAR[VidView_ItemTitle]</label>
-						<visible>Control.HasFocus(501)</visible>
+						<visible>Control.HasFocus(501) + [!$EXP[VidView_IsNode] | $EXP[VidView_NodeHasArt] | ListItem.IsParentFolder]</visible>
 					</control>
 				</focusedlayout>
 			</control>

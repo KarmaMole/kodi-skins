@@ -93,4 +93,14 @@
 		<onstart>Container.SetViewMode(50)</onstart>
 		<onstart>Skin.SetBool(orbit.vreset.genres)</onstart>
 	</timer>
+	<!-- 0.9.19: video genres / years / tags. Grid 501 (type icon) is offered there now, so a path Orbit never saved a
+	     view for can open in Grid through another skin's icon-typed row (Kodi borrows any skin's row, then matches by
+	     type; bench 2026-10-28). Once, on the first visit, put such a folder back on its old default, the list. -->
+	<timer>
+		<name>orbit_view_videogenres</name>
+		<start>Window.IsActive(videos) + Container.Content(genres) + !Container.IsUpdating + Integer.IsGreater(Container.NumItems,0) + !Skin.HasSetting(orbit.vreset.videogenres)</start>
+		<stop>Skin.HasSetting(orbit.vreset.videogenres) | !Window.IsActive(videos)</stop>
+		<onstart condition="Control.IsVisible(501)">Container.SetViewMode(50)</onstart>
+		<onstart>Skin.SetBool(orbit.vreset.videogenres)</onstart>
+	</timer>
 </timers>

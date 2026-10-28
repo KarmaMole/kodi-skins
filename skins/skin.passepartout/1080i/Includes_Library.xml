@@ -23,6 +23,7 @@
 	<!-- the view on show, in the header's words (the series hang is "The hang" there) -->
 	<variable name="PP_ViewName">
 		<value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31148])">The hang</value>
+		<value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31265]) + Container.Content(episodes)">The hang</value>
 		<value>$INFO[Container.Viewmode]</value>
 	</variable>
 	<variable name="PP_LibCaption">
@@ -68,12 +69,13 @@
 	</variable>
 
 	<!-- the picker's mark on the view on show (ListItem.Property(key) of the static items) -->
-	<expression name="PP_PickIsList">!String.IsEqual(Container.Viewmode,$LOCALIZE[31147]) + !String.IsEqual(Container.Viewmode,$LOCALIZE[31148]) + !String.IsEqual(Container.Viewmode,$LOCALIZE[31149]) + !String.IsEqual(Container.Viewmode,$LOCALIZE[31150])</expression>
-	<expression name="PP_PickCurrent">[String.IsEqual(ListItem.Property(key),hang) + String.IsEqual(Container.Viewmode,$LOCALIZE[31147])] | [String.IsEqual(ListItem.Property(key),series) + String.IsEqual(Container.Viewmode,$LOCALIZE[31148])] | [String.IsEqual(ListItem.Property(key),salon) + String.IsEqual(Container.Viewmode,$LOCALIZE[31149])] | [String.IsEqual(ListItem.Property(key),wall) + String.IsEqual(Container.Viewmode,$LOCALIZE[31150])] | [String.IsEqual(ListItem.Property(key),list) + $EXP[PP_PickIsList]]</expression>
+	<expression name="PP_PickIsList">!String.IsEqual(Container.Viewmode,$LOCALIZE[31147]) + !String.IsEqual(Container.Viewmode,$LOCALIZE[31148]) + !String.IsEqual(Container.Viewmode,$LOCALIZE[31149]) + !String.IsEqual(Container.Viewmode,$LOCALIZE[31150]) + !String.IsEqual(Container.Viewmode,$LOCALIZE[31265]) + !String.IsEqual(Container.Viewmode,$LOCALIZE[31266]) + !String.IsEqual(Container.Viewmode,$LOCALIZE[31267])</expression>
+	<expression name="PP_PickCurrent">[String.IsEqual(ListItem.Property(key),hang) + String.IsEqual(Container.Viewmode,$LOCALIZE[31147])] | [String.IsEqual(ListItem.Property(key),series) + String.IsEqual(Container.Viewmode,$LOCALIZE[31148])] | [String.IsEqual(ListItem.Property(key),salon) + String.IsEqual(Container.Viewmode,$LOCALIZE[31149])] | [String.IsEqual(ListItem.Property(key),wall) + String.IsEqual(Container.Viewmode,$LOCALIZE[31150])] | [String.IsEqual(ListItem.Property(key),ephang) + String.IsEqual(Container.Viewmode,$LOCALIZE[31265])] | [String.IsEqual(ListItem.Property(key),widehang) + String.IsEqual(Container.Viewmode,$LOCALIZE[31265])] | [String.IsEqual(ListItem.Property(key),printroom) + String.IsEqual(Container.Viewmode,$LOCALIZE[31266])] | [String.IsEqual(ListItem.Property(key),tracklist) + String.IsEqual(Container.Viewmode,$LOCALIZE[31267])] | [String.IsEqual(ListItem.Property(key),list) + $EXP[PP_PickIsList]]</expression>
 
 	<!-- one entry of the picker: the preview as a small matted print, the view's name in caps under it.
 	     The name's underline (the view on show) and placard (focus) have the measured word widths
-	     (cap_20: THE HANG 127, THE SERIES HANG 223, SALON 84, THE WALL 126, LIST 55; placard = word + 32). -->
+	     (cap_20: THE HANG 127, THE SERIES HANG 223, SALON 84, THE WALL 126, LIST 55, THE WIDE HANG 199, THE PRINT ROOM 213,
+	     TRACK LIST 147; placard = word + 32). -->
 	<include name="PP_PickWordMarks">
 		<param name="kind">underline</param>
 		<definition>
@@ -117,6 +119,38 @@
 				<texture colordiffuse="ink">common/white.png</texture>
 				<visible>String.IsEqual(ListItem.Property(key),list)</visible>
 			</control>
+			<control type="image">
+				<left>36</left>
+				<top>222</top>
+				<width>127</width>
+				<height>1</height>
+				<texture colordiffuse="ink">common/white.png</texture>
+				<visible>String.IsEqual(ListItem.Property(key),ephang)</visible>
+			</control>
+			<control type="image">
+				<left>36</left>
+				<top>222</top>
+				<width>199</width>
+				<height>1</height>
+				<texture colordiffuse="ink">common/white.png</texture>
+				<visible>String.IsEqual(ListItem.Property(key),widehang)</visible>
+			</control>
+			<control type="image">
+				<left>36</left>
+				<top>222</top>
+				<width>213</width>
+				<height>1</height>
+				<texture colordiffuse="ink">common/white.png</texture>
+				<visible>String.IsEqual(ListItem.Property(key),printroom)</visible>
+			</control>
+			<control type="image">
+				<left>36</left>
+				<top>222</top>
+				<width>147</width>
+				<height>1</height>
+				<texture colordiffuse="ink">common/white.png</texture>
+				<visible>String.IsEqual(ListItem.Property(key),tracklist)</visible>
+			</control>
 		</definition>
 	</include>
 	<include name="PP_PickPlacard">
@@ -159,6 +193,38 @@
 			<height>44</height>
 			<texture colordiffuse="ink">common/white.png</texture>
 			<visible>String.IsEqual(ListItem.Property(key),list)</visible>
+		</control>
+		<control type="image">
+			<left>20</left>
+			<top>188</top>
+			<width>159</width>
+			<height>44</height>
+			<texture colordiffuse="ink">common/white.png</texture>
+			<visible>String.IsEqual(ListItem.Property(key),ephang)</visible>
+		</control>
+		<control type="image">
+			<left>20</left>
+			<top>188</top>
+			<width>231</width>
+			<height>44</height>
+			<texture colordiffuse="ink">common/white.png</texture>
+			<visible>String.IsEqual(ListItem.Property(key),widehang)</visible>
+		</control>
+		<control type="image">
+			<left>20</left>
+			<top>188</top>
+			<width>245</width>
+			<height>44</height>
+			<texture colordiffuse="ink">common/white.png</texture>
+			<visible>String.IsEqual(ListItem.Property(key),printroom)</visible>
+		</control>
+		<control type="image">
+			<left>20</left>
+			<top>188</top>
+			<width>179</width>
+			<height>44</height>
+			<texture colordiffuse="ink">common/white.png</texture>
+			<visible>String.IsEqual(ListItem.Property(key),tracklist)</visible>
 		</control>
 	</include>
 	<include name="PP_PickLayouts">

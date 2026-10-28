@@ -68,6 +68,19 @@
 		<value condition="Control.HasFocus(507)">on_lilac</value>
 		<value>muted</value>
 	</variable>
+	<!-- rows (509) -->
+	<variable name="Rows_Ink">
+		<value condition="Control.HasFocus(509)">on_lilac</value>
+		<value>text</value>
+	</variable>
+	<variable name="Rows_InkSoft">
+		<value condition="Control.HasFocus(509)">on_lilac</value>
+		<value>muted</value>
+	</variable>
+	<variable name="Rows_Dim">
+		<value condition="Control.HasFocus(509)">dim_art</value>
+		<value>white</value>
+	</variable>
 	<variable name="Track_Cover">
 		<value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
 		<value>$INFO[ListItem.Art(album.thumb)]</value>
@@ -644,7 +657,7 @@
 				<onright>ActivateWindow(1155)</onright>
 				<scrolltime>0</scrolltime>
 				<viewtype label="31512">biglist</viewtype>
-				<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists)]</visible>
+				<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)]</visible>
 				<itemlayout width="4" height="4"/>
 				<focusedlayout width="4" height="4"/>
 			</control>
@@ -721,6 +734,209 @@
 				<textcolor>muted</textcolor>
 				<label>$LOCALIZE[31513]</label>
 				<visible>Control.HasFocus(508) + Integer.IsGreater(Container.NumItems,1)</visible>
+			</control>
+		</control>
+	</include>
+	<!-- ============================================================== 509 rows (video, 0.9.19) -->
+	<include name="VidView_509_Rows">
+		<control type="group">
+			<visible>Control.IsVisible(509)</visible>
+			<include>Anim_VisibleFade</include>
+			<animation effect="slide" start="0,0" end="0,160" time="0" condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">Conditional</animation>
+			<control type="list" id="509">
+				<include>Lib_BackHomeNav</include>
+				<left>page_margin</left>
+				<top>244</top>
+				<width>1680</width>
+				<height>790</height>
+				<orientation>vertical</orientation>
+				<preloaditems>1</preloaditems>
+				<scrolltime tween="cubic" easing="out">200</scrolltime>
+				<onup>9000</onup>
+				<ondown>noop</ondown>
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
+				<viewtype label="31517">bigwide</viewtype>
+				<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)]</visible>
+				<itemlayout width="1680" height="158">
+					<control type="image">
+						<left>0</left>
+						<top>156</top>
+						<width>1680</width>
+						<height>2</height>
+						<texture colordiffuse="rule">common/hairline.png</texture>
+					</control>
+					<control type="group">
+						<left>16</left>
+						<top>16</top>
+						<width>224</width>
+						<height>126</height>
+						<control type="group">
+							<visible>!ListItem.IsParentFolder</visible>
+							<control type="image">
+								<left>0</left>
+								<top>0</top>
+								<width>224</width>
+								<height>126</height>
+								<texture colordiffuse="raised">common/white.png</texture>
+							</control>
+							<control type="textbox">
+								<left>12</left>
+								<top>10</top>
+								<width>200</width>
+								<height>106</height>
+								<font>ui_20_bold</font>
+								<textcolor>muted</textcolor>
+								<label>$VAR[Scene_Title]</label>
+								<visible>!$EXP[Scene_HasArt]</visible>  <!-- only with no art at all: under a focused print it showed through (bench); the row names the item beside it anyway -->
+							</control>
+							<control type="image">
+								<left>0</left>
+								<top>0</top>
+								<width>224</width>
+								<height>126</height>
+								<aspectratio>scale</aspectratio>
+								<fadetime>160</fadetime>
+								<texture background="true" colordiffuse="$VAR[Rows_Dim]">$VAR[Scene_Wide]</texture>
+								<visible>$EXP[Scene_HasWide]</visible>
+							</control>
+							<control type="image">
+								<left>0</left>
+								<top>0</top>
+								<width>224</width>
+								<height>126</height>
+								<aspectratio>keep</aspectratio>
+								<fadetime>160</fadetime>
+								<texture background="true" colordiffuse="$VAR[Rows_Dim]">$VAR[Scene_Small]</texture>
+								<visible>!$EXP[Scene_HasWide]</visible>
+							</control>
+							<include>Sen_WatchedMarkers</include>
+						</control>
+						<control type="group">
+							<visible>ListItem.IsParentFolder</visible>
+							<include>VidView_ParentTile</include>
+						</control>
+					</control>
+					<control type="label">
+						<left>272</left>
+						<top>4</top>
+						<width>1380</width>
+						<height>46</height>
+						<font>serif_34</font>
+						<label>$VAR[Scene_Title]</label>
+					</control>
+					<control type="label">
+						<left>272</left>
+						<top>50</top>
+						<width>1380</width>
+						<height>28</height>
+						<font>ui_22</font>
+						<textcolor>muted</textcolor>
+						<selectedcolor>muted</selectedcolor>
+						<label>$VAR[Sen_CaptionShort]</label>
+					</control>
+					<control type="textbox">
+						<left>272</left>
+						<top>80</top>
+						<width>1380</width>
+						<height>76</height>
+						<font>body_24</font>
+						<textcolor>muted</textcolor>
+						<label>$INFO[ListItem.Plot]</label>
+						<visible>!ListItem.IsParentFolder</visible>
+					</control>
+				</itemlayout>
+				<focusedlayout width="1680" height="158">
+					<control type="image">
+						<left>0</left>
+						<top>156</top>
+						<width>1680</width>
+						<height>2</height>
+						<texture colordiffuse="rule">common/hairline.png</texture>
+					</control>
+					<include content="Dlg_RowFocus"><param name="list_id" value="509"/><param name="width" value="1680"/><param name="height" value="158"/></include>
+					<control type="group">
+						<left>16</left>
+						<top>16</top>
+						<width>224</width>
+						<height>126</height>
+						<control type="group">
+							<visible>!ListItem.IsParentFolder</visible>
+							<control type="image">
+								<left>0</left>
+								<top>0</top>
+								<width>224</width>
+								<height>126</height>
+								<texture colordiffuse="raised">common/white.png</texture>
+							</control>
+							<control type="textbox">
+								<left>12</left>
+								<top>10</top>
+								<width>200</width>
+								<height>106</height>
+								<font>ui_20_bold</font>
+								<textcolor>muted</textcolor>
+								<label>$VAR[Scene_Title]</label>
+								<visible>!$EXP[Scene_HasArt]</visible>  <!-- only with no art at all: under a focused print it showed through (bench); the row names the item beside it anyway -->
+							</control>
+							<control type="image">
+								<left>0</left>
+								<top>0</top>
+								<width>224</width>
+								<height>126</height>
+								<aspectratio>scale</aspectratio>
+								<fadetime>160</fadetime>
+								<texture background="true" colordiffuse="white">$VAR[Scene_Wide]</texture>
+								<visible>$EXP[Scene_HasWide]</visible>
+							</control>
+							<control type="image">
+								<left>0</left>
+								<top>0</top>
+								<width>224</width>
+								<height>126</height>
+								<aspectratio>keep</aspectratio>
+								<fadetime>160</fadetime>
+								<texture background="true" colordiffuse="white">$VAR[Scene_Small]</texture>
+								<visible>!$EXP[Scene_HasWide]</visible>
+							</control>
+							<include>Sen_WatchedMarkers</include>
+						</control>
+						<control type="group">
+							<visible>ListItem.IsParentFolder</visible>
+							<include>VidView_ParentTile</include>
+						</control>
+					</control>
+					<control type="label">
+						<left>272</left>
+						<top>4</top>
+						<width>1380</width>
+						<height>46</height>
+						<font>serif_34</font>
+						<textcolor>$VAR[Rows_Ink]</textcolor>
+						<selectedcolor>$VAR[Rows_Ink]</selectedcolor>
+						<label>$VAR[Scene_Title]</label>
+					</control>
+					<control type="label">
+						<left>272</left>
+						<top>50</top>
+						<width>1380</width>
+						<height>28</height>
+						<font>ui_22</font>
+						<textcolor>$VAR[Rows_InkSoft]</textcolor>
+						<selectedcolor>$VAR[Rows_InkSoft]</selectedcolor>
+						<label>$VAR[Sen_Caption]</label>
+					</control>
+					<control type="textbox">
+						<left>272</left>
+						<top>80</top>
+						<width>1380</width>
+						<height>76</height>
+						<font>body_24</font>
+						<textcolor>$VAR[Rows_InkSoft]</textcolor>
+						<label>$INFO[ListItem.Plot]</label>
+						<visible>!ListItem.IsParentFolder</visible>
+					</control>
+				</focusedlayout>
 			</control>
 		</control>
 	</include>

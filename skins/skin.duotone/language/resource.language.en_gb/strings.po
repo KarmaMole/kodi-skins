@@ -943,3 +943,7 @@ msgstr ""
 msgctxt "#31995"
 msgid "OK to open"
 msgstr ""
+
+msgctxt "#31421"
+msgid "Rows"
+msgstr ""

@@ -243,6 +243,78 @@ def bigalbum():
     b.save("music_bigalbum")
 
 
+def bigstill():
+    """501 for episodes: stills 768x432 at y 223 (pitch 792), the focused one at x 450; its text under it at 450."""
+    b = Board(511)
+    b.header(words=(44, 120, 140, 11, 140))
+    for k in range(3):
+        b.tile(-342 + k * 792, 223, 768, 432, TONES[2] if k == 1 else None, title=False)
+    b.outline(450, 223, 768, 432)
+    b.bar(96, 714, 120, 10, TXT3)
+    b.bar(96, 744, 140, 12, TXT1)
+    b.accent_bar(450, 708, 300, 12)
+    b.bar(450, 754, 420, 52, TXT1)
+    b.bar(450, 824, 700, 12, TXT3)
+    b.bar(450, 862, 1170, 14, TXT2)
+    b.bar(450, 896, 220, 14, TXT2)
+    b.save("bigstill")
+
+
+def rows():
+    """503 for films / series: rows of 174 from y 168; a 96x144 poster, caption, title, plot; focused row raised."""
+    b = Board(513)
+    b.header()
+    for k in range(5):
+        y = 168 + k * 174
+        if k == 1:
+            b.bar(96, y, 1728, 174, RAISED)
+            b.accent_bar(96, y, 6, 174)
+        b.tile(120, y + 15, 96, 144, title=False)
+        b.bar(248, y + 24, 360, 10, TXT3)
+        b.bar(248, y + 52, 320, 22, TXT1 if k == 1 else TXT2)
+        b.bar(248, y + 96, 1260, 14, TXT2)
+        b.bar(248, y + 128, 600, 14, TXT2)
+        b.rule(96, y + 172, 1728, 2)
+    b.save("rows")
+
+
+def stills():
+    """507: 4 x 3 cards of 416x234 from 96,168 (pitch 436 x 296), title + mono caption under each."""
+    b = Board(507)
+    b.header(words=(44, 120, 140, 11, 140))
+    for r in range(3):
+        for c in range(4):
+            x, y = 96 + c * 436, 168 + r * 296
+            b.tile(x, y, 416, 234, title=False)
+            b.bar(x, y + 246, 220, 16, TXT1)
+            b.bar(x, y + 274, 150, 10, TXT3)
+    b.outline(96 + 436, 168, 416, 234)
+    b.save("stills")
+
+
+def tracklist():
+    """508: a column head at y 160, a rule, rows of 66 from y 198 across the page (96..1824), focused row raised."""
+    b = Board(508)
+    b.header(title_w=130, words=(110, 77, 55, 66, 121, 11, 110))
+    for x, w in ((124, 30), (196, 60), (820, 70), (1224, 60), (1628, 40), (1740, 60)):
+        b.bar(x, 166, w, 10, TXT3)
+    b.rule(96, 196, 1728, 3)
+    widths = [300, 420, 360, 260, 480, 340, 300, 400, 280, 440, 320]
+    for k in range(11):
+        y = 198 + k * 66
+        if k == 2:
+            b.bar(96, y, 1728, 66, RAISED)
+            b.accent_bar(96, y, 6, 66)
+        b.bar(124, y + 26, 30, 12, TXT3)
+        b.bar(196, y + 24, widths[k], 16, TXT1 if k == 2 else TXT2)
+        b.bar(820, y + 26, widths[(k + 3) % 11] * 2 // 3, 12, TXT2)
+        b.bar(1224, y + 26, widths[(k + 6) % 11] * 2 // 3, 12, TXT3)
+        b.bar(1628, y + 26, 48, 12, TXT3)
+        b.bar(1740, y + 26, 60, 12, TXT3)
+        b.rule(96, y + 64, 1728, 2)
+    b.save("music_tracklist")
+
+
 if __name__ == "__main__":
     showcase()
     bigposter()
@@ -253,3 +325,7 @@ if __name__ == "__main__":
     listview(music=True)
     grid()
     bigalbum()
+    bigstill()
+    rows()
+    stills()
+    tracklist()

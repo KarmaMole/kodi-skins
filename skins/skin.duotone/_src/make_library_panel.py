@@ -268,7 +268,9 @@ IS_WALL = "String.IsEqual(Container.Viewmode,Wall)"
 IS_EPIS = "String.IsEqual(Container.Viewmode,Episodes)"
 IS = lambda name: f"String.IsEqual(Container.Viewmode,{name})"
 # 0.9.16 views (_src/make_views_more.py): Poster / Screens / Sheet (video), Stage / Tracks (music)
-NAMED = ("Wall", "Episodes", "Poster", "Screens", "Sheet", "Stage", "Tracks")
+NAMED = ("Wall", "Episodes", "Poster", "Screens", "Sheet", "Stage", "Tracks", "Rows")
+# 0.9.18 (docs/VIEWS_PER_SECTION_2026-10-28.md): Rows 510 (films, sets, series, music videos), Stage 508 also songs
+ROWS_V = "[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)]"
 IS_LIST = " + ".join(f"!{IS(n)}" for n in NAMED)
 
 # (view id, name, preview, visible, is-current)
@@ -278,9 +280,10 @@ VIEWS = [
     (505, "Poster", "poster", V, f"{V} + {IS('Poster')}"),
     (506, "Screens", "screens", V, f"{V} + {IS('Screens')}"),
     (507, "Sheet", "sheet", f"{V} + {WALL_V}", f"{V} + {IS('Sheet')}"),
+    (510, "Rows", "rows", f"{V} + {ROWS_V}", f"{V} + {IS('Rows')}"),
     (50, "$LOCALIZE[535]", "list", V, f"{V} + {IS_LIST}"),
     (504, "Wall", "albums", f"{M} + {ALB_V}", f"{M} + {IS_WALL}"),
-    (508, "Stage", "stage", f"{M} + {ALB_V}", f"{M} + {IS('Stage')}"),
+    (508, "Stage", "stage", f"{M} + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)]", f"{M} + {IS('Stage')}"),
     (509, "Tracks", "tracks", f"{M} + Container.Content(songs)", f"{M} + {IS('Tracks')}"),
     (50, "$LOCALIZE[535]", "list_music", M, f"{M} + {IS_LIST}"),
 ]

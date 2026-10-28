@@ -267,7 +267,48 @@ def album_pages():
     return im
 
 
+def contact_sheet():
+    """527 (0.9.15): ten small prints to a row across the spread, a year under each, the focused one lifted."""
+    im = ground()
+    for r in range(3):
+        for c in range(10):
+            x = 52 + c * 181 + 6
+            y = 186 + r * 300 + 16
+            if (r, c) == (0, 2):
+                continue
+            im = photo_print(im, x, y, 170, 245, r * 10 + c, border=10)
+            d = ImageDraw.Draw(im)
+            label(d, x + 60, y + 254, 50)
+    x, y = 52 + 2 * 181 - 4, 186 + 4
+    im = photo_print(im, x, y, 190, 268, 5, lift=True, border=10)
+    d = ImageDraw.Draw(im)
+    pen(d, x + 20, y + 290, 150, 16, INK)
+    header(d)
+    return im
+
+
+def mixtape():
+    """533 (0.9.15): the songs written out as a tape's track card on the right page, the cover taped on the left."""
+    im = ground()
+    im = photo_print(im, 220, 232, 492, 492, 4, lift=True, border=16)
+    d = ImageDraw.Draw(im)
+    pen(d, 300, 790, 340, 20, INK)
+    label(d, 330, 846, 280, (201, 194, 184))
+    for k in range(15):
+        y = 214 + k * 52
+        if k == 3:
+            d.rectangle([1036, y + 4, 1844, y + 50], fill=(226, 206, 150))
+        label(d, 1050, y + 20, 22)
+        pen(d, 1106, y + 22, 180 + (k * 61) % 220, 12, (60, 50, 40) if k == 3 else (190, 186, 180))
+        label(d, 1560, y + 20, 110)
+        label(d, 1780, y + 20, 50)
+    header(d, 190, (260, 110))
+    return im
+
+
 if __name__ == "__main__":
+    finish(contact_sheet(), "contact_sheet")
+    finish(mixtape(), "mixtape")
     finish(a_page(), "a_page")
     finish(postcards(), "postcards")
     finish(album_pages(), "album_pages")

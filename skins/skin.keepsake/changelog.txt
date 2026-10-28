@@ -1,3 +1,6 @@
+0.9.15 (2026-10-28)
+- More views in every section. Films and series can now be laid out as a strip (six poster prints stamped with when you watched them, the focused one below with its story and your history with it) and as a contact sheet (ten small prints to a row, the year under each). Genres, years and people can open on the contact sheet too, the name written on each print. Songs can now open as album pages (the cover, the song, its artist and album) and as a mixtape (the songs written out like a tape's track card, the cover taped beside them). The view each section opens in is unchanged.
+
 0.9.14 (2026-10-28)
 - Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
 - Skin settings: a "menu items" line above the custom rows (item 1, 2 and 3), with the same choices (Add-on, playlist or library..., A favourite..., Rename..., Clear). Each item is a pen word after music, before search and settings, in the same hand; OK opens the add-on, folder or favourite and Back comes home to the word. An item hides while its add-on is uninstalled or disabled. Nothing changes until an item is set up.

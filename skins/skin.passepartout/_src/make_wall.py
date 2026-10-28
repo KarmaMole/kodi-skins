@@ -43,7 +43,7 @@ MAT_ON = "!Skin.HasSetting(passepartout.wall.nomat)"
 MAT_OFF = "Skin.HasSetting(passepartout.wall.nomat)"
 S_LABEL = "Skin.String(passepartout.wall.label)"
 LABEL_ON = (f"[[String.IsEqual({S_LABEL},1) + System.IdleTime(1)] | [String.IsEqual({S_LABEL},2) + System.IdleTime(2)]]"
-            " + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder")
+            " + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode]")
 
 # wall label text block per (size, butted): pad, title top, cap1, cap2, rule (None), plot top, plot lines, status top
 CARD = {
@@ -296,9 +296,12 @@ def print_group(size, butted, focused, probe_ids):
 					</control>''')
     bevel = "true" if (focused or not butted) else "false"
     font = "body_22" if size != "small" else "body_20"
+    # name prints: the longest names fit one line per word ("Documentary": body_20 127, body_26 ~162, ttl_34 207)
+    namefont = {"small": "body_20", "medium": "body_26", "large": "ttl_34"}[size]
     inner.append(f'''					<include content="Wall_PrintBody">
 						<param name="bevel" value="{bevel}"/>
 						<param name="font" value="{font}"/>
+						<param name="namefont" value="{namefont}"/>
 					</include>''')
     if focused:
         inner.append(f'''					<control type="image">
@@ -424,18 +427,43 @@ def main():
 		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode)">Unwatched · ends [COLOR ink]$INFO[ListItem.EndTime][/COLOR]</value>
 	</variable>
 
+	<variable name="Wall_PicTitle"><value condition="$EXP[VidView_IsNameNode]"></value><value>$INFO[ListItem.Label]</value></variable>
 	<!-- picture (+ bevel), or the quiet Back card for ".." -->
 	<include name="Wall_PrintBody">
 		<param name="bevel">true</param>
 		<param name="font">body_22</param>
+		<param name="namefont">body_26</param>
 		<definition>
 			<control type="group">
 				<visible>!ListItem.IsParentFolder</visible>
 				<include content="PP_Picture">
 					<param name="art" value="$VAR[VidView_SalonArt]"/>
-					<param name="title" value="$INFO[ListItem.Label]"/>
+					<param name="title" value="$VAR[Wall_PicTitle]"/>
 					<param name="font" value="$PARAM[font]"/>
 				</include>
+				<!-- a genre / year / person: the kind in caps, the name large, top left like a wall label (a person with a photo
+				     shows the photo instead) -->
+				<control type="group">
+					<visible>$EXP[VidView_IsNameNode] + !$EXP[VidView_HasOwnThumb]</visible>
+					<control type="label">
+						<left>12</left>
+						<top>12</top>
+						<right>8</right>
+						<height>26</height>
+						<font>cap_20</font>
+						<textcolor>ink2</textcolor>
+						<label>$VAR[VidView_PrintRoomCap]</label>
+					</control>
+					<control type="textbox">
+						<left>12</left>
+						<top>44</top>
+						<right>8</right>
+						<bottom>12</bottom>
+						<font>$PARAM[namefont]</font>
+						<textcolor>ink</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</control>
 				<control type="group">
 					<visible>$PARAM[bevel]</visible>
 					<include>PP_Bevel</include>
@@ -487,7 +515,8 @@ def main():
 			<onright>ActivateWindow(1155)</onright>
 			<onfocus>SetProperty(TMDbHelper.Colors.SourceImage,Art(poster)|Art(tvshow.poster)|Art(thumb)|Art(fanart),home)</onfocus>
 			<viewtype label="The wall">panel</viewtype>
-			<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)</visible>
+			<!-- 0.9.18: genre / year / people nodes too (the print's title card is their name; a person's photo when there is one; no wall label) -->
+			<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | $EXP[VidView_IsNameNode]</visible>
 {chr(10).join(layouts)}
 		</control>
 		<!-- the header comes back on a paper band when focus leaves the wall (0-140; 0.9.11: no View words at the

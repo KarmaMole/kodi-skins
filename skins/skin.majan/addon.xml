@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.majan" version="1.0.17" name="Majan" provider-name="KarmaMole">
+<addon id="skin.majan" version="1.0.18" name="Majan" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#majan</website>
-		<news>v1.0.17 - Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings &gt; Custom menu items).</news>
+		<news>v1.0.18 - More views in every library section: new Stills and Tracklist views; Showcase, Big Poster, Episodes, Poster wall and Big album now show more kinds of items. Every section still opens in its usual view.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

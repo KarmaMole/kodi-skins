@@ -4,6 +4,7 @@
   1080i/Custom_1157_LibraryTask.xml    Update / Clean with the choice of library and the confirmation
 Labels and expressions live in 1080i/Includes_Library.xml. Run: python make_library_dialogs.py
 """
+import re
 from pathlib import Path
 from strip_defaults import strip_defaults  # drops tags that repeat Defaults.xml (kdk xml.redundant)
 from localize import localize_xml  # literal label words -> $LOCALIZE[id] from strings.po (kdk labels.not-translated)
@@ -258,17 +259,59 @@ VIDEO_FLAGS = [
 ]
 V = "Window.IsVisible(videos)"
 M = "Window.IsVisible(music)"
+C = "Container.Content"
+NAME = "$EXP[VidView_IsNameNode]"
+# 0.9.18: 503 has two entries (episodes call it "The hang", films / sets / series "The wide hang"); every entry's
+# visible condition is its view's own, so the picker offers exactly Container.ViewCount entries.
 PICKS = [
-    ("hang", "The hang", "hang", f"{V} + [Container.Content(movies) | Container.Content(sets) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(videos) | [Container.Content(tvshows) + {INPROG}]]", 500, None),
-    ("series", "The series hang", "series", f"{V} + Container.Content(tvshows) + !{INPROG}", 502, None),
-    ("hang", "The hang", "episodes", f"{V} + Container.Content(episodes)", 503, None),
-    ("salon", "Salon", "salon", f"{V} + [Container.Content(movies) | Container.Content(sets) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(tvshows) | Container.Content(episodes)]", 501, "video"),
-    ("wall", "The wall", "wall", f"{V} + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)]", 506, "video"),
+    ("hang", "The hang", "hang", f"{V} + [{C}(movies) | {C}(sets) | {C}(seasons) | {C}(musicvideos) | {C}(videos) | [{C}(tvshows) + {INPROG}]]", 500, None),
+    ("series", "The series hang", "series", f"{V} + {C}(tvshows) + !{INPROG}", 502, None),
+    ("ephang", "The hang", "episodes", f"{V} + {C}(episodes)", 503, None),
+    ("widehang", "The wide hang", "widehang", f"{V} + [{C}(movies) | {C}(sets) | {C}(tvshows)]", 503, "video"),
+    ("salon", "Salon", "salon", f"{V} + [{C}(movies) | {C}(sets) | {C}(seasons) | {C}(musicvideos) | {C}(tvshows) | {C}(episodes)]", 501, "video"),
+    ("wall", "The wall", "wall", f"{V} + [{C}(movies) | {C}(sets) | {C}(tvshows) | {C}(seasons) | {NAME}]", 506, "video"),
+    ("printroom", "The print room", "printroom", f"{V} + [{C}(episodes) | {C}(movies) | {C}(sets) | {C}(tvshows) | {C}(seasons) | {C}(musicvideos) | {NAME}]", 507, "video"),
     ("list", "List", "list", V, 50, "video"),
-    ("hang", "The hang", "music_hang", f"{M} + [Container.Content(albums) | Container.Content(artists)]", 504, None),
-    ("salon", "Salon", "music_salon", f"{M} + [Container.Content(albums) | Container.Content(artists)]", 505, "music"),
+    ("hang", "The hang", "music_hang", f"{M} + [{C}(albums) | {C}(artists)]", 504, None),
+    ("salon", "Salon", "music_salon", f"{M} + [{C}(albums) | {C}(artists) | {C}(songs)]", 505, "music"),
+    ("tracklist", "Track list", "music_tracklist", f"{M} + {C}(songs)", 508, "music"),
     ("list", "List", "music_list", M, 50, "music"),
 ]
+# the viewtype label (string id) each view reads back as Container.Viewmode
+VIEWMODE = {500: 31147, 502: 31148, 503: 31265, 501: 31149, 506: 31150, 507: 31266, 504: 31147, 505: 31149, 508: 31267}
+NAMES = ("genres", "years", "actors", "directors", "studios", "countries", "tags")
+# mutually exclusive content classes per window: (condition, the truth values the pick conditions are evaluated with)
+VCLASSES = [(f"{C}({c})", {c}) for c in ("movies", "sets", "seasons", "episodes", "musicvideos", "videos")] + [
+    (f"{C}(tvshows) + !{INPROG}", {"tvshows"}), (f"{C}(tvshows) + {INPROG}", {"tvshows", "INPROG"}),
+    (NAME, {"NAME"})]
+MCLASSES = [(f"{C}({c})", {c}) for c in ("albums", "artists", "songs")]
+
+
+def holds(cond, win, true):
+    """Evaluate a pick condition (Kodi syntax: + and, | or, ! not, [ ]) for one window / content class."""
+    py = cond.replace(INPROG, " INPROG ").replace(NAME, " NAME ")
+    py = py.replace("Window.IsVisible(videos)", " WV ").replace("Window.IsVisible(music)", " WM ")
+    py = re.sub(r"Container\.Content\((\w+)\)", r" C_\1 ", py)
+    py = py.replace("[", "(").replace("]", ")").replace("+", " and ").replace("|", " or ").replace("!", " not ")
+    env = {"WV": win == "v", "WM": win == "m", "INPROG": "INPROG" in true, "NAME": "NAME" in true}
+    for tok in re.findall(r"C_(\w+)", py):
+        env["C_" + tok] = tok in true
+    return eval(py, {}, env)
+
+
+def picker_onloads():
+    """After the reset to the first entry, move k places to the view on show (k = its place among the entries this
+    content offers). List is always last: the old Control.Move(100,-1) (wraps to the end) stays."""
+    out = []
+    for win, wcond, classes in (("v", V, VCLASSES), ("m", M, MCLASSES)):
+        for cond, true in classes:
+            shown = [p for p in PICKS if holds(p[3], win, true)]
+            for k, (key, _, _, _, vid, _) in enumerate(shown):
+                if k == 0 or key == "list":
+                    continue
+                out.append(f'\t<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[{VIEWMODE[vid]}]) + {wcond} + {cond}">Control.Move(100,{k})</onload>')
+    out.append('\t<onload condition="$EXP[PP_PickIsList]">Control.Move(100,-1)</onload>')
+    return "\n".join(out)
 
 
 def picker():
@@ -294,14 +337,12 @@ def picker():
 <window type="dialog" id="1156">
 	<defaultcontrol always="true">100</defaultcontrol>
 	<include>Anim_DialogOpenClose</include>
-	<!-- land on the view on show (visible order: a hang first, Salon second, The wall third where it exists, List last).
+	<!-- land on the view on show (the entries' order per content, generated by picker_onloads(); List last).
 	     Kodi keeps the list's selected item between visits, so first go back to the first item: Control.Move wraps,
 	     -CurrentItem lands on the last item and +1 on the first (LESSONS, Nocturne). -->
 	<onload>Control.Move(100,-$INFO[Container(100).CurrentItem])</onload>
 	<onload>Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31149])">Control.Move(100,1)</onload>
-	<onload condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31150])">Control.Move(100,2)</onload>
-	<onload condition="$EXP[PP_PickIsList]">Control.Move(100,-1)</onload>
+{picker_onloads()}
 	<controls>
 		<include>PP_Veil</include>
 		<control type="group">

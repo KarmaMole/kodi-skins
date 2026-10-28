@@ -328,7 +328,37 @@ def poster():
     save(im, "poster")
 
 
+def accordion():
+    """0.9.16 Accordion 509: the concertina of posters from the left margin, the title / story / facts below."""
+    im, d = canvas()
+    tabs(d, 0)
+    words(d, VERM)
+    x = 96
+    for k in range(10):
+        w = 227 if k == 2 else 192
+        top, h = (206 - 30, 468 + 60) if k == 2 else (206, 468)
+        tilt = 0 if k == 2 else (14 if k % 2 else -14)
+        if x > 1920:
+            break
+        col = CREAM if k == 2 else (CREAM if k % 2 else (236, 229, 216))
+        poly = [(x, top + max(tilt, 0)), (x + w, top + max(-tilt, 0)), (x + w, top + h - max(-tilt, 0)), (x, top + h - max(tilt, 0))]
+        d.polygon(poly, fill=col, outline=RULE)
+        bar(d, x + 16, top + 24, 70, 26, VERM)                            # the year
+        bar(d, x + 16, top + 82, w - 32, int((w - 32) * 1.5), PLATES[k % len(PLATES)])
+        bar(d, x + 16, top + 82 + int((w - 32) * 1.5) + 14, w - 60, 14, INK if k == 2 else INK2)
+        if k == 2:
+            bar(d, x, top, w, 8, VERM)
+        x += w
+    bar(d, 96, 668, 1824, 6, (200, 194, 184))      # contact line
+    bar(d, 96, 742, 760, 50, INK)
+    for k in range(3):
+        bar(d, 96, 818 + k * 37, 1240 - (k == 2) * 400, 16, INK2)
+    bar(d, 96, 938, 620, 14, CAP)
+    save(im, "accordion")
+
+
 if __name__ == "__main__":
+    accordion()
     table("table", VERM, 0)
     leaflet()
     prints()

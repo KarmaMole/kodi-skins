@@ -8,11 +8,19 @@
 	<expression name="MusicLib_TabSongs">String.StartsWith(Container.FolderPath,musicdb://songs/)</expression>
 	<!-- songs of one album (drilled from an album or an artist's album): a tracklist with numbers, no thumbs -->
 	<expression name="MusicLib_Tracklist">Container.Content(songs) + [String.StartsWith(Container.FolderPath,musicdb://albums/) | String.StartsWith(Container.FolderPath,musicdb://artists/)]</expression>
+	<variable name="MusicLib_Title500">
+		<value condition="String.IsEqual(Container(500).ListItem.DBType,song) + !String.IsEmpty(Container(500).ListItem.Title)">$INFO[Container(500).ListItem.Title]</value>
+		<value>$INFO[Container(500).ListItem.Label]</value>
+	</variable>
 	<variable name="MusicLib_Meta500">
 		<value condition="Container.Content(artists)"></value>
 		<value condition="!String.IsEmpty(Container(500).ListItem.Artist) + !String.IsEmpty(Container(500).ListItem.Year)">·  $INFO[Container(500).ListItem.Artist]  ·  $INFO[Container(500).ListItem.Year]</value>
 		<value condition="!String.IsEmpty(Container(500).ListItem.Artist)">·  $INFO[Container(500).ListItem.Artist]</value>
 		<value condition="!String.IsEmpty(Container(500).ListItem.Year)">·  $INFO[Container(500).ListItem.Year]</value>
+	</variable>
+	<variable name="MusicLib_Title501">
+		<value condition="String.IsEqual(Container(501).ListItem.DBType,song) + !String.IsEmpty(Container(501).ListItem.Title)">$INFO[Container(501).ListItem.Title]</value>
+		<value>$INFO[Container(501).ListItem.Label]</value>
 	</variable>
 	<variable name="MusicLib_Meta501">
 		<value condition="Container.Content(artists)"></value>
@@ -20,11 +28,28 @@
 		<value condition="!String.IsEmpty(Container(501).ListItem.Artist)">·  $INFO[Container(501).ListItem.Artist]</value>
 		<value condition="!String.IsEmpty(Container(501).ListItem.Year)">·  $INFO[Container(501).ListItem.Year]</value>
 	</variable>
+	<variable name="MusicLib_Title502">
+		<value condition="String.IsEqual(Container(502).ListItem.DBType,song) + !String.IsEmpty(Container(502).ListItem.Title)">$INFO[Container(502).ListItem.Title]</value>
+		<value>$INFO[Container(502).ListItem.Label]</value>
+	</variable>
 	<variable name="MusicLib_Meta502">
 		<value condition="Container.Content(artists)"></value>
 		<value condition="!String.IsEmpty(Container(502).ListItem.Artist) + !String.IsEmpty(Container(502).ListItem.Year)">·  $INFO[Container(502).ListItem.Artist]  ·  $INFO[Container(502).ListItem.Year]</value>
 		<value condition="!String.IsEmpty(Container(502).ListItem.Artist)">·  $INFO[Container(502).ListItem.Artist]</value>
 		<value condition="!String.IsEmpty(Container(502).ListItem.Year)">·  $INFO[Container(502).ListItem.Year]</value>
+	</variable>
+	<variable name="MusicLib_ItemTitle">
+		<value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+	<variable name="MusicLib_Title503">
+		<value condition="String.IsEqual(Container(503).ListItem.DBType,song) + !String.IsEmpty(Container(503).ListItem.Title)">$INFO[Container(503).ListItem.Title]</value>
+		<value>$INFO[Container(503).ListItem.Label]</value>
+	</variable>
+	<variable name="MusicLib_Sub503">
+		<value condition="String.IsEqual(Container(503).ListItem.DBType,artist)">$INFO[Container(503).ListItem.Genre]</value>
+		<value condition="String.IsEqual(Container(503).ListItem.DBType,song)">$INFO[Container(503).ListItem.Artist]$INFO[Container(503).ListItem.Album,  ·  ,]</value>
+		<value>$INFO[Container(503).ListItem.Artist]</value>
 	</variable>
 	<variable name="MusicLib_RowLabel">
 		<value condition="ListItem.IsParentFolder">$LOCALIZE[31605]</value>
@@ -899,7 +924,7 @@
 			<include>Lib_OpenLeft</include>
 			<include>Lib_OpenRight</include>
 			<include>Anim_ScrollPanel</include>
-			<visible>Container.Content(albums) | Container.Content(artists)</visible>
+			<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>
 			<itemlayout width="240" height="240">
 				<control type="group">
 					<left>8</left>
@@ -933,7 +958,7 @@
 							<aligny>center</aligny>
 							<font>font_small</font>
 							<textcolor>$VAR[ink2]</textcolor>
-							<label>$INFO[ListItem.Label]</label>
+							<label>$VAR[MusicLib_ItemTitle]</label>
 							<visible>String.IsEmpty(ListItem.Art(thumb))</visible>
 						</control>
 						<control type="image">
@@ -964,7 +989,7 @@
 							<aligny>center</aligny>
 							<font>font_small</font>
 							<textcolor>$VAR[ink2]</textcolor>
-							<label>$INFO[ListItem.Label]</label>
+							<label>$VAR[MusicLib_ItemTitle]</label>
 							<visible>String.IsEmpty(ListItem.Art(thumb))</visible>
 						</control>
 						<control type="image">
@@ -1095,7 +1120,7 @@
 							<aligny>center</aligny>
 							<font>font_small</font>
 							<textcolor>$VAR[ink2]</textcolor>
-							<label>$INFO[ListItem.Label]</label>
+							<label>$VAR[MusicLib_ItemTitle]</label>
 							<visible>String.IsEmpty(ListItem.Art(thumb))</visible>
 						</control>
 						<control type="image">
@@ -1127,7 +1152,7 @@
 							<aligny>center</aligny>
 							<font>font_small</font>
 							<textcolor>$VAR[ink2]</textcolor>
-							<label>$INFO[ListItem.Label]</label>
+							<label>$VAR[MusicLib_ItemTitle]</label>
 							<visible>String.IsEmpty(ListItem.Art(thumb))</visible>
 						</control>
 						<control type="image">
@@ -1234,7 +1259,7 @@
 				<font>font_caption</font>
 				<textcolor>$VAR[ink]</textcolor>
 				<shadowcolor>$VAR[text_shadow]</shadowcolor>
-				<label>$INFO[Container(500).ListItem.Label]</label>
+				<label>$VAR[MusicLib_Title500]</label>
 			</control>
 			<control type="label">
 				<top>2</top>
@@ -1862,7 +1887,7 @@
 				<font>font_caption</font>
 				<textcolor>$VAR[ink]</textcolor>
 				<shadowcolor>$VAR[text_shadow]</shadowcolor>
-				<label>$INFO[Container(501).ListItem.Label]</label>
+				<label>$VAR[MusicLib_Title501]</label>
 			</control>
 			<control type="label">
 				<top>2</top>
@@ -4393,7 +4418,7 @@
 				<font>font_caption</font>
 				<textcolor>$VAR[ink]</textcolor>
 				<shadowcolor>$VAR[text_shadow]</shadowcolor>
-				<label>$INFO[Container(502).ListItem.Label]</label>
+				<label>$VAR[MusicLib_Title502]</label>
 			</control>
 			<control type="label">
 				<top>2</top>
@@ -4428,7 +4453,7 @@
 			<onback condition="[String.IsEqual(Container.FolderPath,musicdb://albums/) | String.IsEqual(Container.FolderPath,musicdb://artists/) | String.IsEqual(Container.FolderPath,musicdb://songs/) | String.IsEqual(Container.FolderPath,musicdb://genres/) | String.IsEqual(Container.FolderPath,musicdb://)]">9398</onback>
 			<include>Lib_OpenLeft</include>
 			<include>Lib_OpenRight</include>
-			<visible>Container.Content(albums)</visible>
+			<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>
 			<itemlayout width="1" height="1">
 				<control type="image"><left>0</left><top>0</top><width>1</width><height>1</height><texture background="true" colordiffuse="clear">$INFO[ListItem.Art(thumb)]</texture></control>
 			</itemlayout>
@@ -4914,7 +4939,7 @@
 					<aligny>center</aligny>
 					<font>font_caption</font>
 					<textcolor>$VAR[ink]</textcolor>
-					<label>$INFO[Container(503).ListItem.Label]</label>
+					<label>$VAR[MusicLib_Title503]</label>
 				</control>
 				<control type="label">
 					<left>460</left>
@@ -4925,7 +4950,7 @@
 					<aligny>center</aligny>
 					<font>font_caption_light</font>
 					<textcolor>$VAR[ink2]</textcolor>
-					<label>$INFO[Container(503).ListItem.Artist]</label>
+					<label>$VAR[MusicLib_Sub503]</label>
 				</control>
 			</control>
 		</control>

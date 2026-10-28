@@ -40,6 +40,9 @@
 	<constant name="vidview_big_pitch">354</constant>
 	<constant name="vidview_big_marker">14</constant>
 	<constant name="vidview_big_tab">24</constant>
+	<constant name="vidview_bigstill_w">768</constant>        <!-- Big Poster for episodes ("Big still", 1.0.18) -->
+	<constant name="vidview_bigstill_h">432</constant>
+	<constant name="vidview_bigstill_pitch">792</constant>
 	<constant name="vidview_wall_w">158</constant>            <!-- TV wall, 10 columns -->
 	<constant name="vidview_wall_h">237</constant>
 	<constant name="vidview_wall_pitch_x">174</constant>
@@ -52,6 +55,10 @@
 	<constant name="vidview_ep_thumb_w">256</constant>
 	<constant name="vidview_ep_thumb_h">144</constant>
 	<constant name="vidview_ep_text_x">312</constant>
+	<constant name="vidview_still_w">416</constant>           <!-- Stills grid 507 (1.0.18): 4 x 3 -->
+	<constant name="vidview_still_h">234</constant>
+	<constant name="vidview_still_pitch_x">436</constant>
+	<constant name="vidview_still_pitch_y">296</constant>
 
 	<!-- ================================================================ expressions -->
 	<expression name="VidView_HideWatched">System.Setting(hidewatched)</expression>
@@ -65,6 +72,10 @@
 	<expression name="VidView_NavActiveAll">!System.Setting(hidewatched) + !String.StartsWith(Container.FolderPath,videodb://inprogresstvshows)</expression>
 	<expression name="VidView_IsFolderType">String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,set)</expression>
 	<expression name="VidView_IsTVType">String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)</expression>
+	<!-- Genre / year / people / studio / country / tag nodes (1.0.18: name cards in the Stills grid and the Poster wall) -->
+	<expression name="VidView_IsNameNode">Container.Content(genres) | Container.Content(years) | Container.Content(actors) | Container.Content(directors) | Container.Content(studios) | Container.Content(countries) | Container.Content(tags)</expression>
+	<!-- the item has a picture of its own (Kodi gives genre / year items a Default*.png icon name, which Majan doesn't ship) -->
+	<expression name="VidView_HasOwnThumb">!String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),Default) + !String.Contains(ListItem.Art(thumb),/Default)</expression>
 	<expression name="VidView_HasRating">!String.IsEmpty(ListItem.Rating) + !String.IsEqual(ListItem.Rating,0.0) + !String.IsEqual(ListItem.Rating,0)</expression>
 	<!-- Facts strip cells (DialogVideoInfo + Showcase): hide a cell when its value is empty -->
 	<expression name="VidView_Fact1Visible">[String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Premiered)] | [String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.Season)] | [String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(ListItem.Property(Total))] | [!String.IsEqual(ListItem.DBType,episode) + !String.IsEqual(ListItem.DBType,season) + !String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(ListItem.Year)]</expression>
@@ -140,6 +151,12 @@
 		<value>art_faint</value>
 	</variable>
 
+	<!-- 1.0.18: the view's name as the picker shows it (Big Poster shows stills for episodes, Episodes rows for films / series) -->
+	<variable name="VidView_ViewName">
+		<value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31307]) + Container.Content(episodes)">$LOCALIZE[31324]</value>
+		<value condition="String.IsEqual(Container.Viewmode,$LOCALIZE[31309]) + !Container.Content(episodes) + !Container.Content(seasons)">$LOCALIZE[31325]</value>
+		<value>$INFO[Container.Viewmode]</value>
+	</variable>
 	<!-- "0002" style position (mockups: 0002 / 1360) -->
 	<variable name="VidView_PosPad">
 		<value condition="Integer.IsLess(Container.CurrentItem,10)">000</value>
@@ -200,6 +217,8 @@
 	<!-- Big Poster meta: 2026 · 2H 25M · 8.2 / 10 · PG-13 · GENRES · UNWATCHED -->
 	<variable name="VidView_MetaLine">
 		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total), · , films]$INFO[ListItem.Genre, · ,] · $VAR[VidView_Status]</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.Premiered, · Aired ,]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta] · $VAR[VidView_Status]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Year, · ,] · $VAR[VidView_Status]</value>
 		<value>$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]$VAR[VidView_MPAAMeta]$INFO[ListItem.Genre, · ,] · $VAR[VidView_Status]</value>
 	</variable>
 	<!-- Lead actor only: ListItem.Cast is newline-separated (DATA 4.1), shown in 1-line textboxes -->
@@ -304,6 +323,9 @@
 		<value condition="ListItem.IsParentFolder">PARENT FOLDER · OK GOES UP ONE LEVEL</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$VAR[VidView_RuntimeMeta]$INFO[ListItem.Premiered, · AIRED ,]$VAR[VidView_RatingMeta]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, EPISODES]$INFO[ListItem.Property(WatchedEpisodes), · , WATCHED]$INFO[ListItem.Year, · ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[VidView_SeasonsN]$VAR[VidView_EpisodesN]$INFO[ListItem.Genre, · ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$INFO[ListItem.Property(Total), · , FILMS]$INFO[ListItem.Property(Watched), · , WATCHED]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]$VAR[VidView_MPAAMeta]$INFO[ListItem.Genre, · ,]</value>
 		<value>$INFO[ListItem.Label2]</value>
 	</variable>
 
@@ -875,7 +897,7 @@
 			<!-- VIEW: <name> -->
 			<control type="button" id="9326">
 				<include>VidView_NavButtonLook</include>
-				<label>VIEW: $INFO[Container.Viewmode]</label>
+				<label>VIEW: $VAR[VidView_ViewName]</label>
 				<textcolor>text_secondary</textcolor>
 				<texturenofocus />
 				<!-- 1.0.9: the view picker (was Container.NextViewMode) -->
@@ -1246,7 +1268,8 @@
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>ActivateWindow(1155)</onright>
 				<viewtype label="31306">list</viewtype>
-				<visible>Container.Content(movies) | Container.Content(sets)</visible>
+				<!-- 1.0.18: series and seasons too (their posters; facts / status already read tvshow / season) -->
+				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)</visible>
 				<itemlayout width="vidview_strip_pitch" height="170">
 					<control type="group">
 						<top>10</top>
@@ -1332,10 +1355,13 @@
 				<param name="scrim_top" value="380"/>
 				<param name="scrim_height" value="700"/>
 			</include>
+			<!-- 1.0.18: also series / seasons (posters + TV markers) and episodes ("Big still": 768 x 432 stills at a
+			     792 pitch; the list slides 438 left so the focused still starts at x 450 like the poster, and is
+			     2262 wide so its rect still reaches the screen edge; the poster rows just run on off screen) -->
 			<control type="fixedlist" id="501">
 				<left>page_margin</left>
 				<top>136</top>
-				<width>1824</width>
+				<width>2262</width>
 				<height>543</height>
 				<orientation>horizontal</orientation>
 				<focusposition>1</focusposition>
@@ -1348,8 +1374,29 @@
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>ActivateWindow(1155)</onright>
 				<viewtype label="31307">list</viewtype>
-				<visible>Container.Content(movies) | Container.Content(sets)</visible>
-				<itemlayout width="vidview_big_pitch" height="543">
+				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)</visible>
+				<animation effect="slide" start="0,0" end="-438,0" time="0" condition="Container.Content(episodes)">Conditional</animation>
+				<itemlayout width="vidview_bigstill_pitch" height="543" condition="Container.Content(episodes)">
+					<control type="group">
+						<top>87</top>
+						<width>vidview_bigstill_w</width>
+						<height>vidview_bigstill_h</height>
+						<include content="VidView_BigStill"/>
+					</control>
+				</itemlayout>
+				<focusedlayout width="vidview_bigstill_pitch" height="543" condition="Container.Content(episodes)">
+					<control type="group">
+						<top>87</top>
+						<width>vidview_bigstill_w</width>
+						<height>vidview_bigstill_h</height>
+						<include>Anim_FocusZoom</include>
+						<include content="VidView_BigStill"/>
+						<include content="VidView_PosterFocus">
+							<param name="id" value="501"/>
+						</include>
+					</control>
+				</focusedlayout>
+				<itemlayout width="vidview_big_pitch" height="543" condition="!Container.Content(episodes)">
 					<control type="group">
 						<top>24</top>
 						<width>vidview_big_w</width>
@@ -1366,9 +1413,10 @@
 							<param name="marker" value="vidview_big_marker"/>
 							<param name="tab" value="vidview_big_tab"/>
 						</include>
+						<include>VidView_TVMarkers</include>
 					</control>
 				</itemlayout>
-				<focusedlayout width="vidview_big_pitch" height="543">
+				<focusedlayout width="vidview_big_pitch" height="543" condition="!Container.Content(episodes)">
 					<control type="group">
 						<top>24</top>
 						<width>vidview_big_w</width>
@@ -1386,27 +1434,53 @@
 							<param name="marker" value="vidview_big_marker"/>
 							<param name="tab" value="vidview_big_tab"/>
 						</include>
+						<include>VidView_TVMarkers</include>
 						<include content="VidView_PosterFocus">
 							<param name="id" value="501"/>
 						</include>
 					</control>
 				</focusedlayout>
 			</control>
-			<!-- fixed-slot dimming over the row -->
-			<include content="VidView_SlotDim">
-				<param name="list" value="501"/>
-				<param name="offset" value="-1"/>
-				<param name="tex" value="vidview/dim_passed.png"/>
-				<param name="mask" value="masks/poster_round8_large.png"/>
-				<param name="left" value="page_margin"/>
-				<param name="top" value="160"/>
-				<param name="width" value="vidview_big_w"/>
-				<param name="height" value="vidview_big_h"/>
-			</include>
-			<include content="VidView_BigDimAhead"><param name="offset" value="1"/><param name="left" value="804"/></include>
-			<include content="VidView_BigDimAhead"><param name="offset" value="2"/><param name="left" value="1158"/></include>
-			<include content="VidView_BigDimAhead"><param name="offset" value="3"/><param name="left" value="1512"/></include>
-			<include content="VidView_BigDimAhead"><param name="offset" value="4"/><param name="left" value="1866"/></include>
+			<!-- fixed-slot dimming over the row (posters; the Big still slots below) -->
+			<control type="group">
+				<visible>!Container.Content(episodes)</visible>
+				<include content="VidView_SlotDim">
+					<param name="list" value="501"/>
+					<param name="offset" value="-1"/>
+					<param name="tex" value="vidview/dim_passed.png"/>
+					<param name="mask" value="masks/poster_round8_large.png"/>
+					<param name="left" value="page_margin"/>
+					<param name="top" value="160"/>
+					<param name="width" value="vidview_big_w"/>
+					<param name="height" value="vidview_big_h"/>
+				</include>
+				<include content="VidView_BigDimAhead"><param name="offset" value="1"/><param name="left" value="804"/></include>
+				<include content="VidView_BigDimAhead"><param name="offset" value="2"/><param name="left" value="1158"/></include>
+				<include content="VidView_BigDimAhead"><param name="offset" value="3"/><param name="left" value="1512"/></include>
+				<include content="VidView_BigDimAhead"><param name="offset" value="4"/><param name="left" value="1866"/></include>
+			</control>
+			<control type="group">
+				<visible>Container.Content(episodes)</visible>
+				<include content="VidView_SlotDim">
+					<param name="list" value="501"/>
+					<param name="offset" value="-1"/>
+					<param name="tex" value="vidview/dim_passed.png"/>
+					<param name="mask" value="masks/landscape_round8.png"/>
+					<param name="left" value="-342"/>
+					<param name="top" value="223"/>
+					<param name="width" value="vidview_bigstill_w"/>
+					<param name="height" value="vidview_bigstill_h"/>
+				</include>
+				<include content="VidView_SlotDim">
+					<param name="list" value="501"/>
+					<param name="offset" value="1"/>
+					<param name="mask" value="masks/landscape_round8.png"/>
+					<param name="left" value="1242"/>
+					<param name="top" value="223"/>
+					<param name="width" value="vidview_bigstill_w"/>
+					<param name="height" value="vidview_bigstill_h"/>
+				</include>
+			</control>
 			<!-- left column: previous item (hidden at the start of the list) -->
 			<control type="group">
 				<left>page_margin</left>
@@ -1523,6 +1597,25 @@
 		<value condition="ListItem.IsParentFolder">PARENT FOLDER</value>
 		<value>$VAR[VidView_PosPad]$INFO[Container.CurrentItem] / $INFO[Container.NumItems]$INFO[ListItem.DateAdded, · ADDED ,]</value>
 	</variable>
+	<!-- One Big still (501 for episodes): the episode title under the still (a still that fails to load leaves
+	     the title on the raised block, never an empty frame), the still, the watched markers -->
+	<include name="VidView_BigStill">
+		<include content="VidView_ArtFallback">
+			<param name="mask" value="masks/landscape_round8.png"/>
+			<param name="label" value="$VAR[VidView_ItemTitle]"/>
+			<param name="label_visible" value="true"/>
+			<param name="parent_icon" value="64"/>
+			<param name="parent_caption" value="false"/>
+		</include>
+		<include content="VidView_ArtImage">
+			<param name="art" value="$VAR[VidView_StillArt]"/>
+			<param name="mask" value="masks/landscape_round8.png"/>
+		</include>
+		<include content="VidView_Markers">
+			<param name="marker" value="vidview_big_marker"/>
+			<param name="tab" value="vidview_big_tab"/>
+		</include>
+	</include>
 	<include name="VidView_BigDimAhead">
 		<definition>
 			<include content="VidView_SlotDim">
@@ -1881,7 +1974,8 @@
 				<onleft>ActivateWindow(1155)</onleft>
 				<onright>63</onright>
 				<viewtype label="31309">list</viewtype>
-				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
+				<!-- 1.0.18: films, sets and series too (poster + caption line + title + 2-line plot; picker name "Rows") -->
+				<visible>Container.Content(episodes) | Container.Content(seasons) | Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows)</visible>
 				<itemlayout width="page_width" height="vidview_ep_row_h">
 					<include>VidView_EpisodeRow</include>
 				</itemlayout>
@@ -1951,6 +2045,7 @@
 				<include content="VidView_ArtImage">
 					<param name="art" value="$VAR[ListItemArt]"/>
 				</include>
+				<include content="VidView_Markers"/>
 				<include>VidView_TVMarkers</include>
 			</control>
 			<include content="VidView_EpisodeRowText">
@@ -2025,6 +2120,192 @@
 		</definition>
 	</include>
 
+	<!-- ================================================================ View 507 -->
+	<!-- Stills (1.0.18): a wide grid, 4 x 3 cards of 416 x 234 under the header. Episodes show their still, films /
+	     sets / series / seasons their landscape art or fanart, music videos their thumb; genre / year / people
+	     nodes get a name card (kind in mono accent, the name in the header face), with the person's photo on the
+	     right when there is one. The name card is drawn UNDER the art, so art that fails to load still leaves a
+	     title, never a hole. Title + mono caption under each card (name nodes: the card is the title). -->
+	<variable name="VidView_StillArt">
+		<value condition="ListItem.IsParentFolder"></value>
+		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(tvshow.landscape))">$INFO[ListItem.Art(tvshow.landscape)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Art(tvshow.fanart)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,musicvideo) + !String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(tvshow.landscape))">$INFO[ListItem.Art(tvshow.landscape)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
+	</variable>
+	<!-- " · 1 SEASON" / " · 4 SEASONS" / nothing for 0 (1.0.18) -->
+	<variable name="VidView_SeasonsN">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)"> · 1 SEASON</value>
+		<value condition="Integer.IsGreater(ListItem.Property(TotalSeasons),1)"> · $INFO[ListItem.Property(TotalSeasons)] SEASONS</value>
+	</variable>
+	<variable name="VidView_EpisodesN">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)"> · 1 EPISODE</value>
+		<value condition="Integer.IsGreater(ListItem.Property(TotalEpisodes),1)"> · $INFO[ListItem.Property(TotalEpisodes)] EPISODES</value>
+	</variable>
+	<variable name="VidView_StillKind">
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">SEASON</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">SERIES</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Year]</value>
+		<value condition="Container.Content(genres)">GENRE</value>
+		<value condition="Container.Content(years)">YEAR</value>
+		<value condition="Container.Content(actors)">CAST</value>
+		<value condition="Container.Content(directors)">DIRECTOR</value>
+		<value condition="Container.Content(studios)">STUDIO</value>
+		<value condition="Container.Content(countries)">COUNTRY</value>
+		<value condition="Container.Content(tags)">TAG</value>
+	</variable>
+	<variable name="VidView_StillLine">
+		<value condition="ListItem.IsParentFolder">PARENT FOLDER</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, EPISODES]$INFO[ListItem.Property(WatchedEpisodes), · , WATCHED]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[VidView_SeasonsN]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$INFO[ListItem.Property(Total), · , FILMS]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]</value>
+		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Artist]$INFO[ListItem.Year, · ,]</value>
+		<value>$INFO[ListItem.Label2]</value>
+	</variable>
+	<!-- one card: name card, art, markers (inside a group of the card size) -->
+	<include name="VidView_StillCard">
+		<include content="VidView_ArtFallback">
+			<param name="mask" value="masks/landscape_round8.png"/>
+			<param name="label_visible" value="false"/>
+			<param name="parent_icon" value="48"/>
+			<param name="parent_caption" value="true"/>
+		</include>
+		<control type="group">
+			<left>0</left>
+			<top>0</top>
+			<right>0</right>
+			<bottom>0</bottom>
+			<visible>!ListItem.IsParentFolder</visible>
+			<control type="label">
+				<left>22</left>
+				<top>18</top>
+				<width>372</width>
+				<height>22</height>
+				<font>mono_14</font>
+				<textcolor>$VAR[ColorAccent]</textcolor>
+				<label>$VAR[VidView_StillKind]</label>
+			</control>
+			<!-- 2 lines of header_34 (pitch 41: 41 + 34 asc + 12 desc) -->
+			<control type="textbox">
+				<left>22</left>
+				<top>50</top>
+				<width>372</width>
+				<height>90</height>
+				<font>header_34</font>
+				<textcolor>text_primary</textcolor>
+				<label>$VAR[VidView_ItemTitle]</label>
+				<visible>!$EXP[VidView_HasOwnThumb] | !$EXP[VidView_IsNameNode]</visible>
+			</control>
+			<control type="textbox">
+				<left>22</left>
+				<top>50</top>
+				<width>220</width>
+				<height>90</height>
+				<font>header_34</font>
+				<textcolor>text_primary</textcolor>
+				<label>$VAR[VidView_ItemTitle]</label>
+				<visible>$EXP[VidView_HasOwnThumb] + $EXP[VidView_IsNameNode]</visible>
+			</control>
+		</control>
+		<include content="VidView_ArtImage">
+			<param name="art" value="$VAR[VidView_StillArt]"/>
+			<param name="mask" value="masks/landscape_round8.png"/>
+			<param name="visible" value="!$EXP[VidView_IsNameNode]"/>
+		</include>
+		<!-- a person's photo (any own picture of a name node) at portrait shape on the right of the card -->
+		<control type="group">
+			<right>0</right>
+			<top>0</top>
+			<width>156</width>
+			<bottom>0</bottom>
+			<visible>$EXP[VidView_IsNameNode] + $EXP[VidView_HasOwnThumb] + !ListItem.IsParentFolder</visible>
+			<include content="VidView_ArtImage">
+				<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
+				<param name="mask" value="masks/poster_round8.png"/>
+			</include>
+		</control>
+		<include content="VidView_Markers"/>
+		<include>VidView_TVMarkers</include>
+	</include>
+	<include name="VidView_StillItem">
+		<param name="focused">false</param>
+		<definition>
+			<control type="group">
+				<left>8</left>
+				<top>8</top>
+				<width>vidview_still_w</width>
+				<height>vidview_still_h</height>
+				<include condition="$PARAM[focused]">VidView_FocusZoomIfNoOutline</include>
+				<include>VidView_StillCard</include>
+				<include content="VidView_PosterFocus" condition="$PARAM[focused]">
+					<param name="id" value="507"/>
+				</include>
+			</control>
+			<control type="label">
+				<left>8</left>
+				<top>250</top>
+				<width>vidview_still_w</width>
+				<height>26</height>
+				<font>small_19_bold</font>
+				<textcolor>text_primary</textcolor>
+				<scroll>$PARAM[focused]</scroll>
+				<label>$VAR[VidView_ItemTitle]</label>
+				<visible>!$EXP[VidView_IsNameNode] | ListItem.IsParentFolder</visible>
+			</control>
+			<control type="label">
+				<left>8</left>
+				<top>276</top>
+				<width>vidview_still_w</width>
+				<height>20</height>
+				<font>mono_14</font>
+				<textcolor>$VAR[ColorCaption]</textcolor>
+				<label>$VAR[VidView_StillLine]</label>
+			</control>
+		</definition>
+	</include>
+	<include name="VidView_507_Stills">
+		<control type="group">
+			<visible>Control.IsVisible(507)</visible>
+			<include>Anim_FadeVisible</include>
+			<include content="VidView_ArtBackground">
+				<param name="scrim_top" value="-400"/>
+				<param name="scrim_height" value="1480"/>
+			</include>
+			<control type="panel" id="507">
+				<description>8px inner padding (cards at left/top 8) keeps the focus frame inside the container</description>
+				<left>88</left>
+				<top>160</top>
+				<width>1752</width>
+				<height>888</height>  <!-- 3 whole rows of 296 -->
+				<orientation>vertical</orientation>
+				<preloaditems>1</preloaditems>
+				<scrolltime tween="cubic" easing="out">200</scrolltime>
+				<onup>9000</onup>
+				<ondown>noop</ondown>
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
+				<viewtype label="31322">list</viewtype>
+				<visible>Container.Content(episodes) | Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | $EXP[VidView_IsNameNode]</visible>
+				<itemlayout width="vidview_still_pitch_x" height="vidview_still_pitch_y">
+					<include content="VidView_StillItem"/>
+				</itemlayout>
+				<focusedlayout width="vidview_still_pitch_x" height="vidview_still_pitch_y">
+					<include content="VidView_StillItem">
+						<param name="focused" value="true"/>
+					</include>
+				</focusedlayout>
+			</control>
+		</control>
+	</include>
+
 	<!-- View 50 (Includes_Views.xml, architect-owned): when ".." is focused, cover its art/text panel
 	     with the parent tile so it doesn't show an empty art box and a ".." title. -->
 	<include name="VidView_50_ParentPanel">
@@ -2072,6 +2353,7 @@
 		<include>VidView_502_Wall</include>
 		<include>VidView_503_Episodes</include>
 		<include>VidView_506_PosterWall</include>
+		<include>VidView_507_Stills</include>
 		<include content="View_50_List"><param name="edge" value="ActivateWindow(1155)"/></include>
 		<include>VidView_50_ParentPanel</include>
 		<include>VidView_Empty</include>

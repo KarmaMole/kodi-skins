@@ -810,6 +810,8 @@
 	<variable name="Music_PortraitMeta">
 		<value condition="ListItem.IsParentFolder"></value>
 		<value condition="String.IsEqual(ListItem.DBType,album)">$INFO[ListItem.Year]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Album)">$INFO[ListItem.Artist]$INFO[ListItem.Album,  ·  ,]$INFO[ListItem.Duration,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,song)">$INFO[ListItem.Artist]$INFO[ListItem.Duration,  ·  ,]</value>
 		<value>$INFO[ListItem.Genre]</value>
 	</variable>
 	<variable name="Music_PortraitText">
@@ -834,7 +836,7 @@
 						<param name="has_art" value="$EXP[Music_HasCanvas]"/>
 						<param name="mat" value="$INFO[ListItem.Art(thumb)]"/>
 						<param name="has_mat" value="!String.IsEmpty(ListItem.Art(thumb))"/>
-						<param name="label" value="$VAR[Music_ItemLabel]"/>
+						<param name="label" value="$VAR[Music_ViewTitle]"/>
 						<param name="lit" value="true"/>
 						<param name="font" value="title_56"/>
 						<param name="inset" value="40"/>
@@ -870,7 +872,7 @@
 				<include>Lib_OpenLeft</include>
 				<include>Lib_OpenRight</include>
 				<viewtype label="31393">wide</viewtype>
-				<visible>Container.Content(artists) | Container.Content(albums)</visible>
+				<visible>Container.Content(artists) | Container.Content(albums) | Container.Content(songs)</visible>
 				<itemlayout width="600" height="66">
 					<control type="label">
 						<left>28</left>
@@ -881,7 +883,7 @@
 						<font>title_34</font>
 						<textcolor>99e3cfae</textcolor>
 						<selectedcolor>99e3cfae</selectedcolor>
-						<label>$VAR[Music_ItemLabel]</label>
+						<label>$VAR[Music_ViewTitle]</label>
 					</control>
 					<control type="image">
 						<left>0</left>
@@ -906,7 +908,7 @@
 						<font>title_34</font>
 						<textcolor>99e3cfae</textcolor>
 						<selectedcolor>99e3cfae</selectedcolor>
-						<label>$VAR[Music_ItemLabel]</label>
+						<label>$VAR[Music_ViewTitle]</label>
 						<visible>!Control.HasFocus(508)</visible>
 					</control>
 					<control type="label">
@@ -919,7 +921,7 @@
 						<textcolor>text_lit</textcolor>
 						<selectedcolor>text_lit</selectedcolor>
 						<scroll>true</scroll>
-						<label>$VAR[Music_ItemLabel]</label>
+						<label>$VAR[Music_ViewTitle]</label>
 						<visible>Control.HasFocus(508)</visible>
 					</control>
 					<control type="image">
@@ -936,7 +938,7 @@
 				<include content="Noc_Plaque">
 					<param name="left" value="690"/>
 					<param name="top" value="824"/>
-					<param name="title" value="$VAR[Music_ItemLabel]"/>
+					<param name="title" value="$VAR[Music_ViewTitle]"/>
 					<param name="meta" value="$VAR[Music_PortraitMeta]"/>
 				</include>
 				<control type="textbox">

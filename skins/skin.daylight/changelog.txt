@@ -1,3 +1,6 @@
+0.9.18 (2026-10-28)
+- More views in every section: a new Rows view for shows and seasons (one row each with the show's wide picture, year, seasons, what's left to watch and the plot). The Wall now also shows genres as name cards, and the music Grid and Spotlight now also show songs. Shows offer six views, genres three, songs three.
+
 0.9.17 (2026-10-28)
 - Custom main-menu items: put up to three add-ons, favourites or library folders on the main menu (Settings > Custom menu items).
 - On Home they are pills of the top line between Search and the settings gear, in the same type and focus colour; the other pills move left to make room (long names are shortened when two or three show). OK opens the item; Back comes home to its pill. With none set Home is unchanged.

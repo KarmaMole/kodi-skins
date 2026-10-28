@@ -2,7 +2,9 @@
 <!--
 	Video library views (mockups PassepartoutHang, PassepartoutSeries).
 
-	Views (MyVideoNav <views>502,503,500,501,50</views>: Kodi opens a node in the first VISIBLE view)
+	Views (MyVideoNav <views>502,500,503,501,50,506,507</views> since 0.9.18: Kodi opens a node in the first VISIBLE view)
+	  0.9.18: 503 also hangs films / sets / series ("The wide hang"), 506 also genre / year / people nodes,
+	  507 the print room (new): a grid of landscape prints with a label under each
 	  502 the series hang   tvshows: posters on the line at y 355, focused first (300x450 vs
 	                        160x240, gap 72; landscape until 0.9.5); caption, seasons row 9340 and the next-up label 9350 below
 	  503 episodes          episodes: the same landscape hang, caption = the episode, curator text right
@@ -24,6 +26,9 @@
 	<expression name="VidView_IsInProgressTV">String.StartsWith(Container.FolderPath,videodb://inprogresstvshows)</expression>
 	<expression name="VidView_IsLibraryVideo">Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)</expression>
 	<expression name="VidView_IsTVType">String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)</expression>
+	<!-- genre / year / people / studio / country / tag nodes (0.9.18: the wall and the print room take them) -->
+	<expression name="VidView_IsNameNode">Container.Content(genres) | Container.Content(years) | Container.Content(actors) | Container.Content(directors) | Container.Content(studios) | Container.Content(countries) | Container.Content(tags)</expression>
+	<expression name="VidView_HasOwnThumb">!String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),Default) + !String.Contains(ListItem.Art(thumb),/Default)</expression>
 	<expression name="VidView_HangView">Control.IsVisible(500) | Control.IsVisible(502) | Control.IsVisible(503)</expression>
 
 	<!-- ================================================================== header -->
@@ -835,8 +840,9 @@
 			<include content="VidView_LandscapeHang">
 				<param name="id" value="503"/>
 				<param name="ondown" value="noop"/>
-				<param name="visible" value="Container.Content(episodes)"/>
-				<param name="label" value="The hang"/>
+				<!-- 0.9.18: films, sets and series hang here too, as "The wide hang" (their landscape art / fanart) -->
+				<param name="visible" value="Container.Content(episodes) | Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows)"/>
+				<param name="label" value="$LOCALIZE[31265]"/>
 			</include>
 			<!-- the episode's label: S/E, title (44/54, two lines), runtime · aired, state -->
 			<!-- a grouplist, so the lines under a one-line title close up (a fixed two-line box left an 80 px hole).
@@ -893,7 +899,7 @@
 					<font>body_24</font>
 					<textcolor>ink2</textcolor>
 					<align>left</align>
-					<label>$VAR[VidView_LineA][COLOR ink]$VAR[VidView_LineMono][/COLOR]</label>
+					<label>$VAR[VidView_LineA][COLOR ink]$VAR[VidView_LineMono][/COLOR]$VAR[VidView_LineB]</label>
 				</control>
 			</control>
 			<!-- curator text, right column -->
@@ -920,13 +926,208 @@
 		<value condition="!String.IsEmpty(Container(9350).ListItem.Premiered)"> · aired $VAR[Date_NPR]</value>
 	</variable>
 	<variable name="VidView_EpAired">
-		<value condition="!String.IsEmpty(Container.ListItem.Premiered)"> · aired $VAR[Date_CPR]</value>
+		<value condition="String.IsEqual(Container.ListItem.DBType,episode) + !String.IsEmpty(Container.ListItem.Premiered)"> · aired $VAR[Date_CPR]</value>
 	</variable>
 	<variable name="VidView_EpCode">
 		<value condition="Container.ListItem.IsParentFolder">Up one level</value>
+		<value condition="!String.IsEqual(Container.ListItem.DBType,episode)">$VAR[VidView_Cap]</value>
 		<value condition="Integer.IsEqual(Container.ListItem.Season,0)">Special$INFO[Container.ListItem.Episode, · ,]</value>
 		<value>$INFO[Container.ListItem.Season,Season ,]$INFO[Container.ListItem.Episode, · Episode ,]</value>
 	</variable>
+
+	<!-- ================================================================== 507 the print room -->
+	<!-- 0.9.18: a grid of landscape prints, 4 x 3 (picture 352x198, pitch 432 x 300; panel 98..1826 x 118..1018),
+	     each with its own small label under it (title, caps caption), as prints are laid out in a print room.
+	     Episodes show their still, films / sets / series / seasons their landscape art or fanart, music videos
+	     their thumb. Genre / year / people nodes get a name card (PP_Picture's title is always drawn under the
+	     art), a person's photo at the card's right. Focus: 108 % and the small lift, as the salon. -->
+	<variable name="VidView_PrintRoomTitle">
+		<value condition="ListItem.IsParentFolder">Back</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+	<variable name="VidView_PrintRoomCap">
+		<value condition="ListItem.IsParentFolder">Up one level</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode) + Integer.IsEqual(ListItem.Season,0)">Special$INFO[ListItem.Episode, · ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Season,Season ,]$INFO[ListItem.Episode, · Episode ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Year]$INFO[ListItem.Genre, · ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year] · 1 season</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year] · $INFO[ListItem.Property(TotalSeasons)] seasons</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season) + Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">1 episode$INFO[ListItem.Property(WatchedEpisodes), · , seen]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes), · , seen]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total), · , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Artist]$INFO[ListItem.Year, · ,]</value>
+		<value condition="Container.Content(genres)">Genre</value>
+		<value condition="Container.Content(years)">Year</value>
+		<value condition="Container.Content(actors)">Cast</value>
+		<value condition="Container.Content(directors)">Director</value>
+		<value condition="Container.Content(studios)">Studio</value>
+		<value condition="Container.Content(countries)">Country</value>
+		<value condition="Container.Content(tags)">Tag</value>
+		<value>$INFO[ListItem.Label2]</value>
+	</variable>
+	<include name="VidView_PrintRoomPrint">
+		<definition>
+			<control type="group">
+				<visible>!ListItem.IsParentFolder + !$EXP[VidView_IsNameNode]</visible>
+				<include content="PP_Picture">
+					<param name="art" value="$VAR[ListItemLandscape]"/>
+					<param name="title" value="$VAR[VidView_PrintRoomTitle]"/>
+					<param name="font" value="body_22"/>
+				</include>
+				<include>PP_Bevel</include>
+				<include>PP_WatchedMarkers</include>
+			</control>
+			<!-- name card: the name in Geist Light on the wash, the person's photo (2:3) at the right when there is one -->
+			<control type="group">
+				<visible>!ListItem.IsParentFolder + $EXP[VidView_IsNameNode]</visible>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<texture colordiffuse="wash_strong">common/white.png</texture>
+				</control>
+				<control type="textbox">
+					<left>20</left>
+					<top>16</top>
+					<width>312</width>
+					<height>166</height>
+					<font>ttl_40</font>
+					<textcolor>ink</textcolor>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.Label]</label>
+					<visible>!$EXP[VidView_HasOwnThumb]</visible>
+				</control>
+				<control type="textbox">
+					<left>20</left>
+					<top>16</top>
+					<width>184</width>
+					<height>166</height>
+					<font>body_26</font>
+					<textcolor>ink</textcolor>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.Label]</label>
+					<visible>$EXP[VidView_HasOwnThumb]</visible>
+				</control>
+				<control type="image">
+					<right>0</right>
+					<top>0</top>
+					<width>132</width>
+					<bottom>0</bottom>
+					<aspectratio>scale</aspectratio>
+					<fadetime>120</fadetime>
+					<texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+					<visible>$EXP[VidView_HasOwnThumb]</visible>
+				</control>
+				<include>PP_Bevel</include>
+			</control>
+			<control type="group">
+				<visible>ListItem.IsParentFolder</visible>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<texture colordiffuse="rule_strong" border="2">pp/frame_1.png</texture>
+				</control>
+				<control type="label">
+					<left>0</left>
+					<top>0</top>
+					<right>0</right>
+					<bottom>0</bottom>
+					<font>cap_20</font>
+					<textcolor>ink2</textcolor>
+					<align>center</align>
+					<label>$LOCALIZE[31196]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="VidView_PrintRoomLabel">
+		<definition>
+			<control type="label">
+				<left>40</left>
+				<top>238</top>
+				<width>352</width>
+				<height>30</height>
+				<font>body_22</font>
+				<textcolor>ink</textcolor>
+				<label>$VAR[VidView_PrintRoomTitle]</label>
+				<visible>!$EXP[VidView_IsNameNode] | ListItem.IsParentFolder</visible>
+			</control>
+			<control type="label">
+				<left>40</left>
+				<top>268</top>
+				<width>352</width>
+				<height>26</height>
+				<font>cap_20</font>
+				<textcolor>ink2</textcolor>
+				<label>$VAR[VidView_PrintRoomCap]</label>
+			</control>
+		</definition>
+	</include>
+	<include name="VidView_507_PrintRoom">
+		<control type="group">
+			<visible>Control.IsVisible(507)</visible>
+			<include>Anim_VisibleFade</include>
+			<control type="panel" id="507">
+				<left>98</left>
+				<top>118</top>
+				<width>1728</width>
+				<height>900</height>
+				<orientation>vertical</orientation>
+				<scrolltime tween="cubic" easing="out">300</scrolltime>
+				<preloaditems>1</preloaditems>
+				<onup>9000</onup>
+				<ondown>noop</ondown>
+				<!-- Left past the first column / Right past the last one: the Library card -->
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
+				<onfocus>SetProperty(TMDbHelper.Colors.SourceImage,Art(landscape)|Art(fanart)|Art(thumb)|Art(tvshow.fanart),home)</onfocus>
+				<viewtype label="31266">list</viewtype>
+				<visible>Container.Content(episodes) | Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | $EXP[VidView_IsNameNode]</visible>
+				<itemlayout width="432" height="300">
+					<control type="group">
+						<left>40</left>
+						<top>22</top>
+						<width>352</width>
+						<height>198</height>
+						<include>VidView_PrintRoomPrint</include>
+					</control>
+					<include>VidView_PrintRoomLabel</include>
+				</itemlayout>
+				<focusedlayout width="432" height="300">
+					<control type="group">
+						<left>40</left>
+						<top>22</top>
+						<width>352</width>
+						<height>198</height>
+						<animation type="Focus" reversible="false" condition="!Skin.HasSetting(passepartout.reducemotion)">
+							<effect type="zoom" start="100" end="108" center="216,121" time="260" tween="cubic" easing="out"/>
+						</animation>
+						<animation type="Conditional" condition="Skin.HasSetting(passepartout.reducemotion) + Control.HasFocus(507)">
+							<effect type="zoom" start="100" end="108" center="216,121" time="0" tween="cubic" easing="out"/>
+						</animation>
+						<animation type="Unfocus" condition="!Skin.HasSetting(passepartout.reducemotion)">
+							<effect type="zoom" start="108" end="100" center="216,121" time="160"/>
+						</animation>
+						<control type="image">
+							<left>-24</left>
+							<top>-12</top>
+							<right>-24</right>
+							<bottom>-40</bottom>
+							<texture border="64,48,64,76" colordiffuse="$VAR[ShadowColor]">pp/lift_xs.png</texture>
+							<visible>Control.HasFocus(507) + !Skin.HasSetting(passepartout.noshadow)</visible>
+						</control>
+						<include>VidView_PrintRoomPrint</include>
+					</control>
+					<include>VidView_PrintRoomLabel</include>
+				</focusedlayout>
+			</control>
+		</control>
+	</include>
 
 	<!-- ================================================================== empty -->
 	<include name="VidView_Empty">
@@ -1003,6 +1204,7 @@
 		<include>VidView_502_Series</include>
 		<include>VidView_503_Episodes</include>
 		<include>VidView_506_Wall</include>
+		<include>VidView_507_PrintRoom</include>
 		<include content="View_50_List"><param name="edge" value="ActivateWindow(1155)"/></include>
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>

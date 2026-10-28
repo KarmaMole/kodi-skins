@@ -31,18 +31,43 @@
 		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode)">Unwatched · ends [COLOR ink]$INFO[ListItem.EndTime][/COLOR]</value>
 	</variable>
 
+	<variable name="Wall_PicTitle"><value condition="$EXP[VidView_IsNameNode]"></value><value>$INFO[ListItem.Label]</value></variable>
 	<!-- picture (+ bevel), or the quiet Back card for ".." -->
 	<include name="Wall_PrintBody">
 		<param name="bevel">true</param>
 		<param name="font">body_22</param>
+		<param name="namefont">body_26</param>
 		<definition>
 			<control type="group">
 				<visible>!ListItem.IsParentFolder</visible>
 				<include content="PP_Picture">
 					<param name="art" value="$VAR[VidView_SalonArt]"/>
-					<param name="title" value="$INFO[ListItem.Label]"/>
+					<param name="title" value="$VAR[Wall_PicTitle]"/>
 					<param name="font" value="$PARAM[font]"/>
 				</include>
+				<!-- a genre / year / person: the kind in caps, the name large, top left like a wall label (a person with a photo
+				     shows the photo instead) -->
+				<control type="group">
+					<visible>$EXP[VidView_IsNameNode] + !$EXP[VidView_HasOwnThumb]</visible>
+					<control type="label">
+						<left>12</left>
+						<top>12</top>
+						<right>8</right>
+						<height>26</height>
+						<font>cap_20</font>
+						<textcolor>ink2</textcolor>
+						<label>$VAR[VidView_PrintRoomCap]</label>
+					</control>
+					<control type="textbox">
+						<left>12</left>
+						<top>44</top>
+						<right>8</right>
+						<bottom>12</bottom>
+						<font>$PARAM[namefont]</font>
+						<textcolor>ink</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</control>
 				<control type="group">
 					<visible>$PARAM[bevel]</visible>
 					<include>PP_Bevel</include>
@@ -273,7 +298,8 @@
 			<onright>ActivateWindow(1155)</onright>
 			<onfocus>SetProperty(TMDbHelper.Colors.SourceImage,Art(poster)|Art(tvshow.poster)|Art(thumb)|Art(fanart),home)</onfocus>
 			<viewtype label="31150">panel</viewtype>
-			<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)</visible>
+			<!-- 0.9.18: genre / year / people nodes too (the print's title card is their name; a person's photo when there is one; no wall label) -->
+			<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | $EXP[VidView_IsNameNode]</visible>
 			<!-- small, paper between: 10 across, print 164x246, pitch 192x274, 3 full rows + 258 px -->
 			<itemlayout width="192" height="274" condition="String.IsEqual(Skin.String(passepartout.wall.size),ten) + !Skin.HasSetting(passepartout.wall.butted)">
 				<control type="group">
@@ -284,6 +310,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="true"/>
 						<param name="font" value="body_20"/>
+						<param name="namefont" value="body_20"/>
 					</include>
 					<control type="image">
 						<right>-2</right>
@@ -302,7 +329,7 @@
 					<top>9</top>
 					<width>750</width>
 					<height>256</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + ![Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)]</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + ![Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)]</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -393,7 +420,7 @@
 					<top>9</top>
 					<width>750</width>
 					<height>256</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + [Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)]</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + [Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)]</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -542,6 +569,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="true"/>
 						<param name="font" value="body_20"/>
+						<param name="namefont" value="body_20"/>
 					</include>
 					<control type="image">
 						<right>-10</right>
@@ -563,6 +591,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="false"/>
 						<param name="font" value="body_20"/>
+						<param name="namefont" value="body_20"/>
 					</include>
 				</control>
 			</itemlayout>
@@ -573,7 +602,7 @@
 					<top>0</top>
 					<width>739</width>
 					<height>288</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + ![Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + ![Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -672,7 +701,7 @@
 					<top>0</top>
 					<width>759</width>
 					<height>288</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + ![Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + ![Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -771,7 +800,7 @@
 					<top>0</top>
 					<width>739</width>
 					<height>288</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + [Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + [Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -870,7 +899,7 @@
 					<top>0</top>
 					<width>759</width>
 					<height>288</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + [Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + [Container(506).Column(6) | Container(506).Column(7) | Container(506).Column(8) | Container(506).Column(9)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -1027,6 +1056,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="true"/>
 						<param name="font" value="body_20"/>
+						<param name="namefont" value="body_20"/>
 					</include>
 					<control type="image">
 						<right>-10</right>
@@ -1048,6 +1078,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="true"/>
 						<param name="font" value="body_22"/>
+						<param name="namefont" value="body_26"/>
 					</include>
 					<control type="image">
 						<right>-2</right>
@@ -1066,7 +1097,7 @@
 					<top>15</top>
 					<width>690</width>
 					<height>310</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + ![Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)]</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + ![Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)]</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -1184,7 +1215,7 @@
 					<top>15</top>
 					<width>690</width>
 					<height>310</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + [Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)]</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + [Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)]</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -1360,6 +1391,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="true"/>
 						<param name="font" value="body_22"/>
+						<param name="namefont" value="body_26"/>
 					</include>
 					<control type="image">
 						<right>-13</right>
@@ -1381,6 +1413,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="false"/>
 						<param name="font" value="body_22"/>
+						<param name="namefont" value="body_26"/>
 					</include>
 				</control>
 			</itemlayout>
@@ -1391,7 +1424,7 @@
 					<top>0</top>
 					<width>681</width>
 					<height>360</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + ![Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + ![Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -1529,7 +1562,7 @@
 					<top>0</top>
 					<width>708</width>
 					<height>360</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + ![Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + ![Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -1667,7 +1700,7 @@
 					<top>0</top>
 					<width>681</width>
 					<height>360</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + [Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + [Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -1805,7 +1838,7 @@
 					<top>0</top>
 					<width>708</width>
 					<height>360</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + [Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + [Container(506).Column(5) | Container(506).Column(6) | Container(506).Column(7)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -2001,6 +2034,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="true"/>
 						<param name="font" value="body_22"/>
+						<param name="namefont" value="body_26"/>
 					</include>
 					<control type="image">
 						<right>-13</right>
@@ -2022,6 +2056,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="true"/>
 						<param name="font" value="body_22"/>
+						<param name="namefont" value="ttl_34"/>
 					</include>
 					<control type="image">
 						<right>-2</right>
@@ -2040,7 +2075,7 @@
 					<top>19</top>
 					<width>602</width>
 					<height>418</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + ![Container(506).Column(4) | Container(506).Column(5)]</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + ![Container(506).Column(4) | Container(506).Column(5)]</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -2178,7 +2213,7 @@
 					<top>19</top>
 					<width>602</width>
 					<height>418</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + [Container(506).Column(4) | Container(506).Column(5)]</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + [Container(506).Column(4) | Container(506).Column(5)]</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -2374,6 +2409,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="true"/>
 						<param name="font" value="body_22"/>
+						<param name="namefont" value="ttl_34"/>
 					</include>
 					<control type="image">
 						<right>-15</right>
@@ -2395,6 +2431,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="false"/>
 						<param name="font" value="body_22"/>
+						<param name="namefont" value="ttl_34"/>
 					</include>
 				</control>
 			</itemlayout>
@@ -2405,7 +2442,7 @@
 					<top>0</top>
 					<width>596</width>
 					<height>480</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + ![Container(506).Column(4) | Container(506).Column(5)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + ![Container(506).Column(4) | Container(506).Column(5)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -2543,7 +2580,7 @@
 					<top>0</top>
 					<width>626</width>
 					<height>480</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + ![Container(506).Column(4) | Container(506).Column(5)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + ![Container(506).Column(4) | Container(506).Column(5)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -2681,7 +2718,7 @@
 					<top>0</top>
 					<width>596</width>
 					<height>480</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + [Container(506).Column(4) | Container(506).Column(5)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + [Container(506).Column(4) | Container(506).Column(5)] + !Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -2819,7 +2856,7 @@
 					<top>0</top>
 					<width>626</width>
 					<height>480</height>
-					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + [Container(506).Column(4) | Container(506).Column(5)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
+					<visible>[[String.IsEqual(Skin.String(passepartout.wall.label),1) + System.IdleTime(1)] | [String.IsEqual(Skin.String(passepartout.wall.label),2) + System.IdleTime(2)]] + Control.HasFocus(506) + !Container(506).Scrolling + !ListItem.IsParentFolder + !$EXP[VidView_IsNameNode] + [Container(506).Column(4) | Container(506).Column(5)] + Skin.HasSetting(passepartout.wall.nomat)</visible>
 					<animation effect="fade" start="0" end="100" time="200">Visible</animation>
 					<control type="image">
 						<left>-48</left>
@@ -3015,6 +3052,7 @@
 					<include content="Wall_PrintBody">
 						<param name="bevel" value="true"/>
 						<param name="font" value="body_22"/>
+						<param name="namefont" value="ttl_34"/>
 					</include>
 					<control type="image">
 						<right>-15</right>

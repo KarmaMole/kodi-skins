@@ -157,13 +157,18 @@ T_SW, T_SH = 222, 288          # slot
 T_CW, T_CH = 168, 252          # resting card
 T_LW, T_LH = 186, 279          # lifted
 T_PX, T_PY = 27, 18
+# 0.9.16: also the index nodes (genres, years, people, studios, countries, tags): a vermilion card with the name in
+# the plate (no art) or the actor's portrait; the views-per-section floor (docs/VIEWS_PER_SECTION_2026-10-28.md)
+NODE_CONTENT = ("Container.Content(genres) | Container.Content(years) | Container.Content(actors) | "
+                "Container.Content(directors) | Container.Content(studios) | Container.Content(countries) | "
+                "Container.Content(tags)")
 TABLE_CONTENT = ("Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | "
-                 "Container.Content(seasons) | Container.Content(musicvideos)")
+                 "Container.Content(seasons) | Container.Content(musicvideos) | " + NODE_CONTENT)
 
 
 def table_view():
     def card(f):
-        return closed_card(f, 503, T_CW, T_CH, T_LW, T_LH, T_PX, T_PY, "$VAR[Table_CardColor]", "$VAR[Shelf_Art]",
+        return closed_card(f, 503, T_CW, T_CH, T_LW, T_LH, T_PX, T_PY, "$VAR[Table_CardColor]", "$VAR[Table_Art]",
                            "$INFO[ListItem.Year]", "$VAR[Shelf_FootR]")
     return f"""
 	<include name="VidView_503_Table">
@@ -736,6 +741,10 @@ def prints_view():
 def variables():
     return """
 	<!-- 0.9.13 views: Table / Leaflet / Prints -->
+	<variable name="Table_Art">
+		<value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),Default)">$INFO[ListItem.Art(thumb)]</value>
+	</variable>
 	<variable name="Table_CardColor">
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">cobalt</value>
 		<value>verm</value>

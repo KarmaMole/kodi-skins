@@ -3,7 +3,7 @@
 	Video library (MyVideoNav.xml) in the Orbit language. Mockup: OrbitArc.dc.html.
 	View ids: 500 ARC (movies, sets, tv shows, seasons, music videos: hidden fixedlist + the arc of
 	offset items, Includes_Arc.xml) | 501 GRID (same content, for scanning big libraries) |
-	502 EPISODES (dial list + episode panel; episodes, seasons) | 503 HORIZON (0.9.16: showcase + a dial of wide
+	502 EPISODES (dial list + episode panel; episodes, seasons; 0.9.19 also films, sets, shows, music videos) | 503 HORIZON (0.9.16: showcase + a dial of wide
 	pictures along the bottom; library video) | 506 TILES (0.9.16: wide tiles; everything) | 50 dial list (everything).
 	Each view gates itself with Container.Content so VIEW only cycles valid views. The first visible
 	view in <views> is Kodi's default for a new node; setting "library opens in" (orbit.libview)
@@ -557,6 +557,27 @@
 	</include>
 
 	<!-- ================================================================ 501 grid -->
+	<!-- 0.9.19: genres in the grid. A genre without a picture (Kodi gives it the icon DefaultGenre.png, which Orbit
+	     doesn't ship) gets its name in display type on the plate instead of the small fallback caption. -->
+	<expression name="VidView_GridNameCard">Container.Content(genres) + !ListItem.IsParentFolder + String.IsEmpty(ListItem.Art(poster)) + [String.IsEmpty(ListItem.Icon) | String.StartsWith(ListItem.Icon,Default)]</expression>
+	<variable name="VidView_GridTitle">
+		<value condition="$EXP[VidView_GridNameCard] | ListItem.IsParentFolder"></value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+	<include name="VidView_GridNameCard">
+		<control type="textbox">
+			<left>12</left>
+			<right>12</right>
+			<top>16</top>
+			<bottom>16</bottom>
+			<font>text_24_med</font>  <!-- 172 px of text: "Documentary" is 150; the wide face would break it mid-word -->
+			<textcolor>text_primary</textcolor>
+			<align>center</align>
+			<aligny>center</aligny>
+			<label>$INFO[ListItem.Label]</label>
+			<visible>$EXP[VidView_GridNameCard]</visible>
+		</control>
+	</include>
 	<include name="VidView_501_Grid">
 		<control type="group">
 			<visible>Control.IsVisible(501)</visible>
@@ -599,7 +620,8 @@
 				<scrolltime tween="cubic" easing="out">220</scrolltime>
 				<preloaditems>2</preloaditems>
 				<viewtype label="31313">icon</viewtype>
-				<visible>$EXP[VidView_ArcContent]</visible>
+				<!-- 0.9.19: also genres / years / tags (a name card on the plate; a genre picture when the library has one) -->
+				<visible>$EXP[VidView_ArcContent] | Container.Content(genres)</visible>
 				<itemlayout width="230" height="352">
 					<control type="group">
 						<left>24</left>
@@ -609,7 +631,9 @@
 						<animation effect="fadediffuse" start="ffb0b0b0" end="ffb0b0b0" time="0" condition="true">Conditional</animation>
 						<include content="Orbit_Artwork">
 							<param name="art" value="$VAR[VidView_PosterArt]"/>
+							<param name="title" value="$VAR[VidView_GridTitle]"/>
 						</include>
+						<include>VidView_GridNameCard</include>
 						<include>Orbit_ParentIcon</include>
 						<include>Orbit_WatchedMarkers</include>
 					</control>
@@ -625,7 +649,9 @@
 						<animation effect="zoom" start="100" end="106" center="auto" time="0" condition="Skin.HasSetting(orbit.reducemotion) + Control.HasFocus(501)">Conditional</animation>
 						<include content="Orbit_Artwork">
 							<param name="art" value="$VAR[VidView_PosterArt]"/>
+							<param name="title" value="$VAR[VidView_GridTitle]"/>
 						</include>
+						<include>VidView_GridNameCard</include>
 						<include>Orbit_ParentIcon</include>
 						<include>Orbit_WatchedMarkers</include>
 						<include content="Orbit_Brackets">
@@ -642,6 +668,20 @@
 	</variable>
 
 	<!-- ================================================================ 502 episodes -->
+	<!-- 0.9.19: the panel for films / sets / shows / music videos too -->
+	<expression name="VidView_PanelHasWide">[String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb))] | !String.IsEmpty(ListItem.Art(fanart)) | !String.IsEmpty(ListItem.Art(tvshow.fanart)) | !String.IsEmpty(ListItem.Art(tvshow.landscape))</expression>
+	<variable name="VidView_PanelCode">
+		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Episode)">$VAR[VidView_EpCode]</value>
+		<value condition="!String.IsEqual(ListItem.DBType,season) + !ListItem.IsParentFolder">$INFO[ListItem.Year]</value>
+	</variable>
+	<variable name="VidView_PanelDateLabel">
+		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$LOCALIZE[172]</value>
+		<value>$LOCALIZE[20416]</value>
+	</variable>
+	<!-- the poster plate's title only when there is no poster either (it would show beside a kept poster) -->
+	<variable name="VidView_PanelNoArtTitle">
+		<value condition="String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(tvshow.poster)) + String.IsEmpty(ListItem.Art(thumb)) + !ListItem.IsParentFolder">$INFO[ListItem.Label]</value>
+	</variable>
 	<include name="VidView_502_Episodes">
 		<control type="group">
 			<visible>Control.IsVisible(502)</visible>
@@ -660,7 +700,10 @@
 				<onleft>9000</onleft>
 				<onright>ActivateWindow(1160)</onright>  <!-- 0.9.9: Right = Library panel -->
 				<viewtype label="31314">list</viewtype>
-				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
+				<!-- 0.9.19 (docs/VIEWS_PER_SECTION_2026-10-28.md): also films, sets, shows and music videos (their fanart
+				     in the panel, the poster kept whole when there is none). Still typed list after Arc 500 in <views>,
+				     so a list default keeps finding Arc first. -->
+				<visible>$EXP[VidView_ArcContent] | Container.Content(episodes)</visible>
 			</control>
 			<include content="DialList_RowsNarrow">
 				<param name="id" value="502"/>
@@ -679,10 +722,23 @@
 					<top>0</top>
 					<width>560</width>
 					<height>315</height>
-					<include content="Orbit_Artwork">
-						<param name="art" value="$VAR[VidView_ThumbArt]"/>
-						<param name="mask" value="masks/landscape_r4.png"/>
-					</include>
+					<control type="group">
+						<visible>$EXP[VidView_PanelHasWide]</visible>
+						<include content="Orbit_Artwork">
+							<param name="art" value="$VAR[VidView_ThumbArt]"/>
+							<param name="mask" value="masks/landscape_r4.png"/>
+						</include>
+					</control>
+					<!-- no wide picture (a film or show with only a poster): the poster whole on the plate, never cropped -->
+					<control type="group">
+						<visible>!$EXP[VidView_PanelHasWide]</visible>
+						<include content="Orbit_Artwork">
+							<param name="art" value="$VAR[VidView_PosterArt]"/>
+							<param name="mask" value="masks/landscape_r4.png"/>
+							<param name="aspect" value="keep"/>
+							<param name="title" value="$VAR[VidView_PanelNoArtTitle]"/>
+						</include>
+					</control>
 					<include>Orbit_WatchedMarkers</include>
 				</control>
 				<control type="grouplist">
@@ -697,7 +753,7 @@
 						<height>42</height>
 						<font>mono_34</font>
 						<textcolor>text_primary</textcolor>
-						<label>$VAR[VidView_EpCode]</label>
+						<label>$VAR[VidView_PanelCode]</label>
 					</control>
 					<control type="label">
 						<top>10</top>
@@ -705,7 +761,7 @@
 						<height>24</height>
 						<font>label_20</font>
 						<textcolor>text_secondary</textcolor>
-						<label>$LOCALIZE[20416]</label>
+						<label>$VAR[VidView_PanelDateLabel]</label>
 						<visible>!String.IsEmpty(ListItem.Premiered)</visible>
 					</control>
 					<control type="label">

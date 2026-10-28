@@ -752,6 +752,10 @@ msgctxt "#31328"
 msgid "+4 h"
 msgstr ""
 
+msgctxt "#31329"
+msgid "Rows"
+msgstr ""
+
 msgctxt "#31330"
 msgid "Main menu"
 msgstr ""

@@ -848,6 +848,26 @@ msgctxt "#31262"
 msgid "OK · presets"
 msgstr ""
 
+msgctxt "#31265"
+msgid "The wide hang"
+msgstr ""
+
+msgctxt "#31266"
+msgid "The print room"
+msgstr ""
+
+msgctxt "#31267"
+msgid "Track list"
+msgstr ""
+
+msgctxt "#31268"
+msgid "No."
+msgstr ""
+
+msgctxt "#31269"
+msgid "Time"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Majan (Hanken Grotesk)"
 msgstr ""

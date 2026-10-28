@@ -5,12 +5,13 @@ Screens: docs/skin.groove/screens/MyMusicNav.md, View_500_CoverWall.md, View_501
 View_502_ShelfOfSpines.md, View_503_Orbit.md, View_50_List.md. Motion: MOTION.md 5.6-5.9 (Anim_* includes).
 
 Views (MyMusicNav <views>500,501,502,503,50</views>, ids are window-local, MyVideoNav has its own 500/510/50):
-  500 Cover wall   panel 8 x 240, covers 224, focused cover lit (albums, artists = round crops)
+  500 Cover wall   panel 8 x 240, covers 224, focused cover lit (albums, artists = round crops; 1.0.8 songs too)
   501 Crate dig    invisible 1 px driver fixedlist (13 items drawn, focusposition 3) + static slots fed by
                    Container(501).ListItemNoWrap(k): 9 records behind, the focused record tilted forward, 3 flipped
   502 Shelf        driver fixedlist (36 items, focusposition 19) + static spines -18..-1 / +1..+16 and the face-out
                    cover in the gap. Spine = the helper's colour spine over the cover's left edge strip.
   503 Orbit        driver fixedlist (7 items, focusposition 3) + the shared arc (arc() below; Custom_1170 reuses it)
+                   (1.0.8: albums, artists and songs; docs/VIEWS_PER_SECTION_2026-10-28.md)
   50  List         one line per item, the focused item's art lit at the right
 Every album view shares MusicLib_Caption (one line after a 1 s rest) and MusicLib_Wash (the room light).
 
@@ -147,7 +148,7 @@ def caption(id_, cx, top, width, font_title="font_caption", font_meta="font_capt
 				<font>{font_title}</font>
 				<textcolor>$VAR[ink]</textcolor>
 				<shadowcolor>$VAR[text_shadow]</shadowcolor>
-				<label>$INFO[Container({id_}).ListItem.Label]</label>
+				<label>$VAR[MusicLib_Title{id_}]</label>
 			</control>
 			<control type="label">
 				<top>2</top>
@@ -164,7 +165,11 @@ def caption(id_, cx, top, width, font_title="font_caption", font_meta="font_capt
 
 def meta_var(id_):
     c = f"Container({id_}).ListItem"
-    return f"""	<variable name="MusicLib_Meta{id_}">
+    return f"""	<variable name="MusicLib_Title{id_}">
+		<value condition="String.IsEqual({c}.DBType,song) + !String.IsEmpty({c}.Title)">$INFO[{c}.Title]</value>
+		<value>$INFO[{c}.Label]</value>
+	</variable>
+	<variable name="MusicLib_Meta{id_}">
 		<value condition="Container.Content(artists)"></value>
 		<value condition="!String.IsEmpty({c}.Artist) + !String.IsEmpty({c}.Year)">·  $INFO[{c}.Artist]  ·  $INFO[{c}.Year]</value>
 		<value condition="!String.IsEmpty({c}.Artist)">·  $INFO[{c}.Artist]</value>
@@ -355,7 +360,7 @@ def header():
 # ---------------------------------------------------------------- 500 cover wall
 def view500():
     art = "$INFO[ListItem.Art(thumb)]"
-    lab = "$INFO[ListItem.Label]"
+    lab = "$VAR[MusicLib_ItemTitle]"
     sq, rnd = "!Container.Content(artists)", "Container.Content(artists)"
     parent = "ListItem.IsParentFolder"
 
@@ -404,7 +409,7 @@ def view500():
 			<ondown>noop</ondown>
 {nav_view()}
 			<include>Anim_ScrollPanel</include>
-			<visible>Container.Content(albums) | Container.Content(artists)</visible>
+			<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>
 			<itemlayout width="240" height="240">
 {item(False)}
 			</itemlayout>
@@ -755,7 +760,7 @@ def arc_center(k, dy):
     return x + s / 2, y + dy + s / 2, s
 
 
-def arc(id_, dy, nav, content="", extra_vis="true", title_y=670):
+def arc(id_, dy, nav, content="", extra_vis="true", title_y=670, title=None, sub=None):
     """Groove_Arc (View_503_Orbit.md): 7 static slots on a curve fed by Container(id).ListItemNoWrap(-3..3) from an
     invisible driver fixedlist; slots glide one position per move (Anim_PulseSlot from the neighbour's pose)."""
     slots = []
@@ -832,7 +837,7 @@ def arc(id_, dy, nav, content="", extra_vis="true", title_y=670):
 					<aligny>center</aligny>
 					<font>font_caption</font>
 					<textcolor>$VAR[ink]</textcolor>
-					<label>$INFO[{c}.Label]</label>
+					<label>{title or f"$INFO[{c}.Label]"}</label>
 				</control>
 				<control type="label">
 					<left>460</left>
@@ -843,7 +848,7 @@ def arc(id_, dy, nav, content="", extra_vis="true", title_y=670):
 					<aligny>center</aligny>
 					<font>font_caption_light</font>
 					<textcolor>$VAR[ink2]</textcolor>
-					<label>$INFO[{c}.Artist]</label>
+					<label>{sub or f"$INFO[{c}.Artist]"}</label>
 				</control>
 			</control>"""
     driver = f"""		<control type="fixedlist" id="{id_}">
@@ -877,8 +882,9 @@ def view503():
     nav = f"""			<viewtype label="31604">wide</viewtype>
 			<ondown>noop</ondown>
 {nav_view()}
-			<visible>Container.Content(albums)</visible>"""
-    driver, stage = arc(503, 120, nav, extra_vis="Control.IsVisible(503)")
+			<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>"""
+    driver, stage = arc(503, 120, nav, extra_vis="Control.IsVisible(503)", title="$VAR[MusicLib_Title503]",
+                        sub="$VAR[MusicLib_Sub503]")
     return f"""	<!-- 503 Orbit (View_503_Orbit.md): the shared arc, 120 px lower than in the Time machine (no timeline below). -->
 	<include name="MusicLib_View503">
 {driver}
@@ -1069,6 +1075,19 @@ def main():
 	<!-- songs of one album (drilled from an album or an artist's album): a tracklist with numbers, no thumbs -->
 	<expression name="MusicLib_Tracklist">Container.Content(songs) + [String.StartsWith(Container.FolderPath,musicdb://albums/) | String.StartsWith(Container.FolderPath,musicdb://artists/)]</expression>
 {metas}
+	<variable name="MusicLib_ItemTitle">
+		<value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+	<variable name="MusicLib_Title503">
+		<value condition="String.IsEqual(Container(503).ListItem.DBType,song) + !String.IsEmpty(Container(503).ListItem.Title)">$INFO[Container(503).ListItem.Title]</value>
+		<value>$INFO[Container(503).ListItem.Label]</value>
+	</variable>
+	<variable name="MusicLib_Sub503">
+		<value condition="String.IsEqual(Container(503).ListItem.DBType,artist)">$INFO[Container(503).ListItem.Genre]</value>
+		<value condition="String.IsEqual(Container(503).ListItem.DBType,song)">$INFO[Container(503).ListItem.Artist]$INFO[Container(503).ListItem.Album,  ·  ,]</value>
+		<value>$INFO[Container(503).ListItem.Artist]</value>
+	</variable>
 	<variable name="MusicLib_RowLabel">
 		<value condition="ListItem.IsParentFolder">$LOCALIZE[31605]</value>
 		<value condition="Container.Content(songs) + $EXP[MusicLib_Tracklist] + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>

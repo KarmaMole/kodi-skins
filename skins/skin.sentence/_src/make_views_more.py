@@ -14,10 +14,17 @@ focused thing is the lilac block / bar, serif paragraphs, quiet captions):
   507 a tracklist  songs as a contents page: number, title, "by artist, from album", time; the focused row is the
                    lilac block; the cover and a sentence about the song on the right.
   508 portraits    artists / albums: the page layout with the artist's fanart and biography (or the album's review);
-                   without fanart the photo / cover sits on the right.
+                   without fanart the photo / cover sits on the right. 0.9.19: also songs (the sentence about the song,
+                   the artist's fanart, else the cover).
+0.9.19 (docs/VIEWS_PER_SECTION_2026-10-28.md):
+  509 rows         films, sets, series, music videos as a contents page with pictures: 158 px rows, the wide picture
+                   (a poster kept whole on the raised block), the title in serif 34, the caption, two lines of plot;
+                   the focused row is the lilac block. Typed bigwide (unused in the video window; no Kodi default asks
+                   for it) and last in <views>. Episodes 503 could not simply be widened: it is typed list before
+                   "a list" 50, so it would have become the films / series default.
 viewtypes: Kodi's defaults ask for list / icon / big icon / info, so the new views use bigwrap / wide / bigwide /
 biglist and never become a folder's default. Header phrase: "as [a page]", "as [scenes]", "as [a tracklist]",
-"as [portraits]" (the viewtype labels, 31509-31512).
+"as [portraits]" (the viewtype labels, 31509-31512), 0.9.19 "as [rows]" (31517).
 """
 from pathlib import Path
 
@@ -98,6 +105,19 @@ VARIABLES = """
 	<variable name="Track_InkSoft">
 		<value condition="Control.HasFocus(507)">on_lilac</value>
 		<value>muted</value>
+	</variable>
+	<!-- rows (509) -->
+	<variable name="Rows_Ink">
+		<value condition="Control.HasFocus(509)">on_lilac</value>
+		<value>text</value>
+	</variable>
+	<variable name="Rows_InkSoft">
+		<value condition="Control.HasFocus(509)">on_lilac</value>
+		<value>muted</value>
+	</variable>
+	<variable name="Rows_Dim">
+		<value condition="Control.HasFocus(509)">dim_art</value>
+		<value>white</value>
 	</variable>
 	<variable name="Track_Cover">
 		<value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
@@ -259,7 +279,7 @@ def view505():
 def view508():
     return f"""	<!-- ============================================================== 508 portraits (music) -->
 	<include name="Music_View_508">
-{page(508, 31512, "biglist", f"{M} + [Container.Content(albums) | Container.Content(artists)]", "$VAR[Music_About]", "$VAR[Page_MusicPlot]")}
+{page(508, 31512, "biglist", f"{M} + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)]", "$VAR[Music_About]", "$VAR[Page_MusicPlot]")}
 	</include>"""
 
 
@@ -348,6 +368,92 @@ def view506():
 	</include>"""
 
 
+# --------------------------------------------------------------------------------- 509 rows
+ROWS_KINDS = ("[Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | "
+              "Container.Content(musicvideos)]")
+
+
+def rows_row(focused):
+    """One 158 px row (1680 wide): the 224 x 126 picture at 16,16, text from x 272 (1380 wide):
+    title serif 34 (4-50), caption ui 22 (50-78), plot body 24, two whole lines (80-156: 2 x 38)."""
+    t = "\t\t\t\t\t"
+    ink, soft = ("$VAR[Rows_Ink]", "$VAR[Rows_InkSoft]") if focused else ("text", "muted")
+    dim = "white" if focused else "$VAR[Rows_Dim]"
+    rows = [image(t, 0, 156, 1680, 2, "common/hairline.png", "rule")]
+    if focused:
+        rows.append(t + '<include content="Dlg_RowFocus"><param name="list_id" value="509"/><param name="width" value="1680"/><param name="height" value="158"/></include>')
+    rows.append(f"""{t}<control type="group">
+{t}	<left>16</left>
+{t}	<top>16</top>
+{t}	<width>224</width>
+{t}	<height>126</height>
+{t}	<control type="group">
+{t}		<visible>!ListItem.IsParentFolder</visible>
+{image(t + chr(9) * 2, 0, 0, 224, 126, "common/white.png", "raised")}
+{t}		<control type="textbox">
+{t}			<left>12</left>
+{t}			<top>10</top>
+{t}			<width>200</width>
+{t}			<height>106</height>
+{t}			<font>ui_20_bold</font>
+{t}			<textcolor>muted</textcolor>
+{t}			<label>$VAR[Scene_Title]</label>
+{t}			<visible>!$EXP[Scene_HasArt]</visible>  <!-- only with no art at all: under a focused print it showed through (bench); the row names the item beside it anyway -->
+{t}		</control>
+{image(t + chr(9) * 2, 0, 0, 224, 126, "$VAR[Scene_Wide]", dim, visible="$EXP[Scene_HasWide]", aspect="scale", fade=160, background=True)}
+{image(t + chr(9) * 2, 0, 0, 224, 126, "$VAR[Scene_Small]", dim, visible="!$EXP[Scene_HasWide]", aspect="keep", fade=160, background=True)}
+{t}		<include>Sen_WatchedMarkers</include>
+{t}	</control>
+{t}	<control type="group">
+{t}		<visible>ListItem.IsParentFolder</visible>
+{t}		<include>VidView_ParentTile</include>
+{t}	</control>
+{t}</control>""")
+    cap = "$VAR[Sen_Caption]" if focused else "$VAR[Sen_CaptionShort]"
+    rows += [label(t, 272, 4, 1380, 46, "serif_34", ink, "$VAR[Scene_Title]", aligny="center"),
+             label(t, 272, 50, 1380, 28, "ui_22", soft, cap, aligny="center")]
+    rows.append(f"""{t}<control type="textbox">
+{t}	<left>272</left>
+{t}	<top>80</top>
+{t}	<width>1380</width>
+{t}	<height>76</height>
+{t}	<font>body_24</font>
+{t}	<textcolor>{soft}</textcolor>
+{t}	<label>$INFO[ListItem.Plot]</label>
+{t}	<visible>!ListItem.IsParentFolder</visible>
+{t}</control>""")
+    return "\n".join(rows)
+
+
+def view509():
+    body = f"""			<control type="list" id="509">
+				<include>Lib_BackHomeNav</include>
+				<left>page_margin</left>
+				<top>244</top>
+				<width>1680</width>
+				<height>790</height>
+				<orientation>vertical</orientation>
+				<preloaditems>1</preloaditems>
+				<scrolltime tween="cubic" easing="out">200</scrolltime>
+				<onup>9000</onup>
+				<ondown>noop</ondown>
+				<onleft>{PANEL}</onleft>
+				<onright>{PANEL}</onright>
+				<viewtype label="31517">bigwide</viewtype>
+				<visible>{V} + {ROWS_KINDS}</visible>
+				<itemlayout width="1680" height="158">
+{rows_row(False)}
+				</itemlayout>
+				<focusedlayout width="1680" height="158">
+{rows_row(True)}
+				</focusedlayout>
+			</control>"""
+    return f"""	<!-- ============================================================== 509 rows (video, 0.9.19) -->
+	<include name="VidView_509_Rows">
+{view_group(509, body, 160)}
+	</include>"""
+
+
 # --------------------------------------------------------------------------------- 507 a tracklist
 def track_row(focused):
     t = "\t\t\t\t\t"
@@ -412,7 +518,7 @@ def view507():
 def main():
     text = "\n".join(['<?xml version="1.0" encoding="UTF-8"?>',
                       "<!-- GENERATED by _src/make_views_more.py - edit the generator, not this file. -->",
-                      "<includes>", VARIABLES, view505(), view506(), view507(), view508(), "</includes>", ""])
+                      "<includes>", VARIABLES, view505(), view506(), view507(), view508(), view509(), "</includes>", ""])
     text = "\n".join(l for l in text.split("\n") if l.strip() != "")
     OUT.write_text(finish_xml(strip_defaults(text + "\n", ROOT / "Defaults.xml")), encoding="utf-8", newline="\n")
     print("wrote", OUT)

@@ -56,14 +56,23 @@
 	</variable>
 	<variable name="Stage_Name">
 		<value condition="Container(508).ListItem.IsParentFolder">Back</value>
+		<value condition="String.IsEqual(Container(508).ListItem.DBType,song) + !String.IsEmpty(Container(508).ListItem.Title)">$INFO[Container(508).ListItem.Title]</value>
 		<value>$INFO[Container(508).ListItem.Label]</value>
+	</variable>
+	<!-- strip cards without a cover: songs print their title, not Kodi's "01. Artist - Title" label -->
+	<variable name="Stage_CellTitle">
+		<value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<variable name="Stage_Kicker">
 		<value condition="Container(508).ListItem.IsParentFolder">Up one level</value>
+		<value condition="String.IsEqual(Container(508).ListItem.DBType,song)">Song$INFO[Container(508).ListItem.Artist,  ·  ,]</value>
 		<value condition="String.IsEqual(Container(508).ListItem.DBType,artist)">Artist$INFO[Container(508).ListItem.Genre,  ·  ,]</value>
 		<value>Album$INFO[Container(508).ListItem.Artist,  ·  ,]</value>
 	</variable>
 	<variable name="Stage_Meta">
+		<value condition="String.IsEqual(Container(508).ListItem.DBType,song) + !String.IsEmpty(Container(508).ListItem.Album)">$INFO[Container(508).ListItem.Album]$INFO[Container(508).ListItem.Year,  ·  ,]$INFO[Container(508).ListItem.Duration,  ·  ,]</value>
+		<value condition="String.IsEqual(Container(508).ListItem.DBType,song)">$INFO[Container(508).ListItem.Year,,  ·  ]$INFO[Container(508).ListItem.Duration]</value>
 		<value condition="String.IsEqual(Container(508).ListItem.DBType,artist)">$INFO[Container(508).ListItem.Property(Artist_Style)]</value>
 		<value condition="String.IsEqual(Container(508).ListItem.DBType,album)">$INFO[Container(508).ListItem.Year]$INFO[Container(508).ListItem.Genre,  ·  ,]$INFO[Container(508).ListItem.Property(Album_Duration),  ·  ,]</value>
 	</variable>
@@ -80,6 +89,29 @@
 	<variable name="Tracks_Where">
 		<value condition="!String.IsEmpty(ListItem.Artist) + !String.IsEmpty(ListItem.Album)">$INFO[ListItem.Artist]  ·  $INFO[ListItem.Album]</value>
 		<value>$INFO[ListItem.Artist]$INFO[ListItem.Album]</value>
+	</variable>
+	<!-- Rows (510) -->
+	<variable name="Rows_Title">
+		<value condition="ListItem.IsParentFolder">Back</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+	<variable name="Rows_Meta">
+		<value condition="ListItem.IsParentFolder">Up one level</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)">$INFO[ListItem.Year,,  ·  ]$VAR[Rows_Seasons]  ·  $INFO[ListItem.Property(UnWatchedEpisodes),, to watch]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year,,  ·  ]$VAR[Rows_Seasons]  ·  all seen$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Property(Watched),  ·  , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]</value>
+		<value condition="!String.IsEmpty(ListItem.Year) + Integer.IsGreater(ListItem.Duration(mins),0)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),  ·  , min]$INFO[ListItem.Rating,  ·  ,]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value>$INFO[ListItem.Label2]</value>
+	</variable>
+	<variable name="Rows_Seasons">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)">1 season</value>
+		<value>$INFO[ListItem.Property(TotalSeasons),, seasons]</value>
+	</variable>
+	<variable name="Rows_State">
+		<value condition="ListItem.IsResumable">$INFO[ListItem.PercentPlayed,,%]</value>
+		<value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + Integer.IsGreater(ListItem.PlayCount,0)">Seen</value>
 	</variable>
 	<variable name="Tracks_Cover">
 		<value condition="!String.IsEmpty(Container(509).ListItem.Art(thumb))">$INFO[Container(509).ListItem.Art(thumb)]</value>
@@ -618,7 +650,7 @@
 				<scrolltime tween="cubic" easing="out">200</scrolltime>
 				<preloaditems>1</preloaditems>
 				<viewtype label="31419">biglist</viewtype>
-				<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists)]</visible>
+				<visible>Window.IsActive(music) + [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)]</visible>
 				<itemlayout width="224" height="240">
 					<control type="group">
 						<left>24</left>
@@ -632,7 +664,7 @@
 								<param name="tint" value="$VAR[SectionTint]"/>
 								<param name="dots" value="true"/>
 								<param name="aspect" value="scale"/>
-								<param name="title" value="$INFO[ListItem.Label]"/>
+								<param name="title" value="$VAR[Stage_CellTitle]"/>
 								<param name="titlefont" value="an_32"/>
 							</include>
 						</control>
@@ -655,7 +687,7 @@
 									<param name="tint" value="$VAR[SectionTint]"/>
 									<param name="dots" value="true"/>
 									<param name="aspect" value="scale"/>
-									<param name="title" value="$INFO[ListItem.Label]"/>
+									<param name="title" value="$VAR[Stage_CellTitle]"/>
 									<param name="titlefont" value="an_32"/>
 								</include>
 							</control>
@@ -666,7 +698,7 @@
 									<param name="tint" value="white"/>
 									<param name="dots" value="false"/>
 									<param name="aspect" value="scale"/>
-									<param name="title" value="$INFO[ListItem.Label]"/>
+									<param name="title" value="$VAR[Stage_CellTitle]"/>
 									<param name="titlefont" value="an_32"/>
 								</include>
 							</control>
@@ -902,6 +934,272 @@
 				<selectedcolor>$VAR[SectionText2]</selectedcolor>
 				<label>$INFO[Container(509).ListItem.Year]$INFO[Container(509).ListItem.Genre,  ·  ,]</label>
 				<visible>!Container(509).ListItem.IsParentFolder</visible>
+			</control>
+		</control>
+	</include>
+	<!-- ============================================================== 510 Rows (0.9.18) -->
+	<include name="VidView_510_Rows">
+		<control type="group">
+			<visible>Control.IsVisible(510)</visible>
+			<include>Anim_FadeVisible</include>
+			<animation effect="slide" start="0,0" end="0,120" time="0" condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">Conditional</animation>
+			<control type="list" id="510">
+				<left>page_margin</left>
+				<top>168</top>
+				<width>1792</width>
+				<height>800</height>
+				<orientation>vertical</orientation>
+				<onup>9000</onup>
+				<ondown>noop</ondown>
+				<onleft>ActivateWindow(1155)</onleft>
+				<onright>ActivateWindow(1155)</onright>
+				<scrolltime tween="cubic" easing="out">160</scrolltime>
+				<preloaditems>1</preloaditems>
+				<viewtype label="31421">biglist</viewtype>
+				<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(musicvideos)]</visible>
+				<itemlayout width="1792" height="160">
+					<control type="group">
+						<control type="image">
+							<left>0</left>
+							<top>158</top>
+							<width>1792</width>
+							<height>2</height>
+							<texture colordiffuse="$VAR[SectionText3]">common/white.png</texture>
+						</control>
+						<control type="group">
+							<left>16</left>
+							<top>8</top>
+							<width>256</width>
+							<height>144</height>
+							<control type="group">
+								<visible>!ListItem.IsParentFolder</visible>
+								<control type="group">
+									<visible>$EXP[View_ScreenHasWide]</visible>
+									<include content="DT_Artwork">
+										<param name="art" value="$VAR[View_ScreenWide]"/>
+										<param name="tint" value="$VAR[SectionTint]"/>
+										<param name="dots" value="true"/>
+										<param name="aspect" value="scale"/>
+										<param name="title" value=""/>
+										<param name="titlefont" value="an_32"/>
+									</include>
+								</control>
+								<control type="group">
+									<visible>!$EXP[View_ScreenHasWide]</visible>
+									<include content="DT_Artwork">
+										<param name="art" value="$VAR[View_ScreenSmall]"/>
+										<param name="tint" value="$VAR[SectionTint]"/>
+										<param name="dots" value="true"/>
+										<param name="aspect" value="keep"/>
+										<param name="title" value=""/>
+										<param name="titlefont" value="an_32"/>
+									</include>
+								</control>
+								<include>DT_WatchedMarkers</include>
+							</control>
+							<include>VidView_WallParent</include>
+						</control>
+						<control type="label">
+							<left>304</left>
+							<top>8</top>
+							<width>1300</width>
+							<height>52</height>
+							<font>an_40</font>
+							<label>$VAR[Rows_Title]</label>
+						</control>
+						<control type="label">
+							<left>1620</left>
+							<top>22</top>
+							<width>156</width>
+							<height>24</height>
+							<align>right</align>
+							<font>cap_20</font>
+							<label>$VAR[Rows_State]</label>
+						</control>
+						<control type="label">
+							<left>304</left>
+							<top>62</top>
+							<width>1472</width>
+							<height>24</height>
+							<font>cap_20</font>
+							<label>$VAR[Rows_Meta]</label>
+						</control>
+						<control type="textbox">
+							<left>304</left>
+							<top>88</top>
+							<width>1400</width>
+							<height>68</height>  <!-- 2 x 34 (Inter Tight 24 x 1.171) -->
+							<font>body_24</font>
+							<textcolor>$VAR[SectionText2]</textcolor>
+							<label>$INFO[ListItem.Plot]</label>
+							<visible>!ListItem.IsParentFolder</visible>
+						</control>
+					</control>
+				</itemlayout>
+				<focusedlayout width="1792" height="160">
+					<control type="group">
+						<visible>!Control.HasFocus(510)</visible>
+						<control type="image">
+							<left>0</left>
+							<top>158</top>
+							<width>1792</width>
+							<height>2</height>
+							<texture colordiffuse="$VAR[SectionText3]">common/white.png</texture>
+						</control>
+						<control type="group">
+							<left>16</left>
+							<top>8</top>
+							<width>256</width>
+							<height>144</height>
+							<control type="group">
+								<visible>!ListItem.IsParentFolder</visible>
+								<control type="group">
+									<visible>$EXP[View_ScreenHasWide]</visible>
+									<include content="DT_Artwork">
+										<param name="art" value="$VAR[View_ScreenWide]"/>
+										<param name="tint" value="$VAR[SectionTint]"/>
+										<param name="dots" value="true"/>
+										<param name="aspect" value="scale"/>
+										<param name="title" value=""/>
+										<param name="titlefont" value="an_32"/>
+									</include>
+								</control>
+								<control type="group">
+									<visible>!$EXP[View_ScreenHasWide]</visible>
+									<include content="DT_Artwork">
+										<param name="art" value="$VAR[View_ScreenSmall]"/>
+										<param name="tint" value="$VAR[SectionTint]"/>
+										<param name="dots" value="true"/>
+										<param name="aspect" value="keep"/>
+										<param name="title" value=""/>
+										<param name="titlefont" value="an_32"/>
+									</include>
+								</control>
+								<include>DT_WatchedMarkers</include>
+							</control>
+							<include>VidView_WallParent</include>
+						</control>
+						<control type="label">
+							<left>304</left>
+							<top>8</top>
+							<width>1300</width>
+							<height>52</height>
+							<font>an_40</font>
+							<label>$VAR[Rows_Title]</label>
+						</control>
+						<control type="label">
+							<left>1620</left>
+							<top>22</top>
+							<width>156</width>
+							<height>24</height>
+							<align>right</align>
+							<font>cap_20</font>
+							<label>$VAR[Rows_State]</label>
+						</control>
+						<control type="label">
+							<left>304</left>
+							<top>62</top>
+							<width>1472</width>
+							<height>24</height>
+							<font>cap_20</font>
+							<label>$VAR[Rows_Meta]</label>
+						</control>
+						<control type="textbox">
+							<left>304</left>
+							<top>88</top>
+							<width>1400</width>
+							<height>68</height>  <!-- 2 x 34 (Inter Tight 24 x 1.171) -->
+							<font>body_24</font>
+							<textcolor>$VAR[SectionText2]</textcolor>
+							<label>$INFO[ListItem.Plot]</label>
+							<visible>!ListItem.IsParentFolder</visible>
+						</control>
+					</control>
+					<control type="group">
+						<visible>Control.HasFocus(510)</visible>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>1792</width>
+							<height>160</height>
+							<texture colordiffuse="$VAR[ink]">common/white.png</texture>
+						</control>
+						<control type="group">
+							<left>16</left>
+							<top>8</top>
+							<width>256</width>
+							<height>144</height>
+							<control type="group">
+								<visible>!ListItem.IsParentFolder</visible>
+								<control type="group">
+									<visible>$EXP[View_ScreenHasWide]</visible>
+									<include content="DT_Artwork">
+										<param name="art" value="$VAR[View_ScreenWide]"/>
+										<param name="tint" value="white"/>
+										<param name="dots" value="false"/>
+										<param name="aspect" value="scale"/>
+										<param name="title" value=""/>
+										<param name="titlefont" value="an_32"/>
+									</include>
+								</control>
+								<control type="group">
+									<visible>!$EXP[View_ScreenHasWide]</visible>
+									<include content="DT_Artwork">
+										<param name="art" value="$VAR[View_ScreenSmall]"/>
+										<param name="tint" value="white"/>
+										<param name="dots" value="false"/>
+										<param name="aspect" value="keep"/>
+										<param name="title" value=""/>
+										<param name="titlefont" value="an_32"/>
+									</include>
+								</control>
+								<include>DT_WatchedMarkers</include>
+							</control>
+							<include>VidView_WallParent</include>
+						</control>
+						<control type="label">
+							<left>304</left>
+							<top>8</top>
+							<width>1300</width>
+							<height>52</height>
+							<font>an_40</font>
+							<textcolor>$VAR[paper]</textcolor>
+							<selectedcolor>$VAR[paper]</selectedcolor>
+							<label>$VAR[Rows_Title]</label>
+						</control>
+						<control type="label">
+							<left>1620</left>
+							<top>22</top>
+							<width>156</width>
+							<height>24</height>
+							<align>right</align>
+							<font>cap_20</font>
+							<textcolor>$VAR[SectionColor]</textcolor>
+							<selectedcolor>$VAR[SectionColor]</selectedcolor>
+							<label>$VAR[Rows_State]</label>
+						</control>
+						<control type="label">
+							<left>304</left>
+							<top>62</top>
+							<width>1472</width>
+							<height>24</height>
+							<font>cap_20</font>
+							<textcolor>$VAR[SectionColor]</textcolor>
+							<selectedcolor>$VAR[SectionColor]</selectedcolor>
+							<label>$VAR[Rows_Meta]</label>
+						</control>
+						<control type="textbox">
+							<left>304</left>
+							<top>88</top>
+							<width>1400</width>
+							<height>68</height>  <!-- 2 x 34 (Inter Tight 24 x 1.171) -->
+							<font>body_24</font>
+							<textcolor>$VAR[paper_80]</textcolor>
+							<label>$INFO[ListItem.Plot]</label>
+							<visible>!ListItem.IsParentFolder</visible>
+						</control>
+					</control>
+				</focusedlayout>
 			</control>
 		</control>
 	</include>

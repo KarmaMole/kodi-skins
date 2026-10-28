@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	Music library. Views: 504 arc (album covers / artist discs + record dial), 505 grid, 50 dial list.
+	Music library. Views: 504 arc (album covers / artist discs + record dial), 505 grid (+ songs 0.9.19), 507 horizon (+ songs 0.9.19), 50 dial list.
 	Kodi id contract (Estuary Omega MyMusicNav.xml / GUIWindowMusicNav.cpp): views in <views>,
 	menucontrol 9000, 3 sort by, 4 sort order (hidden, clicked by the option bar).
 	Reserved by Kodi in this window and not reused: 2, 5, 8, 12, 15, 16, 17, 19, 20.
@@ -17,7 +17,7 @@
 	<controls>
 		<!-- fit-to-width probes for the wide titles (Includes_Titles.xml) -->
 		<include content="Fit_MusicArc_Probes">
-			<param name="label" value="$INFO[ListItem.Label]"/>
+			<param name="label" value="$VAR[MusicView_FitLabel]"/>
 		</include>
 		<include content="Orbit_Background">
 			<param name="ground" value="page"/>

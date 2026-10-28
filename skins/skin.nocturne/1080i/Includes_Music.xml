@@ -97,6 +97,12 @@
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
 
+	<variable name="Music_ViewTitle">
+		<value condition="ListItem.IsParentFolder">Back</value>
+		<value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+
 	<!-- Header tabs -->
 	<variable name="Music_TabText_Albums">
 		<value condition="$EXP[Music_TabAlbums]">d9e2d0b4</value>

@@ -12,7 +12,7 @@
 	<menucontrol>9000</menucontrol>
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>
 	<backgroundcolor>paper</backgroundcolor>
-	<views>504,505,50</views>
+	<views>504,50,505,508</views>
 	<include>PP_PaperInit</include>
 	<onload>SetProperty(TMDbHelper.Colors.SourceImage,Art(thumb)|Art(album.thumb)|Art(fanart),home)</onload>
 	<include>Anim_WindowOpenClose</include>
@@ -21,6 +21,7 @@
 		<include>Music_View_504</include>
 		<include>Music_View_505</include>
 		<include>Music_View_50</include>
+		<include>Music_View_508</include>
 		<control type="group">
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 			<control type="label">

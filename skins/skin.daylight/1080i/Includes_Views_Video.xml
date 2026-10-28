@@ -7,6 +7,9 @@
 	  500 Grid + detail (movies, sets, tvshows, seasons, music videos)   184x276 posters, 5 columns
 	  501 Wall (same content, no detail panel, 8 columns)
 	  503 Episodes (episodes)                                              thumb rows in the card
+	  509 Rows (0.9.18: shows, seasons)                                    the Episodes row with the show's wide picture
+	      (typed bigwide, last in <views>: 503 is typed list and comes before List 50, so offering 503 itself for
+	      shows would have made it the shows default; docs/VIEWS_PER_SECTION_2026-10-28.md)
 	  50  List (everything: files, add-ons, genres, years ...)             rows in the card
 
 	Kodi id contract (Estuary Omega MyVideoNav.xml + CGUIWindowVideoNav): views listed in <views>;
@@ -168,12 +171,16 @@
 	<!-- episode row line -->
 	<variable name="VidView_EpLine">
 		<value condition="ListItem.IsParentFolder">Up one level</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(WatchedEpisodes),0)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Genre,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Duration(mins),, min]$INFO[ListItem.Premiered,  ·  aired ,]$INFO[ListItem.Rating,  ·  rated ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]</value>
 		<value>$INFO[ListItem.Label2]</value>
 	</variable>
 	<variable name="VidView_EpKicker">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)">$INFO[ListItem.Year]$VAR[VidView_SeasonsWord]  ·  $INFO[ListItem.Property(UnWatchedEpisodes),, unwatched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[VidView_SeasonsWord]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(UnWatchedEpisodes),, unwatched]</value>
 	</variable>
 	<variable name="VidView_ThumbArt">
@@ -350,6 +357,7 @@
 	</include>
 
 	<!-- One grid poster (500 / 501). params: id, w, h, pad, focused -->
+	<expression name="VidView_GenreCard">Container.Content(genres) + !ListItem.IsParentFolder + String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(thumb)) + [String.IsEmpty(ListItem.Icon) | String.StartsWith(ListItem.Icon,Default)]</expression>
 	<include name="VidView_GridItem">
 		<param name="focused">false</param>
 		<definition>
@@ -362,8 +370,21 @@
 					<effect type="zoom" start="100" end="106" center="auto" time="160" tween="cubic" easing="out"/>
 				</animation>
 				<include content="VidView_ArtFallback">
-					<param name="label_visible" value="String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(tvshow.poster)) + String.IsEmpty(ListItem.Art(thumb))"/>
+					<param name="label_visible" value="String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(tvshow.poster)) + String.IsEmpty(ListItem.Art(thumb)) + !$EXP[VidView_GenreCard]"/>
 				</include>
+				<!-- 0.9.18: a genre without a picture (Kodi's icon DefaultGenre.png, not shipped): its name centred on the card -->
+				<control type="textbox">
+					<left>8</left>
+					<right>8</right>
+					<top>20</top>
+					<bottom>20</bottom>
+					<font>ui_22_semibold</font>  <!-- 152 px on the Wall's 168 card: "Documentary" is 137 (+1 a glyph); 26 broke it mid-word -->
+					<textcolor>$VAR[DL_Ink]</textcolor>
+					<align>center</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.Label]</label>
+					<visible>$EXP[VidView_GenreCard]</visible>
+				</control>
 				<include content="VidView_ArtImage">
 					<param name="art" value="$VAR[VidView_PosterArt]"/>
 				</include>
@@ -861,7 +882,8 @@
 			<preloaditems>2</preloaditems>
 			<scrolltime tween="cubic" easing="out">260</scrolltime>
 			<viewtype label="31313">wrap</viewtype>
-			<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos)</visible>
+			<!-- 0.9.18: also genres / years / tags (a name card; the genre's picture when the library has one) -->
+			<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(musicvideos) | Container.Content(genres)</visible>
 			<itemlayout width="204" height="292">
 				<include content="VidView_GridItem">
 					<param name="id" value="501"/><param name="w" value="168"/><param name="h" value="252"/><param name="pad" value="18"/>
@@ -877,8 +899,12 @@
 	</include>
 
 	<!-- ================================================================== View 503 -->
+	<!-- params: focused, id (503 Episodes / 509 Rows), wide (509: the show's landscape / fanart, else its poster kept
+	     whole on the raised card, a glyph when there is nothing; 503 keeps the episode still) -->
 	<include name="VidView_EpisodeRow">
 		<param name="focused">false</param>
+		<param name="id">503</param>
+		<param name="wide">false</param>
 		<definition>
 			<control type="image">
 				<left>4</left>
@@ -886,7 +912,7 @@
 				<width>1068</width>
 				<height>160</height>
 				<texture border="24" colordiffuse="$VAR[DL_Raised]">daylight/card20.png</texture>
-				<visible>$PARAM[focused] + Control.HasFocus(503)</visible>
+				<visible>$PARAM[focused] + Control.HasFocus($PARAM[id])</visible>
 			</control>
 			<control type="group">
 				<left>22</left>
@@ -898,10 +924,29 @@
 					<param name="label_visible" value="false"/>
 					<param name="parent_caption" value="false"/>
 				</include>
-				<include content="VidView_ArtImage">
+				<include content="VidView_ArtImage" condition="!$PARAM[wide]">
 					<param name="art" value="$VAR[VidView_ThumbArt]"/>
 					<param name="mask" value="daylight/mask_thumb.png"/>
 				</include>
+				<include content="VidView_ArtImage" condition="$PARAM[wide]">
+					<param name="art" value="$VAR[VidView_WideArt]"/>
+					<param name="mask" value="daylight/mask_thumb.png"/>
+					<param name="visible" value="$EXP[VidView_WideHasArt]"/>
+				</include>
+				<include content="VidView_ArtImage" condition="$PARAM[wide]">
+					<param name="art" value="$VAR[VidView_WideIcon]"/>
+					<param name="mask" value="daylight/mask_thumb.png"/>
+					<param name="aspect" value="keep"/>
+					<param name="visible" value="!$EXP[VidView_WideHasArt] + $EXP[VidView_WideHasIcon]"/>
+				</include>
+				<control type="image">
+					<centerleft>50%</centerleft>
+					<centertop>50%</centertop>
+					<width>40</width>
+					<height>40</height>
+					<texture colordiffuse="$VAR[DL_Ink3]">$VAR[VidView_WideGlyph]</texture>
+					<visible>$PARAM[wide] + !ListItem.IsParentFolder + !$EXP[VidView_WideHasArt] + !$EXP[VidView_WideHasIcon]</visible>
+				</control>
 				<control type="group">
 					<visible>!ListItem.IsParentFolder</visible>
 					<include>DL_WatchedMarkers</include>
@@ -970,6 +1015,35 @@
 			</itemlayout>
 			<focusedlayout width="1076" height="168">
 				<include content="VidView_EpisodeRow"><param name="focused" value="true"/></include>
+			</focusedlayout>
+		</control>
+		</control>
+	</include>
+
+	<!-- ================================================================== View 509 (0.9.18) -->
+	<include name="VidView_509_Rows">
+		<control type="group">
+		<visible>Control.IsVisible(509)</visible>
+		<include>Anim_FadeVisible</include>
+		<control type="list" id="509">
+			<left>702</left>
+			<top>vv_grid_y</top>
+			<width>1076</width>
+			<height>vv_grid_h</height>
+			<orientation>vertical</orientation>
+			<onup>9000</onup>
+			<ondown>noop</ondown>
+			<onleft>ActivateWindow(1160)</onleft>  <!-- past the first / last column = Library panel -->
+			<onright>ActivateWindow(1160)</onright>
+			<preloaditems>2</preloaditems>
+			<scrolltime tween="cubic" easing="out">220</scrolltime>
+			<viewtype label="31329">bigwide</viewtype>
+			<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+			<itemlayout width="1076" height="168">
+				<include content="VidView_EpisodeRow"><param name="id" value="509"/><param name="wide" value="true"/></include>
+			</itemlayout>
+			<focusedlayout width="1076" height="168">
+				<include content="VidView_EpisodeRow"><param name="focused" value="true"/><param name="id" value="509"/><param name="wide" value="true"/></include>
 			</focusedlayout>
 		</control>
 		</control>
@@ -1744,6 +1818,7 @@
 		<include>VidView_501_Wall</include>
 		<include>VidView_502_Spotlight</include>
 		<include>VidView_503_Episodes</include>
+		<include>VidView_509_Rows</include>
 		<include>VidView_505_Wide</include>
 		<include>VidView_506_Time</include>
 		<include>VidView_50_List</include>

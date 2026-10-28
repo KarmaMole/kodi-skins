@@ -5,7 +5,7 @@
 
 	View ids (CONVENTIONS 4): 500 Poster Showcase (movies, sets) | 501 Big Poster (movies, sets) |
 	502 Wall (tvshows, seasons) + Next up strip 9310 at the TV root | 503 Episodes list (episodes,
-	seasons) | 50 List (Includes_Views.xml, every content type). Each view container carries its own
+	seasons, tvshows) | 508 the Line for series | 50 List (Includes_Views.xml, every content type). Each view container carries its own
 	Container.Content() <visible> so VIEW only cycles views valid for the folder.
 
 	Header (replaces Estuary's side blade, Kodi CGUIWindowVideoNav ids, Omega source):
@@ -224,6 +224,9 @@
 		<value condition="ListItem.IsParentFolder">PARENT FOLDER · OK GOES UP ONE LEVEL</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$VAR[VidView_RuntimeMeta]$INFO[ListItem.Premiered, · AIRED ,]$VAR[VidView_RatingMeta]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, EPISODES]$INFO[ListItem.Property(WatchedEpisodes), · , WATCHED]$INFO[ListItem.Year, · ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year,, · ]1 SEASON$INFO[ListItem.Property(TotalEpisodes), · , EPISODES]$INFO[ListItem.Property(UnWatchedEpisodes), · , UNWATCHED]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Property(TotalSeasons))">$INFO[ListItem.Year,, · ]$INFO[ListItem.Property(TotalSeasons),, SEASONS]$INFO[ListItem.Property(TotalEpisodes), · , EPISODES]$INFO[ListItem.Property(UnWatchedEpisodes), · , UNWATCHED]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]</value>
 		<value>$INFO[ListItem.Label2]</value>
 	</variable>
 
@@ -832,118 +835,126 @@
 			</control>
 		</definition>
 	</include>
+	<!-- one Line, two ids: 500 (films, sets; type list = their default) and 508 (series; biglist, never a Kodi
+	     default, so series still open in the Wall) -->
 	<include name="VidView_500_Showcase">
-		<control type="group">
-			<visible>Control.IsVisible(500)</visible>
-			<include>Anim_FadeVisible</include>
-			<!-- the focused station: interchange ring (as on the station page) -->
+		<param name="id">500</param>
+		<param name="probe">5091</param>
+		<param name="viewtype">list</param>
+		<param name="visible">Container.Content(movies) | Container.Content(sets)</param>
+		<definition>
 			<control type="group">
-				<visible>!ListItem.IsParentFolder</visible>
-				<control type="image"><left>-8</left><top>112</top><width>502</width><height>667</height><texture border="100" colordiffuse="shadow">sd/shadow_big.png</texture></control>
-				<control type="image"><left>64</left><top>162</top><width>358</width><height>523</height><texture border="24" colordiffuse="ground">sd/ring_centre_fill.png</texture></control>
-				<control type="image"><left>64</left><top>162</top><width>358</width><height>523</height><texture border="24" colordiffuse="ink">sd/ring_centre.png</texture></control>
-				<control type="image"><left>78</left><top>176</top><width>330</width><height>495</height><texture colordiffuse="wash">common/white.png</texture></control>
-				<control type="label"><left>98</left><top>196</top><width>290</width><height>160</height><font>xb_28</font><textcolor>ink2</textcolor><aligny>top</aligny><wrapmultiline>true</wrapmultiline><label>$INFO[ListItem.Label]</label></control>
-				<control type="image">
-					<left>78</left><top>176</top><width>330</width><height>495</height>
-					<aspectratio>scale</aspectratio><fadetime>120</fadetime>
-					<texture background="true" diffuse="sd/mask_330x495.png">$VAR[ListItemArt]</texture>
+				<visible>Control.IsVisible($PARAM[id])</visible>
+				<include>Anim_FadeVisible</include>
+				<!-- the focused station: interchange ring (as on the station page) -->
+				<control type="group">
+					<visible>!ListItem.IsParentFolder</visible>
+					<control type="image"><left>-8</left><top>112</top><width>502</width><height>667</height><texture border="100" colordiffuse="shadow">sd/shadow_big.png</texture></control>
+					<control type="image"><left>64</left><top>162</top><width>358</width><height>523</height><texture border="24" colordiffuse="ground">sd/ring_centre_fill.png</texture></control>
+					<control type="image"><left>64</left><top>162</top><width>358</width><height>523</height><texture border="24" colordiffuse="ink">sd/ring_centre.png</texture></control>
+					<control type="image"><left>78</left><top>176</top><width>330</width><height>495</height><texture colordiffuse="wash">common/white.png</texture></control>
+					<control type="label"><left>98</left><top>196</top><width>290</width><height>160</height><font>xb_28</font><textcolor>ink2</textcolor><aligny>top</aligny><wrapmultiline>true</wrapmultiline><label>$INFO[ListItem.Label]</label></control>
+					<control type="image">
+						<left>78</left><top>176</top><width>330</width><height>495</height>
+						<aspectratio>scale</aspectratio><fadetime>120</fadetime>
+						<texture background="true" diffuse="sd/mask_330x495.png">$VAR[ListItemArt]</texture>
+					</control>
+					<control type="label">
+						<left>480</left><top>168</top><width>1376</width><height>30</height>
+						<font>caps_21</font><textcolor>ink2</textcolor><aligny>top</aligny>
+						<label>$VAR[St_Caption]</label>
+					</control>
+					<control type="textbox" id="$PARAM[probe]">
+						<left>480</left><top>200</top><width>1376</width><height>96</height>
+						<font>disp_84</font><textcolor>clear</textcolor><label>$INFO[ListItem.Title]</label>
+					</control>
+					<control type="label">
+						<left>476</left><top>196</top><width>1380</width><height>104</height>
+						<font>disp_84</font><textcolor>ink</textcolor><label>$INFO[ListItem.Title]</label>
+						<visible>!Integer.IsGreater(Container($PARAM[probe]).NumPages,1)</visible>
+					</control>
+					<control type="label">
+						<left>478</left><top>210</top><width>1380</width><height>80</height>
+						<font>disp_60</font><textcolor>ink</textcolor><label>$INFO[ListItem.Title]</label>
+						<visible>Integer.IsGreater(Container($PARAM[probe]).NumPages,1)</visible>
+					</control>
+					<control type="grouplist">
+						<left>480</left><top>308</top><width>1376</width><height>40</height>
+						<orientation>horizontal</orientation><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords>
+						<control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactLead]</label><visible>$EXP[St_FactLead_On]</visible></control>
+						<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Time]</visible></control>
+						<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactTime]</label></control>
+						<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Mpaa]</visible></control>
+						<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$INFO[ListItem.MPAA]</label></control>
+						<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Rating]</visible></control>
+						<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$INFO[ListItem.Rating,★ ,]</label></control>
+						<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Watched]</visible></control>
+						<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactWatched]</label></control>
+					</control>
+					<control type="textbox">
+						<left>480</left><top>372</top><width>1376</width><height>234</height>
+						<font>reg_26</font><textcolor>body</textcolor>
+						<label>$INFO[ListItem.Plot]</label>
+						<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
+					</control>
+				</control>
+				<control type="group">
+					<left>480</left>
+					<top>168</top>
+					<width>1376</width>
+					<height>200</height>
+					<visible>ListItem.IsParentFolder</visible>
+					<include>VidView_ParentInfo</include>
+				</control>
+				<!-- the line the films hang on -->
+				<control type="image"><left>0</left><top>816</top><width>1920</width><height>8</height><texture colordiffuse="l_route">common/white.png</texture></control>
+				<control type="fixedlist" id="$PARAM[id]">
+					<left>40</left>
+					<top>700</top>
+					<width>1840</width>
+					<height>300</height>
+					<orientation>horizontal</orientation>
+					<focusposition>3</focusposition>
+					<movement>0</movement>
+					<preloaditems>2</preloaditems>
+					<scrolltime tween="cubic" easing="out">200</scrolltime>
+					<onup>9000</onup>
+					<ondown>noop</ondown>
+					<include>Lib_OpenLeft</include>
+					<include>Lib_OpenRight</include>
+					<viewtype label="31201">$PARAM[viewtype]</viewtype>
+					<visible>$PARAM[visible]</visible>
+					<itemlayout width="140" height="300">
+						<control type="image"><left>0</left><top>116</top><width>140</width><height>8</height><texture colordiffuse="l_route">common/white.png</texture></control>
+						<control type="image"><left>15</left><top>40</top><width>110</width><height>165</height><texture colordiffuse="wash">common/white.png</texture></control>
+						<control type="label"><left>23</left><top>48</top><width>94</width><height>80</height><font>semi_20</font><textcolor>ink2</textcolor><aligny>top</aligny><wrapmultiline>true</wrapmultiline><label>$INFO[ListItem.Label]</label></control>
+						<control type="image"><left>15</left><top>40</top><width>110</width><height>165</height><aspectratio>scale</aspectratio><fadetime>120</fadetime><texture background="true" diffuse="sd/mask_110x165.png">$VAR[ListItemArt]</texture></control>
+						<control type="image"><left>12</left><top>37</top><width>116</width><height>171</height><texture border="14" colordiffuse="hair_strong">sd/frame_o3.png</texture></control>
+						<control type="image"><left>59</left><top>216</top><width>22</width><height>22</height><texture colordiffuse="l_route">sd/disc_16.png</texture><visible>Integer.IsGreater(ListItem.PlayCount,0)</visible></control>
+					</itemlayout>
+					<focusedlayout width="180" height="300">
+						<control type="image"><left>0</left><top>116</top><width>140</width><height>8</height><texture colordiffuse="l_route">common/white.png</texture></control>
+						<control type="image"><left>-28</left><top>-19</top><width>236</width><height>315</height><texture border="100" colordiffuse="shadow">sd/shadow_big.png</texture><visible>Control.HasFocus($PARAM[id])</visible></control>
+						<control type="image"><left>2</left><top>-3</top><width>176</width><height>251</height><texture border="20" colordiffuse="ground">sd/ringf_fill.png</texture></control>
+						<control type="image"><left>2</left><top>-3</top><width>176</width><height>251</height><texture border="20" colordiffuse="ink">sd/ringf_6.png</texture><visible>Control.HasFocus($PARAM[id])</visible></control>
+						<control type="image"><left>15</left><top>10</top><width>150</width><height>225</height><texture colordiffuse="wash">common/white.png</texture></control>
+						<control type="label"><left>23</left><top>18</top><width>134</width><height>80</height><font>semi_20</font><textcolor>ink2</textcolor><aligny>top</aligny><wrapmultiline>true</wrapmultiline><label>$INFO[ListItem.Label]</label></control>
+						<control type="image"><left>15</left><top>10</top><width>150</width><height>225</height><aspectratio>scale</aspectratio><fadetime>120</fadetime><texture background="true" diffuse="sd/mask_164x246.png">$VAR[ListItemArt]</texture></control>
+						<control type="image"><left>79</left><top>246</top><width>22</width><height>22</height><texture colordiffuse="l_route">sd/disc_16.png</texture><visible>Integer.IsGreater(ListItem.PlayCount,0)</visible></control>
+					</focusedlayout>
 				</control>
 				<control type="label">
-					<left>480</left><top>168</top><width>1376</width><height>30</height>
-					<font>caps_21</font><textcolor>ink2</textcolor><aligny>top</aligny>
-					<label>$VAR[St_Caption]</label>
-				</control>
-				<control type="textbox" id="5091">
-					<left>480</left><top>200</top><width>1376</width><height>96</height>
-					<font>disp_84</font><textcolor>clear</textcolor><label>$INFO[ListItem.Title]</label>
+					<left>64</left><top>1000</top><width>600</width><height>30</height>
+					<font>semi_22</font><textcolor>ink2</textcolor>
+					<label>$INFO[Container.CurrentItem] of $INFO[Container.NumItems]</label>
 				</control>
 				<control type="label">
-					<left>476</left><top>196</top><width>1380</width><height>104</height>
-					<font>disp_84</font><textcolor>ink</textcolor><label>$INFO[ListItem.Title]</label>
-					<visible>!Integer.IsGreater(Container(5091).NumPages,1)</visible>
-				</control>
-				<control type="label">
-					<left>478</left><top>210</top><width>1380</width><height>80</height>
-					<font>disp_60</font><textcolor>ink</textcolor><label>$INFO[ListItem.Title]</label>
-					<visible>Integer.IsGreater(Container(5091).NumPages,1)</visible>
-				</control>
-				<control type="grouplist">
-					<left>480</left><top>308</top><width>1376</width><height>40</height>
-					<orientation>horizontal</orientation><itemgap>0</itemgap><usecontrolcoords>true</usecontrolcoords>
-					<control type="label"><width max="420">auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactLead]</label><visible>$EXP[St_FactLead_On]</visible></control>
-					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Time]</visible></control>
-					<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactTime]</label></control>
-					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Mpaa]</visible></control>
-					<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$INFO[ListItem.MPAA]</label></control>
-					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Rating]</visible></control>
-					<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$INFO[ListItem.Rating,★ ,]</label></control>
-					<control type="label"><width>34</width><height>40</height><font>semi_26</font><textcolor>hair_strong</textcolor><align>center</align><label>|</label><visible>$EXP[St_FactPipe_Watched]</visible></control>
-					<control type="label"><width>auto</width><height>40</height><font>semi_26</font><textcolor>ink</textcolor><label>$VAR[St_FactWatched]</label></control>
-				</control>
-				<control type="textbox">
-					<left>480</left><top>372</top><width>1376</width><height>234</height>
-					<font>reg_26</font><textcolor>body</textcolor>
-					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
+					<left>656</left><top>1000</top><width>1200</width><height>30</height><align>right</align>
+					<font>semi_22</font><textcolor>ink2</textcolor>
+					<label>◀ ▶ ride the line   ·   OK play or station page   ·   hold OK for options   ·   ▲ filter and sort</label>
 				</control>
 			</control>
-			<control type="group">
-				<left>480</left>
-				<top>168</top>
-				<width>1376</width>
-				<height>200</height>
-				<visible>ListItem.IsParentFolder</visible>
-				<include>VidView_ParentInfo</include>
-			</control>
-			<!-- the line the films hang on -->
-			<control type="image"><left>0</left><top>816</top><width>1920</width><height>8</height><texture colordiffuse="l_route">common/white.png</texture></control>
-			<control type="fixedlist" id="500">
-				<left>40</left>
-				<top>700</top>
-				<width>1840</width>
-				<height>300</height>
-				<orientation>horizontal</orientation>
-				<focusposition>3</focusposition>
-				<movement>0</movement>
-				<preloaditems>2</preloaditems>
-				<scrolltime tween="cubic" easing="out">200</scrolltime>
-				<onup>9000</onup>
-				<ondown>noop</ondown>
-				<include>Lib_OpenLeft</include>
-				<include>Lib_OpenRight</include>
-				<viewtype label="31201">list</viewtype>
-				<visible>Container.Content(movies) | Container.Content(sets)</visible>
-				<itemlayout width="140" height="300">
-					<control type="image"><left>0</left><top>116</top><width>140</width><height>8</height><texture colordiffuse="l_route">common/white.png</texture></control>
-					<control type="image"><left>15</left><top>40</top><width>110</width><height>165</height><texture colordiffuse="wash">common/white.png</texture></control>
-					<control type="label"><left>23</left><top>48</top><width>94</width><height>80</height><font>semi_20</font><textcolor>ink2</textcolor><aligny>top</aligny><wrapmultiline>true</wrapmultiline><label>$INFO[ListItem.Label]</label></control>
-					<control type="image"><left>15</left><top>40</top><width>110</width><height>165</height><aspectratio>scale</aspectratio><fadetime>120</fadetime><texture background="true" diffuse="sd/mask_110x165.png">$VAR[ListItemArt]</texture></control>
-					<control type="image"><left>12</left><top>37</top><width>116</width><height>171</height><texture border="14" colordiffuse="hair_strong">sd/frame_o3.png</texture></control>
-					<control type="image"><left>59</left><top>216</top><width>22</width><height>22</height><texture colordiffuse="l_route">sd/disc_16.png</texture><visible>Integer.IsGreater(ListItem.PlayCount,0)</visible></control>
-				</itemlayout>
-				<focusedlayout width="180" height="300">
-					<control type="image"><left>0</left><top>116</top><width>140</width><height>8</height><texture colordiffuse="l_route">common/white.png</texture></control>
-					<control type="image"><left>-28</left><top>-19</top><width>236</width><height>315</height><texture border="100" colordiffuse="shadow">sd/shadow_big.png</texture><visible>Control.HasFocus(500)</visible></control>
-					<control type="image"><left>2</left><top>-3</top><width>176</width><height>251</height><texture border="20" colordiffuse="ground">sd/ringf_fill.png</texture></control>
-					<control type="image"><left>2</left><top>-3</top><width>176</width><height>251</height><texture border="20" colordiffuse="ink">sd/ringf_6.png</texture><visible>Control.HasFocus(500)</visible></control>
-					<control type="image"><left>15</left><top>10</top><width>150</width><height>225</height><texture colordiffuse="wash">common/white.png</texture></control>
-					<control type="label"><left>23</left><top>18</top><width>134</width><height>80</height><font>semi_20</font><textcolor>ink2</textcolor><aligny>top</aligny><wrapmultiline>true</wrapmultiline><label>$INFO[ListItem.Label]</label></control>
-					<control type="image"><left>15</left><top>10</top><width>150</width><height>225</height><aspectratio>scale</aspectratio><fadetime>120</fadetime><texture background="true" diffuse="sd/mask_164x246.png">$VAR[ListItemArt]</texture></control>
-					<control type="image"><left>79</left><top>246</top><width>22</width><height>22</height><texture colordiffuse="l_route">sd/disc_16.png</texture><visible>Integer.IsGreater(ListItem.PlayCount,0)</visible></control>
-				</focusedlayout>
-			</control>
-			<control type="label">
-				<left>64</left><top>1000</top><width>600</width><height>30</height>
-				<font>semi_22</font><textcolor>ink2</textcolor>
-				<label>$INFO[Container.CurrentItem] of $INFO[Container.NumItems]</label>
-			</control>
-			<control type="label">
-				<left>656</left><top>1000</top><width>1200</width><height>30</height><align>right</align>
-				<font>semi_22</font><textcolor>ink2</textcolor>
-				<label>◀ ▶ ride the line   ·   OK play or station page   ·   hold OK for options   ·   ▲ filter and sort</label>
-			</control>
-		</control>
+		</definition>
 	</include>
 
 	<!-- ================================================================ View 501 -->
@@ -1481,7 +1492,7 @@
 				<include>Lib_OpenLeft</include>
 				<onright>63</onright>
 				<viewtype label="31246">list</viewtype>
-				<visible>Container.Content(episodes) | Container.Content(seasons)</visible>
+				<visible>Container.Content(episodes) | Container.Content(seasons) | Container.Content(tvshows)</visible>
 				<itemlayout width="page_width" height="vidview_ep_row_h">
 					<include>VidView_EpisodeRow</include>
 				</itemlayout>
@@ -1669,6 +1680,12 @@
 	<include name="VidView_Window">
 		<include>SD_Background</include>
 		<include>VidView_500_Showcase</include>
+		<include content="VidView_500_Showcase">
+			<param name="id" value="508"/>
+			<param name="probe" value="5081"/>
+			<param name="viewtype" value="biglist"/>
+			<param name="visible" value="Container.Content(tvshows)"/>
+		</include>
 		<include>VidView_501_BigPoster</include>
 		<include>VidView_502_Wall</include>
 		<include>VidView_503_Episodes</include>

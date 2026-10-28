@@ -826,6 +826,7 @@
 		<include>VidView_503_Episodes</include>
 		<include>VidView_505_Page</include>
 		<include>VidView_506_Scenes</include>
+		<include>VidView_509_Rows</include>
 		<include content="View_50_List">
 			<param name="top" value="244"/>
 			<param name="height" value="792"/>

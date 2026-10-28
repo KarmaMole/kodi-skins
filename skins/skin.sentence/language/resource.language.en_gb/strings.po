@@ -1173,3 +1173,7 @@ msgstr ""
 msgctxt "#31516"
 msgid "Your third menu item opens"
 msgstr ""
+
+msgctxt "#31517"
+msgid "rows"
+msgstr ""

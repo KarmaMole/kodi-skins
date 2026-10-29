@@ -784,6 +784,7 @@
 	<!-- ===================================================================== page 2 -->
 	<!-- serif 44 phrase for page 2 rows. params: id, label, onclick, onup, ondown, visible -->
 	<include name="Home_MidPhrase">
+		<param name="push">false</param>
 		<param name="visible">true</param>
 		<param name="onup">noop</param>
 		<param name="ondown">noop</param>
@@ -805,6 +806,8 @@
 				<ondown>$PARAM[ondown]</ondown>
 				<onback>SetFocus(201)</onback>
 				<visible>$PARAM[visible]</visible>
+				<animation effect="slide" start="0,0" end="20,0" time="120" tween="cubic" easing="out" condition="[$PARAM[push]] + !$EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<animation effect="slide" start="0,0" end="20,0" time="0" condition="[$PARAM[push]] + $EXP[ReduceMotion]" reversible="true">Conditional</animation>
 			</control>
 		</definition>
 	</include>
@@ -883,6 +886,7 @@
 		</definition>
 	</include>
 	<include name="Home_MidWords">
+		<param name="push">false</param>
 		<param name="wid">0</param>
 		<param name="left">0</param>
 		<param name="color">text</param>
@@ -897,12 +901,18 @@
 				<textcolor>$PARAM[color]</textcolor>
 				<label>$PARAM[label]</label>
 				<visible>$PARAM[visible]</visible>
+				<animation effect="slide" start="0,0" end="20,0" time="120" tween="cubic" easing="out" condition="[$PARAM[push]] + !$EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<animation effect="slide" start="0,0" end="20,0" time="0" condition="[$PARAM[push]] + $EXP[ReduceMotion]" reversible="true">Conditional</animation>
 			</control>
 		</definition>
 	</include>
+	<!-- 0.9.21 param push (Home_MidPhrase / Home_MidWords / Home_MidMark): a focused phrase's lilac block fills its 24 px
+	     right padding, so a WORD right after it ("or", "open") touched the block. While the phrase before such a word
+	     has focus, the word and the rest of the line ease 20 px right (marks stay inside the block). -->
 	<!-- A mark right after a page-2 phrase (left -20, under its right padding): ink while the phrase has focus,
 	     so it reads inside the lilac block. params: wid, id (the phrase), mark, rest (words after the mark) -->
 	<include name="Home_MidMark">
+		<param name="push">false</param>
 		<param name="rest"></param>
 		<param name="visible">true</param>
 		<definition>
@@ -915,6 +925,8 @@
 				<textcolor>text</textcolor>
 				<label>$PARAM[mark]$PARAM[rest]</label>
 				<visible>!Control.HasFocus($PARAM[id]) + [$PARAM[visible]]</visible>
+				<animation effect="slide" start="0,0" end="20,0" time="120" tween="cubic" easing="out" condition="[$PARAM[push]] + !$EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<animation effect="slide" start="0,0" end="20,0" time="0" condition="[$PARAM[push]] + $EXP[ReduceMotion]" reversible="true">Conditional</animation>
 			</control>
 			<control type="label" id="$PARAM[wid]9">
 				<left>-20</left>
@@ -925,6 +937,8 @@
 				<textcolor>text</textcolor>
 				<label>[COLOR on_lilac]$PARAM[mark][/COLOR]$PARAM[rest]</label>
 				<visible>Control.HasFocus($PARAM[id]) + [$PARAM[visible]]</visible>
+				<animation effect="slide" start="0,0" end="20,0" time="120" tween="cubic" easing="out" condition="[$PARAM[push]] + !$EXP[ReduceMotion]" reversible="true">Conditional</animation>
+				<animation effect="slide" start="0,0" end="20,0" time="0" condition="[$PARAM[push]] + $EXP[ReduceMotion]" reversible="true">Conditional</animation>
 			</control>
 		</definition>
 	</include>
@@ -1362,32 +1376,35 @@
 					<param name="visible" value="!Skin.HasSetting(HideMenu.Movies)"/>
 				</include>
 				<include content="Home_MidMark"><param name="wid" value="22001"/><param name="id" value="611"/><param name="mark" value=","/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/></include>
-				<include content="Home_MidWords"><param name="wid" value="22002"/><param name="label" value="or"/><param name="left" value="-6"/><param name="visible" value="[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/></include>
+				<include content="Home_MidWords"><param name="wid" value="22002"/><param name="label" value="or"/><param name="left" value="-6"/><param name="visible" value="[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/><param name="push" value="[Control.HasFocus(611) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]]"/></include>
 				<include content="Home_MidMark"><param name="wid" value="22003"/><param name="id" value="611"/><param name="mark" value="."/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)]"/></include>
 				<include content="Home_MidPhrase">
 					<param name="id" value="612"/><param name="label" value="all shows"/>
 					<param name="onclick" value="ActivateWindow(Videos,videodb://tvshows/titles/,return)"/>
 					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_BelowBrowse])"/>
 					<param name="visible" value="!Skin.HasSetting(HideMenu.TVShows)"/>
+				<param name="push" value="[Control.HasFocus(611) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]]"/>
 				</include>
-				<include content="Home_MidMark"><param name="wid" value="22011"/><param name="id" value="612"/><param name="mark" value=","/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/></include>
-				<include content="Home_MidWords"><param name="wid" value="22012"/><param name="label" value="or"/><param name="left" value="-6"/><param name="visible" value="[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/></include>
-				<include content="Home_MidMark"><param name="wid" value="22013"/><param name="id" value="612"/><param name="mark" value="."/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)]"/></include>
+				<include content="Home_MidMark"><param name="wid" value="22011"/><param name="id" value="612"/><param name="mark" value=","/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/><param name="push" value="[Control.HasFocus(611) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]]"/></include>
+				<include content="Home_MidWords"><param name="wid" value="22012"/><param name="label" value="or"/><param name="left" value="-6"/><param name="visible" value="[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/><param name="push" value="[Control.HasFocus(611) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]] | [Control.HasFocus(612) + [[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]]"/></include>
+				<include content="Home_MidMark"><param name="wid" value="22013"/><param name="id" value="612"/><param name="mark" value="."/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)]"/><param name="push" value="[Control.HasFocus(611) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]]"/></include>
 				<include content="Home_MidPhrase">
 					<param name="id" value="613"/><param name="label" value="your music"/>
 					<param name="onclick" value="ActivateWindow(Music,musicdb://albums/,return)"/>
 					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_BelowBrowse])"/>
 					<param name="visible" value="!Skin.HasSetting(HideMenu.Music)"/>
+				<param name="push" value="[Control.HasFocus(611) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]] | [Control.HasFocus(612) + [[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]]"/>
 				</include>
-				<include content="Home_MidWords"><param name="wid" value="22022"/><param name="label" value="or"/><param name="left" value="-6"/><param name="visible" value="[!Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/></include>
-				<include content="Home_MidMark"><param name="wid" value="22023"/><param name="id" value="613"/><param name="mark" value="."/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)]"/></include>
+				<include content="Home_MidWords"><param name="wid" value="22022"/><param name="label" value="or"/><param name="left" value="-6"/><param name="visible" value="[!Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]"/><param name="push" value="[Control.HasFocus(611) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]] | [Control.HasFocus(612) + [[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]] | [Control.HasFocus(613) + [[!Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]]"/></include>
+				<include content="Home_MidMark"><param name="wid" value="22023"/><param name="id" value="613"/><param name="mark" value="."/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)]"/><param name="push" value="[Control.HasFocus(611) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]] | [Control.HasFocus(612) + [[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]]"/></include>
 				<include content="Home_MidPhrase">
 					<param name="id" value="614"/><param name="label" value="your pictures"/>
 					<param name="onclick" value="ActivateWindow(Pictures)"/>
 					<param name="onup" value="SetFocus($VAR[Home_AboveLinks])"/><param name="ondown" value="SetFocus($VAR[Home_BelowBrowse])"/>
 					<param name="visible" value="!Skin.HasSetting(HideMenu.Pictures)"/>
+				<param name="push" value="[Control.HasFocus(611) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]] | [Control.HasFocus(612) + [[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]] | [Control.HasFocus(613) + [[!Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]]"/>
 				</include>
-				<include content="Home_MidMark"><param name="wid" value="22033"/><param name="id" value="614"/><param name="mark" value="."/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.Pictures)]"/></include>
+				<include content="Home_MidMark"><param name="wid" value="22033"/><param name="id" value="614"/><param name="mark" value="."/><param name="rest" value=""/><param name="visible" value="[!Skin.HasSetting(HideMenu.Pictures)]"/><param name="push" value="[Control.HasFocus(611) + [[!Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]] | [Control.HasFocus(612) + [[!Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.Pictures)] | [!Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]] | [Control.HasFocus(613) + [[!Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.Pictures)]]]"/></include>
 			</control>
 			<!-- 0.9.18 custom menu items: Or go straight to [CM Test Videos], [Weather] or [Films A-Z].
 			     Only the set slots show; the comma / "or" / full stop after each follow the slots after it. -->
@@ -1434,27 +1451,33 @@
 					<param name="onup" value="SetFocus($VAR[Home_LastAbove])"/><param name="ondown" value="$VAR[Home_DownToCustom]"/>
 					<param name="visible" value="!Skin.HasSetting(HideMenu.Search)"/>
 				</include>
-				<include content="Home_MidMark"><param name="wid" value="21170"/><param name="id" value="615"/><param name="mark" value=","/><param name="rest" value=" open"/><param name="visible" value="!Skin.HasSetting(HideMenu.Search) + !Skin.HasSetting(HideMenu.Addons)"/></include>
-				<include content="Home_MidMark"><param name="wid" value="21171"/><param name="id" value="615"/><param name="mark" value=","/><param name="rest" value=" change"/><param name="visible" value="!Skin.HasSetting(HideMenu.Search) + Skin.HasSetting(HideMenu.Addons)"/></include>
+				<include content="Home_MidMark"><param name="wid" value="21170"/><param name="id" value="615"/><param name="mark" value=","/><param name="rest" value=""/><param name="visible" value="!Skin.HasSetting(HideMenu.Search) + !Skin.HasSetting(HideMenu.Addons)"/></include>
+				<include content="Home_MidWords"><param name="wid" value="21172"/><param name="label" value=" open"/><param name="visible" value="!Skin.HasSetting(HideMenu.Search) + !Skin.HasSetting(HideMenu.Addons)"/><param name="push" value="[Control.HasFocus(615)]"/></include>
+				<include content="Home_MidMark"><param name="wid" value="21171"/><param name="id" value="615"/><param name="mark" value=","/><param name="rest" value=""/><param name="visible" value="!Skin.HasSetting(HideMenu.Search) + Skin.HasSetting(HideMenu.Addons)"/></include>
+				<include content="Home_MidWords"><param name="wid" value="21173"/><param name="label" value=" change"/><param name="visible" value="!Skin.HasSetting(HideMenu.Search) + Skin.HasSetting(HideMenu.Addons)"/><param name="push" value="[Control.HasFocus(615)]"/></include>
 				<include content="Home_MidPhrase">
 					<param name="id" value="616"/><param name="label" value="add-ons"/>
 					<param name="onclick" value="ActivateWindow(AddonBrowser)"/>
 					<param name="onup" value="SetFocus($VAR[Home_LastAbove])"/><param name="ondown" value="$VAR[Home_DownToCustom]"/>
 					<param name="visible" value="!Skin.HasSetting(HideMenu.Addons)"/>
+				<param name="push" value="[Control.HasFocus(615)]"/>
 				</include>
-				<include content="Home_MidMark"><param name="wid" value="21180"/><param name="id" value="616"/><param name="mark" value=","/><param name="rest" value=" change"/><param name="visible" value="!Skin.HasSetting(HideMenu.Addons)"/></include>
+				<include content="Home_MidMark"><param name="wid" value="21180"/><param name="id" value="616"/><param name="mark" value=","/><param name="rest" value=""/><param name="visible" value="!Skin.HasSetting(HideMenu.Addons)"/><param name="push" value="[Control.HasFocus(615)]"/></include>
+				<include content="Home_MidWords"><param name="wid" value="21182"/><param name="label" value=" change"/><param name="visible" value="!Skin.HasSetting(HideMenu.Addons)"/><param name="push" value="[Control.HasFocus(615)] | [Control.HasFocus(616)]"/></include>
 				<include content="Home_MidPhrase">
 					<param name="id" value="617"/><param name="label" value="settings"/>
 					<param name="onclick" value="ActivateWindow(1151)"/>
 					<param name="onup" value="SetFocus($VAR[Home_LastAbove])"/><param name="ondown" value="$VAR[Home_DownToCustom]"/>
+				<param name="push" value="[Control.HasFocus(615)] | [Control.HasFocus(616)]"/>
 				</include>
-				<include content="Home_MidWords"><param name="wid" value="21190"/><param name="label" value="or"/><param name="left" value="-6"/></include>
+				<include content="Home_MidWords"><param name="wid" value="21190"/><param name="label" value="or"/><param name="left" value="-6"/><param name="push" value="[Control.HasFocus(615)] | [Control.HasFocus(616)] | [Control.HasFocus(617)]"/></include>
 				<include content="Home_MidPhrase">
 					<param name="id" value="618"/><param name="label" value="switch off"/>
 					<param name="onclick" value="ActivateWindow(shutdownmenu)"/>
 					<param name="onup" value="SetFocus($VAR[Home_LastAbove])"/><param name="ondown" value="$VAR[Home_DownToCustom]"/>
+				<param name="push" value="[Control.HasFocus(615)] | [Control.HasFocus(616)] | [Control.HasFocus(617)]"/>
 				</include>
-				<include content="Home_MidMark"><param name="wid" value="21200"/><param name="id" value="618"/><param name="mark" value="."/><param name="rest" value=""/></include>
+				<include content="Home_MidMark"><param name="wid" value="21200"/><param name="id" value="618"/><param name="mark" value="."/><param name="rest" value=""/><param name="push" value="[Control.HasFocus(615)] | [Control.HasFocus(616)] | [Control.HasFocus(617)]"/></include>
 			</control>
 			<control type="label">
 				<left>page_margin</left>

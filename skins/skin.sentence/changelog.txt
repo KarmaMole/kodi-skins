@@ -1,3 +1,6 @@
+0.9.21 (2026-10-29)
+- Home, second page: a highlighted phrase no longer touches the word after it ("your music or", "find something, open", "add-ons, change", "settings or"). While a phrase is highlighted, the words after it make room, as they already did on the line of your own menu items.
+
 0.9.20 (2026-10-29)
 - Hiding menu items can no longer leave Home without focus. With nothing matching and nothing to suggest, Right at the end of the sentence no longer loses a key press.
 

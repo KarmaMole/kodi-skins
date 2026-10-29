@@ -338,6 +338,19 @@ def header():
 			<control type="group">
 				<animation effect="slide" start="0,0" end="-168,0" time="0" condition="{MINI}">Conditional</animation>
 {right_group}
+				<!-- 1.0.9 options reach P3: the Menu key opens the library panel from any item -->
+				<control type="label">
+					<left>1040</left>
+					<top>{HY}</top>
+					<width>520</width>
+					<height>{HICON}</height>
+					<align>right</align>
+					<aligny>center</aligny>
+					<font>font_tray</font>
+					<textcolor>$VAR[ink2]</textcolor>
+					<label>$LOCALIZE[31658]</label>
+					<visible>Integer.IsGreater(Container.NumItems,0)</visible>
+				</control>
 			</control>
 		</control>
 		<control type="button" id="3">

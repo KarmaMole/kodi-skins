@@ -170,22 +170,6 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 				</include>
 				<content>
 					<item>
-						<label>$VAR[Fold_Lib_UpdateLabel]</label>
-						<label2>$VAR[Fold_Lib_Kind]</label2>
-						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
-						<onclick>Dialog.Close(1155,true)</onclick>
-						<onclick condition="Window.IsActive(videos)">UpdateLibrary(video)</onclick>
-						<onclick condition="Window.IsActive(music)">UpdateLibrary(music)</onclick>
-					</item>
-					<item>
-						<label>$LOCALIZE[14247]</label>
-						<label2>$VAR[Fold_Lib_Kind]</label2>
-						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons) + ![Window.IsActive(videos) + Library.IsScanningVideo] + ![Window.IsActive(music) + Library.IsScanningMusic]</visible>
-						<onclick condition="Window.IsActive(videos)">SetProperty(fold.libconfirm,video,home)</onclick>
-						<onclick condition="Window.IsActive(music)">SetProperty(fold.libconfirm,music,home)</onclick>
-						<onclick>SetFocus(101)</onclick>
-					</item>
-					<item>
 						<label>$LOCALIZE[31011]</label>
 						<label2>$VAR[Fold_Lib_ViewName]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + Integer.IsGreater(Container.ViewCount,1)</visible>
@@ -201,17 +185,17 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 						<onclick condition="Window.IsActive(music)">SendClick(music,3)</onclick>
 					</item>
 					<item>
-						<label>$LOCALIZE[31377]</label>
-						<label2>$INFO[Container.SortOrder]</label2>
-						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEmpty(Container.SortMethod)</visible>
-						<onclick>Container.SetSortDirection</onclick>
-					</item>
-					<item>
 						<label>$LOCALIZE[31081]</label>
 						<label2>$VAR[Fold_Lib_HideWatched]</label2>
 						<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>SendClick(14)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[31377]</label>
+						<label2>$INFO[Container.SortOrder]</label2>
+						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEmpty(Container.SortMethod)</visible>
+						<onclick>Container.SetSortDirection</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[20434]</label>
@@ -233,6 +217,22 @@ edge in the section colour, head_34 heading + caps kicker, dotted rule) that unf
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)]</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>ActivateWindow(mediasettings)</onclick>
+					</item>
+					<item>
+						<label>$VAR[Fold_Lib_UpdateLabel]</label>
+						<label2>$VAR[Fold_Lib_Kind]</label2>
+						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
+						<onclick>Dialog.Close(1155,true)</onclick>
+						<onclick condition="Window.IsActive(videos)">UpdateLibrary(video)</onclick>
+						<onclick condition="Window.IsActive(music)">UpdateLibrary(music)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[14247]</label>
+						<label2>$VAR[Fold_Lib_Kind]</label2>
+						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons) + ![Window.IsActive(videos) + Library.IsScanningVideo] + ![Window.IsActive(music) + Library.IsScanningMusic]</visible>
+						<onclick condition="Window.IsActive(videos)">SetProperty(fold.libconfirm,video,home)</onclick>
+						<onclick condition="Window.IsActive(music)">SetProperty(fold.libconfirm,music,home)</onclick>
+						<onclick>SetFocus(101)</onclick>
 					</item>
 					<item>
 						<label>$VAR[Fold_Lib_UpdateVideoLabel]</label>

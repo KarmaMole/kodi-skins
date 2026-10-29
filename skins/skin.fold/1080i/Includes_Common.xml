@@ -426,11 +426,13 @@
 	     A closed card (FoldHome .card): section-colour stock, rim highlights, sheen, tooth, hinge score
 	     on the spine, the cream inside page peeking out along the fore-edge, a tipped-in plate and a
 	     mono foot. Sits inside a group of the card size. params: w, h, color, plate_l, plate_t,
-	     plate_w, plate_h, art, foot_l, foot_r, foot_font, foot_b (bottom inset), fallback -->
+	     plate_w, plate_h, art, foot_l, foot_r, foot_font, foot_b (bottom inset), foot_h + foot_aligny (0.9.18: footer box, centre it in the band under the plate), fallback -->
 	<include name="Fold_CardBody">
 		<param name="color">$VAR[FoldAccent]</param>
 		<param name="foot_font">num_20</param>
 		<param name="foot_b">15</param>
+		<param name="foot_h">28</param>
+		<param name="foot_aligny">top</param>
 		<param name="fallback">$INFO[ListItem.Label]</param>
 		<param name="aspect">scale</param>
 		<param name="foot_l"></param>
@@ -532,7 +534,8 @@
 				<left>$PARAM[plate_l]</left>
 				<bottom>$PARAM[foot_b]</bottom>
 				<width>$PARAM[plate_w]</width>
-				<height>28</height>
+				<height>$PARAM[foot_h]</height>
+				<aligny>$PARAM[foot_aligny]</aligny>
 				<font>$PARAM[foot_font]</font>
 				<textcolor>$PARAM[foot_color]</textcolor>
 				<selectedcolor>$PARAM[foot_color]</selectedcolor>
@@ -542,7 +545,8 @@
 				<left>$PARAM[plate_l]</left>
 				<bottom>$PARAM[foot_b]</bottom>
 				<width>$PARAM[plate_w]</width>
-				<height>28</height>
+				<height>$PARAM[foot_h]</height>
+				<aligny>$PARAM[foot_aligny]</aligny>
 				<align>right</align>
 				<font>$PARAM[foot_font]</font>
 				<textcolor>$PARAM[foot_color]</textcolor>

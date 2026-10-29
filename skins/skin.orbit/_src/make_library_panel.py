@@ -160,8 +160,9 @@ ROW = 68
 TOP = 56
 
 frames = []
-for n in range(1, 10):
-    cond = f"Integer.IsEqual(Container(100).NumItems,{n})" if n < 9 else "Integer.IsGreaterOrEqual(Container(100).NumItems,9)"
+NMAX = 10  # 0.9.21: View, Sort, Order, Unwatched only, Sets, Search, Update, Clean, Library settings
+for n in range(1, NMAX + 1):
+    cond = f"Integer.IsEqual(Container(100).NumItems,{n})" if n < NMAX else f"Integer.IsGreaterOrEqual(Container(100).NumItems,{NMAX})"
     frames.append(f"""			<control type="image">
 				<left>0</left>
 				<top>0</top>
@@ -186,8 +187,8 @@ conf = confirm_items(P, "$LOCALIZE[31310]", "$LOCALIZE[31311]")
 xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Orbit Library panel (custom dialog 1160; docs/requests/library-panel/BRIEF.md). The library's
-	general-purpose menu: View, Sort, Order, Unwatched only, Sets (films), Search, Update library, Clean library,
-	Library settings. Opened by Right from any library view (arc, grid, episodes, dial list), Left past
+	general-purpose menu: View, Sort, Order, Unwatched only, Sets (films), Search, Update library,
+	Clean library, Library settings. Opened by the Menu key's "View, sort, filter" row in the library windows (0.9.21, DialogContextMenu.xml), by Right from any library view (arc, grid, episodes, dial list), Left past
 	the first pill of the option bar, the OPTIONS pill, and the System menu (Update / Clean library,
 	orbit.libmode = update / clean: choose Movies and TV shows or Music).
 	Same language as the System menu: navy framed panel, amber mono kicker, numbered rows.
@@ -218,7 +219,7 @@ xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 			<left>660</left>
 			<top>below_bar_top</top>
 			<width>600</width>
-			<height>760</height>
+			<height>{TOP + ROW * NMAX + 12}</height>
 			<!-- frame sized to the visible rows -->
 {chr(10).join(frames)}
 			<control type="label">
@@ -245,7 +246,7 @@ xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 				<left>12</left>
 				<top>{TOP}</top>
 				<width>576</width>
-				<height>{ROW * 9}</height>
+				<height>{ROW * NMAX}</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>

@@ -932,6 +932,10 @@ msgctxt "#31356"
 msgid "OK · presets"
 msgstr ""
 
+msgctxt "#31648"
+msgid "View, sort, filter…"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Six Degrees (Hanken Grotesk)"
 msgstr ""

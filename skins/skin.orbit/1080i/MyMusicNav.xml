@@ -38,9 +38,12 @@
 			<param name="title" value="$VAR[MusicView_Title]"/>
 			<param name="sub" value="$VAR[Orbit_Position]"/>
 		</include>
+		<include>Orbit_MenuHint</include>
 		<include>Music_HeaderBar</include>
 		<control type="group">
 			<animation effect="slide" start="0,0" end="0,-300" time="0" condition="Control.IsVisible(507)">Conditional</animation>
+			<!-- a ".." item sits at the lens in every view but Horizon: the ring and caption go below it -->
+			<animation effect="slide" start="0,0" end="0,280" time="0" condition="Container.HasParent + !Control.IsVisible(507)">Conditional</animation>
 			<include>Orbit_EmptyFolder</include>
 		</control>
 		<include>Music_NowPlayingBar</include>

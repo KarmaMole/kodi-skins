@@ -1,3 +1,6 @@
+0.9.22 (2026-10-29)
+- The Menu button's item menu now starts with "see, sort or filter them…" (one press up from the first item), which opens the skin's options on View.
+
 0.9.21 (2026-10-29)
 - Home, second page: a highlighted phrase no longer touches the word after it ("your music or", "find something, open", "add-ons, change", "settings or"). While a phrase is highlighted, the words after it make room, as they already did on the line of your own menu items.
 

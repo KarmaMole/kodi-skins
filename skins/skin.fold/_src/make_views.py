@@ -114,7 +114,9 @@ def shelf_card(focused):
 					<param name="foot_l" value="$INFO[ListItem.Year]"/>
 					<param name="foot_r" value="$VAR[Shelf_FootR]"/>
 					<param name="foot_font" value="{foot_font}"/>
-					<param name="foot_b" value="{14 if focused else 12}"/>
+					<param name="foot_b" value="0"/>
+					<param name="foot_h" value="{h - pt - ph}"/>
+					<param name="foot_aligny" value="center"/>
 					<param name="fallback" value="$INFO[ListItem.Label]"/>
 				</include>
 				<control type="image">

@@ -1071,11 +1071,11 @@ msgid "Up goes back to what's on the go. Back returns to your sentence."
 msgstr ""
 
 msgctxt "#31971"
-msgid "OK opens it, Info explains it. Up goes to the sentence, Back goes home."
+msgid "OK opens it, Info explains it. Menu, then Up, changes the sentence, Back goes home."
 msgstr ""
 
 msgctxt "#31972"
-msgid "OK opens it, Info explains it. Up goes to the sentence, Back goes up a level."
+msgid "OK opens it, Info explains it. Menu, then Up, changes the sentence, Back goes up a level."
 msgstr ""
 
 msgctxt "#31973"
@@ -1083,11 +1083,11 @@ msgid "OK changes the phrase. Down goes back to the list. Back goes home."
 msgstr ""
 
 msgctxt "#31974"
-msgid "OK opens it. Up goes to the sentence, Back goes home."
+msgid "OK opens it. Menu, then Up, changes the sentence, Back goes home."
 msgstr ""
 
 msgctxt "#31975"
-msgid "OK opens it. Up goes to the sentence, Back goes up a level."
+msgid "OK opens it. Menu, then Up, changes the sentence, Back goes up a level."
 msgstr ""
 
 msgctxt "#31976"
@@ -1177,3 +1177,8 @@ msgstr ""
 msgctxt "#31517"
 msgid "rows"
 msgstr ""
+
+msgctxt "#31518"
+msgid "see, sort or filter them…"
+msgstr ""
+

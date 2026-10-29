@@ -1,3 +1,8 @@
+1.0.9 (2026-10-29)
+- The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.
+- A quiet "Menu: view, sort" line sits beside the View / Sort / Options icons.
+- Fixed a Kodi crash a few seconds after switching views (most often to Liner notes or the Shelf). It came from the KarmaMole Skin Helper's art colours, which read the focused item while Kodi was swapping the view; helper 1.0.2 reads it safely. Update the helper together with this version.
+
 1.0.8 (2026-10-28)
 - More views in every section. Genres, years and people can now hang on the Cover wall (a title card for each, the portrait for actors). Songs can now be browsed on the Cover wall (each song on its album cover) and in Orbit (the songs on the arc, title, artist and album under the centre record). Artists can now turn in Orbit too. The view each section opens in is unchanged.
 

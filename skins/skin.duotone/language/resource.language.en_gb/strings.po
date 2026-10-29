@@ -947,3 +947,8 @@ msgstr ""
 msgctxt "#31421"
 msgid "Rows"
 msgstr ""
+
+msgctxt "#31422"
+msgid "View, sort, filter…"
+msgstr ""
+

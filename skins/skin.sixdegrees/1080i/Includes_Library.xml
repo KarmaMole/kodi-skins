@@ -19,6 +19,13 @@
 	<!-- Sets row (2026-10-21): only while the Videos window browses films and the library has sets -->
 	<expression name="Lib_ShowSets">Window.IsActive(videos) + [Container.Content(movies) | String.IsEqual(Container.FolderPath,videodb://movies/) | String.IsEqual(Container.FolderPath,library://video/movies/)] + Library.HasContent(moviesets)</expression>
 
+	<!-- Options reach v2 (2026-10-29): an ITEM menu in Videos / Music (one of Kodi's buttons 1001-1020 reads Add to /
+	     Remove from favourites, 14076 / 14077: not the resume prompt, the select-action chooser or Play using...) gets
+	     one extra first row, DialogContextMenu 990, that opens this panel on View. Not over the information dialogs
+	     (the panel lives in the media window). -->
+	<expression name="Lib_IsItemMenu">String.IsEqual(Control.GetLabel(1001),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1001),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1002),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1002),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1003),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1003),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1004),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1004),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1005),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1005),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1006),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1006),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1007),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1007),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1008),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1008),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1009),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1009),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1010),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1010),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1011),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1011),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1012),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1012),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1013),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1013),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1014),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1014),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1015),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1015),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1016),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1016),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1017),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1017),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1018),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1018),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1019),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1019),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1020),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1020),$LOCALIZE[14077])</expression>
+	<expression name="Lib_CtxRow">[Window.IsActive(videos) | Window.IsActive(music)] + !Window.IsVisible(movieinformation) + !Window.IsVisible(musicinformation) + !Window.IsVisible(songinformation) + $EXP[Lib_IsItemMenu]</expression>
+
 	<variable name="Lib_SortOrder">
 		<value condition="Container.SortDirection(descending)">$LOCALIZE[585]</value>
 		<value>$LOCALIZE[584]</value>
@@ -198,7 +205,12 @@
 					<include content="Lib_Card">
 						<param name="sl" value="-60"/><param name="st" value="-46"/><param name="sw" value="720"/><param name="sh" value="788"/>
 						<param name="left" value="0"/><param name="top" value="0"/><param name="width" value="600"/><param name="height" value="668"/>
-						<param name="visible" value="Integer.IsGreaterOrEqual(Container(9801).NumItems,9)"/>
+						<param name="visible" value="Integer.IsEqual(Container(9801).NumItems,9)"/>
+					</include>
+					<include content="Lib_Card">
+						<param name="sl" value="-60"/><param name="st" value="-46"/><param name="sw" value="720"/><param name="sh" value="856"/>
+						<param name="left" value="0"/><param name="top" value="0"/><param name="width" value="600"/><param name="height" value="736"/>
+						<param name="visible" value="Integer.IsGreaterOrEqual(Container(9801).NumItems,10)"/>
 					</include>
 					<control type="label">
 						<left>24</left>
@@ -223,7 +235,7 @@
 						<left>12</left>
 						<top>56</top>
 						<width>576</width>
-						<height>612</height>
+						<height>680</height>
 						<onup>9801</onup>
 						<ondown>9801</ondown>
 						<onleft>noop</onleft>

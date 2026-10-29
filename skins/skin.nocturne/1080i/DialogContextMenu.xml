@@ -15,7 +15,13 @@
 	<coordinates>
 		<origin x="0" y="0"/>
 	</coordinates>
+	<!-- Options reach v2 (2026-10-29): an item menu in Videos / Music gets one extra first row, 990, that opens the
+	     library panel on View (Lib_CtxRow, Includes_Library.xml). Deferred with AlarmClock so nothing runs inside this
+	     menu; Kodi's own buttons follow it and keep the initial focus. The menu closes without its animation (,true):
+	     while it is still closing, SetFocus would go to the menu, not the media window (bench, Kodi 21 + 22). -->
 	<controls>
+		<control type="group">
+			<description>the menu</description>
 		<control type="image">
 			<left>-1920</left>
 			<top>-1080</top>
@@ -42,13 +48,115 @@
 			<animation effect="slide" end="0,-32" time="0" condition="Control.IsVisible(1010)">Conditional</animation>
 			<animation effect="slide" end="0,-32" time="0" condition="Control.IsVisible(1011)">Conditional</animation>
 			<animation effect="slide" end="0,-32" time="0" condition="Control.IsVisible(1012)">Conditional</animation>
+			<animation effect="slide" end="0,-32" time="0" condition="Control.IsVisible(990) + !Control.IsVisible(1012)">Conditional</animation>
 			<control type="image" id="999">
 				<description>background (Kodi sizes it)</description>
+				<visible>!Control.IsVisible(990)</visible>
 				<left>0</left>
 				<top>0</top>
 				<width>560</width>
 				<height>796</height>
 				<texture border="2">dialogs/panel_framed.png</texture>
+			</control>
+			<control type="group">
+				<description>v2: the frame while row 990 shows (Kodi sizes 999 for its own buttons only, one row short): N Kodi buttons + 1 row</description>
+				<visible>Control.IsVisible(990)</visible>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>144</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1001) + !Control.IsVisible(1002)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>208</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1002) + !Control.IsVisible(1003)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>272</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1003) + !Control.IsVisible(1004)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>336</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1004) + !Control.IsVisible(1005)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>400</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1005) + !Control.IsVisible(1006)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>464</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1006) + !Control.IsVisible(1007)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>528</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1007) + !Control.IsVisible(1008)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>592</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1008) + !Control.IsVisible(1009)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>656</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1009) + !Control.IsVisible(1010)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>720</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1010) + !Control.IsVisible(1011)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>784</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1011) + !Control.IsVisible(1012)</visible>
+				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>560</width>
+					<height>796</height>
+					<texture border="2">dialogs/panel_framed.png</texture>
+					<visible>Control.IsVisible(1012)</visible>
+				</control>
 			</control>
 			<control type="grouplist" id="996">
 				<description>grouplist for context buttons</description>
@@ -57,7 +165,20 @@
 				<width>544</width>
 				<height max="780">auto</height>
 				<usecontrolcoords>true</usecontrolcoords>
+				<control type="button" id="990">
+					<description>v2: the skin's options, first row of Kodi's own item menu (Kodi appends its buttons after it and keeps focus on its own first one)</description>
+					<width>544</width>
+					<height>dialog_row_h</height>
+					<font>sans_26</font>
+					<focusedcolor>text_lit</focusedcolor>
+					<label>$LOCALIZE[31744]</label>
+					<onclick>SetProperty(noc.lib.from,view,home)</onclick>
+					<onclick>Dialog.Close(contextmenu,true)</onclick>
+					<onclick>AlarmClock(nocturneopen,SetFocus(9801,0,absolute),00:00,silent)</onclick>
+					<visible>$EXP[Lib_CtxRow]</visible>
+				</control>
 			</control>
+		</control>
 		</control>
 		<control type="button" id="1000">
 			<description>button template</description>

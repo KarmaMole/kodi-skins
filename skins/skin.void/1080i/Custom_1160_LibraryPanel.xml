@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Void Library panel (custom dialog 1160; docs/requests/library-panel/BRIEF.md). The library's
-	"general purpose" menu: View, Sort, Order, Watched, Sets (films only), Search, Update library, Clean library,
-	Library settings. Opened by Left / Right past the edges of a library view, by Options at the end
-	of the options row, and from the System menu (Update / Clean library, void.libmode).
+	"general purpose" menu: View, Sort, Order, Watched, Sets (films only), Search, Update library,
+	Clean library, Library settings. Opened by the Menu key's "View, sort, filter" row in the library windows (0.9.19, DialogContextMenu.xml),
+	by Left / Right past the edges of a library view, by Options at the end of the options row, and from the System menu (Update / Clean library, void.libmode).
 	Same language as the System menu: a text column on the axis over the dialog dim.
 	Clean library has no confirmation of its own in Kodi (CleanLibrary() just runs), so the panel
 	asks first: list 200, "No" focused.

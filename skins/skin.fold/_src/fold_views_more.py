@@ -27,6 +27,12 @@ def closed_card(focused, lid, cw, ch, lw, lh, px, py, color, art, foot_l, foot_r
     pl, pt = round(18 * k), round(16 * k)
     pw = w - pl - round(14 * k)
     ph = round(pw * plate_ratio) if plate_ratio else h - pt - round(48 * k)
+    # 0.9.18: a card with a footer keeps a band under the plate as deep as the shelf card's (42 at k=1); a 2:3 plate
+    # that would eat it (the Table card) gets shorter and keeps its ratio. The footer is centred in that band.
+    band = max(round(42 * k), 36)  # small cards: never under 36, or the 20 px numbers crowd both edges
+    if (foot_l or foot_r) and plate_ratio and pt + ph > h - band:
+        ph = h - pt - band
+        pw = round(ph / plate_ratio)
     sp = 72 if focused else 40
     tex = "shadow_lift" if focused else "shadow_card"
     lift = ""
@@ -87,7 +93,9 @@ def closed_card(focused, lid, cw, ch, lw, lh, px, py, color, art, foot_l, foot_r
 						<param name="foot_l" value="{foot_l}"/>
 						<param name="foot_r" value="{foot_r}"/>
 						<param name="foot_font" value="{fonts[1] if focused else fonts[0]}"/>
-						<param name="foot_b" value="{round(12 * k)}"/>
+						<param name="foot_b" value="0"/>
+						<param name="foot_h" value="{h - pt - ph}"/>
+						<param name="foot_aligny" value="center"/>
 						<param name="foot_color" value="{foot_color}"/>
 						<param name="fallback" value="{fallback}"/>
 					</include>

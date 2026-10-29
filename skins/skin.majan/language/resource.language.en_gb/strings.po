@@ -320,6 +320,14 @@ msgctxt "#31321"
 msgid "OK  ◀  Presets"
 msgstr ""
 
+msgctxt "#31340"
+msgid "View, sort, filter…"
+msgstr ""
+
+msgctxt "#31342"
+msgid "MENU FOR VIEW, SORT AND FILTER"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Majan (Hanken Grotesk)"
 msgstr ""

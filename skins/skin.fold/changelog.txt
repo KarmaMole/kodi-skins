@@ -1,3 +1,8 @@
+0.9.18 (2026-10-29)
+- Shelf and Table: the year and running time now sit centred in the band under the poster. On the Table they used to run onto the bottom of the poster; its poster is a little smaller so the band fits. Music cards get the same centring.
+- The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.
+- Albums in Crate: the long crumb above the covers no longer runs into the header words.
+
 0.9.17 (2026-10-29)
 - Hiding menu items can no longer leave Home without focus. Home's fallback focus is now Settings, which never hides; nothing changes while every item is shown.
 

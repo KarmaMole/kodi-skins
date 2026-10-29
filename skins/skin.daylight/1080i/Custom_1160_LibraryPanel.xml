@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Daylight Library panel (custom dialog 1160; docs/requests/library-panel/BRIEF.md). The library's
-	general-purpose menu: View, Sort, Order, Unwatched only, Sets (films), Search, Update library, Clean library,
-	Library settings. Opened by Left / Right past the edges of any library view, Left / Right past the
+	general-purpose menu: View, Sort, Order, Unwatched only, Sets (films), Search, Update
+	library, Clean library, Library settings. Opened by the Menu key's "View, sort, filter" row in the library, Left / Right past the edges of any library view, Left / Right past the
 	ends of the header pills, the Options pill, and the System menu (Update / Clean library,
 	daylight.libmode = update / clean: choose Films and shows or Music).
 	Same language as the System menu: a soft card under the header pills, Fraunces title, accent-fill
@@ -104,7 +104,15 @@
 				<top>0</top>
 				<width>600</width>
 				<height>700</height>
-				<visible>String.IsEmpty(Window(Home).Property(daylight.libclean)) + Integer.IsGreaterOrEqual(Container(100).NumItems,9)</visible>
+				<visible>String.IsEmpty(Window(Home).Property(daylight.libclean)) + Integer.IsEqual(Container(100).NumItems,9)</visible>
+				<include>DL_Card</include>
+			</control>
+			<control type="group">
+				<left>0</left>
+				<top>0</top>
+				<width>600</width>
+				<height>768</height>
+				<visible>String.IsEmpty(Window(Home).Property(daylight.libclean)) + Integer.IsGreaterOrEqual(Container(100).NumItems,10)</visible>
 				<include>DL_Card</include>
 			</control>
 			<control type="group">
@@ -137,7 +145,7 @@
 				<left>12</left>
 				<top>72</top>
 				<width>576</width>
-				<height>612</height>
+				<height>680</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>

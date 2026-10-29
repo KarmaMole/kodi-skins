@@ -52,6 +52,14 @@ msgctxt "#31338"
 msgid "OK  ·  ← Presets"
 msgstr ""
 
+msgctxt "#31355"
+msgid "View, sort, filter…"
+msgstr ""
+
+msgctxt "#31356"
+msgid "Menu  Options"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Void (Instrument Serif and Sans)"
 msgstr ""

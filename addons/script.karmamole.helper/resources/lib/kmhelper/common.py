@@ -52,7 +52,22 @@ def localize(string_id):
 
 
 def info(label):
+    """One infolabel via xbmc.getInfoLabel. Not for ListItem.* / Container(id).ListItem.* / Player.* in a loop:
+    use infos()."""
     return xbmc.getInfoLabel(label)
+
+
+def infos(*labels):
+    """Infolabels evaluated ON KODI'S GUI THREAD: {label: value}, {} on failure.
+
+    xbmc.getInfoLabel runs on the calling (Python) thread and takes no GUI lock (Kodi 21 ModuleXbmc.cpp; only
+    getCondVisibility locks). A ListItem.* read walks the active window's view control while the GUI thread may be
+    swapping it (Container.SetViewMode, a dialog loading): Kodi 21.2 crashed with an access violation in
+    CGUIControlLookup::GetControl <- CGUIViewControl::GetSelectedItem <- GetCurrentListItem <- getInfoLabel, six times
+    on the PC bench in Groove (2026-10-29). JSON-RPC XBMC.GetInfoLabels hands the labels to the GUI thread
+    (TMSG_GUI_INFOLABEL) and waits, so the read can never overlap a view switch."""
+    res = rpc('XBMC.GetInfoLabels', {'labels': list(labels)})
+    return res if isinstance(res, dict) else {}
 
 
 def cond(expr):

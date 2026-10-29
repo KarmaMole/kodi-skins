@@ -804,6 +804,10 @@ msgctxt "#31341"
 msgid "Hide"
 msgstr ""
 
+msgctxt "#31342"
+msgid "View, sort, filter…"
+msgstr ""
+
 msgctxt "#31940"
 msgid "Custom rows"
 msgstr ""

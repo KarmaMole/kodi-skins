@@ -39,8 +39,9 @@
 		<value>Kodi removes the movies, shows and episodes whose files it can no longer find. Your files stay where they are.</value>
 	</variable>
 
-	<!-- "↑ Options" in the library header (the options row above is invisible until focused, so the
-	     header says it is there). Sits left of the clock, same caps line. -->
+	<!-- "Menu  Options" in the library header (the options row above is invisible until focused, so the
+	     header says how to reach the options; 0.9.19: it named Up, which only works from the top row, while the
+	     Menu key opens the Library panel from any item). Sits left of the clock, same caps line. -->
 	<include name="LibPanel_HeaderWord">
 		<control type="label">
 			<right>340</right>
@@ -51,7 +52,7 @@
 			<aligny>top</aligny>
 			<font>caps_20</font>
 			<textcolor>grey_dim</textcolor>
-			<label>↑  Options</label>
+			<label>$LOCALIZE[31356]</label>
 		</control>
 	</include>
 

@@ -23,6 +23,11 @@
 -->
 <includes>
 	<!-- ============================================================ shared -->
+	<!-- Options reach v2 (2026-10-29): an ITEM menu in Videos / Music (one of Kodi's buttons 1001-1020 reads Add to /
+	     Remove from favourites, 14076 / 14077: Kodi's resume prompt, the select-action chooser, Play using... and the
+	     Manage... submenu use the same dialog and never carry it) gets one extra first row, DialogContextMenu 990,
+	     that opens this panel on View. Not over the information dialogs (the panel lives in the media window). -->
+	<expression name="Lib_CtxRow">[Window.IsActive(videos) | Window.IsActive(music)] + !Window.IsVisible(movieinformation) + !Window.IsVisible(musicinformation) + !Window.IsVisible(songinformation) + [String.IsEqual(Control.GetLabel(1001),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1001),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1002),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1002),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1003),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1003),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1004),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1004),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1005),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1005),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1006),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1006),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1007),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1007),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1008),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1008),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1009),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1009),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1010),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1010),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1011),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1011),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1012),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1012),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1013),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1013),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1014),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1014),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1015),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1015),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1016),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1016),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1017),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1017),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1018),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1018),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1019),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1019),$LOCALIZE[14077]) | String.IsEqual(Control.GetLabel(1020),$LOCALIZE[14076]) | String.IsEqual(Control.GetLabel(1020),$LOCALIZE[14077])]</expression>
 	<expression name="Lib_LibraryActions">!Container.Content(addons) + String.IsEmpty(Container.PluginName)</expression>
 
 	<variable name="Lib_SortOrder">
@@ -63,9 +68,11 @@
 		<onback condition="Control.IsVisible(502)">502</onback>
 		<onback condition="Control.IsVisible(503)">503</onback>
 		<onback condition="Control.IsVisible(510)">510</onback>
+		<onback condition="Control.IsVisible(520)">520</onback>
+		<onback condition="Control.IsVisible(521)">521</onback>
+		<onback condition="Control.IsVisible(522)">522</onback>
 		<onback>50</onback>
 	</include>
-
 	<!-- Show only while a card has focus: a Conditional fade (normal / reduced twins, fades only). -->
 	<include name="Lib_FadeGate">
 		<animation effect="fade" start="100" end="0" time="140" tween="cubic" easing="out" condition="![$PARAM[show]] + !Skin.HasSetting(groove.reducemotion)">Conditional</animation>
@@ -206,20 +213,26 @@
 					<param name="show" value="Control.HasFocus(9801) | ControlGroup(9890).HasFocus()"/>
 				</include>
 				<include>Lib_Dim</include>
-				<!-- card: h = 96 + 64 x rows, centred on y 540 (geometry for 9 rows: films with Sets; fewer rows slide down
-				     32 each) -->
+				<!-- card: h = 96 + 64 x rows, centred on y 540 (geometry for 10 rows: films with Sets, 1.0.9 Item menu;
+				     fewer rows slide down 32 each) -->
 				<control type="group">
 					<left>640</left>
-					<top>204</top>
-					<animation effect="slide" start="0,0" end="0,32" time="0" condition="Integer.IsEqual(Container(9801).NumItems,8)">Conditional</animation>
-					<animation effect="slide" start="0,0" end="0,64" time="0" condition="Integer.IsEqual(Container(9801).NumItems,7)">Conditional</animation>
-					<animation effect="slide" start="0,0" end="0,96" time="0" condition="Integer.IsEqual(Container(9801).NumItems,6)">Conditional</animation>
-					<animation effect="slide" start="0,0" end="0,128" time="0" condition="Integer.IsEqual(Container(9801).NumItems,5)">Conditional</animation>
-					<animation effect="slide" start="0,0" end="0,160" time="0" condition="Integer.IsLessOrEqual(Container(9801).NumItems,4)">Conditional</animation>
+					<top>172</top>
+					<animation effect="slide" start="0,0" end="0,32" time="0" condition="Integer.IsEqual(Container(9801).NumItems,9)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,64" time="0" condition="Integer.IsEqual(Container(9801).NumItems,8)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,96" time="0" condition="Integer.IsEqual(Container(9801).NumItems,7)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,128" time="0" condition="Integer.IsEqual(Container(9801).NumItems,6)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,160" time="0" condition="Integer.IsEqual(Container(9801).NumItems,5)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,192" time="0" condition="Integer.IsLessOrEqual(Container(9801).NumItems,4)">Conditional</animation>
+					<include content="Lib_Card">
+						<param name="left" value="0"/><param name="top" value="0"/><param name="width" value="640"/><param name="height" value="736"/>
+						<param name="shadow_w" value="832"/><param name="shadow_h" value="916"/>
+						<param name="visible" value="Integer.IsGreaterOrEqual(Container(9801).NumItems,10)"/>
+					</include>
 					<include content="Lib_Card">
 						<param name="left" value="0"/><param name="top" value="0"/><param name="width" value="640"/><param name="height" value="672"/>
 						<param name="shadow_w" value="832"/><param name="shadow_h" value="852"/>
-						<param name="visible" value="Integer.IsGreaterOrEqual(Container(9801).NumItems,9)"/>
+						<param name="visible" value="Integer.IsEqual(Container(9801).NumItems,9)"/>
 					</include>
 					<include content="Lib_Card">
 						<param name="left" value="0"/><param name="top" value="0"/><param name="width" value="640"/><param name="height" value="608"/>
@@ -286,7 +299,7 @@
 						<left>12</left>
 						<top>72</top>
 						<width>616</width>
-						<height>576</height>
+						<height>640</height>
 						<onup>9801</onup>
 						<ondown>9801</ondown>
 						<onleft>noop</onleft>
@@ -319,18 +332,18 @@
 								<visible>Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)</visible>
 							</item>
 							<item>
-								<label>$LOCALIZE[31637]</label>
-								<label2>$VAR[Lib_SortOrder]</label2>
-								<icon>icons/sort.png</icon>
-								<onclick>$PARAM[order_click]</onclick>
-								<visible>Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)</visible>
-							</item>
-							<item>
 								<label>$LOCALIZE[31638]</label>
 								<label2>$VAR[Lib_Unwatched]</label2>
 								<icon>icons/filter.png</icon>
 								<onclick>SendClick(14)</onclick>
 								<visible>$PARAM[is_video] + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)] + !String.StartsWith(Container.FolderPath,videodb://inprogresstvshows)</visible>
+							</item>
+							<item>
+								<label>$LOCALIZE[31637]</label>
+								<label2>$VAR[Lib_SortOrder]</label2>
+								<icon>icons/sort.png</icon>
+								<onclick>$PARAM[order_click]</onclick>
+								<visible>Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)</visible>
 							</item>
 							<!-- Sets (films only, when the library has sets): the sets list in this same window. Focus goes
 							     back to the view first (the panel closes), then the update: Back walks set -> sets -> films. -->
@@ -345,6 +358,12 @@
 								<label>$LOCALIZE[31639]</label>
 								<icon>icons/search.png</icon>
 								<onclick>ActivateWindow(1150)</onclick>
+							</item>
+							<item>
+								<label>$LOCALIZE[31640]</label>
+								<label2>Kodi</label2>
+								<icon>icons/system.png</icon>
+								<onclick>ActivateWindow(MediaSettings)</onclick>
 							</item>
 							<item>
 								<label>$LOCALIZE[31622]</label>
@@ -377,12 +396,6 @@
 								<icon>icons/clean.png</icon>
 								<onclick>SetFocus(9891)</onclick>
 								<visible>$EXP[Lib_LibraryActions]</visible>
-							</item>
-							<item>
-								<label>$LOCALIZE[31640]</label>
-								<label2>Kodi</label2>
-								<icon>icons/system.png</icon>
-								<onclick>ActivateWindow(MediaSettings)</onclick>
 							</item>
 						</content>
 					</control>

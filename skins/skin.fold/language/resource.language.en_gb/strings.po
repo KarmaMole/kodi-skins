@@ -1035,3 +1035,8 @@ msgstr ""
 msgctxt "#31431"
 msgid "Zigzag"
 msgstr ""
+
+msgctxt "#31430"
+msgid "View, sort, filter…"
+msgstr ""
+

@@ -324,6 +324,18 @@ msgctxt "#31317"
 msgid "OK  ·  ↓  Presets"
 msgstr ""
 
+msgctxt "#31335"
+msgid "View, sort, filter…"
+msgstr ""
+
+msgctxt "#31336"
+msgid "VIEW · SORT · FILTER"
+msgstr ""
+
+msgctxt "#31337"
+msgid "MENU"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Orbit (Hanken Grotesk)"
 msgstr ""

@@ -23,6 +23,7 @@ from xmlfinish import finish_xml  # kodi-review labels.not-translated: label tex
 
 ROOT = Path(__file__).resolve().parents[1] / "1080i"
 RM = "Skin.HasSetting(duotone.reducemotion)"
+SK = "duotone"
 
 V = "Window.IsActive(videos)"
 M = "Window.IsActive(music)"
@@ -64,26 +65,27 @@ CLOSE = ("", "Dialog.Close(1155,true)")
 
 PANEL_ITEMS = [
     # in a library window
-    item("$VAR[DT_Lib_UpdateLabel]", "$VAR[DT_Lib_Kind]", f"{INLIB} + {NOPLUG}",
-         [CLOSE, (V, "UpdateLibrary(video)"), (M, "UpdateLibrary(music)")]),
-    item("$LOCALIZE[14247]", "$VAR[DT_Lib_Kind]",
-         f"{INLIB} + {NOPLUG} + ![{V} + Library.IsScanningVideo] + ![{M} + Library.IsScanningMusic]",
-         [(V, "SetProperty(duotone.libconfirm,video,home)"), (M, "SetProperty(duotone.libconfirm,music,home)"),
-          ("", "SetFocus(101)")]),
     item("View", "$INFO[Container.Viewmode]", f"{INLIB} + Integer.IsGreater(Container.ViewCount,1)",
          [CLOSE, ("", "ActivateWindow(1156)")]),
     item("Sort by", "$INFO[Container.SortMethod]", f"{INLIB} + {SORTABLE}",
          [CLOSE, (V, "SendClick(videos,3)"), (M, "SendClick(music,3)")]),
-    item("Order", "$INFO[Container.SortOrder]", f"{INLIB} + {SORTABLE}",
-         [("", "Container.SetSortDirection")]),
     item("Unwatched only", "$VAR[DT_Lib_HideWatched]", f"{V} + {VIDLIB}",
          [CLOSE, ("", "SendClick(14)")]),
+    item("Order", "$INFO[Container.SortOrder]", f"{INLIB} + {SORTABLE}",
+         [("", "Container.SetSortDirection")]),
     # Sets: the films' sets in this same Videos window (Container.Update keeps the history: Back walks
     # set -> all sets -> films). Not a Home item (Omar).
     item("$LOCALIZE[20434]", "Collections", SETS,
          [CLOSE, ("", "Container.Update(videodb://movies/sets/)")]),
     item("$LOCALIZE[137]", "", INLIB, [CLOSE, ("", "ActivateWindow(1150)")]),
     item("Library settings", "Kodi", INLIB, [CLOSE, ("", "ActivateWindow(mediasettings)")]),
+    # Update / Clean last (options reach 2026-10-29: the panel opens on View)
+    item("$VAR[DT_Lib_UpdateLabel]", "$VAR[DT_Lib_Kind]", f"{INLIB} + {NOPLUG}",
+         [CLOSE, (V, "UpdateLibrary(video)"), (M, "UpdateLibrary(music)")]),
+    item("$LOCALIZE[14247]", "$VAR[DT_Lib_Kind]",
+         f"{INLIB} + {NOPLUG} + ![{V} + Library.IsScanningVideo] + ![{M} + Library.IsScanningMusic]",
+         [(V, "SetProperty(duotone.libconfirm,video,home)"), (M, "SetProperty(duotone.libconfirm,music,home)"),
+          ("", "SetFocus(101)")]),
     # from Home (System menu): update / clean, videos and music
     item("$VAR[DT_Lib_UpdateVideoLabel]", "Films + series", f"{HOME} + !{PCLEAN}",
          [CLOSE, ("", "UpdateLibrary(video)")]),
@@ -103,7 +105,7 @@ CONFIRM_ITEMS = [
          [CLOSE, ("", "CleanLibrary(music)")]),
 ]
 
-MAXROWS = 9   # films: update, clean, view, sort, order, unwatched, sets, search, settings
+MAXROWS = 10   # films: view, sort, unwatched, order, sets, search, settings, update, clean
 
 
 def backdrop():

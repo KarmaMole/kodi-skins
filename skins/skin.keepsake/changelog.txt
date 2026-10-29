@@ -1,3 +1,6 @@
+0.9.16 (2026-10-29)
+- The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.
+
 0.9.15 (2026-10-28)
 - More views in every section. Films and series can now be laid out as a strip (six poster prints stamped with when you watched them, the focused one below with its story and your history with it) and as a contact sheet (ten small prints to a row, the year under each). Genres, years and people can open on the contact sheet too, the name written on each print. Songs can now open as album pages (the cover, the song, its artist and album) and as a mixtape (the songs written out like a tape's track card, the cover taped beside them). The view each section opens in is unchanged.
 

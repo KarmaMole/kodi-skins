@@ -527,6 +527,49 @@ def main():
 			<animation effect="fade" start="100" end="0" time="160">Hidden</animation>
 {band.format(top=0)}
 		</control>
+		<!-- 0.9.20: the wall has no header at rest, so a small placard in the bottom-right corner names the Menu key
+		     (it opens the Library card on View, Sort and Show: DialogContextMenu.xml) -->
+		<control type="group">
+			<right>32</right>
+			<bottom>28</bottom>
+			<width>440</width>
+			<height>48</height>
+			<visible>Control.IsVisible(506)</visible>
+			<include>Anim_VisibleFade</include>
+			<!-- no PP_Card: its shadow's 146 / 224 px borders are taller than this 48 px placard and drew a box above it -->
+			<control type="image">
+				<left>-1</left>
+				<top>-1</top>
+				<right>-1</right>
+				<bottom>-1</bottom>
+				<texture colordiffuse="rule_card">common/white.png</texture>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<texture colordiffuse="$VAR[PaperColor]">common/white.png</texture>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<right>0</right>
+				<bottom>0</bottom>
+				<texture colordiffuse="card_lift">common/white.png</texture>
+			</control>
+			<control type="label">
+				<left>20</left>
+				<top>0</top>
+				<width>400</width>
+				<height>48</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>cap_20</font>
+				<textcolor>ink2</textcolor>
+				<label>Menu: view, sort, filter</label>
+			</control>
+		</control>
 	</include>
 </includes>
 '''

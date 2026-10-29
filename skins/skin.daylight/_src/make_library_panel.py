@@ -161,8 +161,8 @@ TOP = 72
 
 # ------------------------------------------------------------------ panel 1160
 frames = []
-for n in range(1, 10):
-    cond = f"Integer.IsEqual(Container(100).NumItems,{n})" if n < 9 else "Integer.IsGreaterOrEqual(Container(100).NumItems,9)"
+for n in range(1, 11):
+    cond = f"Integer.IsEqual(Container(100).NumItems,{n})" if n < 10 else "Integer.IsGreaterOrEqual(Container(100).NumItems,10)"
     frames.append(f"""			<control type="group">
 				<left>0</left>
 				<top>0</top>
@@ -187,8 +187,8 @@ conf = confirm_items(P, "$LOCALIZE[31310]", "$LOCALIZE[31311]")
 panel = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Daylight Library panel (custom dialog 1160; docs/requests/library-panel/BRIEF.md). The library's
-	general-purpose menu: View, Sort, Order, Unwatched only, Sets (films), Search, Update library, Clean library,
-	Library settings. Opened by Left / Right past the edges of any library view, Left / Right past the
+	general-purpose menu: View, Sort, Order, Unwatched only, Sets (films), Search, Update
+	library, Clean library, Library settings. Opened by the Menu key's "View, sort, filter" row in the library, Left / Right past the edges of any library view, Left / Right past the
 	ends of the header pills, the Options pill, and the System menu (Update / Clean library,
 	daylight.libmode = update / clean: choose Films and shows or Music).
 	Same language as the System menu: a soft card under the header pills, Fraunces title, accent-fill
@@ -244,7 +244,7 @@ panel = f"""<?xml version="1.0" encoding="UTF-8"?>
 				<left>12</left>
 				<top>{TOP}</top>
 				<width>576</width>
-				<height>{ROW * 9}</height>
+				<height>{ROW * 10}</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>

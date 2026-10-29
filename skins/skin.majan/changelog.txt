@@ -1,3 +1,6 @@
+1.0.20 (2026-10-29)
+- The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.
+
 1.0.19 (2026-10-29)
 - Hiding menu items can no longer leave Home without focus. Home's fallback focus is now the gear, which never hides; nothing changes while every item is shown.
 

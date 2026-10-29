@@ -66,21 +66,22 @@ def item(label, label2, visible, clicks):
 CLOSE = ("", "Dialog.Close(1155,true)")
 
 PANEL_ITEMS = [
+    item("View", "$VAR[Fold_Lib_ViewName]", f"{INLIB} + Integer.IsGreater(Container.ViewCount,1)",
+         [CLOSE, ("", "ActivateWindow(1156)")]),
+    item("Sort by", "$INFO[Container.SortMethod]", f"{INLIB} + {SORTABLE}",
+         [CLOSE, (V, "SendClick(videos,3)"), (M, "SendClick(music,3)")]),
+    item("Unwatched only", "$VAR[Fold_Lib_HideWatched]", f"{V} + {VIDLIB}", [CLOSE, ("", "SendClick(14)")]),
+    item("Order", "$INFO[Container.SortOrder]", f"{INLIB} + {SORTABLE}", [("", "Container.SetSortDirection")]),
+    item("$LOCALIZE[20434]", "Film collections", SETS, [CLOSE, ("", "Container.Update(videodb://movies/sets/)")]),
+    item("$LOCALIZE[137]", "", INLIB, [CLOSE, ("", "ActivateWindow(1150)")]),
+    item("Library settings", "Kodi", INLIB, [CLOSE, ("", "ActivateWindow(mediasettings)")]),
+    # Update / Clean last (options reach 2026-10-29: the panel opens on View)
     item("$VAR[Fold_Lib_UpdateLabel]", "$VAR[Fold_Lib_Kind]", f"{INLIB} + {NOPLUG}",
          [CLOSE, (V, "UpdateLibrary(video)"), (M, "UpdateLibrary(music)")]),
     item("$LOCALIZE[14247]", "$VAR[Fold_Lib_Kind]",
          f"{INLIB} + {NOPLUG} + ![{V} + Library.IsScanningVideo] + ![{M} + Library.IsScanningMusic]",
          [(V, f"SetProperty({SK}.libconfirm,video,home)"), (M, f"SetProperty({SK}.libconfirm,music,home)"),
           ("", "SetFocus(101)")]),
-    item("View", "$VAR[Fold_Lib_ViewName]", f"{INLIB} + Integer.IsGreater(Container.ViewCount,1)",
-         [CLOSE, ("", "ActivateWindow(1156)")]),
-    item("Sort by", "$INFO[Container.SortMethod]", f"{INLIB} + {SORTABLE}",
-         [CLOSE, (V, "SendClick(videos,3)"), (M, "SendClick(music,3)")]),
-    item("Order", "$INFO[Container.SortOrder]", f"{INLIB} + {SORTABLE}", [("", "Container.SetSortDirection")]),
-    item("Unwatched only", "$VAR[Fold_Lib_HideWatched]", f"{V} + {VIDLIB}", [CLOSE, ("", "SendClick(14)")]),
-    item("$LOCALIZE[20434]", "Film collections", SETS, [CLOSE, ("", "Container.Update(videodb://movies/sets/)")]),
-    item("$LOCALIZE[137]", "", INLIB, [CLOSE, ("", "ActivateWindow(1150)")]),
-    item("Library settings", "Kodi", INLIB, [CLOSE, ("", "ActivateWindow(mediasettings)")]),
     # from Home (the Settings cards)
     item("$VAR[Fold_Lib_UpdateVideoLabel]", "Films · series", f"{HOME} + !{PCLEAN}", [CLOSE, ("", "UpdateLibrary(video)")]),
     item("$VAR[Fold_Lib_UpdateMusicLabel]", "Albums · songs", f"{HOME} + !{PCLEAN}", [CLOSE, ("", "UpdateLibrary(music)")]),
@@ -96,7 +97,7 @@ CONFIRM_ITEMS = [
     item("Yes, clean the music library", "", f"String.IsEqual({CONF},music)", [CLOSE, ("", "CleanLibrary(music)")]),
 ]
 
-MAXROWS = 9           # films: update, clean, view, sort, order, unwatched, sets, search, settings
+MAXROWS = 9           # films: view, sort, unwatched, order, sets, search, settings, update, clean
 
 
 def note(w, h, vis, title, kicker):

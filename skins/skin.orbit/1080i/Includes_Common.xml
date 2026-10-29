@@ -153,6 +153,21 @@
 		</definition>
 	</include>
 
+	<!-- 0.9.21 (docs/OPTIONS_REACH_FIX_BRIEF.md): library windows only, under the date: the Menu key opens the
+	     Library panel (View, Sort, Unwatched only) from any item; the option bar at the bottom stays as it was -->
+	<include name="Orbit_MenuHint">
+		<control type="label">
+			<right>64</right>
+			<top>142</top>
+			<width>620</width>
+			<height>22</height>
+			<align>right</align>
+			<font>mono_13</font>
+			<textcolor>text_dim</textcolor>
+			<label>[COLOR text_secondary]$LOCALIZE[31337][/COLOR]  $LOCALIZE[31336]</label>
+		</control>
+	</include>
+
 	<!-- Page header: wide title (34) + mono readout under it (mockup OrbitArc header).
 	     params: title, sub (mono readout, e.g. position "0412 / 1360"), kicker (label above, optional) -->
 	<include name="Orbit_Header">

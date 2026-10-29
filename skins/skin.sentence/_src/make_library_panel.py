@@ -65,25 +65,26 @@ def item(label, label2, visible, clicks):
 CLOSE = ("", "Dialog.Close(1155,true)")
 
 PANEL_ITEMS = [
-    item("$VAR[Sen_Lib_UpdateLabel]", "$VAR[Sen_Lib_Kind]", f"{INLIB} + {NOPLUG}",
-         [CLOSE, (V, "UpdateLibrary(video)"), (M, "UpdateLibrary(music)")]),
-    item("clean the library", "$VAR[Sen_Lib_Kind]",
-         f"{INLIB} + {NOPLUG} + ![{V} + Library.IsScanningVideo] + ![{M} + Library.IsScanningMusic]",
-         [(V, f"SetProperty({SK}.libconfirm,video,home)"), (M, f"SetProperty({SK}.libconfirm,music,home)"),
-          ("", "SetFocus(101)")]),
     item("see them another way", "$INFO[Container.Viewmode]",
          f"{INLIB} + Integer.IsGreater(Container.ViewCount,1)", [CLOSE, ("", "ActivateWindow(1156)")]),
     item("sort them another way", "$INFO[Container.SortMethod,by ,]", f"{INLIB} + {SORTABLE}",
          [CLOSE, (V, "SendClick(videos,3)"), (M, "SendClick(music,3)")]),
+    item("$VAR[Sen_Lib_WatchedLabel]", "", f"{V} + {VIDLIB}", [CLOSE, ("", "SendClick(14)")]),
     item("turn the order round", "$VAR[Lib_Direction]", f"{INLIB} + {SORTABLE}",
          [("", "Container.SetSortDirection")]),
-    item("$VAR[Sen_Lib_WatchedLabel]", "", f"{V} + {VIDLIB}", [CLOSE, ("", "SendClick(14)")]),
     # Sets: the films' sets in this same Videos window (Container.Update keeps the history: Back walks
     # set -> all sets -> films). Not a Home item (Omar).
     item("see the sets", "collections", SETS,
          [CLOSE, ("", "Container.Update(videodb://movies/sets/)")]),
     item("find something", "", INLIB, [CLOSE, ("", "ActivateWindow(1150)")]),
     item("change the library settings", "Kodi", INLIB, [CLOSE, ("", "ActivateWindow(mediasettings)")]),
+    # Update / Clean last (options reach 2026-10-29: the panel opens on View)
+    item("$VAR[Sen_Lib_UpdateLabel]", "$VAR[Sen_Lib_Kind]", f"{INLIB} + {NOPLUG}",
+         [CLOSE, (V, "UpdateLibrary(video)"), (M, "UpdateLibrary(music)")]),
+    item("clean the library", "$VAR[Sen_Lib_Kind]",
+         f"{INLIB} + {NOPLUG} + ![{V} + Library.IsScanningVideo] + ![{M} + Library.IsScanningMusic]",
+         [(V, f"SetProperty({SK}.libconfirm,video,home)"), (M, f"SetProperty({SK}.libconfirm,music,home)"),
+          ("", "SetFocus(101)")]),
     # from Home (the System menu)
     item("$VAR[Sen_Lib_UpdateVideoLabel]", "", f"{HOME} + !{PCLEAN}", [CLOSE, ("", "UpdateLibrary(video)")]),
     item("$VAR[Sen_Lib_UpdateMusicLabel]", "", f"{HOME} + !{PCLEAN}", [CLOSE, ("", "UpdateLibrary(music)")]),
@@ -99,7 +100,7 @@ CONFIRM_ITEMS = [
     item("yes, clean the music", "", f"String.IsEqual({CONF},music)", [CLOSE, ("", "CleanLibrary(music)")]),
 ]
 
-MAXROWS = 9   # films: update, clean, view, sort, order, unseen, sets, find, settings
+MAXROWS = 9   # films: view, sort, unseen, order, sets, find, settings, update, clean
 
 
 def backdrop():

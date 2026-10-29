@@ -328,6 +328,10 @@ msgctxt "#31483"
 msgid "album pages"
 msgstr ""
 
+msgctxt "#31491"
+msgid "view, sort, filter…"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Keepsake (Caveat, Fraunces, DM Mono)"
 msgstr ""

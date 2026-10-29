@@ -1243,6 +1243,19 @@
 					<param name="onclick" value="SetProperty(groove.lib.from,header,home)"/>
 					<param name="onclick2" value="SetFocus(9801,0,absolute)"/>
 				</include>
+				<!-- 1.0.9 options reach P3: the Menu key opens the library panel from any item -->
+				<control type="label">
+					<left>1040</left>
+					<top>54</top>
+					<width>520</width>
+					<height>48</height>
+					<align>right</align>
+					<aligny>center</aligny>
+					<font>font_tray</font>
+					<textcolor>$VAR[ink2]</textcolor>
+					<label>$LOCALIZE[31649]</label>
+					<visible>Integer.IsGreater(Container.NumItems,0)</visible>
+				</control>
 			</control>
 		</control>
 		<!-- Kodi's sort buttons (clicked by the header and the panel) and the Back-to-Home catcher -->

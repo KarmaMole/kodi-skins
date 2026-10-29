@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.majan" version="1.0.19" name="Majan" provider-name="KarmaMole">
+<addon id="skin.majan" version="1.0.20" name="Majan" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#majan</website>
-		<news>v1.0.19 - Hiding menu items can no longer leave Home without focus.</news>
+		<news>v1.0.20 - The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

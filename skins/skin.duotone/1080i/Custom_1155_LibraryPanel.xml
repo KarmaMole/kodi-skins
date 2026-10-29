@@ -40,18 +40,19 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 		<!-- the rows -->
 		<control type="group">
 			<left>660</left>
-			<top>186</top>
+			<top>152</top>
 			<width>600</width>
-			<height>708</height>
+			<height>776</height>
 			<visible>String.IsEmpty(Window(Home).Property(duotone.libconfirm))</visible>
-			<animation effect="slide" start="0,0" end="0,272" time="0" condition="Integer.IsEqual(Container(100).NumItems,1)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,238" time="0" condition="Integer.IsEqual(Container(100).NumItems,2)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,204" time="0" condition="Integer.IsEqual(Container(100).NumItems,3)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,170" time="0" condition="Integer.IsEqual(Container(100).NumItems,4)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,136" time="0" condition="Integer.IsEqual(Container(100).NumItems,5)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,102" time="0" condition="Integer.IsEqual(Container(100).NumItems,6)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,68" time="0" condition="Integer.IsEqual(Container(100).NumItems,7)">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,34" time="0" condition="Integer.IsEqual(Container(100).NumItems,8)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,306" time="0" condition="Integer.IsEqual(Container(100).NumItems,1)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,272" time="0" condition="Integer.IsEqual(Container(100).NumItems,2)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,238" time="0" condition="Integer.IsEqual(Container(100).NumItems,3)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,204" time="0" condition="Integer.IsEqual(Container(100).NumItems,4)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,170" time="0" condition="Integer.IsEqual(Container(100).NumItems,5)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,136" time="0" condition="Integer.IsEqual(Container(100).NumItems,6)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,102" time="0" condition="Integer.IsEqual(Container(100).NumItems,7)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,68" time="0" condition="Integer.IsEqual(Container(100).NumItems,8)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,34" time="0" condition="Integer.IsEqual(Container(100).NumItems,9)">Conditional</animation>
 			<control type="group">
 				<control type="image">
 					<left>0</left>
@@ -125,6 +126,14 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 					<texture border="16" colordiffuse="$VAR[DT_PanelTint]">$VAR[DT_PanelTex]</texture>
 					<visible>Integer.IsEqual(Container(100).NumItems,9)</visible>
 				</control>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>600</width>
+					<height>776</height>
+					<texture border="16" colordiffuse="$VAR[DT_PanelTint]">$VAR[DT_PanelTex]</texture>
+					<visible>Integer.IsEqual(Container(100).NumItems,10)</visible>
+				</control>
 			</control>
 			<control type="label">
 				<left>32</left>
@@ -147,7 +156,7 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 				<left>16</left>
 				<top>80</top>
 				<width>568</width>
-				<height>612</height>
+				<height>680</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>
@@ -159,22 +168,6 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 					<param name="list_id" value="100"/>
 				</include>
 				<content>
-					<item>
-						<label>$VAR[DT_Lib_UpdateLabel]</label>
-						<label2>$VAR[DT_Lib_Kind]</label2>
-						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
-						<onclick>Dialog.Close(1155,true)</onclick>
-						<onclick condition="Window.IsActive(videos)">UpdateLibrary(video)</onclick>
-						<onclick condition="Window.IsActive(music)">UpdateLibrary(music)</onclick>
-					</item>
-					<item>
-						<label>$LOCALIZE[14247]</label>
-						<label2>$VAR[DT_Lib_Kind]</label2>
-						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons) + ![Window.IsActive(videos) + Library.IsScanningVideo] + ![Window.IsActive(music) + Library.IsScanningMusic]</visible>
-						<onclick condition="Window.IsActive(videos)">SetProperty(duotone.libconfirm,video,home)</onclick>
-						<onclick condition="Window.IsActive(music)">SetProperty(duotone.libconfirm,music,home)</onclick>
-						<onclick>SetFocus(101)</onclick>
-					</item>
 					<item>
 						<label>$LOCALIZE[31011]</label>
 						<label2>$INFO[Container.Viewmode]</label2>
@@ -191,17 +184,17 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 						<onclick condition="Window.IsActive(music)">SendClick(music,3)</onclick>
 					</item>
 					<item>
-						<label>$LOCALIZE[31395]</label>
-						<label2>$INFO[Container.SortOrder]</label2>
-						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEmpty(Container.SortMethod)</visible>
-						<onclick>Container.SetSortDirection</onclick>
-					</item>
-					<item>
 						<label>$LOCALIZE[31081]</label>
 						<label2>$VAR[DT_Lib_HideWatched]</label2>
 						<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>SendClick(14)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[31395]</label>
+						<label2>$INFO[Container.SortOrder]</label2>
+						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEmpty(Container.SortMethod)</visible>
+						<onclick>Container.SetSortDirection</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[20434]</label>
@@ -223,6 +216,22 @@ title and the numbered Index rows of the System menu (Dlg_IndexListLayout): no n
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)]</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>ActivateWindow(mediasettings)</onclick>
+					</item>
+					<item>
+						<label>$VAR[DT_Lib_UpdateLabel]</label>
+						<label2>$VAR[DT_Lib_Kind]</label2>
+						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
+						<onclick>Dialog.Close(1155,true)</onclick>
+						<onclick condition="Window.IsActive(videos)">UpdateLibrary(video)</onclick>
+						<onclick condition="Window.IsActive(music)">UpdateLibrary(music)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[14247]</label>
+						<label2>$VAR[DT_Lib_Kind]</label2>
+						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons) + ![Window.IsActive(videos) + Library.IsScanningVideo] + ![Window.IsActive(music) + Library.IsScanningMusic]</visible>
+						<onclick condition="Window.IsActive(videos)">SetProperty(duotone.libconfirm,video,home)</onclick>
+						<onclick condition="Window.IsActive(music)">SetProperty(duotone.libconfirm,music,home)</onclick>
+						<onclick>SetFocus(101)</onclick>
 					</item>
 					<item>
 						<label>$VAR[DT_Lib_UpdateVideoLabel]</label>

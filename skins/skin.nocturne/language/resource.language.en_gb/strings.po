@@ -572,6 +572,10 @@ msgctxt "#31380"
 msgid "OK · presets"
 msgstr ""
 
+msgctxt "#31744"
+msgid "View, sort, filter…"
+msgstr ""
+
 msgctxt "#31900"
 msgid "Nocturne (Cormorant and Inter Tight)"
 msgstr ""

@@ -282,7 +282,8 @@ def build():
 			<param name="label" value="$VAR[Music_Crumb]"/>
 			<param name="sub" value="$VAR[Music_Sub]"/>
 			<param name="color" value="mari_ink"/>
-			<param name="width" value="560"/>
+			<!-- 520 (was 560, options reach audit 2026-10-29): the crumb ends at 616, clear of the words at 640 -->
+			<param name="width" value="520"/>
 		</include>
 		<control type="grouplist" id="9000">
 			<left>640</left>

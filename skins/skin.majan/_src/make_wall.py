@@ -566,6 +566,32 @@ def build() -> str:
 {ind(lay, 5)}
 				</control>
 			</control>
+			<!-- 1.0.20: the wall has no header at rest, so a quiet key hint in the bottom-right corner (the Menu key opens
+			     the Library panel on View, Sort and Show: DialogContextMenu.xml) -->
+			<control type="group">
+				<right>24</right>
+				<bottom>20</bottom>
+				<width>336</width>
+				<height>40</height>
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>336</width>
+					<height>40</height>
+					<texture colordiffuse="dim_dialog">common/white.png</texture>
+				</control>
+				<control type="label">
+					<left>16</left>
+					<top>0</top>
+					<width>304</width>
+					<height>40</height>
+					<align>right</align>
+					<aligny>center</aligny>
+					<font>mono_14</font>
+					<textcolor>$VAR[ColorCaption]</textcolor>
+					<label>$LOCALIZE[31342]</label>
+				</control>
+			</control>
 			<!-- info card (Off / after 1 s / after 2 s) -->
 {ind(cards, 3)}
 		</control>

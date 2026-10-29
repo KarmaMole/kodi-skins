@@ -191,6 +191,7 @@
 			<param name="title" value="$VAR[VidView_Title]"/>
 			<param name="sub" value="$VAR[Orbit_Position]"/>
 		</include>
+		<include>Orbit_MenuHint</include>
 		<control type="grouplist" id="9000">
 			<left>52</left>
 			<top>1000</top>
@@ -301,10 +302,13 @@
 	<include name="VidView_Empty">
 		<control type="group">
 			<animation effect="slide" start="0,0" end="0,-300" time="0" condition="Control.IsVisible(503)">Conditional</animation>
+			<!-- a ".." item sits at the lens in every view but Horizon: the ring and caption go below it -->
+			<animation effect="slide" start="0,0" end="0,280" time="0" condition="Container.HasParent + !Control.IsVisible(503)">Conditional</animation>
 			<include>Orbit_EmptyFolder</include>
 		</control>
 		<control type="label">
 			<animation effect="slide" start="0,0" end="0,-300" time="0" condition="Control.IsVisible(503)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,280" time="0" condition="Container.HasParent + !Control.IsVisible(503)">Conditional</animation>
 			<left>440</left>
 			<top>596</top>
 			<width>1300</width>

@@ -1,3 +1,6 @@
+0.9.20 (2026-10-29)
+- The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.
+
 0.9.19 (2026-10-28)
 - More views in every section. Series can now ride the Line (the show as a station with its facts and story above a line of posters) and be listed in Episodes (poster, seasons and episodes, two lines of the story). Genres, years and people can open in Interchange: the stops down the left, and the films of the focused one hanging on a line through the ring. Songs can now be browsed in the Grid (each song under its cover) and in Interchange (artist fanart or the cover in the ring; artist, album and time below). The view each section opens in is unchanged.
 

@@ -433,7 +433,9 @@ view mode), and the first visit of each content type opens the Fold view.
 					<param name="foot_l" value="$INFO[ListItem.Year]"/>
 					<param name="foot_r" value="$VAR[Shelf_FootR]"/>
 					<param name="foot_font" value="num_20"/>
-					<param name="foot_b" value="12"/>
+					<param name="foot_b" value="0"/>
+					<param name="foot_h" value="42"/>
+					<param name="foot_aligny" value="center"/>
 					<param name="fallback" value="$INFO[ListItem.Label]"/>
 				</include>
 				<control type="image">
@@ -541,7 +543,9 @@ view mode), and the first visit of each content type opens the Fold view.
 					<param name="foot_l" value="$INFO[ListItem.Year]"/>
 					<param name="foot_r" value="$VAR[Shelf_FootR]"/>
 					<param name="foot_font" value="num_22"/>
-					<param name="foot_b" value="14"/>
+					<param name="foot_b" value="0"/>
+					<param name="foot_h" value="44"/>
+					<param name="foot_aligny" value="center"/>
 					<param name="fallback" value="$INFO[ListItem.Label]"/>
 				</include>
 				<control type="image">
@@ -837,7 +841,9 @@ view mode), and the first visit of each content type opens the Fold view.
 					<param name="foot_l" value="$INFO[ListItem.Year]"/>
 					<param name="foot_r" value="$VAR[Shelf_FootR]"/>
 					<param name="foot_font" value="num_20"/>
-					<param name="foot_b" value="12"/>
+					<param name="foot_b" value="0"/>
+					<param name="foot_h" value="42"/>
+					<param name="foot_aligny" value="center"/>
 					<param name="fallback" value="$INFO[ListItem.Label]"/>
 				</include>
 				<control type="image">
@@ -945,7 +951,9 @@ view mode), and the first visit of each content type opens the Fold view.
 					<param name="foot_l" value="$INFO[ListItem.Year]"/>
 					<param name="foot_r" value="$VAR[Shelf_FootR]"/>
 					<param name="foot_font" value="num_22"/>
-					<param name="foot_b" value="14"/>
+					<param name="foot_b" value="0"/>
+					<param name="foot_h" value="44"/>
+					<param name="foot_aligny" value="center"/>
 					<param name="fallback" value="$INFO[ListItem.Label]"/>
 				</include>
 				<control type="image">
@@ -1825,19 +1833,21 @@ view mode), and the first visit of each content type opens the Fold view.
 						<param name="color" value="$VAR[Table_CardColor]"/>
 						<param name="plate_l" value="13"/>
 						<param name="plate_t" value="12"/>
-						<param name="plate_w" value="145"/>
-						<param name="plate_h" value="218"/>
+						<param name="plate_w" value="136"/>
+						<param name="plate_h" value="204"/>
 						<param name="art" value="$VAR[Table_Art]"/>
 						<param name="aspect" value="scale"/>
 						<param name="foot_l" value="$INFO[ListItem.Year]"/>
 						<param name="foot_r" value="$VAR[Shelf_FootR]"/>
 						<param name="foot_font" value="num_20"/>
-						<param name="foot_b" value="9"/>
+						<param name="foot_b" value="0"/>
+						<param name="foot_h" value="36"/>
+						<param name="foot_aligny" value="center"/>
 						<param name="foot_color" value="on_card"/>
 						<param name="fallback" value="$INFO[ListItem.Label]"/>
 					</include>
 					<control type="image">
-						<left>124</left>
+						<left>115</left>
 						<top>18</top>
 						<width>28</width>
 						<height>28</height>
@@ -1846,8 +1856,8 @@ view mode), and the first visit of each content type opens the Fold view.
 					</control>
 					<control type="progress">
 						<left>13</left>
-						<top>224</top>
-						<width>145</width>
+						<top>210</top>
+						<width>136</width>
 						<height>6</height>
 						<texturebg colordiffuse="99000000">common/white.png</texturebg>
 						<midtexture colordiffuse="on_card">common/white.png</midtexture>
@@ -1935,19 +1945,21 @@ view mode), and the first visit of each content type opens the Fold view.
 						<param name="color" value="$VAR[Table_CardColor]"/>
 						<param name="plate_l" value="15"/>
 						<param name="plate_t" value="13"/>
-						<param name="plate_w" value="160"/>
-						<param name="plate_h" value="240"/>
+						<param name="plate_w" value="153"/>
+						<param name="plate_h" value="230"/>
 						<param name="art" value="$VAR[Table_Art]"/>
 						<param name="aspect" value="scale"/>
 						<param name="foot_l" value="$INFO[ListItem.Year]"/>
 						<param name="foot_r" value="$VAR[Shelf_FootR]"/>
 						<param name="foot_font" value="num_20"/>
-						<param name="foot_b" value="10"/>
+						<param name="foot_b" value="0"/>
+						<param name="foot_h" value="36"/>
+						<param name="foot_aligny" value="center"/>
 						<param name="foot_color" value="on_card"/>
 						<param name="fallback" value="$INFO[ListItem.Label]"/>
 					</include>
 					<control type="image">
-						<left>141</left>
+						<left>134</left>
 						<top>19</top>
 						<width>28</width>
 						<height>28</height>
@@ -1956,8 +1968,8 @@ view mode), and the first visit of each content type opens the Fold view.
 					</control>
 					<control type="progress">
 						<left>15</left>
-						<top>247</top>
-						<width>160</width>
+						<top>237</top>
+						<width>153</width>
 						<height>6</height>
 						<texturebg colordiffuse="99000000">common/white.png</texturebg>
 						<midtexture colordiffuse="on_card">common/white.png</midtexture>
@@ -2426,7 +2438,9 @@ view mode), and the first visit of each content type opens the Fold view.
 						<param name="foot_l" value=""/>
 						<param name="foot_r" value=""/>
 						<param name="foot_font" value="num_20"/>
-						<param name="foot_b" value="7"/>
+						<param name="foot_b" value="0"/>
+						<param name="foot_h" value="18"/>
+						<param name="foot_aligny" value="center"/>
 						<param name="foot_color" value="on_card"/>
 						<param name="fallback" value="$INFO[ListItem.Label]"/>
 					</include>
@@ -2536,7 +2550,9 @@ view mode), and the first visit of each content type opens the Fold view.
 						<param name="foot_l" value=""/>
 						<param name="foot_r" value=""/>
 						<param name="foot_font" value="num_20"/>
-						<param name="foot_b" value="7"/>
+						<param name="foot_b" value="0"/>
+						<param name="foot_h" value="20"/>
+						<param name="foot_aligny" value="center"/>
 						<param name="foot_color" value="on_card"/>
 						<param name="fallback" value="$INFO[ListItem.Label]"/>
 					</include>

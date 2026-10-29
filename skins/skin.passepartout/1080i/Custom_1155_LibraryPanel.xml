@@ -22,7 +22,7 @@
 			<left>1160</left>
 			<top>below_bar_top</top>
 			<width>640</width>
-			<height>788</height>
+			<height>776</height>
 			<!-- card sized to the visible rows: 80 caption + 68 per row + 16 (films: up to 9 rows with Sets) -->
 			<control type="group">
 				<width>640</width>
@@ -69,7 +69,13 @@
 			<control type="group">
 				<width>640</width>
 				<height>708</height>
-				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,9)</visible>
+				<visible>Integer.IsEqual(Container(100).NumItems,9)</visible>
+				<include>PP_Card</include>
+			</control>
+			<control type="group">
+				<width>640</width>
+				<height>776</height>
+				<visible>Integer.IsGreaterOrEqual(Container(100).NumItems,10)</visible>
 				<include>PP_Card</include>
 			</control>
 			<control type="label">
@@ -101,7 +107,7 @@
 				<left>16</left>
 				<top>80</top>
 				<width>608</width>
-				<height>612</height>
+				<height>680</height>
 				<onup>100</onup>
 				<ondown>100</ondown>
 				<onleft>noop</onleft>
@@ -116,24 +122,6 @@
 					<param name="hint_l" value="294"/>
 				</include>
 				<content>
-					<item>
-						<label>$VAR[PP_LibUpdateLabel]</label>
-						<label2>$VAR[PP_LibUpdateHint]</label2>
-						<onclick>Dialog.Close(1155,true)</onclick>
-						<onclick condition="$EXP[PP_LibInMusic]">UpdateLibrary(music)</onclick>
-						<onclick condition="!$EXP[PP_LibInMusic]">UpdateLibrary(video)</onclick>
-						<visible>$EXP[PP_LibCanUpdate]</visible>
-					</item>
-					<item>
-						<label>$LOCALIZE[31138]</label>
-						<label2>$LOCALIZE[31142]</label2>
-						<onclick>SetProperty(pp.libtask,clean,home)</onclick>
-						<onclick condition="$EXP[PP_LibInMusic]">SetProperty(pp.libtarget,music,home)</onclick>
-						<onclick condition="!$EXP[PP_LibInMusic]">SetProperty(pp.libtarget,video,home)</onclick>
-						<onclick>Dialog.Close(1155,true)</onclick>
-						<onclick>ActivateWindow(1157)</onclick>
-						<visible>$EXP[PP_LibCanUpdate]</visible>
-					</item>
 					<item>
 						<label>$LOCALIZE[31011]</label>
 						<label2>$VAR[PP_ViewName]</label2>
@@ -179,6 +167,24 @@
 						<label2>Kodi</label2>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>ActivateWindow(MediaSettings)</onclick>
+					</item>
+					<item>
+						<label>$VAR[PP_LibUpdateLabel]</label>
+						<label2>$VAR[PP_LibUpdateHint]</label2>
+						<onclick>Dialog.Close(1155,true)</onclick>
+						<onclick condition="$EXP[PP_LibInMusic]">UpdateLibrary(music)</onclick>
+						<onclick condition="!$EXP[PP_LibInMusic]">UpdateLibrary(video)</onclick>
+						<visible>$EXP[PP_LibCanUpdate]</visible>
+					</item>
+					<item>
+						<label>$LOCALIZE[31138]</label>
+						<label2>$LOCALIZE[31142]</label2>
+						<onclick>SetProperty(pp.libtask,clean,home)</onclick>
+						<onclick condition="$EXP[PP_LibInMusic]">SetProperty(pp.libtarget,music,home)</onclick>
+						<onclick condition="!$EXP[PP_LibInMusic]">SetProperty(pp.libtarget,video,home)</onclick>
+						<onclick>Dialog.Close(1155,true)</onclick>
+						<onclick>ActivateWindow(1157)</onclick>
+						<visible>$EXP[PP_LibCanUpdate]</visible>
 					</item>
 				</content>
 			</control>

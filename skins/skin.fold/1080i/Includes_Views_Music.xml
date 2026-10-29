@@ -369,7 +369,9 @@ Timers for these views are written by make_views.py (Timers.xml).
 						<param name="foot_l" value="$VAR[Sleeve_FootL]"/>
 						<param name="foot_r" value="$VAR[Sleeve_FootR]"/>
 						<param name="foot_font" value="num_20"/>
-						<param name="foot_b" value="9"/>
+						<param name="foot_b" value="0"/>
+						<param name="foot_h" value="49"/>
+						<param name="foot_aligny" value="center"/>
 						<param name="foot_color" value="ink"/>
 						<param name="fallback" value="$VAR[Poster_Title]"/>
 					</include>
@@ -479,7 +481,9 @@ Timers for these views are written by make_views.py (Timers.xml).
 						<param name="foot_l" value="$VAR[Sleeve_FootL]"/>
 						<param name="foot_r" value="$VAR[Sleeve_FootR]"/>
 						<param name="foot_font" value="num_20"/>
-						<param name="foot_b" value="10"/>
+						<param name="foot_b" value="0"/>
+						<param name="foot_h" value="55"/>
+						<param name="foot_aligny" value="center"/>
 						<param name="foot_color" value="ink"/>
 						<param name="fallback" value="$VAR[Poster_Title]"/>
 					</include>
@@ -823,7 +827,9 @@ Timers for these views are written by make_views.py (Timers.xml).
 						<param name="foot_l" value=""/>
 						<param name="foot_r" value=""/>
 						<param name="foot_font" value="num_20"/>
-						<param name="foot_b" value="8"/>
+						<param name="foot_b" value="0"/>
+						<param name="foot_h" value="43"/>
+						<param name="foot_aligny" value="center"/>
 						<param name="foot_color" value="ink"/>
 						<param name="fallback" value="$VAR[Poster_Title]"/>
 					</include>
@@ -933,7 +939,9 @@ Timers for these views are written by make_views.py (Timers.xml).
 						<param name="foot_l" value=""/>
 						<param name="foot_r" value=""/>
 						<param name="foot_font" value="num_20"/>
-						<param name="foot_b" value="9"/>
+						<param name="foot_b" value="0"/>
+						<param name="foot_h" value="47"/>
+						<param name="foot_aligny" value="center"/>
 						<param name="foot_color" value="ink"/>
 						<param name="fallback" value="$VAR[Poster_Title]"/>
 					</include>
@@ -1017,7 +1025,8 @@ Timers for these views are written by make_views.py (Timers.xml).
 			<param name="label" value="$VAR[Music_Crumb]"/>
 			<param name="sub" value="$VAR[Music_Sub]"/>
 			<param name="color" value="mari_ink"/>
-			<param name="width" value="560"/>
+			<!-- 520 (was 560, options reach audit 2026-10-29): the crumb ends at 616, clear of the words at 640 -->
+			<param name="width" value="520"/>
 		</include>
 		<control type="grouplist" id="9000">
 			<left>640</left>

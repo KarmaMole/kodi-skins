@@ -152,22 +152,6 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 				</include>
 				<content>
 					<item>
-						<label>$VAR[Sen_Lib_UpdateLabel]</label>
-						<label2>$VAR[Sen_Lib_Kind]</label2>
-						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
-						<onclick>Dialog.Close(1155,true)</onclick>
-						<onclick condition="Window.IsActive(videos)">UpdateLibrary(video)</onclick>
-						<onclick condition="Window.IsActive(music)">UpdateLibrary(music)</onclick>
-					</item>
-					<item>
-						<label>$LOCALIZE[31482]</label>
-						<label2>$VAR[Sen_Lib_Kind]</label2>
-						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons) + ![Window.IsActive(videos) + Library.IsScanningVideo] + ![Window.IsActive(music) + Library.IsScanningMusic]</visible>
-						<onclick condition="Window.IsActive(videos)">SetProperty(sentence.libconfirm,video,home)</onclick>
-						<onclick condition="Window.IsActive(music)">SetProperty(sentence.libconfirm,music,home)</onclick>
-						<onclick>SetFocus(101)</onclick>
-					</item>
-					<item>
 						<label>$LOCALIZE[31483]</label>
 						<label2>$INFO[Container.Viewmode]</label2>
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + Integer.IsGreater(Container.ViewCount,1)</visible>
@@ -183,17 +167,17 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<onclick condition="Window.IsActive(music)">SendClick(music,3)</onclick>
 					</item>
 					<item>
-						<label>$LOCALIZE[31485]</label>
-						<label2>$VAR[Lib_Direction]</label2>
-						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEmpty(Container.SortMethod)</visible>
-						<onclick>Container.SetSortDirection</onclick>
-					</item>
-					<item>
 						<label>$VAR[Sen_Lib_WatchedLabel]</label>
 						<label2></label2>
 						<visible>Window.IsActive(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)]</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>SendClick(14)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[31485]</label>
+						<label2>$VAR[Lib_Direction]</label2>
+						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + !String.IsEmpty(Container.SortMethod)</visible>
+						<onclick>Container.SetSortDirection</onclick>
 					</item>
 					<item>
 						<label>$LOCALIZE[31486]</label>
@@ -215,6 +199,22 @@ in serif with the lilac block on focus, Dlg_IndexListLayout): no new visual lang
 						<visible>[Window.IsActive(videos) | Window.IsActive(music)]</visible>
 						<onclick>Dialog.Close(1155,true)</onclick>
 						<onclick>ActivateWindow(mediasettings)</onclick>
+					</item>
+					<item>
+						<label>$VAR[Sen_Lib_UpdateLabel]</label>
+						<label2>$VAR[Sen_Lib_Kind]</label2>
+						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons)</visible>
+						<onclick>Dialog.Close(1155,true)</onclick>
+						<onclick condition="Window.IsActive(videos)">UpdateLibrary(video)</onclick>
+						<onclick condition="Window.IsActive(music)">UpdateLibrary(music)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[31482]</label>
+						<label2>$VAR[Sen_Lib_Kind]</label2>
+						<visible>[Window.IsActive(videos) | Window.IsActive(music)] + String.IsEmpty(Container.PluginName) + !Container.Content(addons) + ![Window.IsActive(videos) + Library.IsScanningVideo] + ![Window.IsActive(music) + Library.IsScanningMusic]</visible>
+						<onclick condition="Window.IsActive(videos)">SetProperty(sentence.libconfirm,video,home)</onclick>
+						<onclick condition="Window.IsActive(music)">SetProperty(sentence.libconfirm,music,home)</onclick>
+						<onclick>SetFocus(101)</onclick>
 					</item>
 					<item>
 						<label>$VAR[Sen_Lib_UpdateVideoLabel]</label>

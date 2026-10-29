@@ -1132,7 +1132,8 @@
 	<!-- ================================================================== empty -->
 	<include name="VidView_Empty">
 		<control type="group">
-			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<!-- not over a ".." print: the hang (500) and the wide hang (503) hang it where this text sits -->
+			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + [!Container.HasParent | Control.IsVisible(50) | Control.IsVisible(501) | Control.IsVisible(506) | Control.IsVisible(507)]</visible>
 			<control type="label">
 				<left>120</left>
 				<top>420</top>

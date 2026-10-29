@@ -1,3 +1,6 @@
+0.9.19 (2026-10-29)
+- The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.
+
 0.9.18 (2026-10-28)
 - New Rows view for films, sets, series and music videos: one row each with a wide print, the title in Anton, the year, runtime or seasons, and two lines of the plot; the focused row turns ink with the picture in full colour. Stage now also shows songs (the artist's picture, the song title, a strip of covers). Films and series offer six views, songs three.
 

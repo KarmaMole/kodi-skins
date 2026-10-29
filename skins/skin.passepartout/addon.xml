@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.passepartout" version="0.9.19" name="Passe-partout" provider-name="KarmaMole">
+<addon id="skin.passepartout" version="0.9.20" name="Passe-partout" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required: script.skinvariables URL-encodes the search query (get_encoded_string; unencoded_paths since 2.1.21). -->
@@ -18,7 +18,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#passepartout</website>
-		<news>v0.9.19 - Hiding menu items can no longer leave Home without focus.</news>
+		<news>v0.9.20 - The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

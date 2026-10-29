@@ -935,14 +935,15 @@
 		<texturefocus colordiffuse="$VAR[ColorAccent]">common/white.png</texturefocus>
 	</include>
 
-	<!-- Empty folder (or everything filtered away) -->
+	<!-- Empty folder (or everything filtered away). Not when the folder shows a ".." item: every view draws it where this
+	     text sits (pre-release captures 2026-10-29); the header's ALL 0 / UNWATCHED 0 still say why it is empty -->
 	<include name="VidView_Empty">
 		<control type="group">
 			<left>page_margin</left>
 			<top>content_top</top>
 			<width>page_width</width>
 			<height>120</height>
-			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + !Container.HasParent</visible>
 			<control type="label">
 				<left>0</left>
 				<top>0</top>
@@ -1324,7 +1325,7 @@
 				<height>22</height>
 				<font>mono_14</font>
 				<textcolor>$VAR[ColorCaption]</textcolor>
-				<label>◀ ▶ BROWSE · OK SELECT · HOLD OK FOR MENU · UP FOR FILTER AND SORT</label>
+				<label>◀ ▶ BROWSE · OK SELECT · $LOCALIZE[31342]</label>
 			</control>
 		</control>
 	</include>

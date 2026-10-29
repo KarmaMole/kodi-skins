@@ -1,3 +1,6 @@
+0.9.17 (2026-10-29)
+- Hiding menu items can no longer leave Home without focus. Home's fallback focus is now Settings, which never hides; nothing changes while every item is shown.
+
 0.9.16 (2026-10-28)
 - More views in every section. Films, collections, series and music videos: Zigzag, the concertina pulled open with posters (the year on each panel, the focused one flat and lit, its title, story and facts below). Genres, years and people can now cover the Table (a card for each, the name printed where the picture would be, the portrait for actors). Songs can now go in the Crate (each song on its album sleeve) and on the Poster (artist fanart or the cover, the song, its album and time beside it). The view each section opens in is unchanged.
 

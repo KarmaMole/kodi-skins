@@ -11,56 +11,18 @@
 	  Select         movie / episode: play or resume at once; show / album / folder: open it
 	  Info           Kodi's information page for the item.  Back: first item of the shelf.
 	Shelves can be hidden in Skin settings (HideMenu.*, make_home.py SHELF_HIDE): Left/Right skip them.
+	The Library shelf (Settings, System) never hides; Timers.xml (generated) refocuses Settings if Home ever has no focus.
 	Home is kept in memory: shelves keep their position; Window(Home).Property(void.shelf) remembers
 	the shelf for the session.
 -->
 <window>
-	<defaultcontrol always="true">9111</defaultcontrol>
+	<!-- 0.9.18: the Library shelf list (never hidden, always holds Settings / System). Kodi falls back to the default
+	     control whenever nothing has focus; 0.9.17 used 9111 (Next up stand-in), which hides with HideMenu.TVShows,
+	     and Home could be left with no focus and no way out. -->
+	<defaultcontrol always="true">9106</defaultcontrol>
 	<backgroundcolor>bg</backgroundcolor>
-	<onload condition="String.IsEmpty(Window(Home).Property(void.shelf))">SetProperty(void.shelf,1,home)</onload>
-	<!-- new stamp each time Home opens: the Next up plugin path changes, so it refreshes after playback -->
-	<onload>SetProperty(void.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
-	<onload>SetProperty(void.dir,none,home)</onload>
-	<!-- 0.9.10: the remembered shelf is hidden in Skin settings (HideMenu.*): open on the first shown shelf
-	     (conditions are all read before these run, so each is written out; Library never hides) -->
-	<onload condition="[String.IsEmpty(Window(Home).Property(void.shelf)) | String.IsEqual(Window(Home).Property(void.shelf),1)] + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Movies)">SetProperty(void.shelf,2,home)</onload>
-	<onload condition="[String.IsEmpty(Window(Home).Property(void.shelf)) | String.IsEqual(Window(Home).Property(void.shelf),1)] + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.Music)">SetProperty(void.shelf,4,home)</onload>
-	<onload condition="[String.IsEmpty(Window(Home).Property(void.shelf)) | String.IsEqual(Window(Home).Property(void.shelf),1)] + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.Music)">SetProperty(void.shelf,6,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),2) + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">SetProperty(void.shelf,1,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),2) + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetProperty(void.shelf,4,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),2) + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">SetProperty(void.shelf,6,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),3) + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.TVShows)">SetProperty(void.shelf,1,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),3) + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Music)">SetProperty(void.shelf,4,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),3) + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Music)">SetProperty(void.shelf,6,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),4) + Skin.HasSetting(HideMenu.Music) + !Skin.HasSetting(HideMenu.TVShows)">SetProperty(void.shelf,1,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),4) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Movies)">SetProperty(void.shelf,2,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),4) + Skin.HasSetting(HideMenu.Music) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Movies)">SetProperty(void.shelf,6,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),5) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Movies)">SetProperty(void.shelf,2,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),5) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.Music)">SetProperty(void.shelf,4,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),5) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.Music)">SetProperty(void.shelf,6,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),7) + Skin.HasSetting(HideMenu.Search) + !Skin.HasSetting(HideMenu.TVShows)">SetProperty(void.shelf,1,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),7) + Skin.HasSetting(HideMenu.Search) + Skin.HasSetting(HideMenu.TVShows) + !Skin.HasSetting(HideMenu.Movies)">SetProperty(void.shelf,2,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),7) + Skin.HasSetting(HideMenu.Search) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Movies) + !Skin.HasSetting(HideMenu.Music)">SetProperty(void.shelf,4,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),7) + Skin.HasSetting(HideMenu.Search) + Skin.HasSetting(HideMenu.TVShows) + Skin.HasSetting(HideMenu.Movies) + Skin.HasSetting(HideMenu.Music)">SetProperty(void.shelf,6,home)</onload>
-	<!-- stand-in first (always focusable), then the list (succeeds once it has items) -->
-	<onload condition="Integer.IsLess(Window(Home).Property(void.shelf),8)">SetFocus(911$INFO[Window(Home).Property(void.shelf)])</onload>
-	<onload condition="Integer.IsLess(Window(Home).Property(void.shelf),8)">SetFocus(910$INFO[Window(Home).Property(void.shelf)])</onload>
-	<!-- 0.9.10 custom-row shelves 8-10 (drivers 9881-9883, stand-ins 9118-9120): a row cleared since -> Library (never hidden) -->
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),8) + String.IsEmpty(Skin.String(CustomRow.1.Path))">SetProperty(void.shelf,6,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),8) + String.IsEmpty(Skin.String(CustomRow.1.Path))">SetFocus(9116)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),8) + String.IsEmpty(Skin.String(CustomRow.1.Path)) + Integer.IsGreater(Container(9106).NumItems,0)">SetFocus(9106)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),8) + !String.IsEmpty(Skin.String(CustomRow.1.Path))">SetFocus(9118)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),8) + !String.IsEmpty(Skin.String(CustomRow.1.Path)) + Integer.IsGreater(Container(9881).NumItems,0)">SetFocus(9881)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),9) + String.IsEmpty(Skin.String(CustomRow.2.Path))">SetProperty(void.shelf,6,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),9) + String.IsEmpty(Skin.String(CustomRow.2.Path))">SetFocus(9116)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),9) + String.IsEmpty(Skin.String(CustomRow.2.Path)) + Integer.IsGreater(Container(9106).NumItems,0)">SetFocus(9106)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),9) + !String.IsEmpty(Skin.String(CustomRow.2.Path))">SetFocus(9119)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),9) + !String.IsEmpty(Skin.String(CustomRow.2.Path)) + Integer.IsGreater(Container(9882).NumItems,0)">SetFocus(9882)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),10) + String.IsEmpty(Skin.String(CustomRow.3.Path))">SetProperty(void.shelf,6,home)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),10) + String.IsEmpty(Skin.String(CustomRow.3.Path))">SetFocus(9116)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),10) + String.IsEmpty(Skin.String(CustomRow.3.Path)) + Integer.IsGreater(Container(9106).NumItems,0)">SetFocus(9106)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),10) + !String.IsEmpty(Skin.String(CustomRow.3.Path))">SetFocus(9120)</onload>
-	<onload condition="String.IsEqual(Window(Home).Property(void.shelf),10) + !String.IsEmpty(Skin.String(CustomRow.3.Path)) + Integer.IsGreater(Container(9883).NumItems,0)">SetFocus(9883)</onload>
+	<!-- onloads (remembered shelf, hidden-shelf fallback, one SetFocus) are generated: Includes_Home.xml Home_Onload -->
+	<include>Home_Onload</include>
 	<include>Anim_WindowOpenClose</include>
 	<controls>
 		<include>Void_Background</include>

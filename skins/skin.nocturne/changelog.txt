@@ -1,3 +1,6 @@
+0.9.16 (2026-10-29)
+- Hiding menu items can no longer leave Home without focus. Home's fallback focus is now Settings, which never hides; nothing changes while every item is shown.
+
 0.9.15 (2026-10-28)
 - More views in every section. Genres, years and people can now hang in the Salon (a name card for each genre, the portrait for each actor). Songs can now be browsed in the Record bins (each song under its album sleeve) and in Portraits (song titles beside the artist's canvas or the album cover, with artist, album and time on the plaque). The view each section opens in is unchanged.
 

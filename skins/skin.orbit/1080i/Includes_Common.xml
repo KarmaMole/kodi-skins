@@ -292,6 +292,7 @@
 		<param name="mask">masks/poster_r4.png</param>
 		<param name="title">$INFO[ListItem.Label]</param>
 		<param name="aspect">scale</param>
+		<param name="scalediffuse">true</param>
 		<definition>
 			<control type="image">
 				<left>0</left>
@@ -316,7 +317,7 @@
 				<top>0</top>
 				<right>0</right>
 				<bottom>0</bottom>
-				<aspectratio>$PARAM[aspect]</aspectratio>
+				<aspectratio scalediffuse="$PARAM[scalediffuse]">$PARAM[aspect]</aspectratio>
 				<fadetime>120</fadetime>
 				<texture background="true" diffuse="$PARAM[mask]">$PARAM[art]</texture>
 			</control>

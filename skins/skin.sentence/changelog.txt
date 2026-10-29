@@ -1,3 +1,6 @@
+0.9.20 (2026-10-29)
+- Hiding menu items can no longer leave Home without focus. With nothing matching and nothing to suggest, Right at the end of the sentence no longer loses a key press.
+
 0.9.19 (2026-10-28)
 - New view, rows, for films, sets, series and music videos: one row each with its picture, the title, the caption (how long, when you'd finish, what's left to watch) and two lines of the plot; the focused row is the lilac block. Portraits now also shows songs. Films and series offer six views, songs three.
 

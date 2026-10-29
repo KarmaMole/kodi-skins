@@ -3215,6 +3215,15 @@
 							<width>66</width>
 							<height>66</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>66</width>
+							<height>66</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -3245,7 +3254,7 @@
 							<top>0</top>
 							<width>66</width>
 							<height>66</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_p5]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -3291,6 +3300,15 @@
 							<width>66</width>
 							<height>66</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>66</width>
+							<height>66</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -3321,7 +3339,7 @@
 							<top>0</top>
 							<width>66</width>
 							<height>66</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_m5]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -3367,6 +3385,15 @@
 							<width>86</width>
 							<height>86</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>86</width>
+							<height>86</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -3397,7 +3424,7 @@
 							<top>0</top>
 							<width>86</width>
 							<height>86</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_p4]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -3443,6 +3470,15 @@
 							<width>86</width>
 							<height>86</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>86</width>
+							<height>86</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -3473,7 +3509,7 @@
 							<top>0</top>
 							<width>86</width>
 							<height>86</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_m4]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -3519,6 +3555,15 @@
 							<width>112</width>
 							<height>112</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>112</width>
+							<height>112</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -3549,7 +3594,7 @@
 							<top>0</top>
 							<width>112</width>
 							<height>112</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_p3]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -3595,6 +3640,15 @@
 							<width>112</width>
 							<height>112</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>112</width>
+							<height>112</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -3625,7 +3679,7 @@
 							<top>0</top>
 							<width>112</width>
 							<height>112</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_m3]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -3673,6 +3727,15 @@
 							<right>-96</right>
 							<bottom>-122</bottom>
 							<texture border="128">common/shadow_soft.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture>common/shadow_round_148.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -3680,6 +3743,15 @@
 							<width>148</width>
 							<height>148</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>148</width>
+							<height>148</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -3710,7 +3782,7 @@
 							<top>0</top>
 							<width>148</width>
 							<height>148</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_p2]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -3758,6 +3830,15 @@
 							<right>-96</right>
 							<bottom>-122</bottom>
 							<texture border="128">common/shadow_soft.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture>common/shadow_round_148.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -3765,6 +3846,15 @@
 							<width>148</width>
 							<height>148</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>148</width>
+							<height>148</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -3795,7 +3885,7 @@
 							<top>0</top>
 							<width>148</width>
 							<height>148</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_m2]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -3845,6 +3935,15 @@
 							<right>-96</right>
 							<bottom>-122</bottom>
 							<texture border="128">common/shadow_soft.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture>common/shadow_round_200.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -3852,6 +3951,15 @@
 							<width>200</width>
 							<height>200</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>200</width>
+							<height>200</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="textbox">
 							<left>12</left>
@@ -3894,7 +4002,7 @@
 							<top>0</top>
 							<width>200</width>
 							<height>200</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_p1]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -3958,6 +4066,15 @@
 							<right>-96</right>
 							<bottom>-122</bottom>
 							<texture border="128">common/shadow_soft.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture>common/shadow_round_200.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -3965,6 +4082,15 @@
 							<width>200</width>
 							<height>200</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>200</width>
+							<height>200</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="textbox">
 							<left>12</left>
@@ -4007,7 +4133,7 @@
 							<top>0</top>
 							<width>200</width>
 							<height>200</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_m1]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -4070,6 +4196,15 @@
 							<right>-96</right>
 							<bottom>-122</bottom>
 							<texture border="128">common/shadow_soft.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture>common/shadow_round_380.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -4077,6 +4212,15 @@
 							<width>380</width>
 							<height>380</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>380</width>
+							<height>380</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="textbox">
 							<left>12</left>
@@ -4119,7 +4263,7 @@
 							<top>0</top>
 							<width>380</width>
 							<height>380</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt504_p0]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -5740,7 +5884,7 @@
 							<top>-70</top>
 							<right>-96</right>
 							<bottom>-122</bottom>
-							<texture border="128">common/shadow_soft.png</texture>
+							<texture>common/shadow_round_300.png</texture>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -8284,7 +8428,7 @@
 							<top>0</top>
 							<width>60</width>
 							<height>60</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_p5]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -8343,7 +8487,7 @@
 							<top>0</top>
 							<width>60</width>
 							<height>60</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_m5]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -8402,7 +8546,7 @@
 							<top>0</top>
 							<width>78</width>
 							<height>78</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_p4]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -8461,7 +8605,7 @@
 							<top>0</top>
 							<width>78</width>
 							<height>78</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_m4]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -8522,7 +8666,7 @@
 							<top>0</top>
 							<width>100</width>
 							<height>100</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_p3]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -8583,7 +8727,7 @@
 							<top>0</top>
 							<width>100</width>
 							<height>100</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_m3]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -8631,7 +8775,7 @@
 							<top>-70</top>
 							<right>-96</right>
 							<bottom>-122</bottom>
-							<texture border="128">common/shadow_soft.png</texture>
+							<texture>common/shadow_round_132.png</texture>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -8653,7 +8797,7 @@
 							<top>0</top>
 							<width>132</width>
 							<height>132</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_p2]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -8701,7 +8845,7 @@
 							<top>-70</top>
 							<right>-96</right>
 							<bottom>-122</bottom>
-							<texture border="128">common/shadow_soft.png</texture>
+							<texture>common/shadow_round_132.png</texture>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -8723,7 +8867,7 @@
 							<top>0</top>
 							<width>132</width>
 							<height>132</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_m2]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -8771,7 +8915,7 @@
 							<top>-70</top>
 							<right>-96</right>
 							<bottom>-122</bottom>
-							<texture border="128">common/shadow_soft.png</texture>
+							<texture>common/shadow_round_176.png</texture>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -8805,7 +8949,7 @@
 							<top>0</top>
 							<width>176</width>
 							<height>176</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_p1]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -8867,7 +9011,7 @@
 							<top>-70</top>
 							<right>-96</right>
 							<bottom>-122</bottom>
-							<texture border="128">common/shadow_soft.png</texture>
+							<texture>common/shadow_round_176.png</texture>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -8901,7 +9045,7 @@
 							<top>0</top>
 							<width>176</width>
 							<height>176</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_m1]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -8962,7 +9106,7 @@
 							<top>-70</top>
 							<right>-96</right>
 							<bottom>-122</bottom>
-							<texture border="128">common/shadow_soft.png</texture>
+							<texture>common/shadow_round_300.png</texture>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -8996,7 +9140,7 @@
 							<top>0</top>
 							<width>300</width>
 							<height>300</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt9104_p0]</texture>
 							<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false">
@@ -10063,6 +10207,15 @@
 							<width>104</width>
 							<height>104</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>104</width>
+							<height>104</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -10093,7 +10246,7 @@
 							<top>0</top>
 							<width>104</width>
 							<height>104</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p5]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -10141,6 +10294,15 @@
 							<width>104</width>
 							<height>104</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>104</width>
+							<height>104</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -10171,7 +10333,7 @@
 							<top>0</top>
 							<width>104</width>
 							<height>104</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_m5]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -10221,6 +10383,15 @@
 							<width>118</width>
 							<height>118</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>118</width>
+							<height>118</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -10251,7 +10422,7 @@
 							<top>0</top>
 							<width>118</width>
 							<height>118</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p4]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -10301,6 +10472,15 @@
 							<width>118</width>
 							<height>118</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>118</width>
+							<height>118</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -10331,7 +10511,7 @@
 							<top>0</top>
 							<width>118</width>
 							<height>118</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_m4]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -10381,6 +10561,15 @@
 							<width>140</width>
 							<height>140</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>140</width>
+							<height>140</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -10411,7 +10600,7 @@
 							<top>0</top>
 							<width>140</width>
 							<height>140</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p3]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -10461,6 +10650,15 @@
 							<width>140</width>
 							<height>140</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>140</width>
+							<height>140</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<centerleft>50%</centerleft>
@@ -10491,7 +10689,7 @@
 							<top>0</top>
 							<width>140</width>
 							<height>140</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_m3]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -10541,6 +10739,15 @@
 							<right>-96</right>
 							<bottom>-122</bottom>
 							<texture border="128">common/shadow_soft.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture>common/shadow_round_168.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -10548,6 +10755,15 @@
 							<width>168</width>
 							<height>168</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>168</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="textbox">
 							<left>12</left>
@@ -10602,7 +10818,7 @@
 							<top>0</top>
 							<width>168</width>
 							<height>168</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p2]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -10666,6 +10882,15 @@
 							<right>-96</right>
 							<bottom>-122</bottom>
 							<texture border="128">common/shadow_soft.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture>common/shadow_round_168.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -10673,6 +10898,15 @@
 							<width>168</width>
 							<height>168</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>168</width>
+							<height>168</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="textbox">
 							<left>12</left>
@@ -10727,7 +10961,7 @@
 							<top>0</top>
 							<width>168</width>
 							<height>168</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_m2]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -10791,6 +11025,15 @@
 							<right>-96</right>
 							<bottom>-122</bottom>
 							<texture border="128">common/shadow_soft.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture>common/shadow_round_210.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -10798,6 +11041,15 @@
 							<width>210</width>
 							<height>210</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>210</width>
+							<height>210</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="textbox">
 							<left>12</left>
@@ -10852,7 +11104,7 @@
 							<top>0</top>
 							<width>210</width>
 							<height>210</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p1]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -10916,6 +11168,15 @@
 							<right>-96</right>
 							<bottom>-122</bottom>
 							<texture border="128">common/shadow_soft.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture>common/shadow_round_210.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -10923,6 +11184,15 @@
 							<width>210</width>
 							<height>210</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>210</width>
+							<height>210</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="textbox">
 							<left>12</left>
@@ -10977,7 +11247,7 @@
 							<top>0</top>
 							<width>210</width>
 							<height>210</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_m1]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -11040,6 +11310,15 @@
 							<right>-96</right>
 							<bottom>-122</bottom>
 							<texture border="128">common/shadow_soft.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>-96</left>
+							<top>-70</top>
+							<right>-96</right>
+							<bottom>-122</bottom>
+							<texture>common/shadow_round_330.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="image">
 							<left>0</left>
@@ -11047,6 +11326,15 @@
 							<width>330</width>
 							<height>330</height>
 							<texture colordiffuse="plate" diffuse="masks/square_r4.png">common/white.png</texture>
+							<visible>!Container.Content(artists)</visible>
+						</control>
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>330</width>
+							<height>330</height>
+							<texture colordiffuse="plate" diffuse="masks/circle.png">common/white.png</texture>
+							<visible>Container.Content(artists)</visible>
 						</control>
 						<control type="textbox">
 							<left>12</left>
@@ -11101,7 +11389,7 @@
 							<top>0</top>
 							<width>330</width>
 							<height>330</height>
-							<aspectratio>scale</aspectratio>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 							<fadetime>100</fadetime>
 							<texture background="true" diffuse="masks/circle.png">$VAR[ArcArt507_p0]</texture>
 							<visible>Container.Content(artists)</visible>
@@ -12358,8 +12646,8 @@
 					<height>90</height>
 					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><texture colordiffuse="panel">btn/disc_120.png</texture></control>
 					<control type="image"><left>22</left><top>22</top><width>45</width><height>45</height><texture colordiffuse="text_dim">icons/person.png</texture></control>
-					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(4).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(4).DBType,movie)</visible></control>
-					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(4).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(4).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(4).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(4).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(4).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(4).DBType,movie)</visible></control>
 					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><texture colordiffuse="border_button">btn/ring_120.png</texture></control>
 				</control>
 			</control>
@@ -12397,8 +12685,8 @@
 					<height>90</height>
 					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><texture colordiffuse="panel">btn/disc_120.png</texture></control>
 					<control type="image"><left>22</left><top>22</top><width>45</width><height>45</height><texture colordiffuse="text_dim">icons/person.png</texture></control>
-					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(-1).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(-1).DBType,movie)</visible></control>
-					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(-1).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(-1).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(-1).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(-1).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(-1).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(-1).DBType,movie)</visible></control>
 					<control type="image"><left>0</left><top>0</top><width>90</width><height>90</height><texture colordiffuse="border_button">btn/ring_120.png</texture></control>
 				</control>
 			</control>
@@ -12435,8 +12723,8 @@
 					<height>104</height>
 					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><texture colordiffuse="panel">btn/disc_120.png</texture></control>
 					<control type="image"><left>26</left><top>26</top><width>52</width><height>52</height><texture colordiffuse="text_dim">icons/person.png</texture></control>
-					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(3).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(3).DBType,movie)</visible></control>
-					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(3).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(3).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(3).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(3).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(3).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(3).DBType,movie)</visible></control>
 					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><texture colordiffuse="border_button">btn/ring_120.png</texture></control>
 				</control>
 				<control type="label">
@@ -12483,8 +12771,8 @@
 					<height>104</height>
 					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><texture colordiffuse="panel">btn/disc_120.png</texture></control>
 					<control type="image"><left>26</left><top>26</top><width>52</width><height>52</height><texture colordiffuse="text_dim">icons/person.png</texture></control>
-					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(2).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(2).DBType,movie)</visible></control>
-					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(2).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(2).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(2).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(2).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(2).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(2).DBType,movie)</visible></control>
 					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><texture colordiffuse="border_button">btn/ring_120.png</texture></control>
 				</control>
 				<control type="label">
@@ -12531,8 +12819,8 @@
 					<height>104</height>
 					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><texture colordiffuse="panel">btn/disc_120.png</texture></control>
 					<control type="image"><left>26</left><top>26</top><width>52</width><height>52</height><texture colordiffuse="text_dim">icons/person.png</texture></control>
-					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(1).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(1).DBType,movie)</visible></control>
-					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(1).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(1).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(1).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(1).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(1).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(1).DBType,movie)</visible></control>
 					<control type="image"><left>0</left><top>0</top><width>104</width><height>104</height><texture colordiffuse="border_button">btn/ring_120.png</texture></control>
 				</control>
 				<control type="label">
@@ -12579,8 +12867,8 @@
 					<height>120</height>
 					<control type="image"><left>0</left><top>0</top><width>120</width><height>120</height><texture colordiffuse="panel">btn/disc_120.png</texture></control>
 					<control type="image"><left>30</left><top>30</top><width>60</width><height>60</height><texture colordiffuse="text_dim">icons/person.png</texture></control>
-					<control type="image"><left>0</left><top>0</top><width>120</width><height>120</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(0).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(0).DBType,movie)</visible></control>
-					<control type="image"><left>0</left><top>0</top><width>120</width><height>120</height><aspectratio>scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(0).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(0).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>120</width><height>120</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(0).Art(thumb)]</texture><visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap(0).DBType,movie)</visible></control>
+					<control type="image"><left>0</left><top>0</top><width>120</width><height>120</height><aspectratio scalediffuse="false">scale</aspectratio><texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap(0).Art(poster)]</texture><visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap(0).DBType,movie)</visible></control>
 					<control type="image"><left>0</left><top>0</top><width>120</width><height>120</height><texture colordiffuse="border_button">btn/ring_120.png</texture></control>
 					<control type="image"><left>-11</left><top>-11</top><width>142</width><height>142</height><texture colordiffuse="text_primary">btn/halo_120.png</texture><visible>Control.HasFocus($PARAM[id])</visible></control>
 				</control>

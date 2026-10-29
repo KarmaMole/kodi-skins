@@ -1,3 +1,6 @@
+0.9.19 (2026-10-29)
+- Hiding menu items can no longer leave Home without focus. Home's fallback focus is now Settings, which never hides; nothing changes while every item is shown.
+
 0.9.18 (2026-10-28)
 - More views in every library section: films 6, series 7, sets 6, seasons 5, episodes 4, genres / years / people 3, artists, albums and songs 3 each. Every section still opens in the view it opened in before.
 - New views: The print room (landscape prints in a grid, each with its small label under it; films, sets, series, seasons, episodes, music videos and genres / years / people as name cards) and Track list (songs as a printed programme: No., title, artist, album, year, time).

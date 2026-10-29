@@ -1,3 +1,6 @@
+0.9.18 (2026-10-29)
+- Hiding menu items can no longer leave Home without focus. Hiding TV shows (with an empty film shelf) left Home with nothing selected, so no key worked; Home now always opens on something you can move from, and if it ever has nothing selected it moves to Settings.
+
 0.9.17 (2026-10-28)
 - Stills now also lists films, series, sets, seasons and music videos: a wide picture per row with the year, runtime or seasons, the title and two lines of plot (posters sit whole on a dark tile). Films and series now have six views to choose from.
 

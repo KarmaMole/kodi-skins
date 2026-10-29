@@ -185,6 +185,44 @@ def shadow():
     d.rectangle([96, 96, S - 97, S - 97], fill=(0, 0, 0, 180))
     img = img.filter(ImageFilter.GaussianBlur(30))
     save(img, "common/shadow_soft.png")
+    round_shadows(img)
+
+
+# 0.9.20: round art (artist discs, search artists) gets a round shadow. Diameters = the arc slots that carry a
+# shadow (|k| <= 2) in Arc_LibrarySquares (libsq), Arc_Search9104 (homesq) and Arc_HorizonSquares (HORIZON_SQ);
+# make_arc.py refuses to write a round shadow whose texture is missing here.
+ROUND_SHADOW_D = (132, 148, 168, 176, 200, 210, 300, 330, 380)
+
+
+def round_shadows(square):
+    """Same box as the square 9-slice (art rect + 96 each side, drawn at left/right -96, top -70, bottom -122 =
+    26 px lower), same falloff: the alpha at distance s from the box's outer edge is the square texture's
+    mid-row alpha at column s (its edge profile), so softness, offset and opacity match; only the shape is a disc.
+    Drawn at half size (the falloff is smooth) to keep Shield texture memory small."""
+    prof = [square.getpixel((x, 144))[3] for x in range(145)]  # 0..144: edge -> centre (plateau beyond)
+
+    def alpha(s):
+        if s <= 0:
+            return 0.0
+        if s >= 144:
+            return float(prof[144])
+        i = int(s)
+        f = s - i
+        return prof[i] * (1 - f) + prof[i + 1] * f
+
+    for d in ROUND_SHADOW_D:
+        box = d + 192
+        n = box // 2
+        img = Image.new("RGBA", (n, n), (0, 0, 0, 0))
+        px = img.load()
+        c = box / 2
+        for y in range(n):
+            for x in range(n):
+                r = math.hypot((x + 0.5) * 2 - c, (y + 0.5) * 2 - c)
+                a = int(round(alpha(96 + d / 2 - r)))
+                if a:
+                    px[x, y] = (0, 0, 0, a)
+        save(img, f"common/shadow_round_{d}.png")
 
 
 # ------------------------------------------------------------------ focus

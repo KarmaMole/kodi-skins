@@ -130,6 +130,7 @@
 				<include content="Orbit_Artwork">
 					<param name="art" value="$VAR[Music_InfoArtThumb]"/>
 					<param name="mask" value="masks/circle.png"/>
+					<param name="scalediffuse" value="false"/>
 					<param name="title" value="$VAR[Music_InfoTitle]"/>
 				</include>
 				<control type="image">

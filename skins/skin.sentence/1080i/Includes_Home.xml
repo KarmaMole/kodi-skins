@@ -386,7 +386,9 @@
 		<value>203</value>
 	</variable>
 	<variable name="Home_AfterSeen">
-		<value condition="$EXP[Home_Empty]">208</value>
+		<!-- 0.9.20: with no matches and nothing to suggest, 208 is hidden: SetFocus on it dropped focus (one key lost) -->
+		<value condition="$EXP[Home_Empty] + $EXP[Sen_CanSuggest]">208</value>
+		<value condition="$EXP[Home_Empty]">205</value>
 		<value>206</value>
 	</variable>
 

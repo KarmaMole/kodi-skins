@@ -16,7 +16,11 @@
 	Default focus on open: the item of the section that was active when Home was left.
 -->
 <window>
-	<defaultcontrol always="true">9001</defaultcontrol>
+	<!-- Hiding menu items can no longer leave Home without focus: Kodi falls back to the default control whenever
+	     nothing has focus, so it is the gear (System menu) (9006), which never hides (it was 9001, hidden with the films item).
+	     The first onload focuses 9001 while it is shown, exactly as the old default did; the onloads below override it. -->
+	<defaultcontrol always="true">9006</defaultcontrol>
+	<onload condition="!Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies)">SetFocus(9001)</onload>
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>bg</backgroundcolor>
 	<!-- re-focus the section that was active when Home was left -->

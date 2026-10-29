@@ -1,3 +1,6 @@
+1.0.19 (2026-10-29)
+- Hiding menu items can no longer leave Home without focus. Home's fallback focus is now the gear, which never hides; nothing changes while every item is shown.
+
 1.0.18 (2026-10-28)
 - More views in every library section: films 6, TV series 7, seasons 7, episodes 4, genres / years / people 3, artists, albums and songs 3 each. Every section still opens in the view it opened in before.
 - New views: Stills (a wide grid of stills, fanart and name cards, for films, sets, series, seasons, episodes, music videos and genres / years / people) and Tracklist (songs as a full-width table: No., title, artist, album, year, time).

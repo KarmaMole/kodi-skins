@@ -29,6 +29,8 @@ import math
 import re
 from pathlib import Path
 
+from make_textures import ROUND_SHADOW_D  # 0.9.20: round shadow sizes
+
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "1080i" / "Includes_Arc.xml"
 
@@ -158,14 +160,34 @@ def poster_arc(name, slots, art_var, mask, desc, shadows=2, lens_extra=True, cir
         if abs(r) > 0.01:
             L.append(f'{ind}\t\t<animation effect="rotate" end="{f1(r)}" center="auto" time="0" condition="true">Conditional</animation>')
         i2 = ind + "\t\t"
+        # 0.9.20: round art (circle mask, or circle_cond = artists) sits on a round shadow and a round plate;
+        # square / poster art keeps the 9-slice shadow and its own mask
+        round_always = mask == "masks/circle.png"
+        shapes = ([(mask, None)] if not circle_cond or round_always
+                  else [(mask, f"!{circle_cond}"), ("masks/circle.png", circle_cond)])
         if abs(k) <= shadows:
-            L += [f'{i2}<control type="image">', f"{i2}\t<left>-96</left>", f"{i2}\t<top>-70</top>",
-                  f"{i2}\t<right>-96</right>", f"{i2}\t<bottom>-122</bottom>",
-                  f'{i2}\t<texture border="128">common/shadow_soft.png</texture>', f"{i2}</control>"]
+            for msk, cond in shapes:
+                if msk == "masks/circle.png":
+                    if w != h or w not in ROUND_SHADOW_D:
+                        raise SystemExit(f"{name} slot {k}: no common/shadow_round_{w}.png (make_textures.ROUND_SHADOW_D)")
+                    tex_sh = f"common/shadow_round_{w}.png"
+                else:
+                    tex_sh = None
+                L += [f'{i2}<control type="image">', f"{i2}\t<left>-96</left>", f"{i2}\t<top>-70</top>",
+                      f"{i2}\t<right>-96</right>", f"{i2}\t<bottom>-122</bottom>",
+                      f"{i2}\t<texture>{tex_sh}</texture>" if tex_sh else
+                      f'{i2}\t<texture border="128">common/shadow_soft.png</texture>']
+                if cond:
+                    L.append(f"{i2}\t<visible>{cond}</visible>")
+                L.append(f"{i2}</control>")
         # plate + fallback title
-        L += [f'{i2}<control type="image">', f"{i2}\t<left>0</left>", f"{i2}\t<top>0</top>",
-              f"{i2}\t<width>{w}</width>", f"{i2}\t<height>{h}</height>",
-              f'{i2}\t<texture colordiffuse="{'panel' if icon_mode else 'plate'}" diffuse="{mask}">common/white.png</texture>', f"{i2}</control>"]
+        for msk, cond in shapes:
+            L += [f'{i2}<control type="image">', f"{i2}\t<left>0</left>", f"{i2}\t<top>0</top>",
+                  f"{i2}\t<width>{w}</width>", f"{i2}\t<height>{h}</height>",
+                  f'{i2}\t<texture colordiffuse="{'panel' if icon_mode else 'plate'}" diffuse="{msk}">common/white.png</texture>']
+            if cond:
+                L.append(f"{i2}\t<visible>{cond}</visible>")
+            L.append(f"{i2}</control>")
         if h >= 150 and not icon_mode:
             L += [f'{i2}<control type="textbox">', f"{i2}\t<left>12</left>", f"{i2}\t<top>12</top>",
                   f"{i2}\t<width>{w - 24}</width>", f"{i2}\t<height>{h - 24}</height>",
@@ -216,7 +238,10 @@ def poster_arc(name, slots, art_var, mask, desc, shadows=2, lens_extra=True, cir
         for msk, cond in (([mask, None],) if not circle_cond else ((mask, f"!{circle_cond}"), ("masks/circle.png", circle_cond))):
             L += [f'{i2}<control type="image">', f"{i2}\t<left>0</left>", f"{i2}\t<top>0</top>",
                   f"{i2}\t<width>{w}</width>", f"{i2}\t<height>{h}</height>",
-                  f"{i2}\t<aspectratio>scale</aspectratio>", f"{i2}\t<fadetime>100</fadetime>",
+                  # 0.9.20: a circle mask stays on the control rect (LESSONS: scalediffuse), so a non-square thumb
+                  # is still a disc over its round shadow, not an ellipse cut flat by the control
+                  f"{i2}\t<aspectratio{' scalediffuse=\"false\"' if msk == 'masks/circle.png' else ''}>scale</aspectratio>",
+                  f"{i2}\t<fadetime>100</fadetime>",
                   f'{i2}\t<texture background="true" diffuse="{msk}">{tex}</texture>']
             if cond:
                 L.append(f"{i2}\t<visible>{cond}</visible>")
@@ -530,14 +555,15 @@ def cast_arc():
             L.append(f'{i2}<animation type="Conditional" condition="!Container($PARAM[id]).OnNext" reversible="false"><effect type="fade" start="100" end="0" time="$PARAM[t]"/></animation>' if k == -1 else
                      f'{i2}<animation type="Conditional" condition="!Container($PARAM[id]).OnPrevious" reversible="false"><effect type="fade" start="100" end="0" time="$PARAM[t]"/></animation>')
         r = d // 2
+        # 0.9.20: scalediffuse false keeps the circle on the control: 2:3 portraits / posters were cut flat top and bottom
         L += [f'{i2}<control type="group">', f"{i2}	<left>{x - r}</left>", f"{i2}	<top>{y - r}</top>",
               f"{i2}	<width>{d}</width>", f"{i2}	<height>{d}</height>",
               f'{i2}	<control type="image"><left>0</left><top>0</top><width>{d}</width><height>{d}</height><texture colordiffuse="panel">btn/disc_120.png</texture></control>',
               f'{i2}	<control type="image"><left>{d // 4}</left><top>{d // 4}</top><width>{d // 2}</width><height>{d // 2}</height><texture colordiffuse="text_dim">icons/person.png</texture></control>',
-              f'{i2}	<control type="image"><left>0</left><top>0</top><width>{d}</width><height>{d}</height><aspectratio>scale</aspectratio>'
+              f'{i2}	<control type="image"><left>0</left><top>0</top><width>{d}</width><height>{d}</height><aspectratio scalediffuse="false">scale</aspectratio>'
               f'<texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap({k}).Art(thumb)]</texture>'
               f'<visible>!String.IsEqual(Container($PARAM[id]).ListItemNoWrap({k}).DBType,movie)</visible></control>',
-              f'{i2}	<control type="image"><left>0</left><top>0</top><width>{d}</width><height>{d}</height><aspectratio>scale</aspectratio>'
+              f'{i2}	<control type="image"><left>0</left><top>0</top><width>{d}</width><height>{d}</height><aspectratio scalediffuse="false">scale</aspectratio>'
               f'<texture background="true" diffuse="masks/circle.png">$INFO[Container($PARAM[id]).ListItemNoWrap({k}).Art(poster)]</texture>'
               f'<visible>String.IsEqual(Container($PARAM[id]).ListItemNoWrap({k}).DBType,movie)</visible></control>',
               f'{i2}	<control type="image"><left>0</left><top>0</top><width>{d}</width><height>{d}</height><texture colordiffuse="border_button">btn/ring_120.png</texture></control>']

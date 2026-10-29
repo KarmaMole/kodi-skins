@@ -5,7 +5,11 @@
 	Home is KEEP_IN_MEMORY: onload runs every time Home is shown.
 -->
 <window>
-	<defaultcontrol always="true">9001</defaultcontrol>
+	<!-- Hiding menu items can no longer leave Home without focus: Kodi falls back to the default control whenever
+	     nothing has focus, so it is Settings (9005), which never hides (it was 9001, hidden with the films item).
+	     The first onload focuses 9001 while it is shown, exactly as the old default did; the onloads below override it. -->
+	<defaultcontrol always="true">9005</defaultcontrol>
+	<onload condition="!Skin.HasSetting(HideMenu.Movies)">SetFocus(9001)</onload>
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>paper</backgroundcolor>
 	<onload condition="String.IsEqual(Window(Home).Property(passepartout.section),series) + !Skin.HasSetting(HideMenu.TVShows)">SetFocus(9002)</onload>

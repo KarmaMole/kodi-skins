@@ -1,3 +1,7 @@
+0.9.22 (2026-10-30)
+- Counts read "1 season", "1 episode", "1 film" instead of the plural.
+- Smaller download: removed images the skin never used.
+
 0.9.21 (2026-10-30)
 - Empty pages in the Index, Wall, Episodes and the music List, Grid and Big album views no longer print "Nothing here" over the Back item or the Next up row.
 - The Big album view no longer draws a dark square behind the Back tile.

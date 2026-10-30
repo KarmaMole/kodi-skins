@@ -37,9 +37,9 @@
 	<!-- Sheet (507) caption band -->
 	<variable name="View_SheetMeta">
 		<value condition="Container(507).ListItem.IsParentFolder">Up one level</value>
-		<value condition="String.IsEqual(Container(507).ListItem.DBType,tvshow)">$INFO[Container(507).ListItem.Year]$INFO[Container(507).ListItem.Property(TotalSeasons),  ·  , seasons]$INFO[Container(507).ListItem.Property(UnWatchedEpisodes),  ·  , to watch]</value>
-		<value condition="String.IsEqual(Container(507).ListItem.DBType,season)">$INFO[Container(507).ListItem.Property(TotalEpisodes),, episodes]$INFO[Container(507).ListItem.Property(UnWatchedEpisodes),  ·  , to watch]</value>
-		<value condition="String.IsEqual(Container(507).ListItem.DBType,set)">$INFO[Container(507).ListItem.Property(Total),, films]$INFO[Container(507).ListItem.Property(Watched),  ·  , watched]</value>
+		<value condition="String.IsEqual(Container(507).ListItem.DBType,tvshow)">$INFO[Container(507).ListItem.Year]$VAR[PL_Container_507_TotalSeasons_Season]$INFO[Container(507).ListItem.Property(UnWatchedEpisodes),  ·  , to watch]</value>
+		<value condition="String.IsEqual(Container(507).ListItem.DBType,season)">$VAR[PL_Container_507_TotalEpisodes_Episode]$INFO[Container(507).ListItem.Property(UnWatchedEpisodes),  ·  , to watch]</value>
+		<value condition="String.IsEqual(Container(507).ListItem.DBType,set)">$VAR[PL_Container_507_Total_Film]$INFO[Container(507).ListItem.Property(Watched),  ·  , watched]</value>
 		<value condition="!String.IsEmpty(Container(507).ListItem.Year)">$INFO[Container(507).ListItem.Year]$INFO[Container(507).ListItem.Duration(mins),  ·  , min]$INFO[Container(507).ListItem.Rating,  ·  ,]</value>
 		<value>$INFO[Container(507).ListItem.Label2]</value>
 	</variable>
@@ -99,8 +99,8 @@
 		<value condition="ListItem.IsParentFolder">Up one level</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)">$INFO[ListItem.Year,,  ·  ]$VAR[Rows_Seasons]  ·  $INFO[ListItem.Property(UnWatchedEpisodes),, to watch]$INFO[ListItem.Genre,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year,,  ·  ]$VAR[Rows_Seasons]  ·  all seen$INFO[ListItem.Genre,  ·  ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Property(Watched),  ·  , watched]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$VAR[PL_Total_Film]$INFO[ListItem.Property(Watched),  ·  , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[PL_Total_Film]</value>
 		<value condition="!String.IsEmpty(ListItem.Year) + Integer.IsGreater(ListItem.Duration(mins),0)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),  ·  , min]$INFO[ListItem.Rating,  ·  ,]$INFO[ListItem.Genre,  ·  ,]</value>
 		<value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]$INFO[ListItem.Genre,  ·  ,]</value>
 		<value>$INFO[ListItem.Label2]</value>

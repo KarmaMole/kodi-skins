@@ -1005,4 +1005,9 @@
 	<include name="Dlg_Tex_Key_Round">
 		<include>Dlg_Tex_Key_Square</include>
 	</include>
+	<!-- Count words: "1 season", not "1 seasons" (2026-10-30) -->
+	<variable name="Subs_ResultCount">
+		<value condition="Integer.IsEqual(Container(120).NumItems,1)">1 RESULT</value>
+		<value>$INFO[Container(120).NumItems,, RESULTS]</value>
+	</variable>
 </includes>

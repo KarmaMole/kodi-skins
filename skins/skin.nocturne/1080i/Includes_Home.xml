@@ -2352,7 +2352,7 @@
 			<param name="top" value="499"/>
 			<param name="width" value="368"/>
 			<param name="title" value="$INFO[Container(9211).ListItemAbsolute(0).Title]"/>
-			<param name="meta" value="$INFO[Container(9211).ListItemAbsolute(0).Year]$INFO[Container(9211).ListItemAbsolute(0).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]"/>
+			<param name="meta" value="$INFO[Container(9211).ListItemAbsolute(0).Year]$VAR[Home_Seasons_9211_0]"/>
 			<param name="visible" value="!String.IsEmpty(Container(9211).ListItemAbsolute(0).Label) + [[String.IsEqual(Window(Home).Property(nocturne.slot),a1) + !$EXP[Home_Wandering]] | [$EXP[Home_Wandering] + Integer.IsEqual(Container(9190).CurrentItem,4)]]"/>
 		</include>
 		<include content="Noc_Plaque2">
@@ -2360,7 +2360,7 @@
 			<param name="top" value="881"/>
 			<param name="width" value="260"/>
 			<param name="title" value="$INFO[Container(9211).ListItemAbsolute(1).Title]"/>
-			<param name="meta" value="$INFO[Container(9211).ListItemAbsolute(1).Year]$INFO[Container(9211).ListItemAbsolute(1).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]"/>
+			<param name="meta" value="$INFO[Container(9211).ListItemAbsolute(1).Year]$VAR[Home_Seasons_9211_1]"/>
 			<param name="visible" value="!String.IsEmpty(Container(9211).ListItemAbsolute(1).Label) + [[String.IsEqual(Window(Home).Property(nocturne.slot),a2) + !$EXP[Home_Wandering]] | [$EXP[Home_Wandering] + Integer.IsEqual(Container(9190).CurrentItem,11)]]"/>
 		</include>
 		<include content="Noc_Plaque2">
@@ -2368,7 +2368,7 @@
 			<param name="top" value="881"/>
 			<param name="width" value="260"/>
 			<param name="title" value="$INFO[Container(9211).ListItemAbsolute(2).Title]"/>
-			<param name="meta" value="$INFO[Container(9211).ListItemAbsolute(2).Year]$INFO[Container(9211).ListItemAbsolute(2).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]"/>
+			<param name="meta" value="$INFO[Container(9211).ListItemAbsolute(2).Year]$VAR[Home_Seasons_9211_2]"/>
 			<param name="visible" value="!String.IsEmpty(Container(9211).ListItemAbsolute(2).Label) + [[String.IsEqual(Window(Home).Property(nocturne.slot),a3) + !$EXP[Home_Wandering]] | [$EXP[Home_Wandering] + Integer.IsEqual(Container(9190).CurrentItem,8)]]"/>
 		</include>
 		<include content="Noc_Plaque2">
@@ -2376,7 +2376,7 @@
 			<param name="top" value="571"/>
 			<param name="width" value="248"/>
 			<param name="title" value="$INFO[Container(9212).ListItemAbsolute(1).Title]"/>
-			<param name="meta" value="$INFO[Container(9212).ListItemAbsolute(1).Year]$INFO[Container(9212).ListItemAbsolute(1).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]"/>
+			<param name="meta" value="$INFO[Container(9212).ListItemAbsolute(1).Year]$VAR[Home_Seasons_9212_1]"/>
 			<param name="visible" value="!String.IsEmpty(Container(9212).ListItemAbsolute(1).Label) + [[String.IsEqual(Window(Home).Property(nocturne.slot),b1) + !$EXP[Home_Wandering]] | [$EXP[Home_Wandering] + Integer.IsEqual(Container(9190).CurrentItem,3)]]"/>
 		</include>
 		<include content="Noc_Plaque2">
@@ -2384,14 +2384,14 @@
 			<param name="top" value="985"/>
 			<param name="width" value="248"/>
 			<param name="title" value="$INFO[Container(9212).ListItemAbsolute(2).Title]"/>
-			<param name="meta" value="$INFO[Container(9212).ListItemAbsolute(2).Year]$INFO[Container(9212).ListItemAbsolute(2).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]"/>
+			<param name="meta" value="$INFO[Container(9212).ListItemAbsolute(2).Year]$VAR[Home_Seasons_9212_2]"/>
 			<param name="visible" value="!String.IsEmpty(Container(9212).ListItemAbsolute(2).Label) + [[String.IsEqual(Window(Home).Property(nocturne.slot),b2) + !$EXP[Home_Wandering]] | [$EXP[Home_Wandering] + Integer.IsEqual(Container(9190).CurrentItem,7)]]"/>
 		</include>
 		<include content="Noc_Plaque">
 			<param name="left" value="330"/>
 			<param name="top" value="826"/>
 			<param name="title" value="$INFO[Container(9212).ListItemAbsolute(0).Title]"/>
-			<param name="meta" value="$INFO[Container(9212).ListItemAbsolute(0).Year]$INFO[Container(9212).ListItemAbsolute(0).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]"/>
+			<param name="meta" value="$INFO[Container(9212).ListItemAbsolute(0).Year]$VAR[Home_Seasons_9212_0]"/>
 			<param name="visible" value="!String.IsEmpty(Container(9212).ListItemAbsolute(0).Label) + [[String.IsEqual(Window(Home).Property(nocturne.slot),b3) + !$EXP[Home_Wandering]] | [$EXP[Home_Wandering] + Integer.IsEqual(Container(9190).CurrentItem,1)]]"/>
 		</include>
 		<include content="Noc_Plaque2">
@@ -2399,7 +2399,7 @@
 			<param name="top" value="571"/>
 			<param name="width" value="248"/>
 			<param name="title" value="$INFO[Container(9212).ListItemAbsolute(3).Title]"/>
-			<param name="meta" value="$INFO[Container(9212).ListItemAbsolute(3).Year]$INFO[Container(9212).ListItemAbsolute(3).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]"/>
+			<param name="meta" value="$INFO[Container(9212).ListItemAbsolute(3).Year]$VAR[Home_Seasons_9212_3]"/>
 			<param name="visible" value="!String.IsEmpty(Container(9212).ListItemAbsolute(3).Label) + [[String.IsEqual(Window(Home).Property(nocturne.slot),b4) + !$EXP[Home_Wandering]] | [$EXP[Home_Wandering] + Integer.IsEqual(Container(9190).CurrentItem,9)]]"/>
 		</include>
 		<include content="Noc_Plaque2">
@@ -2407,7 +2407,7 @@
 			<param name="top" value="985"/>
 			<param name="width" value="248"/>
 			<param name="title" value="$INFO[Container(9212).ListItemAbsolute(4).Title]"/>
-			<param name="meta" value="$INFO[Container(9212).ListItemAbsolute(4).Year]$INFO[Container(9212).ListItemAbsolute(4).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]"/>
+			<param name="meta" value="$INFO[Container(9212).ListItemAbsolute(4).Year]$VAR[Home_Seasons_9212_4]"/>
 			<param name="visible" value="!String.IsEmpty(Container(9212).ListItemAbsolute(4).Label) + [[String.IsEqual(Window(Home).Property(nocturne.slot),b5) + !$EXP[Home_Wandering]] | [$EXP[Home_Wandering] + Integer.IsEqual(Container(9190).CurrentItem,5)]]"/>
 		</include>
 		<include content="Noc_Plaque2">
@@ -2989,4 +2989,36 @@
 		</include>
 	</control>
 	</include>
+	<variable name="Home_Seasons_9211_0">
+		<value condition="Integer.IsEqual(Container(9211).ListItemAbsolute(0).Property(TotalSeasons),1)">  ·  1 $LOCALIZE[31225]</value>
+		<value>$INFO[Container(9211).ListItemAbsolute(0).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]</value>
+	</variable>
+	<variable name="Home_Seasons_9211_1">
+		<value condition="Integer.IsEqual(Container(9211).ListItemAbsolute(1).Property(TotalSeasons),1)">  ·  1 $LOCALIZE[31225]</value>
+		<value>$INFO[Container(9211).ListItemAbsolute(1).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]</value>
+	</variable>
+	<variable name="Home_Seasons_9211_2">
+		<value condition="Integer.IsEqual(Container(9211).ListItemAbsolute(2).Property(TotalSeasons),1)">  ·  1 $LOCALIZE[31225]</value>
+		<value>$INFO[Container(9211).ListItemAbsolute(2).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]</value>
+	</variable>
+	<variable name="Home_Seasons_9212_0">
+		<value condition="Integer.IsEqual(Container(9212).ListItemAbsolute(0).Property(TotalSeasons),1)">  ·  1 $LOCALIZE[31225]</value>
+		<value>$INFO[Container(9212).ListItemAbsolute(0).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]</value>
+	</variable>
+	<variable name="Home_Seasons_9212_1">
+		<value condition="Integer.IsEqual(Container(9212).ListItemAbsolute(1).Property(TotalSeasons),1)">  ·  1 $LOCALIZE[31225]</value>
+		<value>$INFO[Container(9212).ListItemAbsolute(1).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]</value>
+	</variable>
+	<variable name="Home_Seasons_9212_2">
+		<value condition="Integer.IsEqual(Container(9212).ListItemAbsolute(2).Property(TotalSeasons),1)">  ·  1 $LOCALIZE[31225]</value>
+		<value>$INFO[Container(9212).ListItemAbsolute(2).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]</value>
+	</variable>
+	<variable name="Home_Seasons_9212_3">
+		<value condition="Integer.IsEqual(Container(9212).ListItemAbsolute(3).Property(TotalSeasons),1)">  ·  1 $LOCALIZE[31225]</value>
+		<value>$INFO[Container(9212).ListItemAbsolute(3).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]</value>
+	</variable>
+	<variable name="Home_Seasons_9212_4">
+		<value condition="Integer.IsEqual(Container(9212).ListItemAbsolute(4).Property(TotalSeasons),1)">  ·  1 $LOCALIZE[31225]</value>
+		<value>$INFO[Container(9212).ListItemAbsolute(4).Property(TotalSeasons),  ·  , $LOCALIZE[31224]]</value>
+	</variable>
 </includes>

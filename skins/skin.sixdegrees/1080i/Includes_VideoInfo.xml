@@ -143,7 +143,9 @@
 	<variable name="St_Caption">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">Station · $INFO[ListItem.TVShowTitle] · $INFO[ListItem.Season,S,]$INFO[ListItem.Episode, E,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">Station · $INFO[ListItem.TVShowTitle]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsEqual(ListItem.Property(Total),1)">Collection · 1 film</value>
 		<value condition="String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(ListItem.Property(Total))">Collection$INFO[ListItem.Property(Total), · , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Window.IsVisible(movieinformation) + Integer.IsEqual(Container(50).NumItems,1)">Collection · 1 film</value>
 		<value condition="String.IsEqual(ListItem.DBType,set) + Window.IsVisible(movieinformation)">Collection$INFO[Container(50).NumItems, · , films]</value>
 		<value condition="String.IsEqual(ListItem.DBType,set)">Collection</value>
 		<value>Station$INFO[ListItem.Year, · ,] · $VAR[St_GenreCaps]</value>

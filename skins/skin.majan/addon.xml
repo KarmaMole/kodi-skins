@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.majan" version="1.0.21" name="Majan" provider-name="KarmaMole">
+<addon id="skin.majan" version="1.0.22" name="Majan" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#majan</website>
-		<news>v1.0.21 - Music: an empty folder no longer prints "Nothing here" on top of its Back row.</news>
+		<news>v1.0.22 - Counts read "1 season", "1 film", "1 result" instead of the plural. Smaller download: removed images the skin never used.&#10;v1.0.21 - Music: an empty folder no longer prints "Nothing here" on top of its Back row.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

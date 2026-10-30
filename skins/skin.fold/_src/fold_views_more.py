@@ -801,9 +801,9 @@ def variables():
 	</variable>
 	<variable name="Prints_Meta">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Season,S,]$INFO[ListItem.Episode, · E,]$INFO[ListItem.Duration(mins), · , min]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Property(TotalSeasons), · , seasons]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes), · , watched]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Property(Watched), · , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[Fold_N_TotalSeasons_seasons2]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[Fold_N_TotalEpisodes_episodes2]$INFO[ListItem.Property(WatchedEpisodes), · , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[Fold_N_Total_films4]$INFO[ListItem.Property(Watched), · , watched]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins), · , min]</value>
 		<value>$INFO[ListItem.Label2]</value>
 	</variable>"""

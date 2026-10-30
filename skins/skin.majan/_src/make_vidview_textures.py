@@ -44,6 +44,8 @@ def main() -> None:
         "dim_ahead.png": dim(round(255 * 0.20)),
     }
     for name, img in outputs.items():
+        if name == "underline.png":
+            continue  # no XML names it (removed from media/ 2026-10-30)
         out = MEDIA / name
         img.save(out, optimize=True)
         print(f"wrote {out}")

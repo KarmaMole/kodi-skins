@@ -52,9 +52,9 @@
 	<variable name="SDV_Facts">
 		<value condition="ListItem.IsParentFolder">PARENT FOLDER · OK GOES UP ONE LEVEL</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.TVShowTitle,, · ]$INFO[ListItem.Premiered]$INFO[ListItem.Duration(mins), · , min]$INFO[ListItem.Rating, · ★ ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Studio, · ,]$INFO[ListItem.Property(TotalSeasons), · , seasons]$INFO[ListItem.Property(TotalEpisodes), · , episodes]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Property(TotalEpisodes), · , episodes]$INFO[ListItem.Property(WatchedEpisodes), · , watched]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Genre, · ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Studio, · ,]$VAR[SDV_Seasons]$VAR[SDV_Episodes]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$VAR[SDV_Episodes]$INFO[ListItem.Property(WatchedEpisodes), · , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[SDV_SetFilms]$INFO[ListItem.Genre, · ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,album)">$INFO[ListItem.Artist]$INFO[ListItem.Year, · ,]$INFO[ListItem.Genre, · ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,artist)">$INFO[ListItem.Genre]</value>
 		<value condition="String.IsEqual(ListItem.DBType,song)">$INFO[ListItem.Artist]$INFO[ListItem.Album, · ,]$INFO[ListItem.Duration, · ,]</value>

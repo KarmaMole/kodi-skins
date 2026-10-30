@@ -556,6 +556,10 @@ msgctxt "#31913"
 msgid "results"
 msgstr ""
 
+msgctxt "#31115"
+msgid "result"
+msgstr ""
+
 msgctxt "#31914"
 msgid "Chapters & bookmarks"
 msgstr ""
@@ -722,6 +726,10 @@ msgstr ""
 
 msgctxt "#31245"
 msgid "films"
+msgstr ""
+
+msgctxt "#31116"
+msgid "film"
 msgstr ""
 
 msgctxt "#31246"

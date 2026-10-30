@@ -1,3 +1,7 @@
+0.9.21 (2026-10-30)
+- Counts read right at one: 1 season, 1 episode, 1 film, 1 artist, 1 song.
+- Smaller download: removed images the skin never used.
+
 0.9.20 (2026-10-30)
 - Libraries: in List view an empty folder's Back row no longer covers the "Nothing here" message (films, music, files).
 

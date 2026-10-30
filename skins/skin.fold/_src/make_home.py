@@ -673,7 +673,7 @@ def variables():
         var(f"Home_Title_{c}", [(f"!String.IsEmpty({C}.TVShowTitle)", f"$INFO[{C}.TVShowTitle]"), ("", f"$INFO[{C}.Label]")])
         var(f"Home_Meta_{c}", [(f"Integer.IsEqual({C}.Property(TotalSeasons),1)", f"$INFO[{C}.Genre,,{d}]$INFO[{C}.Year]{d}1 season$INFO[{C}.Studio,{d},]"),
                                ("", f"$INFO[{C}.Genre,,{d}]$INFO[{C}.Year]$INFO[{C}.Property(TotalSeasons),{d}, seasons]$INFO[{C}.Studio,{d},]")])
-        var(f"Home_Tag_{c}", [(f"Integer.IsGreater({C}.Property(TotalEpisodes),0)", f"$INFO[{C}.Property(WatchedEpisodes)] of $INFO[{C}.Property(TotalEpisodes)] episodes watched"),
+        var(f"Home_Tag_{c}", [(f"Integer.IsGreater({C}.Property(TotalEpisodes),0)", f"$INFO[{C}.Property(WatchedEpisodes)] of $INFO[{C}.Property(TotalEpisodes)]$VAR[Fold_N_EpWord_{c}] watched"),
                               ("", "")])
         var(f"Home_Plot_{c}", [("", f"$INFO[{C}.Plot]")])
         var(f"Home_Facts_{c}", [("", f"$INFO[{C}.Rating,Rating [COLOR ink],[/COLOR]   ]$INFO[{C}.Property(UnWatchedEpisodes),[COLOR ink],[/COLOR] to watch      ]$INFO[{C}.Status]")])
@@ -937,13 +937,13 @@ def build():
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<variable name="Home_RowHeadA">
-		<value condition="$EXP[Home_Series] + Integer.IsGreater(Container(9130).NumItems,0)">In progress[COLOR cap2]   $INFO[Container(9130).NumItems] shows[/COLOR]</value>
+		<value condition="$EXP[Home_Series] + Integer.IsGreater(Container(9130).NumItems,0)">In progress[COLOR cap2]   $VAR[Fold_N_C9130_shows][/COLOR]</value>
 		<value condition="$EXP[Home_Series]">Latest series[COLOR cap2]   newest added first[/COLOR]</value>
 		<value condition="$EXP[Home_Music]">New albums[COLOR cap2]   newest added first[/COLOR]</value>
 		<value condition="$EXP[Home_Settings]">System[COLOR cap2]   Kodi · Fold · add-ons[/COLOR]</value>
 		<value condition="$EXP[Home_Search]">Search[COLOR cap2]   films · series · music · people[/COLOR]</value>
 {custom_rowheads()}
-		<value condition="Integer.IsGreater(Container(9192).NumItems,0)">Unwatched[COLOR cap2]   $INFO[Container(9192).NumItems] films[/COLOR]</value>
+		<value condition="Integer.IsGreater(Container(9192).NumItems,0)">Unwatched[COLOR cap2]   $VAR[Fold_N_C9192_films][/COLOR]</value>
 		<value>Unwatched[COLOR cap2]   newest added first[/COLOR]</value>
 	</variable>
 	<variable name="Home_RowHeadB">

@@ -1,3 +1,7 @@
+0.9.22 (2026-10-30)
+- Counts read right at one: 1 film, 1 track, 1 item, 1 result.
+- Smaller download: removed images the skin never used.
+
 0.9.21 (2026-10-30)
 - Empty music pages (the hang and the list) no longer print "The walls are bare" over the Back print.
 - The empty queue's "The queue is empty" now sits under the Back row instead of on top of it.

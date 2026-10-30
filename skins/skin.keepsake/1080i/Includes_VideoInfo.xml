@@ -64,7 +64,9 @@
 	</variable>
 	<!-- "Sunday 4 October,[CR]4:54 in the morning." -->
 	<variable name="VidInfo_Sentence">
+		<value condition="$EXP[VidInfo_IsFolder] + Integer.IsEqual(ListItem.Property(TotalEpisodes),1) + !String.IsEmpty(ListItem.LastPlayed)">$INFO[ListItem.Property(WatchedEpisodes)] of 1 episode seen,[CR]the last on $VAR[KS_LP_DM].</value>
 		<value condition="$EXP[VidInfo_IsFolder] + Integer.IsGreater(ListItem.Property(TotalEpisodes),0) + !String.IsEmpty(ListItem.LastPlayed)">$INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)] episodes seen,[CR]the last on $VAR[KS_LP_DM].</value>
+		<value condition="$EXP[VidInfo_IsFolder] + Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">$INFO[ListItem.Property(TotalEpisodes)] episode,[CR]not seen yet.</value>
 		<value condition="$EXP[VidInfo_IsFolder] + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)">$INFO[ListItem.Property(TotalEpisodes)] episodes,[CR]none seen yet.</value>
 		<value condition="$EXP[VidInfo_IsFolder]"></value>
 		<value condition="ListItem.IsResumable">You stopped $VAR[KS_ResumeMin] minutes in,[CR]$VAR[KS_LP_Rel].</value>
@@ -80,10 +82,12 @@
 	</variable>
 	<variable name="VidInfo_Cast3">
 		<value condition="Integer.IsGreater(Container(50).NumItems,0) + !String.IsEqual(ListItem.DBType,set)">with $INFO[Container(50).ListItemAbsolute(0).Label]$INFO[Container(50).ListItemAbsolute(1).Label,$COMMA[CR],]$INFO[Container(50).ListItemAbsolute(2).Label,$COMMA ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsEqual(Container(50).NumItems,1)">$INFO[Container(50).NumItems,, film in this collection]</value>
 		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[Container(50).NumItems,, films in this collection]</value>
 	</variable>
 	<variable name="VidInfo_Meta">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Season,  ·  s,]$INFO[ListItem.Episode, e,]$INFO[ListItem.Duration(mins),  ·  , min]$INFO[ListItem.Premiered,  ·  ,]</value>
+		<value condition="[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Studio,,  ·  ]$INFO[ListItem.Year]$INFO[ListItem.Property(TotalSeasons),  ·  , season]$INFO[ListItem.MPAA,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Studio,,  ·  ]$INFO[ListItem.Year]$INFO[ListItem.Property(TotalSeasons),  ·  , seasons]$INFO[ListItem.MPAA,  ·  ,]</value>
 		<value>$INFO[ListItem.Director,,  ·  ]$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),  ·  , min]$VAR[VidInfo_MPAAPart]</value>
 	</variable>
@@ -98,6 +102,7 @@
 	</variable>
 	<!-- "Added 29 Sep 2026 · watched 4 Oct 2026,[CR]at 4:54 am · 2 times" -->
 	<variable name="VidInfo_History">
+		<value condition="$EXP[VidInfo_IsFolder] + !String.IsEmpty(ListItem.LastPlayed) + Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">Added $VAR[KS_DA_Short] · last on $VAR[KS_LP_DM],[CR]$INFO[ListItem.Property(WatchedEpisodes)] of 1 episode seen</value>
 		<value condition="$EXP[VidInfo_IsFolder] + !String.IsEmpty(ListItem.LastPlayed)">Added $VAR[KS_DA_Short] · last on $VAR[KS_LP_DM],[CR]$INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)] episodes seen</value>
 		<value condition="$EXP[VidInfo_IsFolder]">Added $VAR[KS_DA_Short],[CR]nothing watched yet</value>
 		<value condition="ListItem.IsResumable">Added $VAR[KS_DA_Short] · stopped $VAR[KS_LP_Short],[CR]$VAR[KS_ResumeMin] of $INFO[ListItem.Duration(mins)] minutes in</value>

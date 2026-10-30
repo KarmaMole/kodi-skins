@@ -527,7 +527,7 @@ def build() -> str:
 		<value condition="!String.IsEmpty(ListItem.Duration) + !String.IsEmpty(ListItem.EndTimeResume)"> · ends $INFO[ListItem.EndTimeResume]</value>
 	</variable>
 	<variable name="Wall_CardMeta">
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total), · , films] · $VAR[VidView_Status]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[VidView_SetFilms] · $VAR[VidView_Status]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[Wall_Seasons]$VAR[Wall_Episodes]$VAR[Wall_ToGo]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Label]$VAR[Wall_Episodes]$INFO[ListItem.Property(WatchedEpisodes), · , watched]</value>
 		<value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]$VAR[VidView_MPAAMeta]$VAR[Wall_Ends]</value>

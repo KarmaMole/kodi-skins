@@ -81,7 +81,15 @@ def tooth_fields():
 
 
 # ----------------------------------------------------------------------------- helpers
+# Drawn below but named by no XML (removed from media/ 2026-10-30): never written again.
+UNUSED = {
+    "rr5.png", "shadow_lift_cool.png"
+}
+
+
 def save(img, name):
+    if name in UNUSED:
+        return
     path = OUT / name
     path.parent.mkdir(parents=True, exist_ok=True)
     if name.endswith(".jpg"):

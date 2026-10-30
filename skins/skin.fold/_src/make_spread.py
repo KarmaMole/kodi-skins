@@ -298,15 +298,15 @@ def build():
 	</variable>
 	<variable name="Spread_Meta">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">Season $INFO[ListItem.Season][COLOR cobalt] · [/COLOR]Episode $INFO[ListItem.Episode]$INFO[ListItem.Duration(mins),[COLOR cobalt] · [/COLOR], min]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year][COLOR cobalt] · [/COLOR]1 season$INFO[ListItem.Property(TotalEpisodes),[COLOR cobalt] · [/COLOR], episodes]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Property(TotalSeasons),[COLOR cobalt] · [/COLOR], seasons]$INFO[ListItem.Property(TotalEpisodes),[COLOR cobalt] · [/COLOR], episodes]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Property(TotalEpisodes),[COLOR cobalt] · [/COLOR], episodes]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total),[COLOR verm] · [/COLOR], films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year][COLOR cobalt] · [/COLOR]1 season$VAR[Fold_N_TotalEpisodes_episodes3]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[Fold_N_TotalSeasons_seasons3]$VAR[Fold_N_TotalEpisodes_episodes3]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$VAR[Fold_N_TotalEpisodes_episodes3]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[Fold_N_Total_films5]</value>
 		<value>$INFO[ListItem.Director,,[COLOR verm] · [/COLOR]]$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),[COLOR verm] · [/COLOR], min]</value>
 	</variable>
 	<variable name="Spread_Tag">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.TVShowTitle]</value>
-		<value condition="$EXP[Spread_IsFolder] + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)">$INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)] episodes watched</value>
+		<value condition="$EXP[Spread_IsFolder] + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)">$INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)]$VAR[Fold_N_EpWord] watched</value>
 		<value condition="ListItem.IsResumable">Stopped at $INFO[ListItem.PercentPlayed]%$INFO[ListItem.Tagline,  ·  ,]</value>
 		<value>$INFO[ListItem.Tagline]</value>
 	</variable>

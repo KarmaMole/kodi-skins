@@ -38,7 +38,9 @@
 		<value>$INFO[Container(1301).ListItem.Label]</value>
 	</variable>
 	<variable name="Wheel_Count">
+		<value condition="String.IsEqual(Window(Home).Property(groove.wheel.ring),style) + Integer.IsEqual(Container(1302).ListItem.Property(Groove.Count),1)">1 $LOCALIZE[31616]</value>
 		<value condition="String.IsEqual(Window(Home).Property(groove.wheel.ring),style) + !String.IsEmpty(Container(1302).ListItem.Property(Groove.Count))">$INFO[Container(1302).ListItem.Property(Groove.Count)] $LOCALIZE[31615]</value>
+		<value condition="String.IsEqual(Window(Home).Property(groove.wheel.ring),mood) + Integer.IsEqual(Container(1303).ListItem.Property(Groove.Count),1)">1 $LOCALIZE[31616]</value>
 		<value condition="String.IsEqual(Window(Home).Property(groove.wheel.ring),mood) + !String.IsEmpty(Container(1303).ListItem.Property(Groove.Count))">$INFO[Container(1303).ListItem.Property(Groove.Count)] $LOCALIZE[31615]</value>
 		<value condition="Container(1320).IsUpdating"></value>
 		<value condition="Integer.IsEqual(Container(1320).NumItems,1)">1 $LOCALIZE[31616]</value>

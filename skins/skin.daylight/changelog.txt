@@ -1,3 +1,7 @@
+0.9.21 (2026-10-30)
+- Counts read right at one: 1 season, 1 episode, 1 film, 1 track, 1 item.
+- Smaller download: removed images the skin never used.
+
 0.9.20 (2026-10-30)
 - Libraries: "Nothing here." no longer sits on the Back row of an empty folder (List and Grid views, Episodes and Rows).
 - Select lists (languages, choices) no longer show a half-cut row at the bottom.

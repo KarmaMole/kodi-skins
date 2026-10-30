@@ -35,11 +35,11 @@
 	<!-- ============================================================ variables -->
 	<!-- Track panel kicker: "SUBTITLES · 16 TRACKS" -->
 	<variable name="Dlg_SelectKicker">
-		<value condition="Window.IsVisible(osdsubtitlesettings)">Subtitles$INFO[Container(3).NumItems,  ·  , tracks]</value>
-		<value condition="Window.IsVisible(osdaudiosettings)">Audio$INFO[Container(3).NumItems,  ·  , tracks]</value>
-		<value condition="Window.IsVisible(osdvideosettings)">Video$INFO[Container(3).NumItems,  ·  , options]</value>
-		<value condition="Control.IsVisible(6)">Select$INFO[Container(6).NumItems,  ·  , items]</value>
-		<value>Select$INFO[Container(3).NumItems,  ·  , items]</value>
+		<value condition="Window.IsVisible(osdsubtitlesettings)">Subtitles$VAR[PL_Container_3_NumItems_Track]</value>
+		<value condition="Window.IsVisible(osdaudiosettings)">Audio$VAR[PL_Container_3_NumItems_Track]</value>
+		<value condition="Window.IsVisible(osdvideosettings)">Video$VAR[PL_Container_3_NumItems_Option]</value>
+		<value condition="Control.IsVisible(6)">Select$VAR[PL_Container_6_NumItems_Item]</value>
+		<value>Select$VAR[PL_Container_3_NumItems_Item]</value>
 	</variable>
 	<!-- Centred select: "03 / 16" in the header -->
 	<variable name="Dlg_SelectPosition">

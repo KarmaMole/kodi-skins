@@ -81,6 +81,7 @@
 	<!-- Line 2 of "Continue [show]:" (season moved off line 1: with a long show name "season 1," ran past the
 	     1040 px column and the row scrolled "Continue" off-screen). Every value fits 1040 px in serif 62. -->
 	<variable name="Home_NextLine2">
+		<value condition="String.IsEqual(Container(610).ListItem.DBType,tvshow) + Integer.IsEqual(Container(610).ListItem.Property(TotalEpisodes),1)">$INFO[Container(610).ListItem.Property(WatchedEpisodes)] of 1 episode seen, $INFO[Container(610).ListItem.Property(UnWatchedEpisodes)] to go.</value>
 		<value condition="String.IsEqual(Container(610).ListItem.DBType,tvshow)">$INFO[Container(610).ListItem.Property(WatchedEpisodes)] of $INFO[Container(610).ListItem.Property(TotalEpisodes)] episodes seen, $INFO[Container(610).ListItem.Property(UnWatchedEpisodes)] to go.</value>
 		<value condition="Integer.IsEqual(Container(610).ListItem.Season,0) + Container(610).ListItem.IsResumable">special $INFO[Container(610).ListItem.Episode], started.</value>
 		<value condition="Integer.IsEqual(Container(610).ListItem.Season,0) + !String.IsEmpty(Container(610).ListItem.Duration)">special $INFO[Container(610).ListItem.Episode], $INFO[Container(610).ListItem.Duration(mins)] minutes.</value>

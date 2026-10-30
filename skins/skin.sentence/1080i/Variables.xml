@@ -56,8 +56,8 @@
 		<value condition="String.IsEqual(ListItem.DBType,episode)">S$INFO[ListItem.Season] E$INFO[ListItem.Episode]$VAR[Sen_DurShortSep]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(UnWatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)">seen it all</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$VAR[Sen_Seasons]$INFO[ListItem.Property(UnWatchedEpisodes), · , to watch]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(UnWatchedEpisodes), · , to watch]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">a collection$INFO[ListItem.Property(Total), of , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[PL_TotalEpisodes_Episode]$INFO[ListItem.Property(UnWatchedEpisodes), · , to watch]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">a collection$VAR[PL_Total_Film2]</value>
 		<value condition="String.IsEqual(ListItem.DBType,album)">$INFO[ListItem.Artist]$INFO[ListItem.Year, · ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,artist)">$INFO[ListItem.Genre]</value>
 		<value condition="String.IsEqual(ListItem.DBType,song)">$INFO[ListItem.Artist]$INFO[ListItem.Duration, · ,]</value>

@@ -265,7 +265,7 @@
 						<height>24</height>
 						<font>font_fact_label</font>
 						<textcolor>$VAR[ink2]</textcolor>
-						<label>[UPPERCASE]$INFO[Container(120).NumItems,, $LOCALIZE[31913]][/UPPERCASE]</label>
+						<label>[UPPERCASE]$VAR[Subs_ResultCount][/UPPERCASE]</label>
 						<visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
 					</control>
 					<control type="label">

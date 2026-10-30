@@ -67,7 +67,7 @@ Window(Home) properties
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<variable name="Home_RowHeadA">
-		<value condition="$EXP[Home_Series] + Integer.IsGreater(Container(9130).NumItems,0)">In progress[COLOR cap2]   $INFO[Container(9130).NumItems] shows[/COLOR]</value>
+		<value condition="$EXP[Home_Series] + Integer.IsGreater(Container(9130).NumItems,0)">In progress[COLOR cap2]   $VAR[Fold_N_C9130_shows][/COLOR]</value>
 		<value condition="$EXP[Home_Series]">Latest series[COLOR cap2]   newest added first[/COLOR]</value>
 		<value condition="$EXP[Home_Music]">New albums[COLOR cap2]   newest added first[/COLOR]</value>
 		<value condition="$EXP[Home_Settings]">System[COLOR cap2]   Kodi · Fold · add-ons[/COLOR]</value>
@@ -75,7 +75,7 @@ Window(Home) properties
 		<value condition="$EXP[Home_Custom1]">$VAR[CustomMenu_Kind1][COLOR cap2]   $VAR[CustomMenu_Opens1][/COLOR]</value>
 		<value condition="$EXP[Home_Custom2]">$VAR[CustomMenu_Kind2][COLOR cap2]   $VAR[CustomMenu_Opens2][/COLOR]</value>
 		<value condition="$EXP[Home_Custom3]">$VAR[CustomMenu_Kind3][COLOR cap2]   $VAR[CustomMenu_Opens3][/COLOR]</value>
-		<value condition="Integer.IsGreater(Container(9192).NumItems,0)">Unwatched[COLOR cap2]   $INFO[Container(9192).NumItems] films[/COLOR]</value>
+		<value condition="Integer.IsGreater(Container(9192).NumItems,0)">Unwatched[COLOR cap2]   $VAR[Fold_N_C9192_films][/COLOR]</value>
 		<value>Unwatched[COLOR cap2]   newest added first[/COLOR]</value>
 	</variable>
 	<variable name="Home_RowHeadB">
@@ -176,7 +176,7 @@ Window(Home) properties
 		<value>$INFO[Container(9130).ListItem.Genre,,[COLOR cobalt] · [/COLOR]]$INFO[Container(9130).ListItem.Year]$INFO[Container(9130).ListItem.Property(TotalSeasons),[COLOR cobalt] · [/COLOR], seasons]$INFO[Container(9130).ListItem.Studio,[COLOR cobalt] · [/COLOR],]</value>
 	</variable>
 	<variable name="Home_Tag_9130">
-		<value condition="Integer.IsGreater(Container(9130).ListItem.Property(TotalEpisodes),0)">$INFO[Container(9130).ListItem.Property(WatchedEpisodes)] of $INFO[Container(9130).ListItem.Property(TotalEpisodes)] episodes watched</value>
+		<value condition="Integer.IsGreater(Container(9130).ListItem.Property(TotalEpisodes),0)">$INFO[Container(9130).ListItem.Property(WatchedEpisodes)] of $INFO[Container(9130).ListItem.Property(TotalEpisodes)]$VAR[Fold_N_EpWord_9130] watched</value>
 		<value></value>
 	</variable>
 	<variable name="Home_Plot_9130">
@@ -194,7 +194,7 @@ Window(Home) properties
 		<value>$INFO[Container(9131).ListItem.Genre,,[COLOR cobalt] · [/COLOR]]$INFO[Container(9131).ListItem.Year]$INFO[Container(9131).ListItem.Property(TotalSeasons),[COLOR cobalt] · [/COLOR], seasons]$INFO[Container(9131).ListItem.Studio,[COLOR cobalt] · [/COLOR],]</value>
 	</variable>
 	<variable name="Home_Tag_9131">
-		<value condition="Integer.IsGreater(Container(9131).ListItem.Property(TotalEpisodes),0)">$INFO[Container(9131).ListItem.Property(WatchedEpisodes)] of $INFO[Container(9131).ListItem.Property(TotalEpisodes)] episodes watched</value>
+		<value condition="Integer.IsGreater(Container(9131).ListItem.Property(TotalEpisodes),0)">$INFO[Container(9131).ListItem.Property(WatchedEpisodes)] of $INFO[Container(9131).ListItem.Property(TotalEpisodes)]$VAR[Fold_N_EpWord_9131] watched</value>
 		<value></value>
 	</variable>
 	<variable name="Home_Plot_9131">

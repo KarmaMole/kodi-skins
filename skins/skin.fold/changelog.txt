@@ -1,3 +1,7 @@
+0.9.20 (2026-10-30)
+- Counts read "1 season", "1 episode", "1 film", "1 show" instead of the plural.
+- Smaller download: removed images the skin never used.
+
 0.9.19 (2026-10-30)
 - Keyboard: the Caps and Shift boxes moved to the key's corner; they sat on the last letter.
 - Yes / no dialogs with a third button no longer cut its label ("Something else").

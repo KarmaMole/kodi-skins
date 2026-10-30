@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.void" version="0.9.20" name="Void" provider-name="KarmaMole">
+<addon id="skin.void" version="0.9.21" name="Void" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -16,7 +16,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#void</website>
-		<news>v0.9.20 - Item menu: the big title of the item behind it no longer shows through next to the choices.</news>
+		<news>v0.9.21 - Counts read right at one: 1 season, 1 episode, 1 film, 1 show, 1 album, played 1 time. Smaller download: removed images the skin never used.&#10;v0.9.20 - Item menu: the big title of the item behind it no longer shows through next to the choices.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

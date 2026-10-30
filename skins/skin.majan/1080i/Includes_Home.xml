@@ -124,6 +124,7 @@
 		<value>special://skin/playlists/majan_newest_albums.xsp</value>
 	</variable>
 	<variable name="Home_SubTopRated">
+		<value condition="Integer.IsEqual(Container(9102).NumItems,1)">1 title</value>
 		<value condition="Integer.IsGreater(Container(9102).NumItems,0)">$INFO[Container(9102).NumItems,, titles]</value>
 		<value>Unwatched · 7.5+</value>
 	</variable>
@@ -1855,6 +1856,17 @@
 							<font>mono_17</font>
 							<textcolor>text_secondary</textcolor>
 							<label>$INFO[Container($PARAM[id]).ListItem.Year]$INFO[Container($PARAM[id]).ListItem.Genre,  ·  ,]$INFO[Container($PARAM[id]).ListItem.Property(WatchedEpisodes),  ·  , of ]$INFO[Container($PARAM[id]).ListItem.Property(TotalEpisodes),, episodes watched]</label>
+							<visible>!Integer.IsEqual(Container($PARAM[id]).ListItem.Property(TotalEpisodes),1)</visible>
+						</control>
+						<control type="label">
+							<left>0</left>
+							<top>0</top>
+							<width>1240</width>
+							<height>24</height>
+							<font>mono_17</font>
+							<textcolor>text_secondary</textcolor>
+							<label>$INFO[Container($PARAM[id]).ListItem.Year]$INFO[Container($PARAM[id]).ListItem.Genre,  ·  ,]$INFO[Container($PARAM[id]).ListItem.Property(WatchedEpisodes),  ·  , of ]$INFO[Container($PARAM[id]).ListItem.Property(TotalEpisodes),, episode watched]</label>
+							<visible>Integer.IsEqual(Container($PARAM[id]).ListItem.Property(TotalEpisodes),1)</visible>
 						</control>
 					</control>
 				</control>
@@ -2730,7 +2742,7 @@
 			<include content="Home_PosterRow">
 				<param name="id" value="9120"/>
 				<param name="title" value="$LOCALIZE[31110]"/>
-				<param name="sub" value="$LOCALIZE[31111]$INFO[Window(Home).Property(Movies.Count),  ·  , $LOCALIZE[31114]]"/>
+				<param name="sub" value="$LOCALIZE[31111]$VAR[Home_MoviesCountWord]"/>
 				<param name="content" value="videodb://recentlyaddedmovies/"/>
 				<param name="visible" value="$EXP[HomeNewestDateAdded]"/>
 				<param name="slide" value="false"/>

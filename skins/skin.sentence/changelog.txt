@@ -1,3 +1,7 @@
+0.9.24 (2026-10-30)
+- Sentences and captions read right at one: 1 episode, 1 film, 1 album, and "you've seen it" for a single episode or film.
+- Smaller download: removed images the skin never used.
+
 0.9.23 (2026-10-30)
 - Info page: the tagline no longer runs into the Also links when the page is short (for example a film with no artwork).
 

@@ -1,3 +1,6 @@
+1.0.11 (2026-10-30)
+- Wheel, set and subtitle counts say "1 album", "1 film", "1 result".
+
 1.0.10 (2026-10-30)
 - Empty pages in Album icons, Sleeve, Crate dig, Shelf and Orbit no longer print "Nothing here yet" over the Back tile.
 - The empty queue's "The queue is empty" now sits under the Back row instead of on top of it.

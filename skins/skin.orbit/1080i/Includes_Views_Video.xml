@@ -86,10 +86,10 @@
 	<variable name="VidView_Status">
 		<value condition="String.IsEqual(ListItem.DBType,set) + $EXP[VidView_SetDone]">Watched</value>
 		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$INFO[ListItem.Property(Watched)] / $INFO[ListItem.Property(Total)] watched</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[PL_Total_Film2]</value>
 		<value condition="$EXP[VidView_IsTVType] + $EXP[VidView_TVDone]">All watched</value>
 		<value condition="$EXP[VidView_IsTVType] + Integer.IsGreater(ListItem.Property(WatchedEpisodes),0)">$INFO[ListItem.Property(WatchedEpisodes)] / $INFO[ListItem.Property(TotalEpisodes)] watched</value>
-		<value condition="$EXP[VidView_IsTVType]">$INFO[ListItem.Property(TotalEpisodes),, episodes]</value>
+		<value condition="$EXP[VidView_IsTVType]">$VAR[PL_TotalEpisodes_Episode]</value>
 		<value condition="ListItem.IsResumable">resume $INFO[ListItem.PercentPlayed]%</value>
 		<value condition="Integer.IsGreater(ListItem.PlayCount,0)">watched</value>
 		<value>unwatched</value>
@@ -781,7 +781,7 @@
 						<height>24</height>
 						<font>label_20</font>
 						<textcolor>text_secondary</textcolor>
-						<label>$INFO[ListItem.Property(TotalEpisodes),,  episodes]</label>
+						<label>$VAR[PL_TotalEpisodes_Episode2]</label>
 						<visible>String.IsEqual(ListItem.DBType,season)</visible>
 					</control>
 				</control>

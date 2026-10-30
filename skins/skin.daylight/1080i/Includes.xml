@@ -31,4 +31,5 @@
 	<include file="Includes_CustomRows.xml"/>
 	<include file="Includes_CustomMenu.xml"/>
 	<include file="Includes_CustomMenuPills.xml"/>
+	<include file="Includes_Plural.xml"/>
 </includes>

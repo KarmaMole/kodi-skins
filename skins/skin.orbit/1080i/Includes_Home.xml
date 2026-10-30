@@ -164,8 +164,8 @@
 	<variable name="Home_DialSub">
 		<value condition="$EXP[CustomRowsFocus]">$VAR[Home_CustomSub]</value>
 		<value condition="$EXP[Home_KindMovies]">$INFO[Window(Home).Property(Movies.UnWatched),, unwatched]</value>
-		<value condition="$EXP[Home_KindTV]">$INFO[Window(Home).Property(Episodes.UnWatched),, episodes to go]</value>
-		<value condition="$EXP[Home_KindMusic]">$INFO[Window(Home).Property(Music.ArtistsCount),, artists]</value>
+		<value condition="$EXP[Home_KindTV]">$VAR[PL_Episodes_UnWatched_Episode]</value>
+		<value condition="$EXP[Home_KindMusic]">$VAR[PL_Music_ArtistsCount_Artist]</value>
 		<value condition="$EXP[Home_KindSettings]">$INFO[System.BuildVersionShort,Kodi ,]</value>
 	</variable>
 	<!-- Title / meta for the poster arc lens item -->
@@ -221,7 +221,7 @@
 	</variable>
 	<variable name="Home_ShowProgressLabel">
 		<value condition="Integer.IsGreater(Container(9300).ListItem.Property(WatchedEpisodes),0)">$INFO[Container(9300).ListItem.Property(WatchedEpisodes)] / $INFO[Container(9300).ListItem.Property(TotalEpisodes)] watched</value>
-		<value>$INFO[Container(9300).ListItem.Property(TotalEpisodes),, episodes]</value>
+		<value>$VAR[PL_Container_9300_TotalEpisodes_Episode]</value>
 	</variable>
 
 	<!-- ================================================================ furniture -->

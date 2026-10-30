@@ -21,7 +21,7 @@
 			<include>Void_Anim_Dwell</include>
 			<include content="Void_TopBar">
 				<param name="title" value="$VAR[Music_QueueTitle]"/>
-				<param name="sub" value="$INFO[Container.NumItems,, items]$INFO[Container.TotalTime,  ·  ,]"/>
+				<param name="sub" value="$VAR[PL_Container_NumItems_Item]$INFO[Container.TotalTime,  ·  ,]"/>
 			</include>
 		</control>
 		<include content="Void_View50"><param name="viewlabel" value="31217"/></include>

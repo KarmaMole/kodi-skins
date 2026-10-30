@@ -13,7 +13,7 @@
 		<value>$INFO[ListItem.Year]</value>
 	</variable>
 	<variable name="Wall_Line2">
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[PL_Total_Film2]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Genre)">$INFO[ListItem.Genre]$INFO[ListItem.Duration(mins),$COMMA , min]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Duration(mins),, min]</value>
 		<value>$INFO[ListItem.Genre]</value>

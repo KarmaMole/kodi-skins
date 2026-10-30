@@ -116,9 +116,9 @@
 		<value condition="ListItem.IsParentFolder">Back takes you up one level.</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie)">[I]$INFO[ListItem.Title][/I] is $VAR[Sen_FilmNoun]$INFO[ListItem.Director, by ,]. $VAR[Lib_Runs]$VAR[Sen_SeenSentence] $VAR[Sen_RatingSentence]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">[I]$INFO[ListItem.Title][/I] is $VAR[Lib_ShowNoun]$INFO[ListItem.Studio, on ,]. $VAR[Lib_ShowProgress] $VAR[Sen_RatingSentence]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">[I]$INFO[ListItem.Label][/I] of $INFO[ListItem.TVShowTitle] has $INFO[ListItem.Property(TotalEpisodes),, episodes]. $VAR[Lib_SeasonProgress]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">[I]$INFO[ListItem.Label][/I] of $INFO[ListItem.TVShowTitle] has $VAR[PL_TotalEpisodes_Episode]. $VAR[Lib_SeasonProgress]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">[I]$INFO[ListItem.Title][/I] is episode $INFO[ListItem.Episode] of season $INFO[ListItem.Season]$INFO[ListItem.TVShowTitle, of ,]. $VAR[Lib_Runs]$VAR[Sen_SeenSentence]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">[I]$INFO[ListItem.Title][/I] gathers $INFO[ListItem.Property(Total),, films]. $VAR[Lib_SetProgress]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">[I]$INFO[ListItem.Title][/I] gathers $VAR[PL_Total_Film]. $VAR[Lib_SetProgress]</value>
 		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">[I]$INFO[ListItem.Title][/I]$INFO[ListItem.Artist, is by ,]$INFO[ListItem.Year, from ,]. $VAR[Lib_Runs]</value>
 		<value>[I]$INFO[ListItem.Label][/I]$INFO[ListItem.Label2, · ,]</value>
 	</variable>
@@ -134,16 +134,22 @@
 	</variable>
 	<variable name="Lib_ShowProgress">
 		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),0)">There are no episodes in your library yet.</value>
-		<value condition="Integer.IsEqual(ListItem.Property(UnWatchedEpisodes),0)">You've seen all $INFO[ListItem.Property(TotalEpisodes)] episodes$INFO[ListItem.Property(TotalSeasons), over , seasons].</value>
-		<value condition="Integer.IsEqual(ListItem.Property(WatchedEpisodes),0)">You haven't started its $INFO[ListItem.Property(TotalEpisodes)] episodes$INFO[ListItem.Property(TotalSeasons), over , seasons].</value>
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1) + Integer.IsEqual(ListItem.Property(UnWatchedEpisodes),0)">You've seen its one episode.</value>
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">You haven't started its one episode.</value>
+		<value condition="Integer.IsEqual(ListItem.Property(UnWatchedEpisodes),0)">You've seen all $INFO[ListItem.Property(TotalEpisodes)] episodes$VAR[PL_TotalSeasons_Season].</value>
+		<value condition="Integer.IsEqual(ListItem.Property(WatchedEpisodes),0)">You haven't started its $INFO[ListItem.Property(TotalEpisodes)] episodes$VAR[PL_TotalSeasons_Season].</value>
 		<value>You've seen $INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)] episodes; $INFO[ListItem.Property(UnWatchedEpisodes)] to go.</value>
 	</variable>
 	<variable name="Lib_SeasonProgress">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1) + Integer.IsEqual(ListItem.Property(UnWatchedEpisodes),0)">You've seen it.</value>
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">You haven't seen it yet.</value>
 		<value condition="Integer.IsEqual(ListItem.Property(UnWatchedEpisodes),0)">You've seen them all.</value>
 		<value condition="Integer.IsEqual(ListItem.Property(WatchedEpisodes),0)">You haven't seen any yet.</value>
 		<value>You've seen $INFO[ListItem.Property(WatchedEpisodes)] of them.</value>
 	</variable>
 	<variable name="Lib_SetProgress">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1) + Integer.IsEqual(ListItem.Property(Watched),1)">You've seen it.</value>
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)">You haven't seen it.</value>
 		<value condition="String.IsEqual(ListItem.Property(Watched),ListItem.Property(Total))">You've seen them all.</value>
 		<value condition="Integer.IsGreater(ListItem.Property(Watched),0)">You've seen $INFO[ListItem.Property(Watched)] of them.</value>
 		<value>You haven't seen any of them.</value>
@@ -178,7 +184,7 @@
 	</variable>
 	<variable name="Lib_EpisodeLine">
 		<value condition="ListItem.IsParentFolder">Back up a level</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(UnWatchedEpisodes), · , to watch]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[PL_TotalEpisodes_Episode]$INFO[ListItem.Property(UnWatchedEpisodes), · , to watch]</value>
 		<value>$VAR[Sen_DurShort]$INFO[ListItem.Premiered, · aired ,]$VAR[Lib_EpSeen]</value>
 	</variable>
 	<variable name="Lib_EpSeen">

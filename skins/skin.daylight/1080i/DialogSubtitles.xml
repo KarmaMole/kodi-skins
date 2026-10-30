@@ -263,7 +263,7 @@
 					<height>24</height>
 					<font>cap_20</font>
 					<textcolor>$VAR[DL_Ink3]</textcolor>
-					<label>$INFO[Container(120).NumItems,, RESULTS]</label>
+					<label>$VAR[PL_Container_120_NumItems_Result]</label>
 					<visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
 				</control>
 				<control type="label">

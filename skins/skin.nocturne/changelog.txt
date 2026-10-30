@@ -1,3 +1,8 @@
+0.9.19 (2026-10-30)
+- Seasons, episodes, films and results say "1 season" etc. instead of "1 seasons".
+- Brass plaques: the title and the year / running time now sit on one baseline, with room before the screws.
+- Smaller download: removed images the skin never used.
+
 0.9.18 (2026-10-30)
 - Empty pages in the Corridor and the listening room no longer print "Nothing on this wall" over the Back frame.
 - The empty queue's "The queue is empty" now sits under the Back row instead of on top of it.

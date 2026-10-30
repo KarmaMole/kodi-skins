@@ -34,8 +34,8 @@
 		<value>Cast</value>
 	</variable>
 	<variable name="VidInfo_CastCount">
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[Container(50).NumItems,, FILMS]</value>
-		<value>$INFO[Container(50).NumItems,, PEOPLE]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[PL_Container_50_NumItems_Film]</value>
+		<value>$VAR[PL_Container_50_NumItems_Person]</value>
 	</variable>
 	<!-- cast row items (inside list 50): actors, or the films of a collection -->
 	<variable name="VidInfo_CastArt">

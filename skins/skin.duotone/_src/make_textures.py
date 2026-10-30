@@ -43,7 +43,16 @@ PAPER = rgba(PAL["co_paper"])      # (241, 237, 228, 255)
 SS = 4  # supersampling for icons
 
 
+# Drawn below but named by no XML (removed from media/ 2026-10-30): never written again.
+UNUSED = {
+    "common/shadow_soft.png", "focus/outline_2_round.png", "focus/outline_3.png", "focus/outline_3_round.png",
+    "icons/chevron_down.png", "markers/unwatched_round.png", "markers/watched_round.png"
+}
+
+
 def save(img: Image.Image, rel: str) -> None:
+    if rel in UNUSED:
+        return
     p = MEDIA / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     img.save(p, optimize=True)

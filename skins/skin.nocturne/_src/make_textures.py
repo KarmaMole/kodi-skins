@@ -32,18 +32,28 @@ from PIL import Image, ImageDraw, ImageFilter
 
 OUT = Path(__file__).resolve().parents[1] / "media" / "noc"
 OUT.mkdir(parents=True, exist_ok=True)
+# cornice.png only feeds plaster_with_cornice(): it lives in _src/build, never in media/ (2026-10-30)
+BUILD = Path(__file__).resolve().parent / "build"
+# Drawn (kept so the noise RNG sequence stays the same) but named by no XML (removed from media/ 2026-10-30)
+UNUSED = {"dust_white.png", "glow_row.png", "halo_warm.png"}
 RNG = np.random.default_rng(1947)
 WARM = np.array([255, 231, 194], float)          # 2700 K
 VELVET = np.array([10, 12, 18], float)            # shroud colour (cool blue-black)
 
 
 def save(a: np.ndarray, name: str, jpg=False):
+    if name in UNUSED:
+        return
     a = np.clip(a, 0, 255).astype(np.uint8)
     im = Image.fromarray(a, "RGBA" if a.shape[-1] == 4 else "RGB")
+    dst = OUT
+    if name == "cornice.png":
+        BUILD.mkdir(exist_ok=True)
+        dst = BUILD
     if jpg:
-        im.convert("RGB").save(OUT / name, quality=92)
+        im.convert("RGB").save(dst / name, quality=92)
     else:
-        im.save(OUT / name, optimize=True)
+        im.save(dst / name, optimize=True)
     print(name, im.size)
 
 
@@ -96,7 +106,7 @@ def plaster():
 def plaster_with_cornice():
     """0.9.2: the cornice baked into the wall, so a window draws one opaque full-screen layer for both."""
     wall = Image.open(OUT / "plaster_raw.jpg").convert("RGBA")
-    wall.alpha_composite(Image.open(OUT / "cornice.png").convert("RGBA"), (0, 0))
+    wall.alpha_composite(Image.open(BUILD / "cornice.png").convert("RGBA"), (0, 0))
     wall.convert("RGB").save(OUT / "plaster.jpg", quality=92)
     (OUT / "plaster_raw.jpg").unlink()
     print("plaster.jpg (cornice baked)")
@@ -595,14 +605,12 @@ def plaque_halves():
     """plaque.png split for auto-width plaques built from two buttons (title | meta)."""
     im = Image.open(OUT / "plaque.png")
     w, h = im.size
-    im.crop((0, 0, w // 2, h)).save(OUT / "plaque_l.png", optimize=True)
-    im.crop((w // 2, 0, w, h)).save(OUT / "plaque_r.png", optimize=True)
+    # (plaque_l/r.png halves dropped 2026-10-30: no XML names them)
     # dim rail under engraved words (mockup: brightness .5, saturate .85)
     a = np.array(im, float)
     g = a[..., :3].mean(-1, keepdims=True)
     a[..., :3] = (g + (a[..., :3] - g) * 0.85) * 0.5
     save(a, "plaque_dim.png")
-    print("plaque_l/r.png")
 
 
 def plaque_parts():
@@ -863,5 +871,4 @@ if __name__ == "__main__":
     dot("dot_on.png", True)
     dot("dot_off.png", False)
     key()
-    pin_small()
     engine_overrides()

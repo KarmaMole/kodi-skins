@@ -17,7 +17,7 @@
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.TVShowTitle,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">TV show$INFO[ListItem.Studio,  ·  ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total),  ·  , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[PL_Total_Film]</value>
 		<value condition="!String.IsEmpty(ListItem.Set)">Film  ·  $INFO[ListItem.Set]</value>
 		<value>$VAR[VidView_Status]$INFO[ListItem.Studio,  ·  ,]</value>
 	</variable>
@@ -47,8 +47,8 @@
 		<value>Cast</value>
 	</variable>
 	<variable name="VidInfo_CastCount">
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[Container(50).NumItems,, films]</value>
-		<value>$INFO[Container(50).NumItems,, people]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[PL_Container_50_NumItems_Film]</value>
+		<value>$VAR[PL_Container_50_NumItems_Person]</value>
 	</variable>
 	<variable name="VidInfo_Hint">
 		<value condition="Control.HasFocus(9001)">OK reads the whole story</value>

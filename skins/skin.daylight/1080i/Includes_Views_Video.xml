@@ -117,9 +117,9 @@
 	<variable name="VidView_Kicker">
 		<value condition="ListItem.IsParentFolder">Up one level</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.TVShowTitle,  ·  ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Property(TotalEpisodes),  ·  , episodes]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$VAR[PL_TotalEpisodes_Episode]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$VAR[VidView_Status]$VAR[VidView_SeasonsWord]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total),  ·  , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[PL_Total_Film]</value>
 		<value condition="$EXP[VidView_IsPlayable]">$VAR[VidView_Status]$INFO[ListItem.DateAdded,  ·  added ,]</value>
 		<value>$INFO[Container.FolderName]</value>
 	</variable>
@@ -130,7 +130,7 @@
 	<!-- meta line before the rating star: 2026 · PG-13 · 2h 25m · -->
 	<variable name="VidView_MetaLeft">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Premiered,Aired ,]$INFO[ListItem.Duration(mins),  ·  , min]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Property(TotalEpisodes),  ·  , episodes]$INFO[ListItem.Studio,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[PL_TotalEpisodes_Episode]$INFO[ListItem.Studio,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Year]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]</value>
 		<value>$INFO[ListItem.Year]$VAR[VidView_MPAAMeta]$VAR[VidView_RuntimeMeta]</value>
 	</variable>
@@ -159,9 +159,10 @@
 		<value>Start now and you're done by $INFO[ListItem.EndTime].</value>
 	</variable>
 	<variable name="VidView_ProgressTitle">
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Watched),, of ]$INFO[ListItem.Property(Total),, films watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Watched),, of ]$VAR[PL_Total_Film2]</value>
+		<value condition="$EXP[VidView_TVDone] + Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">1 of 1 episode watched</value>
 		<value condition="$EXP[VidView_TVDone]">All $INFO[ListItem.Property(TotalEpisodes)] episodes watched</value>
-		<value>$INFO[ListItem.Property(WatchedEpisodes),, of ]$INFO[ListItem.Property(TotalEpisodes),, episodes watched]</value>
+		<value>$INFO[ListItem.Property(WatchedEpisodes),, of ]$VAR[PL_TotalEpisodes_Episode2]</value>
 	</variable>
 	<variable name="VidView_ProgressLine">
 		<value condition="String.IsEqual(ListItem.DBType,set)">A collection: OK opens its films.</value>
@@ -171,10 +172,10 @@
 	<!-- episode row line -->
 	<variable name="VidView_EpLine">
 		<value condition="ListItem.IsParentFolder">Up one level</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(WatchedEpisodes),0)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]$INFO[ListItem.Genre,  ·  ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(WatchedEpisodes),0)">$VAR[PL_TotalEpisodes_Episode3]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$VAR[PL_TotalEpisodes_Episode3]$INFO[ListItem.Genre,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Duration(mins),, min]$INFO[ListItem.Premiered,  ·  aired ,]$INFO[ListItem.Rating,  ·  rated ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[PL_TotalEpisodes_Episode3]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]</value>
 		<value>$INFO[ListItem.Label2]</value>
 	</variable>
 	<variable name="VidView_EpKicker">
@@ -1103,7 +1104,7 @@
 		<value condition="$EXP[VidView_IsPlayable] + Integer.IsGreater(ListItem.Duration(mins),0)">ends $INFO[ListItem.EndTime]</value>
 		<value condition="$EXP[VidView_IsTVType] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)">$INFO[ListItem.Property(UnWatchedEpisodes),, to watch]</value>
 		<value condition="$EXP[VidView_IsTVType] + $EXP[VidView_TVDone]">Watched</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[PL_Total_Film3]</value>
 		<value>$INFO[ListItem.Year]</value>
 	</variable>
 	<variable name="VidView_SpotWhen">
@@ -1389,8 +1390,8 @@
 		<value condition="ListItem.IsParentFolder">Up one level</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.Duration(mins),  ·  , min]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[VidView_SeasonsWord]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total),  ·  , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[PL_TotalEpisodes_Episode3]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[PL_Total_Film]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]</value>
 		<value>$INFO[ListItem.Label2]</value>
 	</variable>

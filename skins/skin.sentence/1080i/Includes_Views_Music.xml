@@ -19,6 +19,7 @@
 		<value>folders</value>
 	</variable>
 	<variable name="Music_Crumb">
+		<value condition="$EXP[Music_IsSentence] + Integer.IsEqual(Container.NumItems,1)">Your sentence · 1 album</value>
 		<value condition="$EXP[Music_IsSentence]">Your sentence · $INFO[Container.NumItems] albums</value>
 		<value condition="!$EXP[Music_AtTabRoot] + !String.IsEmpty(Container.FolderName)">Music / $INFO[Container.FolderName]</value>
 		<value>Music</value>

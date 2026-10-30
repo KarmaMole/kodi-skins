@@ -1,3 +1,7 @@
+0.9.18 (2026-10-30)
+- Counts of one now read in the singular (1 season, 1 episode, 1 film, 1 album, 1 track, 1 result).
+- Smaller download: removed images the skin never used.
+
 0.9.17 (2026-10-30)
 - Empty pages in the list and the contact sheet no longer write "This page is empty." over the Back item.
 - Film and album pages: a long title no longer shows the top of a third line over the line below it; the "with ..." cast line no longer shows half of a third line.

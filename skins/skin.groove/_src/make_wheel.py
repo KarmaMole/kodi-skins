@@ -259,7 +259,9 @@ def main():
                                 (ring_is("mood"), "$INFO[Container(1303).ListItem.Label]"),
                                 (None, "$INFO[Container(1301).ListItem.Label]")]),
         var("Wheel_Count", [
+            (f"{ring_is('style')} + Integer.IsEqual(Container(1302).ListItem.Property(Groove.Count),1)", "1 $LOCALIZE[31616]"),  # 2026-10-30: "1 album"
             (f"{ring_is('style')} + !String.IsEmpty(Container(1302).ListItem.Property(Groove.Count))", "$INFO[Container(1302).ListItem.Property(Groove.Count)] $LOCALIZE[31615]"),
+            (f"{ring_is('mood')} + Integer.IsEqual(Container(1303).ListItem.Property(Groove.Count),1)", "1 $LOCALIZE[31616]"),  # 2026-10-30: "1 album"
             (f"{ring_is('mood')} + !String.IsEmpty(Container(1303).ListItem.Property(Groove.Count))", "$INFO[Container(1303).ListItem.Property(Groove.Count)] $LOCALIZE[31615]"),
             ("Container(1320).IsUpdating", ""),
             ("Integer.IsEqual(Container(1320).NumItems,1)", "1 $LOCALIZE[31616]"),

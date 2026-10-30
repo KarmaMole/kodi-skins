@@ -26,4 +26,5 @@
 	<include file="Includes_LibraryPanel.xml"/>
 	<include file="Includes_CustomRows.xml"/>
 	<include file="Includes_CustomMenu.xml"/>
+	<include file="Includes_Plural.xml"/>
 </includes>

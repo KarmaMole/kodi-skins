@@ -29,7 +29,15 @@ MEDIA = HERE.parent / "media"
 SS = 8
 
 
+# Drawn below but named by no XML (removed from media/ 2026-10-30): never written again.
+UNUSED = {
+    "common/scrim_top.png"
+}
+
+
 def save(img, rel):
+    if rel in UNUSED:
+        return
     p = MEDIA / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     img.save(p, optimize=True)

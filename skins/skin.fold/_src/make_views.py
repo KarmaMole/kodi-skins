@@ -1039,9 +1039,9 @@ ACC_VARS = """
 	</variable>
 	<variable name="Accordion_Facts">
 		<value condition="ListItem.IsParentFolder"></value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]  ·  1 season$INFO[ListItem.Property(TotalEpisodes),  ·  , episodes]$INFO[ListItem.Property(UnWatchedEpisodes),  ·  , unwatched]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]$INFO[ListItem.Property(TotalSeasons),  ·  , seasons]$INFO[ListItem.Property(TotalEpisodes),  ·  , episodes]$INFO[ListItem.Property(UnWatchedEpisodes),  ·  , unwatched]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total),  ·  , films]$INFO[ListItem.Property(Watched),  ·  , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]  ·  1 season$VAR[Fold_N_TotalEpisodes_episodes]$INFO[ListItem.Property(UnWatchedEpisodes),  ·  , unwatched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]$VAR[Fold_N_TotalSeasons_seasons]$VAR[Fold_N_TotalEpisodes_episodes]$INFO[ListItem.Property(UnWatchedEpisodes),  ·  , unwatched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[Fold_N_Total_films]$INFO[ListItem.Property(Watched),  ·  , watched]</value>
 		<value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),  ·  , min]$INFO[ListItem.Genre,  ·  ,]$INFO[ListItem.Director,  ·  ,]</value>
 		<value>$INFO[ListItem.Genre]</value>
 	</variable>
@@ -1067,7 +1067,7 @@ def seasons_view():
     return f"""
 	<include name="VidView_501_Seasons">
 		<control type="group">
-			<visible>Control.IsVisible(501)</visible>{show_card('true', '$INFO[Container.NumItems,, seasons]')}
+			<visible>Control.IsVisible(501)</visible>{show_card('true', '$VAR[Fold_N_ContainerNumItems_seasons]')}
 			<control type="label">
 				<left>440</left>
 				<top>146</top>
@@ -1251,8 +1251,8 @@ def build():
 	<variable name="VidView_Sub">
 		<value condition="Control.IsVisible(503) + Integer.IsGreater(Container.NumItems,0) + !ListItem.IsParentFolder">   [COLOR ink]$INFO[ListItem.Label][/COLOR]$INFO[ListItem.Year,  ·  ,]$INFO[Container.NumItems,  ·  , in all]</value>
 		<value condition="$EXP[VidView_IsInProgressTV]">   in progress</value>
-		<value condition="Container.Content(episodes) + !String.IsEqual(Container.FolderName,ListItem.TVShowTitle)">   $INFO[Container.FolderName]$INFO[Container.NumItems,  ·  , episodes]</value>
-		<value condition="Container.Content(episodes)">$INFO[Container.NumItems,   , episodes]</value>
+		<value condition="Container.Content(episodes) + !String.IsEqual(Container.FolderName,ListItem.TVShowTitle)">   $INFO[Container.FolderName]$VAR[Fold_N_ContainerNumItems_episodes]</value>
+		<value condition="Container.Content(episodes)">$VAR[Fold_N_ContainerNumItems_episodes2]</value>
 		<value>$INFO[Container.NumItems,   ,]</value>
 	</variable>
 	<variable name="VidView_CountAll">
@@ -1332,13 +1332,13 @@ def build():
 	</variable>
 	<variable name="Shelf_FootR">
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(TotalSeasons),, S]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, FILMS]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[Fold_N_Total_films2]</value>
 		<value>$INFO[ListItem.Duration(mins),,′]</value>
 	</variable>
 	<variable name="Shelf_Kicker">
 		<value condition="ListItem.IsParentFolder">Back</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Studio, · ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total), · , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[Fold_N_Total_films3]</value>
 		<value>$INFO[ListItem.Year]$INFO[ListItem.Duration(mins), · , min]$VAR[Shelf_MPAA]</value>
 	</variable>
 	<variable name="Shelf_MPAA">
@@ -1347,7 +1347,7 @@ def build():
 	</variable>
 	<variable name="Shelf_Meta">
 		<value condition="ListItem.IsParentFolder">OK goes up one level</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(TotalSeasons),, seasons · ]$INFO[ListItem.Property(WatchedEpisodes)]$INFO[ListItem.Property(TotalEpisodes), of , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$VAR[Fold_N_TotalSeasons_seasonsdot]$INFO[ListItem.Property(WatchedEpisodes)]$INFO[ListItem.Property(TotalEpisodes), of , watched]</value>
 		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Watched)]$INFO[ListItem.Property(Total), of , watched]</value>
 		<value>$INFO[ListItem.Director,,[CR]]$INFO[ListItem.Genre]</value>
 	</variable>
@@ -1389,7 +1389,7 @@ def build():
 	</variable>
 	<variable name="Concertina_Crumb">
 		<value condition="Integer.IsEqual(Container.NumItems,1)">$INFO[Container.FolderName][COLOR cap2]   pulled open · 1 episode[/COLOR]</value>
-		<value>$INFO[Container.FolderName][COLOR cap2]   pulled open$INFO[Container.NumItems, · , episodes]   ·   [/COLOR][COLOR cobalt]$INFO[Container.CurrentItem][/COLOR][COLOR cap2]$INFO[Container.NumItems, / ,][/COLOR]</value>
+		<value>$INFO[Container.FolderName][COLOR cap2]   pulled open$VAR[Fold_N_ContainerNumItems_episodes3]   ·   [/COLOR][COLOR cobalt]$INFO[Container.CurrentItem][/COLOR][COLOR cap2]$INFO[Container.NumItems, / ,][/COLOR]</value>
 	</variable>
 	<variable name="Concertina_Head">
 		<value condition="ListItem.IsParentFolder">Up to the seasons</value>
@@ -1410,7 +1410,7 @@ def build():
 	</variable>
 	<variable name="Seasons_Meta">
 		<value condition="ListItem.IsParentFolder">OK goes up one level</value>
-		<value>$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes), · , watched]$INFO[ListItem.Year, · ,]</value>
+		<value>$VAR[Fold_N_TotalEpisodes_episodes2]$INFO[ListItem.Property(WatchedEpisodes), · , watched]$INFO[ListItem.Year, · ,]</value>
 	</variable>
 {fm.variables()}
 {ACC_VARS}

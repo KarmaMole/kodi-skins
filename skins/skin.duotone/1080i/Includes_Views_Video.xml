@@ -412,7 +412,7 @@
 		<value>$INFO[ListItem.TVShowTitle]$INFO[ListItem.Season,  ·  Season ,]$INFO[ListItem.Episode,  ·  Episode ,]</value>
 	</variable>
 	<variable name="VidView_EpMeta">
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[PL_TotalEpisodes_Episode]$INFO[ListItem.Property(WatchedEpisodes),  ·  , watched]</value>
 		<value>$INFO[ListItem.Premiered,Aired ,]$INFO[ListItem.Duration(mins),  ·  , min]$INFO[ListItem.Rating,  ·  ,]$VAR[VidView_EpResume]</value>
 	</variable>
 	<variable name="VidView_EpResume">
@@ -842,7 +842,7 @@
 				<height>24</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[SectionText2]</textcolor>
-				<label>$INFO[ListItem.Duration(mins),, min]$INFO[ListItem.Rating,  ·  ,]$INFO[ListItem.Property(TotalEpisodes),, episodes]</label>
+				<label>$INFO[ListItem.Duration(mins),, min]$INFO[ListItem.Rating,  ·  ,]$VAR[PL_TotalEpisodes_Episode]</label>
 			</control>
 			<control type="image">
 				<right>24</right>
@@ -923,7 +923,7 @@
 				<height>24</height>
 				<font>cap_20</font>
 				<textcolor>$VAR[paper_80]</textcolor>
-				<label>$INFO[ListItem.Duration(mins),, min]$INFO[ListItem.Rating,  ·  ,]$INFO[ListItem.Property(TotalEpisodes),, episodes]</label>
+				<label>$INFO[ListItem.Duration(mins),, min]$INFO[ListItem.Rating,  ·  ,]$VAR[PL_TotalEpisodes_Episode]</label>
 			</control>
 			<control type="image">
 				<right>24</right>

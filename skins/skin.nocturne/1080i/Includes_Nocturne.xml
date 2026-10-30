@@ -297,13 +297,20 @@
 					<height>64</height>
 					<texture>noc/plaque_capl.png</texture>
 				</control>
+				<!-- 2026-10-30: breathing room so the text never touches the screws -->
+				<control type="image">
+					<width>12</width>
+					<height>64</height>
+					<texture>noc/plaque_mid.png</texture>
+				</control>
 				<control type="button">
 					<width>auto</width>
 					<height>64</height>
 					<font>title_34</font>
 					<textoffsetx>0</textoffsetx>
-					<textoffsety>-1</textoffsety>
-					<aligny>center</aligny>
+					<!-- aligny top + measured offsets put title and caps on one baseline (Kodi ignores textoffsety while centred) -->
+					<textoffsety>6</textoffsety>
+					<aligny>top</aligny>
 					<textcolor>ink</textcolor>
 					<disabledcolor>ink</disabledcolor>
 					<shadowcolor>8cffeec8</shadowcolor>
@@ -322,8 +329,8 @@
 					<height>64</height>
 					<font>capss_20</font>
 					<textoffsetx>0</textoffsetx>
-					<textoffsety>1</textoffsety>
-					<aligny>center</aligny>
+					<textoffsety>21</textoffsety>
+					<aligny>top</aligny>
 					<textcolor>ink</textcolor>
 					<disabledcolor>ink</disabledcolor>
 					<shadowcolor>8cffeec8</shadowcolor>
@@ -333,7 +340,12 @@
 					<enable>false</enable>
 				</control>
 				<control type="image">
-					<width>20</width>
+					<width>14</width>
+					<height>64</height>
+					<texture>noc/plaque_mid.png</texture>
+				</control>
+				<control type="image">
+					<width>26</width>
 					<height>64</height>
 					<texture>noc/plaque_capr.png</texture>
 				</control>

@@ -52,7 +52,15 @@ WRITTEN: list[Path] = []
 
 
 # --------------------------------------------------------------------------- helpers
+# Drawn below but named by no XML (removed from media/ 2026-10-30): never written again.
+UNUSED = {
+    "common/gradient_left.png", "common/gradient_right.png", "icons/chevron_down.png"
+}
+
+
 def save(img: Image.Image, rel: str, border: str | None = None) -> None:
+    if rel in UNUSED:
+        return
     assert rel == rel.lower(), rel
     path = MEDIA / rel
     path.parent.mkdir(parents=True, exist_ok=True)

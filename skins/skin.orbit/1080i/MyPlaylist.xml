@@ -23,7 +23,7 @@
 		<include content="Orbit_TopBar">
 			<param name="index" value="$VAR[Music_QueueIndex]"/>
 			<param name="title" value="$VAR[Music_QueueTitle]"/>
-			<param name="sub" value="$INFO[Container.NumItems,, items]$INFO[Container.TotalTime,  ·  ,]"/>
+			<param name="sub" value="$VAR[PL_Container_NumItems_Item]$INFO[Container.TotalTime,  ·  ,]"/>
 		</include>
 
 		<control type="grouplist" id="9000">

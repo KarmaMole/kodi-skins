@@ -15,7 +15,7 @@
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[EpCode]$INFO[ListItem.TVShowTitle,[COLOR sep]  ·  [/COLOR],]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">TV show$INFO[ListItem.Year,[COLOR sep]  ·  [/COLOR],]$INFO[ListItem.Studio,[COLOR sep]  ·  [/COLOR],]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total),[COLOR sep]  ·  [/COLOR], films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[PL_Total_Film2]</value>
 		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Artist]$INFO[ListItem.Year,[COLOR sep]  ·  [/COLOR],]</value>
 		<value>$INFO[ListItem.Year]$INFO[ListItem.Set,[COLOR sep]  ·  [/COLOR],]</value>
 	</variable>
@@ -46,8 +46,8 @@
 	</variable>
 	<variable name="VidInfo_Meta">
 		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Watched),, watched]$INFO[ListItem.Property(Total), of ,]$INFO[ListItem.Genre,[COLOR sep_light]  ·  [/COLOR],]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(TotalSeasons),, seasons]$INFO[ListItem.Property(TotalEpisodes),[COLOR sep_light]  ·  [/COLOR], episodes]$INFO[ListItem.Property(UnWatchedEpisodes),[COLOR sep_light]  ·  [/COLOR][COLOR value], to watch[/COLOR]]$INFO[ListItem.Rating,[COLOR sep_light]  ·  [/COLOR],]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(UnWatchedEpisodes),[COLOR sep_light]  ·  [/COLOR][COLOR value], to watch[/COLOR]]$INFO[ListItem.Year,[COLOR sep_light]  ·  [/COLOR],]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$VAR[PL_TotalSeasons_Season]$VAR[PL_TotalEpisodes_Episode2]$INFO[ListItem.Property(UnWatchedEpisodes),[COLOR sep_light]  ·  [/COLOR][COLOR value], to watch[/COLOR]]$INFO[ListItem.Rating,[COLOR sep_light]  ·  [/COLOR],]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[PL_TotalEpisodes_Episode]$INFO[ListItem.Property(UnWatchedEpisodes),[COLOR sep_light]  ·  [/COLOR][COLOR value], to watch[/COLOR]]$INFO[ListItem.Year,[COLOR sep_light]  ·  [/COLOR],]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidInfo_RuntimePart]$VAR[VidInfo_RatingPart]$INFO[ListItem.Premiered,aired ,]</value>
 		<value>$VAR[VidInfo_RuntimePart]$VAR[VidInfo_RatingPart]$VAR[VidInfo_MPAAPart]$INFO[ListItem.Genre]</value>
 	</variable>

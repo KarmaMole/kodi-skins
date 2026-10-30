@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.duotone" version="0.9.20" name="Duotone" provider-name="KarmaMole">
+<addon id="skin.duotone" version="0.9.21" name="Duotone" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required: Skin Variables URL-encodes the search query (Includes_Search.xml, Search_Encoder). -->
@@ -18,7 +18,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#duotone</website>
-		<news>v0.9.20 - Libraries: in List view an empty folder's Back row no longer covers the "Nothing here" message (films, music, files).</news>
+		<news>v0.9.21 - Counts read right at one: 1 season, 1 episode, 1 film, 1 artist, 1 song. Smaller download: removed images the skin never used.&#10;v0.9.20 - Libraries: in List view an empty folder's Back row no longer covers the "Nothing here" message (films, music, files).</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

@@ -93,6 +93,11 @@
 		<value>$VAR[Home_EpRel]</value>
 	</variable>
 	<!-- "21 minutes in," -->
+	<!-- "1 of 1 episode", not "1 of 1 episodes" -->
+	<variable name="KS_Home_EpOf">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">$INFO[ListItem.Property(WatchedEpisodes)] of 1 episode</value>
+		<value>$INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)] episodes</value>
+	</variable>
 	<variable name="KS_MinutesIn">
 		<value condition="Integer.IsLess(ListItem.PercentPlayed,1)">just a few seconds in,</value>
 		<value condition="String.IsEqual(ListItem.Duration(mins),1)">$VAR[KS_ResumeMin] minute in,</value>
@@ -957,7 +962,7 @@
 				<height>54</height>
 				<font>hand_40</font>
 				<textcolor>$VAR[Home_EpColor]</textcolor>
-				<label>$INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)] episodes</label>
+				<label>$VAR[KS_Home_EpOf]</label>
 			</control>
 			<control type="label">
 				<left>568</left>

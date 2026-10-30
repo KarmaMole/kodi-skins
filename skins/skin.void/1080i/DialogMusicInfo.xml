@@ -197,7 +197,7 @@
 					<aligny>top</aligny>
 					<font>caps_20</font>
 					<textcolor>grey_soft</textcolor>
-					<label>$INFO[ListItem.Property(Album_Duration)]$INFO[ListItem.PlayCount,[COLOR sep]  ·  [/COLOR]played , times]$INFO[ListItem.Property(Artist_Born),born ,]</label>
+					<label>$INFO[ListItem.Property(Album_Duration)]$VAR[PL_PlayCount_Time]$INFO[ListItem.Property(Artist_Born),born ,]</label>
 				</control>
 			</control>
 		</control>

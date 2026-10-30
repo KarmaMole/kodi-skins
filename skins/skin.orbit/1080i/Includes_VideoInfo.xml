@@ -25,7 +25,7 @@
 	<variable name="VidInfo_Kicker">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.TVShowTitle,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total),  ·  , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[PL_Total_Film]</value>
 		<value condition="!String.IsEmpty(ListItem.Tagline)">$INFO[ListItem.Tagline]</value>
 		<value condition="!String.IsEmpty(ListItem.Set)">$INFO[ListItem.Set]</value>
 		<value>$INFO[ListItem.Studio]</value>
@@ -95,7 +95,7 @@
 		<value condition="!String.IsEmpty(ListItem.AudioChannels)">$INFO[ListItem.AudioChannels,,ch]</value>
 	</variable>
 	<variable name="VidInfo_ProgressCaption">
-		<value condition="$EXP[VidView_IsTVType] + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)">[COLOR text_secondary]$INFO[ListItem.Property(WatchedEpisodes)] of [/COLOR]$INFO[ListItem.Property(TotalEpisodes),, episodes]</value>
+		<value condition="$EXP[VidView_IsTVType] + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)">[COLOR text_secondary]$INFO[ListItem.Property(WatchedEpisodes)] of [/COLOR]$VAR[PL_TotalEpisodes_Episode]</value>
 		<value condition="ListItem.IsResumable">[COLOR text_secondary]resume at [/COLOR]$INFO[ListItem.PercentPlayed]%</value>
 		<value condition="Integer.IsEqual(ListItem.PlayCount,1)">[COLOR text_secondary]watched once[/COLOR]</value>
 		<value condition="Integer.IsGreater(ListItem.PlayCount,1)">[COLOR text_secondary]watched [/COLOR]$INFO[ListItem.PlayCount,, times]</value>

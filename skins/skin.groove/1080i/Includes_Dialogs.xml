@@ -1006,4 +1006,13 @@
 		<texturefocus colordiffuse="$VAR[ink]">groove/btn_fill.png</texturefocus>
 		<texturenofocus colordiffuse="$VAR[focus_fill]">groove/btn_fill.png</texturenofocus>
 	</include>
+	<!-- Count words: "1 season", not "1 seasons" (2026-10-30) -->
+	<variable name="Subs_ResultCount">
+		<value condition="Integer.IsEqual(Container(120).NumItems,1)">1 $LOCALIZE[31115]</value>
+		<value>$INFO[Container(120).NumItems,, $LOCALIZE[31913]]</value>
+	</variable>
+	<variable name="VidView_SetFilms">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)">1 $LOCALIZE[31116]</value>
+		<value>$INFO[ListItem.Property(Total),, $LOCALIZE[31245]]</value>
+	</variable>
 </includes>

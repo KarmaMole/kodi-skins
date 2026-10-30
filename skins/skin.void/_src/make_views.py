@@ -181,9 +181,9 @@ STATIC_VARS = """	<variable name="Frame_Wide">
 		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Year]$VAR[Still_RuntimePart]$VAR[Still_Seen]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year]""" + SEP + """$INFO[ListItem.Property(TotalSeasons)] seasons$INFO[ListItem.Genre,""" + SEP + """,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Genre,""" + SEP + """,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Property(TotalEpisodes),""" + SEP + """, episodes]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Property(Watched),""" + SEP + """, watched]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$VAR[PL_TotalEpisodes_Episode2]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$VAR[PL_Total_Film]$INFO[ListItem.Property(Watched),""" + SEP + """, watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[PL_Total_Film]</value>
 		<value condition="!String.IsEmpty(ListItem.Season) + !String.IsEmpty(ListItem.Episode)">Season $INFO[ListItem.Season]""" + SEP + """Episode $INFO[ListItem.Episode]$VAR[Still_RuntimePart]$VAR[Still_Seen]</value>
 		<value>$INFO[ListItem.Label2]$VAR[Still_Seen]</value>
 	</variable>

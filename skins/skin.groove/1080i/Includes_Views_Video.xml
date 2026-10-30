@@ -70,7 +70,7 @@
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Property(TotalSeasons),  ·  , $LOCALIZE[31224]]$INFO[ListItem.Rating,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season) + Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">1 $LOCALIZE[31243]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[31244]]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, $LOCALIZE[31245]]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[VidView_SetFilms]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode) + $EXP[VidView_HasRuntime]">$VAR[VidView_EpCode]  ·  $VAR[VidView_Runtime]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]</value>
 		<value condition="!String.IsEmpty(ListItem.Year) + $EXP[VidView_HasRuntime]">$INFO[ListItem.Year]  ·  $VAR[VidView_Runtime]</value>

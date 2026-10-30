@@ -39,7 +39,9 @@
 	</variable>
 	<variable name="Home_IndexMeta">
 		<value condition="$EXP[Home_Is_tvshows]">Every series, A to Z  ·  $INFO[Container(9126).NumItems] series</value>
+		<value condition="$EXP[Home_Is_music] + Integer.IsEqual(Container(9136).NumItems,1)">Every album, A to Z  ·  1 album</value>
 		<value condition="$EXP[Home_Is_music]">Every album, A to Z  ·  $INFO[Container(9136).NumItems] albums</value>
+		<value condition="!$EXP[Home_Is_tvshows] + Integer.IsEqual(Container(9106).NumItems,1)">Every film, A to Z  ·  1 film</value>
 		<value>Every film, A to Z  ·  $INFO[Container(9106).NumItems] films</value>
 	</variable>
 	<variable name="Home_PlayClick">

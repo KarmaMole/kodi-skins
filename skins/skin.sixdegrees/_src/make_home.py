@@ -1050,7 +1050,10 @@ def home_variables():
     a("</variable>")
     a('<variable name="Home_IndexMeta">')
     a('\t<value condition="$EXP[Home_Is_tvshows]">Every series, A to Z  ·  $INFO[Container(9126).NumItems] series</value>')
+    # 2026-10-30: "1 album" / "1 film", not "1 albums" / "1 films"
+    a('\t<value condition="$EXP[Home_Is_music] + Integer.IsEqual(Container(9136).NumItems,1)">Every album, A to Z  ·  1 album</value>')
     a('\t<value condition="$EXP[Home_Is_music]">Every album, A to Z  ·  $INFO[Container(9136).NumItems] albums</value>')
+    a('\t<value condition="!$EXP[Home_Is_tvshows] + Integer.IsEqual(Container(9106).NumItems,1)">Every film, A to Z  ·  1 film</value>')
     a("\t<value>Every film, A to Z  ·  $INFO[Container(9106).NumItems] films</value>")
     a("</variable>")
     # buttons under the preview act on the selected starter

@@ -57,7 +57,15 @@ FAINT = (28, 34, 45, 255)         # #1C222D
 FAINTER = (22, 27, 37, 255)       # #161B25
 
 
+# Drawn below but named by no XML (removed from media/ 2026-10-30): never written again.
+UNUSED = {
+    "dial_ticks_180.png", "ruler_v.png"
+}
+
+
 def save(img, rel):
+    if rel in UNUSED:
+        return
     p = MEDIA / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     img.save(p, optimize=True)

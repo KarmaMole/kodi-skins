@@ -77,4 +77,89 @@
 		<value>$LOCALIZE[3]</value>
 	</variable>
 
+	<!-- Count words: "1 season", not "1 seasons" (2026-10-30). Used by the _src generators. -->
+	<variable name="Fold_N_TotalEpisodes_episodes">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">  ·  1 episode</value>
+		<value>$INFO[ListItem.Property(TotalEpisodes),  ·  , episodes]</value>
+	</variable>
+	<variable name="Fold_N_TotalEpisodes_episodes2">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">1 episode</value>
+		<value>$INFO[ListItem.Property(TotalEpisodes),, episodes]</value>
+	</variable>
+	<variable name="Fold_N_TotalSeasons_seasons">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)">  ·  1 season</value>
+		<value>$INFO[ListItem.Property(TotalSeasons),  ·  , seasons]</value>
+	</variable>
+	<variable name="Fold_N_Total_films">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)">  ·  1 film</value>
+		<value>$INFO[ListItem.Property(Total),  ·  , films]</value>
+	</variable>
+	<variable name="Fold_N_Total_films2">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)">1 FILM</value>
+		<value>$INFO[ListItem.Property(Total),, FILMS]</value>
+	</variable>
+	<variable name="Fold_N_Total_films3">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)"> · 1 film</value>
+		<value>$INFO[ListItem.Property(Total), · , films]</value>
+	</variable>
+	<variable name="Fold_N_ContainerNumItems_seasons">
+		<value condition="Integer.IsEqual(Container.NumItems,1)">1 season</value>
+		<value>$INFO[Container.NumItems,, seasons]</value>
+	</variable>
+	<variable name="Fold_N_ContainerNumItems_episodes">
+		<value condition="Integer.IsEqual(Container.NumItems,1)">  ·  1 episode</value>
+		<value>$INFO[Container.NumItems,  ·  , episodes]</value>
+	</variable>
+	<variable name="Fold_N_ContainerNumItems_episodes2">
+		<value condition="Integer.IsEqual(Container.NumItems,1)">   1 episode</value>
+		<value>$INFO[Container.NumItems,   , episodes]</value>
+	</variable>
+	<variable name="Fold_N_ContainerNumItems_episodes3">
+		<value condition="Integer.IsEqual(Container.NumItems,1)"> · 1 episode</value>
+		<value>$INFO[Container.NumItems, · , episodes]</value>
+	</variable>
+	<variable name="Fold_N_TotalSeasons_seasonsdot">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)">1 season · </value>
+		<value>$INFO[ListItem.Property(TotalSeasons),, seasons · ]</value>
+	</variable>
+	<variable name="Fold_N_TotalSeasons_seasons2">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)"> · 1 season</value>
+		<value>$INFO[ListItem.Property(TotalSeasons), · , seasons]</value>
+	</variable>
+	<variable name="Fold_N_Total_films4">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)">1 film</value>
+		<value>$INFO[ListItem.Property(Total),, films]</value>
+	</variable>
+	<variable name="Fold_N_TotalEpisodes_episodes3">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">[COLOR cobalt] · [/COLOR]1 episode</value>
+		<value>$INFO[ListItem.Property(TotalEpisodes),[COLOR cobalt] · [/COLOR], episodes]</value>
+	</variable>
+	<variable name="Fold_N_TotalSeasons_seasons3">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)">[COLOR cobalt] · [/COLOR]1 season</value>
+		<value>$INFO[ListItem.Property(TotalSeasons),[COLOR cobalt] · [/COLOR], seasons]</value>
+	</variable>
+	<variable name="Fold_N_Total_films5">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)">[COLOR verm] · [/COLOR]1 film</value>
+		<value>$INFO[ListItem.Property(Total),[COLOR verm] · [/COLOR], films]</value>
+	</variable>
+	<variable name="Fold_N_EpWord">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)"> episode</value>
+		<value> episodes</value>
+	</variable>
+	<variable name="Fold_N_C9130_shows">
+		<value condition="Integer.IsEqual(Container(9130).NumItems,1)">1 show</value>
+		<value>$INFO[Container(9130).NumItems] shows</value>
+	</variable>
+	<variable name="Fold_N_C9192_films">
+		<value condition="Integer.IsEqual(Container(9192).NumItems,1)">1 film</value>
+		<value>$INFO[Container(9192).NumItems] films</value>
+	</variable>
+	<variable name="Fold_N_EpWord_9130">
+		<value condition="Integer.IsEqual(Container(9130).ListItem.Property(TotalEpisodes),1)"> episode</value>
+		<value> episodes</value>
+	</variable>
+	<variable name="Fold_N_EpWord_9131">
+		<value condition="Integer.IsEqual(Container(9131).ListItem.Property(TotalEpisodes),1)"> episode</value>
+		<value> episodes</value>
+	</variable>
 </includes>

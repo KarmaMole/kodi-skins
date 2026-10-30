@@ -31,11 +31,11 @@
 
 	<!-- ============================================================ variables -->
 	<variable name="Dlg_SelectKicker">
-		<value condition="Window.IsVisible(osdsubtitlesettings)">Subtitles$INFO[Container(3).NumItems, · , tracks]</value>
-		<value condition="Window.IsVisible(osdaudiosettings)">Audio$INFO[Container(3).NumItems, · , tracks]</value>
-		<value condition="Window.IsVisible(osdvideosettings)">Video$INFO[Container(3).NumItems, · , options]</value>
-		<value condition="Control.IsVisible(6)">Choose$INFO[Container(6).NumItems, · , items]</value>
-		<value>Choose$INFO[Container(3).NumItems, · , items]</value>
+		<value condition="Window.IsVisible(osdsubtitlesettings)">Subtitles$VAR[PL_Container_3_NumItems_Track]</value>
+		<value condition="Window.IsVisible(osdaudiosettings)">Audio$VAR[PL_Container_3_NumItems_Track]</value>
+		<value condition="Window.IsVisible(osdvideosettings)">Video$VAR[PL_Container_3_NumItems_Option]</value>
+		<value condition="Control.IsVisible(6)">Choose$VAR[PL_Container_6_NumItems_Item]</value>
+		<value>Choose$VAR[PL_Container_3_NumItems_Item]</value>
 	</variable>
 	<variable name="Dlg_SelectPosition">
 		<value condition="Control.IsVisible(6)">$INFO[Container(6).CurrentItem]$INFO[Container(6).NumItems, / ,]</value>

@@ -462,6 +462,7 @@
 	</variable>
 	<variable name="KSV_TracksLine">
 		<value condition="Integer.IsGreater(Container(5321).NumItems,10)">the first ten of $INFO[Container(5321).NumItems] tracks</value>
+		<value condition="Integer.IsEqual(Container(5321).NumItems,1)">$INFO[Container(5321).NumItems] track</value>
 		<value condition="Integer.IsGreater(Container(5321).NumItems,0)">$INFO[Container(5321).NumItems] tracks</value>
 	</variable>
 	<include name="KSV_StripInstant">

@@ -238,7 +238,7 @@
 		<value condition="String.IsEqual(Container.ListItem.DBType,movie)">$INFO[Container.ListItem.Director,, · ]$INFO[Container.ListItem.Year]$INFO[Container.ListItem.Genre, · ,]$INFO[Container.ListItem.Duration(mins),$COMMA , min]</value>
 		<value condition="String.IsEqual(Container.ListItem.DBType,tvshow)">$INFO[Container.ListItem.Year]$INFO[Container.ListItem.Genre, · ,]$INFO[Container.ListItem.Studio, · ,]</value>
 		<value condition="String.IsEqual(Container.ListItem.DBType,season)">$INFO[Container.ListItem.TVShowTitle]$INFO[Container.ListItem.Year, · ,]</value>
-		<value condition="String.IsEqual(Container.ListItem.DBType,set)">Collection$INFO[Container.ListItem.Property(Total), · , films]</value>
+		<value condition="String.IsEqual(Container.ListItem.DBType,set)">Collection$VAR[PL_Container_Total_Film]</value>
 		<value condition="String.IsEqual(Container.ListItem.DBType,episode)">$INFO[Container.ListItem.Season,Season ,]$INFO[Container.ListItem.Episode, · Episode ,]</value>
 		<value condition="String.IsEqual(Container.ListItem.DBType,musicvideo)">$INFO[Container.ListItem.Artist]$INFO[Container.ListItem.Year, · ,]</value>
 		<value>$INFO[Container.ListItem.Label2]</value>
@@ -956,7 +956,7 @@
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season) + Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">1 episode$INFO[ListItem.Property(WatchedEpisodes), · , seen]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Property(WatchedEpisodes), · , seen]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total), · , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[PL_Total_Film]</value>
 		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Artist]$INFO[ListItem.Year, · ,]</value>
 		<value condition="Container.Content(genres)">Genre</value>
 		<value condition="Container.Content(years)">Year</value>

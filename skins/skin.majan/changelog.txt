@@ -1,3 +1,7 @@
+1.0.22 (2026-10-30)
+- Counts read "1 season", "1 film", "1 result" instead of the plural.
+- Smaller download: removed images the skin never used.
+
 1.0.21 (2026-10-30)
 - Music: an empty folder no longer prints "Nothing here" on top of its Back row.
 

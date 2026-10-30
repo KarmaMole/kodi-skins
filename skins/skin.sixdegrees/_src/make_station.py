@@ -158,7 +158,10 @@ def variables():
     # 0.9.10: the Line view shows this caption too, where Container(50) is not the set's films ("0 films" for a
     # 4-film set); a set item carries its count in Property(Total) (Daylight / Fold); the dialog's list 50 stays
     # the fallback
+    # 2026-10-30: "1 film", not "1 films"
+    a(f'\t<value condition="{IS_SET} + Integer.IsEqual(ListItem.Property(Total),1)">Collection · 1 film</value>')
     a(f'\t<value condition="{IS_SET} + !String.IsEmpty(ListItem.Property(Total))">Collection$INFO[ListItem.Property(Total), · , films]</value>')
+    a(f'\t<value condition="{IS_SET} + Window.IsVisible(movieinformation) + Integer.IsEqual(Container(50).NumItems,1)">Collection · 1 film</value>')
     a(f'\t<value condition="{IS_SET} + Window.IsVisible(movieinformation)">Collection$INFO[Container(50).NumItems, · , films]</value>')
     a(f'\t<value condition="{IS_SET}">Collection</value>')
     a("\t<value>Station$INFO[ListItem.Year, · ,] · $VAR[St_GenreCaps]</value>")

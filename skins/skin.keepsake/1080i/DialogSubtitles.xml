@@ -263,7 +263,18 @@
 					<font>lbl_20</font>
 					<textcolor>label</textcolor>
 					<label>$INFO[Container(120).NumItems,, RESULTS]</label>
-					<visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
+					<visible>Integer.IsGreater(Container(120).NumItems,1)</visible>
+				</control>
+				<!-- "1 RESULT", not "1 RESULTS" -->
+				<control type="label">
+					<left>0</left>
+					<top>0</top>
+					<width>500</width>
+					<height>24</height>
+					<font>lbl_20</font>
+					<textcolor>label</textcolor>
+					<label>$INFO[Container(120).NumItems,, RESULT]</label>
+					<visible>Integer.IsEqual(Container(120).NumItems,1)</visible>
 				</control>
 				<control type="label">
 					<left>0</left>

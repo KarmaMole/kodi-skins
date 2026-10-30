@@ -73,10 +73,10 @@
 	<variable name="Plate_Meta">
 		<value condition="Container(50).ListItem.IsParentFolder">Up one level</value>
 		<value condition="String.IsEqual(Container(50).ListItem.DBType,movie)">$INFO[Container(50).ListItem.Year]$VAR[Plate_RuntimePart]$VAR[Plate_Rating]</value>
-		<value condition="String.IsEqual(Container(50).ListItem.DBType,tvshow)">$INFO[Container(50).ListItem.Year]$INFO[Container(50).ListItem.Property(TotalSeasons),[COLOR sep_light]  ·  [/COLOR], seasons]$VAR[Plate_Rating]</value>
-		<value condition="String.IsEqual(Container(50).ListItem.DBType,season)">$INFO[Container(50).ListItem.Property(TotalEpisodes),, episodes]$INFO[Container(50).ListItem.Property(UnWatchedEpisodes),[COLOR sep_light]  ·  [/COLOR], to watch]</value>
+		<value condition="String.IsEqual(Container(50).ListItem.DBType,tvshow)">$INFO[Container(50).ListItem.Year]$VAR[PL_Container_50_TotalSeasons_Season]$VAR[Plate_Rating]</value>
+		<value condition="String.IsEqual(Container(50).ListItem.DBType,season)">$VAR[PL_Container_50_TotalEpisodes_Episode]$INFO[Container(50).ListItem.Property(UnWatchedEpisodes),[COLOR sep_light]  ·  [/COLOR], to watch]</value>
 		<value condition="String.IsEqual(Container(50).ListItem.DBType,episode)">$VAR[Plate_EpCode]$VAR[Plate_RuntimePart]$VAR[Plate_Rating]</value>
-		<value condition="String.IsEqual(Container(50).ListItem.DBType,set)">$INFO[Container(50).ListItem.Property(Total),, films]$INFO[Container(50).ListItem.Property(Watched),[COLOR sep_light]  ·  [/COLOR], watched]</value>
+		<value condition="String.IsEqual(Container(50).ListItem.DBType,set)">$VAR[PL_Container_50_Total_Film]$INFO[Container(50).ListItem.Property(Watched),[COLOR sep_light]  ·  [/COLOR], watched]</value>
 		<value condition="String.IsEqual(Container(50).ListItem.DBType,album)">$INFO[Container(50).ListItem.Artist]$INFO[Container(50).ListItem.Year,[COLOR sep_light]  ·  [/COLOR],]</value>
 		<value condition="String.IsEqual(Container(50).ListItem.DBType,artist)">$INFO[Container(50).ListItem.Genre]</value>
 		<value condition="String.IsEqual(Container(50).ListItem.DBType,song)">$INFO[Container(50).ListItem.Artist]$INFO[Container(50).ListItem.Duration,[COLOR sep_light]  ·  [/COLOR],]</value>

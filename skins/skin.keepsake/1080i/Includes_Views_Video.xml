@@ -41,6 +41,7 @@
 		<value condition="Container.Content(seasons)">$VAR[VidView_SeasonsN]</value>
 		<value condition="Container.Content(tvshows)">$INFO[Container.NumItems] series</value>
 		<value condition="Container.Content(movies)">$VAR[VidView_FilmsN]</value>
+		<value condition="Integer.IsEqual(Container.NumItems,1)">$INFO[Container.NumItems] item</value>
 		<value>$INFO[Container.NumItems] items</value>
 	</variable>
 	<variable name="VidView_FilmsN">
@@ -682,6 +683,7 @@
 	</variable>
 	<variable name="VidView_SeriesNote">
 		<value condition="Integer.IsEqual(ListItem.Property(WatchedEpisodes),0)">not started yet</value>
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1) + String.IsEqual(ListItem.Property(WatchedEpisodes),ListItem.Property(TotalEpisodes))">its only episode, seen</value>
 		<value condition="String.IsEqual(ListItem.Property(WatchedEpisodes),ListItem.Property(TotalEpisodes))">all $INFO[ListItem.Property(TotalEpisodes)] episodes, seen</value>
 		<value>$INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)] episodes watched</value>
 	</variable>
@@ -1059,14 +1061,18 @@
 	<variable name="VidView_EpKicker">
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalSeasons),1)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]  ·  1 season$INFO[ListItem.Genre,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$INFO[ListItem.Studio,  ·  ,]$INFO[ListItem.Property(TotalSeasons),  ·  , seasons]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsEqual(ListItem.Property(Total),1)">$INFO[ListItem.Property(Total),, film]$INFO[ListItem.Genre,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Total),, films]$INFO[ListItem.Genre,  ·  ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),  ·  , min]$INFO[ListItem.Genre,  ·  ,]$INFO[ListItem.Director,  ·  ,]</value>
 		<value>$INFO[ListItem.TVShowTitle]$INFO[ListItem.Season,  ·  season ,]$INFO[ListItem.Episode,  ·  episode ,]$INFO[ListItem.Premiered,  ·  aired ,]</value>
 	</variable>
 	<variable name="VidView_EpHistory">
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalEpisodes),1) + Integer.IsEqual(ListItem.Property(WatchedEpisodes),0)">$INFO[ListItem.Property(TotalEpisodes)] episode, not seen yet.</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">Its only episode seen.</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsEqual(ListItem.Property(WatchedEpisodes),0)">$INFO[ListItem.Property(TotalEpisodes)] episodes, none seen yet.</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEqual(ListItem.Property(WatchedEpisodes),ListItem.Property(TotalEpisodes))">All $INFO[ListItem.Property(TotalEpisodes)] episodes seen.</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)] episodes seen.</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsEqual(ListItem.Property(Total),1)">$INFO[ListItem.Property(Watched)] of $INFO[ListItem.Property(Total)] film seen.</value>
 		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Watched)] of $INFO[ListItem.Property(Total)] films seen.</value>
 		<value condition="ListItem.IsResumable">You stopped $VAR[KS_MinutesIn] $VAR[KS_LP_Rel].</value>
 		<value condition="Integer.IsGreater(ListItem.PlayCount,1)">Watched $INFO[ListItem.PlayCount] times, last on $VAR[KS_LP_LongY].</value>

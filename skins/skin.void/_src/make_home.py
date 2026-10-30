@@ -198,13 +198,13 @@ STATIC_ITEMS = {
         ("$LOCALIZE[31300]", "$INFO[MusicPlayer.Artist,,[COLOR sep_light]  ·  [/COLOR]]$INFO[Player.Title]", "Playing",
          "ActivateWindow(visualisation)", "Player.HasAudio + !Player.HasVideo"),
         ("$LOCALIZE[31300]", "$INFO[Player.Title]", "Playing", "ActivateWindow(fullscreenvideo)", "Player.HasVideo"),
-        ("$LOCALIZE[31301]", "$INFO[Window(Home).Property(Movies.Count),, films]$INFO[Window(Home).Property(Movies.UnWatched),[COLOR sep_light]  ·  [/COLOR], unwatched]",
+        ("$LOCALIZE[31301]", "$VAR[PL_Movies_Count_Film]$INFO[Window(Home).Property(Movies.UnWatched),[COLOR sep_light]  ·  [/COLOR], unwatched]",
          "Library", "ActivateWindow(Videos,videodb://movies/titles/,return)", "Library.HasContent(movies) + !Skin.HasSetting(HideMenu.Movies)"),
-        ("$LOCALIZE[31302]", "$INFO[Window(Home).Property(TVShows.Count),, shows]$INFO[Window(Home).Property(Episodes.Count),[COLOR sep_light]  ·  [/COLOR], episodes]",
+        ("$LOCALIZE[31302]", "$VAR[PL_TVShows_Count_Show]$VAR[PL_Episodes_Count_Episode]",
          "Library", "ActivateWindow(Videos,videodb://tvshows/titles/,return)", "Library.HasContent(tvshows) + !Skin.HasSetting(HideMenu.TVShows)"),
-        ("$LOCALIZE[31211]", "$INFO[Window(Home).Property(Music.AlbumsCount),, albums]$INFO[Window(Home).Property(Music.ArtistsCount),[COLOR sep_light]  ·  [/COLOR], artists]",
+        ("$LOCALIZE[31211]", "$VAR[PL_Music_AlbumsCount_Album]$VAR[PL_Music_ArtistsCount_Artist]",
          "Library", "ActivateWindow(Music,musicdb://albums/,return)", "Library.HasContent(music) + !Skin.HasSetting(HideMenu.Music)"),
-        ("$LOCALIZE[31303]", "$INFO[Window(Home).Property(MusicVideos.Count),, videos]",
+        ("$LOCALIZE[31303]", "$VAR[PL_MusicVideos_Count_Video]",
          "Library", "ActivateWindow(Videos,videodb://musicvideos/titles/,return)", "Library.HasContent(musicvideos) + !Skin.HasSetting(HideMenu.MusicVideos)"),
         ("$LOCALIZE[31304]", "$LOCALIZE[31312]", "Library", "ActivateWindow(TVChannels)", "System.HasPVRAddon + !Skin.HasSetting(HideMenu.LiveTV)"),
         ("$LOCALIZE[31305]", "$INFO[Weather.Temperature]$INFO[Weather.Conditions,[COLOR sep_light]  ·  [/COLOR],]$INFO[Weather.Location,[COLOR sep_light]  ·  [/COLOR],]",
@@ -330,8 +330,8 @@ def shelf_vars(n, i, kind):
     elif kind == "show":
         meta = [
             (f"Integer.IsGreater({C(i,'Property(UnWatchedEpisodes)')},0)",
-             f"$INFO[{C(i,'Property(TotalSeasons)')},, seasons]{SEP}[COLOR value]$INFO[{C(i,'Property(UnWatchedEpisodes)')},, to watch][/COLOR]$INFO[{C(i,'Studio')},{SEP},]"),
-            (None, f"$INFO[{C(i,'Property(TotalSeasons)')},, seasons]{SEP}all watched$INFO[{C(i,'Studio')},{SEP},]"),
+             f"$VAR[PL_Container_{i}_TotalSeasons_Season]{SEP}[COLOR value]$INFO[{C(i,'Property(UnWatchedEpisodes)')},, to watch][/COLOR]$INFO[{C(i,'Studio')},{SEP},]"),
+            (None, f"$VAR[PL_Container_{i}_TotalSeasons_Season]{SEP}all watched$INFO[{C(i,'Studio')},{SEP},]"),
         ]
     else:
         meta = [(None, f"$INFO[{C(i,'Label2')}]")]

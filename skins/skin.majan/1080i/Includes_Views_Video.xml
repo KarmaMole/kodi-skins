@@ -216,9 +216,9 @@
 	</variable>
 	<!-- Big Poster meta: 2026 · 2H 25M · 8.2 / 10 · PG-13 · GENRES · UNWATCHED -->
 	<variable name="VidView_MetaLine">
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total), · , films]$INFO[ListItem.Genre, · ,] · $VAR[VidView_Status]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[VidView_SetFilms]$INFO[ListItem.Genre, · ,] · $VAR[VidView_Status]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.Premiered, · Aired ,]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta] · $VAR[VidView_Status]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, episodes]$INFO[ListItem.Year, · ,] · $VAR[VidView_Status]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[VidView_EpisodesLC]$INFO[ListItem.Year, · ,] · $VAR[VidView_Status]</value>
 		<value>$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]$VAR[VidView_MPAAMeta]$INFO[ListItem.Genre, · ,] · $VAR[VidView_Status]</value>
 	</variable>
 	<!-- Lead actor only: ListItem.Cast is newline-separated (DATA 4.1), shown in 1-line textboxes -->
@@ -271,15 +271,15 @@
 
 	<!-- Showcase caption under the hero poster (right half) -->
 	<variable name="VidView_HeroCaption">
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$INFO[ListItem.Property(Total), · , FILMS]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$VAR[VidInfo_SetFilmsUC]</value>
 		<value>$INFO[ListItem.DateAdded,ADDED ,]</value>
 	</variable>
 
 	<!-- Wall header (focused show of the wall, container 502) -->
 	<variable name="VidView_WallProgress">
-		<value condition="Integer.IsEqual(Container(502).ListItem.Property(UnWatchedEpisodes),0) + Integer.IsGreater(Container(502).ListItem.Property(TotalEpisodes),0)">ALL $INFO[Container(502).ListItem.Property(TotalEpisodes)] EPISODES WATCHED$INFO[Container(502).ListItem.Property(TotalSeasons), · , SEASONS]</value>
-		<value condition="Integer.IsGreater(Container(502).ListItem.Property(WatchedEpisodes),0)">$INFO[Container(502).ListItem.Property(WatchedEpisodes)] OF $INFO[Container(502).ListItem.Property(TotalEpisodes)] EPISODES WATCHED$INFO[Container(502).ListItem.Property(UnWatchedEpisodes), · , TO GO]$INFO[Container(502).ListItem.Property(TotalSeasons), · , SEASONS]</value>
-		<value condition="Integer.IsGreater(Container(502).ListItem.Property(TotalEpisodes),0)">$INFO[Container(502).ListItem.Property(TotalEpisodes)] EPISODES · UNWATCHED$INFO[Container(502).ListItem.Property(TotalSeasons), · , SEASONS]</value>
+		<value condition="Integer.IsEqual(Container(502).ListItem.Property(UnWatchedEpisodes),0) + Integer.IsGreater(Container(502).ListItem.Property(TotalEpisodes),0)">ALL $INFO[Container(502).ListItem.Property(TotalEpisodes)]$VAR[VidView_WallEpWord] WATCHED$VAR[VidView_WallSeasons]</value>
+		<value condition="Integer.IsGreater(Container(502).ListItem.Property(WatchedEpisodes),0)">$INFO[Container(502).ListItem.Property(WatchedEpisodes)] OF $INFO[Container(502).ListItem.Property(TotalEpisodes)]$VAR[VidView_WallEpWord] WATCHED$INFO[Container(502).ListItem.Property(UnWatchedEpisodes), · , TO GO]$VAR[VidView_WallSeasons]</value>
+		<value condition="Integer.IsGreater(Container(502).ListItem.Property(TotalEpisodes),0)">$INFO[Container(502).ListItem.Property(TotalEpisodes)]$VAR[VidView_WallEpWord] · UNWATCHED$VAR[VidView_WallSeasons]</value>
 	</variable>
 
 	<variable name="VidView_WallTitle">
@@ -322,9 +322,9 @@
 	<variable name="VidView_EpLine">
 		<value condition="ListItem.IsParentFolder">PARENT FOLDER · OK GOES UP ONE LEVEL</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$VAR[VidView_RuntimeMeta]$INFO[ListItem.Premiered, · AIRED ,]$VAR[VidView_RatingMeta]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, EPISODES]$INFO[ListItem.Property(WatchedEpisodes), · , WATCHED]$INFO[ListItem.Year, · ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[VidView_EpisodesUC]$INFO[ListItem.Property(WatchedEpisodes), · , WATCHED]$INFO[ListItem.Year, · ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[VidView_SeasonsN]$VAR[VidView_EpisodesN]$INFO[ListItem.Genre, · ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$INFO[ListItem.Property(Total), · , FILMS]$INFO[ListItem.Property(Watched), · , WATCHED]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$VAR[VidInfo_SetFilmsUC]$INFO[ListItem.Property(Watched), · , WATCHED]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]$VAR[VidView_MPAAMeta]$INFO[ListItem.Genre, · ,]</value>
 		<value>$INFO[ListItem.Label2]</value>
 	</variable>
@@ -2164,9 +2164,9 @@
 	<variable name="VidView_StillLine">
 		<value condition="ListItem.IsParentFolder">PARENT FOLDER</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, EPISODES]$INFO[ListItem.Property(WatchedEpisodes), · , WATCHED]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[VidView_EpisodesUC]$INFO[ListItem.Property(WatchedEpisodes), · , WATCHED]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[VidView_SeasonsN]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$INFO[ListItem.Property(Total), · , FILMS]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$VAR[VidInfo_SetFilmsUC]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]</value>
 		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Artist]$INFO[ListItem.Year, · ,]</value>
 		<value>$INFO[ListItem.Label2]</value>
@@ -2360,4 +2360,45 @@
 		<include>VidView_Empty</include>
 		<include>VidView_Header</include>
 	</include>
+	<!-- Count words: "1 season", not "1 seasons" (2026-10-30) -->
+	<variable name="Subs_ResultCount">
+		<value condition="Integer.IsEqual(Container(120).NumItems,1)">1 RESULT</value>
+		<value>$INFO[Container(120).NumItems,, RESULTS]</value>
+	</variable>
+	<variable name="Home_MoviesCountWord">
+		<value condition="Integer.IsEqual(Window(Home).Property(Movies.Count),1)">  ·  1 $LOCALIZE[31115]</value>
+		<value>$INFO[Window(Home).Property(Movies.Count),  ·  , $LOCALIZE[31114]]</value>
+	</variable>
+	<variable name="VidInfo_SetFilmsUC">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)"> · 1 FILM</value>
+		<value>$INFO[ListItem.Property(Total), · , FILMS]</value>
+	</variable>
+	<variable name="VidInfo_CastFilms">
+		<value condition="Integer.IsEqual(Container(50).NumItems,1)">1 FILM</value>
+		<value>$INFO[Container(50).NumItems,, FILMS]</value>
+	</variable>
+	<variable name="VidInfo_CastPeople">
+		<value condition="Integer.IsEqual(Container(50).NumItems,1)">1 PERSON</value>
+		<value>$INFO[Container(50).NumItems,, PEOPLE]</value>
+	</variable>
+	<variable name="VidView_SetFilms">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)"> · 1 film</value>
+		<value>$INFO[ListItem.Property(Total), · , films]</value>
+	</variable>
+	<variable name="VidView_EpisodesLC">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">1 episode</value>
+		<value>$INFO[ListItem.Property(TotalEpisodes),, episodes]</value>
+	</variable>
+	<variable name="VidView_EpisodesUC">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">1 EPISODE</value>
+		<value>$INFO[ListItem.Property(TotalEpisodes),, EPISODES]</value>
+	</variable>
+	<variable name="VidView_WallSeasons">
+		<value condition="Integer.IsEqual(Container(502).ListItem.Property(TotalSeasons),1)"> · 1 SEASON</value>
+		<value>$INFO[Container(502).ListItem.Property(TotalSeasons), · , SEASONS]</value>
+	</variable>
+	<variable name="VidView_WallEpWord">
+		<value condition="Integer.IsEqual(Container(502).ListItem.Property(TotalEpisodes),1)"> EPISODE</value>
+		<value> EPISODES</value>
+	</variable>
 </includes>

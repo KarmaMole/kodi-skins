@@ -22,10 +22,10 @@
 	<variable name="MusInfo_Meta">
 		<value condition="$EXP[Music_InfoIsArtist]">$INFO[ListItem.Genre]$INFO[ListItem.Property(Artist_Born),  ·  born ,]$INFO[ListItem.Property(Artist_Formed),  ·  formed ,]</value>
 		<value condition="$EXP[Music_InfoIsSong]">$INFO[ListItem.Year,,  ·  ]$INFO[ListItem.Duration]$INFO[ListItem.Genre,  ·  ,]</value>
-		<value>$INFO[ListItem.Year,,  ·  ]$INFO[Container(50).NumItems,, tracks]$INFO[ListItem.Genre,  ·  ,]</value>
+		<value>$INFO[ListItem.Year,,  ·  ]$VAR[PL_Container_50_NumItems_Track]$INFO[ListItem.Genre,  ·  ,]</value>
 	</variable>
 	<variable name="MusInfo_EndLine">
-		<value condition="$EXP[Music_InfoIsArtist]">$INFO[Container(50).NumItems,, albums in your library]</value>
+		<value condition="$EXP[Music_InfoIsArtist]">$VAR[PL_Container_50_NumItems_Album]</value>
 		<value condition="$EXP[Music_InfoIsAlbum] + !String.IsEmpty(ListItem.Duration)">$INFO[ListItem.Duration(mins),, minutes of music]</value>
 		<value condition="!String.IsEmpty(ListItem.EndTime)">Start now, done by $INFO[ListItem.EndTime]</value>
 	</variable>

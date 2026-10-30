@@ -26,7 +26,7 @@
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.TVShowTitle, · ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">TV SHOW$INFO[ListItem.Studio, · ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$INFO[ListItem.Property(Total), · , FILMS]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$VAR[VidInfo_SetFilmsUC]</value>
 		<value condition="!String.IsEmpty(ListItem.Set)">MOVIE · $INFO[ListItem.Set]</value>
 		<value>MOVIE$INFO[ListItem.Studio, · ,]</value>
 	</variable>
@@ -55,8 +55,8 @@
 		<value>Cast</value>
 	</variable>
 	<variable name="VidInfo_CastCount">
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[Container(50).NumItems,, FILMS]</value>
-		<value>$INFO[Container(50).NumItems,, PEOPLE]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[VidInfo_CastFilms]</value>
+		<value>$VAR[VidInfo_CastPeople]</value>
 	</variable>
 	<!-- context hint line (x 680, y 990) -->
 	<variable name="VidInfo_Hint">

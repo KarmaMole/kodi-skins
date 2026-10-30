@@ -21,7 +21,18 @@ RNG = np.random.default_rng(7)
 
 
 # ------------------------------------------------------------------ helpers
+# Drawn below but named by no XML (removed from media/ 2026-10-30): never written.
+UNUSED = {"common/gradient_bottom.png", "common/gradient_left.png", "common/gradient_right.png",
+          "common/gradient_stage.png", "common/gradient_top.png", "common/rect_round8.png", "daylight/card_line.png",
+          "daylight/mask_fade_panel.png", "dialogs/panel_framed.png", "markers/unwatched_round.png",
+          "markers/watched_round.png", "masks/landscape_round8_large.png", "masks/landscape_square.png",
+          "masks/poster_round8_large.png", "masks/poster_round8_xl.png", "vidview/dim_ahead.png",
+          "vidview/dim_passed.png", "vidview/underline.png", "daylight/icons/back10.png", "daylight/icons/fwd30.png"}
+
+
 def save(img: Image.Image, rel: str) -> None:
+    if rel in UNUSED:
+        return
     p = MEDIA / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     img.save(p, optimize=True)

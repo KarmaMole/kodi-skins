@@ -119,6 +119,7 @@
 	</variable>
 	<!-- music info (album spread) -->
 	<variable name="Music_InfoHistory">
+		<value condition="$EXP[Music_InfoIsArtist] + Integer.IsEqual(Container(50).NumItems,1)">$INFO[Container(50).NumItems,,  album on the shelf]</value>
 		<value condition="$EXP[Music_InfoIsArtist]">$INFO[Container(50).NumItems,,  albums on the shelf]</value>
 		<value condition="Integer.IsGreater(ListItem.PlayCount,1) + !String.IsEmpty(ListItem.LastPlayed)">Played $INFO[ListItem.PlayCount] times,[CR]the last time on $VAR[KS_LP_LongY].</value>
 		<value condition="!String.IsEmpty(ListItem.LastPlayed)">Played on $VAR[KS_LP_LongY].</value>

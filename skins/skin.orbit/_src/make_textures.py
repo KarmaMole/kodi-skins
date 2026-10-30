@@ -34,7 +34,29 @@ GROUND = (10, 18, 38, 255)   # 0.9.2 navy ground (bg token #0A1226)
 RAISED = (26, 39, 68, 255)   # bg_raised #1A2744
 
 
+# Drawn below but named by no XML (removed from media/ 2026-10-30): never written again.
+UNUSED = {
+    "btn/disc_108.png", "btn/disc_40.png", "btn/disc_48.png", "btn/disc_56.png", "btn/disc_64.png",
+    "btn/disc_72.png", "btn/disc_84.png", "btn/disc_96.png", "btn/halo_108.png", "btn/halo_40.png",
+    "btn/halo_48.png", "btn/halo_56.png", "btn/halo_64.png", "btn/halo_72.png", "btn/halo_84.png",
+    "btn/halo_96.png", "common/chip_fill.png", "common/gradient_left.png", "common/gradient_right.png",
+    "common/radial_lift.png", "common/rect_outline_1.png", "common/rect_square.png", "focus/brackets_s.png",
+    "focus/outline_2_round.png", "focus/outline_3.png", "focus/outline_3_round.png", "icons/addcircle.png",
+    "icons/bookmark.png", "icons/chevron_down.png", "icons/chevron_up.png", "markers/unwatched_pip.png",
+    "markers/unwatched_round.png", "markers/watched_round.png", "masks/landscape_round8.png",
+    "masks/landscape_round8_large.png", "masks/landscape_square.png", "masks/poster_round8.png",
+    "masks/poster_round8_large.png", "masks/poster_round8_xl.png", "masks/poster_square.png",
+    "vidview/underline.png"
+}
+
+
+MADE = {}  # every texture drawn this run, by rel path: unused icons still feed round_button() from here
+
+
 def save(img, rel):
+    MADE[rel] = img
+    if rel in UNUSED:
+        return
     p = MEDIA / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     img.save(p, optimize=True)
@@ -561,7 +583,10 @@ AMBER_C = (255, 181, 71, 255)
 
 def icon_image(name, px):
     """Load a generated white icon and resize it to px."""
-    im = Image.open(MEDIA / "icons" / f"{name}.png").convert("RGBA")
+    im = MADE.get(f"icons/{name}.png")
+    if im is None:
+        im = Image.open(MEDIA / "icons" / f"{name}.png")
+    im = im.convert("RGBA")
     return im.resize((px, px), Image.LANCZOS)
 
 

@@ -37,7 +37,7 @@
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Season, · Season ,]$INFO[ListItem.Episode, · Episode ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Year, · ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Studio,,$COMMA ]$INFO[ListItem.Year]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$INFO[ListItem.Property(Total), · , films]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[PL_Total_Film]</value>
 		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Artist,,$COMMA ]$INFO[ListItem.Year]</value>
 		<value condition="!String.IsEmpty(ListItem.Director)">$INFO[ListItem.Director]$INFO[ListItem.Year,$COMMA ,]</value>
 		<value>$INFO[ListItem.Year]</value>

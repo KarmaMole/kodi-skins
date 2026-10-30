@@ -297,7 +297,7 @@ def pen_fill():
     # transparent progress background: Kodi sizes the fill and the end tick from the background TEXTURE's
     # width (GUIProgressControl::UpdateLayout), so an empty texturebg breaks the layout
     # one per control width: the caps are scaled by control width / bg texture width, so the bg must be 1:1
-    for cw in (170, 210, 290, 350, 510, 740, 1090, 1686):
+    for cw in (170, 210, 290, 740, 1686):  # 350 / 510 / 1090 dropped 2026-10-30: no control that width any more
         Image.new("RGBA", (cw, h), (255, 255, 255, 0)).save(OUT / f"progress_bg_{cw}.png")
 
 
@@ -431,7 +431,6 @@ if __name__ == "__main__":
     stamp_haze()
     pen_line()
     pen_under()
-    pen_line("pen_line_s.png", 200, 22, 2.8, 1.4, 5)
     pen_box(240, 160, "pen_box.png", 21, m=10)
     pen_box(760, 190, "pen_box_info.png", 21)
     pen_fill()

@@ -28,7 +28,7 @@
 	<variable name="VidInfo_Kicker">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.TVShowTitle]  ·  $VAR[VidView_EpCode]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31250]$INFO[ListItem.Property(Total),  ·  , $LOCALIZE[31245]]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31250]$VAR[VidInfo_SetFilms]</value>
 		<value>$INFO[ListItem.DBID,$LOCALIZE[31251] ,]$INFO[ListItem.DateAdded,  ·  $LOCALIZE[31252] ,]</value>
 	</variable>
 	<!-- "Wes Anderson, 2014" -->
@@ -39,8 +39,8 @@
 		<value>$INFO[ListItem.Year]</value>
 	</variable>
 	<variable name="VidInfo_Meta">
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(TotalSeasons),, $LOCALIZE[31224]]$INFO[ListItem.Property(TotalEpisodes),  ·  , $LOCALIZE[31244]]$INFO[ListItem.Genre,  ·  ,]$INFO[ListItem.Rating,  ·  ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[31244]]$INFO[ListItem.Property(WatchedEpisodes),  ·  , $LOCALIZE[31253]]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$VAR[VidInfo_Seasons]$VAR[VidInfo_Episodes]$INFO[ListItem.Genre,  ·  ,]$INFO[ListItem.Rating,  ·  ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[VidInfo_Episodes4]$INFO[ListItem.Property(WatchedEpisodes),  ·  , $LOCALIZE[31253]]</value>
 		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Genre]</value>
 		<value>$INFO[ListItem.Duration(mins),, $LOCALIZE[31221]]$INFO[ListItem.Genre,  ·  ,]$INFO[ListItem.MPAA,  ·  ,]$INFO[ListItem.Rating,  ·  ,]</value>
 	</variable>
@@ -706,4 +706,29 @@
 			</control>
 		</control>
 	</include>
+	<!-- Count words: "1 season", not "1 seasons" (2026-10-30) -->
+	<variable name="Subs_ResultCount">
+		<value condition="Integer.IsEqual(Container(120).NumItems,1)">1 RESULT</value>
+		<value>$INFO[Container(120).NumItems,, RESULTS]</value>
+	</variable>
+	<variable name="VidInfo_SetFilms">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)">  ·  1 $LOCALIZE[31115]</value>
+		<value>$INFO[ListItem.Property(Total),  ·  , $LOCALIZE[31245]]</value>
+	</variable>
+	<variable name="VidInfo_Seasons">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)">1 $LOCALIZE[31225]</value>
+		<value>$INFO[ListItem.Property(TotalSeasons),, $LOCALIZE[31224]]</value>
+	</variable>
+	<variable name="VidInfo_Episodes">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">  ·  1 $LOCALIZE[31243]</value>
+		<value>$INFO[ListItem.Property(TotalEpisodes),  ·  , $LOCALIZE[31244]]</value>
+	</variable>
+	<variable name="VidInfo_Episodes4">
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">1 $LOCALIZE[31243]</value>
+		<value>$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[31244]]</value>
+	</variable>
+	<variable name="VidInfo_SetFilms5">
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)">1 $LOCALIZE[31115]</value>
+		<value>$INFO[ListItem.Property(Total),, $LOCALIZE[31245]]</value>
+	</variable>
 </includes>

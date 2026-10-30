@@ -31,9 +31,9 @@
 
 	<!-- ============================================================ variables -->
 	<variable name="Dlg_SelectKicker">
-		<value condition="Window.IsVisible(osdsubtitlesettings)">Subtitles$INFO[Container(3).NumItems,[COLOR sep_light]  ·  [/COLOR], tracks]</value>
-		<value condition="Window.IsVisible(osdaudiosettings)">Audio$INFO[Container(3).NumItems,[COLOR sep_light]  ·  [/COLOR], tracks]</value>
-		<value condition="Window.IsVisible(osdvideosettings)">Picture$INFO[Container(3).NumItems,[COLOR sep_light]  ·  [/COLOR], options]</value>
+		<value condition="Window.IsVisible(osdsubtitlesettings)">Subtitles$VAR[PL_Container_3_NumItems_Track]</value>
+		<value condition="Window.IsVisible(osdaudiosettings)">Audio$VAR[PL_Container_3_NumItems_Track]</value>
+		<value condition="Window.IsVisible(osdvideosettings)">Picture$VAR[PL_Container_3_NumItems_Option]</value>
 		<value condition="Control.IsVisible(6)">$INFO[Container(6).CurrentItem,, of ]$INFO[Container(6).NumItems]</value>
 		<value>$INFO[Container(3).CurrentItem,, of ]$INFO[Container(3).NumItems]</value>
 	</variable>

@@ -1,3 +1,7 @@
+0.9.23 (2026-10-30)
+- Counts read right at one: 1 episode, 1 film, 1 artist, 1 track, 1 item.
+- Smaller download: removed images the skin never used.
+
 0.9.22 (2026-10-30)
 - Keyboard: Symbols, Caps and Shift fit their keys again (Shift was cut to "Shi..." and the labels ran into their tick boxes).
 

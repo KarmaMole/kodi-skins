@@ -276,6 +276,10 @@ msgctxt "#31114"
 msgid "films"
 msgstr ""
 
+msgctxt "#31115"
+msgid "film"
+msgstr ""
+
 msgctxt "#31120"
 msgid "Seek  ◀ ▶"
 msgstr ""

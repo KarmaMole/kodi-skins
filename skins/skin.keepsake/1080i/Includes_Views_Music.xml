@@ -28,9 +28,13 @@
 		<value>music</value>
 	</variable>
 	<variable name="Music_LabelLine">
+		<value condition="Container.Content(albums) + Integer.IsEqual(Container.NumItems,1)">$INFO[Container.NumItems] album  ·  [COLOR label_hi]by $INFO[Container.SortMethod][/COLOR]</value>
 		<value condition="Container.Content(albums)">$INFO[Container.NumItems] albums  ·  [COLOR label_hi]by $INFO[Container.SortMethod][/COLOR]</value>
+		<value condition="Container.Content(artists) + Integer.IsEqual(Container.NumItems,1)">$INFO[Container.NumItems] artist  ·  [COLOR label_hi]by $INFO[Container.SortMethod][/COLOR]</value>
 		<value condition="Container.Content(artists)">$INFO[Container.NumItems] artists  ·  [COLOR label_hi]by $INFO[Container.SortMethod][/COLOR]</value>
+		<value condition="Container.Content(songs) + Integer.IsEqual(Container.NumItems,1)">$INFO[Container.NumItems] song  ·  [COLOR label_hi]by $INFO[Container.SortMethod][/COLOR]</value>
 		<value condition="Container.Content(songs)">$INFO[Container.NumItems] songs  ·  [COLOR label_hi]by $INFO[Container.SortMethod][/COLOR]</value>
+		<value condition="Integer.IsEqual(Container.NumItems,1)">$INFO[Container.NumItems] item</value>
 		<value>$INFO[Container.NumItems] items</value>
 	</variable>
 	<variable name="Music_WordColor_Albums">

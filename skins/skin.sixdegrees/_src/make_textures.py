@@ -33,7 +33,18 @@ def down(im, w, h):
     return im.resize((w, h), Image.LANCZOS)
 
 
+# Drawn below but named by no XML (removed from media/ 2026-10-30): never written again.
+UNUSED = {
+    "sd/icon_i.png", "sd/mask_120x180.png", "sd/mask_160x240.png", "sd/mask_200x300.png", "sd/mask_240x360.png",
+    "sd/mask_320x180.png", "sd/pill_36.png", "sd/pill_36_o3.png", "sd/pill_40_o3.png", "sd/pill_46_o3.png",
+    "sd/pill_66_ring.png", "sd/ring_20_6.png", "sd/rr16.png", "sd/rr16_o2.png", "sd/rr16_o3.png", "sd/rr20_o2.png",
+    "sd/rr20_o3.png", "sd/rr8.png", "sd/rr8_o2.png", "sd/rr8_o3.png", "sd/tri_down.png", "sd/tri_up.png"
+}
+
+
 def save(im, rel):
+    if rel in UNUSED:
+        return
     p = MEDIA / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     im.save(p, optimize=True)

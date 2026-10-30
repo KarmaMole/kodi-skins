@@ -194,6 +194,23 @@ def slot_xml(sec, slot):
     return "\n".join(o)
 
 
+SEASON_VARS = {}
+
+
+def seasons_var(item):
+    """2026-10-30: "1 season", not "1 seasons" (one variable per plaque item)."""
+    name = "Home_Seasons_" + item.replace("Container(", "").replace(").ListItemAbsolute(", "_").rstrip(")")
+    SEASON_VARS[name] = (f'\t<variable name="{name}">\n'
+                         f'\t\t<value condition="Integer.IsEqual({item}.Property(TotalSeasons),1)">  ·  1 $LOCALIZE[31225]</value>\n'
+                         f'\t\t<value>$INFO[{item}.Property(TotalSeasons),  ·  , $LOCALIZE[31224]]</value>\n'
+                         f'\t</variable>')
+    return name
+
+
+def seasons_vars_xml():
+    return "\n".join(SEASON_VARS[k] for k in sorted(SEASON_VARS))
+
+
 def plaque_xml(sec, slot):
     S = SECTIONS[sec]
     grp, idx, x, y, w, h, kind, plq = SLOTS[slot]
@@ -212,7 +229,7 @@ def plaque_xml(sec, slot):
             meta = f"$INFO[{item}.Season,$LOCALIZE[31222] ,]$INFO[{item}.Episode,  ·  $LOCALIZE[31223] ,]"
         else:
             title = f"$INFO[{item}.Title]"
-            meta = f"$INFO[{item}.Year]$INFO[{item}.Property(TotalSeasons),  ·  , $LOCALIZE[31224]]"
+            meta = f"$INFO[{item}.Year]$VAR[{seasons_var(item)}]"
     if plq[0] == "1":
         cx = x + w // 2
         return "\n".join([
@@ -703,6 +720,7 @@ def main():
              labels_xml("films"), labels_xml("series"),
              '\t<include name="Home_TorchNormal">\n' + "\n".join(torch_xml(GLIDE, WANDER).split("\n")[1:]),
              '\t<include name="Home_TorchReduced">\n' + "\n".join(torch_xml(1, 1).split("\n")[1:]),
+             seasons_vars_xml(),
              "</includes>", ""]
     text = "\n".join(parts)
     text = text.replace("<include name=\"Home_TorchNormal\">\n\t<control", "<include name=\"Home_TorchNormal\">\n\t<control", 1)

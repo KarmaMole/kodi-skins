@@ -80,8 +80,8 @@
 
 	<!-- Left column numbers -->
 	<variable name="Home_Stats">
-		<value condition="$EXP[Home_SecSeries]">$INFO[Window(Home).Property(Episodes.UnWatched),, episodes unwatched]$INFO[Window(Home).Property(Episodes.Count),  ·  , episodes]</value>
-		<value condition="$EXP[Home_SecMusic]">$INFO[Window(Home).Property(Music.ArtistsCount),, artists]$INFO[Window(Home).Property(Music.SongsCount),  ·  , songs]</value>
+		<value condition="$EXP[Home_SecSeries]">$VAR[PL_Episodes_UnWatched_Episode]$VAR[PL_Episodes_Count_Episode]</value>
+		<value condition="$EXP[Home_SecMusic]">$VAR[PL_Music_ArtistsCount_Artist]$VAR[PL_Music_SongsCount_Song]</value>
 		<value condition="$EXP[Home_SecSearch]">Search · settings · add-ons · power</value>
 		<value condition="$EXP[Home_SecCustom]">$LOCALIZE[31980]</value>
 		<value>$INFO[Window(Home).Property(Movies.UnWatched),, unwatched]$INFO[Container(9102).NumItems,  ·  , rated 7.5+]</value>
@@ -134,7 +134,7 @@
 		<value>$INFO[Container(9101).ListItem.Year]$INFO[Container(9101).ListItem.Duration(mins),  ·  , min]$INFO[Container(9101).ListItem.Rating,  ·  ,]</value>
 	</variable>
 	<variable name="Home_SpotMeta9103">
-		<value>$INFO[Container(9103).ListItem.Year]$INFO[Container(9103).ListItem.Property(TotalSeasons),  ·  , seasons]$INFO[Container(9103).ListItem.Rating,  ·  ,]</value>
+		<value>$INFO[Container(9103).ListItem.Year]$VAR[PL_Container_9103_TotalSeasons_Season]$INFO[Container(9103).ListItem.Rating,  ·  ,]</value>
 	</variable>
 	<variable name="Home_SpotMeta9104">
 		<value>$INFO[Container(9104).ListItem.Artist]$INFO[Container(9104).ListItem.Year,  ·  ,]$INFO[Container(9104).ListItem.Genre,  ·  ,]</value>

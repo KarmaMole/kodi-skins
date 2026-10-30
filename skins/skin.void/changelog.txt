@@ -1,3 +1,7 @@
+0.9.21 (2026-10-30)
+- Counts read right at one: 1 season, 1 episode, 1 film, 1 show, 1 album, played 1 time.
+- Smaller download: removed images the skin never used.
+
 0.9.20 (2026-10-30)
 - Item menu: the big title of the item behind it no longer shows through next to the choices.
 

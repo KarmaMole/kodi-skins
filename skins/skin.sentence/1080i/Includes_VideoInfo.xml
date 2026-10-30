@@ -37,9 +37,9 @@
 	<variable name="VidInfo_P1">
 		<value condition="String.IsEqual(ListItem.DBType,movie)">[I]$INFO[ListItem.Title][/I] is $VAR[Sen_FilmNoun]$INFO[ListItem.Director, by ,]. $VAR[Lib_Runs]$VAR[Sen_SeenSentence] $VAR[Sen_RatingSentence]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">[I]$INFO[ListItem.Title][/I] is $VAR[Lib_ShowNoun]$INFO[ListItem.Studio, on ,]. $VAR[Lib_ShowProgress] $VAR[Sen_RatingSentence]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">[I]$INFO[ListItem.Label][/I] of $INFO[ListItem.TVShowTitle] has $INFO[ListItem.Property(TotalEpisodes),, episodes]. $VAR[Lib_SeasonProgress]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">[I]$INFO[ListItem.Label][/I] of $INFO[ListItem.TVShowTitle] has $VAR[PL_TotalEpisodes_Episode]. $VAR[Lib_SeasonProgress]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">[I]“$INFO[ListItem.Title]”[/I] is episode $INFO[ListItem.Episode] of season $INFO[ListItem.Season]$INFO[ListItem.TVShowTitle, of ,]$INFO[ListItem.Premiered,$COMMA first shown on ,]. $VAR[Lib_Runs]$VAR[Sen_SeenSentence]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">[I]$INFO[ListItem.Title][/I] gathers $INFO[ListItem.Property(Total),, films]. $VAR[Lib_SetProgress]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">[I]$INFO[ListItem.Title][/I] gathers $VAR[PL_Total_Film]. $VAR[Lib_SetProgress]</value>
 		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">[I]$INFO[ListItem.Title][/I]$INFO[ListItem.Artist, is by ,]$INFO[ListItem.Year, from ,]. $VAR[Lib_Runs]</value>
 		<value>[I]$VAR[VidInfo_Title][/I]$INFO[ListItem.Year, is from ,].</value>
 	</variable>

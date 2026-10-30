@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.daylight" version="0.9.20" name="Daylight" provider-name="KarmaMole">
+<addon id="skin.daylight" version="0.9.21" name="Daylight" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#daylight</website>
-		<news>v0.9.20 - Libraries: "Nothing here." no longer sits on the Back row of an empty folder (List and Grid views, Episodes and Rows). Select lists (languages, choices) no longer show a half-cut row at the bottom. Settings: Right on Look now enters the page when TMDb Helper is not installed (it did nothing and quietly switched Borrowed colour off).</news>
+		<news>v0.9.21 - Counts read right at one: 1 season, 1 episode, 1 film, 1 track, 1 item. Smaller download: removed images the skin never used.&#10;v0.9.20 - Libraries: "Nothing here." no longer sits on the Back row of an empty folder (List and Grid views, Episodes and Rows). Select lists (languages, choices) no longer show a half-cut row at the bottom. Settings: Right on Look now enters the page when TMDb Helper is not installed (it did nothing and quietly switched Borrowed colour off).</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

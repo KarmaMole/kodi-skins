@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.passepartout" version="0.9.21" name="Passe-partout" provider-name="KarmaMole">
+<addon id="skin.passepartout" version="0.9.22" name="Passe-partout" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required: script.skinvariables URL-encodes the search query (get_encoded_string; unencoded_paths since 2.1.21). -->
@@ -18,7 +18,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#passepartout</website>
-		<news>v0.9.21 - Empty music pages and the empty queue no longer print their message over the Back item; month-first regions (USA) now show dates correctly, also on the 2nd and 20th in day-first regions.</news>
+		<news>v0.9.22 - Counts read right at one: 1 film, 1 track, 1 item, 1 result. Smaller download: removed images the skin never used.&#10;v0.9.21 - Empty music pages and the empty queue no longer print their message over the Back item; month-first regions (USA) now show dates correctly, also on the 2nd and 20th in day-first regions.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

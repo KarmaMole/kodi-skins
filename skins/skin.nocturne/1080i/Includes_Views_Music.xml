@@ -18,6 +18,8 @@
 			</include>
 			<include content="Noc_ListeningRoomLight">
 				<param name="list" value="504"/>
+				<!-- lifted 64 px: the shade sat on the header's Sort words (y 200) -->
+				<param name="lamp_top" value="-104"/>
 			</include>
 		</control>
 	</include>

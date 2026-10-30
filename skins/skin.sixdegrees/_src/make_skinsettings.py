@@ -202,7 +202,7 @@ def main():
 			<left>{X0}</left>
 			<top>{Y0}</top>
 			<width>{ROW_W}</width>
-			<height>860</height>
+			<height>{ROW_H * 10}</height>
 			<orientation>vertical</orientation>
 			<itemgap>0</itemgap>
 			{chr(10).join(rows)}

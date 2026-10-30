@@ -1,3 +1,10 @@
+0.9.17 (2026-10-30)
+- Empty pages in the list and the contact sheet no longer write "This page is empty." over the Back item.
+- Film and album pages: a long title no longer shows the top of a third line over the line below it; the "with ..." cast line no longer shows half of a third line.
+- The empty queue's "The queue is empty" now sits under the Back row instead of on top of it.
+- Dates in regions that write the month first (USA) read correctly ("Added 23 April 2020", not "Added 4  2020"), and so do the date stamps, weekdays, diary months and "today" / "yesterday" notes.
+- Film info: a long genre line stops before the clock instead of running into it, and the story moves up one whole line at a time instead of cutting its top line.
+
 0.9.16 (2026-10-29)
 - The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.
 

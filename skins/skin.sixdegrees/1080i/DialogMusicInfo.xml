@@ -135,14 +135,14 @@
 				<left>0</left>
 				<top>32</top>
 				<width>1248</width>
-				<height>157</height>  <!-- 2 lines of display_72 = 69 + 72 asc + 16 desc (140 cut line 2's descenders) -->
+				<height>170</height>  <!-- 2 lines of disp_76 + descenders (157 cut the "g" of a two-line title, audit 2026-10-30) -->
 				<font>disp_76</font>
 				<textcolor>ink</textcolor>
 				<label>$VAR[Music_InfoTitle]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
-				<top>192</top>
+				<top>202</top>
 				<width>1248</width>
 				<height>40</height>
 				<font>semi_28</font>

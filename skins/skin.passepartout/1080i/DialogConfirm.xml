@@ -54,10 +54,15 @@
 					<param name="id" value="10"/>
 					<param name="width" value="240"/>
 				</include>
-				<include content="PP_DialogButton">
-					<param name="id" value="12"/>
-					<param name="width" value="240"/>
-				</include>
+				<!-- custom label (yesnocustom): grows to its text so "Something else" isn't cut; 240 + 240 + 352 + 2 gaps = 864 -->
+				<control type="button" id="12">
+					<width min="240" max="352">auto</width>
+					<height>64</height>
+					<font>capw_22</font>
+					<align>center</align>
+					<textoffsetx>16</textoffsetx>
+					<include>Dlg_Tex_DialogButton</include>
+				</control>
 			</control>
 		</control>
 	</controls>

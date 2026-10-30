@@ -122,14 +122,14 @@
 						<width>kb_key_w</width>
 						<height>kb_key_h</height>
 						<include>Orbit_KeyboardKey</include>
-						<onup>302</onup>
+						<onup>303</onup>
 						<ondown>123</ondown>
 					</control>
 					<control type="button" id="104">
 						<width>kb_key_w</width>
 						<height>kb_key_h</height>
 						<include>Orbit_KeyboardKey</include>
-						<onup>32</onup>
+						<onup>302</onup>
 						<ondown>124</ondown>
 					</control>
 					<control type="button" id="105">
@@ -426,14 +426,14 @@
 						<height>kb_key_h</height>
 						<include>Orbit_KeyboardKey</include>
 						<onup>143</onup>
-						<ondown>302</ondown>
+						<ondown>303</ondown>
 					</control>
 					<control type="button" id="164">
 						<width>kb_key_w</width>
 						<height>kb_key_h</height>
 						<include>Orbit_KeyboardKey</include>
 						<onup>144</onup>
-						<ondown>32</ondown>
+						<ondown>302</ondown>
 					</control>
 					<control type="button" id="165">
 						<width>kb_key_w</width>
@@ -502,45 +502,45 @@
 					<onleft>95200</onleft>
 					<onright>95200</onright>
 					<control type="radiobutton" id="304">
-						<width>176</width>
+						<width>200</width>
 						<height>kb_key_h</height>
 						<label>$LOCALIZE[31040]</label>
 						<include>Orbit_KeyboardFunc</include>
 						<radiowidth>14</radiowidth>
 						<radioheight>14</radioheight>
-						<radioposx>154</radioposx>
+						<radioposx>178</radioposx>
 						<onup>160</onup>
 						<ondown>100</ondown>
 					</control>
 					<control type="radiobutton" id="303">
-						<width>84</width>
+						<width>128</width>
 						<height>kb_key_h</height>
 						<label>$LOCALIZE[31041]</label>
 						<include>Orbit_KeyboardFunc</include>
 						<radiowidth>14</radiowidth>
 						<radioheight>14</radioheight>
-						<radioposx>62</radioposx>
+						<radioposx>106</radioposx>
 						<onup>162</onup>
 						<ondown>102</ondown>
 					</control>
 					<control type="radiobutton" id="302">
-						<width>84</width>
+						<width>140</width>
 						<height>kb_key_h</height>
 						<label>$LOCALIZE[31042]</label>
 						<include>Orbit_KeyboardFunc</include>
 						<radiowidth>14</radiowidth>
 						<radioheight>14</radioheight>
-						<radioposx>62</radioposx>
-						<onup>163</onup>
-						<ondown>103</ondown>
+						<radioposx>118</radioposx>
+						<onup>164</onup>
+						<ondown>104</ondown>
 					</control>
 					<control type="button" id="32">
-						<width>360</width>
+						<width>236</width>
 						<height>kb_key_h</height>
 						<label>$LOCALIZE[31043]</label>
 						<include>Orbit_KeyboardFunc</include>
-						<onup>164</onup>
-						<ondown>104</ondown>
+						<onup>165</onup>
+						<ondown>105</ondown>
 					</control>
 					<control type="button" id="305">
 						<width>84</width>

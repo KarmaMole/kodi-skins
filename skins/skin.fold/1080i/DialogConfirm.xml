@@ -54,10 +54,16 @@
 					<param name="id" value="10"/>
 					<param name="width" value="240"/>
 				</include>
-				<include content="Fold_DialogButton">
-					<param name="id" value="12"/>
-					<param name="width" value="240"/>
-				</include>
+				<!-- custom label (yesnocustom): grows to its text so "Something else" isn't cut; 240 + 240 + 368 + 2 gaps = 880 -->
+				<control type="button" id="12">
+					<width min="240" max="368">auto</width>
+					<height>dialog_row_h</height>
+					<font>word_26</font>
+					<textcolor>ink</textcolor>
+					<align>center</align>
+					<textoffsetx>16</textoffsetx>
+					<include>Dlg_Tex_DialogButton</include>
+				</control>
 			</control>
 		</control>
 	</controls>

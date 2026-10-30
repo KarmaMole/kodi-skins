@@ -104,6 +104,8 @@
 			<width>636</width>
 			<height>636</height>
 			<texture border="128" colordiffuse="shadow">common/shadow_soft.png</texture>
+			<!-- the ".." tile is see-through: its shadow showed as a dark square through it -->
+			<visible>!ListItem.IsParentFolder</visible>
 		</control>
 		<control type="image">
 			<left>-32</left>

@@ -768,7 +768,8 @@
 			<top>content_top</top>
 			<width>page_width</width>
 			<height>120</height>
-			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<!-- with a ".." item the Index (50), Wall (502, Next up row) and Episodes (503) draw "Back" where this sits -->
+			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + [!Container.HasParent | [!Control.IsVisible(50) + !Control.IsVisible(502) + !Control.IsVisible(503)]]</visible>
 			<animation effect="slide" start="0,0" end="0,300" time="0" condition="Control.IsVisible(506)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="688,40" time="0" condition="Control.IsVisible(507)">Conditional</animation>
 			<animation effect="slide" start="0,0" end="0,140" time="0" condition="Control.IsVisible(502)">Conditional</animation>

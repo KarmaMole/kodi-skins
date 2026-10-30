@@ -809,6 +809,10 @@
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 			<!-- 0.9.15: in Time the ".." row sits where the message was -->
 			<animation effect="slide" start="0,0" end="0,150" time="0" condition="Control.IsVisible(506)">Conditional</animation>
+			<!-- audit 2026-10-30: the ".." row / tile of List, Grid, Episodes and Rows sat on the message too -->
+			<animation effect="slide" start="0,0" end="0,80" time="0" condition="Container.HasParent + Control.IsVisible(50)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,300" time="0" condition="Container.HasParent + Control.IsVisible(500)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,160" time="0" condition="Container.HasParent + [Control.IsVisible(503) | Control.IsVisible(509)]">Conditional</animation>
 			<control type="label">
 				<left>0</left>
 				<top>0</top>

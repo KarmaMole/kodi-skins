@@ -21,10 +21,12 @@ OUT = Path(__file__).resolve().parent.parent / "1080i" / "DialogKeyboard.xml"
 ROWS, COLS = 4, 13
 KEY_W, KEY_H, GAP = 84, 72, 8  # keep in sync with constants kb_key_w / kb_key_h
 FUNC = [  # id, label, width, columns it maps to (for up/down), type
-    (304, "$LOCALIZE[31040]", 176, [0, 1], "radiobutton"),
-    (303, "$LOCALIZE[31041]", 84, [2], "radiobutton"),
-    (302, "$LOCALIZE[31042]", 84, [3], "radiobutton"),
-    (32, "$LOCALIZE[31043]", 360, [4, 5, 6, 7], "button"),
+    # the three toggles are wider than their columns (audit 2026-10-30): at 176/84/84 the extended caps labels ran
+    # into their radio boxes and SHIFT was cut to "SHI..."; SPACE gives up the width. Total stays 13 keys = 1188.
+    (304, "$LOCALIZE[31040]", 200, [0, 1], "radiobutton"),
+    (303, "$LOCALIZE[31041]", 128, [2, 3], "radiobutton"),
+    (302, "$LOCALIZE[31042]", 140, [4], "radiobutton"),
+    (32, "$LOCALIZE[31043]", 236, [5, 6, 7], "button"),
     (305, "←", 84, [8], "button"),
     (306, "→", 84, [9], "button"),
     (8, "$LOCALIZE[31044]", 268, [10, 11, 12], "button"),

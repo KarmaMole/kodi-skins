@@ -1278,7 +1278,8 @@
 	<!-- ================================================================ empty -->
 	<include name="VidView_Empty">
 		<control type="group">
-			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<!-- not on the ".." tile: Album icons (510) and Sleeve (520) put it where this text sits -->
+			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + [!Container.HasParent | [!Control.IsVisible(510) + !Control.IsVisible(520)]]</visible>
 			<control type="label">
 				<left>0</left>
 				<top>508</top>

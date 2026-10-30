@@ -1,3 +1,6 @@
+1.0.21 (2026-10-30)
+- Music: an empty folder no longer prints "Nothing here" on top of its Back row.
+
 1.0.20 (2026-10-29)
 - The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.
 

@@ -5394,7 +5394,8 @@
 			<font>font_caption</font>
 			<textcolor>$VAR[ink2]</textcolor>
 			<label>$LOCALIZE[31606]</label>
-			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<!-- not on the ".." sleeve: the crate (501), shelf (502) and orbit (503) hang it where this text sits -->
+			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + [!Container.HasParent | [!Control.IsVisible(501) + !Control.IsVisible(502) + !Control.IsVisible(503)]]</visible>
 		</control>
 	</include>
 </includes>

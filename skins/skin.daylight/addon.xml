@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.daylight" version="0.9.19" name="Daylight" provider-name="KarmaMole">
+<addon id="skin.daylight" version="0.9.20" name="Daylight" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#daylight</website>
-		<news>v0.9.19 - The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.</news>
+		<news>v0.9.20 - Libraries: "Nothing here." no longer sits on the Back row of an empty folder (List and Grid views, Episodes and Rows). Select lists (languages, choices) no longer show a half-cut row at the bottom. Settings: Right on Look now enters the page when TMDb Helper is not installed (it did nothing and quietly switched Borrowed colour off).</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

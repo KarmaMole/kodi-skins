@@ -433,6 +433,10 @@
 	<!-- Group entry: soft raised pill when active, accent pill on focus. Focus selects the group
 	     (Window(Home).Property(daylight.skincat)). params: id, top, label, key, onright, onup, ondown -->
 	<include name="Dlg_SkinCategory">
+		<!-- onright_skip / onright_skipto (audit 2026-10-30): where Right goes while the page's first row is disabled
+		     (Look starts with Borrowed colour, which needs TMDb Helper; without it Right went nowhere) -->
+		<param name="onright_skip">false</param>
+		<param name="onright_skipto">noop</param>
 		<definition>
 			<control type="group">
 				<left>0</left>
@@ -467,7 +471,8 @@
 					<onup>$PARAM[onup]</onup>
 					<ondown>$PARAM[ondown]</ondown>
 					<onleft>noop</onleft>
-					<onright>$PARAM[onright]</onright>
+					<onright condition="!$PARAM[onright_skip]">$PARAM[onright]</onright>
+					<onright condition="$PARAM[onright_skip]">$PARAM[onright_skipto]</onright>
 				</control>
 				<control type="label">
 					<left>28</left>

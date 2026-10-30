@@ -1,3 +1,8 @@
+0.9.18 (2026-10-30)
+- Empty pages in the Corridor and the listening room no longer print "Nothing on this wall" over the Back frame.
+- The empty queue's "The queue is empty" now sits under the Back row instead of on top of it.
+- The listening room's lamp hangs a little higher, so it no longer hides the Sort words in the header.
+
 0.9.17 (2026-10-29)
 - The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.
 

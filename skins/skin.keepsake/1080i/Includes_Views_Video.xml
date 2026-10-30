@@ -562,7 +562,7 @@
 	<variable name="KS_DiaryNote">
 		<value condition="Integer.IsGreater(ListItem.PlayCount,1) + $EXP[KS_ShelfOlder]">$VAR[KS_TimeWord], on the shelf since $VAR[KS_DA_Year]</value>
 		<value condition="Integer.IsGreater(ListItem.PlayCount,1)">$VAR[KS_TimeWord], a $VAR[KS_LP_Wd]</value>
-		<value condition="String.IsEqual(ListItem.LastPlayed,System.Date(dd/mm/yyyy))">today</value>
+		<value condition="$EXP[KS_Today_LP]">today</value>
 		<value condition="String.IsEqual(ListItem.LastPlayed,Window(Home).Property(keepsake.yesterday))">yesterday</value>
 		<value condition="$EXP[KS_SameMonth_DA_LP]">the month you added it</value>
 		<value condition="$EXP[KS_ShelfOlder]">on the shelf since $VAR[KS_DA_Year]</value>
@@ -571,7 +571,7 @@
 	<variable name="KS_CDiaryNote">
 		<value condition="Integer.IsGreater(Container.ListItem.PlayCount,1) + $EXP[KS_CShelfOlder]">$VAR[KS_CTimeWord], on the shelf since $VAR[KS_CDA_Year]</value>
 		<value condition="Integer.IsGreater(Container.ListItem.PlayCount,1)">$VAR[KS_CTimeWord], a $VAR[KS_CLP_Wd]</value>
-		<value condition="String.IsEqual(Container.ListItem.LastPlayed,System.Date(dd/mm/yyyy))">today</value>
+		<value condition="$EXP[KS_Today_CLP]">today</value>
 		<value condition="String.IsEqual(Container.ListItem.LastPlayed,Window(Home).Property(keepsake.yesterday))">yesterday</value>
 		<value condition="$EXP[KS_SameMonth_CDA_CLP]">the month you added it</value>
 		<value condition="$EXP[KS_CShelfOlder]">on the shelf since $VAR[KS_CDA_Year]</value>
@@ -1088,6 +1088,9 @@
 			<height>200</height>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
 			<animation effect="slide" start="0,0" end="0,300" time="0" condition="Control.IsVisible(526)">Conditional</animation>
+			<!-- with a ".." item: below the contact sheet's back print (527) and under the list's ".." row (50), not on them -->
+			<animation effect="slide" start="0,0" end="0,330" time="0" condition="Control.IsVisible(527) + Container.HasParent">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,64" time="0" condition="Control.IsVisible(50) + Container.HasParent">Conditional</animation>
 			<control type="textbox">
 				<left>0</left>
 				<top>0</top>

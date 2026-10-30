@@ -1,3 +1,9 @@
+0.9.19 (2026-10-30)
+- Keyboard: the Caps and Shift boxes moved to the key's corner; they sat on the last letter.
+- Yes / no dialogs with a third button no longer cut its label ("Something else").
+- The empty queue's "The queue is empty" now sits under the Back row instead of on top of it.
+- Dates no longer switch to the month-first reading in day-first regions on the 2nd and the 20th of a month.
+
 0.9.18 (2026-10-29)
 - Shelf and Table: the year and running time now sit centred in the band under the poster. On the Table they used to run onto the bottom of the poster; its poster is a little smaller so the band fits. Music cards get the same centring.
 - The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.

@@ -21,12 +21,23 @@ KS_DA_YearsAgo ("7 years ago"), expressions KS_SameYear_<a>_<b>, KS_SameMonth_<a
 Resume minutes (Kodi has no resume time label): KS_ResumeMin = round(PercentPlayed x Duration / 100) from
 nested tables (exact durations 1-60 min, 5-minute buckets 61-240 min), inside list layouts (ListItem.*).
 
+Month-first regions (0.9.17, ported from Fold 0.9.12 / Passe-partout 0.9.21): USA prints MM/DD/YYYY ("Added 4 2020").
+Each date label is read month-first ($EXP[KS_MF_<label>]) when its middle field is over 12 (only possible as a day),
+or its first field is 12 or less AND the region's long date puts the month before the day: Home.xml / Startup.xml
+onload store $INFO[System.Date(MMMM D)] ("October 25") in Window(Home).Property(keepsake.monthday), and
+String.Contains(System.Date,<that property>) is true for "Sunday, October 25, 2026", false for "Sunday, 25 October 2026"
+($EXP[KS_RegionMonthFirst]). On the 2nd and the 20th "20 July 2026" also contains "July 20" / "July 2" (the start
+of "July 2026"), so the test also needs the long date NOT to contain $INFO[System.Date(MMMM YYYY)]
+(Window(Home).Property(keepsake.monthyear)): "July 2026" is only there when the day comes first. Month-first, day = String.Contains(<d>,/DD/), month = String.StartsWith(<d>,MM/).
+KS_Yesterday and $EXP[KS_Today_<F>] follow the region's order.
+
 Usage: python skins/skin.keepsake/_src/make_dates.py
 """
 from __future__ import annotations
 
 import calendar
 import datetime as dt
+import re
 from pathlib import Path
 from xmlfinish import finish_xml  # kodi-review labels.not-translated: label text goes to strings.po
 
@@ -66,12 +77,58 @@ RAW = {
     "DIA": "Container(9174).ListItem.Property(lastplayed)",   # diary: focused print
     "INF": "Container(9175).ListItem.Property(lastplayed)",   # info page
 }
+# "today" tests used by hand-written includes ($EXP[KS_Today_<key>])
+TODAY = {
+    "LP": "ListItem.LastPlayed",
+    "CLP": "Container.ListItem.LastPlayed",
+    "EP": "Container(9130).ListItem.LastPlayed",  # Home: you're on
+}
+MD = "Window(Home).Property(keepsake.monthday)"
+MY = "Window(Home).Property(keepsake.monthyear)"
+RMF = "$EXP[KS_RegionMonthFirst]"
 NUM_WORDS = "midnight one two three four five six seven eight nine ten eleven noon".split()
 
 
 def U(s) -> str:
     """Digit-only labels are read as string ids (LESSONS 2): wrap them."""
     return f"[UPPERCASE]{s}[/UPPERCASE]"
+
+
+_MF = {}  # date label -> name of its "read month-first" expression
+
+
+def mf(lab) -> str:
+    """$EXP[...] that is true when this date label is month-first (see the docstring)."""
+    if lab not in _MF:
+        _MF[lab] = "KS_MF_" + re.sub(r"[^A-Za-z0-9]+", "_", lab.replace("(-", "(m")).strip("_")  # ListItemNoWrap(-1) -> m1
+    return f"$EXP[{_MF[lab]}]"
+
+
+def mf_expressions():
+    o = [f'\t<expression name="KS_RegionMonthFirst">!String.IsEmpty({MD}) + String.Contains(System.Date,{MD}) + !String.Contains(System.Date,{MY})</expression>']
+    for lab, name in _MF.items():
+        first_big = " | ".join(f"String.StartsWith({lab},{d}/)" for d in range(13, 32))
+        mid_big = " | ".join(f"String.Contains({lab},/{d}/)" for d in range(13, 32))
+        o.append(f'\t<expression name="{name}">[{mid_big}] | [{RMF} + ![{first_big}]]</expression>')
+    return o
+
+
+# the day / month tests of a dd/mm/yyyy (df) and of a mm/dd/yyyy (mf) label
+def dfd(lab, d): return f"String.StartsWith({lab},{d:02d}/)"
+def mfd(lab, d): return f"String.Contains({lab},/{d:02d}/)"
+def dfm(lab, m): return f"String.Contains({lab},/{m:02d}/)"
+def mfm(lab, m): return f"String.StartsWith({lab},{m:02d}/)"
+def dfmy(lab, m, y): return f"String.Contains({lab},/{m:02d}/{y})"
+def mfmy(lab, m, y): return f"String.StartsWith({lab},{m:02d}/) + String.EndsWith({lab},/{y})"
+
+
+def split(name, lab, make, tail=()):
+    """A variable for both orders: <name> tests the label's order once and hands over to <name>_F (month-first)
+    or <name>_DF (day-first). make(day_test, month_test, month_year_test) -> [(cond, value)]; tail = values
+    added to both lists."""
+    return (var(name, [(mf(lab), f"$VAR[{name}_F]"), (None, f"$VAR[{name}_DF]")])
+            + var(f"{name}_F", make(mfd, mfm, mfmy) + list(tail))
+            + var(f"{name}_DF", make(dfd, dfm, dfmy) + list(tail)))
 
 
 def var(name, values):
@@ -88,11 +145,11 @@ def var(name, values):
 def date_vars(key, lab):
     o = []
     ok = f"String.Contains({lab},/)"
-    o += var(f"KS_{key}_DD", [(f"String.StartsWith({lab},{d:02d}/)", U(f"{d:02d}")) for d in range(1, 32)])
-    o += var(f"KS_{key}_D", [(f"String.StartsWith({lab},{d:02d}/)", U(d)) for d in range(1, 32)])
-    o += var(f"KS_{key}_MM", [(f"String.Contains({lab},/{m:02d}/)", U(f"{m:02d}")) for m in range(1, 13)])
-    o += var(f"KS_{key}_Month", [(f"String.Contains({lab},/{m:02d}/)", MONTHS[m - 1]) for m in range(1, 13)])
-    o += var(f"KS_{key}_MonS", [(f"String.Contains({lab},/{m:02d}/)", MONTHS[m - 1][:3]) for m in range(1, 13)])
+    o += split(f"KS_{key}_DD", lab, lambda D, M, MY: [(D(lab, d), U(f"{d:02d}")) for d in range(1, 32)])
+    o += split(f"KS_{key}_D", lab, lambda D, M, MY: [(D(lab, d), U(d)) for d in range(1, 32)])
+    o += split(f"KS_{key}_MM", lab, lambda D, M, MY: [(M(lab, m), U(f"{m:02d}")) for m in range(1, 13)])
+    o += split(f"KS_{key}_Month", lab, lambda D, M, MY: [(M(lab, m), MONTHS[m - 1]) for m in range(1, 13)])
+    o += split(f"KS_{key}_MonS", lab, lambda D, M, MY: [(M(lab, m), MONTHS[m - 1][:3]) for m in range(1, 13)])
     o += var(f"KS_{key}_Year", [(f"String.EndsWith({lab},/{y})", U(y)) for y in YEARS_ALL])
     o += var(f"KS_{key}_YY", [(f"String.EndsWith({lab},/{y})", U(f"{y % 100:02d}")) for y in YEARS_ALL])
     # Skin settings > the date stamp: camera order 'yy mm dd (default), day first dd mm 'yy, or none
@@ -120,18 +177,26 @@ def weekday_vars(key, lab):
     for k, months in classes.items():
         cond = " | ".join(f"String.Contains({lab},/{m:02d}/{y})" for y, m in months)
         o_exp.append(f'\t<expression name="KS_{key}_MC{k}">{cond}</expression>')
-    vals_long, vals_short = [], []
-    for w in range(7):
-        parts = []
-        for k in range(7):
-            days = [d for d in range(1, 32) if (k + d - 1) % 7 == w]
-            dcond = " | ".join(f"String.StartsWith({lab},{d:02d}/)" for d in days)
-            parts.append(f"[$EXP[KS_{key}_MC{k}] + [{dcond}]]")
-        cond = " | ".join(parts)
-        vals_long.append((cond, WD[w]))
-        vals_short.append((cond, WD[w][:3]))
-    o += var(f"KS_{key}_Wd", vals_long)
-    o += var(f"KS_{key}_WdS", vals_short)
+        # month-first: grouped by year (the year is at the end in both orders)
+        by_year = {}
+        for y, m in months:
+            by_year.setdefault(y, []).append(m)
+        cond = " | ".join(f"[String.EndsWith({lab},/{y}) + [{' | '.join(mfm(lab, m) for m in ms)}]]" for y, ms in by_year.items())
+        o_exp.append(f'\t<expression name="KS_{key}_MCF{k}">{cond}</expression>')
+    def weekdays(short):
+        def make(D, M, MY):
+            cls = "MCF" if D is mfd else "MC"
+            vals = []
+            for w in range(7):
+                parts = []
+                for k in range(7):
+                    dcond = " | ".join(D(lab, d) for d in range(1, 32) if (k + d - 1) % 7 == w)
+                    parts.append(f"[$EXP[KS_{key}_{cls}{k}] + [{dcond}]]")
+                vals.append((" | ".join(parts), WD[w][:3] if short else WD[w]))
+            return vals
+        return make
+    o += split(f"KS_{key}_Wd", lab, weekdays(False))
+    o += split(f"KS_{key}_WdS", lab, weekdays(True))
     o += var(f"KS_{key}_Long", [(f"String.Contains({lab},/)", f"$VAR[KS_{key}_Wd] $VAR[KS_{key}_D] $VAR[KS_{key}_Month]")])
     o += var(f"KS_{key}_LongY", [(f"String.Contains({lab},/)", f"$VAR[KS_{key}_Wd] $VAR[KS_{key}_D] $VAR[KS_{key}_Month] $VAR[KS_{key}_Year]")])
     o += var(f"KS_{key}_Gutter", [(f"String.Contains({lab},/)", f"$VAR[KS_{key}_WdS] $VAR[KS_{key}_D]")])
@@ -144,12 +209,26 @@ def same_year(a, b, la, lb):
 
 
 def same_month(a, b, la, lb):
-    cond = " | ".join(f"[String.Contains({la},/{m:02d}/{y}) + String.Contains({lb},/{m:02d}/{y})]"
-                      for y in range(Y0, Y1 + 1) for m in range(1, 13))
-    return f'\t<expression name="KS_SameMonth_{a}_{b}">{cond}</expression>'
+    """Same year (KS_SameYear_<a>_<b>) and same month; each label read in its own order."""
+    combos = []
+    for ga, ma in ((mf(la), mfm), (f"!{mf(la)}", dfm)):
+        for gb, mb in ((mf(lb), mfm), (f"!{mf(lb)}", dfm)):
+            months = " | ".join(f"[{ma(la, m)} + {mb(lb, m)}]" for m in range(1, 13))
+            combos.append(f"[{ga} + {gb} + [{months}]]")
+    return f'\t<expression name="KS_SameMonth_{a}_{b}">$EXP[KS_SameYear_{a}_{b}] + [{" | ".join(combos)}]</expression>'
 
 
 def yesterday():
+    """Yesterday in the region's short-date order: mm/dd/yyyy when the region is month-first (listed first)."""
+    vals = []
+    for region, order in ((RMF + " + ", lambda d, m: f"{m:02d}/{d:02d}"), ("", lambda d, m: f"{d:02d}/{m:02d}")):
+        vals += _yesterday(region, order)
+    o = var("KS_Yesterday", vals)
+    o += var("KS_LastYear", [(f"String.IsEqual(System.Date(yyyy),{y})", U(y - 1)) for y in range(2024, 2041)])
+    return o
+
+
+def _yesterday(region, order):
     vals = []
     for m in range(1, 13):
         for d in range(1, 32):
@@ -164,14 +243,17 @@ def yesterday():
                 continue  # handled below (leap aware)
             else:
                 yv = "$INFO[System.Date(yyyy)]"
-            vals.append((f"String.IsEqual(System.Date(dd/mm),{d:02d}/{m:02d})", f"{prev.day:02d}/{prev.month:02d}/{yv}"))
+            vals.append((f"{region}String.IsEqual(System.Date(dd/mm),{d:02d}/{m:02d})", f"{order(prev.day, prev.month)}/{yv}"))
     # 1 March: 29/02 in leap years, else 28/02
     leap = " | ".join(f"String.IsEqual(System.Date(yyyy),{y})" for y in range(2024, 2041) if calendar.isleap(y))
-    vals.append((f"String.IsEqual(System.Date(dd/mm),01/03) + [{leap}]", "29/02/$INFO[System.Date(yyyy)]"))
-    vals.append(("String.IsEqual(System.Date(dd/mm),01/03)", "28/02/$INFO[System.Date(yyyy)]"))
-    o = var("KS_Yesterday", vals)
-    o += var("KS_LastYear", [(f"String.IsEqual(System.Date(yyyy),{y})", U(y - 1)) for y in range(2024, 2041)])
-    return o
+    vals.append((f"{region}String.IsEqual(System.Date(dd/mm),01/03) + [{leap}]", f"{order(29, 2)}/$INFO[System.Date(yyyy)]"))
+    vals.append((f"{region}String.IsEqual(System.Date(dd/mm),01/03)", f"{order(28, 2)}/$INFO[System.Date(yyyy)]"))
+    return vals
+
+
+def today(key, lab):
+    return (f'\t<expression name="KS_Today_{key}">[!{RMF} + String.IsEqual({lab},System.Date(dd/mm/yyyy))]'
+            f' | [{RMF} + String.IsEqual({lab},System.Date(mm/dd/yyyy))]</expression>')
 
 
 def years_ago(key, lab):
@@ -263,8 +345,8 @@ def shelf_older(name, da, lp):
 def day_key(key, lab):
     """yyyy-mm-dd for a smart-playlist value, in two non-numeric halves ("2019-02" + "-04"): a variable value
     that is only digits would be read as a string id."""
-    o = var(f"KS_{key}_YM", [(f"String.Contains({lab},/{m:02d}/{y})", f"{y}-{m:02d}") for y in range(2000, 2036) for m in range(1, 13)])
-    o += var(f"KS_{key}_PD", [(f"String.StartsWith({lab},{d:02d}/)", f"-{d:02d}") for d in range(1, 32)])
+    o = split(f"KS_{key}_YM", lab, lambda D, M, MY: [(MY(lab, m, y), f"{y}-{m:02d}") for y in range(2000, 2036) for m in range(1, 13)])
+    o += split(f"KS_{key}_PD", lab, lambda D, M, MY: [(D(lab, d), f"-{d:02d}") for d in range(1, 32)])
     return o
 
 
@@ -274,10 +356,14 @@ def diary_slots():
         lab = f"Container({DIARY}).ListItemNoWrap({k}).LastPlayed"
         key = f"KS_DS{k}".replace("-", "m")
         # what a month divider says: "September" this year, "December 2025" before
-        o += var(f"{key}_Disp", [(f"String.Contains({lab},/{m:02d}/) + String.EndsWith({lab},System.Date(yyyy))", MONTHS[m - 1])
-                                 for m in range(1, 13)] + [(f"String.Contains({lab},/)", f"$VAR[{key}_MonY]")])
-        o += var(f"{key}_MonY", [(f"String.Contains({lab},/{m:02d}/{y})", f"{MONTHS[m - 1]} {y}")
-                                                       for y in range(2015, Y1 + 1) for m in range(1, 13)])
+        o += split(f"{key}_Disp", lab, lambda D, M, MY: [(f"{M(lab, m)} + String.EndsWith({lab},System.Date(yyyy))", MONTHS[m - 1])
+                                                         for m in range(1, 13)],
+                   tail=[(f"String.Contains({lab},/)", f"$VAR[{key}_MonY]")])
+        # "December 2025": the month name and the year (2015 on: the box's history starts 2015)
+        years = " | ".join(f"String.EndsWith({lab},/{y})" for y in range(2015, Y1 + 1))
+        o += var(f"{key}_MonY", [(f"[{years}]", f"$VAR[{key}_Mo] $VAR[{key}_Yr]")])
+        o += split(f"{key}_Mo", lab, lambda D, M, MY: [(M(lab, m), MONTHS[m - 1]) for m in range(1, 13)])
+        o += var(f"{key}_Yr", [(f"String.EndsWith({lab},/{y})", U(y)) for y in range(2015, Y1 + 1)])
     return o
 
 
@@ -297,6 +383,7 @@ def main():
     out.append(shelf_older("KS_ShelfOlder", "ListItem.DateAdded", "ListItem.LastPlayed"))
     out.append(shelf_older("KS_CShelfOlder", "Container.ListItem.DateAdded", "Container.ListItem.LastPlayed"))
     out += yesterday()
+    out += [today(k, lab) for k, lab in TODAY.items()]
     out += years_ago("DA", "ListItem.DateAdded")
     out += years_ago("CDA", "Container.ListItem.DateAdded")
     for key, raw in RAW.items():
@@ -304,28 +391,37 @@ def main():
     out += day_key("UF", FIELDS["UF"])
     out += resume_minutes()
     out += diary_slots()
+    out[3:3] = mf_expressions()  # after the header; needs every label seen above
     out, dropped = prune(out)
     out += ["</includes>", ""]
     OUT.write_text(finish_xml("\n".join(out)), encoding="utf-8", newline="\n")
-    print("wrote", OUT, f"{OUT.stat().st_size // 1024} KB", len(out), "lines;", dropped, "unused variables left out")
+    print("wrote", OUT, f"{OUT.stat().st_size // 1024} KB", len(out), "lines;", dropped, "unused variables / expressions left out")
 
 
 def prune(lines):
     """Leave out the variables nothing calls (Team Kodi's kodi-review check flags unused variables). A variable
     is kept when another 1080i file names it ($VAR / $ESCVAR), an expression here does, or a kept variable here
     does. So after using another date variable in a window, re-run this generator."""
-    import re
     blocks = {}
     i = 0
     while i < len(lines):
         m = re.match(r'\t<variable name="([^"]+)">$', lines[i])
-        if m:
+        e = re.match(r'\t<expression name="([^"]+)">', lines[i])
+        if e:
+            blocks["EXP:" + e.group(1)] = (i, i)
+            i += 1
+        elif m:
             j = lines.index("\t</variable>", i)
             blocks[m.group(1)] = (i, j)
             i = j + 1
         else:
             i += 1
-    ref = re.compile(r"\$(?:ESC)?VAR\[([A-Za-z0-9_]+)")
+    rx = re.compile(r"\$(?:ESC)?(VAR|EXP)\[([A-Za-z0-9_]+)")
+
+    class ref:  # names found in a text; expressions as "EXP:<name>"
+        @staticmethod
+        def findall(t):
+            return [("EXP:" if k == "EXP" else "") + n for k, n in rx.findall(t)]
     used = set()
     for f in OUT.parent.glob("*.xml"):
         if f.name != OUT.name:

@@ -417,6 +417,24 @@
 				</control>
 				<include content="VidInfo_Comma"><param name="wid" value="22070"/><param name="mark" value="."/><param name="after" value="Control.HasFocus(9015) | [Control.HasFocus(9014) + !$EXP[VidInfo_MoreLike]]"/></include>
 			</control>
+			<!-- the tagline, right-aligned just above the Also row (audit 2026-10-30). It sat at a fixed y 866, but the
+			     Also row rides up with a short sentence and plot (to ~880 for a film with no art) and ran into it. A group
+			     of height 0 in the flow puts it 70 px above wherever the Also row lands (two lines end 16 px above it). -->
+			<control type="group">
+				<width>page_width</width>
+				<height>0</height>
+				<control type="textbox">
+					<right>0</right>
+					<top>-70</top>
+					<width>560</width>
+					<height>80</height>
+					<align>right</align>
+					<font>serif_28</font>
+					<textcolor>b3edeae0</textcolor>
+					<label>$VAR[VidInfo_Tagline]</label>
+					<visible>!Control.HasFocus(50)</visible>
+				</control>
+			</control>
 			<!-- also: Kodi's own info actions, quietly -->
 			<control type="grouplist" id="9100">
 				<top>26</top>
@@ -488,17 +506,7 @@
 	</variable>
 
 	<include name="VidInfo_TaglineAndHint">
-		<control type="textbox">
-			<right>page_margin</right>
-			<top>866</top>  <!-- above the Also row, which now runs the full width at ~980 -->
-			<width>560</width>
-			<height>80</height>
-			<align>right</align>
-			<font>serif_28</font>
-			<textcolor>b3edeae0</textcolor>
-			<label>$VAR[VidInfo_Tagline]</label>
-			<visible>!Control.HasFocus(50)</visible>
-		</control>
+		<!-- the tagline moved into VidInfo_Article, just above the Also row (audit 2026-10-30) -->
 		<control type="label">
 			<left>page_margin</left>
 			<top>1020</top>

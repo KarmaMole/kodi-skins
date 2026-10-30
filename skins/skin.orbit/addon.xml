@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.orbit" version="0.9.21" name="Orbit" provider-name="KarmaMole">
+<addon id="skin.orbit" version="0.9.22" name="Orbit" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skinvariables" version="2.1.21"/>
@@ -17,7 +17,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#orbit</website>
-		<news>v0.9.21 - The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.</news>
+		<news>v0.9.22 - Keyboard: Symbols, Caps and Shift fit their keys again (Shift was cut to "Shi..." and the labels ran into their tick boxes).</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

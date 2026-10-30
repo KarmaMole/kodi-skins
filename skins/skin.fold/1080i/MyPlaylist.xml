@@ -98,6 +98,8 @@
 			<textcolor>cap</textcolor>
 			<label>$LOCALIZE[31336]</label>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<!-- under the ".." row (Back), not over it -->
+			<animation effect="slide" end="0,66" condition="Container.HasParent">Conditional</animation>
 		</control>
 
 		<include>Music_NowPlayingBar</include>

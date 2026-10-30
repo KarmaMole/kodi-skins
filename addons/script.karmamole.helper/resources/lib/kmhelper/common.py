@@ -4,6 +4,8 @@
 """Shared Kodi plumbing: logging, JSON-RPC, paths, Window(Home) properties, atomic file writes."""
 import json
 import os
+import threading
+import time
 
 import xbmc
 import xbmcaddon
@@ -114,10 +116,22 @@ def mkdirs(path):
 def write_atomic(path, data):
     """Write bytes via a temp file + rename, so a reader (Kodi or another add-on process) never sees half a file."""
     mkdirs(os.path.dirname(path))
-    tmp = '%s.%d.tmp' % (path, os.getpid())
+    # pid + thread id: every add-on call runs inside the one Kodi process, so the pid alone collides
+    tmp = '%s.%d.%d.tmp' % (path, os.getpid(), threading.get_ident())
     with open(tmp, 'wb') as f:
         f.write(data)
-    os.replace(tmp, path)
+    for attempt in range(5):
+        try:
+            os.replace(tmp, path)
+            return
+        except PermissionError:  # Windows: a reader still has the target open
+            if attempt == 4:
+                try:
+                    os.remove(tmp)
+                except OSError:
+                    pass
+                raise
+            time.sleep(0.05)
 
 
 def read_json(path, default=None):

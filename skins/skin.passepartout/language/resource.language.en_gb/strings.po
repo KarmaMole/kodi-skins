@@ -877,7 +877,7 @@ msgid "Menu: view, sort, filter"
 msgstr ""
 
 msgctxt "#31900"
-msgid "Majan (Hanken Grotesk)"
+msgid "Passe-partout (Geist)"
 msgstr ""
 
 msgctxt "#31901"

@@ -44,6 +44,7 @@
 	<onload>ClearProperty(fold.from,home)</onload>
 	<!-- region date order for the board dates (Includes_Dates.xml, Date_RegionMonthFirst) -->
 	<onload>SetProperty(fold.monthday,$INFO[System.Date(MMMM D)],home)</onload>
+	<onload>SetProperty(fold.monthyear,$INFO[System.Date(MMMM YYYY)],home)</onload>
 	<onunload>SetProperty(fold.n.films,$INFO[Container(9191).NumItems],home)</onunload>
 	<onunload>SetProperty(fold.n.series,$INFO[Container(9193).NumItems],home)</onunload>
 	<onunload>SetProperty(fold.n.music,$INFO[Container(9194).NumItems],home)</onunload>

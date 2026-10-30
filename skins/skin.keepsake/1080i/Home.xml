@@ -8,6 +8,10 @@
 	<defaultcontrol always="true">9110</defaultcontrol>
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>paper</backgroundcolor>
+	<!-- 0.9.17: the region's day/month order for the date tables ("October 30" in a month-first long date, "October 2026" only in a day-first one; Includes_Dates.xml).
+	     Also set in Startup: Kodi resolves all of a window's onload labels before running them -->
+	<onload>SetProperty(keepsake.monthday,$INFO[System.Date(MMMM D)],home)</onload>
+	<onload>SetProperty(keepsake.monthyear,$INFO[System.Date(MMMM YYYY)],home)</onload>
 	<!-- yesterday's date in the region format, for "yesterday" notes (KS_LP_Rel) -->
 	<onload>SetProperty(keepsake.yesterday,$VAR[KS_Yesterday],home)</onload>
 	<!-- come back to the word you left from (0.9.14: not a hidden word, nor a custom item that was cleared) -->

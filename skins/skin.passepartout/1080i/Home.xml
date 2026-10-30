@@ -9,6 +9,8 @@
 	     nothing has focus, so it is Settings (9005), which never hides (it was 9001, hidden with the films item).
 	     The first onload focuses 9001 while it is shown, exactly as the old default did; the onloads below override it. -->
 	<defaultcontrol always="true">9005</defaultcontrol>
+	<onload>SetProperty(passepartout.monthday,$INFO[System.Date(MMMM D)],home)</onload>
+	<onload>SetProperty(passepartout.monthyear,$INFO[System.Date(MMMM YYYY)],home)</onload>
 	<onload condition="!Skin.HasSetting(HideMenu.Movies)">SetFocus(9001)</onload>
 	<menucontrol>9000</menucontrol>
 	<backgroundcolor>paper</backgroundcolor>

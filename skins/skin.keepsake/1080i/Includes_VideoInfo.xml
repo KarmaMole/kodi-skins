@@ -73,7 +73,7 @@
 		<value condition="!String.IsEmpty(ListItem.DateAdded)">Added $VAR[KS_DA_DM] $VAR[KS_DA_Year],[CR]never played.</value>
 	</variable>
 	<variable name="VidInfo_WhenWord">
-		<value condition="String.IsEqual(ListItem.LastPlayed,System.Date(dd/mm/yyyy))">today</value>
+		<value condition="$EXP[KS_Today_LP]">today</value>
 		<value condition="String.IsEqual(ListItem.LastPlayed,Window(Home).Property(keepsake.yesterday))">yesterday</value>
 		<value condition="String.EndsWith(ListItem.LastPlayed,System.Date(yyyy))">earlier this year</value>
 		<value>in $VAR[KS_LP_Year]</value>
@@ -210,7 +210,7 @@
 			<left>456</left>
 			<top>793</top>
 			<width>440</width>
-			<height>60</height>
+			<height>52</height>  <!-- two lines exactly: at 60 a third line (long names wrap) showed its tops -->
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
 			<label>$VAR[VidInfo_Cast3]</label>
@@ -222,7 +222,7 @@
 		<control type="label">
 			<left>1064</left>
 			<top>121</top>
-			<width>700</width>
+			<width>570</width>  <!-- 0.9.17: ends at 1634, clear of the clock's "PM  ·  NOW" (right-aligned to 1808) -->
 			<height>27</height>
 			<font>lbl_20</font>
 			<textcolor>label</textcolor>
@@ -272,7 +272,7 @@
 			<left>1062</left>
 			<top>168</top>
 			<width>760</width>
-			<height>166</height>
+			<height>154</height>  <!-- two lines + descenders; 166 let the tops of a third line show over the meta line -->
 			<font>ttl_72</font>
 			<textcolor>cream</textcolor>
 			<label>$VAR[VidInfo_Title]</label>
@@ -299,7 +299,8 @@
 				<font>body_28</font>
 				<textcolor>body</textcolor>
 				<label>$INFO[ListItem.Plot]</label>
-				<autoscroll delay="9000" time="3000" repeat="10000">!Control.HasFocus(9001)</autoscroll>
+				<!-- 0.9.17: steps one whole line every 5 s after 5 s idle (the old wait was 9 s) instead of the 3 s crawl that cut the top line (Signal pattern, LESSONS "View fixes 2026-10-28 (Signal)"); 164 = 4 lines of body_28 (40.5 px) -->
+				<autoscroll delay="3800" time="250">!Control.HasFocus(9001) + System.IdleTime(5) + !String.EndsWith(System.Time(ss),0) + !String.EndsWith(System.Time(ss),5)</autoscroll>
 			</control>
 			<control type="image">
 				<left>1056</left>

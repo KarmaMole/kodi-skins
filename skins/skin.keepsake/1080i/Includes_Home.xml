@@ -77,13 +77,13 @@
 
 	<!-- relative day of a list item's last play: today / yesterday / on 18 October (2025) -->
 	<variable name="KS_LP_Rel">
-		<value condition="String.IsEqual(ListItem.LastPlayed,System.Date(dd/mm/yyyy))">today</value>
+		<value condition="$EXP[KS_Today_LP]">today</value>
 		<value condition="String.IsEqual(ListItem.LastPlayed,Window(Home).Property(keepsake.yesterday))">yesterday</value>
 		<value condition="String.EndsWith(ListItem.LastPlayed,System.Date(yyyy))">on $VAR[KS_LP_DM]</value>
 		<value condition="!String.IsEmpty(ListItem.LastPlayed)">on $VAR[KS_LP_DM] $VAR[KS_LP_Year]</value>
 	</variable>
 	<variable name="Home_EpRel">
-		<value condition="String.IsEqual(Container(9130).ListItem.LastPlayed,System.Date(dd/mm/yyyy))">today</value>
+		<value condition="$EXP[KS_Today_EP]">today</value>
 		<value condition="String.IsEqual(Container(9130).ListItem.LastPlayed,Window(Home).Property(keepsake.yesterday))">yesterday</value>
 		<value>$INFO[Container(9130).ListItem.LastPlayed]</value>
 	</variable>

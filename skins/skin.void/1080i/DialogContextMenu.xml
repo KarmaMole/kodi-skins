@@ -32,6 +32,18 @@
 				<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
 				<texture colordiffuse="scrim">common/scrim_left.png</texture>
 			</control>
+			<!-- second pass of the same ramp (audit 2026-10-30): with one pass the focused item's big serif title behind the
+			     menu stayed readable (about 10-20 % grey) right beside the choices; two passes keep the poster on the right
+			     untouched (the ramp ends at 1300) -->
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1300</width>
+				<height>1080</height>
+				<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
+				<animation effect="fade" start="100" end="0" time="120">WindowClose</animation>
+				<texture colordiffuse="scrim">common/scrim_left.png</texture>
+			</control>
 			<control type="image" id="999">
 				<description>background (Kodi sizes it; transparent in Void)</description>
 				<left>146</left>

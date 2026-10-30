@@ -1,3 +1,11 @@
+0.9.21 (2026-10-30)
+- Empty music pages (the hang and the list) no longer print "The walls are bare" over the Back print.
+- The empty queue's "The queue is empty" now sits under the Back row instead of on top of it.
+- Dates in regions that write the month first (USA) read correctly ("16 June 2024", not "6  2024").
+- Yes / no dialogs with a third button no longer cut its label ("Something else").
+- Kodi's font setting names this skin's fonts ("Passe-partout (Geist)", not Majan's).
+- Dates no longer switch to the month-first reading in day-first regions on the 2nd and the 20th of a month.
+
 0.9.20 (2026-10-29)
 - The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View.
 

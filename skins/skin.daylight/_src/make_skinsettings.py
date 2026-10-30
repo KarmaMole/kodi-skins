@@ -175,6 +175,8 @@ def main():
         a(f'\t\t\t\t<param name="id" value="{cid}"/><param name="top" value="{176 + i * 84}"/>')
         a(f'\t\t\t\t<param name="label" value="{label}"/><param name="key" value="{key}"/>')
         a(f'\t\t\t\t<param name="onright" value="{first_row}"/><param name="onup" value="{ids[i - 1]}"/><param name="ondown" value="{ids[(i + 1) % len(ids)]}"/>')
+        if first_row == 9520:  # Borrowed colour is disabled without TMDb Helper: Right goes to the next row then
+            a('				<param name="onright_skip" value="!System.AddonIsEnabled(plugin.video.themoviedb.helper)"/><param name="onright_skipto" value="9521"/>')
         a("\t\t\t</include>")
     a("\t\t</control>")
     # rows card

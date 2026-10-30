@@ -26,6 +26,7 @@
 				<param name="id" value="9551"/><param name="top" value="260"/>
 				<param name="label" value="Look"/><param name="key" value="look"/>
 				<param name="onright" value="9520"/><param name="onup" value="9550"/><param name="ondown" value="9552"/>
+				<param name="onright_skip" value="!System.AddonIsEnabled(plugin.video.themoviedb.helper)"/><param name="onright_skipto" value="9521"/>
 			</include>
 			<include content="Dlg_SkinCategory">
 				<param name="id" value="9552"/><param name="top" value="344"/>

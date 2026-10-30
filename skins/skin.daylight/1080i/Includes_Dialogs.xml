@@ -706,7 +706,7 @@
 				<left>dialog_inset</left>
 				<top>dialog_content_top</top>
 				<width>768</width>
-				<height>640</height>
+				<height>612</height>  <!-- 9 rows of 68 (audit 2026-10-30): at 640 a tenth row showed cut in half at the bottom -->
 				<onup>3</onup>
 				<ondown>3</ondown>
 				<onleft>9001</onleft>
@@ -774,7 +774,7 @@
 				<param name="id" value="61"/>
 				<param name="left" value="800"/>
 				<param name="top" value="dialog_content_top"/>
-				<param name="height" value="640"/>
+				<param name="height" value="612"/>
 			</include>
 			<control type="grouplist" id="9001">
 				<left>820</left>

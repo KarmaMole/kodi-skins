@@ -5,6 +5,8 @@
 -->
 <window>
 	<include>PP_PaperInit</include>
+	<onload>SetProperty(passepartout.monthday,$INFO[System.Date(MMMM D)],home)</onload>
+	<onload>SetProperty(passepartout.monthyear,$INFO[System.Date(MMMM YYYY)],home)</onload>
 	<onload>ReplaceWindow($INFO[System.StartupWindow])</onload>
 	<controls>
 		<control type="image">

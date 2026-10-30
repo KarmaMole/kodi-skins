@@ -31,6 +31,8 @@
 			<textcolor>ink_faint</textcolor>
 			<label>$LOCALIZE[31392]</label>
 			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<!-- under the list's ".." row, not on it -->
+			<animation effect="slide" start="0,0" end="0,64" time="0" condition="Control.IsVisible(50) + Container.HasParent">Conditional</animation>
 		</control>
 		<include>Music_Header</include>
 		<include>Music_NowPlayingBar</include>

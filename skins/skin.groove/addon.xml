@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="skin.groove" version="1.0.9" name="Groove" provider-name="KarmaMole">
+<addon id="skin.groove" version="1.0.10" name="Groove" provider-name="KarmaMole">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<!-- Required (Omar, 2026-10-21): encodes the Search query for the library paths (get_encoded_string with
@@ -21,7 +21,7 @@
 		<license>GPL-2.0-or-later</license>
 		<source>https://github.com/KarmaMole/kodi-skins</source>
 		<website>https://karmamole.github.io/kodi-skins/#groove</website>
-		<news>v1.0.9 - The Menu button's item menu now starts with View, sort, filter… (one press up from the first item), which opens the skin's options on View. Fixed a crash after switching views (with KarmaMole Skin Helper 1.0.2).</news>
+		<news>v1.0.10 - Empty pages no longer print "Nothing here yet" over the Back tile.</news>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>

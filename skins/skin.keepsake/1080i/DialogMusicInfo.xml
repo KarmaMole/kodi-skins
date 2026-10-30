@@ -83,7 +83,7 @@
 			<left>1060</left>
 			<top>150</top>
 			<width>760</width>
-			<height>166</height>
+			<height>154</height>  <!-- two lines + descenders; 166 let the tops of a third line show (long album titles) -->
 			<font>ttl_72</font>
 			<textcolor>cream</textcolor>
 			<label>$VAR[Music_InfoTitle]</label>

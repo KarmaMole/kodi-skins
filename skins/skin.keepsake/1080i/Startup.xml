@@ -5,6 +5,9 @@
 	"Settings > Interface > Startup window" keeps working.
 -->
 <window>
+	<!-- 0.9.17: the region's day/month order for the date tables (see Home.xml) -->
+	<onload>SetProperty(keepsake.monthday,$INFO[System.Date(MMMM D)],home)</onload>
+	<onload>SetProperty(keepsake.monthyear,$INFO[System.Date(MMMM YYYY)],home)</onload>
 	<onload>ReplaceWindow($INFO[System.StartupWindow])</onload>
 	<controls>
 		<include>KS_Background</include>

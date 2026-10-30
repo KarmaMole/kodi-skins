@@ -661,7 +661,8 @@
 			<top>420</top>
 			<width>1920</width>
 			<height>200</height>
-			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<!-- not inside the Corridor's ".." frame (its caption already says how to go back) -->
+			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + [!Container.HasParent | !Control.IsVisible(500)]</visible>
 			<control type="label">
 				<left>0</left>
 				<top>0</top>

@@ -23,7 +23,8 @@
 		<include>Music_View_50</include>
 		<include>Music_View_508</include>
 		<control type="group">
-			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<!-- not over a ".." print: the hang (504) and the list's preview (50) put "Back" where this text sits -->
+			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + [!Container.HasParent | Control.IsVisible(505) | Control.IsVisible(508)]</visible>
 			<control type="label">
 				<left>120</left>
 				<top>420</top>

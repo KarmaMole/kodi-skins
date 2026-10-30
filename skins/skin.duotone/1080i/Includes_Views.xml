@@ -42,6 +42,10 @@
 		<control type="group">
 			<visible>Control.IsVisible(50)</visible>
 			<include>Anim_VisibleFade</include>
+			<!-- audit 2026-10-30: an empty folder keeps its ".." row; move the list under the "Nothing here" message, as the
+			     other views do (video message 168-248, music message 200-276) -->
+			<animation effect="slide" start="0,0" end="0,96" time="0" condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + !Window.IsActive(music)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,120" time="0" condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + Window.IsActive(music)">Conditional</animation>
 			<control type="list" id="50">
 				<left>list_x</left>
 				<top>list_y</top>

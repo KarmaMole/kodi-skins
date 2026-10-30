@@ -7,6 +7,7 @@
 <window>
 	<!-- region date order for the board dates (Includes_Dates.xml, Date_RegionMonthFirst) -->
 	<onload>SetProperty(fold.monthday,$INFO[System.Date(MMMM D)],home)</onload>
+	<onload>SetProperty(fold.monthyear,$INFO[System.Date(MMMM YYYY)],home)</onload>
 	<onload>ReplaceWindow($INFO[System.StartupWindow])</onload>
 	<controls>
 		<include>Fold_Background</include>

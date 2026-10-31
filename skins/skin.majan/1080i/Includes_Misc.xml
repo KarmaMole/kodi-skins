@@ -32,10 +32,10 @@
 	</variable>
 	<!-- PVR status tag, typographic (no icon set): recording / timer / reminder / archive -->
 	<variable name="Misc_PVRStatus">
-		<value condition="ListItem.IsRecording">REC</value>
-		<value condition="ListItem.HasTimer | ListItem.HasTimerSchedule">TIMER</value>
-		<value condition="ListItem.HasReminder">REMIND</value>
-		<value condition="ListItem.HasArchive">ARCHIVE</value>
+		<value condition="ListItem.IsRecording">$LOCALIZE[31692]</value>
+		<value condition="ListItem.HasTimer | ListItem.HasTimerSchedule">$LOCALIZE[31693]</value>
+		<value condition="ListItem.HasReminder">$LOCALIZE[31694]</value>
+		<value condition="ListItem.HasArchive">$LOCALIZE[31695]</value>
 	</variable>
 	<variable name="Misc_PVRTitle">
 		<value condition="!String.IsEmpty(ListItem.EpgEventTitle)">$INFO[ListItem.EpgEventTitle]</value>
@@ -52,9 +52,9 @@
 	</variable>
 	<!-- Channel manager row flags -->
 	<variable name="Misc_ChannelMgrFlags">
-		<value condition="ListItem.Property(Changed) + ListItem.Property(ParentalLocked)">EDITED  LOCKED</value>
-		<value condition="ListItem.Property(Changed)">EDITED</value>
-		<value condition="ListItem.Property(ParentalLocked)">LOCKED</value>
+		<value condition="ListItem.Property(Changed) + ListItem.Property(ParentalLocked)">$LOCALIZE[31696]</value>
+		<value condition="ListItem.Property(Changed)">$LOCALIZE[31697]</value>
+		<value condition="ListItem.Property(ParentalLocked)">$LOCALIZE[31698]</value>
 	</variable>
 	<variable name="Misc_PVRMeta">
 		<value condition="!String.IsEmpty(ListItem.StartTime)">$INFO[ListItem.StartDate,,  ·  ]$INFO[ListItem.StartTime]$INFO[ListItem.EndTime, - ,]$INFO[ListItem.Genre,  ·  ,]</value>
@@ -174,8 +174,8 @@
 				<radioheight>18</radioheight>
 				<textureradioonfocus colordiffuse="ink">markers/check.png</textureradioonfocus>
 				<textureradioonnofocus colordiffuse="$VAR[ColorAccent]">markers/check.png</textureradioonnofocus>
-				<textureradioofffocus border="10" colordiffuse="ink">common/rect_outline_1.png</textureradioofffocus>
-				<textureradiooffnofocus border="10" colordiffuse="border_control">common/rect_outline_1.png</textureradiooffnofocus>
+				<textureradioofffocus border="1" colordiffuse="ink">common/rect_outline_1.png</textureradioofffocus>
+				<textureradiooffnofocus border="1" colordiffuse="border_control">common/rect_outline_1.png</textureradiooffnofocus>
 				<label>$PARAM[label]</label>
 				<visible>$PARAM[visible]</visible>
 			</control>
@@ -186,7 +186,7 @@
 	<include name="Misc_SortButtons">
 		<include content="Majan_SubNavButton">
 			<param name="id" value="6053"/>
-			<param name="label" value="Sort: $INFO[Container.SortMethod]"/>
+			<param name="label" value="$LOCALIZE[31667] $INFO[Container.SortMethod]"/>
 			<param name="onclick" value="SendClick(3)"/>
 			<param name="visible" value="Control.IsEnabled(3)"/>
 		</include>
@@ -351,13 +351,13 @@
 		<definition>
 			<include content="Majan_SubNavButton">
 				<param name="id" value="624"/>
-				<param name="label" value="Add-on settings"/>
+				<param name="label" value="$LOCALIZE[31699]"/>
 				<param name="onclick" value="Addon.OpenSettings($INFO[Container.PluginName])"/>
 				<param name="visible" value="!String.IsEmpty(Container.PluginName)"/>
 			</include>
 			<include content="Majan_SubNavButton">
 				<param name="id" value="621"/>
-				<param name="label" value="Get more"/>
+				<param name="label" value="$LOCALIZE[31700]"/>
 				<param name="onclick" value="ActivateWindow(addonbrowser,addons://more/$PARAM[kind]/,return)"/>
 				<param name="visible" value="Container.Content(addons)"/>
 			</include>
@@ -373,15 +373,15 @@
 	<include name="Misc_Extra_Pictures">
 		<include content="Majan_SubNavButton">
 			<param name="id" value="6"/>
-			<param name="label" value="Slideshow"/>
+			<param name="label" value="$LOCALIZE[31701]"/>
 		</include>
 		<include content="Majan_SubNavButton">
 			<param name="id" value="7"/>
-			<param name="label" value="Recursive slideshow"/>
+			<param name="label" value="$LOCALIZE[31702]"/>
 		</include>
 		<include content="Misc_SubNavRadio">
 			<param name="id" value="9"/>
-			<param name="label" value="Randomise"/>
+			<param name="label" value="$LOCALIZE[31703]"/>
 			<param name="width" value="190"/>
 		</include>
 		<include content="Misc_AddonButtons"><param name="kind" value="image"/></include>
@@ -487,13 +487,13 @@
 				<onback>$PARAM[content_id]</onback>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="6054"/>
-					<param name="label" value="Group: $PARAM[group_label]"/>
+					<param name="label" value="$LOCALIZE[31704] $PARAM[group_label]"/>
 					<param name="onclick" value="SendClick(28)"/>
 					<param name="visible" value="$PARAM[show_group]"/>
 				</include>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="6053"/>
-					<param name="label" value="Sort: $INFO[Container.SortMethod]"/>
+					<param name="label" value="$LOCALIZE[31667] $INFO[Container.SortMethod]"/>
 					<param name="onclick" value="SendClick(3)"/>
 				</include>
 				<include content="Majan_SubNavButton">
@@ -706,7 +706,7 @@
 		<param name="label">$INFO[ListItem.Label]</param>
 		<param name="label2">$INFO[ListItem.Label2]</param>
 		<param name="progress">false</param>
-		<param name="empty_label">Nothing here yet</param>
+		<param name="empty_label">$LOCALIZE[31555]</param>
 		<definition>
 			<control type="group" id="9100">
 				<defaultcontrol always="true">50</defaultcontrol>
@@ -753,7 +753,7 @@
 	     the PVR settings (focus lands here only when the container has no items). params: top, label -->
 	<include name="Misc_EmptyStateButton">
 		<param name="top">misc_pvr_top</param>
-		<param name="label">Nothing here yet</param>
+		<param name="label">$LOCALIZE[31555]</param>
 		<definition>
 			<control type="label">
 				<left>page_margin</left>
@@ -860,7 +860,7 @@
 				<height>28</height>
 				<font>mono_14</font>
 				<textcolor>text_tertiary</textcolor>
-				<label>$INFO[ListItem.NextStartTime,Next  ,  ·  ]$INFO[ListItem.NextTitle]</label>
+				<label>$INFO[ListItem.NextStartTime,$LOCALIZE[31618]  ,  ·  ]$INFO[ListItem.NextTitle]</label>
 				<visible>!String.IsEmpty(ListItem.NextTitle)</visible>
 			</control>
 		</control>

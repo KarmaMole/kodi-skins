@@ -512,24 +512,24 @@ def build() -> str:
 
 	<!-- card meta line (mono): films/episodes with the end time, series with seasons/episodes, sets -->
 	<variable name="Wall_Seasons">
-		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)"> · 1 season</value>
-		<value condition="!String.IsEmpty(ListItem.Property(TotalSeasons))"> · $INFO[ListItem.Property(TotalSeasons)] seasons</value>
+		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)"> · $LOCALIZE[31796]</value>
+		<value condition="!String.IsEmpty(ListItem.Property(TotalSeasons))"> · $INFO[ListItem.Property(TotalSeasons)] $LOCALIZE[31797]</value>
 	</variable>
 	<variable name="Wall_Episodes">
-		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)"> · 1 episode</value>
-		<value condition="!String.IsEmpty(ListItem.Property(TotalEpisodes))"> · $INFO[ListItem.Property(TotalEpisodes)] episodes</value>
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)"> · $LOCALIZE[31448]</value>
+		<value condition="!String.IsEmpty(ListItem.Property(TotalEpisodes))"> · $INFO[ListItem.Property(TotalEpisodes)] $LOCALIZE[31449]</value>
 	</variable>
 	<variable name="Wall_ToGo">
-		<value condition="Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(WatchedEpisodes),0)"> · $INFO[ListItem.Property(UnWatchedEpisodes)] to go</value>
-		<value condition="$EXP[VidView_TVDone]"> · watched</value>
+		<value condition="Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(WatchedEpisodes),0)"> · $INFO[ListItem.Property(UnWatchedEpisodes)] $LOCALIZE[31798]</value>
+		<value condition="$EXP[VidView_TVDone]"> · $LOCALIZE[31554]</value>
 	</variable>
 	<variable name="Wall_Ends">
-		<value condition="!String.IsEmpty(ListItem.Duration) + !String.IsEmpty(ListItem.EndTimeResume)"> · ends $INFO[ListItem.EndTimeResume]</value>
+		<value condition="!String.IsEmpty(ListItem.Duration) + !String.IsEmpty(ListItem.EndTimeResume)"> · $LOCALIZE[31799] $INFO[ListItem.EndTimeResume]</value>
 	</variable>
 	<variable name="Wall_CardMeta">
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[VidView_SetFilms] · $VAR[VidView_Status]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31404]$VAR[VidView_SetFilms] · $VAR[VidView_Status]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[Wall_Seasons]$VAR[Wall_Episodes]$VAR[Wall_ToGo]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Label]$VAR[Wall_Episodes]$INFO[ListItem.Property(WatchedEpisodes), · , watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Label]$VAR[Wall_Episodes]$INFO[ListItem.Property(WatchedEpisodes), · , $LOCALIZE[31554]]</value>
 		<value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]$VAR[VidView_MPAAMeta]$VAR[Wall_Ends]</value>
 		<value>$VAR[VidView_Status]$VAR[VidView_RuntimeMeta]$VAR[Wall_Ends]</value>
 	</variable>

@@ -30,8 +30,8 @@
 		</include>
 		<include content="Majan_TopBar">
 			<param name="index" value="04"/>
-			<param name="title" value="Music"/>
-			<param name="sub" value="Information"/>
+			<param name="title" value="$LOCALIZE[31724]"/>
+			<param name="sub" value="$LOCALIZE[31725]"/>
 		</include>
 
 		<!-- ============================================================ cover column -->
@@ -88,7 +88,7 @@
 					<height>24</height>
 					<font>mono_13</font>
 					<textcolor>$VAR[ColorCaption]</textcolor>
-					<label>$INFO[ListItem.DateAdded,Added  ,]</label>
+					<label>$INFO[ListItem.DateAdded,$LOCALIZE[31726]  ,]</label>
 					<visible>!String.IsEmpty(ListItem.DateAdded)</visible>
 				</control>
 				<control type="label">
@@ -96,7 +96,7 @@
 					<height>24</height>
 					<font>mono_13</font>
 					<textcolor>$VAR[ColorCaption]</textcolor>
-					<label>$INFO[ListItem.LastPlayed,Last played  ,]</label>
+					<label>$INFO[ListItem.LastPlayed,$LOCALIZE[31727]  ,]</label>
 					<visible>!String.IsEmpty(ListItem.LastPlayed)</visible>
 				</control>
 				<control type="label">
@@ -104,7 +104,7 @@
 					<height>24</height>
 					<font>mono_13</font>
 					<textcolor>$VAR[ColorCaption]</textcolor>
-					<label>$INFO[ListItem.Property(Album_Label),Label  ,]</label>
+					<label>$INFO[ListItem.Property(Album_Label),$LOCALIZE[31728]  ,]</label>
 					<visible>!String.IsEmpty(ListItem.Property(Album_Label))</visible>
 				</control>
 				<control type="label">
@@ -112,7 +112,7 @@
 					<height>24</height>
 					<font>mono_13</font>
 					<textcolor>$VAR[ColorCaption]</textcolor>
-					<label>$INFO[ListItem.Property(Album_Mood),Mood  ,]$INFO[ListItem.Property(Artist_Mood),Mood  ,]</label>
+					<label>$INFO[ListItem.Property(Album_Mood),$LOCALIZE[31729]  ,]$INFO[ListItem.Property(Artist_Mood),$LOCALIZE[31729]  ,]</label>
 					<visible>!String.IsEmpty(ListItem.Property(Album_Mood)) | !String.IsEmpty(ListItem.Property(Artist_Mood))</visible>
 				</control>
 			</control>
@@ -170,52 +170,52 @@
 				<height>84</height>
 				<orientation>horizontal</orientation>
 				<include content="Music_StatCell">
-					<param name="label" value="Year"/>
+					<param name="label" value="$LOCALIZE[31101]"/>
 					<param name="value" value="$INFO[ListItem.Year]"/>
 					<param name="visible" value="!$EXP[Music_InfoIsArtist] + !String.IsEmpty(ListItem.Year)"/>
 					<param name="first" value="true"/>
 				</include>
 				<include content="Music_StatCell">
-					<param name="label" value="Genre"/>
+					<param name="label" value="$LOCALIZE[31730]"/>
 					<param name="value" value="$INFO[ListItem.Genre]"/>
 					<param name="width" value="420"/>
 					<param name="visible" value="!String.IsEmpty(ListItem.Genre)"/>
 					<param name="first" value="[$EXP[Music_InfoIsArtist] | String.IsEmpty(ListItem.Year)]"/>
 				</include>
 				<include content="Music_StatCell">
-					<param name="label" value="Born"/>
+					<param name="label" value="$LOCALIZE[31731]"/>
 					<param name="value" value="$INFO[ListItem.Property(Artist_Born)]"/>
 					<param name="width" value="300"/>
 					<param name="visible" value="$EXP[Music_InfoIsArtist] + !String.IsEmpty(ListItem.Property(Artist_Born))"/>
 				</include>
 				<include content="Music_StatCell">
-					<param name="label" value="Formed"/>
+					<param name="label" value="$LOCALIZE[31732]"/>
 					<param name="value" value="$INFO[ListItem.Property(Artist_Formed)]"/>
 					<param name="width" value="300"/>
 					<param name="visible" value="$EXP[Music_InfoIsArtist] + String.IsEmpty(ListItem.Property(Artist_Born)) + !String.IsEmpty(ListItem.Property(Artist_Formed))"/>
 				</include>
 				<include content="Music_StatCell">
-					<param name="label" value="Tracks"/>
+					<param name="label" value="$LOCALIZE[31733]"/>
 					<param name="value" value="$INFO[Container(50).NumItems]"/>
 					<param name="visible" value="$EXP[Music_InfoIsAlbum] + Integer.IsGreater(Container(50).NumItems,0)"/>
 				</include>
 				<include content="Music_StatCell">
-					<param name="label" value="Albums"/>
+					<param name="label" value="$LOCALIZE[31649]"/>
 					<param name="value" value="$INFO[Container(50).NumItems]"/>
 					<param name="visible" value="$EXP[Music_InfoIsArtist] + Integer.IsGreater(Container(50).NumItems,0)"/>
 				</include>
 				<include content="Music_StatCell">
-					<param name="label" value="Length"/>
+					<param name="label" value="$LOCALIZE[31734]"/>
 					<param name="value" value="$INFO[ListItem.Duration]"/>
 					<param name="visible" value="$EXP[Music_InfoIsSong] + !String.IsEmpty(ListItem.Duration)"/>
 				</include>
 				<include content="Music_StatCell">
-					<param name="label" value="Rating"/>
+					<param name="label" value="$LOCALIZE[31103]"/>
 					<param name="value" value="$INFO[ListItem.Rating]"/>
 					<param name="visible" value="!String.IsEmpty(ListItem.Rating) + !String.IsEqual(ListItem.Rating,0.0)"/>
 				</include>
 				<include content="Music_StatCell">
-					<param name="label" value="Plays"/>
+					<param name="label" value="$LOCALIZE[31735]"/>
 					<param name="value" value="$INFO[ListItem.PlayCount]"/>
 					<param name="visible" value="!$EXP[Music_InfoIsArtist] + Integer.IsGreater(ListItem.PlayCount,0)"/>  <!-- artist row would overflow 1268 -->
 				</include>
@@ -248,7 +248,7 @@
 					<param name="left" value="8"/>
 					<param name="top" value="8"/>
 					<param name="width" value="170"/>
-					<param name="label" value="Play all"/>
+					<param name="label" value="$LOCALIZE[31736]"/>
 					<param name="onclick" value="PlayMedia(musicdb://artists/$INFO[ListItem.DBID]/,isdir)"/>
 					<param name="visible" value="$EXP[Music_InfoIsArtist] + Integer.IsGreater(ListItem.DBID,0)"/>
 					<param name="onleft" value="8"/>
@@ -260,7 +260,7 @@
 					<param name="left" value="8"/>
 					<param name="top" value="8"/>
 					<param name="width" value="150"/>
-					<param name="label" value="Shuffle"/>
+					<param name="label" value="$LOCALIZE[31658]"/>
 					<param name="onclick" value="$VAR[Music_InfoShuffleAction]"/>
 					<param name="onclick2" value="PlayerControl(RandomOn)"/>
 					<param name="visible" value="[$EXP[Music_InfoIsAlbum] | $EXP[Music_InfoIsArtist]] + Integer.IsGreater(ListItem.DBID,0)"/>

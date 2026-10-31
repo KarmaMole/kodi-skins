@@ -12,7 +12,7 @@
 	<controls>
 		<include>Majan_Background</include>
 		<include content="Majan_TopBar">
-			<param name="index" value="SYS"/>
+			<param name="index" value="$LOCALIZE[31745]"/>
 			<param name="title" value="$LOCALIZE[5]"/>
 		</include>
 
@@ -36,91 +36,91 @@
 					<label>$LOCALIZE[31021]</label>
 					<label2>$LOCALIZE[31024]</label2>
 					<property name="index">[UPPERCASE]01[/UPPERCASE]</property>
-					<property name="help">Majan's own options: accent colour, corners, focus outline, artwork background, Home rows and motion.</property>
+					<property name="help">$LOCALIZE[31800]</property>
 					<onclick>ActivateWindow(skinsettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[14200]</label>
 					<label2>$LOCALIZE[31258]</label2>
 					<property name="index">[UPPERCASE]02[/UPPERCASE]</property>
-					<property name="help">Video and music playback, refresh-rate matching, subtitle languages and look, discs.</property>
+					<property name="help">$LOCALIZE[31801]</property>
 					<onclick>ActivateWindow(PlayerSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[14211]</label>
 					<label2>$LOCALIZE[31259]</label2>
 					<property name="index">[UPPERCASE]03[/UPPERCASE]</property>
-					<property name="help">Library behaviour, scrapers, file lists, artwork and what OK does on an item.</property>
+					<property name="help">$LOCALIZE[31802]</property>
 					<onclick>ActivateWindow(MediaSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[14206]</label>
 					<label2>$LOCALIZE[31260]</label2>
 					<property name="index">[UPPERCASE]04[/UPPERCASE]</property>
-					<property name="help">Skin, colours, fonts, region and language, screensaver. Switch to another skin here: Skin > Skin.</property>
+					<property name="help">$LOCALIZE[31803]</property>
 					<onclick>ActivateWindow(InterfaceSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[24001]</label>
 					<label2>$LOCALIZE[31261]</label2>
 					<property name="index">[UPPERCASE]05[/UPPERCASE]</property>
-					<property name="help">Browse, update, configure or install add-ons.</property>
+					<property name="help">$LOCALIZE[31804]</property>
 					<onclick>ActivateWindow(addonbrowser)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[14036]</label>
 					<label2>$LOCALIZE[31262]</label2>
 					<property name="index">[UPPERCASE]06[/UPPERCASE]</property>
-					<property name="help">Web server and JSON-RPC control, UPnP, AirPlay, Zeroconf, SMB client.</property>
+					<property name="help">$LOCALIZE[31805]</property>
 					<onclick>ActivateWindow(ServiceSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[13000]</label>
 					<label2>$LOCALIZE[31263]</label2>
 					<property name="index">[UPPERCASE]07[/UPPERCASE]</property>
-					<property name="help">Display, audio output and passthrough, input, power saving, logging.</property>
+					<property name="help">$LOCALIZE[31806]</property>
 					<onclick>ActivateWindow(SystemSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[10003]</label>
 					<label2>$LOCALIZE[31264]</label2>
 					<property name="index">[UPPERCASE]08[/UPPERCASE]</property>
-					<property name="help">Copy, move and delete files; add network sources.</property>
+					<property name="help">$LOCALIZE[31807]</property>
 					<onclick>ActivateWindow(filemanager)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[138]</label>
 					<label2>$LOCALIZE[31265]</label2>
 					<property name="index">[UPPERCASE]09[/UPPERCASE]</property>
-					<property name="help">Kodi version, video renderer, storage, network and hardware details.</property>
+					<property name="help">$LOCALIZE[31808]</property>
 					<onclick>ActivateWindow(systeminfo)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[31266]</label>
 					<label2>$LOCALIZE[31267]</label2>
 					<property name="index">[UPPERCASE]10[/UPPERCASE]</property>
-					<property name="help">What Kodi has done recently: scans, add-on updates, errors.</property>
+					<property name="help">$LOCALIZE[31809]</property>
 					<onclick>ActivateWindow(eventlog)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[13200]</label>
 					<label2>$LOCALIZE[31268]</label2>
 					<property name="index">[UPPERCASE]11[/UPPERCASE]</property>
-					<property name="help">Profiles and the login screen.</property>
+					<property name="help">$LOCALIZE[31810]</property>
 					<onclick>ActivateWindow(Profiles)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[14204]</label>
 					<label2>$LOCALIZE[31269]</label2>
 					<property name="index">[UPPERCASE]12[/UPPERCASE]</property>
-					<property name="help">Live TV and PVR. Majan only gives these screens a plain layout.</property>
+					<property name="help">$LOCALIZE[31811]</property>
 					<onclick>ActivateWindow(PVRSettings)</onclick>
 				</item>
 				<item>
 					<label>$LOCALIZE[15016]</label>
 					<label2>$LOCALIZE[31270]</label2>
 					<property name="index">[UPPERCASE]13[/UPPERCASE]</property>
-					<property name="help">Games and controllers.</property>
+					<property name="help">$LOCALIZE[31812]</property>
 					<onclick>ActivateWindow(GameSettings)</onclick>
 					<visible>System.GetBool(gamesgeneral.enable)</visible>
 				</item>
@@ -164,10 +164,10 @@
 					<param name="width" value="784"/>
 				</include>
 				<include content="Dlg_FactRow"><param name="top" value="16"/><param name="label" value="Kodi"/><param name="value" value="$INFO[System.BuildVersion]"/></include>
-				<include content="Dlg_FactRow"><param name="top" value="56"/><param name="label" value="Skin"/><param name="value" value="Majan $INFO[System.AddonVersion(skin.majan)]"/></include>
-				<include content="Dlg_FactRow"><param name="top" value="96"/><param name="label" value="Address"/><param name="value" value="$INFO[Network.IPAddress]"/></include>
-				<include content="Dlg_FactRow"><param name="top" value="136"/><param name="label" value="Screen"/><param name="value" value="$INFO[System.ScreenResolution]"/></include>
-				<include content="Dlg_FactRow"><param name="top" value="176"/><param name="label" value="Up"/><param name="value" value="$INFO[System.Uptime]"/></include>
+				<include content="Dlg_FactRow"><param name="top" value="56"/><param name="label" value="$LOCALIZE[31783]"/><param name="value" value="$LOCALIZE[31024] $INFO[System.AddonVersion(skin.majan)]"/></include>
+				<include content="Dlg_FactRow"><param name="top" value="96"/><param name="label" value="$LOCALIZE[31784]"/><param name="value" value="$INFO[Network.IPAddress]"/></include>
+				<include content="Dlg_FactRow"><param name="top" value="136"/><param name="label" value="$LOCALIZE[31785]"/><param name="value" value="$INFO[System.ScreenResolution]"/></include>
+				<include content="Dlg_FactRow"><param name="top" value="176"/><param name="label" value="$LOCALIZE[31786]"/><param name="value" value="$INFO[System.Uptime]"/></include>
 			</control>
 		</control>
 	</controls>

@@ -36,16 +36,16 @@
 	<!-- Track panel kicker: "SUBTITLES · 16 TRACKS" -->
 	<variable name="Dlg_SelectKicker">
 		<!-- 1.0.4: singular for one item ("Audio · 1 tracks" on single-track files) -->
-		<value condition="Window.IsVisible(osdsubtitlesettings) + Integer.IsEqual(Container(3).NumItems,1)">Subtitles  ·  1 track</value>
-		<value condition="Window.IsVisible(osdaudiosettings) + Integer.IsEqual(Container(3).NumItems,1)">Audio  ·  1 track</value>
-		<value condition="Window.IsVisible(osdvideosettings) + Integer.IsEqual(Container(3).NumItems,1)">Video  ·  1 option</value>
-		<value condition="Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,1)">Select  ·  1 item</value>
-		<value condition="!Control.IsVisible(6) + Integer.IsEqual(Container(3).NumItems,1)">Select  ·  1 item</value>
-		<value condition="Window.IsVisible(osdsubtitlesettings)">Subtitles$INFO[Container(3).NumItems,  ·  , tracks]</value>
-		<value condition="Window.IsVisible(osdaudiosettings)">Audio$INFO[Container(3).NumItems,  ·  , tracks]</value>
-		<value condition="Window.IsVisible(osdvideosettings)">Video$INFO[Container(3).NumItems,  ·  , options]</value>
-		<value condition="Control.IsVisible(6)">Select$INFO[Container(6).NumItems,  ·  , items]</value>
-		<value>Select$INFO[Container(3).NumItems,  ·  , items]</value>
+		<value condition="Window.IsVisible(osdsubtitlesettings) + Integer.IsEqual(Container(3).NumItems,1)">$LOCALIZE[31714]</value>
+		<value condition="Window.IsVisible(osdaudiosettings) + Integer.IsEqual(Container(3).NumItems,1)">$LOCALIZE[31715]</value>
+		<value condition="Window.IsVisible(osdvideosettings) + Integer.IsEqual(Container(3).NumItems,1)">$LOCALIZE[31716]</value>
+		<value condition="Control.IsVisible(6) + Integer.IsEqual(Container(6).NumItems,1)">$LOCALIZE[31717]</value>
+		<value condition="!Control.IsVisible(6) + Integer.IsEqual(Container(3).NumItems,1)">$LOCALIZE[31717]</value>
+		<value condition="Window.IsVisible(osdsubtitlesettings)">$LOCALIZE[31504]$INFO[Container(3).NumItems,  ·  , $LOCALIZE[31674]]</value>
+		<value condition="Window.IsVisible(osdaudiosettings)">$LOCALIZE[31503]$INFO[Container(3).NumItems,  ·  , $LOCALIZE[31674]]</value>
+		<value condition="Window.IsVisible(osdvideosettings)">$LOCALIZE[31505]$INFO[Container(3).NumItems,  ·  , $LOCALIZE[31718]]</value>
+		<value condition="Control.IsVisible(6)">$LOCALIZE[31719]$INFO[Container(6).NumItems,  ·  , $LOCALIZE[31672]]</value>
+		<value>$LOCALIZE[31719]$INFO[Container(3).NumItems,  ·  , $LOCALIZE[31672]]</value>
 	</variable>
 	<!-- Centred select: "03 / 16" in the header -->
 	<variable name="Dlg_SelectPosition">
@@ -54,7 +54,7 @@
 	</variable>
 	<!-- What is playing, under the track panel: "PAUSED · 1:02:31 / 2:14:00" -->
 	<variable name="Dlg_PlayState">
-		<value condition="Player.Paused">Paused  ·  $INFO[Player.Time]$INFO[Player.Duration, / ,]</value>
+		<value condition="Player.Paused">$LOCALIZE[31655]  ·  $INFO[Player.Time]$INFO[Player.Duration, / ,]</value>
 		<value>$INFO[Player.Time]$INFO[Player.Duration, / ,]</value>
 	</variable>
 	<variable name="Dlg_PlayTitle">
@@ -63,8 +63,8 @@
 	</variable>
 
 	<variable name="Dlg_AddonNewsLabel">
-		<value condition="!String.IsEmpty(Window(Home).Property(majan.addonnews))">Description</value>
-		<value>What's new</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(majan.addonnews))">$LOCALIZE[31720]</value>
+		<value>$LOCALIZE[31721]</value>
 	</variable>
 
 	<!-- ============================================================ texture switches -->
@@ -94,13 +94,17 @@
 	<include name="Dlg_Tex_RowFocus_R2"><texturefocus border="16" colordiffuse="$VAR[ColorAccent]">focus/outline_2_round.png</texturefocus></include>
 	<include name="Dlg_Tex_RowFocus_R3"><texturefocus border="16" colordiffuse="$VAR[ColorAccent]">focus/outline_3_round.png</texturefocus></include>
 
-	<!-- Hairline under a row (texturenofocus of Kodi-cloned rows). flip = true gives a top rule. -->
+	<!-- Hairline under a row (texturenofocus of Kodi-cloned rows), and over one. The top rule has its own texture:
+	     flipy turns the picture but not the border, so a flipped row_rule.png stretched the opaque line down the
+	     row as a grey bar (settings categories, 1.0.23). -->
 	<include name="Dlg_Tex_RowRule">
 		<param name="color">hairline</param>
-		<param name="flip">false</param>
 		<definition>
-			<texturenofocus border="0,0,0,2" flipy="$PARAM[flip]" colordiffuse="$PARAM[color]">dialogs/row_rule.png</texturenofocus>
+			<texturenofocus border="0,0,0,2" colordiffuse="$PARAM[color]">dialogs/row_rule.png</texturenofocus>
 		</definition>
+	</include>
+	<include name="Dlg_Tex_RowRuleTop">
+		<texturenofocus border="0,3,0,0" colordiffuse="hairline">dialogs/row_rule_top.png</texturenofocus>
 	</include>
 
 	<!-- ============================================================ generic dialog -->
@@ -839,7 +843,7 @@
 				<ondown condition="Control.IsVisible(6)">6</ondown>
 				<include content="Majan_DialogButton">
 					<param name="id" value="9101"/>
-					<param name="label" value="Download subtitles"/>
+					<param name="label" value="$LOCALIZE[31722]"/>
 					<param name="width" value="281"/>
 					<param name="height" value="dlg_btn_h"/>
 					<param name="onclick" value="Dialog.Close(selectdialog)"/>
@@ -848,7 +852,7 @@
 				</include>
 				<include content="Majan_DialogButton">
 					<param name="id" value="9102"/>
-					<param name="label" value="Subtitle settings"/>
+					<param name="label" value="$LOCALIZE[31723]"/>
 					<param name="width" value="281"/>
 					<param name="height" value="dlg_btn_h"/>
 					<param name="onclick" value="Dialog.Close(selectdialog)"/>
@@ -894,8 +898,8 @@
 		<radioposx>350</radioposx>
 		<textureradioonfocus colordiffuse="ink">markers/check.png</textureradioonfocus>
 		<textureradioonnofocus colordiffuse="$VAR[ColorAccent]">markers/check.png</textureradioonnofocus>
-		<textureradioofffocus border="10" colordiffuse="ink">common/rect_outline_1.png</textureradioofffocus>
-		<textureradiooffnofocus border="10" colordiffuse="border_control">common/rect_outline_1.png</textureradiooffnofocus>
+		<textureradioofffocus border="1" colordiffuse="ink">common/rect_outline_1.png</textureradioofffocus>
+		<textureradiooffnofocus border="1" colordiffuse="border_control">common/rect_outline_1.png</textureradiooffnofocus>
 	</include>
 
 	<!-- ============================================================ toasts -->
@@ -947,6 +951,17 @@
 		<pulseonselect>false</pulseonselect>
 		<include condition="Skin.HasSetting(majan.roundedcorners)">Dlg_Tex_Key_Round</include>
 		<include condition="!Skin.HasSetting(majan.roundedcorners)">Dlg_Tex_Key_Square</include>
+	</include>
+	<!-- Symbols / Caps / Shift state: a small mark in the key's top-right corner, clear of the centred label; the
+	     mark turns ink while the key has the accent fill (accent on accent read as no change) -->
+	<include name="Majan_KeyboardRadio">
+		<radiowidth>14</radiowidth>
+		<radioheight>14</radioheight>
+		<radioposy>7</radioposy>
+		<textureradioonfocus colordiffuse="ink">markers/check.png</textureradioonfocus>
+		<textureradioonnofocus colordiffuse="$VAR[ColorAccent]">markers/check.png</textureradioonnofocus>
+		<textureradioofffocus border="1" colordiffuse="ink">common/rect_outline_1.png</textureradioofffocus>
+		<textureradiooffnofocus border="1" colordiffuse="border_control">common/rect_outline_1.png</textureradiooffnofocus>
 	</include>
 	<include name="Dlg_Tex_Key_Square">
 		<texturefocus border="10" colordiffuse="$VAR[ColorAccent]">common/rect_square.png</texturefocus>

@@ -141,7 +141,7 @@
 				<height>osd_box_f</height>
 				<usecontrolcoords>true</usecontrolcoords>
 				<orientation>horizontal</orientation>
-				<itemgap>6</itemgap>  <!-- osd_box_gap - 8 (children carry left 8) -->
+				<itemgap>6</itemgap>  <!-- box gap 14 - 8 (children carry left 8) -->
 				<include content="OSD_BoxButton">
 					<param name="id" value="600"/>
 					<param name="icon" value="icons/prev.png"/>

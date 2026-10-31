@@ -15,7 +15,7 @@
 	<controls>
 		<include>Majan_Background</include>
 		<include content="Majan_TopBar">
-			<param name="index" value="SYS"/>
+			<param name="index" value="$LOCALIZE[31745]"/>
 			<param name="title" value="$LOCALIZE[24001]"/>
 			<param name="sub" value="$INFO[Container.FolderName]"/>
 		</include>
@@ -40,7 +40,7 @@
 			<height>24</height>
 			<font>mono_13</font>
 			<textcolor>text_tertiary</textcolor>
-			<label>$INFO[Window(AddonBrowser).Property(Updated),Repositories checked  ,]</label>
+			<label>$INFO[Window(AddonBrowser).Property(Updated),$LOCALIZE[31746]  ,]</label>
 		</control>
 		<control type="grouplist" id="9000">
 			<left>subnav_left</left>

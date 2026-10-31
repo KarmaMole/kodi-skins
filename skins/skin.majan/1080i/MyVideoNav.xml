@@ -23,6 +23,8 @@
 	<backgroundcolor>bg</backgroundcolor>
 	<views>502,500,503,501,50,506,507</views>
 	<onload condition="$EXP[ArtBackgroundOn]">SetProperty(TMDbHelper.Blur.SourceImage,Art(fanart)|Art(tvshow.fanart)|Art(poster)|Art(tvshow.poster)|Art(thumb),Home)</onload>
+	<!-- new stamp each time this window opens, as Home does: the Next up plugin path changes, so a plug-in row refreshes after playback -->
+	<onload condition="System.AddonIsEnabled(script.embuary.helper)">SetProperty(majan.reload,$INFO[System.Time(hh:mm:ss)],home)</onload>
 	<!-- empty folder: Kodi can't focus an empty view, so land on the header bar instead -->
 	<onload condition="Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating">SetFocus(9000)</onload>
 	<include>Anim_WindowOpenClose</include>

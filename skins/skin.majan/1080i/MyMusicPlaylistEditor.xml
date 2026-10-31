@@ -20,7 +20,7 @@
 		<include>Majan_Background</include>
 		<include content="Majan_TopBar">
 			<param name="index" value="04"/>
-			<param name="title" value="Playlist editor"/>
+			<param name="title" value="$LOCALIZE[31777]"/>
 		</include>
 
 		<control type="grouplist" id="9000">

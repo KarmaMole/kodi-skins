@@ -17,7 +17,7 @@
 		<include>Majan_Background</include>
 		<include content="Majan_TopBar">
 			<param name="index" value="14"/>
-			<param name="title" value="Event log"/>
+			<param name="title" value="$LOCALIZE[31266]"/>
 			<param name="sub" value="$INFO[Container.NumItems]"/>
 		</include>
 		<control type="group" id="9100">

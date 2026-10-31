@@ -41,7 +41,7 @@
 			</control>
 			<include content="Misc_EmptyStateButton">
 				<param name="top" value="misc_pvr_top"/>
-				<param name="label" value="No guide data. Enable a PVR client add-on in PVR &amp; Live TV settings."/>
+				<param name="label" value="$LOCALIZE[31779]"/>
 			</include>
 		</control>
 		<include content="Majan_Scrollbar">

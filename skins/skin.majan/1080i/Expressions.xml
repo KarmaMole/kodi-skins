@@ -42,6 +42,5 @@
 	<expression name="ListItemWatched">Integer.IsGreater(ListItem.PlayCount,0)</expression>
 
 	<!-- Windows -->
-	<expression name="InfoDialogActive">Window.IsVisible(movieinformation) | Window.IsVisible(musicinformation) | Window.IsVisible(addoninformation)</expression>
 	<expression name="OSDPanelOpen">Window.IsVisible(SliderDialog) | Window.IsVisible(osdaudiosettings) | Window.IsVisible(osdvideosettings) | Window.IsVisible(osdsubtitlesettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(playerprocessinfo) | Window.IsVisible(osdcmssettings)</expression>
 </includes>

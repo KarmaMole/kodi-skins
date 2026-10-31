@@ -2,7 +2,7 @@
 <!--
 	Video information (SPEC 5 / T19, Builder B). Movie, episode, TV show, season and collection
 	variants share one page; texts and facts switch on ListItem.DBType (Includes_VideoInfo.xml,
-	VidView_Fact* in Includes_Views_Video.xml). M3 status: built, not yet device-tested.
+	VidView_Fact* in Includes_Views_Video.xml).
 
 	Kodi id contract (Estuary Omega DialogVideoInfo.xml + CGUIDialogVideoInfo, Omega source):
 	  8 play (plays from the beginning when 9 exists; browses for tvshow/season/set)

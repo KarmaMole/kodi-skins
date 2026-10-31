@@ -53,7 +53,7 @@
 				<width>1160</width>
 				<height>468</height>  <!-- 13 lines exactly: no half-clipped line at the bottom -->
 				<font>body_25</font>
-				<label>$INFO[ListItem.Plot]$INFO[ListItem.Director,[CR][CR]Director  ,]$INFO[ListItem.Cast,[CR]Cast  ,]</label>
+				<label>$INFO[ListItem.Plot]$INFO[ListItem.Director,[CR][CR]$LOCALIZE[31756]  ,]$INFO[ListItem.Cast,[CR]$LOCALIZE[31584]  ,]</label>
 				<include>Majan_PlotScroll</include>
 			</control>
 			<control type="grouplist" id="9000">

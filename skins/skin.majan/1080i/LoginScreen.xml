@@ -13,7 +13,7 @@
 		<include>Majan_Background</include>
 		<include content="Majan_TopBar">
 			<param name="index" value="00"/>
-			<param name="title" value="Who is watching?"/>
+			<param name="title" value="$LOCALIZE[31773]"/>
 		</include>
 		<control type="list" id="52">
 			<left>page_margin</left>
@@ -100,7 +100,7 @@
 			<height>30</height>
 			<font>mono_14</font>
 			<textcolor>text_tertiary</textcolor>
-			<label>$INFO[Container(52).ListItem.Label2,Last login  ,]</label>
+			<label>$INFO[Container(52).ListItem.Label2,$LOCALIZE[31774]  ,]</label>
 		</control>
 		<control type="button" id="20">
 			<description>Power menu</description>

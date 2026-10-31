@@ -43,7 +43,7 @@
 		<include content="Majan_TopBar">
 			<param name="index" value="05"/>
 			<param name="title" value="$LOCALIZE[137]"/>
-			<param name="sub" value="Library"/>
+			<param name="sub" value="$LOCALIZE[31201]"/>
 		</include>
 		<include>Search_Query</include>
 		<include>Search_Results</include>

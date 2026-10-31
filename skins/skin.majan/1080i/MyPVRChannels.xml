@@ -23,7 +23,7 @@
 			<param name="text_x" value="120"/>
 			<param name="label2" value="$INFO[ListItem.Title]"/>
 			<param name="progress" value="ListItem.HasEpg + !ListItem.IsRecording"/>
-			<param name="empty_label" value="No channels. Enable a PVR client add-on in PVR &amp; Live TV settings."/>
+			<param name="empty_label" value="$LOCALIZE[31778]"/>
 		</include>
 	</controls>
 </window>

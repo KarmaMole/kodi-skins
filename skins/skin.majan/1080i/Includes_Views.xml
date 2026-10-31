@@ -71,7 +71,7 @@
 					<height>28</height>
 					<font>mono_14</font>
 					<textcolor>$VAR[ColorCaption]</textcolor>
-					<label>$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),  ·  , MIN]$INFO[ListItem.Rating,  ·  , / 10]$INFO[ListItem.Genre,  ·  ,]</label>
+					<label>$INFO[ListItem.Year]$INFO[ListItem.Duration(mins),  ·  , $LOCALIZE[31772]]$INFO[ListItem.Rating,  ·  , / 10]$INFO[ListItem.Genre,  ·  ,]</label>
 				</control>
 				<control type="textbox">
 					<left>0</left>

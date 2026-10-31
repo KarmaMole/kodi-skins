@@ -140,7 +140,7 @@
 				<param name="left" value="720"/>
 				<param name="top" value="dialog_content_top"/>
 				<param name="width" value="620"/>
-				<param name="label" value="Channel"/>
+				<param name="label" value="$LOCALIZE[31740]"/>
 			</include>
 			<control type="grouplist" id="9002">
 				<left>720</left>
@@ -196,7 +196,7 @@
 				<param name="left" value="720"/>
 				<param name="top" value="628"/>
 				<param name="width" value="620"/>
-				<param name="label" value="Other"/>
+				<param name="label" value="$LOCALIZE[31754]"/>
 			</include>
 			<control type="grouplist" id="9003">
 				<left>720</left>

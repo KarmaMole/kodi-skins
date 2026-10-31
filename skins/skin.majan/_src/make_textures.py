@@ -319,15 +319,10 @@ ICONS = {
     "stop": lambda d, s: rect(d, s, 5, 5, 19, 19, fill=True),
     "next": lambda d, s: (poly(d, s, [(5, 4), (16, 12), (5, 20)]), rect(d, s, 17, 4, 20, 20, fill=True)),
     "prev": lambda d, s: (poly(d, s, [(19, 4), (8, 12), (19, 20)]), rect(d, s, 4, 4, 7, 20, fill=True)),
-    "forward": lambda d, s: (poly(d, s, [(2, 5), (12, 12), (2, 19)]), poly(d, s, [(12, 5), (22, 12), (12, 19)])),
-    "rewind": lambda d, s: (poly(d, s, [(22, 5), (12, 12), (22, 19)]), poly(d, s, [(12, 5), (2, 12), (12, 19)])),
-    "subtitles": lambda d, s: (rect(d, s, 3, 5, 21, 19, r=2), line(d, s, [(7, 13), (11, 13)]), line(d, s, [(14, 13), (17, 13)]),
-                               line(d, s, [(7, 16), (17, 16)])),
     "audio": lambda d, s: (poly(d, s, [(4, 9), (8, 9), (13, 5), (13, 19), (8, 15), (4, 15)]),
                            line(d, s, [(16.5, 9.5), (17.5, 12), (16.5, 14.5)]), line(d, s, [(19.5, 7), (21, 12), (19.5, 17)])),
     "settings": lambda d, s: (line(d, s, [(4, 7), (20, 7)]), line(d, s, [(4, 17), (20, 17)]),
                               circle(d, s, 9, 7, 2.6, fill=True), circle(d, s, 15, 17, 2.6, fill=True)),
-    "info": lambda d, s: (circle(d, s, 12, 12, 9), line(d, s, [(12, 11), (12, 16.5)]), circle(d, s, 12, 7.7, 1.25, fill=True)),
     "chapters": lambda d, s: (line(d, s, [(4, 7), (20, 7)]), line(d, s, [(4, 12), (20, 12)]), line(d, s, [(4, 17), (14, 17)])),
     "back": lambda d, s: line(d, s, [(15, 5), (8, 12), (15, 19)]),
     "chevron_right": lambda d, s: line(d, s, [(9, 5), (16, 12), (9, 19)]),
@@ -352,8 +347,8 @@ ICON_PX = {
     # shared: primary Play button glyph 18 AND OSD play/pause alt 56
     "play": 56,
     # OSD transport + track buttons, osd_icon_btn = 56
-    "pause": 112, "stop": 112, "next": 112, "prev": 112, "forward": 112, "rewind": 112,
-    "subtitles": 112, "audio": 112, "info": 112, "chapters": 112, "shuffle": 112, "repeat": 112,
+    "pause": 112, "stop": 112, "next": 112, "prev": 112,
+    "audio": 112, "chapters": 112, "shuffle": 112, "repeat": 112,
 }
 
 

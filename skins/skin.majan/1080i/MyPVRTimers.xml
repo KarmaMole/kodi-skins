@@ -18,7 +18,7 @@
 		</include>
 		<include content="Misc_PVRList">
 			<param name="label2" value="$INFO[ListItem.Date]"/>
-			<param name="empty_label" value="No timers."/>
+			<param name="empty_label" value="$LOCALIZE[31782]"/>
 		</include>
 		<control type="label">
 			<left>list_panel_x</left>

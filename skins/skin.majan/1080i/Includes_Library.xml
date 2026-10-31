@@ -25,45 +25,45 @@
 	<expression name="MJ_LibHasWatchedFilter">Window.IsVisible(videos) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)] + !String.StartsWith(Container.FolderPath,videodb://inprogresstvshows)</expression>
 
 	<variable name="MJ_LibCaption">
-		<value condition="$EXP[MJ_LibInMusic]">MUSIC$INFO[Container.NumItems,  ·  ,]</value>
+		<value condition="$EXP[MJ_LibInMusic]">$LOCALIZE[31318]$INFO[Container.NumItems,  ·  ,]</value>
 		<value>[UPPERCASE]$VAR[VidView_Title][/UPPERCASE]$INFO[Container.NumItems,  ·  ,]</value>
 	</variable>
 	<variable name="MJ_LibUpdateLabel">
-		<value condition="$EXP[MJ_LibScanning]">Stop the update</value>
-		<value>Update library</value>
+		<value condition="$EXP[MJ_LibScanning]">$LOCALIZE[31677]</value>
+		<value>$LOCALIZE[31200]</value>
 	</variable>
 	<variable name="MJ_LibUpdateHint">
-		<value condition="$EXP[MJ_LibScanning]">UPDATING</value>
-		<value condition="$EXP[MJ_LibInMusic]">MUSIC</value>
-		<value>VIDEOS</value>
+		<value condition="$EXP[MJ_LibScanning]">$LOCALIZE[31678]</value>
+		<value condition="$EXP[MJ_LibInMusic]">$LOCALIZE[31318]</value>
+		<value>$LOCALIZE[31679]</value>
 	</variable>
 	<variable name="MJ_LibOrderHint">
-		<value condition="Container.SortDirection(descending)">DESCENDING</value>
-		<value>ASCENDING</value>
+		<value condition="Container.SortDirection(descending)">$LOCALIZE[31680]</value>
+		<value>$LOCALIZE[31681]</value>
 	</variable>
 	<variable name="MJ_LibShowHint">
-		<value condition="System.Setting(hidewatched)">UNWATCHED</value>
-		<value>ALL</value>
+		<value condition="System.Setting(hidewatched)">$LOCALIZE[31421]</value>
+		<value>$LOCALIZE[31418]</value>
 	</variable>
 
 	<!-- task card (1157) -->
 	<variable name="MJ_TaskHeading">
-		<value condition="String.IsEqual(Window(Home).Property(majan.libtask),clean) + String.IsEqual(Window(Home).Property(majan.libtarget),video)">CLEAN THE VIDEO LIBRARY?</value>
-		<value condition="String.IsEqual(Window(Home).Property(majan.libtask),clean) + String.IsEqual(Window(Home).Property(majan.libtarget),music)">CLEAN THE MUSIC LIBRARY?</value>
-		<value condition="String.IsEqual(Window(Home).Property(majan.libtask),clean)">CLEAN THE LIBRARY?</value>
-		<value>UPDATE THE LIBRARY</value>
+		<value condition="String.IsEqual(Window(Home).Property(majan.libtask),clean) + String.IsEqual(Window(Home).Property(majan.libtarget),video)">$LOCALIZE[31682]</value>
+		<value condition="String.IsEqual(Window(Home).Property(majan.libtask),clean) + String.IsEqual(Window(Home).Property(majan.libtarget),music)">$LOCALIZE[31683]</value>
+		<value condition="String.IsEqual(Window(Home).Property(majan.libtask),clean)">$LOCALIZE[31684]</value>
+		<value>$LOCALIZE[31685]</value>
 	</variable>
 	<variable name="MJ_TaskBody">
-		<value condition="String.IsEqual(Window(Home).Property(majan.libtask),clean)">Kodi removes the entries whose files it can no longer find, and what it knew about them. The files themselves are not touched.</value>
-		<value>Kodi scans your sources for new movies, episodes and albums. It runs in the background.</value>
+		<value condition="String.IsEqual(Window(Home).Property(majan.libtask),clean)">$LOCALIZE[31686]</value>
+		<value>$LOCALIZE[31687]</value>
 	</variable>
 	<variable name="MJ_TaskUpdateVideo">
-		<value condition="Library.IsScanningVideo">Stop updating videos</value>
-		<value>Update videos</value>
+		<value condition="Library.IsScanningVideo">$LOCALIZE[31688]</value>
+		<value>$LOCALIZE[31689]</value>
 	</variable>
 	<variable name="MJ_TaskUpdateMusic">
-		<value condition="Library.IsScanningMusic">Stop updating music</value>
-		<value>Update music</value>
+		<value condition="Library.IsScanningMusic">$LOCALIZE[31690]</value>
+		<value>$LOCALIZE[31691]</value>
 	</variable>
 
 	<!-- view picker: the mark on the view on show (ListItem.Property(key) of the static items) -->

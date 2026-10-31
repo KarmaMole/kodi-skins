@@ -152,7 +152,7 @@
 				<height>30</height>
 				<font>mono_13</font>
 				<textcolor>text_tertiary</textcolor>
-				<label>Memory  $INFO[System.Memory(used.percent)]</label>
+				<label>$LOCALIZE[31787]  $INFO[System.Memory(used.percent)]</label>
 			</control>
 			<control type="progress">
 				<left>0</left>
@@ -168,7 +168,7 @@
 				<height>30</height>
 				<font>mono_13</font>
 				<textcolor>text_tertiary</textcolor>
-				<label>CPU  $INFO[System.CPUUsage]</label>
+				<label>$LOCALIZE[31768]  $INFO[System.CPUUsage]</label>
 				<visible>System.SupportsCPUUsage</visible>
 			</control>
 			<control type="progress">

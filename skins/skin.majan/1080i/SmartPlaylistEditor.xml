@@ -19,7 +19,7 @@
 				<param name="width" value="1740"/>
 				<param name="height" value="820"/>
 				<param name="header_id" value="2"/>
-				<param name="header_label" value="Smart playlist"/>
+				<param name="header_label" value="$LOCALIZE[31788]"/>
 			</include>
 			<control type="grouplist" id="500">
 				<left>dialog_pad</left>
@@ -85,7 +85,7 @@
 				<param name="left" value="780"/>
 				<param name="top" value="dialog_content_top"/>
 				<param name="width" value="600"/>
-				<param name="label" value="Rules"/>
+				<param name="label" value="$LOCALIZE[31789]"/>
 			</include>
 			<control type="list" id="10">
 				<description>Rules</description>

@@ -65,9 +65,6 @@
 	<!-- Kodi's own "More..." item (added when a limited row is cut short): a folder with no library id.
 	     Styled as the "See all" tile; selecting it opens the full source path. -->
 	<expression name="Home_IsMoreItem">ListItem.IsFolder + String.IsEmpty(ListItem.DBID)</expression>
-	<expression name="Home_SpotlightButtonsFocus">Control.HasFocus(9110) | Control.HasFocus(9111) | Control.HasFocus(9112) | Control.HasFocus(9101)</expression>
-	<!-- rotation: setting not Off, Home section shown, buttons not focused, nothing on top -->
-	<expression name="Home_SpotlightCanRotate">!$EXP[SpotlightRotateOff] + $EXP[Home_SecHome] + !$EXP[Home_SpotlightButtonsFocus] + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</expression>
 	<expression name="Home_HasNextUpHelper">System.AddonIsEnabled(script.embuary.helper)</expression>
 	<expression name="Home_MusicBar">Player.HasAudio + !Player.HasVideo</expression>
 	<!-- 1.0.14: spotlight title size tier (probes 9103 / 9104 in Home_SpotlightText) -->
@@ -112,25 +109,21 @@
 	</variable>
 
 	<variable name="Home_LabelMusicRow2">
-		<value condition="Integer.IsGreater(Container(9237).NumItems,0)">Recently played</value>
-		<value>Newest releases</value>
+		<value condition="Integer.IsGreater(Container(9237).NumItems,0)">$LOCALIZE[31543]</value>
+		<value>$LOCALIZE[31112]</value>
 	</variable>
 	<variable name="Home_SubMusicRow2">
-		<value condition="Integer.IsGreater(Container(9237).NumItems,0)">Last played ↓</value>
-		<value>By release year ↓</value>
-	</variable>
-	<variable name="Home_SeeAllMusicRow2">
-		<value condition="Integer.IsGreater(Container(9237).NumItems,0)">musicdb://recentlyplayedalbums/</value>
-		<value>special://skin/playlists/majan_newest_albums.xsp</value>
+		<value condition="Integer.IsGreater(Container(9237).NumItems,0)">$LOCALIZE[31544]</value>
+		<value>$LOCALIZE[31545]</value>
 	</variable>
 	<variable name="Home_SubTopRated">
-		<value condition="Integer.IsEqual(Container(9102).NumItems,1)">1 title</value>
-		<value condition="Integer.IsGreater(Container(9102).NumItems,0)">$INFO[Container(9102).NumItems,, titles]</value>
-		<value>Unwatched · 7.5+</value>
+		<value condition="Integer.IsEqual(Container(9102).NumItems,1)">$LOCALIZE[31546]</value>
+		<value condition="Integer.IsGreater(Container(9102).NumItems,0)">$INFO[Container(9102).NumItems,, $LOCALIZE[31547]]</value>
+		<value>$LOCALIZE[31548]</value>
 	</variable>
 	<variable name="Home_SubNextUp">
-		<value condition="$EXP[Home_HasNextUpHelper]">Next unwatched episode</value>
-		<value>Shows in progress</value>
+		<value condition="$EXP[Home_HasNextUpHelper]">$LOCALIZE[31549]</value>
+		<value>$LOCALIZE[31550]</value>
 	</variable>
 
 	<!-- Top-bar index numbers, renumbered when items before them are hidden (HideMenu.*) -->
@@ -250,8 +243,8 @@
 
 	<!-- Spotlight caption (pool size from the counter list, never hard-coded; Omar decision 6) -->
 	<variable name="Home_SpotlightCaption">
-		<value condition="Integer.IsGreater(Container(9102).NumItems,0)">Fig. 01: random pick from $INFO[Container(9102).NumItems] unwatched, rated 7.5+</value>
-		<value>Fig. 01: random pick, unwatched, rated 7.5+</value>
+		<value condition="Integer.IsGreater(Container(9102).NumItems,0)">$LOCALIZE[31551] $INFO[Container(9102).NumItems] $LOCALIZE[31552]</value>
+		<value>$LOCALIZE[31553]</value>
 	</variable>
 
 	<!-- Container TMDb Helper reads for the blurred background, per section (row focus overrides it) -->
@@ -299,7 +292,7 @@
 	</variable>
 	<!-- "S02E01 · Title" (zero-padded); show cards (in-progress fallback) get "12 / 20 watched" -->
 	<variable name="Home_CardCode">
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(WatchedEpisodes),, / ]$INFO[ListItem.Property(TotalEpisodes),, watched]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(WatchedEpisodes),, / ]$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[31554]]</value>
 		<value condition="String.IsEmpty(ListItem.Episode)"></value>
 		<value condition="Integer.IsLess(ListItem.Season,10) + Integer.IsLess(ListItem.Episode,10)">S0$INFO[ListItem.Season]E0$INFO[ListItem.Episode]$INFO[ListItem.Title,  ·  ,]</value>
 		<value condition="Integer.IsLess(ListItem.Season,10)">S0$INFO[ListItem.Season]E$INFO[ListItem.Episode]$INFO[ListItem.Title,  ·  ,]</value>
@@ -989,7 +982,8 @@
 	</include>
 
 	<!-- Spotlight rotation interval. <autoscroll> does NOT expand $EXP (Kodi logged "Misplaced [" and the
-	     spotlight never rotated), so the condition is Home_SpotlightCanRotate written out: keep them in sync.
+	     spotlight never rotated), so the condition is written out: setting not Off, Home section shown, buttons not
+	     focused, nothing on top.
 	     <autoscroll time> is a static attribute, so the interval is picked
 	     at skin load (Home is KEEP_IN_MEMORY: changing 8/15/30 s needs ReloadSkin; Off is live). -->
 	<include name="Home_Rotate8"><autoscroll time="8000">!String.IsEqual(Skin.String(majan.spotlightrotate),off) + [String.IsEmpty(Window(Home).Property(majan.section)) | String.IsEqual(Window(Home).Property(majan.section),home)] + !Skin.HasSetting(HideMenu.Home) + !Skin.HasSetting(HideMenu.Movies) + !Control.HasFocus(9110) + !Control.HasFocus(9111) + !Control.HasFocus(9112) + !Control.HasFocus(9101) + !System.HasActiveModalDialog + !System.ScreenSaverActive + !Window.IsVisible(1151)</autoscroll></include>
@@ -1251,7 +1245,7 @@
 								<align>center</align>
 								<font>tab_13</font>
 								<textcolor>ink</textcolor>
-								<label>RESUME $INFO[ListItem.PercentPlayed]%</label>
+								<label>$LOCALIZE[31434] $INFO[ListItem.PercentPlayed]%</label>
 							</control>
 						</control>
 						<control type="group">
@@ -1275,7 +1269,7 @@
 								<align>center</align>
 								<font>tab_13</font>
 								<textcolor>ink</textcolor>
-								<label>$INFO[ListItem.Property(UnWatchedEpisodes),, NEW]</label>
+								<label>$INFO[ListItem.Property(UnWatchedEpisodes),, $LOCALIZE[31435]]</label>
 							</control>
 						</control>
 						<!-- show progress (fallback show cards) -->
@@ -1397,7 +1391,7 @@
 	</include>
 
 	<!-- Poster / cover row of a hub. params: id, top, index, label, sub, path, sortby, limit, target,
-	     seeall (onclick), onup, ondown, empty, kind_w, kind_h, pitch, mask_round, mask_square, art, extra_anim -->
+	     onup, ondown, empty, kind_w, kind_h, pitch, mask_round, mask_square, art, extra_anim -->
 	<include name="Home_HubPosterRow">
 		<param name="sortby">none</param>
 		<param name="sortorder">descending</param>
@@ -1410,7 +1404,7 @@
 		<param name="art">$INFO[ListItem.Art(poster)]</param>
 		<param name="mask_round">masks/poster_round8.png</param>
 		<param name="mask_square">masks/poster_square.png</param>
-		<param name="empty">Nothing here yet</param>
+		<param name="empty">$LOCALIZE[31555]</param>
 		<param name="delay">0</param>
 		<definition>
 			<control type="group">
@@ -1480,7 +1474,7 @@
 		<param name="sortby">none</param>
 		<param name="limit">20</param>
 		<param name="customdown">false</param>
-		<param name="empty">Nothing here yet</param>
+		<param name="empty">$LOCALIZE[31555]</param>
 		<param name="delay">0</param>
 		<definition>
 			<control type="group">
@@ -1681,17 +1675,17 @@
 		<definition>
 			<control type="label">
 				<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
-				<label>  ·  Resume $INFO[Container($PARAM[id]).ListItem.PercentPlayed]%</label>
+				<label>  ·  $LOCALIZE[31403] $INFO[Container($PARAM[id]).ListItem.PercentPlayed]%</label>
 				<visible>Container($PARAM[id]).ListItem.IsResumable</visible>
 			</control>
 			<control type="label">
 				<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
-				<label>  ·  Watched</label>
+				<label>  ·  $LOCALIZE[31401]</label>
 				<visible>!Container($PARAM[id]).ListItem.IsResumable + Integer.IsGreater(Container($PARAM[id]).ListItem.PlayCount,0)</visible>
 			</control>
 			<control type="label">
 				<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
-				<label>  ·  Unwatched</label>
+				<label>  ·  $LOCALIZE[31402]</label>
 				<visible>!Container($PARAM[id]).ListItem.IsResumable + Integer.IsEqual(Container($PARAM[id]).ListItem.PlayCount,0) + [String.IsEqual(Container($PARAM[id]).ListItem.DBType,movie) | String.IsEqual(Container($PARAM[id]).ListItem.DBType,episode)]</visible>
 			</control>
 		</definition>
@@ -1831,7 +1825,7 @@
 							</control>
 							<control type="label">
 								<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
-								<label>$INFO[Container($PARAM[id]).ListItem.Premiered,  ·  Aired ,]</label>
+								<label>$INFO[Container($PARAM[id]).ListItem.Premiered,  ·  $LOCALIZE[31405] ,]</label>
 							</control>
 							<control type="label">
 								<width>auto</width><height>24</height><font>mono_17</font><textcolor>text_secondary</textcolor>
@@ -1855,7 +1849,7 @@
 							<height>24</height>
 							<font>mono_17</font>
 							<textcolor>text_secondary</textcolor>
-							<label>$INFO[Container($PARAM[id]).ListItem.Year]$INFO[Container($PARAM[id]).ListItem.Genre,  ·  ,]$INFO[Container($PARAM[id]).ListItem.Property(WatchedEpisodes),  ·  , of ]$INFO[Container($PARAM[id]).ListItem.Property(TotalEpisodes),, episodes watched]</label>
+							<label>$INFO[Container($PARAM[id]).ListItem.Year]$INFO[Container($PARAM[id]).ListItem.Genre,  ·  ,]$INFO[Container($PARAM[id]).ListItem.Property(WatchedEpisodes),  ·  , $LOCALIZE[31556] ]$INFO[Container($PARAM[id]).ListItem.Property(TotalEpisodes),, $LOCALIZE[31557]]</label>
 							<visible>!Integer.IsEqual(Container($PARAM[id]).ListItem.Property(TotalEpisodes),1)</visible>
 						</control>
 						<control type="label">
@@ -1865,7 +1859,7 @@
 							<height>24</height>
 							<font>mono_17</font>
 							<textcolor>text_secondary</textcolor>
-							<label>$INFO[Container($PARAM[id]).ListItem.Year]$INFO[Container($PARAM[id]).ListItem.Genre,  ·  ,]$INFO[Container($PARAM[id]).ListItem.Property(WatchedEpisodes),  ·  , of ]$INFO[Container($PARAM[id]).ListItem.Property(TotalEpisodes),, episode watched]</label>
+							<label>$INFO[Container($PARAM[id]).ListItem.Year]$INFO[Container($PARAM[id]).ListItem.Genre,  ·  ,]$INFO[Container($PARAM[id]).ListItem.Property(WatchedEpisodes),  ·  , $LOCALIZE[31556] ]$INFO[Container($PARAM[id]).ListItem.Property(TotalEpisodes),, $LOCALIZE[31558]]</label>
 							<visible>Integer.IsEqual(Container($PARAM[id]).ListItem.Property(TotalEpisodes),1)</visible>
 						</control>
 					</control>
@@ -1927,19 +1921,19 @@
 			<include content="Home_InfoMovie">
 				<param name="id" value="9211"/>
 				<param name="index" value="01"/>
-				<param name="label" value="Recently added"/>
+				<param name="label" value="$LOCALIZE[31559]"/>
 				<param name="visible" value="!Control.HasFocus(9212) + !Control.HasFocus(9213)"/>
 			</include>
 			<include content="Home_InfoMovie">
 				<param name="id" value="9212"/>
 				<param name="index" value="02"/>
-				<param name="label" value="Newest releases"/>
+				<param name="label" value="$LOCALIZE[31112]"/>
 				<param name="visible" value="Control.HasFocus(9212)"/>
 			</include>
 			<include content="Home_InfoMovie">
 				<param name="id" value="9213"/>
 				<param name="index" value="03"/>
-				<param name="label" value="Top rated, unwatched"/>
+				<param name="label" value="$LOCALIZE[31560]"/>
 				<param name="visible" value="Control.HasFocus(9213)"/>
 			</include>
 			<control type="group">
@@ -1948,13 +1942,12 @@
 					<param name="id" value="9211"/>
 					<param name="top" value="home_hub_row1_y"/>
 					<param name="index" value="01"/>
-					<param name="label" value="Recently added"/>
-					<param name="sub" value="By date added"/>
+					<param name="label" value="$LOCALIZE[31559]"/>
+					<param name="sub" value="$LOCALIZE[31561]"/>
 					<param name="path" value="$VAR[Home_PathMoviesRecent]"/>
-					<param name="seeall" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
 					<param name="onup" value="9002"/>
 					<param name="ondown" value="9212"/>
-					<param name="empty" value="No films added yet"/>
+					<param name="empty" value="$LOCALIZE[31562]"/>
 				</include>
 			</control>
 			<control type="group">
@@ -1964,11 +1957,10 @@
 					<param name="id" value="9212"/>
 					<param name="top" value="home_hub_row2_y"/>
 					<param name="index" value="02"/>
-					<param name="label" value="Newest releases"/>
-					<param name="sub" value="By release date ↓"/>
+					<param name="label" value="$LOCALIZE[31112]"/>
+					<param name="sub" value="$LOCALIZE[31563]"/>
 					<param name="path" value="$VAR[Home_PathMoviesNewest]"/>
 					<param name="sortby" value="year"/>
-					<param name="seeall" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
 					<param name="onup" value="9211"/>
 					<param name="ondown" value="9213"/>
 					<param name="delay" value="50"/>
@@ -1977,14 +1969,13 @@
 					<param name="id" value="9213"/>
 					<param name="top" value="home_hub_row3_y"/>
 					<param name="index" value="03"/>
-					<param name="label" value="Top rated, unwatched"/>
+					<param name="label" value="$LOCALIZE[31560]"/>
 					<param name="sub" value="$VAR[Home_SubTopRated]"/>
 					<param name="path" value="$VAR[Home_PathMoviesTop]"/>
-					<param name="seeall" value="ActivateWindow(Videos,special://skin/playlists/majan_toprated_unwatched_all.xsp,return)"/>
 					<param name="onup" value="9212"/>
 					<param name="ondown" value="noop"/>
 					<param name="customdown" value="true"/>
-					<param name="empty" value="No unwatched films rated 7.5+"/>
+					<param name="empty" value="$LOCALIZE[31564]"/>
 					<param name="delay" value="100"/>
 				</include>
 			</control>
@@ -1998,39 +1989,37 @@
 			<include content="Home_InfoTV">
 				<param name="id" value="9221"/>
 				<param name="index" value="01"/>
-				<param name="label" value="Next up"/>
+				<param name="label" value="$LOCALIZE[31250]"/>
 				<param name="visible" value="!Control.HasFocus(9222)"/>
 			</include>
 			<include content="Home_InfoTV">
 				<param name="id" value="9222"/>
 				<param name="index" value="02"/>
-				<param name="label" value="Recently added episodes"/>
+				<param name="label" value="$LOCALIZE[31565]"/>
 				<param name="visible" value="Control.HasFocus(9222)"/>
 			</include>
 			<include content="Home_HubCardRow">
 				<param name="id" value="9221"/>
 				<param name="top" value="home_hub_row1_y"/>
 				<param name="index" value="01"/>
-				<param name="label" value="Next up"/>
+				<param name="label" value="$LOCALIZE[31250]"/>
 				<param name="sub" value="$VAR[Home_SubNextUp]"/>
 				<param name="path" value="$VAR[Home_PathNextUp]"/>
-				<param name="seeall" value="ActivateWindow(Videos,videodb://inprogresstvshows/,return)"/>
 				<param name="onup" value="9003"/>
 				<param name="ondown" value="9222"/>
-				<param name="empty" value="Nothing in progress. Start a show and its next episode lands here."/>
+				<param name="empty" value="$LOCALIZE[31566]"/>
 			</include>
 			<include content="Home_HubCardRow">
 				<param name="id" value="9222"/>
 				<param name="top" value="home_hub_tv_row2_y"/>
 				<param name="index" value="02"/>
-				<param name="label" value="Recently added episodes"/>
-				<param name="sub" value="Unwatched · by date added"/>
+				<param name="label" value="$LOCALIZE[31565]"/>
+				<param name="sub" value="$LOCALIZE[31567]"/>
 				<param name="path" value="$VAR[Home_PathNewEpisodes]"/>
-				<param name="seeall" value="ActivateWindow(Videos,videodb://recentlyaddedepisodes/,return)"/>
 				<param name="onup" value="9221"/>
 				<param name="ondown" value="noop"/>
 				<param name="customdown" value="true"/>
-				<param name="empty" value="No new episodes"/>
+				<param name="empty" value="$LOCALIZE[31568]"/>
 				<param name="delay" value="50"/>
 			</include>
 		</control>
@@ -2053,7 +2042,7 @@
 			<include content="Home_InfoMusic">
 				<param name="id" value="9231"/>
 				<param name="index" value="01"/>
-				<param name="label" value="Recently added"/>
+				<param name="label" value="$LOCALIZE[31559]"/>
 				<param name="visible" value="!Control.HasFocus(9232) + !Control.HasFocus(9233)"/>
 			</include>
 			<include content="Home_InfoMusic">
@@ -2065,7 +2054,7 @@
 			<include content="Home_InfoMusic">
 				<param name="id" value="9233"/>
 				<param name="index" value="03"/>
-				<param name="label" value="Rediscover"/>
+				<param name="label" value="$LOCALIZE[31569]"/>
 				<param name="visible" value="Control.HasFocus(9233)"/>
 			</include>
 			<control type="group">
@@ -2074,8 +2063,8 @@
 					<param name="id" value="9231"/>
 					<param name="top" value="home_hub_row1_y"/>
 					<param name="index" value="01"/>
-					<param name="label" value="Recently added"/>
-					<param name="sub" value="Albums by date added"/>
+					<param name="label" value="$LOCALIZE[31559]"/>
+					<param name="sub" value="$LOCALIZE[31570]"/>
 					<param name="path" value="$VAR[Home_PathMusicRecent]"/>
 					<param name="target" value="music"/>
 					<param name="w" value="home_cover_w"/>
@@ -2084,10 +2073,9 @@
 					<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
 					<param name="mask_round" value="masks/square_round8.png"/>
 					<param name="mask_square" value="masks/square_square.png"/>
-					<param name="seeall" value="ActivateWindow(Music,musicdb://recentlyaddedalbums/,return)"/>
 					<param name="onup" value="9004"/>
 					<param name="ondown" value="9232"/>
-					<param name="empty" value="No albums yet"/>
+					<param name="empty" value="$LOCALIZE[31571]"/>
 				</include>
 			</control>
 			<control type="group">
@@ -2106,7 +2094,6 @@
 					<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
 					<param name="mask_round" value="masks/square_round8.png"/>
 					<param name="mask_square" value="masks/square_square.png"/>
-					<param name="seeall" value="ActivateWindow(Music,$VAR[Home_SeeAllMusicRow2],return)"/>
 					<param name="onup" value="9231"/>
 					<param name="ondown" value="9233"/>
 					<param name="delay" value="50"/>
@@ -2115,8 +2102,8 @@
 					<param name="id" value="9233"/>
 					<param name="top" value="home_hub_row3_y"/>
 					<param name="index" value="03"/>
-					<param name="label" value="Rediscover"/>
-					<param name="sub" value="Random albums"/>
+					<param name="label" value="$LOCALIZE[31569]"/>
+					<param name="sub" value="$LOCALIZE[31572]"/>
 					<param name="path" value="$VAR[Home_PathMusicRandom]"/>
 					<param name="target" value="music"/>
 					<param name="w" value="home_cover_w"/>
@@ -2125,7 +2112,6 @@
 					<param name="art" value="$INFO[ListItem.Art(thumb)]"/>
 					<param name="mask_round" value="masks/square_round8.png"/>
 					<param name="mask_square" value="masks/square_square.png"/>
-					<param name="seeall" value="ActivateWindow(Music,musicdb://albums/,return)"/>
 					<param name="onup" value="9232"/>
 					<param name="ondown" value="noop"/>
 					<param name="customdown" value="true"/>
@@ -2644,7 +2630,7 @@
 
 	<!-- ============================================================ newest rows -->
 	<!-- One Home poster row (168x252, gap 24). params: id, title, sub, content, sortby, visible, slide,
-	     up_row (true = Up goes to row 9120), ondown, seeall -->
+	     up_row (true = Up goes to row 9120), ondown -->
 	<include name="Home_PosterRow">
 		<param name="ondown">noop</param>
 		<param name="customdown">false</param>
@@ -2749,7 +2735,6 @@
 				<param name="up_row" value="false"/>
 				<param name="ondown" value="9121"/>
 				<param name="customdown" value="!$EXP[HomeNewestRelease]"/>
-				<param name="seeall" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
 			</include>
 			<!-- 9121: by release date (setting release / both). The xsp pre-filters the newest 100 by year;
 			     sortby="year" here re-sorts by full premiered date (DATA.md 2.2 / 4.3). -->
@@ -2763,7 +2748,6 @@
 				<param name="slide" value="$EXP[HomeNewestBoth]"/>
 				<param name="up_row" value="$EXP[HomeNewestBoth]"/>
 				<param name="customdown" value="true"/>
-				<param name="seeall" value="ActivateWindow(Videos,videodb://movies/titles/,return)"/>
 			</include>
 		</control>
 	</include>

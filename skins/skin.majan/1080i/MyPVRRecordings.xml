@@ -19,7 +19,7 @@
 		</include>
 		<include content="Misc_PVRList">
 			<param name="label2" value="$INFO[ListItem.Label2]"/>
-			<param name="empty_label" value="No recordings."/>
+			<param name="empty_label" value="$LOCALIZE[31780]"/>
 		</include>
 		<!-- backend disk space, bottom right -->
 		<control type="group">

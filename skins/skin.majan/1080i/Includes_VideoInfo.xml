@@ -9,13 +9,13 @@
 <includes>
 	<!-- ================================================================== variables -->
 	<variable name="VidInfo_TypeTitle">
-		<value condition="String.IsEqual(ListItem.DBType,movie)">Movie</value>
-		<value condition="String.IsEqual(ListItem.DBType,episode)">Episode</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">TV show</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">Season</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection</value>
-		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">Music video</value>
-		<value>Video</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie)">$LOCALIZE[31573]</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$LOCALIZE[31574]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[31575]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$LOCALIZE[31576]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31404]</value>
+		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">$LOCALIZE[31577]</value>
+		<value>$LOCALIZE[31505]</value>
 	</variable>
 	<variable name="VidInfo_Index">
 		<value condition="String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)">03</value>
@@ -25,10 +25,10 @@
 	<variable name="VidInfo_Kicker">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.TVShowTitle, · ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">TV SHOW$INFO[ListItem.Studio, · ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$VAR[VidInfo_SetFilmsUC]</value>
-		<value condition="!String.IsEmpty(ListItem.Set)">MOVIE · $INFO[ListItem.Set]</value>
-		<value>MOVIE$INFO[ListItem.Studio, · ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[31578]$INFO[ListItem.Studio, · ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31416]$VAR[VidInfo_SetFilmsUC]</value>
+		<value condition="!String.IsEmpty(ListItem.Set)">$LOCALIZE[31579] · $INFO[ListItem.Set]</value>
+		<value>$LOCALIZE[31579]$INFO[ListItem.Studio, · ,]</value>
 	</variable>
 	<variable name="VidInfo_Title">
 		<value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
@@ -43,16 +43,16 @@
 		<value>$INFO[ListItem.Art(thumb)]</value>
 	</variable>
 	<variable name="VidInfo_CaptionRight">
-		<value condition="$EXP[VidView_IsTVType] + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)">$INFO[ListItem.Property(WatchedEpisodes)] OF $INFO[ListItem.Property(TotalEpisodes)] WATCHED</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Watched)] OF $INFO[ListItem.Property(Total)] WATCHED</value>
-		<value condition="ListItem.IsResumable">RESUME AT $INFO[ListItem.PercentPlayed]%</value>
-		<value condition="Integer.IsEqual(ListItem.PlayCount,1)">WATCHED ONCE</value>
-		<value condition="Integer.IsGreater(ListItem.PlayCount,1)">WATCHED $INFO[ListItem.PlayCount] TIMES</value>
-		<value condition="!$EXP[VidView_IsFolderType]">UNWATCHED</value>
+		<value condition="$EXP[VidView_IsTVType] + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)">$INFO[ListItem.Property(WatchedEpisodes)] $LOCALIZE[31419] $INFO[ListItem.Property(TotalEpisodes)] $LOCALIZE[31412]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$INFO[ListItem.Property(Watched)] $LOCALIZE[31419] $INFO[ListItem.Property(Total)] $LOCALIZE[31412]</value>
+		<value condition="ListItem.IsResumable">$LOCALIZE[31580] $INFO[ListItem.PercentPlayed]%</value>
+		<value condition="Integer.IsEqual(ListItem.PlayCount,1)">$LOCALIZE[31581]</value>
+		<value condition="Integer.IsGreater(ListItem.PlayCount,1)">$LOCALIZE[31412] $INFO[ListItem.PlayCount] $LOCALIZE[31582]</value>
+		<value condition="!$EXP[VidView_IsFolderType]">$LOCALIZE[31421]</value>
 	</variable>
 	<variable name="VidInfo_CastHeader">
-		<value condition="String.IsEqual(ListItem.DBType,set)">Films in this collection</value>
-		<value>Cast</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31583]</value>
+		<value>$LOCALIZE[31584]</value>
 	</variable>
 	<variable name="VidInfo_CastCount">
 		<value condition="String.IsEqual(ListItem.DBType,set)">$VAR[VidInfo_CastFilms]</value>
@@ -60,10 +60,10 @@
 	</variable>
 	<!-- context hint line (x 680, y 990) -->
 	<variable name="VidInfo_Hint">
-		<value condition="Control.HasFocus(9001)">OK FOR FULL PLOT · ↓ BUTTONS</value>
-		<value condition="ControlGroup(9100).HasFocus()">◀ ▶ CHOOSE · ↑ OR BACK TO RETURN</value>
-		<value condition="ControlGroup(9000).HasFocus() + Control.IsVisible(9001) + Integer.IsGreater(Container(50).NumItems,0)">↑ PLOT · ↓ $VAR[VidInfo_CastHeader]</value>
-		<value condition="ControlGroup(9000).HasFocus() + Control.IsVisible(9001)">↑ PLOT</value>
+		<value condition="Control.HasFocus(9001)">$LOCALIZE[31585]</value>
+		<value condition="ControlGroup(9100).HasFocus()">$LOCALIZE[31586]</value>
+		<value condition="ControlGroup(9000).HasFocus() + Control.IsVisible(9001) + Integer.IsGreater(Container(50).NumItems,0)">$LOCALIZE[31587] $VAR[VidInfo_CastHeader]</value>
+		<value condition="ControlGroup(9000).HasFocus() + Control.IsVisible(9001)">$LOCALIZE[31588]</value>
 		<value condition="ControlGroup(9000).HasFocus() + Integer.IsGreater(Container(50).NumItems,0)">↓ $VAR[VidInfo_CastHeader]</value>
 	</variable>
 	<!-- cast row items (inside list 50): actors, or the films of a collection -->
@@ -346,7 +346,7 @@
 			<height>22</height>
 			<font>mono_14</font>
 			<textcolor>$VAR[ColorCaption]</textcolor>
-			<label>$INFO[ListItem.DateAdded,ADDED ,]</label>
+			<label>$INFO[ListItem.DateAdded,$LOCALIZE[31417] ,]</label>
 		</control>
 		<control type="label">
 			<left>page_margin</left>
@@ -455,22 +455,22 @@
 				<orientation>vertical</orientation>
 				<itemgap>8</itemgap>
 				<include content="VidView_DefRow">
-					<param name="label" value="DIRECTOR"/>
+					<param name="label" value="$LOCALIZE[31429]"/>
 					<param name="value" value="$INFO[ListItem.Director]"/>
 					<param name="visible" value="!String.IsEmpty(ListItem.Director)"/>
 				</include>
 				<include content="VidView_DefRow">
-					<param name="label" value="WRITER"/>
+					<param name="label" value="$LOCALIZE[31589]"/>
 					<param name="value" value="$INFO[ListItem.Writer]"/>
 					<param name="visible" value="!String.IsEmpty(ListItem.Writer)"/>
 				</include>
 				<include content="VidView_DefRow">
-					<param name="label" value="GENRE"/>
+					<param name="label" value="$LOCALIZE[31431]"/>
 					<param name="value" value="$INFO[ListItem.Genre]"/>
 					<param name="visible" value="!String.IsEmpty(ListItem.Genre)"/>
 				</include>
 				<include content="VidView_DefRow">
-					<param name="label" value="STUDIO"/>
+					<param name="label" value="$LOCALIZE[31439]"/>
 					<param name="value" value="$INFO[ListItem.Studio]"/>
 					<param name="visible" value="!String.IsEmpty(ListItem.Studio)"/>
 				</include>
@@ -500,7 +500,7 @@
 			<include content="VidInfo_ButtonPrimary">
 				<param name="id" value="9"/>
 				<param name="width" value="176"/>
-				<param name="label" value="Resume"/>
+				<param name="label" value="$LOCALIZE[31403]"/>
 				<param name="visible" value="$EXP[VidInfo_ShowResume]"/>
 				<param name="right1" value="9013"/>
 				<param name="right1_if" value="true"/>
@@ -509,7 +509,7 @@
 			<include content="VidInfo_ButtonPrimary">
 				<param name="id" value="8"/>
 				<param name="width" value="button_w_play"/>
-				<param name="label" value="Play"/>
+				<param name="label" value="$LOCALIZE[31590]"/>
 				<param name="visible" value="$EXP[VidInfo_ShowPlay]"/>
 				<param name="right1" value="11"/>
 				<param name="right1_if" value="$EXP[VidInfo_ShowTrailer]"/>
@@ -520,7 +520,7 @@
 			<include content="VidInfo_ButtonSecondary">
 				<param name="id" value="9013"/>
 				<param name="width" value="166"/>
-				<param name="label" value="From start"/>
+				<param name="label" value="$LOCALIZE[31591]"/>
 				<param name="onclick" value="SendClick(8)"/>
 				<param name="visible" value="$EXP[VidInfo_ShowResume]"/>
 				<param name="left1" value="9"/>
@@ -534,7 +534,7 @@
 			<include content="VidInfo_ButtonPrimary">
 				<param name="id" value="9012"/>
 				<param name="width" value="170"/>
-				<param name="label" value="Browse"/>
+				<param name="label" value="$LOCALIZE[31592]"/>
 				<param name="icon" value="icons/chevron_right.png"/>
 				<param name="onclick" value="SendClick(8)"/>
 				<param name="visible" value="$EXP[VidView_IsFolderType]"/>
@@ -547,7 +547,7 @@
 			<include content="VidInfo_ButtonSecondary">
 				<param name="id" value="11"/>
 				<param name="width" value="button_w_trailer"/>
-				<param name="label" value="Trailer"/>
+				<param name="label" value="$LOCALIZE[31593]"/>
 				<param name="visible" value="$EXP[VidInfo_ShowTrailer]"/>
 				<param name="left1" value="9013"/>
 				<param name="left1_if" value="$EXP[VidInfo_ShowResume]"/>
@@ -562,7 +562,7 @@
 			<include content="VidInfo_ButtonSecondary">
 				<param name="id" value="9010"/>
 				<param name="width" value="110"/>
-				<param name="label" value="More"/>
+				<param name="label" value="$LOCALIZE[31205]"/>
 				<param name="onclick" value="SetFocus(9100)"/>
 				<param name="left1" value="11"/>
 				<param name="left1_if" value="$EXP[VidInfo_ShowTrailer]"/>
@@ -624,44 +624,44 @@
 			<visible allowhiddenfocus="true">ControlGroup(9100).HasFocus()</visible>
 			<include content="VidInfo_MoreButton">
 				<param name="id" value="443"/>
-				<param name="label" value="COLLECTION"/>
+				<param name="label" value="$LOCALIZE[31416]"/>
 				<param name="onclick" value="Dialog.Close(all,true)"/>
 				<param name="onclick2" value="ActivateWindow(Videos,videodb://movies/sets/$INFO[ListItem.SetId]/?setid=$INFO[ListItem.SetId],return)"/>
 				<param name="visible" value="!String.IsEmpty(ListItem.SetID)"/>
 			</include>
 			<include content="VidInfo_MoreButton">
 				<param name="id" value="13"/>
-				<param name="label" value="MORE BY DIRECTOR"/>
+				<param name="label" value="$LOCALIZE[31594]"/>
 				<param name="visible" value="!String.IsEmpty(ListItem.Director)"/>
 			</include>
 			<include content="VidInfo_MoreButton">
 				<param name="id" value="7"/>
-				<param name="label" value="MY RATING$INFO[ListItem.UserRating,: ,]"/>
+				<param name="label" value="$LOCALIZE[31595]$INFO[ListItem.UserRating,: ,]"/>
 				<param name="visible" value="Control.IsEnabled(7)"/>
 			</include>
 			<include content="VidInfo_MoreButton">
 				<param name="id" value="14"/>
-				<param name="label" value="VERSIONS"/>
+				<param name="label" value="$LOCALIZE[31596]"/>
 				<param name="visible" value="String.IsEqual(ListItem.DBType,movie)"/>
 			</include>
 			<include content="VidInfo_MoreButton">
 				<param name="id" value="15"/>
-				<param name="label" value="EXTRAS"/>
+				<param name="label" value="$LOCALIZE[31597]"/>
 				<param name="visible" value="String.IsEqual(ListItem.DBType,movie)"/>
 			</include>
 			<include content="VidInfo_MoreButton">
 				<param name="id" value="10"/>
-				<param name="label" value="CHOOSE ART"/>
+				<param name="label" value="$LOCALIZE[31598]"/>
 				<param name="visible" value="Control.IsEnabled(10)"/>
 			</include>
 			<include content="VidInfo_MoreButton">
 				<param name="id" value="12"/>
-				<param name="label" value="CHOOSE FANART"/>
+				<param name="label" value="$LOCALIZE[31599]"/>
 				<param name="visible" value="Control.IsEnabled(12)"/>
 			</include>
 			<include content="VidInfo_MoreButton">
 				<param name="id" value="6"/>
-				<param name="label" value="REFRESH"/>
+				<param name="label" value="$LOCALIZE[31600]"/>
 				<param name="visible" value="Control.IsEnabled(6)"/>
 			</include>
 		</control>
@@ -788,7 +788,7 @@
 				<height>22</height>
 				<font>mono_15</font>
 				<textcolor>$VAR[ColorAccent]</textcolor>
-				<label>PLOT · $VAR[VidInfo_Kicker]</label>
+				<label>$LOCALIZE[31601] · $VAR[VidInfo_Kicker]</label>
 			</control>
 			<control type="label">
 				<left>360</left>
@@ -834,7 +834,7 @@
 				<height>22</height>
 				<font>mono_14</font>
 				<textcolor>text_tertiary</textcolor>
-				<label>↑ ↓ SCROLL · BACK TO CLOSE</label>
+				<label>$LOCALIZE[31602]</label>
 			</control>
 		</control>
 	</include>

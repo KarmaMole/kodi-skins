@@ -79,7 +79,7 @@
 					<height>osd_box_f</height>  <!-- osd_box + 16 so the focus frame isn't clipped -->
 					<usecontrolcoords>true</usecontrolcoords>
 					<orientation>horizontal</orientation>
-					<itemgap>6</itemgap>  <!-- osd_box_gap - 8 (children carry left 8) -->
+					<itemgap>6</itemgap>  <!-- box gap 14 - 8 (children carry left 8) -->
 					<!-- 1.0.4 (Omar's OSD rule): Play/Pause, Stop, then skip and chapters. No rewind/forward boxes:
 					     Left/Right seek in fullscreen without the OSD, and Up from the row is the seek stepper 87. -->
 					<include content="OSD_PlayButton">
@@ -129,11 +129,11 @@
 					<usecontrolcoords>true</usecontrolcoords>
 					<orientation>horizontal</orientation>
 					<align>right</align>
-					<itemgap>6</itemgap>  <!-- osd_box_gap - 8 (children carry left 8) -->
+					<itemgap>6</itemgap>  <!-- box gap 14 - 8 (children carry left 8) -->
 					<include content="OSD_TextButton">
 						<param name="id" value="70046"/>
-						<param name="width" value="220"/>
-						<param name="caption" value="SUBTITLES"/>
+						<param name="width" value="240"/>
+						<param name="caption" value="$LOCALIZE[31766]"/>
 						<param name="value" value="$VAR[OSD_SubtitleValue]"/>
 						<param name="onclick" value="ActivateWindow(osdsubtitlesettings)"/>
 						<param name="onleft" value="70044"/>
@@ -142,8 +142,8 @@
 					</include>
 					<include content="OSD_TextButton">
 						<param name="id" value="70049"/>
-						<param name="width" value="210"/>
-						<param name="caption" value="AUDIO"/>
+						<param name="width" value="236"/>
+						<param name="caption" value="$LOCALIZE[31790]"/>
 						<param name="value" value="$VAR[OSD_AudioValue]"/>
 						<param name="onclick" value="ActivateWindow(osdaudiosettings)"/>
 						<param name="onleft" value="70046"/>
@@ -152,8 +152,8 @@
 					<include content="OSD_TextButton">
 						<param name="id" value="70048"/>
 						<param name="width" value="160"/>
-						<param name="caption" value="VIDEO"/>
-						<param name="value" value="Settings"/>
+						<param name="caption" value="$LOCALIZE[31635]"/>
+						<param name="value" value="$LOCALIZE[31791]"/>
 						<param name="onclick" value="ActivateWindow(osdvideosettings)"/>
 						<param name="onleft" value="70049"/>
 						<param name="onright" value="70043"/>
@@ -163,7 +163,7 @@
 						<param name="id" value="70043"/>
 						<param name="width" value="150"/>
 						<param name="caption" value="$VAR[OSD_InfoCaption]"/>
-						<param name="value" value="Info"/>
+						<param name="value" value="$LOCALIZE[31792]"/>
 						<param name="onclick" value="Action(Info,fullscreenvideo)"/>  <!-- plain "Info" is swallowed by the OSD (device 2026-10-18) -->
 						<param name="onleft" value="70048"/>
 						<param name="onright" value="70051"/>
@@ -171,8 +171,8 @@
 					<include content="OSD_TextButton">
 						<param name="id" value="70051"/>
 						<param name="width" value="150"/>
-						<param name="caption" value="PLAYER"/>
-						<param name="value" value="Stats"/>
+						<param name="caption" value="$LOCALIZE[31793]"/>
+						<param name="value" value="$LOCALIZE[31794]"/>
 						<param name="onclick" value="Action(PlayerProcessInfo)"/>
 						<param name="onleft" value="70043"/>
 						<param name="onright" value="602"/>

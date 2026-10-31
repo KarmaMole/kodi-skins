@@ -1,3 +1,20 @@
+1.0.23 (2026-10-31)
+- Coming back to a Home section from the library no longer blanks and reloads its rows.
+- Empty pages now say so: "Nothing here yet", or "Nothing unwatched here" with the way out, beside the Back item, in every view.
+- TV series get the Unwatched button in the header, like films; the header has room for the longest names.
+- Header: ALL and IN PROGRESS no longer carry a stray space when they have no number.
+- Settings pages: the grey bars between the categories are gone; a thin line separates them, as intended.
+- Keyboard: Symbols, Caps and Shift show their state in the corner of the key, and it stays readable while the key is focused.
+- Audio, subtitle and video panels: a long setting name no longer runs into its value.
+- Playback buttons: longer audio and subtitle names fit ("TRUEHD ATMOS 7.1", "Chinese (Simplified)").
+- Playback controls stay open behind the Info page instead of closing after the time-out.
+- Next up on the TV page refreshes after you watch something (with Embuary Helper).
+- Search: "Searching" no longer shows beside a row that already has results.
+- A library page that empties while it is open hands focus to the header.
+- Tidied small check boxes in the add-on and live TV pages.
+- All text the skin writes itself is now in strings.po, ready for translation. Nothing changes on screen.
+- Removed unused settings text, constants, expressions and icons.
+
 1.0.22 (2026-10-30)
 - Counts read "1 season", "1 film", "1 result" instead of the plural.
 - Smaller download: removed images the skin never used.

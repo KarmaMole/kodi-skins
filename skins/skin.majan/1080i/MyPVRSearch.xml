@@ -19,7 +19,7 @@
 		<include content="Misc_PVRList">
 			<param name="label" value="$VAR[Misc_PVRSearchLabel]"/>
 			<param name="label2" value="$INFO[ListItem.Date]"/>
-			<param name="empty_label" value="No results."/>
+			<param name="empty_label" value="$LOCALIZE[31781]"/>
 		</include>
 	</controls>
 </window>

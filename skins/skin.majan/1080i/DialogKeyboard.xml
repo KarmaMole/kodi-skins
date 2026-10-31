@@ -491,9 +491,8 @@
 						<height>kb_key_h</height>
 						<label>$LOCALIZE[31040]</label>
 						<include>Majan_KeyboardFunc</include>
-						<radiowidth>14</radiowidth>
-						<radioheight>14</radioheight>
-						<radioposx>154</radioposx>
+						<include>Majan_KeyboardRadio</include>
+						<radioposx>155</radioposx>
 						<onup>160</onup>
 						<ondown>100</ondown>
 					</control>
@@ -502,9 +501,8 @@
 						<height>kb_key_h</height>
 						<label>$LOCALIZE[31041]</label>
 						<include>Majan_KeyboardFunc</include>
-						<radiowidth>14</radiowidth>
-						<radioheight>14</radioheight>
-						<radioposx>62</radioposx>
+						<include>Majan_KeyboardRadio</include>
+						<radioposx>63</radioposx>
 						<onup>162</onup>
 						<ondown>102</ondown>
 					</control>
@@ -513,9 +511,8 @@
 						<height>kb_key_h</height>
 						<label>$LOCALIZE[31042]</label>
 						<include>Majan_KeyboardFunc</include>
-						<radiowidth>14</radiowidth>
-						<radioheight>14</radioheight>
-						<radioposx>62</radioposx>
+						<include>Majan_KeyboardRadio</include>
+						<radioposx>63</radioposx>
 						<onup>163</onup>
 						<ondown>103</ondown>
 					</control>

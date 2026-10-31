@@ -74,7 +74,7 @@
 				<height>28</height>
 				<font>mono_15</font>
 				<textcolor>$VAR[ColorAccent]</textcolor>
-				<label>DOWNLOAD SUBTITLES$VAR[OSD_ShortTitle,  ·  ,]</label>
+				<label>$LOCALIZE[31770]$VAR[OSD_ShortTitle,  ·  ,]</label>
 			</control>
 			<control type="label">
 				<left>72</left>
@@ -242,7 +242,7 @@
 						<param name="id" value="160"/>
 						<param name="left" value="0"/>
 						<param name="width" value="280"/>
-						<param name="label" value="Search manually…"/>
+						<param name="label" value="$LOCALIZE[31771]"/>
 						<param name="onclick" value="noop"/>
 						<param name="onup" value="150"/>
 						<param name="onright" value="120"/>

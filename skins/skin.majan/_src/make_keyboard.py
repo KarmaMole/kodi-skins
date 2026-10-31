@@ -58,8 +58,8 @@ def func_button(fid, label, width, cols, ctype, t):
     down = key_id(0, cols[0])
     extra = ""
     if ctype == "radiobutton":
-        extra = (f'{t}\t<radiowidth>14</radiowidth>\n{t}\t<radioheight>14</radioheight>\n'
-                 f'{t}\t<radioposx>{width - 22}</radioposx>\n')
+        extra = (f'{t}\t<include>Majan_KeyboardRadio</include>\n'
+                 f'{t}\t<radioposx>{width - 21}</radioposx>\n')
     return (f'{t}<control type="{ctype}" id="{fid}">\n'
             f'{t}\t<width>{width}</width>\n{t}\t<height>kb_key_h</height>\n'
             f'{t}\t<label>{label}</label>\n'

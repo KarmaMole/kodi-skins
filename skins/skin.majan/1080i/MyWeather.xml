@@ -64,13 +64,13 @@
 				<width>800</width>
 				<height>320</height>
 				<orientation>vertical</orientation>
-				<include content="Misc_InfoLine"><param name="label" value="Feels like"/><param name="value" value="Window(Weather).Property(Current.FeelsLike)"/><param name="suffix" value="$INFO[System.TemperatureUnits]"/><param name="width" value="800"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Humidity"/><param name="value" value="Window(Weather).Property(Current.Humidity)"/><param name="width" value="800"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Wind"/><param name="value" value="Window(Weather).Property(Current.Wind)"/><param name="width" value="800"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Precipitation"/><param name="value" value="Window(Weather).Property(Current.Precipitation)"/><param name="width" value="800"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="UV index"/><param name="value" value="Window(Weather).Property(Current.UVIndex)"/><param name="width" value="800"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Sunrise"/><param name="value" value="Window(Weather).Property(Today.Sunrise)"/><param name="width" value="800"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Sunset"/><param name="value" value="Window(Weather).Property(Today.Sunset)"/><param name="width" value="800"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31705]"/><param name="value" value="Window(Weather).Property(Current.FeelsLike)"/><param name="suffix" value="$INFO[System.TemperatureUnits]"/><param name="width" value="800"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31706]"/><param name="value" value="Window(Weather).Property(Current.Humidity)"/><param name="width" value="800"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31707]"/><param name="value" value="Window(Weather).Property(Current.Wind)"/><param name="width" value="800"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31708]"/><param name="value" value="Window(Weather).Property(Current.Precipitation)"/><param name="width" value="800"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31709]"/><param name="value" value="Window(Weather).Property(Current.UVIndex)"/><param name="width" value="800"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31710]"/><param name="value" value="Window(Weather).Property(Today.Sunrise)"/><param name="width" value="800"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31711]"/><param name="value" value="Window(Weather).Property(Today.Sunset)"/><param name="width" value="800"/></include>
 			</control>
 		</control>
 
@@ -116,7 +116,7 @@
 			<include content="Majan_DialogButton">
 				<param name="id" value="9011"/>
 				<param name="width" value="250"/>
-				<param name="label" value="Next location"/>
+				<param name="label" value="$LOCALIZE[31712]"/>
 				<param name="onclick" value="Weather.LocationNext"/>
 				<param name="visible" value="Weather.IsFetched"/>
 			</include>
@@ -143,7 +143,7 @@
 			<visible>Weather.IsFetched</visible>
 			<include content="Misc_Caption">
 				<param name="width" value="840"/>
-				<param name="label" value="Forecast"/>
+				<param name="label" value="$LOCALIZE[31713]"/>
 			</include>
 			<control type="list" id="15100">
 				<left>0</left>

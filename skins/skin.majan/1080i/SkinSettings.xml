@@ -32,7 +32,7 @@
 	<controls>
 		<include>Majan_Background</include>
 		<include content="Majan_TopBar">
-			<param name="index" value="SET"/>
+			<param name="index" value="$LOCALIZE[31451]"/>
 			<param name="title" value="$LOCALIZE[31021]"/>
 		</include>
 
@@ -60,7 +60,7 @@
 				<param name="id" value="9550"/>
 				<param name="top" value="168"/>
 				<param name="index" value="01"/>
-				<param name="label" value="Appearance"/>
+				<param name="label" value="$LOCALIZE[31452]"/>
 				<param name="key" value="appearance"/>
 				<param name="onright" value="9510"/>
 				<param name="onup" value="9556"/>
@@ -70,7 +70,7 @@
 				<param name="id" value="9551"/>
 				<param name="top" value="240"/>
 				<param name="index" value="02"/>
-				<param name="label" value="Home &amp; playback"/>
+				<param name="label" value="$LOCALIZE[31453]"/>
 				<param name="key" value="home"/>
 				<param name="onright" value="9520"/>
 				<param name="onup" value="9550"/>
@@ -80,7 +80,7 @@
 				<param name="id" value="9552"/>
 				<param name="top" value="312"/>
 				<param name="index" value="03"/>
-				<param name="label" value="Performance"/>
+				<param name="label" value="$LOCALIZE[31454]"/>
 				<param name="key" value="performance"/>
 				<param name="onright" value="9530"/>
 				<param name="onup" value="9551"/>
@@ -90,7 +90,7 @@
 				<param name="id" value="9553"/>
 				<param name="top" value="384"/>
 				<param name="index" value="04"/>
-				<param name="label" value="Poster wall"/>
+				<param name="label" value="$LOCALIZE[31310]"/>
 				<param name="key" value="wall"/>
 				<param name="onright" value="9540"/>
 				<param name="onup" value="9552"/>
@@ -139,8 +139,8 @@
 				<top>168</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9510"/>
-					<param name="label" value="Accent colour"/>
-					<param name="hint" value="Focus, markers, active menu"/>
+					<param name="label" value="$LOCALIZE[31455]"/>
+					<param name="hint" value="$LOCALIZE[31456]"/>
 				</include>
 				<control type="button" id="9510">
 					<include>Dlg_SkinRowButton</include>
@@ -181,8 +181,8 @@
 				<top>268</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9511"/>
-					<param name="label" value="Poster corners"/>
-					<param name="hint" value="Posters, albums, episode thumbs"/>
+					<param name="label" value="$LOCALIZE[31457]"/>
+					<param name="hint" value="$LOCALIZE[31458]"/>
 				</include>
 				<control type="button" id="9511">
 					<include>Dlg_SkinRowButton</include>
@@ -203,8 +203,8 @@
 					<onclick condition="Skin.HasSetting(majan.roundedcorners)">SetProperty(majan.refocus,9511,home)</onclick>
 					<onclick condition="Skin.HasSetting(majan.roundedcorners)">ReloadSkin()</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="547"/><param name="width" value="112"/><param name="label" value="Square"/><param name="selected" value="!Skin.HasSetting(majan.roundedcorners)"/><param name="row" value="9511"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="659"/><param name="width" value="201"/><param name="label" value="Slightly rounded"/><param name="selected" value="Skin.HasSetting(majan.roundedcorners)"/><param name="row" value="9511"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="547"/><param name="width" value="112"/><param name="label" value="$LOCALIZE[31459]"/><param name="selected" value="!Skin.HasSetting(majan.roundedcorners)"/><param name="row" value="9511"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="659"/><param name="width" value="201"/><param name="label" value="$LOCALIZE[31460]"/><param name="selected" value="Skin.HasSetting(majan.roundedcorners)"/><param name="row" value="9511"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="547"/><param name="width" value="313"/></include>
 			</control>
 			<!-- ====== Focus outline -->
@@ -212,8 +212,8 @@
 				<top>368</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9512"/>
-					<param name="label" value="Focus outline"/>
-					<param name="hint" value="Stroke around the selected item"/>
+					<param name="label" value="$LOCALIZE[31461]"/>
+					<param name="hint" value="$LOCALIZE[31462]"/>
 				</include>
 				<control type="button" id="9512">
 					<include>Dlg_SkinRowButton</include>
@@ -229,9 +229,9 @@
 					<onleft condition="$EXP[FocusOutlineOff]">Skin.SetString(majan.focusoutline,medium)</onleft>
 					<onclick condition="$EXP[FocusOutlineOff]">Skin.SetString(majan.focusoutline,thin)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="576"/><param name="width" value="87"/><param name="label" value="Thin"/><param name="selected" value="$EXP[Dlg_OutlineThin]"/><param name="row" value="9512"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="663"/><param name="width" value="119"/><param name="label" value="Medium"/><param name="selected" value="$EXP[FocusOutlineMedium]"/><param name="row" value="9512"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="782"/><param name="width" value="78"/><param name="label" value="Off"/><param name="selected" value="$EXP[FocusOutlineOff]"/><param name="row" value="9512"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="576"/><param name="width" value="87"/><param name="label" value="$LOCALIZE[31070]"/><param name="selected" value="$EXP[Dlg_OutlineThin]"/><param name="row" value="9512"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="663"/><param name="width" value="119"/><param name="label" value="$LOCALIZE[31071]"/><param name="selected" value="$EXP[FocusOutlineMedium]"/><param name="row" value="9512"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="782"/><param name="width" value="78"/><param name="label" value="$LOCALIZE[31072]"/><param name="selected" value="$EXP[FocusOutlineOff]"/><param name="row" value="9512"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="576"/><param name="width" value="284"/></include>
 			</control>
 			<!-- ====== Artwork background -->
@@ -239,8 +239,8 @@
 				<top>468</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9513"/>
-					<param name="label" value="Artwork background"/>
-					<param name="hint" value="Blurred poster behind spotlight / selection"/>
+					<param name="label" value="$LOCALIZE[31463]"/>
+					<param name="hint" value="$LOCALIZE[31464]"/>
 					<param name="enable" value="$EXP[HasTMDbHelper]"/>
 				</include>
 				<control type="button" id="9513">
@@ -289,10 +289,10 @@
 					<onclick condition="$EXP[Dlg_ArtVisible]">Skin.Reset(TMDbHelper.Service)</onclick>
 					<enable>$EXP[HasTMDbHelper]</enable>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="511"/><param name="width" value="74"/><param name="label" value="Off"/><param name="selected" value="$EXP[Dlg_ArtOff]"/><param name="row" value="9513"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="585"/><param name="width" value="90"/><param name="label" value="Faint"/><param name="selected" value="$EXP[Dlg_ArtFaint]"/><param name="row" value="9513"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="675"/><param name="width" value="82"/><param name="label" value="Soft"/><param name="selected" value="$EXP[Dlg_ArtSoft]"/><param name="row" value="9513"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="757"/><param name="width" value="103"/><param name="label" value="Visible"/><param name="selected" value="$EXP[Dlg_ArtVisible]"/><param name="row" value="9513"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="511"/><param name="width" value="74"/><param name="label" value="$LOCALIZE[31072]"/><param name="selected" value="$EXP[Dlg_ArtOff]"/><param name="row" value="9513"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="585"/><param name="width" value="90"/><param name="label" value="$LOCALIZE[31465]"/><param name="selected" value="$EXP[Dlg_ArtFaint]"/><param name="row" value="9513"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="675"/><param name="width" value="82"/><param name="label" value="$LOCALIZE[31466]"/><param name="selected" value="$EXP[Dlg_ArtSoft]"/><param name="row" value="9513"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="757"/><param name="width" value="103"/><param name="label" value="$LOCALIZE[31467]"/><param name="selected" value="$EXP[Dlg_ArtVisible]"/><param name="row" value="9513"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="511"/><param name="width" value="349"/></include>
 			</control>
 			<!-- ====== Trailer button -->
@@ -300,8 +300,8 @@
 				<top>568</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9514"/>
-					<param name="label" value="Trailer button"/>
-					<param name="hint" value="Only shown when the film has a trailer"/>
+					<param name="label" value="$LOCALIZE[31468]"/>
+					<param name="hint" value="$LOCALIZE[31469]"/>
 				</include>
 				<control type="button" id="9514">
 					<include>Dlg_SkinRowButton</include>
@@ -314,8 +314,8 @@
 					<onleft condition="Skin.HasSetting(majan.hidetrailer)">Skin.Reset(majan.hidetrailer)</onleft>
 					<onclick condition="Skin.HasSetting(majan.hidetrailer)">Skin.Reset(majan.hidetrailer)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="678"/><param name="width" value="96"/><param name="label" value="Show"/><param name="selected" value="$EXP[ShowTrailerButton]"/><param name="row" value="9514"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="774"/><param name="width" value="86"/><param name="label" value="Hide"/><param name="selected" value="Skin.HasSetting(majan.hidetrailer)"/><param name="row" value="9514"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="678"/><param name="width" value="96"/><param name="label" value="$LOCALIZE[31302]"/><param name="selected" value="$EXP[ShowTrailerButton]"/><param name="row" value="9514"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="774"/><param name="width" value="86"/><param name="label" value="$LOCALIZE[31332]"/><param name="selected" value="Skin.HasSetting(majan.hidetrailer)"/><param name="row" value="9514"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="678"/><param name="width" value="182"/></include>
 			</control>
 			<!-- ====== Watched indicators -->
@@ -323,8 +323,8 @@
 				<top>668</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9515"/>
-					<param name="label" value="Watched indicators"/>
-					<param name="hint" value="Markers on posters and the TV wall"/>
+					<param name="label" value="$LOCALIZE[31470]"/>
+					<param name="hint" value="$LOCALIZE[31471]"/>
 				</include>
 				<control type="button" id="9515">
 					<include>Dlg_SkinRowButton</include>
@@ -343,10 +343,10 @@
 					<onleft condition="String.IsEqual(Skin.String(majan.watchedmarkers),off)">Skin.SetString(majan.watchedmarkers,both)</onleft>
 					<onclick condition="String.IsEqual(Skin.String(majan.watchedmarkers),off)">Skin.SetString(majan.watchedmarkers,unwatched)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="441"/><param name="width" value="144"/><param name="label" value="Unwatched"/><param name="selected" value="String.IsEqual(Skin.String(majan.watchedmarkers),unwatched)"/><param name="row" value="9515"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="585"/><param name="width" value="124"/><param name="label" value="Watched"/><param name="selected" value="String.IsEqual(Skin.String(majan.watchedmarkers),watched)"/><param name="row" value="9515"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="709"/><param name="width" value="81"/><param name="label" value="Both"/><param name="selected" value="$EXP[Dlg_WatchedBoth]"/><param name="row" value="9515"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="790"/><param name="width" value="70"/><param name="label" value="Off"/><param name="selected" value="String.IsEqual(Skin.String(majan.watchedmarkers),off)"/><param name="row" value="9515"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="441"/><param name="width" value="144"/><param name="label" value="$LOCALIZE[31402]"/><param name="selected" value="String.IsEqual(Skin.String(majan.watchedmarkers),unwatched)"/><param name="row" value="9515"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="585"/><param name="width" value="124"/><param name="label" value="$LOCALIZE[31401]"/><param name="selected" value="String.IsEqual(Skin.String(majan.watchedmarkers),watched)"/><param name="row" value="9515"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="709"/><param name="width" value="81"/><param name="label" value="$LOCALIZE[31080]"/><param name="selected" value="$EXP[Dlg_WatchedBoth]"/><param name="row" value="9515"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="790"/><param name="width" value="70"/><param name="label" value="$LOCALIZE[31072]"/><param name="selected" value="String.IsEqual(Skin.String(majan.watchedmarkers),off)"/><param name="row" value="9515"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="441"/><param name="width" value="419"/></include>
 			</control>
 			<!-- ====== Offset bar position -->
@@ -354,8 +354,8 @@
 				<top>768</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9516"/>
-					<param name="label" value="Offset bar position"/>
-					<param name="hint" value="Subtitle / audio sync strip"/>
+					<param name="label" value="$LOCALIZE[31472]"/>
+					<param name="hint" value="$LOCALIZE[31473]"/>
 				</include>
 				<control type="button" id="9516">
 					<include>Dlg_SkinRowButton</include>
@@ -368,8 +368,8 @@
 					<onleft condition="$EXP[Dlg_OffsetBottom]">Skin.SetString(majan.offsetbar,top)</onleft>
 					<onclick condition="$EXP[Dlg_OffsetBottom]">Skin.SetString(majan.offsetbar,top)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="661"/><param name="width" value="83"/><param name="label" value="Top"/><param name="selected" value="!$EXP[Dlg_OffsetBottom]"/><param name="row" value="9516"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="744"/><param name="width" value="116"/><param name="label" value="Bottom"/><param name="selected" value="$EXP[Dlg_OffsetBottom]"/><param name="row" value="9516"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="661"/><param name="width" value="83"/><param name="label" value="$LOCALIZE[31474]"/><param name="selected" value="!$EXP[Dlg_OffsetBottom]"/><param name="row" value="9516"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="744"/><param name="width" value="116"/><param name="label" value="$LOCALIZE[31475]"/><param name="selected" value="$EXP[Dlg_OffsetBottom]"/><param name="row" value="9516"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="661"/><param name="width" value="199"/></include>
 			</control>
 			<include content="Majan_Rule"><param name="top" value="868"/><param name="left" value="0"/><param name="width" value="860"/></include>
@@ -384,8 +384,8 @@
 				<top>168</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9520"/>
-					<param name="label" value="Newest row on Home"/>
-					<param name="hint" value="Row under the spotlight"/>
+					<param name="label" value="$LOCALIZE[31476]"/>
+					<param name="hint" value="$LOCALIZE[31477]"/>
 				</include>
 				<control type="button" id="9520">
 					<include>Dlg_SkinRowButton</include>
@@ -401,9 +401,9 @@
 					<onleft condition="$EXP[HomeNewestBoth]">Skin.SetString(majan.home.newest,release)</onleft>
 					<onclick condition="$EXP[HomeNewestBoth]">Skin.SetString(majan.home.newest,added)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="463"/><param name="width" value="150"/><param name="label" value="Date added"/><param name="selected" value="$EXP[Dlg_NewestAdded]"/><param name="row" value="9520"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="613"/><param name="width" value="162"/><param name="label" value="Release date"/><param name="selected" value="String.IsEqual(Skin.String(majan.home.newest),release)"/><param name="row" value="9520"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="775"/><param name="width" value="85"/><param name="label" value="Both"/><param name="selected" value="$EXP[HomeNewestBoth]"/><param name="row" value="9520"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="463"/><param name="width" value="150"/><param name="label" value="$LOCALIZE[31478]"/><param name="selected" value="$EXP[Dlg_NewestAdded]"/><param name="row" value="9520"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="613"/><param name="width" value="162"/><param name="label" value="$LOCALIZE[31479]"/><param name="selected" value="String.IsEqual(Skin.String(majan.home.newest),release)"/><param name="row" value="9520"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="775"/><param name="width" value="85"/><param name="label" value="$LOCALIZE[31080]"/><param name="selected" value="$EXP[HomeNewestBoth]"/><param name="row" value="9520"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="463"/><param name="width" value="397"/></include>
 			</control>
 			<!-- ====== Spotlight rotation -->
@@ -411,8 +411,8 @@
 				<top>268</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9521"/>
-					<param name="label" value="Spotlight rotation"/>
-					<param name="hint" value="Auto-advance, paused on the buttons"/>
+					<param name="label" value="$LOCALIZE[31480]"/>
+					<param name="hint" value="$LOCALIZE[31481]"/>
 				</include>
 				<control type="button" id="9521">
 					<include>Dlg_SkinRowButton</include>
@@ -447,7 +447,7 @@
 					<onleft condition="String.IsEqual(Skin.String(majan.spotlightrotate),30)">ReloadSkin()</onleft>
 					<onclick condition="String.IsEqual(Skin.String(majan.spotlightrotate),30)">Skin.SetString(majan.spotlightrotate,off)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="561"/><param name="width" value="74"/><param name="label" value="Off"/><param name="selected" value="$EXP[SpotlightRotateOff]"/><param name="row" value="9521"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="561"/><param name="width" value="74"/><param name="label" value="$LOCALIZE[31072]"/><param name="selected" value="$EXP[SpotlightRotateOff]"/><param name="row" value="9521"/></include>
 				<include content="Dlg_SegOption"><param name="left" value="635"/><param name="width" value="67"/><param name="label" value="8 s"/><param name="selected" value="String.IsEqual(Skin.String(majan.spotlightrotate),8)"/><param name="row" value="9521"/></include>
 				<include content="Dlg_SegOption"><param name="left" value="702"/><param name="width" value="79"/><param name="label" value="15 s"/><param name="selected" value="$EXP[Dlg_Rotate15]"/><param name="row" value="9521"/></include>
 				<include content="Dlg_SegOption"><param name="left" value="781"/><param name="width" value="79"/><param name="label" value="30 s"/><param name="selected" value="String.IsEqual(Skin.String(majan.spotlightrotate),30)"/><param name="row" value="9521"/></include>
@@ -458,8 +458,8 @@
 				<top>368</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9522"/>
-					<param name="label" value="OSD auto-hide"/>
-					<param name="hint" value="Playback controls close by themselves"/>
+					<param name="label" value="$LOCALIZE[31482]"/>
+					<param name="hint" value="$LOCALIZE[31483]"/>
 				</include>
 				<control type="button" id="9522">
 					<include>Dlg_SkinRowButton</include>
@@ -478,7 +478,7 @@
 					<onleft condition="String.IsEqual(Skin.String(majan.osdhide),10)">Skin.SetString(majan.osdhide,5)</onleft>
 					<onclick condition="String.IsEqual(Skin.String(majan.osdhide),10)">Skin.SetString(majan.osdhide,off)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="561"/><param name="width" value="74"/><param name="label" value="Off"/><param name="selected" value="String.IsEqual(Skin.String(majan.osdhide),off)"/><param name="row" value="9522"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="561"/><param name="width" value="74"/><param name="label" value="$LOCALIZE[31072]"/><param name="selected" value="String.IsEqual(Skin.String(majan.osdhide),off)"/><param name="row" value="9522"/></include>
 				<include content="Dlg_SegOption"><param name="left" value="635"/><param name="width" value="67"/><param name="label" value="3 s"/><param name="selected" value="String.IsEqual(Skin.String(majan.osdhide),3)"/><param name="row" value="9522"/></include>
 				<include content="Dlg_SegOption"><param name="left" value="702"/><param name="width" value="79"/><param name="label" value="5 s"/><param name="selected" value="$EXP[Dlg_OSDHide5]"/><param name="row" value="9522"/></include>
 				<include content="Dlg_SegOption"><param name="left" value="781"/><param name="width" value="79"/><param name="label" value="10 s"/><param name="selected" value="String.IsEqual(Skin.String(majan.osdhide),10)"/><param name="row" value="9522"/></include>
@@ -496,8 +496,8 @@
 				<top>168</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9530"/>
-					<param name="label" value="Reduce motion"/>
-					<param name="hint" value="Fades instead of zooms and slides"/>
+					<param name="label" value="$LOCALIZE[31484]"/>
+					<param name="hint" value="$LOCALIZE[31485]"/>
 				</include>
 				<control type="button" id="9530">
 					<include>Dlg_SkinRowButton</include>
@@ -510,8 +510,8 @@
 					<onleft condition="Skin.HasSetting(majan.reducemotion)">Skin.Reset(majan.reducemotion)</onleft>
 					<onclick condition="Skin.HasSetting(majan.reducemotion)">Skin.Reset(majan.reducemotion)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="710"/><param name="width" value="78"/><param name="label" value="Off"/><param name="selected" value="!Skin.HasSetting(majan.reducemotion)"/><param name="row" value="9530"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="788"/><param name="width" value="72"/><param name="label" value="On"/><param name="selected" value="Skin.HasSetting(majan.reducemotion)"/><param name="row" value="9530"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="710"/><param name="width" value="78"/><param name="label" value="$LOCALIZE[31072]"/><param name="selected" value="!Skin.HasSetting(majan.reducemotion)"/><param name="row" value="9530"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="788"/><param name="width" value="72"/><param name="label" value="$LOCALIZE[31486]"/><param name="selected" value="Skin.HasSetting(majan.reducemotion)"/><param name="row" value="9530"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="710"/><param name="width" value="150"/></include>
 			</control>
 			<!-- ====== Reset all skin settings -->
@@ -519,8 +519,8 @@
 				<top>268</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9531"/>
-					<param name="label" value="Reset all skin settings"/>
-					<param name="hint" value="Back to the defaults"/>
+					<param name="label" value="$LOCALIZE[31487]"/>
+					<param name="hint" value="$LOCALIZE[31488]"/>
 				</include>
 				<control type="button" id="9531">
 					<include>Dlg_SkinRowButton</include>
@@ -574,8 +574,8 @@
 				<top>168</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9540"/>
-					<param name="label" value="Poster size"/>
-					<param name="hint" value="11 · 8 · 6 posters across the screen"/>
+					<param name="label" value="$LOCALIZE[31489]"/>
+					<param name="hint" value="$LOCALIZE[31490]"/>
 				</include>
 				<control type="button" id="9540">
 					<include>Dlg_SkinRowButton</include>
@@ -591,9 +591,9 @@
 					<onleft condition="String.IsEqual(Skin.String(majan.wall.size),large)">Skin.SetString(majan.wall.size,medium)</onleft>
 					<onclick condition="String.IsEqual(Skin.String(majan.wall.size),large)">Skin.SetString(majan.wall.size,small)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="545"/><param name="width" value="98"/><param name="label" value="Small"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.size),small)"/><param name="row" value="9540"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="643"/><param name="width" value="119"/><param name="label" value="Medium"/><param name="selected" value="$EXP[Wall_Medium]"/><param name="row" value="9540"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="762"/><param name="width" value="98"/><param name="label" value="Large"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.size),large)"/><param name="row" value="9540"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="545"/><param name="width" value="98"/><param name="label" value="$LOCALIZE[31491]"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.size),small)"/><param name="row" value="9540"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="643"/><param name="width" value="119"/><param name="label" value="$LOCALIZE[31071]"/><param name="selected" value="$EXP[Wall_Medium]"/><param name="row" value="9540"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="762"/><param name="width" value="98"/><param name="label" value="$LOCALIZE[31492]"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.size),large)"/><param name="row" value="9540"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="545"/><param name="width" value="315"/></include>
 			</control>
 			<!-- ====== Gap between posters -->
@@ -601,8 +601,8 @@
 				<top>268</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9541"/>
-					<param name="label" value="Gap between posters"/>
-					<param name="hint" value="16 px of page (Large 24) · edge to edge"/>
+					<param name="label" value="$LOCALIZE[31493]"/>
+					<param name="hint" value="$LOCALIZE[31494]"/>
 				</include>
 				<control type="button" id="9541">
 					<include>Dlg_SkinRowButton</include>
@@ -615,8 +615,8 @@
 					<onleft condition="Skin.HasSetting(majan.wall.nogap)">Skin.Reset(majan.wall.nogap)</onleft>
 					<onclick condition="Skin.HasSetting(majan.wall.nogap)">Skin.Reset(majan.wall.nogap)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="666"/><param name="width" value="84"/><param name="label" value="Gap"/><param name="selected" value="!Skin.HasSetting(majan.wall.nogap)"/><param name="row" value="9541"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="750"/><param name="width" value="110"/><param name="label" value="No gap"/><param name="selected" value="Skin.HasSetting(majan.wall.nogap)"/><param name="row" value="9541"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="666"/><param name="width" value="84"/><param name="label" value="$LOCALIZE[31495]"/><param name="selected" value="!Skin.HasSetting(majan.wall.nogap)"/><param name="row" value="9541"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="750"/><param name="width" value="110"/><param name="label" value="$LOCALIZE[31496]"/><param name="selected" value="Skin.HasSetting(majan.wall.nogap)"/><param name="row" value="9541"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="666"/><param name="width" value="194"/></include>
 			</control>
 			<!-- ====== Border on the selected poster -->
@@ -624,8 +624,8 @@
 				<top>368</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9542"/>
-					<param name="label" value="Border on the selected poster"/>
-					<param name="hint" value="Accent line · off = a slight zoom"/>
+					<param name="label" value="$LOCALIZE[31497]"/>
+					<param name="hint" value="$LOCALIZE[31498]"/>
 				</include>
 				<control type="button" id="9542">
 					<include>Dlg_SkinRowButton</include>
@@ -638,8 +638,8 @@
 					<onleft condition="Skin.HasSetting(majan.wall.noborder)">Skin.Reset(majan.wall.noborder)</onleft>
 					<onclick condition="Skin.HasSetting(majan.wall.noborder)">Skin.Reset(majan.wall.noborder)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="710"/><param name="width" value="72"/><param name="label" value="On"/><param name="selected" value="!Skin.HasSetting(majan.wall.noborder)"/><param name="row" value="9542"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="782"/><param name="width" value="78"/><param name="label" value="Off"/><param name="selected" value="Skin.HasSetting(majan.wall.noborder)"/><param name="row" value="9542"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="710"/><param name="width" value="72"/><param name="label" value="$LOCALIZE[31486]"/><param name="selected" value="!Skin.HasSetting(majan.wall.noborder)"/><param name="row" value="9542"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="782"/><param name="width" value="78"/><param name="label" value="$LOCALIZE[31072]"/><param name="selected" value="Skin.HasSetting(majan.wall.noborder)"/><param name="row" value="9542"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="710"/><param name="width" value="150"/></include>
 			</control>
 			<!-- ====== Info overlay -->
@@ -647,8 +647,8 @@
 				<top>468</top>
 				<include content="Dlg_SkinRowChrome">
 					<param name="id" value="9543"/>
-					<param name="label" value="Info overlay"/>
-					<param name="hint" value="Title, times, plot, flags beside it"/>
+					<param name="label" value="$LOCALIZE[31499]"/>
+					<param name="hint" value="$LOCALIZE[31500]"/>
 				</include>
 				<control type="button" id="9543">
 					<include>Dlg_SkinRowButton</include>
@@ -664,9 +664,9 @@
 					<onleft condition="String.IsEqual(Skin.String(majan.wall.overlay),2)">Skin.SetString(majan.wall.overlay,1)</onleft>
 					<onclick condition="String.IsEqual(Skin.String(majan.wall.overlay),2)">Skin.SetString(majan.wall.overlay,off)</onclick>
 				</control>
-				<include content="Dlg_SegOption"><param name="left" value="526"/><param name="width" value="78"/><param name="label" value="Off"/><param name="selected" value="$EXP[Wall_OverlayOff]"/><param name="row" value="9543"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="604"/><param name="width" value="128"/><param name="label" value="After 1 s"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.overlay),1)"/><param name="row" value="9543"/></include>
-				<include content="Dlg_SegOption"><param name="left" value="732"/><param name="width" value="128"/><param name="label" value="After 2 s"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.overlay),2)"/><param name="row" value="9543"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="526"/><param name="width" value="78"/><param name="label" value="$LOCALIZE[31072]"/><param name="selected" value="$EXP[Wall_OverlayOff]"/><param name="row" value="9543"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="604"/><param name="width" value="128"/><param name="label" value="$LOCALIZE[31501]"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.overlay),1)"/><param name="row" value="9543"/></include>
+				<include content="Dlg_SegOption"><param name="left" value="732"/><param name="width" value="128"/><param name="label" value="$LOCALIZE[31502]"/><param name="selected" value="String.IsEqual(Skin.String(majan.wall.overlay),2)"/><param name="row" value="9543"/></include>
 				<include content="Dlg_SegFrame"><param name="left" value="526"/><param name="width" value="334"/></include>
 			</control>
 			<include content="Majan_Rule"><param name="top" value="568"/><param name="left" value="0"/><param name="width" value="860"/></include>

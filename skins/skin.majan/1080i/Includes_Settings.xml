@@ -34,11 +34,13 @@
 	</include>
 
 	<!-- The full template set (ids 7 button, 8 radio, 9 spin, 11 separator, 12 edit, 13 slider,
-	     14 group heading, 15 colour). params: width, height, font -->
+	     14 group heading, 15 colour). params: width, height, font, sliderwidth (a sliderex never
+	     truncates its label, so narrow panels pass a shorter slider) -->
 	<include name="Majan_SettingTemplates">
 		<param name="width">1264</param>
 		<param name="height">settings_row_h</param>
 		<param name="font">label_25_semibold</param>
+		<param name="sliderwidth">200</param>
 		<definition>
 			<control type="button" id="7">
 				<description>Default Button</description>
@@ -87,7 +89,7 @@
 					<param name="height" value="$PARAM[height]"/>
 					<param name="font" value="$PARAM[font]"/>
 				</include>
-				<sliderwidth>200</sliderwidth>
+				<sliderwidth>$PARAM[sliderwidth]</sliderwidth>
 				<sliderheight>4</sliderheight>
 			</control>
 			<control type="label" id="14">
@@ -128,7 +130,7 @@
 				<aligny>center</aligny>
 				<pulseonselect>false</pulseonselect>
 				<include>Dlg_Tex_RowFocus</include>
-				<include content="Dlg_Tex_RowRule"><param name="flip" value="true"/></include>
+				<include>Dlg_Tex_RowRuleTop</include>
 			</control>
 		</definition>
 	</include>
@@ -152,7 +154,7 @@
 				<aligny>center</aligny>
 				<pulseonselect>false</pulseonselect>
 				<include>Dlg_Tex_RowFocus</include>
-				<include content="Dlg_Tex_RowRule"><param name="flip" value="true"/></include>
+				<include>Dlg_Tex_RowRuleTop</include>
 				<onclick>SettingsLevelChange</onclick>
 				<onup>$PARAM[onup]</onup>
 				<ondown>$PARAM[ondown]</ondown>
@@ -267,7 +269,7 @@
 						<param name="target" value="osdaudiosettings"/>
 						<param name="left" value="62"/>
 						<param name="width" value="75"/>
-						<param name="label" value="Audio"/>
+						<param name="label" value="$LOCALIZE[31503]"/>
 						<param name="current" value="Window.IsActive(osdaudiosettings)"/>
 					</include>
 					<include content="Dlg_OSDTab">
@@ -278,7 +280,7 @@
 						<param name="target" value="osdsubtitlesettings"/>
 						<param name="left" value="149"/>
 						<param name="width" value="119"/>
-						<param name="label" value="Subtitles"/>
+						<param name="label" value="$LOCALIZE[31504]"/>
 						<param name="current" value="Window.IsActive(osdsubtitlesettings)"/>
 					</include>
 					<include content="Dlg_OSDTab">
@@ -289,7 +291,7 @@
 						<param name="target" value="osdvideosettings"/>
 						<param name="left" value="280"/>
 						<param name="width" value="75"/>
-						<param name="label" value="Video"/>
+						<param name="label" value="$LOCALIZE[31505]"/>
 						<param name="current" value="Window.IsActive(osdvideosettings) | Window.IsActive(osdcmssettings)"/>
 					</include>
 				</control>
@@ -329,6 +331,7 @@
 					<param name="width" value="dlg_panel_in_w"/>
 					<param name="height" value="dlg_osd_row_h"/>
 					<param name="font" value="button_23_semibold"/>
+					<param name="sliderwidth" value="120"/>
 				</include>
 				<control type="scrollbar" id="60">
 					<left>646</left>
@@ -712,59 +715,59 @@
 		<value>art_faint</value>
 	</variable>
 	<variable name="Dlg_ArtLabel">
-		<value condition="$EXP[Dlg_ArtOff]">Off</value>
-		<value condition="$EXP[Dlg_ArtSoft]">Soft (45%)</value>
-		<value condition="$EXP[Dlg_ArtVisible]">Visible (65%)</value>
-		<value>Faint (30%)</value>
+		<value condition="$EXP[Dlg_ArtOff]">$LOCALIZE[31072]</value>
+		<value condition="$EXP[Dlg_ArtSoft]">$LOCALIZE[31506]</value>
+		<value condition="$EXP[Dlg_ArtVisible]">$LOCALIZE[31507]</value>
+		<value>$LOCALIZE[31508]</value>
 	</variable>
 	<variable name="Dlg_SkinPreviewCaption">
-		<value condition="Control.HasFocus(9510)">Preview  ·  $VAR[AccentName]</value>
-		<value condition="Control.HasFocus(9511) + Skin.HasSetting(majan.roundedcorners)">Preview  ·  Rounded</value>
-		<value condition="Control.HasFocus(9511)">Preview  ·  Square</value>
-		<value condition="Control.HasFocus(9512)">Preview  ·  $VAR[LabelFocusOutline]</value>
-		<value condition="Control.HasFocus(9513)">Preview  ·  $VAR[Dlg_ArtLabel]</value>
-		<value condition="Control.HasFocus(9515)">Preview  ·  $VAR[LabelWatchedMarkers]</value>
-		<value>Preview  ·  $VAR[Dlg_ArtLabel]</value>
+		<value condition="Control.HasFocus(9510)">$LOCALIZE[31509]  ·  $VAR[AccentName]</value>
+		<value condition="Control.HasFocus(9511) + Skin.HasSetting(majan.roundedcorners)">$LOCALIZE[31510]</value>
+		<value condition="Control.HasFocus(9511)">$LOCALIZE[31511]</value>
+		<value condition="Control.HasFocus(9512)">$LOCALIZE[31509]  ·  $VAR[LabelFocusOutline]</value>
+		<value condition="Control.HasFocus(9513)">$LOCALIZE[31509]  ·  $VAR[Dlg_ArtLabel]</value>
+		<value condition="Control.HasFocus(9515)">$LOCALIZE[31509]  ·  $VAR[LabelWatchedMarkers]</value>
+		<value>$LOCALIZE[31509]  ·  $VAR[Dlg_ArtLabel]</value>
 	</variable>
 	<variable name="Wall_PreviewSize">
-		<value condition="$EXP[Wall_Small]">Small</value>
-		<value condition="$EXP[Wall_Large]">Large</value>
-		<value>Medium</value>
+		<value condition="$EXP[Wall_Small]">$LOCALIZE[31491]</value>
+		<value condition="$EXP[Wall_Large]">$LOCALIZE[31492]</value>
+		<value>$LOCALIZE[31071]</value>
 	</variable>
 	<variable name="Wall_PreviewCaption">
-		<value condition="$EXP[Wall_Gap] + $EXP[Wall_Border]">Preview · $VAR[Wall_PreviewSize] · Gap · Border</value>
-		<value condition="$EXP[Wall_Gap]">Preview · $VAR[Wall_PreviewSize] · Gap · Zoom</value>
-		<value condition="$EXP[Wall_Border]">Preview · $VAR[Wall_PreviewSize] · No gap · Border</value>
-		<value>Preview · $VAR[Wall_PreviewSize] · No gap · Zoom</value>
+		<value condition="$EXP[Wall_Gap] + $EXP[Wall_Border]">$LOCALIZE[31509] · $VAR[Wall_PreviewSize] · $LOCALIZE[31512]</value>
+		<value condition="$EXP[Wall_Gap]">$LOCALIZE[31509] · $VAR[Wall_PreviewSize] · $LOCALIZE[31513]</value>
+		<value condition="$EXP[Wall_Border]">$LOCALIZE[31509] · $VAR[Wall_PreviewSize] · $LOCALIZE[31514]</value>
+		<value>$LOCALIZE[31509] · $VAR[Wall_PreviewSize] · $LOCALIZE[31515]</value>
 	</variable>
 	<variable name="Dlg_SkinHelp">
-		<value condition="Control.HasFocus(9553)">A full-screen wall of posters for films and series. Pick it with VIEW: POSTER WALL in the library header; the other views and their defaults are untouched.[CR][CR]Up from the top row shows the header. Back leaves the view.</value>
-		<value condition="Control.HasFocus(9540)">Small: 11 posters across (12 with no gap). Medium: 8. Large: 6. Posters are never cropped; the next row peeks in at the bottom of the screen.</value>
-		<value condition="Control.HasFocus(9541)">Gap: a strip of page between posters (16 px, 24 px at Large). No gap: posters edge to edge, with square corners.</value>
-		<value condition="Control.HasFocus(9542)">On: the accent line around the selected poster (inside its edge when there is no gap). Off: the selected poster zooms slightly and the others dim.</value>
-		<value condition="Control.HasFocus(9543)">After you rest on a poster for 1 or 2 seconds, a card with the title, times, plot and media details covers the posters beside it. Any button press hides it at once.</value>
-		<value condition="Control.HasFocus(9550)">Colour, corners, focus outline and the artwork behind the page. Changes apply at once; changing the corners reloads the skin.[CR][CR]Up / Down picks a category, Right enters it.</value>
-		<value condition="Control.HasFocus(9551)">What sits under the spotlight on Home, and how often the spotlight moves on.</value>
-		<value condition="Control.HasFocus(9552)">Motion, and a way back to the defaults.</value>
+		<value condition="Control.HasFocus(9553)">$LOCALIZE[31516][CR][CR]$LOCALIZE[31517]</value>
+		<value condition="Control.HasFocus(9540)">$LOCALIZE[31518]</value>
+		<value condition="Control.HasFocus(9541)">$LOCALIZE[31519]</value>
+		<value condition="Control.HasFocus(9542)">$LOCALIZE[31520]</value>
+		<value condition="Control.HasFocus(9543)">$LOCALIZE[31521]</value>
+		<value condition="Control.HasFocus(9550)">$LOCALIZE[31522][CR][CR]$LOCALIZE[31523]</value>
+		<value condition="Control.HasFocus(9551)">$LOCALIZE[31524]</value>
+		<value condition="Control.HasFocus(9552)">$LOCALIZE[31525]</value>
 		<value condition="Control.HasFocus(9554)">$LOCALIZE[31336]</value>
 		<value condition="Control.HasFocus(9555) | Control.HasFocus(9570) | Control.HasFocus(9571) | Control.HasFocus(9572)">$LOCALIZE[31950]</value>
 		<value condition="Control.HasFocus(9556) | Control.HasFocus(9573) | Control.HasFocus(9574) | Control.HasFocus(9575)">$LOCALIZE[31984]</value>
 		<value condition="Control.HasFocus(9560)">$LOCALIZE[31337]</value>
 		<value condition="Control.HasFocus(9561) | Control.HasFocus(9562) | Control.HasFocus(9563)">$LOCALIZE[31338]</value>
 		<value condition="Control.HasFocus(9564)">$LOCALIZE[31339]</value>
-		<value condition="Control.HasFocus(9510)">One colour marks where you are: the focus outline, the active menu item, unwatched markers, progress bars and the Play button.[CR][CR]Left / Right picks a colour. Text on the accent is always near-black, so every option stays readable.</value>
-		<value condition="Control.HasFocus(9511)">Square or slightly rounded (8 px) corners on posters, album covers, episode thumbnails and buttons.[CR][CR]Changing it reloads the skin, which takes a second.</value>
-		<value condition="Control.HasFocus(9512)">The stroke around the selected poster. Off keeps the zoom, so focus never disappears; lists, buttons and dialogs always keep their frame.</value>
-		<value condition="Control.HasFocus(9513) + !System.AddonIsEnabled(plugin.video.themoviedb.helper)">Needs TMDb Helper, which isn't enabled, so the artwork background stays off.</value>
-		<value condition="Control.HasFocus(9513)">A heavily blurred copy of the spotlighted or selected film's poster sits behind the page at low opacity.[CR][CR]Made once per film by TMDb Helper from a small thumbnail, then cached. It waits until you stop scrolling, so browsing never slows down. Off uses nothing at all.</value>
-		<value condition="Control.HasFocus(9514)">Shows a Trailer button next to Play and Details on Home and the info page. It only appears when the film has a trailer link; playback goes through the YouTube add-on.</value>
-		<value condition="Control.HasFocus(9515)">Unwatched: a small accent square. Watched: a check tab. TV shows add the unwatched count and a progress bar. Keep either, both or none.</value>
-		<value condition="Control.HasFocus(9516)">Where the subtitle and audio offset strip appears while you sync. Top keeps bottom-aligned subtitles in view; pick Bottom if your subtitles sit at the top of the screen.</value>
-		<value condition="Control.HasFocus(9520)">Date added: films in the order they arrived. Release date: newest premieres first. Both: two rows, date added first.</value>
-		<value condition="Control.HasFocus(9522)">How long the playback controls stay up after your last button press. They stay while paused and while a menu is open.</value>
-		<value condition="Control.HasFocus(9521)">How often the spotlight moves to the next film. It pauses while focus is on Play, Details or Trailer.</value>
-		<value condition="Control.HasFocus(9530)">Replaces zooms and slides with short fades. Focus changes stay instant.</value>
-		<value condition="Control.HasFocus(9531)">Puts every Majan setting back to its default and reloads the skin. Press OK twice to confirm.</value>
-		<value>Majan's own options. Kodi's settings live under Settings; switch skins in Settings > Interface > Skin.</value>
+		<value condition="Control.HasFocus(9510)">$LOCALIZE[31526][CR][CR]$LOCALIZE[31527]</value>
+		<value condition="Control.HasFocus(9511)">$LOCALIZE[31528][CR][CR]$LOCALIZE[31529]</value>
+		<value condition="Control.HasFocus(9512)">$LOCALIZE[31530]</value>
+		<value condition="Control.HasFocus(9513) + !System.AddonIsEnabled(plugin.video.themoviedb.helper)">$LOCALIZE[31531]</value>
+		<value condition="Control.HasFocus(9513)">$LOCALIZE[31532][CR][CR]$LOCALIZE[31533]</value>
+		<value condition="Control.HasFocus(9514)">$LOCALIZE[31534]</value>
+		<value condition="Control.HasFocus(9515)">$LOCALIZE[31535]</value>
+		<value condition="Control.HasFocus(9516)">$LOCALIZE[31536]</value>
+		<value condition="Control.HasFocus(9520)">$LOCALIZE[31537]</value>
+		<value condition="Control.HasFocus(9522)">$LOCALIZE[31538]</value>
+		<value condition="Control.HasFocus(9521)">$LOCALIZE[31539]</value>
+		<value condition="Control.HasFocus(9530)">$LOCALIZE[31540]</value>
+		<value condition="Control.HasFocus(9531)">$LOCALIZE[31541]</value>
+		<value>$LOCALIZE[31542]</value>
 	</variable>
 </includes>

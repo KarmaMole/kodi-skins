@@ -22,8 +22,6 @@
 	     The panel is padded 14 px on every side of each cell so the focus frame (+7) and the
 	     5 % zoom (+6) are not clipped by the container. -->
 	<constant name="music_tile">219</constant>
-	<constant name="music_cell_w">251</constant>          <!-- 219 + 32 -->
-	<constant name="music_cell_h">310</constant>          <!-- 219 + 12 + 25 + 3 + 21 + 30 -->
 	<constant name="music_pad">14</constant>
 	<constant name="music_grid_left">82</constant>        <!-- 96 - 14 -->
 	<constant name="music_grid_top">146</constant>        <!-- 160 - 14 -->
@@ -33,7 +31,6 @@
 	     Item content is offset (20, 130) inside the container so the focused item's soft shadow,
 	     zoom and frame fit; the container's left edge (76) hides the item before slot 1. -->
 	<constant name="music_big">380</constant>
-	<constant name="music_big_pitch">408</constant>       <!-- 380 + 28 -->
 	<constant name="music_big_left">76</constant>
 	<constant name="music_big_top">100</constant>
 	<constant name="music_big_w">1844</constant>
@@ -58,7 +55,6 @@
 	<constant name="music_np_text_x">720</constant>
 	<constant name="music_np_text_w">1104</constant>
 	<constant name="music_progress_y">806</constant>
-	<constant name="music_osd_y">900</constant>
 	<constant name="music_osd_btn">72</constant>
 	<constant name="music_osd_btn_f">88</constant>
 	<constant name="music_osd_y_f">892</constant>
@@ -115,16 +111,16 @@
 
 	<!-- Title for any item; the ".." parent item (filelists.showparentdiritems = on) reads "Back" -->
 	<variable name="Music_ItemLabel">
-		<value condition="ListItem.IsParentFolder">Back</value>
+		<value condition="ListItem.IsParentFolder">$LOCALIZE[31242]</value>
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<!-- Big Album left column: previous item, or "Back" when the previous slot holds the ".." item -->
 	<variable name="Music_PrevCaption">
-		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">◀  Back</value>
-		<value>◀  Previous</value>
+		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">$LOCALIZE[31647]</value>
+		<value>$LOCALIZE[31648]</value>
 	</variable>
 	<variable name="Music_PrevTitle">
-		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">Up one level</value>
+		<value condition="Container(505).ListItemNoWrap(-1).IsParentFolder">$LOCALIZE[31232]</value>
 		<value condition="Container.Content(artists)">$INFO[Container(505).ListItemNoWrap(-1).Label]</value>
 		<value condition="Container.Content(songs) + !String.IsEmpty(Container(505).ListItemNoWrap(-1).Title)">$INFO[Container(505).ListItemNoWrap(-1).Title]$INFO[Container(505).ListItemNoWrap(-1).Artist,  ·  ,]</value>
 		<value>$INFO[Container(505).ListItemNoWrap(-1).Label]$INFO[Container(505).ListItemNoWrap(-1).Artist,  ·  ,]</value>
@@ -149,16 +145,16 @@
 	</variable>
 	<!-- Library totals come from Kodi core (Window(Home) properties set by CRecentlyAddedJob, DATA 4.2) -->
 	<variable name="Music_TabLabel_Albums">
-		<value condition="$EXP[Music_TabAlbums]">Albums$INFO[Window(Home).Property(Music.AlbumsCount), ,]</value>
-		<value>Albums</value>
+		<value condition="$EXP[Music_TabAlbums]">$LOCALIZE[31649]$INFO[Window(Home).Property(Music.AlbumsCount), ,]</value>
+		<value>$LOCALIZE[31649]</value>
 	</variable>
 	<variable name="Music_TabLabel_Artists">
-		<value condition="$EXP[Music_TabArtists]">Artists$INFO[Window(Home).Property(Music.ArtistsCount), ,]</value>
-		<value>Artists</value>
+		<value condition="$EXP[Music_TabArtists]">$LOCALIZE[31650]$INFO[Window(Home).Property(Music.ArtistsCount), ,]</value>
+		<value>$LOCALIZE[31650]</value>
 	</variable>
 	<variable name="Music_TabLabel_Songs">
-		<value condition="$EXP[Music_TabSongs]">Songs$INFO[Window(Home).Property(Music.SongsCount), ,]</value>
-		<value>Songs</value>
+		<value condition="$EXP[Music_TabSongs]">$LOCALIZE[31651]$INFO[Window(Home).Property(Music.SongsCount), ,]</value>
+		<value>$LOCALIZE[31651]</value>
 	</variable>
 	<variable name="Music_SortArrow">
 		<value condition="Container.SortDirection(descending)">↓</value>
@@ -170,9 +166,9 @@
 	</variable>
 	<!-- Big Album kicker: ALBUM · 14 / 229 · SORTED BY DATE ADDED -->
 	<variable name="Music_BigKicker">
-		<value condition="Container.Content(artists)">Artist$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]$INFO[Container.SortMethod,  ·  Sorted by ,]</value>
-		<value condition="Container.Content(songs)">Song$INFO[Container(505).ListItem.TrackNumber,  ·  Track ,]$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]</value>
-		<value>Album$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]$INFO[Container.SortMethod,  ·  Sorted by ,]</value>
+		<value condition="Container.Content(artists)">$LOCALIZE[31604]$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]$INFO[Container.SortMethod,  ·  $LOCALIZE[31652] ,]</value>
+		<value condition="Container.Content(songs)">$LOCALIZE[31653]$INFO[Container(505).ListItem.TrackNumber,  ·  $LOCALIZE[31654] ,]$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]</value>
+		<value>$LOCALIZE[31608]$INFO[Container(505).CurrentItem,  ·  ,]$INFO[Container(505).NumItems, / ,]$INFO[Container.SortMethod,  ·  $LOCALIZE[31652] ,]</value>
 	</variable>
 	<!-- 1.0.18 Big album for artists / songs: a song's label is Kodi's "01. Artist - Title", so read the title -->
 	<variable name="Music_BigTitle">
@@ -190,28 +186,28 @@
 	</variable>
 	<!-- a song's title in a row (Tracklist 508) -->
 	<variable name="Music_SongTitle">
-		<value condition="ListItem.IsParentFolder">Back</value>
+		<value condition="ListItem.IsParentFolder">$LOCALIZE[31242]</value>
 		<value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<!-- Now playing kicker -->
 	<variable name="Music_NPKicker">
-		<value condition="Player.Paused">Paused$INFO[Playlist.Position(music),  ·  ,]$INFO[Playlist.Length(music), / ,]</value>
-		<value>Now playing$INFO[Playlist.Position(music),  ·  ,]$INFO[Playlist.Length(music), / ,]</value>
+		<value condition="Player.Paused">$LOCALIZE[31655]$INFO[Playlist.Position(music),  ·  ,]$INFO[Playlist.Length(music), / ,]</value>
+		<value>$LOCALIZE[31017]$INFO[Playlist.Position(music),  ·  ,]$INFO[Playlist.Length(music), / ,]</value>
 	</variable>
 	<!-- Shuffle / repeat state caption (Now playing) -->
 	<variable name="Music_PlayModes">
-		<value condition="Playlist.IsRandom + Playlist.IsRepeatOne">Shuffle  ·  Repeat one</value>
-		<value condition="Playlist.IsRandom + Playlist.IsRepeat">Shuffle  ·  Repeat all</value>
-		<value condition="Playlist.IsRandom">Shuffle</value>
-		<value condition="Playlist.IsRepeatOne">Repeat one</value>
-		<value condition="Playlist.IsRepeat">Repeat all</value>
+		<value condition="Playlist.IsRandom + Playlist.IsRepeatOne">$LOCALIZE[31656]</value>
+		<value condition="Playlist.IsRandom + Playlist.IsRepeat">$LOCALIZE[31657]</value>
+		<value condition="Playlist.IsRandom">$LOCALIZE[31658]</value>
+		<value condition="Playlist.IsRepeatOne">$LOCALIZE[31659]</value>
+		<value condition="Playlist.IsRepeat">$LOCALIZE[31660]</value>
 	</variable>
 	<!-- Info dialog -->
 	<variable name="Music_InfoKicker">
-		<value condition="$EXP[Music_InfoIsArtist]">Artist</value>
-		<value condition="$EXP[Music_InfoIsSong]">Song$INFO[ListItem.TrackNumber,  ·  Track ,]</value>
-		<value>Album$INFO[ListItem.Property(Album_ReleaseType),  ·  ,]</value>
+		<value condition="$EXP[Music_InfoIsArtist]">$LOCALIZE[31604]</value>
+		<value condition="$EXP[Music_InfoIsSong]">$LOCALIZE[31653]$INFO[ListItem.TrackNumber,  ·  $LOCALIZE[31654] ,]</value>
+		<value>$LOCALIZE[31608]$INFO[ListItem.Property(Album_ReleaseType),  ·  ,]</value>
 	</variable>
 	<variable name="Music_InfoTitle">
 		<value condition="$EXP[Music_InfoIsArtist] + !String.IsEmpty(ListItem.Artist)">$INFO[ListItem.Artist]</value>
@@ -230,8 +226,8 @@
 		<value>$INFO[ListItem.Property(Album_Description)]</value>
 	</variable>
 	<variable name="Music_InfoListCaption">
-		<value condition="$EXP[Music_InfoIsArtist]">Discography$INFO[Container(50).NumItems,  ·  ,]</value>
-		<value>Tracklist$INFO[Container(50).NumItems,  ·  ,]</value>
+		<value condition="$EXP[Music_InfoIsArtist]">$LOCALIZE[31661]$INFO[Container(50).NumItems,  ·  ,]</value>
+		<value>$LOCALIZE[31323]$INFO[Container(50).NumItems,  ·  ,]</value>
 	</variable>
 	<!-- Shuffle (skin action; Kodi has no shuffle button in this dialog). PlayMedia clears the music
 	     playlist (which resets shuffle), then the button's second action turns RandomOn. -->
@@ -241,16 +237,16 @@
 	</variable>
 	<!-- Queue window (MyPlaylist) -->
 	<variable name="Music_QueueTitle">
-		<value condition="Window.IsActive(videoplaylist)">Video queue</value>
-		<value>Queue</value>
+		<value condition="Window.IsActive(videoplaylist)">$LOCALIZE[31662]</value>
+		<value>$LOCALIZE[31663]</value>
 	</variable>
 	<variable name="Music_QueueIndex">
 		<value condition="Window.IsActive(videoplaylist)">02</value>
 		<value>04</value>
 	</variable>
 	<variable name="Music_QueueShuffleLabel">
-		<value condition="Playlist.IsRandom">Shuffle: on</value>
-		<value>Shuffle: off</value>
+		<value condition="Playlist.IsRandom">$LOCALIZE[31664]</value>
+		<value>$LOCALIZE[31665]</value>
 	</variable>
 
 	<!-- ================================================================ cover -->
@@ -574,14 +570,14 @@
 			</include>
 			<include content="Music_Tab">
 				<param name="id" value="9323"/>
-				<param name="label" value="Genres"/>
+				<param name="label" value="$LOCALIZE[31666]"/>
 				<param name="onclick" value="Container.Update(musicdb://genres/)"/>
 				<param name="active" value="$EXP[Music_TabGenres]"/>
 				<param name="textcolor" value="$VAR[Music_TabText_Genres]"/>
 			</include>
 			<include content="Music_Tab">
 				<param name="id" value="9324"/>
-				<param name="label" value="Sort: $INFO[Container.SortMethod]"/>
+				<param name="label" value="$LOCALIZE[31667] $INFO[Container.SortMethod]"/>
 				<param name="onclick" value="SendClick(3)"/>
 				<param name="visible" value="Control.IsEnabled(3) + !String.IsEmpty(Container.SortMethod)"/>
 			</include>
@@ -594,13 +590,13 @@
 			<!-- 1.0.9: VIEW opens the view picker (was Container.NextViewMode); OPTIONS the Library panel -->
 			<include content="Music_Tab">
 				<param name="id" value="9326"/>
-				<param name="label" value="View: $INFO[Container.Viewmode]"/>
+				<param name="label" value="$LOCALIZE[31668] $INFO[Container.Viewmode]"/>
 				<param name="onclick" value="ActivateWindow(1156)"/>
 				<param name="visible" value="Integer.IsGreater(Container.ViewCount,1)"/>
 			</include>
 			<include content="Music_Tab">
 				<param name="id" value="9327"/>
-				<param name="label" value="Options"/>
+				<param name="label" value="$LOCALIZE[31275]"/>
 				<param name="onclick" value="ActivateWindow(1155)"/>
 			</include>
 		</control>
@@ -666,23 +662,23 @@
 
 	<!-- ========================================================== music OSD -->
 	<variable name="Music_OSDShuffleValue">
-		<value condition="Playlist.IsRandom">On</value>
-		<value>Off</value>
+		<value condition="Playlist.IsRandom">$LOCALIZE[31486]</value>
+		<value>$LOCALIZE[31072]</value>
 	</variable>
 	<variable name="Music_OSDRepeatValue">
-		<value condition="Playlist.IsRepeatOne">One</value>
-		<value condition="Playlist.IsRepeat">All</value>
-		<value>Off</value>
+		<value condition="Playlist.IsRepeatOne">$LOCALIZE[31669]</value>
+		<value condition="Playlist.IsRepeat">$LOCALIZE[31670]</value>
+		<value>$LOCALIZE[31072]</value>
 	</variable>
 	<!-- Play queue page caption: "1 item" / "12 items · 45:10" (1.0.4: was "1 items") -->
 	<variable name="Music_PlaylistSub">
-		<value condition="Integer.IsEqual(Container.NumItems,1)">1 item$INFO[Container.TotalTime,  ·  ,]</value>
-		<value>$INFO[Container.NumItems,, items]$INFO[Container.TotalTime,  ·  ,]</value>
+		<value condition="Integer.IsEqual(Container.NumItems,1)">$LOCALIZE[31671]$INFO[Container.TotalTime,  ·  ,]</value>
+		<value>$INFO[Container.NumItems,, $LOCALIZE[31672]]$INFO[Container.TotalTime,  ·  ,]</value>
 	</variable>
 	<!-- Queue button value: "1 track" / "12 tracks" (1.0.4: was "1 tracks") -->
 	<variable name="Music_OSDQueueValue">
-		<value condition="Integer.IsEqual(Playlist.Length(music),1)">1 track</value>
-		<value>$INFO[Playlist.Length(music),, tracks]</value>
+		<value condition="Integer.IsEqual(Playlist.Length(music),1)">$LOCALIZE[31673]</value>
+		<value>$INFO[Playlist.Length(music),, $LOCALIZE[31674]]</value>
 	</variable>
 	<!-- Visualiser presets button (1.0.11): shown only for a running visualisation with presets -->
 	<expression name="Music_HasVisPresets">Visualisation.Enabled + Visualisation.HasPresets</expression>
@@ -691,8 +687,8 @@
 		<value>$INFO[Visualisation.Name]</value>
 	</variable>
 	<variable name="Music_OSDHint">
-		<value condition="Control.HasFocus(87)">◀ ▶  Seek   ·   ▼  Controls   ·   Back  Hides</value>
-		<value>▲  Seek   ·   ◀ ▶  Move   ·   Back  Hides</value>
+		<value condition="Control.HasFocus(87)">$LOCALIZE[31675]</value>
+		<value>$LOCALIZE[31676]</value>
 	</variable>
 
 	<!-- 72 px square transport button (OSD.dc.html): 1 px outline, white icon; focus = accent frame.

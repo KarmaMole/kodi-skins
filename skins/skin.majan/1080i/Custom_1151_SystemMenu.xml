@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	Majan System menu (custom dialog 1151, M4, Builder E) - Home's gear (SPEC 4 / Decision 2), the
-	escape hatch. Drops down under the top-bar rule next to the gear (menu_x_gear 865): Skin settings,
+	escape hatch. Drops down under the top-bar rule next to the gear (x 865): Skin settings,
 	Settings, File manager, System info, Add-ons, Update library, Clean library (1.0.9: task panel 1157),
 	Live TV, Pictures, Favourites, Files, then Power: Exit / Reboot / Power off / Power menu.
 	Numbered Index list (Dlg_IndexListLayout). Back closes. No Kodi-owned ids.

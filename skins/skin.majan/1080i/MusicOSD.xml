@@ -61,7 +61,7 @@
 				<align>center</align>
 				<font>mono_14</font>
 				<textcolor>$VAR[ColorAccent]</textcolor>
-				<label>◀ ▶  Seek</label>
+				<label>$LOCALIZE[31775]</label>
 			</control>
 		</control>
 
@@ -158,7 +158,7 @@
 				<include content="Music_OSDTextButton">
 					<param name="id" value="70054"/>
 					<param name="width" value="150"/>
-					<param name="caption" value="Shuffle"/>
+					<param name="caption" value="$LOCALIZE[31658]"/>
 					<param name="value" value="$VAR[Music_OSDShuffleValue]"/>
 					<param name="onclick" value="PlayerControl(Random)"/>
 					<param name="visible" value="!MusicPartyMode.Enabled"/>
@@ -168,7 +168,7 @@
 				<include content="Music_OSDTextButton">
 					<param name="id" value="70053"/>
 					<param name="width" value="150"/>
-					<param name="caption" value="Repeat"/>
+					<param name="caption" value="$LOCALIZE[31776]"/>
 					<param name="value" value="$VAR[Music_OSDRepeatValue]"/>
 					<param name="onclick" value="PlayerControl(Repeat)"/>
 					<param name="visible" value="!MusicPartyMode.Enabled"/>
@@ -178,7 +178,7 @@
 				<include content="Music_OSDTextButton">
 					<param name="id" value="70051"/>
 					<param name="width" value="200"/>
-					<param name="caption" value="Queue"/>
+					<param name="caption" value="$LOCALIZE[31663]"/>
 					<param name="value" value="$VAR[Music_OSDQueueValue]"/>
 					<param name="onclick" value="Dialog.Close(all,true)"/>
 					<param name="onclick2" value="ActivateWindow(musicplaylist)"/>

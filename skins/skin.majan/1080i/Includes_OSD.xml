@@ -16,7 +16,6 @@
 	<!-- ============================================================= constants -->
 	<constant name="osd_box">72</constant>
 	<constant name="osd_box_f">88</constant>              <!-- osd_box + 16: button row height incl. focus-frame room -->                <!-- transport box (OSD.dc.html) -->
-	<constant name="osd_box_gap">14</constant>
 	<constant name="osd_box_icon">28</constant>
 	<constant name="osd_box_icon_pos">22</constant>       <!-- (72 - 28) / 2 -->
 	<constant name="osd_title_top">652</constant>         <!-- OSD title block -->
@@ -49,21 +48,21 @@
 	</variable>
 	<!-- Live state, first word of the kicker -->
 	<variable name="OSD_State">
-		<value condition="Player.Caching">BUFFERING$INFO[Player.CacheLevel, ,%]</value>
-		<value condition="!String.IsEmpty(Player.SeekNumeric)">GO TO $INFO[Player.SeekNumeric]</value>
-		<value condition="!String.IsEmpty(Player.SeekStepSize)">SKIP $VAR[OSD_SkipValue]</value>
-		<value condition="Player.Forwarding">FORWARD $VAR[OSD_Speed]</value>
-		<value condition="Player.Rewinding">REWIND $VAR[OSD_Speed]</value>
-		<value condition="Player.Paused">PAUSED</value>
-		<value>PLAYING</value>
+		<value condition="Player.Caching">$LOCALIZE[31279]$INFO[Player.CacheLevel, ,%]</value>
+		<value condition="!String.IsEmpty(Player.SeekNumeric)">$LOCALIZE[31628] $INFO[Player.SeekNumeric]</value>
+		<value condition="!String.IsEmpty(Player.SeekStepSize)">$LOCALIZE[31218] $VAR[OSD_SkipValue]</value>
+		<value condition="Player.Forwarding">$LOCALIZE[31629] $VAR[OSD_Speed]</value>
+		<value condition="Player.Rewinding">$LOCALIZE[31630] $VAR[OSD_Speed]</value>
+		<value condition="Player.Paused">$LOCALIZE[31631]</value>
+		<value>$LOCALIZE[31632]</value>
 	</variable>
 	<variable name="OSD_Type">
-		<value condition="VideoPlayer.Content(episodes)">EPISODE</value>
-		<value condition="VideoPlayer.Content(movies)">MOVIE</value>
-		<value condition="VideoPlayer.Content(musicvideos)">MUSIC VIDEO</value>
-		<value condition="VideoPlayer.Content(livetv)">LIVE TV</value>
-		<value condition="Player.HasAudio + !Player.HasVideo">MUSIC</value>
-		<value>VIDEO</value>
+		<value condition="VideoPlayer.Content(episodes)">$LOCALIZE[31450]</value>
+		<value condition="VideoPlayer.Content(movies)">$LOCALIZE[31579]</value>
+		<value condition="VideoPlayer.Content(musicvideos)">$LOCALIZE[31633]</value>
+		<value condition="VideoPlayer.Content(livetv)">$LOCALIZE[31634]</value>
+		<value condition="Player.HasAudio + !Player.HasVideo">$LOCALIZE[31318]</value>
+		<value>$LOCALIZE[31635]</value>
 	</variable>
 	<!-- DialogFullScreenInfo poster: episodes show their series poster -->
 	<variable name="OSDInfo_Poster">
@@ -71,9 +70,9 @@
 		<value>$INFO[Player.Art(poster)]</value>
 	</variable>
 	<variable name="OSD_InfoCaption">
-		<value condition="VideoPlayer.Content(episodes)">EPISODE</value>
-		<value condition="VideoPlayer.Content(movies)">FILM</value>
-		<value>VIDEO</value>
+		<value condition="VideoPlayer.Content(episodes)">$LOCALIZE[31450]</value>
+		<value condition="VideoPlayer.Content(movies)">$LOCALIZE[31636]</value>
+		<value>$LOCALIZE[31635]</value>
 	</variable>
 	<variable name="OSD_Title">
 		<value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.TVShowTitle)">$INFO[VideoPlayer.TVShowTitle]</value>
@@ -136,7 +135,7 @@
 		<value condition="!String.IsEmpty(Player.SeekOffset)">$INFO[Player.SeekOffset]</value>
 	</variable>
 	<variable name="OSD_EndsClock">
-		<value condition="!String.IsEmpty(Player.FinishTime) + Player.HasVideo">ENDS $INFO[Player.FinishTime(hh:mm)]  ·  $INFO[System.Time(hh:mm)]</value>
+		<value condition="!String.IsEmpty(Player.FinishTime) + Player.HasVideo">$LOCALIZE[31637] $INFO[Player.FinishTime(hh:mm)]  ·  $INFO[System.Time(hh:mm)]</value>
 		<value>$INFO[System.Time(hh:mm)]</value>
 	</variable>
 
@@ -190,23 +189,23 @@
 	<!-- OSD right-hand button values -->
 	<variable name="OSD_SubtitleValue">
 		<value condition="VideoPlayer.SubtitlesEnabled + !String.IsEmpty(VideoPlayer.SubtitlesLanguage)">$INFO[VideoPlayer.SubtitlesLanguage]</value>
-		<value condition="VideoPlayer.SubtitlesEnabled">On</value>
-		<value condition="VideoPlayer.HasSubtitles">Off</value>
-		<value>None</value>
+		<value condition="VideoPlayer.SubtitlesEnabled">$LOCALIZE[31486]</value>
+		<value condition="VideoPlayer.HasSubtitles">$LOCALIZE[31072]</value>
+		<value>$LOCALIZE[31638]</value>
 	</variable>
 	<variable name="OSD_AudioValue">
 		<value condition="!String.IsEmpty(VideoPlayer.AudioCodec)">[UPPERCASE]$VAR[OSD_FlagAudio][/UPPERCASE]</value>
 		<value condition="!String.IsEmpty(VideoPlayer.AudioLanguage)">$INFO[VideoPlayer.AudioLanguage]</value>
-		<value>Streams</value>
+		<value>$LOCALIZE[31639]</value>
 	</variable>
 	<variable name="OSD_PlayIcon">
 		<value condition="Player.Paused | Player.Forwarding | Player.Rewinding">icons/play.png</value>
 		<value>icons/pause.png</value>
 	</variable>
 	<variable name="OSD_Hint">
-		<value condition="Control.HasFocus(87)">◀ ▶ SKIP  ·  ▼ CONTROLS  ·  BACK HIDES</value>
-		<value condition="Player.SeekEnabled">▲ SEEK  ·  ◀ ▶ CONTROLS  ·  BACK HIDES</value>
-		<value>◀ ▶ CONTROLS  ·  BACK HIDES</value>
+		<value condition="Control.HasFocus(87)">$LOCALIZE[31640]</value>
+		<value condition="Player.SeekEnabled">$LOCALIZE[31641]</value>
+		<value>$LOCALIZE[31642]</value>
 	</variable>
 	<!-- PlayerControls -->
 	<variable name="OSD_PlayerArt">
@@ -224,9 +223,9 @@
 		<value>text_primary</value>
 	</variable>
 	<variable name="OSD_RepeatLabel">
-		<value condition="Playlist.IsRepeatOne">REPEAT ONE</value>
-		<value condition="Playlist.IsRepeat">REPEAT ALL</value>
-		<value condition="Playlist.IsRandom">SHUFFLE</value>
+		<value condition="Playlist.IsRepeatOne">$LOCALIZE[31643]</value>
+		<value condition="Playlist.IsRepeat">$LOCALIZE[31644]</value>
+		<value condition="Playlist.IsRandom">$LOCALIZE[31645]</value>
 	</variable>
 	<!-- Process info: decoder HW/SW, HDR or SDR -->
 	<variable name="OSD_DecoderType">
@@ -309,7 +308,7 @@
 					<height>30</height>
 					<font>mono_15</font>
 					<textcolor>text_secondary</textcolor>
-					<label>$INFO[Player.FinishTime(hh:mm),ENDS ,]</label>
+					<label>$INFO[Player.FinishTime(hh:mm),$LOCALIZE[31637] ,]</label>
 					<visible>Player.HasVideo + !VideoPlayer.Content(livetv)</visible>
 				</control>
 				<control type="label">
@@ -906,7 +905,7 @@
 				<height>24</height>
 				<font>mono_13</font>
 				<textcolor>text_tertiary</textcolor>
-				<label>$INFO[ListItem.Label]$INFO[ListItem.ActualIcon,  ·  RATING , / 5]</label>
+				<label>$INFO[ListItem.Label]$INFO[ListItem.ActualIcon,  ·  $LOCALIZE[31414] , / 5]</label>
 			</control>
 			<!-- HI: next to SYNC, or at the right edge without it -->
 			<control type="group">
@@ -930,7 +929,7 @@
 					<align>center</align>
 					<font>mono_13</font>
 					<textcolor>text_secondary</textcolor>
-					<label>HI</label>
+					<label>$LOCALIZE[31646]</label>
 				</control>
 			</control>
 			<control type="group">
@@ -954,7 +953,7 @@
 					<align>center</align>
 					<font>mono_13</font>
 					<textcolor>text_secondary</textcolor>
-					<label>HI</label>
+					<label>$LOCALIZE[31646]</label>
 				</control>
 			</control>
 			<control type="group">
@@ -978,6 +977,7 @@
 					<align>center</align>
 					<font>mono_13</font>
 					<textcolor>ink</textcolor>
+					<selectedcolor>ink</selectedcolor>
 					<label>$LOCALIZE[31233]</label>
 				</control>
 			</control>

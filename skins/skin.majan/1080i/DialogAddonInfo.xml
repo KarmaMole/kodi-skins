@@ -16,7 +16,7 @@
 	<controls>
 		<include>Majan_Background</include>
 		<include content="Majan_TopBar">
-			<param name="index" value="Add-on"/>
+			<param name="index" value="$LOCALIZE[31206]"/>
 			<param name="title" value="$INFO[ListItem.AddonName]"/>
 			<param name="sub" value="$INFO[ListItem.AddonVersion]"/>
 		</include>
@@ -73,12 +73,12 @@
 			</control>
 			<control type="group">
 				<top>432</top>
-				<include content="Dlg_FactRow"><param name="top" value="0"/><param name="label" value="Version"/><param name="value" value="$INFO[ListItem.AddonVersion]"/><param name="valuew" value="240"/></include>
-				<include content="Dlg_FactRow"><param name="top" value="40"/><param name="label" value="Author"/><param name="value" value="$INFO[ListItem.AddonCreator]"/><param name="valuew" value="240"/></include>
-				<include content="Dlg_FactRow"><param name="top" value="80"/><param name="label" value="Type"/><param name="value" value="$INFO[ListItem.AddonType]"/><param name="valuew" value="240"/></include>
-				<include content="Dlg_FactRow"><param name="top" value="120"/><param name="label" value="Origin"/><param name="value" value="$INFO[ListItem.AddonOrigin]"/><param name="valuew" value="240"/></include>
-				<include content="Dlg_FactRow"><param name="top" value="160"/><param name="label" value="Size"/><param name="value" value="$INFO[ListItem.AddonSize]"/><param name="valuew" value="240"/></include>
-				<include content="Dlg_FactRow"><param name="top" value="200"/><param name="label" value="Status"/><param name="value" value="$INFO[ListItem.Property(Addon.Status)]"/><param name="valuew" value="240"/></include>
+				<include content="Dlg_FactRow"><param name="top" value="0"/><param name="label" value="$LOCALIZE[31747]"/><param name="value" value="$INFO[ListItem.AddonVersion]"/><param name="valuew" value="240"/></include>
+				<include content="Dlg_FactRow"><param name="top" value="40"/><param name="label" value="$LOCALIZE[31748]"/><param name="value" value="$INFO[ListItem.AddonCreator]"/><param name="valuew" value="240"/></include>
+				<include content="Dlg_FactRow"><param name="top" value="80"/><param name="label" value="$LOCALIZE[31749]"/><param name="value" value="$INFO[ListItem.AddonType]"/><param name="valuew" value="240"/></include>
+				<include content="Dlg_FactRow"><param name="top" value="120"/><param name="label" value="$LOCALIZE[31750]"/><param name="value" value="$INFO[ListItem.AddonOrigin]"/><param name="valuew" value="240"/></include>
+				<include content="Dlg_FactRow"><param name="top" value="160"/><param name="label" value="$LOCALIZE[31751]"/><param name="value" value="$INFO[ListItem.AddonSize]"/><param name="valuew" value="240"/></include>
+				<include content="Dlg_FactRow"><param name="top" value="200"/><param name="label" value="$LOCALIZE[31752]"/><param name="value" value="$INFO[ListItem.Property(Addon.Status)]"/><param name="valuew" value="240"/></include>
 			</control>
 		</control>
 
@@ -251,7 +251,7 @@
 				<radioheight>18</radioheight>
 				<include>Dlg_Tex_DialogButton</include>
 				<textureradioonfocus colordiffuse="ink">markers/check.png</textureradioonfocus>
-				<textureradioofffocus border="10" colordiffuse="ink">common/rect_outline_1.png</textureradioofffocus>
+				<textureradioofffocus border="1" colordiffuse="ink">common/rect_outline_1.png</textureradioofffocus>
 				<visible>Control.IsEnabled(13)</visible>
 			</control>
 			<include content="Majan_DialogButton">

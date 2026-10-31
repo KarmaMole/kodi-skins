@@ -136,7 +136,7 @@
 				<height>24</height>
 				<font>mono_13</font>
 				<textcolor>text_tertiary</textcolor>
-				<label>◀ ▶ SKIP  ·  OK CONTROLS  ·  BACK HIDES</label>
+				<label>$LOCALIZE[31753]</label>
 			</control>
 		</control>
 	</controls>

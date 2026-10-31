@@ -23,8 +23,11 @@
 	<!-- ================================================================== constants -->
 	<!-- header filter bar: right-aligned box 480..1460 (1.0.9: was 600..1540; the date is "WEDNESDAY 21 SEPTEMBER" at
 	     worst = 242 px in mono_15 + 18 + the clock, so it starts at about x 1484; OPTIONS joined the bar) -->
-	<constant name="vidview_nav_left">480</constant>
-	<constant name="vidview_nav_w">980</constant>
+	<!-- right edge 1460. The bar is right-aligned, so only its left limit grew (1.0.23): the longest bar is the series root
+	     with UNWATCHED, IN PROGRESS, "SORT: Last played" and "VIEW: Poster wall", 1100 wide, and that page's title is short
+	     (it ends near x 290). Everywhere else the bar stays under 980 and sits where it always did. -->
+	<constant name="vidview_nav_left">340</constant>
+	<constant name="vidview_nav_w">1120</constant>
 	<constant name="vidview_nav_top">45</constant>  <!-- centre 65 = the header date's centre (Majan_Clock) -->
 	<constant name="vidview_col_x">680</constant>             <!-- Showcase / info text column -->
 	<constant name="vidview_col_w">1144</constant>
@@ -47,7 +50,6 @@
 	<constant name="vidview_wall_h">237</constant>
 	<constant name="vidview_wall_pitch_x">174</constant>
 	<constant name="vidview_wall_pitch_y">253</constant>
-	<constant name="vidview_wall_top">540</constant>
 	<constant name="vidview_next_w">320</constant>            <!-- Next up cards -->
 	<constant name="vidview_next_h">180</constant>
 	<constant name="vidview_next_pitch">344</constant>
@@ -61,7 +63,6 @@
 	<constant name="vidview_still_pitch_y">296</constant>
 
 	<!-- ================================================================ expressions -->
-	<expression name="VidView_HideWatched">System.Setting(hidewatched)</expression>
 	<expression name="VidView_IsInProgressTV">String.StartsWith(Container.FolderPath,videodb://inprogresstvshows)</expression>
 	<expression name="VidView_IsMoviesRoot">Container.Content(movies) + String.StartsWith(Container.FolderPath,videodb://movies/titles)</expression>
 	<expression name="VidView_IsTVRoot">Container.Content(tvshows) + String.StartsWith(Container.FolderPath,videodb://tvshows/titles)</expression>
@@ -102,23 +103,23 @@
 	</variable>
 	<variable name="VidView_Sub">
 		<value condition="Container.Content(episodes)">$INFO[ListItem.TVShowTitle]</value>
-		<value condition="$EXP[VidView_IsInProgressTV]">In progress</value>
+		<value condition="$EXP[VidView_IsInProgressTV]">$LOCALIZE[31400]</value>
 	</variable>
 
 	<!-- Filter bar counts (DATA 4.4): Container.* follow the current filter; library totals come
 	     from the Home window properties Kodi core sets (Movies.Count, TVShows.Count). -->
 	<variable name="VidView_CountAll">
-		<value condition="$EXP[VidView_IsInProgressTV]">$INFO[Window(Home).Property(TVShows.Count)]</value>
-		<value condition="System.Setting(hidewatched) + $EXP[VidView_IsMoviesRoot]">$INFO[Window(Home).Property(Movies.Count)]</value>
-		<value condition="System.Setting(hidewatched) + $EXP[VidView_IsTVRoot]">$INFO[Window(Home).Property(TVShows.Count)]</value>
-		<value condition="!System.Setting(hidewatched)">$INFO[Container.NumItems]</value>
+		<value condition="$EXP[VidView_IsInProgressTV]">$INFO[Window(Home).Property(TVShows.Count), ,]</value>
+		<value condition="System.Setting(hidewatched) + $EXP[VidView_IsMoviesRoot]">$INFO[Window(Home).Property(Movies.Count), ,]</value>
+		<value condition="System.Setting(hidewatched) + $EXP[VidView_IsTVRoot]">$INFO[Window(Home).Property(TVShows.Count), ,]</value>
+		<value condition="!System.Setting(hidewatched)">$INFO[Container.NumItems, ,]</value>
 	</variable>
 	<variable name="VidView_CountUnwatched">
 		<value condition="System.Setting(hidewatched)">$INFO[Container.NumItems]</value>
 		<value>$INFO[Container.TotalUnWatched]</value>
 	</variable>
 	<variable name="VidView_CountInProgress">
-		<value condition="$EXP[VidView_IsInProgressTV]">$INFO[Container.NumItems]</value>
+		<value condition="$EXP[VidView_IsInProgressTV]">$INFO[Container.NumItems, ,]</value>
 	</variable>
 	<variable name="VidView_SortArrow">
 		<value condition="Container.SortDirection(descending)">↓</value>
@@ -183,16 +184,16 @@
 		<value>$INFO[ListItem.Duration(m),,m]</value>
 	</variable>
 	<variable name="VidView_Status">
-		<value condition="String.IsEqual(ListItem.DBType,set) + $EXP[VidView_SetDone]">Watched</value>
-		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">In progress</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">Unwatched</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + $EXP[VidView_SetDone]">$LOCALIZE[31401]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set) + Integer.IsGreater(ListItem.Property(Watched),0)">$LOCALIZE[31400]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31402]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Status)">$INFO[ListItem.Status]</value>
-		<value condition="$EXP[VidView_IsTVType] + $EXP[VidView_TVDone]">Watched</value>
-		<value condition="$EXP[VidView_IsTVType] + Integer.IsGreater(ListItem.Property(WatchedEpisodes),0)">In progress</value>
-		<value condition="$EXP[VidView_IsTVType]">Unwatched</value>
-		<value condition="ListItem.IsResumable">Resume $INFO[ListItem.PercentPlayed]%</value>
-		<value condition="Integer.IsGreater(ListItem.PlayCount,0)">Watched</value>
-		<value>Unwatched</value>
+		<value condition="$EXP[VidView_IsTVType] + $EXP[VidView_TVDone]">$LOCALIZE[31401]</value>
+		<value condition="$EXP[VidView_IsTVType] + Integer.IsGreater(ListItem.Property(WatchedEpisodes),0)">$LOCALIZE[31400]</value>
+		<value condition="$EXP[VidView_IsTVType]">$LOCALIZE[31402]</value>
+		<value condition="ListItem.IsResumable">$LOCALIZE[31403] $INFO[ListItem.PercentPlayed]%</value>
+		<value condition="Integer.IsGreater(ListItem.PlayCount,0)">$LOCALIZE[31401]</value>
+		<value>$LOCALIZE[31402]</value>
 	</variable>
 	<!-- S02E04 (zero padded) -->
 	<variable name="VidView_EpCode">
@@ -216,8 +217,8 @@
 	</variable>
 	<!-- Big Poster meta: 2026 · 2H 25M · 8.2 / 10 · PG-13 · GENRES · UNWATCHED -->
 	<variable name="VidView_MetaLine">
-		<value condition="String.IsEqual(ListItem.DBType,set)">Collection$VAR[VidView_SetFilms]$INFO[ListItem.Genre, · ,] · $VAR[VidView_Status]</value>
-		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.Premiered, · Aired ,]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta] · $VAR[VidView_Status]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31404]$VAR[VidView_SetFilms]$INFO[ListItem.Genre, · ,] · $VAR[VidView_Status]</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$INFO[ListItem.Premiered, · $LOCALIZE[31405] ,]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta] · $VAR[VidView_Status]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[VidView_EpisodesLC]$INFO[ListItem.Year, · ,] · $VAR[VidView_Status]</value>
 		<value>$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]$VAR[VidView_MPAAMeta]$INFO[ListItem.Genre, · ,] · $VAR[VidView_Status]</value>
 	</variable>
@@ -229,10 +230,10 @@
 
 	<!-- Facts strip (5 cells, DESIGN 7.5): label / value per DBType -->
 	<variable name="VidView_Fact1L">
-		<value condition="String.IsEqual(ListItem.DBType,episode)">AIRED</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">SEASON</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">FILMS</value>
-		<value>YEAR</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$LOCALIZE[31406]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$LOCALIZE[31407]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31408]</value>
+		<value>$LOCALIZE[31409]</value>
 	</variable>
 	<variable name="VidView_Fact1V">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.Premiered]</value>
@@ -241,10 +242,10 @@
 		<value>$INFO[ListItem.Year]</value>
 	</variable>
 	<variable name="VidView_Fact2L">
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">SEASONS</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">EPISODES</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">WATCHED</value>
-		<value>RUNTIME</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[31410]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$LOCALIZE[31411]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31412]</value>
+		<value>$LOCALIZE[31413]</value>
 	</variable>
 	<variable name="VidView_Fact2V">
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(TotalSeasons)]</value>
@@ -253,16 +254,16 @@
 		<value>$VAR[VidView_Runtime]</value>
 	</variable>
 	<variable name="VidView_Fact3L">
-		<value condition="String.IsEqual(ListItem.DBType,season)">WATCHED</value>
-		<value>RATING</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$LOCALIZE[31412]</value>
+		<value>$LOCALIZE[31414]</value>
 	</variable>
 	<variable name="VidView_Fact3V">
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Property(WatchedEpisodes)]</value>
 		<value>$INFO[ListItem.Rating]</value>
 	</variable>
 	<variable name="VidView_Fact4L">
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">EPISODES</value>
-		<value>RATED</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[31411]</value>
+		<value>$LOCALIZE[31415]</value>
 	</variable>
 	<variable name="VidView_Fact4V">
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(TotalEpisodes)]</value>
@@ -271,34 +272,34 @@
 
 	<!-- Showcase caption under the hero poster (right half) -->
 	<variable name="VidView_HeroCaption">
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$VAR[VidInfo_SetFilmsUC]</value>
-		<value>$INFO[ListItem.DateAdded,ADDED ,]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31416]$VAR[VidInfo_SetFilmsUC]</value>
+		<value>$INFO[ListItem.DateAdded,$LOCALIZE[31417] ,]</value>
 	</variable>
 
 	<!-- Wall header (focused show of the wall, container 502) -->
 	<variable name="VidView_WallProgress">
-		<value condition="Integer.IsEqual(Container(502).ListItem.Property(UnWatchedEpisodes),0) + Integer.IsGreater(Container(502).ListItem.Property(TotalEpisodes),0)">ALL $INFO[Container(502).ListItem.Property(TotalEpisodes)]$VAR[VidView_WallEpWord] WATCHED$VAR[VidView_WallSeasons]</value>
-		<value condition="Integer.IsGreater(Container(502).ListItem.Property(WatchedEpisodes),0)">$INFO[Container(502).ListItem.Property(WatchedEpisodes)] OF $INFO[Container(502).ListItem.Property(TotalEpisodes)]$VAR[VidView_WallEpWord] WATCHED$INFO[Container(502).ListItem.Property(UnWatchedEpisodes), · , TO GO]$VAR[VidView_WallSeasons]</value>
-		<value condition="Integer.IsGreater(Container(502).ListItem.Property(TotalEpisodes),0)">$INFO[Container(502).ListItem.Property(TotalEpisodes)]$VAR[VidView_WallEpWord] · UNWATCHED$VAR[VidView_WallSeasons]</value>
+		<value condition="Integer.IsEqual(Container(502).ListItem.Property(UnWatchedEpisodes),0) + Integer.IsGreater(Container(502).ListItem.Property(TotalEpisodes),0)">$LOCALIZE[31418] $INFO[Container(502).ListItem.Property(TotalEpisodes)]$VAR[VidView_WallEpWord] $LOCALIZE[31412]$VAR[VidView_WallSeasons]</value>
+		<value condition="Integer.IsGreater(Container(502).ListItem.Property(WatchedEpisodes),0)">$INFO[Container(502).ListItem.Property(WatchedEpisodes)] $LOCALIZE[31419] $INFO[Container(502).ListItem.Property(TotalEpisodes)]$VAR[VidView_WallEpWord] $LOCALIZE[31412]$INFO[Container(502).ListItem.Property(UnWatchedEpisodes), · , $LOCALIZE[31420]]$VAR[VidView_WallSeasons]</value>
+		<value condition="Integer.IsGreater(Container(502).ListItem.Property(TotalEpisodes),0)">$INFO[Container(502).ListItem.Property(TotalEpisodes)]$VAR[VidView_WallEpWord] · $LOCALIZE[31421]$VAR[VidView_WallSeasons]</value>
 	</variable>
 
 	<variable name="VidView_WallTitle">
-		<value condition="Container(502).ListItem.IsParentFolder">Back</value>
+		<value condition="Container(502).ListItem.IsParentFolder">$LOCALIZE[31242]</value>
 		<value>$INFO[Container(502).ListItem.Label]</value>
 	</variable>
 	<variable name="VidView_WallMeta">
-		<value condition="Container(502).ListItem.IsParentFolder">PARENT FOLDER · OK GOES UP ONE LEVEL</value>
+		<value condition="Container(502).ListItem.IsParentFolder">$LOCALIZE[31422]</value>
 		<value>$INFO[Container(502).ListItem.Year]$INFO[Container(502).ListItem.Genre, · ,]$INFO[Container(502).ListItem.Studio, · ,]</value>
 	</variable>
 
 	<!-- Next up (SPEC decision 5): embuary next-episode list, else in-progress shows (xsp) -->
 	<variable name="VidView_NextUpPath">
-		<value condition="System.AddonIsEnabled(script.embuary.helper)">plugin://script.embuary.helper/?info=getnextup</value>
+		<value condition="System.AddonIsEnabled(script.embuary.helper)">plugin://script.embuary.helper/?info=getnextup&amp;reload=$INFO[Window(Home).Property(majan.reload)]</value>
 		<value>special://skin/playlists/majan_inprogress_tvshows.xsp</value>
 	</variable>
 	<variable name="VidView_NextUpCaption">
-		<value condition="System.AddonIsEnabled(script.embuary.helper)">NEXT UNWATCHED EPISODE OF SHOWS IN PROGRESS</value>
-		<value>SHOWS IN PROGRESS · LAST PLAYED FIRST</value>
+		<value condition="System.AddonIsEnabled(script.embuary.helper)">$LOCALIZE[31423]</value>
+		<value>$LOCALIZE[31424]</value>
 	</variable>
 	<!-- card art per item (used inside the strip's layouts) -->
 	<variable name="VidView_NextUpThumb">
@@ -314,24 +315,24 @@
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<variable name="VidView_NextUpLine">
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(WatchedEpisodes)] OF $INFO[ListItem.Property(TotalEpisodes)] WATCHED</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Property(WatchedEpisodes)] $LOCALIZE[31419] $INFO[ListItem.Property(TotalEpisodes)] $LOCALIZE[31412]</value>
 		<value>$VAR[VidView_EpCode]$INFO[ListItem.Title, · ,]</value>
 	</variable>
 
 	<!-- Episodes list (503) caption line -->
 	<variable name="VidView_EpLine">
-		<value condition="ListItem.IsParentFolder">PARENT FOLDER · OK GOES UP ONE LEVEL</value>
-		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$VAR[VidView_RuntimeMeta]$INFO[ListItem.Premiered, · AIRED ,]$VAR[VidView_RatingMeta]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[VidView_EpisodesUC]$INFO[ListItem.Property(WatchedEpisodes), · , WATCHED]$INFO[ListItem.Year, · ,]</value>
+		<value condition="ListItem.IsParentFolder">$LOCALIZE[31422]</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$VAR[VidView_RuntimeMeta]$INFO[ListItem.Premiered, · $LOCALIZE[31406] ,]$VAR[VidView_RatingMeta]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[VidView_EpisodesUC]$INFO[ListItem.Property(WatchedEpisodes), · , $LOCALIZE[31412]]$INFO[ListItem.Year, · ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[VidView_SeasonsN]$VAR[VidView_EpisodesN]$INFO[ListItem.Genre, · ,]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$VAR[VidInfo_SetFilmsUC]$INFO[ListItem.Property(Watched), · , WATCHED]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31416]$VAR[VidInfo_SetFilmsUC]$INFO[ListItem.Property(Watched), · , $LOCALIZE[31412]]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]$VAR[VidView_MPAAMeta]$INFO[ListItem.Genre, · ,]</value>
 		<value>$INFO[ListItem.Label2]</value>
 	</variable>
 
 	<!-- Title for any item; the ".." parent item (filelists.showparentdiritems = on) reads "Back" -->
 	<variable name="VidView_ItemTitle">
-		<value condition="ListItem.IsParentFolder">Back</value>
+		<value condition="ListItem.IsParentFolder">$LOCALIZE[31242]</value>
 		<value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
@@ -855,24 +856,24 @@
 			<!-- ALL n -->
 			<control type="button" id="9321">
 				<include>VidView_NavButtonLook</include>
-				<label>ALL $VAR[VidView_CountAll]</label>
+				<label>$LOCALIZE[31418]$VAR[VidView_CountAll]</label>
 				<textcolor>$VAR[VidView_ColNavAll]</textcolor>
 				<onclick condition="$EXP[VidView_IsInProgressTV]">Action(ParentDir)</onclick>
 				<onclick condition="!$EXP[VidView_IsInProgressTV] + System.Setting(hidewatched)">SendClick(14)</onclick>
 				<visible>$EXP[VidView_IsLibraryVideo] | $EXP[VidView_IsInProgressTV]</visible>
 			</control>
-			<!-- UNWATCHED n (movies, sets, seasons, episodes, music videos) -->
+			<!-- UNWATCHED n (movies, sets, series, seasons, episodes, music videos) -->
 			<control type="button" id="9322">
 				<include>VidView_NavButtonLook</include>
-				<label>UNWATCHED $VAR[VidView_CountUnwatched]</label>
+				<label>$LOCALIZE[31421] $VAR[VidView_CountUnwatched]</label>
 				<textcolor>$VAR[VidView_ColNavUnwatched]</textcolor>
 				<onclick condition="!System.Setting(hidewatched)">SendClick(14)</onclick>
-				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)</visible>
+				<visible>Container.Content(movies) | Container.Content(sets) | [Container.Content(tvshows) + !$EXP[VidView_IsInProgressTV]] | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)</visible>
 			</control>
 			<!-- IN PROGRESS (TV root, TV.dc) -->
 			<control type="button" id="9323">
 				<include>VidView_NavButtonLook</include>
-				<label>IN PROGRESS $VAR[VidView_CountInProgress]</label>
+				<label>$LOCALIZE[31425]$VAR[VidView_CountInProgress]</label>
 				<textcolor>$VAR[VidView_ColNavInProgress]</textcolor>
 				<onclick condition="!$EXP[VidView_IsInProgressTV]">Container.Update(videodb://inprogresstvshows/)</onclick>
 				<visible>$EXP[VidView_IsTVRoot] | $EXP[VidView_IsInProgressTV]</visible>
@@ -880,7 +881,7 @@
 			<!-- SORT: <method> (Kodi sort dialog) + direction -->
 			<control type="button" id="9324">
 				<include>VidView_NavButtonLook</include>
-				<label>SORT: $INFO[Container.SortMethod]</label>
+				<label>$LOCALIZE[31426] $INFO[Container.SortMethod]</label>
 				<textcolor>text_secondary</textcolor>
 				<texturenofocus />
 				<onclick>SendClick(3)</onclick>
@@ -897,7 +898,7 @@
 			<!-- VIEW: <name> -->
 			<control type="button" id="9326">
 				<include>VidView_NavButtonLook</include>
-				<label>VIEW: $VAR[VidView_ViewName]</label>
+				<label>$LOCALIZE[31427] $VAR[VidView_ViewName]</label>
 				<textcolor>text_secondary</textcolor>
 				<texturenofocus />
 				<!-- 1.0.9: the view picker (was Container.NextViewMode) -->
@@ -935,33 +936,42 @@
 		<texturefocus colordiffuse="$VAR[ColorAccent]">common/white.png</texturefocus>
 	</include>
 
-	<!-- Empty folder (or everything filtered away). Not when the folder shows a ".." item: every view draws it where this
-	     text sits (pre-release captures 2026-10-29); the header's ALL 0 / UNWATCHED 0 still say why it is empty -->
+	<!-- Empty folder (or everything filtered away). 1.0.23: shown beside the ".." item too. y 500 is clear of it in every
+	     view; Showcase (x 680, its text column) and Big Poster (x 840, right of the poster) need the block further right -->
+	<variable name="VidView_EmptyTitle">
+		<value condition="System.Setting(hidewatched) + $EXP[VidView_IsLibraryVideo]">$LOCALIZE[31247]</value>
+		<value>$LOCALIZE[31246]</value>
+	</variable>
+	<variable name="VidView_EmptyHint">
+		<value condition="System.Setting(hidewatched) + $EXP[VidView_IsLibraryVideo]">$LOCALIZE[31351]</value>
+		<value>$LOCALIZE[31350]</value>
+	</variable>
 	<include name="VidView_Empty">
 		<control type="group">
 			<left>page_margin</left>
-			<top>content_top</top>
-			<width>page_width</width>
+			<top>500</top>
+			<width>900</width>
 			<height>120</height>
-			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating + !Container.HasParent</visible>
+			<visible>Integer.IsEqual(Container.NumItems,0) + !Container.IsUpdating</visible>
+			<animation effect="slide" start="0,0" end="584,0" time="0" condition="Control.IsVisible(500)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="744,0" time="0" condition="Control.IsVisible(501)">Conditional</animation>
 			<control type="label">
 				<left>0</left>
 				<top>0</top>
-				<width>page_width</width>
+				<width>900</width>
 				<height>30</height>
 				<font>mono_15</font>
 				<textcolor>$VAR[ColorCaption]</textcolor>
-				<label>$LOCALIZE[31246]</label>
+				<label>$VAR[VidView_EmptyTitle]</label>
 			</control>
 			<control type="label">
 				<left>0</left>
 				<top>40</top>
-				<width>page_width</width>
+				<width>900</width>
 				<height>40</height>
 				<font>body_23</font>
 				<textcolor>text_secondary</textcolor>
-				<label>$LOCALIZE[31247]</label>
-				<visible>System.Setting(hidewatched)</visible>
+				<label>$VAR[VidView_EmptyHint]</label>
 			</control>
 		</control>
 	</include>
@@ -1043,7 +1053,7 @@
 					<param name="visible" value="$EXP[VidView_Fact4Visible]"/>
 				</include>
 				<include content="VidView_FactCell">
-					<param name="label" value="STATUS"/>
+					<param name="label" value="$LOCALIZE[31221]"/>
 					<param name="value" value="$VAR[VidView_Status]"/>
 				</include>
 			</control>
@@ -1087,7 +1097,7 @@
 	<!-- Poster Showcase (Movies.dc.html): hero poster + info column + browse strip (the container).
 	     The ".." parent item gets a hairline back tile + "Back" instead of empty art and facts. -->
 	<variable name="VidView_PrevTitle">
-		<value condition="Container(501).ListItemNoWrap(-1).IsParentFolder">BACK</value>
+		<value condition="Container(501).ListItemNoWrap(-1).IsParentFolder">$LOCALIZE[31428]</value>
 		<value>$INFO[Container(501).ListItemNoWrap(-1).Label]</value>
 	</variable>
 	<include name="VidView_ParentInfo">
@@ -1235,17 +1245,17 @@
 					<orientation>vertical</orientation>
 					<itemgap>10</itemgap>
 					<include content="VidView_DefRow">
-						<param name="label" value="DIRECTOR"/>
+						<param name="label" value="$LOCALIZE[31429]"/>
 						<param name="value" value="$INFO[ListItem.Director]"/>
 						<param name="visible" value="!String.IsEmpty(ListItem.Director)"/>
 					</include>
 					<include content="VidView_DefRow">
-						<param name="label" value="CAST"/>
+						<param name="label" value="$LOCALIZE[31430]"/>
 						<param name="value" value="$INFO[ListItem.Cast]"/>
 						<param name="visible" value="!String.IsEmpty(ListItem.Cast)"/>
 					</include>
 					<include content="VidView_DefRow">
-						<param name="label" value="GENRE"/>
+						<param name="label" value="$LOCALIZE[31431]"/>
 						<param name="value" value="$INFO[ListItem.Genre]"/>
 						<param name="visible" value="!String.IsEmpty(ListItem.Genre)"/>
 					</include>
@@ -1325,7 +1335,7 @@
 				<height>22</height>
 				<font>mono_14</font>
 				<textcolor>$VAR[ColorCaption]</textcolor>
-				<label>◀ ▶ BROWSE · OK SELECT · $LOCALIZE[31342]</label>
+				<label>$LOCALIZE[31432] · $LOCALIZE[31342]</label>
 			</control>
 		</control>
 	</include>
@@ -1496,7 +1506,7 @@
 					<height>22</height>
 					<font>mono_14</font>
 					<textcolor>$VAR[ColorCaption]</textcolor>
-					<label>◀ PREVIOUS</label>
+					<label>$LOCALIZE[31433]</label>
 				</control>
 				<control type="label">
 					<left>0</left>
@@ -1595,8 +1605,8 @@
 		</control>
 	</include>
 	<variable name="VidView_BigKicker">
-		<value condition="ListItem.IsParentFolder">PARENT FOLDER</value>
-		<value>$VAR[VidView_PosPad]$INFO[Container.CurrentItem] / $INFO[Container.NumItems]$INFO[ListItem.DateAdded, · ADDED ,]</value>
+		<value condition="ListItem.IsParentFolder">$LOCALIZE[31248]</value>
+		<value>$VAR[VidView_PosPad]$INFO[Container.CurrentItem] / $INFO[Container.NumItems]$INFO[ListItem.DateAdded, · $LOCALIZE[31417] ,]</value>
 	</variable>
 	<!-- One Big still (501 for episodes): the episode title under the still (a still that fails to load leaves
 	     the title on the raised block, never an empty frame), the still, the watched markers -->
@@ -1893,27 +1903,27 @@
 	<include name="VidView_NextUpTag">
 		<include content="VidView_TagBox">
 			<param name="width" value="86"/>
-			<param name="label" value="RESUME $INFO[ListItem.PercentPlayed]%"/>
+			<param name="label" value="$LOCALIZE[31434] $INFO[ListItem.PercentPlayed]%"/>
 			<param name="visible" value="String.IsEqual(ListItem.DBType,episode) + Integer.IsGreater(ListItem.PercentPlayed,0) + Integer.IsLess(ListItem.PercentPlayed,10)"/>
 		</include>
 		<include content="VidView_TagBox">
 			<param name="width" value="94"/>
-			<param name="label" value="RESUME $INFO[ListItem.PercentPlayed]%"/>
+			<param name="label" value="$LOCALIZE[31434] $INFO[ListItem.PercentPlayed]%"/>
 			<param name="visible" value="String.IsEqual(ListItem.DBType,episode) + Integer.IsGreater(ListItem.PercentPlayed,9)"/>
 		</include>
 		<include content="VidView_TagBox">
 			<param name="width" value="56"/>
-			<param name="label" value="$INFO[ListItem.Property(UnWatchedEpisodes)] NEW"/>
+			<param name="label" value="$INFO[ListItem.Property(UnWatchedEpisodes)] $LOCALIZE[31435]"/>
 			<param name="visible" value="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + Integer.IsLess(ListItem.Property(UnWatchedEpisodes),10)"/>
 		</include>
 		<include content="VidView_TagBox">
 			<param name="width" value="64"/>
-			<param name="label" value="$INFO[ListItem.Property(UnWatchedEpisodes)] NEW"/>
+			<param name="label" value="$INFO[ListItem.Property(UnWatchedEpisodes)] $LOCALIZE[31435]"/>
 			<param name="visible" value="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),9) + Integer.IsLess(ListItem.Property(UnWatchedEpisodes),100)"/>
 		</include>
 		<include content="VidView_TagBox">
 			<param name="width" value="72"/>
-			<param name="label" value="$INFO[ListItem.Property(UnWatchedEpisodes)] NEW"/>
+			<param name="label" value="$INFO[ListItem.Property(UnWatchedEpisodes)] $LOCALIZE[31435]"/>
 			<param name="visible" value="String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)"/>
 		</include>
 	</include>
@@ -2140,33 +2150,33 @@
 	</variable>
 	<!-- " · 1 SEASON" / " · 4 SEASONS" / nothing for 0 (1.0.18) -->
 	<variable name="VidView_SeasonsN">
-		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)"> · 1 SEASON</value>
-		<value condition="Integer.IsGreater(ListItem.Property(TotalSeasons),1)"> · $INFO[ListItem.Property(TotalSeasons)] SEASONS</value>
+		<value condition="Integer.IsEqual(ListItem.Property(TotalSeasons),1)"> · $LOCALIZE[31436]</value>
+		<value condition="Integer.IsGreater(ListItem.Property(TotalSeasons),1)"> · $INFO[ListItem.Property(TotalSeasons)] $LOCALIZE[31410]</value>
 	</variable>
 	<variable name="VidView_EpisodesN">
-		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)"> · 1 EPISODE</value>
-		<value condition="Integer.IsGreater(ListItem.Property(TotalEpisodes),1)"> · $INFO[ListItem.Property(TotalEpisodes)] EPISODES</value>
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)"> · $LOCALIZE[31437]</value>
+		<value condition="Integer.IsGreater(ListItem.Property(TotalEpisodes),1)"> · $INFO[ListItem.Property(TotalEpisodes)] $LOCALIZE[31411]</value>
 	</variable>
 	<variable name="VidView_StillKind">
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">SEASON</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">SERIES</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$LOCALIZE[31407]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[31438]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31416]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Year]</value>
-		<value condition="Container.Content(genres)">GENRE</value>
-		<value condition="Container.Content(years)">YEAR</value>
-		<value condition="Container.Content(actors)">CAST</value>
-		<value condition="Container.Content(directors)">DIRECTOR</value>
-		<value condition="Container.Content(studios)">STUDIO</value>
-		<value condition="Container.Content(countries)">COUNTRY</value>
-		<value condition="Container.Content(tags)">TAG</value>
+		<value condition="Container.Content(genres)">$LOCALIZE[31431]</value>
+		<value condition="Container.Content(years)">$LOCALIZE[31409]</value>
+		<value condition="Container.Content(actors)">$LOCALIZE[31430]</value>
+		<value condition="Container.Content(directors)">$LOCALIZE[31429]</value>
+		<value condition="Container.Content(studios)">$LOCALIZE[31439]</value>
+		<value condition="Container.Content(countries)">$LOCALIZE[31440]</value>
+		<value condition="Container.Content(tags)">$LOCALIZE[31441]</value>
 	</variable>
 	<variable name="VidView_StillLine">
-		<value condition="ListItem.IsParentFolder">PARENT FOLDER</value>
+		<value condition="ListItem.IsParentFolder">$LOCALIZE[31248]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[VidView_EpCode]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]</value>
-		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[VidView_EpisodesUC]$INFO[ListItem.Property(WatchedEpisodes), · , WATCHED]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$VAR[VidView_EpisodesUC]$INFO[ListItem.Property(WatchedEpisodes), · , $LOCALIZE[31412]]</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Year]$VAR[VidView_SeasonsN]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">COLLECTION$VAR[VidInfo_SetFilmsUC]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[31416]$VAR[VidInfo_SetFilmsUC]</value>
 		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Year]$VAR[VidView_RuntimeMeta]$VAR[VidView_RatingMeta]</value>
 		<value condition="String.IsEqual(ListItem.DBType,musicvideo)">$INFO[ListItem.Artist]$INFO[ListItem.Year, · ,]</value>
 		<value>$INFO[ListItem.Label2]</value>
@@ -2362,43 +2372,43 @@
 	</include>
 	<!-- Count words: "1 season", not "1 seasons" (2026-10-30) -->
 	<variable name="Subs_ResultCount">
-		<value condition="Integer.IsEqual(Container(120).NumItems,1)">1 RESULT</value>
-		<value>$INFO[Container(120).NumItems,, RESULTS]</value>
+		<value condition="Integer.IsEqual(Container(120).NumItems,1)">$LOCALIZE[31442]</value>
+		<value>$INFO[Container(120).NumItems,, $LOCALIZE[31443]]</value>
 	</variable>
 	<variable name="Home_MoviesCountWord">
 		<value condition="Integer.IsEqual(Window(Home).Property(Movies.Count),1)">  ·  1 $LOCALIZE[31115]</value>
 		<value>$INFO[Window(Home).Property(Movies.Count),  ·  , $LOCALIZE[31114]]</value>
 	</variable>
 	<variable name="VidInfo_SetFilmsUC">
-		<value condition="Integer.IsEqual(ListItem.Property(Total),1)"> · 1 FILM</value>
-		<value>$INFO[ListItem.Property(Total), · , FILMS]</value>
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)"> · $LOCALIZE[31444]</value>
+		<value>$INFO[ListItem.Property(Total), · , $LOCALIZE[31408]]</value>
 	</variable>
 	<variable name="VidInfo_CastFilms">
-		<value condition="Integer.IsEqual(Container(50).NumItems,1)">1 FILM</value>
-		<value>$INFO[Container(50).NumItems,, FILMS]</value>
+		<value condition="Integer.IsEqual(Container(50).NumItems,1)">$LOCALIZE[31444]</value>
+		<value>$INFO[Container(50).NumItems,, $LOCALIZE[31408]]</value>
 	</variable>
 	<variable name="VidInfo_CastPeople">
-		<value condition="Integer.IsEqual(Container(50).NumItems,1)">1 PERSON</value>
-		<value>$INFO[Container(50).NumItems,, PEOPLE]</value>
+		<value condition="Integer.IsEqual(Container(50).NumItems,1)">$LOCALIZE[31445]</value>
+		<value>$INFO[Container(50).NumItems,, $LOCALIZE[31446]]</value>
 	</variable>
 	<variable name="VidView_SetFilms">
-		<value condition="Integer.IsEqual(ListItem.Property(Total),1)"> · 1 film</value>
-		<value>$INFO[ListItem.Property(Total), · , films]</value>
+		<value condition="Integer.IsEqual(ListItem.Property(Total),1)"> · $LOCALIZE[31447]</value>
+		<value>$INFO[ListItem.Property(Total), · , $LOCALIZE[31114]]</value>
 	</variable>
 	<variable name="VidView_EpisodesLC">
-		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">1 episode</value>
-		<value>$INFO[ListItem.Property(TotalEpisodes),, episodes]</value>
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">$LOCALIZE[31448]</value>
+		<value>$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[31449]]</value>
 	</variable>
 	<variable name="VidView_EpisodesUC">
-		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">1 EPISODE</value>
-		<value>$INFO[ListItem.Property(TotalEpisodes),, EPISODES]</value>
+		<value condition="Integer.IsEqual(ListItem.Property(TotalEpisodes),1)">$LOCALIZE[31437]</value>
+		<value>$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[31411]]</value>
 	</variable>
 	<variable name="VidView_WallSeasons">
-		<value condition="Integer.IsEqual(Container(502).ListItem.Property(TotalSeasons),1)"> · 1 SEASON</value>
-		<value>$INFO[Container(502).ListItem.Property(TotalSeasons), · , SEASONS]</value>
+		<value condition="Integer.IsEqual(Container(502).ListItem.Property(TotalSeasons),1)"> · $LOCALIZE[31436]</value>
+		<value>$INFO[Container(502).ListItem.Property(TotalSeasons), · , $LOCALIZE[31410]]</value>
 	</variable>
 	<variable name="VidView_WallEpWord">
-		<value condition="Integer.IsEqual(Container(502).ListItem.Property(TotalEpisodes),1)"> EPISODE</value>
-		<value> EPISODES</value>
+		<value condition="Integer.IsEqual(Container(502).ListItem.Property(TotalEpisodes),1)"> $LOCALIZE[31450]</value>
+		<value> $LOCALIZE[31411]</value>
 	</variable>
 </includes>

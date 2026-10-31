@@ -27,7 +27,7 @@
 				<param name="left" value="dialog_inset"/>
 				<param name="top" value="dialog_content_top"/>
 				<param name="width" value="400"/>
-				<param name="label" value="Groups$INFO[Container(13).NumItems,  ·  ,]"/>
+				<param name="label" value="$LOCALIZE[31755]$INFO[Container(13).NumItems,  ·  ,]"/>
 			</include>
 			<control type="list" id="13">
 				<left>dialog_inset</left>

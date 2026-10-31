@@ -23,7 +23,7 @@
 			<include content="Misc_Caption">
 				<param name="left" value="dialog_pad"/>
 				<param name="top" value="dialog_content_top"/>
-				<param name="label" value="Now playing"/>
+				<param name="label" value="$LOCALIZE[31017]"/>
 			</include>
 			<control type="grouplist">
 				<left>dialog_pad</left>
@@ -31,18 +31,18 @@
 				<width>760</width>
 				<height>320</height>
 				<orientation>vertical</orientation>
-				<include content="Misc_InfoLine"><param name="label" value="Band"/><param name="value" value="RDS.Band"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Artist"/><param name="value" value="RDS.Artist"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Title"/><param name="value" value="RDS.Title"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Composer"/><param name="value" value="RDS.Composer"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Conductor"/><param name="value" value="RDS.Conductor"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Album"/><param name="value" value="RDS.Album"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Comment"/><param name="value" value="RDS.Comment"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31603]"/><param name="value" value="RDS.Band"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31604]"/><param name="value" value="RDS.Artist"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31605]"/><param name="value" value="RDS.Title"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31606]"/><param name="value" value="RDS.Composer"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31607]"/><param name="value" value="RDS.Conductor"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31608]"/><param name="value" value="RDS.Album"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31609]"/><param name="value" value="RDS.Comment"/><param name="width" value="760"/></include>
 			</control>
 			<include content="Misc_Caption">
 				<param name="left" value="dialog_pad"/>
 				<param name="top" value="484"/>
-				<param name="label" value="Studio  ·  hotline"/>
+				<param name="label" value="$LOCALIZE[31610]"/>
 			</include>
 			<control type="grouplist">
 				<left>dialog_pad</left>
@@ -50,18 +50,18 @@
 				<width>760</width>
 				<height>230</height>
 				<orientation>vertical</orientation>
-				<include content="Misc_InfoLine"><param name="label" value="Studio phone"/><param name="value" value="RDS.PhoneStudio"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Studio email"/><param name="value" value="RDS.EmailStudio"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Studio SMS"/><param name="value" value="RDS.SMSStudio"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Hotline phone"/><param name="value" value="RDS.PhoneHotline"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Hotline email"/><param name="value" value="RDS.EmailHotline"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31611]"/><param name="value" value="RDS.PhoneStudio"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31612]"/><param name="value" value="RDS.EmailStudio"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31613]"/><param name="value" value="RDS.SMSStudio"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31614]"/><param name="value" value="RDS.PhoneHotline"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31615]"/><param name="value" value="RDS.EmailHotline"/><param name="width" value="760"/></include>
 			</control>
 			<!-- right column: programme + radiotext -->
 			<include content="Misc_Caption">
 				<param name="left" value="840"/>
 				<param name="top" value="dialog_content_top"/>
 				<param name="width" value="760"/>
-				<param name="label" value="Programme"/>
+				<param name="label" value="$LOCALIZE[31616]"/>
 			</include>
 			<control type="grouplist">
 				<left>840</left>
@@ -69,19 +69,19 @@
 				<width>760</width>
 				<height>320</height>
 				<orientation>vertical</orientation>
-				<include content="Misc_InfoLine"><param name="label" value="Now"/><param name="value" value="RDS.ProgNow"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Next"/><param name="value" value="RDS.ProgNext"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Style"/><param name="value" value="RDS.ProgStyle"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Station"/><param name="value" value="RDS.ProgStation"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Host"/><param name="value" value="RDS.ProgHost"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Editorial"/><param name="value" value="RDS.ProgEditStaff"/><param name="width" value="760"/></include>
-				<include content="Misc_InfoLine"><param name="label" value="Website"/><param name="value" value="RDS.ProgHomepage"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31617]"/><param name="value" value="RDS.ProgNow"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31618]"/><param name="value" value="RDS.ProgNext"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31619]"/><param name="value" value="RDS.ProgStyle"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31620]"/><param name="value" value="RDS.ProgStation"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31621]"/><param name="value" value="RDS.ProgHost"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31622]"/><param name="value" value="RDS.ProgEditStaff"/><param name="width" value="760"/></include>
+				<include content="Misc_InfoLine"><param name="label" value="$LOCALIZE[31623]"/><param name="value" value="RDS.ProgHomepage"/><param name="width" value="760"/></include>
 			</control>
 			<include content="Misc_Caption">
 				<param name="left" value="840"/>
 				<param name="top" value="484"/>
 				<param name="width" value="760"/>
-				<param name="label" value="Radiotext"/>
+				<param name="label" value="$LOCALIZE[31624]"/>
 			</include>
 			<control type="textbox">
 				<left>840</left>
@@ -89,7 +89,7 @@
 				<width>760</width>
 				<height>230</height>
 				<font>body_23</font>
-				<label>$INFO[RDS.GetLine(0),,[CR]]$INFO[RDS.GetLine(1),,[CR]]$INFO[RDS.GetLine(2),,[CR]]$INFO[RDS.GetLine(3)]$INFO[RDS.InfoNews,[CR][CR]News  ,]$INFO[RDS.InfoSport,[CR]Sport  ,]$INFO[RDS.InfoWeather,[CR]Weather  ,]</label>
+				<label>$INFO[RDS.GetLine(0),,[CR]]$INFO[RDS.GetLine(1),,[CR]]$INFO[RDS.GetLine(2),,[CR]]$INFO[RDS.GetLine(3)]$INFO[RDS.InfoNews,[CR][CR]$LOCALIZE[31625]  ,]$INFO[RDS.InfoSport,[CR]$LOCALIZE[31626]  ,]$INFO[RDS.InfoWeather,[CR]$LOCALIZE[31627]  ,]</label>
 				<autoscroll time="3000" delay="5000" repeat="8000">true</autoscroll>
 			</control>
 			<control type="grouplist">

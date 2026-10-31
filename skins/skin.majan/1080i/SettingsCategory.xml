@@ -15,7 +15,7 @@
 	<controls>
 		<include>Majan_Background</include>
 		<include content="Majan_TopBar">
-			<param name="index" value="SYS"/>
+			<param name="index" value="$LOCALIZE[31745]"/>
 			<param name="title" value="$INFO[Control.GetLabel(2)]"/>
 			<param name="sub" value="$LOCALIZE[5]"/>
 		</include>

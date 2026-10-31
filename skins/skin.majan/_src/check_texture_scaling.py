@@ -35,8 +35,8 @@ import make_textures as mt  # noqa: E402
 DRAW = {
     "icons/chevron_right.png": [24], "icons/chevron_down.png": [24], "icons/back.png": [24],
     "icons/search.png": [26], "icons/settings.png": [26, 56], "icons/play.png": [18, 56],
-    **{f"icons/{n}.png": [56] for n in ("pause", "stop", "next", "prev", "forward", "rewind", "subtitles",
-                                        "audio", "info", "chapters", "shuffle", "repeat")},
+    **{f"icons/{n}.png": [56] for n in ("pause", "stop", "next", "prev",
+                                        "audio", "chapters", "shuffle", "repeat")},
     "markers/check.png": [20, 22, 26], "markers/unwatched.png": [12], "markers/unwatched_round.png": [12],
     "markers/watched.png": [22], "markers/watched_round.png": [22],
     "masks/poster_round8.png": [158], "masks/poster_round8_large.png": [330],

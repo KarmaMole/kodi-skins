@@ -62,60 +62,60 @@
 			<orientation>vertical</orientation>
 			<!-- video -->
 			<include content="OSD_InfoRow">
-				<param name="key" value="SOURCE"/>
+				<param name="key" value="$LOCALIZE[31757]"/>
 				<param name="value" value="$INFO[Player.Process(videowidth),,x]$INFO[Player.Process(videoheight)]$INFO[Player.Process(videoscantype)]$INFO[Player.Process(videofps),  ·  , fps]$INFO[Player.Process(videodar),  ·  , AR]"/>
 				<param name="visible" value="Player.HasVideo"/>
 			</include>
 			<include content="OSD_InfoRow">
-				<param name="key" value="DYNAMIC RANGE"/>
+				<param name="key" value="$LOCALIZE[31758]"/>
 				<param name="value" value="$VAR[OSD_DynamicRange]"/>
 				<param name="visible" value="Player.HasVideo"/>
 			</include>
 			<include content="OSD_InfoRow">
-				<param name="key" value="VIDEO CODEC"/>
+				<param name="key" value="$LOCALIZE[31759]"/>
 				<param name="value" value="$VAR[OSD_FlagVideoCodec]$INFO[VideoPlayer.VideoBitrate,  ·  , kb/s]"/>
 				<param name="visible" value="Player.HasVideo + !String.IsEmpty(VideoPlayer.VideoCodec)"/>
 			</include>
 			<include content="OSD_InfoRow">
-				<param name="key" value="DECODER"/>
+				<param name="key" value="$LOCALIZE[31760]"/>
 				<param name="value" value="$INFO[Player.Process(videodecoder)]  ·  $VAR[OSD_DecoderType]"/>
 				<param name="visible" value="Player.HasVideo + !String.IsEmpty(Player.Process(videodecoder))"/>
 			</include>
 			<include content="OSD_InfoRow">
-				<param name="key" value="PIXEL FORMAT"/>
+				<param name="key" value="$LOCALIZE[31761]"/>
 				<param name="value" value="$INFO[Player.Process(pixformat)]"/>
 				<param name="visible" value="Player.HasVideo + !String.IsEmpty(Player.Process(pixformat))"/>
 			</include>
 			<include content="OSD_InfoRow">
-				<param name="key" value="DEINTERLACE"/>
+				<param name="key" value="$LOCALIZE[31762]"/>
 				<param name="value" value="$INFO[Player.Process(deintmethod)]"/>
 				<param name="visible" value="Player.HasVideo + !String.IsEmpty(Player.Process(deintmethod))"/>
 			</include>
 			<!-- display -->
 			<include content="OSD_InfoRow">
-				<param name="key" value="DISPLAY"/>
+				<param name="key" value="$LOCALIZE[31763]"/>
 				<param name="value" value="$INFO[System.ScreenResolution]"/>
 			</include>
 			<!-- audio -->
 			<include content="OSD_InfoRow">
-				<param name="key" value="AUDIO STREAM"/>
+				<param name="key" value="$LOCALIZE[31764]"/>
 				<param name="value" value="$VAR[OSD_FlagAudio]$INFO[VideoPlayer.AudioLanguage,  ·  ,]$INFO[VideoPlayer.AudioBitrate,  ·  , kb/s]"/>
 				<param name="visible" value="Player.HasVideo + !String.IsEmpty(VideoPlayer.AudioCodec)"/>
 			</include>
 			<include content="OSD_InfoRow">
-				<param name="key" value="AUDIO OUTPUT"/>
+				<param name="key" value="$LOCALIZE[31765]"/>
 				<param name="value" value="$INFO[Player.Process(audiodecoder)]$INFO[Player.Process(audiochannels),  ·  ,]$INFO[Player.Process(audiosamplerate),  ·  , Hz]$INFO[Player.Process(audiobitspersample),  ·  , bit]"/>
 				<param name="visible" value="!String.IsEmpty(Player.Process(audiodecoder))"/>
 			</include>
 			<include content="OSD_InfoRow">
-				<param name="key" value="SUBTITLES"/>
+				<param name="key" value="$LOCALIZE[31766]"/>
 				<param name="value" value="$VAR[OSD_SubtitleValue]"/>
 				<param name="visible" value="Player.HasVideo"/>
 			</include>
 			<!-- system -->
 			<include content="OSD_InfoRow">
-				<param name="key" value="GUI"/>
-				<param name="value" value="$INFO[System.FPS,, fps]$INFO[System.CpuUsage,  ·  CPU ,]$INFO[System.Memory(used.percent),  ·  MEMORY ,]"/>
+				<param name="key" value="$LOCALIZE[31767]"/>
+				<param name="value" value="$INFO[System.FPS,, fps]$INFO[System.CpuUsage,  ·  $LOCALIZE[31768] ,]$INFO[System.Memory(used.percent),  ·  $LOCALIZE[31769] ,]"/>
 			</include>
 		</control>
 

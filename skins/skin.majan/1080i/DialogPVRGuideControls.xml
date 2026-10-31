@@ -32,7 +32,7 @@
 				<param name="left" value="page_margin"/>
 				<param name="top" value="36"/>
 				<param name="width" value="800"/>
-				<param name="label" value="Programme"/>
+				<param name="label" value="$LOCALIZE[31616]"/>
 			</include>
 			<control type="grouplist" id="201">
 				<left>subnav_left</left>
@@ -47,7 +47,7 @@
 				<ondown>noop</ondown>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="600"/>
-					<param name="label" value="First"/>
+					<param name="label" value="$LOCALIZE[31737]"/>
 					<param name="onclick" value="PVR.EpgGridControl(FirstProgramme)"/>
 				</include>
 				<include content="Majan_SubNavButton">
@@ -57,7 +57,7 @@
 				</include>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="602"/>
-					<param name="label" value="Now"/>
+					<param name="label" value="$LOCALIZE[31617]"/>
 					<param name="onclick" value="PVR.EpgGridControl(CurrentProgramme)"/>
 				</include>
 				<include content="Majan_SubNavButton">
@@ -67,12 +67,12 @@
 				</include>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="604"/>
-					<param name="label" value="Last"/>
+					<param name="label" value="$LOCALIZE[31738]"/>
 					<param name="onclick" value="PVR.EpgGridControl(LastProgramme)"/>
 				</include>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="605"/>
-					<param name="label" value="Pick date"/>
+					<param name="label" value="$LOCALIZE[31739]"/>
 					<param name="onclick" value="PVR.EpgGridControl(SelectDate)"/>
 				</include>
 			</control>
@@ -81,7 +81,7 @@
 				<param name="left" value="1000"/>
 				<param name="top" value="36"/>
 				<param name="width" value="400"/>
-				<param name="label" value="Channel"/>
+				<param name="label" value="$LOCALIZE[31740]"/>
 			</include>
 			<control type="grouplist" id="202">
 				<left>990</left>
@@ -96,18 +96,18 @@
 				<ondown>noop</ondown>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="70040"/>
-					<param name="label" value="First"/>
+					<param name="label" value="$LOCALIZE[31737]"/>
 					<param name="onclick" value="PVR.EpgGridControl(FirstChannel)"/>
 				</include>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="70041"/>
-					<param name="label" value="Playing"/>
+					<param name="label" value="$LOCALIZE[31741]"/>
 					<param name="onclick" value="PVR.EpgGridControl(PlayingChannel)"/>
 					<param name="visible" value="PVR.IsPlayingTV | PVR.IsPlayingRadio | PVR.IsPlayingEpgTag"/>
 				</include>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="70042"/>
-					<param name="label" value="Last"/>
+					<param name="label" value="$LOCALIZE[31738]"/>
 					<param name="onclick" value="PVR.EpgGridControl(LastChannel)"/>
 				</include>
 			</control>
@@ -116,7 +116,7 @@
 				<param name="left" value="1440"/>
 				<param name="top" value="36"/>
 				<param name="width" value="384"/>
-				<param name="label" value="Group"/>
+				<param name="label" value="$LOCALIZE[31742]"/>
 			</include>
 			<control type="grouplist" id="203">
 				<left>1430</left>
@@ -131,17 +131,17 @@
 				<ondown>noop</ondown>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="70043"/>
-					<param name="label" value="Prev"/>
+					<param name="label" value="$LOCALIZE[31743]"/>
 					<param name="onclick" value="PVR.EpgGridControl(PreviousGroup)"/>
 				</include>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="70044"/>
-					<param name="label" value="Next"/>
+					<param name="label" value="$LOCALIZE[31618]"/>
 					<param name="onclick" value="PVR.EpgGridControl(NextGroup)"/>
 				</include>
 				<include content="Majan_SubNavButton">
 					<param name="id" value="70045"/>
-					<param name="label" value="Choose"/>
+					<param name="label" value="$LOCALIZE[31744]"/>
 					<param name="onclick" value="PVR.EpgGridControl(SelectGroup)"/>
 				</include>
 			</control>

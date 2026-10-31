@@ -24,7 +24,7 @@
 			<height>30</height>
 			<font>mono_15</font>
 			<textcolor>$VAR[ColorAccent]</textcolor>
-			<label>CHAPTERS &amp; BOOKMARKS$INFO[Container(11).NumItems,  ·  ,]</label>
+			<label>$LOCALIZE[31795]$INFO[Container(11).NumItems,  ·  ,]</label>
 		</control>
 		<control type="label">
 			<left>page_margin</left>
